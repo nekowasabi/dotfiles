@@ -1,0 +1,13 @@
+response.write sql
+\InetPub\repos\web\WEB\Inetpub\wwwroot\icredit\menu\total\result_period_details.asp
+14	285	'Response.Write strSql & vbCrLf & "<br>" & vbCrLf
+14	342	'Response.Write "集計<br>" & strSql & vbCrLf & "<br>" & vbCrLf
+14	430	'	Response.Write "<hr>与信決済クエリ<br>" & strSqlAuth & "<hr>"
+14	469	'	Response.Write "<hr>銀行振込クエリ<br>" & strSqlBank & "<hr>"
+14	507	'	Response.Write "<hr>ウォレットクエリ<br>" & strSqlWallet & "<hr>"
+14	546							'Response.Write "<hr>Bitcoinクエリ<br>" & strSqlBitcoin & "<hr>"
+14	583							'Response.Write "<hr>NetRideCadhクエリ<br>" & strSqlNetRide & "<hr>"
+14	620							'Response.Write "<hr>NETCASHクエリ<br>" & strSqlNetCash & "<hr>"
+14	740	'	Response.Write "<hr>paypalとEdy？検索クエリ<br>" & strSqlPayment & "<hr>"
+14	805	Response.Write strSqlCB
+

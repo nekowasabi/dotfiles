@@ -1,0 +1,82 @@
+snippets:
+  # snippet and keyword abbrev
+  - name: docker up
+    keyword: dud
+    snippet: docker-compose up -d
+  - name: docker up
+    keyword: dur
+    snippet: RAILS_ENV=test docker-compose up -d app
+  - name: git status
+    keyword: gs
+    snippet: git status --short --branch
+  - name: git pull
+    keyword: gp
+    snippet: git pull
+  - name: push
+    keyword: gps
+    snippet: git push --force-with-lease --force-if-includes 
+  - name: push origin
+    keyword: gpo
+    snippet: git push --force-with-lease --force-if-includes origin 
+  - name: git checkout
+    keyword: gc
+    snippet: git switch {{branch}}
+  - name: git checkout -f
+    keyword: gcf
+    snippet: git checkout -f
+  - name: git checkout develop
+    keyword: gcd
+    snippet: git checkout develop
+  - name: git make branch
+    keyword: gcb
+    snippet: git checkout -b {{branch}}
+  # snippet with placeholder
+  - name: git commit message
+    keyword: gcim
+    snippet: git commit -m '{{commit_message}}'
+  - name: git add . && git commit
+    keyword: gac
+    snippet: git add . && git commit
+  - name: "null"
+    keyword: "null"
+    snippet: ">/dev/null 2>&1"
+    # auto expand condition
+    # If not defined, it is only valid at the beginning of a line.
+    context:
+      # buffer: '' 
+      lbuffer: '.+\s'
+      # rbuffer: ''
+  - name: branch
+    keyword: B
+    snippet: git symbolic-ref --short HEAD
+    context:
+      lbuffer: '^git\s+checkout\s+'
+    evaluate: true # eval snippet
+  - name: push master
+    keyword: gpuom
+    snippet: git push origin master
+  - name: pull master
+    keyword: gpupm
+    snippet: git pull origin master
+  - name: push origin branch
+    keyword: gpso
+    snippet: git push origin {{branch}}
+  - name: pull origin branch
+    keyword: gpuo
+    snippet: git pull origin {{branch}}
+  - name: pull origin develop
+    keyword: gpd
+    snippet: git pull origin develop
+  - name: qmk compile
+    keyword: qc
+    snippet: qmk compile -kb jisplit89 -km chimera
+
+completions:
+  - name: kill
+    patterns: 
+      - "^kill( -9)? $"
+    sourceCommand: "ps -ef | sed 1d"
+    options:
+      --multi: true
+      --prompt: "'Kill Process> '"
+    callback: "awk '{print $2}'"

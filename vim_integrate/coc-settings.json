@@ -1,0 +1,254 @@
+{
+  "tsserver.enable": false,
+  "tsserver.enableJavascript": false,
+  "diagnostic.enable": true,
+  "suggest.noselect": true,
+  "suggest.asciiCharactersOnly": true,
+  "ignore_all_lsp": true,
+  "suggest.preferCompleteThanJumpPlaceholder": true,
+  "codeLens.enable": true,
+  "diagnostic.virtualText": true,
+  "suggest.labelMaxLength": 30,
+  "semanticTokens.enable": true,
+  "semanticTokens.incrementTypes": [
+    "variable",
+    "string",
+    "parameter"
+  ],
+  "suggest.completionItemKindLabels": {
+    "keyword": "\uf1de",
+    "variable": "\ue79b",
+    "value": "\uf89f",
+    "operator": "\u03a8",
+    "function": "\u2A15",
+    "reference": "\ufa46",
+    "constant": "\uf8fe",
+    "method": "\uf09a",
+    "struct": "\ufb44",
+    "class": "\uf0e8",
+    "interface": "\uf417",
+    "text": "\u2663",
+    "enum": "\uf435",
+    "enumMember": "\uf02b",
+    "module": "\uf530",
+    "color": "\ue22b",
+    "property": "\ue624",
+    "field": "\uf6a6",
+    "unit": "\uf475",
+    "event": "\ufacd",
+    "file": "\uf723",
+    "folder": "\uf114",
+    "snippet": "\ue60b",
+    "typeParameter": "\uf728",
+    "default": "\uf29c"
+  },
+  "coc.source.neosnippet.priority": 80,
+  "coc.preferences.formatOnSave": true,
+  "intelephense.files.associations": [
+    "*.inc",
+    "*.php",
+    "*Test.php",
+    "*.phtml"
+  ],
+  "intelephense.environment.includePaths": [
+    "_ide_helper.php",
+    "_ide_helper_models.php",
+    ".phpstorm.meta.php"
+  ],
+  "intelephense.licenceKey": "00BMK8YRB5DWAM7",
+  "intelephense.files.maxSize": 10000000000,
+  "intelephense.format.enable": true,
+  "intelephense.diagnostics.typeErrors": true,
+  "intelephense.completion.triggerParameterHints": true,
+  "intelephense.compatibility.correctForBaseClassStaticUnionTypes": true,
+  "intelephense.completion.insertUseDeclaration": true,
+  "intelephense.completion.fullyQualifyGlobalConstantsAndFunctions": true,
+  "intelephense.diagnostics.undefinedTypes": false,
+  "intelephense.diagnostics.undefinedClassConstants": false,
+  "intelephense.diagnostics.undefinedFunctions": false,
+  "intelephense.diagnostics.undefinedMethods": false,
+  "intelephense.diagnostics.undefinedProperties": false,
+  "intelephense.stubs": [
+    "apache",
+    "imagick",
+    "bcmath",
+    "bz2",
+    "calendar",
+    "com_dotnet",
+    "Core",
+    "ctype",
+    "curl",
+    "date",
+    "dba",
+    "dom",
+    "enchant",
+    "exif",
+    "FFI",
+    "fileinfo",
+    "filter",
+    "fpm",
+    "ftp",
+    "gd",
+    "gettext",
+    "gmp",
+    "hash",
+    "iconv",
+    "imap",
+    "intl",
+    "json",
+    "ldap",
+    "libxml",
+    "mbstring",
+    "meta",
+    "mysqli",
+    "oci8",
+    "odbc",
+    "openssl",
+    "pcntl",
+    "pcre",
+    "PDO",
+    "pdo_ibm",
+    "pdo_mysql",
+    "pdo_pgsql",
+    "pdo_sqlite",
+    "pgsql",
+    "Phar",
+    "posix",
+    "pspell",
+    "readline",
+    "Reflection",
+    "session",
+    "shmop",
+    "SimpleXML",
+    "snmp",
+    "soap",
+    "sockets",
+    "sodium",
+    "SPL",
+    "sqlite3",
+    "standard",
+    "superglobals",
+    "sysvmsg",
+    "sysvsem",
+    "sysvshm",
+    "tidy",
+    "tokenizer",
+    "xml",
+    "xmlreader",
+    "xmlrpc",
+    "xmlwriter",
+    "xsl",
+    "Zend OPcache",
+    "zip",
+    "zlib"
+  ],
+  "tabnine.disable_file_regex": [
+    "disp_annotation.js"
+  ],
+  "tabnine.priority": 65535,
+  "tabnine.experimentalAutoImports": true,
+  "tabnine.enabled": true,
+  "tabnine.limit": 10,
+  "marksman.enable": true,
+  "diagnostic-languageserver.mergeConfig": true,
+  "diagnostic-languageserver.linters": {
+    "phpcs": {
+      "command": "docker",
+      "debounce": 100,
+      "rootPatterns": [
+        "composer.json",
+        "composer.lock",
+        "vendor",
+        ".git"
+      ],
+      "args": [
+        "exec",
+        "-u",
+        "docker",
+        "-w",
+        "/var/www/sp2-php",
+        "sp2-php_app_1",
+        "/var/www/sp2-php/vendor/bin/phpcs",
+        "--report=emacs",
+        "%relativepath"
+      ],
+      "offsetLine": 0,
+      "offsetColumn": 0,
+      "sourceName": "phpcs",
+      "formatLines": 1,
+      "formatPattern": [
+        "^.*:(\\d+):(\\d+):\\s+(.*)\\s+-\\s+(.*)(\\r|\\n)*$",
+        {
+          "line": 1,
+          "column": 2,
+          "message": 4,
+          "security": 3
+        }
+      ],
+      "securities": {
+        "error": "error",
+        "warning": "warning"
+      }
+    },
+    "phpstan": {
+      "command": "docker",
+      "debounce": 100,
+      "rootPatterns": [
+        "composer.json",
+        "composer.lock",
+        "vendor",
+        ".git"
+      ],
+      "args": [
+        "exec",
+        "-u",
+        "docker",
+        "-w",
+        "/var/www/sp2-php",
+        "sp2-php_app_1",
+        "/var/www/sp2-php/vendor/bin/phpstan",
+        "analyse",
+        "--configuration=/var/www/sp2-php/phpstan.neon",
+        "--error-format",
+        "raw",
+        "--no-progress",
+        "%relativepath"
+      ],
+      "offsetLine": 0,
+      "offsetColumn": 0,
+      "sourceName": "phpstan",
+      "formatLines": 1,
+      "formatPattern": [
+        "^[^:]+:(\\d+):(.*)(\\r|\\n)*$",
+        {
+          "line": 1,
+          "message": 2
+        }
+      ]
+    }
+  },
+  "diagnostic-languageserver.filetypes": {
+    "vim": "vint",
+    "sh": "shellcheck",
+    "javascript": "eslint",
+    "php": [
+      "phpcs",
+      "phpstan"
+    ]
+  },
+  "languageserver": {
+    "qls": {
+      "command": "/home/kf/go/bin/sqls",
+      "args": [
+        "-config",
+        "/home/kf/.config/sqls/config.yml"
+      ],
+      "filetypes": [
+        "sql"
+      ],
+      "initializationOptions": {},
+      "settings": {}
+    }
+  },
+  "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/15.0.3/clangd_15.0.3/bin/clangd"
+}

@@ -1,0 +1,1 @@
+let g:ambiwidth_add_list = [[0x2014, 0x2014, 2], [0x2026, 0x2026, 2]]
