@@ -15,6 +15,10 @@ source $HOME/.local/share/zinit/zinit.git/zinit.zsh
 # setting path {{{1
 export PATH=/usr/local/bin:/bin:/usr/bin:$GOROOT/bin:$GOPATH/bin:$DENO_INSTALL/bin:/opt/homebrew/bin:$HOME/.nodenv/bin:/opt/homebrew/opt/php@8.1/bin:/opt/homebrew/opt/php@8.1/sbin:~/.deno/bin/:/opt/homebrew/Cellar/python@3.11/3.11.6_1/libexec/bin:$PATH
 
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
 export EDITOR=nvim
 export GOROOT=/usr/local/opt/go/libexec
 export GOPATH=$HOME/go
@@ -114,10 +118,10 @@ alias m='wezterm_neovim_mfs'
 
 alias ll='eza --long --header --git  --sort=type --classify --git'
 alias la='eza --long --header --git --grid --classify --sort=type --git'
-alias python='/opt/homebrew/bin/python3'
-alias python3='/opt/homebrew/bin/python3'
-alias pip3='/opt/homebrew/bin//pip3'
-alias pip='/opt/homebrew/bin/pip'
+# alias python='/opt/homebrew/bin/python3'
+# alias python3='/opt/homebrew/bin/python3'
+# alias pip3='/opt/homebrew/bin//pip3'
+# alias pip='/opt/homebrew/bin/pip'
 # alias phpctags='/usr/local/bin/phpctags'
 alias ...='cd ../../'
 alias ....='cd ../../../'
@@ -142,19 +146,10 @@ zinit light yuki-yano/zeno.zsh
 # Experimental: Use UNIX Domain Socket
 # export ZENO_ENABLE_SOCK=1
 
-# default
-export ZENO_GIT_CAT="cat"
-# git file preview with color
 export ZENO_GIT_CAT="bat --color=always"
-
-# default
-export ZENO_GIT_TREE="tree"
-# git folder preview with color
-# export ZENO_GIT_TREE="exa --tree"
+export ZENO_GIT_TREE="eza --tree"
 
 if [[ -n $ZENO_LOADED ]]; then
-  bindkey ' '  zeno-auto-snippet
-
   snippet_and_completion() {
     zeno-auto-snippet
     zeno-completion
@@ -163,22 +158,10 @@ if [[ -n $ZENO_LOADED ]]; then
   bindkey '^x^x' snippet_and_completion
 
 
-  # fallback if snippet not matched (default: self-insert)
-  # export ZENO_AUTO_SNIPPET_FALLBACK=self-insert
-
-  # if you use zsh's incremental search
-  # bindkey -M isearch ' ' self-insert
-
-  bindkey '^m' zeno-auto-snippet-and-accept-line
-
+  bindkey ' '  zeno-auto-snippet
+  bindkey '^o' zeno-auto-snippet-and-accept-line
   bindkey '^i' zeno-completion
-
-  bindkey '^x '  zeno-insert-space
-  bindkey '^x^m' accept-line
-  bindkey '^x^z' zeno-toggle-auto-snippet
-
-  # fallback if completion not matched
-  # (default: fzf-completion if exists; otherwise expand-or-complete)
+  bindkey '^x^s' zeno-insert-snippet
   export ZENO_COMPLETION_FALLBACK=expand-or-complete
 fi
 
