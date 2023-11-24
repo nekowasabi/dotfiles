@@ -29,7 +29,6 @@ export FZF_PREVIEW_DEBUG=1
 export DENOPS_TEST_VIM=/usr/local/bin/vim
 export DENOPS_PATH=/Users/ttakeda/.vim/plugged/denops.vim
 export DENOPS_TEST_NVIM=/usr/local/bin/nvim
-export OPENAI_API_KEY='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'
 export DENO_INSTALL="/Users/ttakeda/.deno"
 export MOCWORD_DATA='/Users/ttakeda/.config/mocword/mocword.sqlite'
 export ZENO_HOME='/Users/ttakeda/.config/zeno'
