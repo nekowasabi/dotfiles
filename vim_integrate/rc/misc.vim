@@ -269,10 +269,8 @@ command! -range PushChangelog call s:PushChangelog()
 " -----------------------------------------------------------
 " test
 function! s:Test()
-  execute "cd ".g:GetDotfilesDirectory()
-  execute "Git add ."
-  execute "Git commit -m 'update.'"
-  execute "Git push"
+	cd ~/works/invase-backend/docker/mac
+	execute "!./mac test"
 endfunction
 
 command! -range Test call s:Test() 

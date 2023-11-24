@@ -125,6 +125,8 @@ let g:chat_gpt_temperature = 0.7
 let g:chat_gpt_lang = 'Japanese'
 " let g:chat_gpt_split_direction = 'vertical'
 
+call ai_review#config({ 'chat_gpt': { 'model': 'gpt-4' } })
+
 " -----------------------------------------------------------
 " lua
 lua << EOF
