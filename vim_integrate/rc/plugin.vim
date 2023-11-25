@@ -276,8 +276,8 @@ if g:IsMacNeovim()
   call g:SetDdu()
 
   if g:IsMacNeovimInMfs()
-    Plug 'gelguy/wilder.nvim'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'gelguy/wilder.nvim'
     call g:SetCoc()
   elseif g:IsMacNeovimInWezterm()
     call g:SetDdc()

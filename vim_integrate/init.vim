@@ -127,6 +127,8 @@ let g:chat_gpt_lang = 'Japanese'
 
 call ai_review#config({ 'chat_gpt': { 'model': 'gpt-4' } })
 
+let g:lsp_settings_filetype_typescript = ['typescript-language-server', 'eslint-language-server', 'deno']
+
 " -----------------------------------------------------------
 " lua
 lua << EOF
