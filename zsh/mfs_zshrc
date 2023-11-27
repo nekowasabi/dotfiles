@@ -149,20 +149,29 @@ export ZENO_GIT_CAT="bat --color=always"
 export ZENO_GIT_TREE="eza --tree"
 
 if [[ -n $ZENO_LOADED ]]; then
-  snippet_and_completion() {
-    zeno-auto-snippet
-    zeno-completion
-  }
-  zle -N snippet_and_completion
-  bindkey '^x^x' snippet_and_completion
-
-
   bindkey ' '  zeno-auto-snippet
   bindkey '^o' zeno-auto-snippet-and-accept-line
   bindkey '^i' zeno-completion
   bindkey '^x^s' zeno-insert-snippet
-  export ZENO_COMPLETION_FALLBACK=expand-or-complete
 fi
+
+# 
+# 
+# if [[ -n $ZENO_LOADED ]]; then
+#   snippet_and_completion() {
+#     zeno-auto-snippet
+#     zeno-completion
+#   }
+#   zle -N snippet_and_completion
+#   bindkey '^x^x' snippet_and_completion
+# 
+# 
+#   # bindkey ' '  zeno-auto-snippet
+#   bindkey '^o' zeno-auto-snippet-and-accept-line
+#   bindkey '^i' zeno-completion
+#   bindkey '^x^s' zeno-insert-snippet
+#   export ZENO_COMPLETION_FALLBACK=expand-or-complete
+# fi
 
 export FZF_DEFAULT_COMMAND'=rg --files --hidden --follow --glob "!.git/*"'
 export FZF_DEFAULT_OPTS='--height 80% --reverse'
