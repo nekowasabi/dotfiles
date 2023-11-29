@@ -1,10 +1,5 @@
-
-#### FIG ENV VARIABLES ####
-# Please make sure this block is at the start of this file.
-[ -s ~/.fig/shell/pre.sh ] && source ~/.fig/shell/pre.sh
-#### END FIG ENV VARIABLES ####
 # setting path {{{1
-export PATH=$PATH:/usr/local/bin:/bin:/usr/bin:$GOROOT/bin:$GOPATH/bin:/Users/takets/.nodebrew/current/bin:/Users/takets/go/bin:/Users/takets/.cargo/bin:/Users/takets/bin:/usr/local/Cellar/python@3.11/3.11.2_1/bin:$DENO_INSTALL/bin:$PATH
+export PATH=$PATH:/usr/local/bin:/bin:/usr/bin:$GOROOT/bin:$GOPATH/bin:/Users/takets/.nodebrew/current/bin:/Users/takets/go/bin:/Users/takets/.cargo/bin:/usr/local/Cellar/python@3.11/3.11.5/bin::$DENO_INSTALL/bin:$PATH:/Users/takets/.deno/bin
 
 export EDITOR=vim
 export GOROOT=/usr/local/opt/go/libexec
@@ -18,7 +13,7 @@ export FZF_PREVIEW_DEBUG=1
 export DENOPS_TEST_VIM=/usr/local/bin/vim
 export DENOPS_PATH=/Users/takets/.vim/plugged/denops.vim
 export DENOPS_TEST_NVIM=/usr/local/bin/nvim
-export DENO_INSTALL="/Users/takets/.cargo/bin"
+export DENO_INSTALL="/Users/takets/.deno/bin"
 export MOCWORD_DATA='/Users/takets/.config/mocword/mocword.sqlite'
 # }}}1
 
@@ -72,8 +67,7 @@ promptinit
 
 # Googleライクにサジェスト #
 setopt correct
-SPROMPT="( ´・ω・) ＜ %{$fg[blue]%}も%{${reset_color}%}%{$fg[red]%}し%{${reset_color}%}%{$fg[yellow]%}か%{${reset_color}%}%{$fg[green]%}し%{${reset_color}%}%{$fg[red]%}て%{${reset_color}%}: %{$fg[red]%}%r%{${reset_color}%}？ [(y)es,(n)o,(a)bort,(e)dit]
--> "
+SPROMPT="( ´・ω・) ＜ もしかして: %r？ [(y)es,(n)o,(a)bort,(e)dit]-> "
 
 # 補完後、メニュー選択モードになり左右キーで移動が出来る
 zstyle ':completion:*:default' menu select=2
@@ -87,18 +81,26 @@ alias ctags="`brew --prefix`/bin/ctags"
 alias date="gdate"
 
 zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
-# zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z} r:|[-_.]=**'
-
 
 fpath=(/usr/local/share/zsh-completions ${fpath})
 # }}}1
 
 # alias {{{1
+function wezterm_neovim() {
+  /usr/local/bin/nvim $1 wezterm
+}
+alias n='wezterm_neovim'
+
+function wezterm_neovim_mfs() {
+  /usr/local/bin/nvim $1 mfs 
+}
+alias m='wezterm_neovim_mfs'
+
 alias ll='exa --long --header --git  --sort=type --classify --git'
 alias la='exa --long --header --git --grid --classify --sort=type --git'
-alias python='/usr/local/Cellar/python@3.11/3.11.2_1/bin/python3'
-alias pip3='/usr/local/Cellar/python@3.11/3.11.2_1/bin/pip3'
-alias pip='/usr/local/Cellar/python@3.11/3.11.2_1/bin/pip3'
+alias python='/usr/local/Cellar/python@3.11/3.11.5/bin/python3'
+alias pip3='/usr/local/Cellar/python@3.11/3.11.5/bin/pip3'
+alias pip='/usr/local/Cellar/python@3.11/3.11.5/bin/pip3'
 alias phpctags='/usr/local/bin/phpctags'
 alias ...='cd ../../'
 alias ....='cd ../../../'
@@ -196,10 +198,3 @@ zle -N select-history
 bindkey '^r' select-history
 
 
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-### End of Zinit's installer chunk
-
-#### FIG ENV VARIABLES ####
-# Please make sure this block is at the end of this file.
-# [ -s ~/.fig/fig.sh ] && source ~/.fig/fig.sh
-#### END FIG ENV VARIABLES ####
