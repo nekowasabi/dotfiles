@@ -293,6 +293,34 @@ function DduGrepProject() abort
 				\ })
 endfunction
 
+nnoremap <Space>pw  :<C-u>call DduGrepProjectWord()<CR>
+function DduGrepProjectWord() abort
+  if g:IsMacGvim()
+    cd /Users/takets/Library/CloudStorage/Dropbox/files/changelog
+  endif
+  if g:IsWindowsGvim()
+    cd c:/takeda/repos/changelog
+  endif
+  if g:IsLinux()
+    cd /home/kf/app
+  endif
+  if g:IsMacNeovimInMfs()
+    cd ~/works/invase-backend/laravel
+  endif
+
+  let search_word = expand("<cword>")
+	call ddu#start({
+				\   'sourceParams' : #{
+				\     rg : #{
+				\       args: ['--json'],
+				\     },
+				\   },
+				\   'sources':[
+				\     {'name': 'rg', 'params': {'inputType': 'migemo', 'input': search_word}},
+				\   ],
+				\ })
+endfunction
+
 nnoremap <Space>pe  :<C-u>call DduLineEstimate()<CR>
 function DduLineEstimate() abort
   if g:IsMacGvim() || g:IsMacNeovim()
