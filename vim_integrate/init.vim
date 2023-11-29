@@ -129,6 +129,9 @@ call ai_review#config({ 'chat_gpt': { 'model': 'gpt-4' } })
 
 let g:lsp_settings_filetype_typescript = ['typescript-language-server', 'eslint-language-server', 'deno']
 
+let g:gpt_commit_msg = {}
+let g:gpt_commit_msg.api_key = $OPENAI_API_KEY
+
 " -----------------------------------------------------------
 " lua
 lua << EOF

@@ -84,6 +84,7 @@ Plug 'madox2/vim-ai', { 'do': './install.sh' }
 Plug 'yuki-yano/ai-review.vim'
 Plug 'Exafunction/codeium.vim'
 Plug 'nekowasabi/vim-chatgpt'
+Plug 'ktakayama/gpt-commit-msg.vim'
 
 " denops
 Plug 'vim-denops/denops.vim'
