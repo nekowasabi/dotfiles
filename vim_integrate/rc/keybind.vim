@@ -9,9 +9,6 @@ nnoremap <silent> Q q:i<C-r>=neosnippet#expand('tgs')<CR>
 command! -nargs=0 CdCurrent cd %:p:h
 nnoremap ,d :CdCurrent<CR>
 
-" カレントウィンドウ以外を閉じる
-nnoremap ,o :<C-u>only<CR>
-
 " reload and restart
 if has("mac")
 	nnoremap <silent> ,rr :source ~/.vimrc<CR>:source ~/.gvimrc<CR>
@@ -337,16 +334,16 @@ if g:IsMacGvim() || g:IsMacNeovim()
 	command! OpenOnlyTentask call <SID>OpenOnlyTentask()
 	nnoremap <silent> ,T :OpenOnlyTentask<CR>
 
-	function! s:OpenPraygroundFile()
-		if fnamemodify(expand('%'), ':t') != "01_ver01.txt.shd"
-			execute ":e ~/words/prayground/text/01_ver01.txt.shd"
-		endif
-		exe 'Voom'
-		exe 'wincmd l'
-		redraw
-	endfunction
-	command! OpenPraygroundFile call <SID>OpenPraygroundFile()
-	nnoremap <silent> ,o :OpenPraygroundFile<CR>
+	" function! s:OpenPraygroundFile()
+	" 	if fnamemodify(expand('%'), ':t') != "01_ver01.txt.shd"
+	" 		execute ":e ~/words/prayground/text/01_ver01.txt.shd"
+	" 	endif
+	" 	exe 'Voom'
+	" 	exe 'wincmd l'
+	" 	redraw
+	" endfunction
+	" command! OpenPraygroundFile call <SID>OpenPraygroundFile()
+	" nnoremap <silent> ,o :OpenPraygroundFile<CR>
 
 	function! s:OpenChangelog()
 

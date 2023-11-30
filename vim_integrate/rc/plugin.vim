@@ -178,6 +178,7 @@ function g:SetDdu()
 	Plug 'ryota2357/ddu-column-icon_filename'
 	Plug 'nabezokodaikon/ddu-source-file_fd'
   Plug 'uga-rosa/ddu-source-lsp'
+	Plug 'peacock0803sz/ddu-source-git_stash'
 endfunction
 
 function g:SetCoc()

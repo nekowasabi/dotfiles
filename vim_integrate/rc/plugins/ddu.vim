@@ -123,8 +123,14 @@ call ddu#custom#patch_global(#{
     \     mr: #{
     \       defaultAction: 'open',
     \     },
+    \     jumplist: #{
+    \       defaultAction: 'open',
+    \     },
     \     command_history: #{
     \       defaultAction: 'execute',
+    \     },
+    \     git_stash: #{
+    \       defaultAction: 'apply',
     \     },
     \     action: #{
     \       defaultAction: 'do',
@@ -164,6 +170,9 @@ call ddu#custom#patch_global(#{
     \     },
     \     file_external: #{
     \       matchers: ['matcher_matchfuzzy'],
+    \     },
+    \     jumplist: #{
+    \       matchers: ['matcher_matchfuzzy', 'matcher_kensaku'],
     \     },
     \     rg: #{
     \       matchers: ['matcher_kensaku'],
@@ -470,10 +479,14 @@ if g:IsWindowsGvim() || g:IsMacGvim() || g:IsLinux() || g:IsMacNeovim()
         \ <Cmd>call ddu#start({'sources': [{'name': 'file'}]})<CR>
   nnoremap <silent> <Leader>h
         \ <Cmd>call ddu#start({'sources': [{'name': 'command_history'}]})<CR>
+  nnoremap <silent> <Leader>j
+        \ <Cmd>call ddu#start({'sources': [{'name': 'jumplist'}]})<CR>
   nnoremap <silent> <Leader>H
         \ <Cmd>call ddu#start({'sources': [{'name': 'help'}]})<CR>
   nnoremap <silent> <Leader>gf
         \ <Cmd>call ddu#start({'sources': [{'name': 'file_external'}]})<CR>
+  nnoremap <silent> <Leader>gs
+        \ <Cmd>call ddu#start({'sources': [{'name': 'git_stash'}]})<CR>
 endif
 
 autocmd FileType ddu-ff call s:ddu_uu_my_settings()

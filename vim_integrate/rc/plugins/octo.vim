@@ -1,3 +1,5 @@
+nnoremap <silent> ,ops :Octo pr search<CR>
+
 lua << EOF
 config = function ()
   require"octo".setup()
