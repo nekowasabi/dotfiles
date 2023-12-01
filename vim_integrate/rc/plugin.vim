@@ -280,6 +280,7 @@ if g:IsMacNeovim()
   if g:IsMacNeovimInMfs()
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'gelguy/wilder.nvim'
+    Plug 'kdheepak/lazygit.nvim'
     call g:SetCoc()
   elseif g:IsMacNeovimInWezterm()
     call g:SetDdc()
