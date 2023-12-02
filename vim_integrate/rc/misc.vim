@@ -1,10 +1,9 @@
 " 簡単終了 {{{1
 command! -nargs=0 QC call CloseQuickRunWindow()
 function! CloseQuickRunWindow()
-    execute "normal \<c-c>\<c-w>jZZ"
+	execute "wqall!"
 endfunction
 " }}}1
-" nnoremap <Leader>q <C-w>j:q!<CR>
 nnoremap <Leader>q :call CloseQuickRunWindow()<CR>
 
 if g:IsMacGvim()

@@ -106,13 +106,6 @@ nnoremap ,d :CdCurrent<CR>
 nnoremap <silent> ,W mW
 nnoremap <silent> ,w `W
 
-" 簡単終了
-command! -nargs=0 QC call CloseQuickRunWindow()
-function! CloseQuickRunWindow()
-	execute "normal \<c-c>\<c-w>jZZ"
-endfunction
-nnoremap <silent> <Leader>q :call CloseQuickRunWindow()<CR>
-
 " leader
 nnoremap Â :
 nnoremap <Leader>: :

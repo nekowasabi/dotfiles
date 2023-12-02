@@ -28,12 +28,9 @@ endif
 
 syn match	changelogText	"^\s.*$" contains=changelogMail,changelogNumber,changelogMonth,changelogDay,changelogError
 syn match	changelogText	"^■.*$"
-syn match	changelogText	"^}}}"
-syn match	changelogText	"^}}}[0-9]"
 syn match	changelogText	"^・"
 syn match	changelogHeader	"^\*"
 syn match	changelogHeader	"^*"
-syn match	changelogMarkdownHeader	"^#\+"
 syn match	changelogOutline "^[\t]*・"
 syn match	changelogOutline "^[+-] "
 syn match	changelogText	"^[\t\s]*[+-] "
@@ -44,20 +41,20 @@ syn match	changelogHeader	"^\s[0-9][0-9][0-9][0-9].*$"
 syn match       changelogHeader "○"
 syn match       changelogHeader "済／.*$"
 syn match	changelogText   "△"
-" syn match	changelogText   "^\t*→.*$"
-" syn match	changelogText   "^→.*$"
 syn match	changelogText   "→"
-syn match	changelogMarkdownHeader	"^#\+"
-syn region changelogMarkdownBody matchgroup=changelogMarkdownHeader start="^#\+" end="$"
+" syn match	changelogMarkdownHeader	"^#\+"
+" syn region changelogMarkdownBody matchgroup=changelogMarkdownHeader start="^#\+" end="$"
 
 hi def link changelogDelimiter     Delimiter
 syn region      changelogText matchgroup=changelogDelimiter start="\[" end="\]"
 
 
-syn match changelogMarker "{{{[0-9]" keepend
-syn match changelogFold ".* {{{[0-9]" keepend
-syn match changelogFold /}}}[0-9]/ conceal cchar=<
-syn match changelogFold /}}}1/ conceal cchar=<
+syn match changelogFold1 "\zs{{{[1-9]" conceal cchar=👎
+syn match changelogMarkdownHeader	"^#\+"
+syn region changelogMarkdownBody matchgroup=changelogMarkdownHeader start="^#\+\s\+" end="\s\|$"
+syn match changelogFold2 /}}}[0-9]/ conceal cchar=🖕
+
+
 syn match changelogText /CL\C:/ conceal cchar=📝
 syn match changelogText /CLO\C:/ conceal cchar=📚
 
@@ -110,7 +107,8 @@ if version >= 508 || !exists("did_changelog_syntax_inits")
   HiLink changelogMonth		Number
   HiLink changelogDay		Number
   HiLink changelogError		Folded
-  HiLink changelogFold		FoldType
+  HiLink changelogFold1		FoldType
+  HiLink changelogFold2		FoldType
   HiLink changelogMarker	FoldTColumn
 
   delcommand HiLink
