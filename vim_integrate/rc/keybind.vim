@@ -301,7 +301,7 @@ if g:IsMacGvim() || g:IsMacNeovim()
 			execute ":buffer repos/changelog/tenTask.txt"
 		endif
 
-		call append("$", ['----- '.strftime('%Y-%m-%d %H:%M:%S'), '・Δ', '・'])
+		call append("$", ['----- '.strftime('%Y-%m-%d %H:%M:%S'), '・'])
 		exe "normal! GkA"
 	endfunction
 	command! OpenTentask call <SID>OpenTentask()
@@ -473,7 +473,7 @@ if g:IsWindowsGvim()
 			execute ":e c:/takeda/repos/changelog/tenTask.txt"
 		endif
 
-		call append("$", ['----- '.strftime('%Y-%m-%d %H:%M:%S'), '・Δ', '・'])
+		call append("$", ['----- '.strftime('%Y-%m-%d %H:%M:%S'), '・'])
 		exe "normal! GkA"
 		redraw
 	endfunction

@@ -172,7 +172,7 @@ call ddu#custom#patch_global(#{
     \       matchers: ['matcher_matchfuzzy'],
     \     },
     \     jumplist: #{
-    \       matchers: ['matcher_matchfuzzy', 'matcher_kensaku'],
+    \       matchers: ['matcher_matchfuzzy'],
     \     },
     \     rg: #{
     \       matchers: ['matcher_kensaku'],

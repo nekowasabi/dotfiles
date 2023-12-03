@@ -30,6 +30,9 @@ syn match	shdHeader3	"^\t\t・"
 syn match	shdHeader3	"^\t\t- "
 syn match	shdHeader1	"^・"
 syn match	shdHeader1	"^- "
+syn match shdComment6 "--------------------------------------- .*$"
+syn match shdComment7 "----- .*$"
+syn match	changelogHeader	"^\*"
 
 hi def link shdComment1                        Comment
 hi def link shdComment2                        Comment
