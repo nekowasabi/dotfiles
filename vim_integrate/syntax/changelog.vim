@@ -39,7 +39,7 @@ syn match	changelogHeader	"^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9] .*$"
 syn match	changelogHeader	"^\s[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9] .*$"
 syn match	changelogHeader	"^\s[0-9][0-9][0-9][0-9].*$"
 syn match       changelogHeader "○"
-syn match       changelogHeader "済／.*$"
+syn match       changelogHeaderCompleted "済／.*$"
 syn match	changelogText   "△"
 syn match	changelogText   "→"
 " syn match	changelogMarkdownHeader	"^#\+"
@@ -101,7 +101,6 @@ if version >= 508 || !exists("did_changelog_syntax_inits")
   HiLink changelogMarkdownHeader	Comment
   HiLink changelogMarkdownBody  Special
   HiLink changelogOutline	Special
-  "HiLink changelogHeader	Statement
   HiLink changelogMail		Special
   HiLink changelogNumber	Number
   HiLink changelogMonth		Number
@@ -110,6 +109,7 @@ if version >= 508 || !exists("did_changelog_syntax_inits")
   HiLink changelogFold1		FoldType
   HiLink changelogFold2		FoldType
   HiLink changelogMarker	FoldTColumn
+  HiLink changelogHeaderCompleted WarningMsg
 
   delcommand HiLink
 endif
