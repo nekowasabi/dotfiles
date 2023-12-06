@@ -285,7 +285,7 @@ function DduGrepProject() abort
     cd /home/kf/app
   endif
   if g:IsMacNeovimInMfs()
-    cd $INVASE_BACKEND_LARAVEL_DIR
+    cd $BACKEND_LARAVEL_DIR
   endif
 
   let s:input = input('project grep > ')
@@ -314,7 +314,7 @@ function DduGrepProjectWord() abort
     cd /home/kf/app
   endif
   if g:IsMacNeovimInMfs()
-    cd $INVASE_BACKEND_LARAVEL_DIR
+    cd $BACKEND_LARAVEL_DIR
   endif
 
   let search_word = expand("<cword>")
