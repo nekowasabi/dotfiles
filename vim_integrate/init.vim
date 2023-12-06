@@ -140,6 +140,7 @@ let g:dbs = {
 " -----------------------------------------------------------
 " lua
 lua << EOF
+--- for caw's workaround
 local M = {}
 ---@param lnum integer
 ---@param col integer
