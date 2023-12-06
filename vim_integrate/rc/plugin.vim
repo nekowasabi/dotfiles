@@ -284,7 +284,10 @@ if g:IsMacNeovim()
     Plug 'williamboman/mason.nvim'
     Plug 'williamboman/mason-lspconfig.nvim'
     Plug 'ErichDonGubler/lsp_lines.nvim'
+		Plug 'lukas-reineke/indent-blankline.nvim'
+    Plug 'HiPhish/rainbow-delimiters.nvim'
     call g:SetCoc()
+
   elseif g:IsMacNeovimInWezterm()
     call g:SetDdc()
   else
