@@ -281,6 +281,9 @@ if g:IsMacNeovim()
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'gelguy/wilder.nvim'
     Plug 'kdheepak/lazygit.nvim'
+    Plug 'williamboman/mason.nvim'
+    Plug 'williamboman/mason-lspconfig.nvim'
+    Plug 'ErichDonGubler/lsp_lines.nvim'
     call g:SetCoc()
   elseif g:IsMacNeovimInWezterm()
     call g:SetDdc()

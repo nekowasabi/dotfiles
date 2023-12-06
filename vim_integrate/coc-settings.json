@@ -1,7 +1,7 @@
 {
   "tsserver.enable": false,
   "diagnostic.enable": true,
-  "inlayHint.enable": false,
+  "inlayHint.enable": true,
   "suggest.virtualText": true,
   "suggest.noselect": true,
   "suggest.floatConfig": {
@@ -27,8 +27,12 @@
   "suggest.asciiCharactersOnly": true,
   "suggest.preferCompleteThanJumpPlaceholder": true,
   "codeLens.enable": true,
-  "diagnostic.virtualText": true,
+  "diagnostic.virtualText": false,
   "diagnostic.enableMessage": "always",
+  "diagnostic.errorSign": "🖕",
+  "diagnostic.warningSign": "🤬",
+  "diagnostic.hintSign": "💡",
+  "diagnostic.infoSign": "📑",
   "suggest.labelMaxLength": 30,
   "semanticTokens.enable": true,
   "semanticTokens.incrementTypes": [

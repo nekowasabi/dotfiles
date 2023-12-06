@@ -4,6 +4,9 @@ let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_save = 1
 let g:ale_lint_delay = 100
 
+" neovimのvirtual textでlintのメッセージを表示
+let g:ale_virtualtext_cursor = 0
+
 let g:ale_linters = {
       \   'shd': ['textlint'],
 			\   'typescript': ['deno']
@@ -18,9 +21,6 @@ let g:ale_sign_info = ''
 
 " エラー表示の列を常時表示
 let g:ale_sign_column_always = 1
-
-" neovimのvirtual textでlintのメッセージを表示
-let g:ale_virtualtext_cursor = 1
 
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 0

@@ -157,6 +157,14 @@ function M.has_syntax(lnum, col)
 end
 ---@diagnostic disable-next-line: duplicate-set-field
 _G.package.preload.caw = function() return M end
+
+require("mason").setup()
+
+require("lsp_lines").setup()
+vim.diagnostic.config({
+  virtual_text = false,
+})
 EOF
+
 
 " END
