@@ -189,9 +189,11 @@ function! s:fuzzy_query(input) abort
   return result
 endfunction
 
-if has('mac')
+if g:IsMacNeovim()
   let g:migemodict = '/usr/local/Cellar/cmigemo/20110227/share/migemo/utf-8/migemo-dict'
-else
+endif
+
+if g:IsWindowsGvim()
   let g:migemodict = 'c:\tools\vim\vim90\dict\utf-8\migemo-dict'
 endif
 
@@ -201,6 +203,10 @@ endif
 
 if g:IsLinux()
   let g:migemodict = '/home/linuxbrew/.linuxbrew/Cellar/cmigemo/20110227/share/migemo/utf-8/migemo-dict'
+endif
+
+if g:IsMacNeovimInMfs()
+  let g:migemodict = '/opt/homebrew/Cellar/cmigemo/20110227/share/migemo/utf-8/migemo-dict'
 endif
 
 function! g:searchx.convert(input) abort
