@@ -274,18 +274,18 @@ if g:IsMacNeovim()
   Plug 'adoy/vim-php-refactoring-toolbox'
   Plug 'dhruvasagar/vim-table-mode'
   Plug 'nvimtools/none-ls.nvim'
-  
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'kdheepak/lazygit.nvim'
+  Plug 'williamboman/mason.nvim'
+  Plug 'williamboman/mason-lspconfig.nvim'
+  Plug 'ErichDonGubler/lsp_lines.nvim'
+  Plug 'lukas-reineke/indent-blankline.nvim'
+  Plug 'HiPhish/rainbow-delimiters.nvim'
+
   call g:SetDdu()
 
   if g:IsMacNeovimInMfs()
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'gelguy/wilder.nvim'
-    Plug 'kdheepak/lazygit.nvim'
-    Plug 'williamboman/mason.nvim'
-    Plug 'williamboman/mason-lspconfig.nvim'
-    Plug 'ErichDonGubler/lsp_lines.nvim'
-		Plug 'lukas-reineke/indent-blankline.nvim'
-    Plug 'HiPhish/rainbow-delimiters.nvim'
     call g:SetCoc()
 
   elseif g:IsMacNeovimInWezterm()
