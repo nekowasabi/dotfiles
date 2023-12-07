@@ -565,12 +565,12 @@ if g:IsMacNeovim()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ale.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-ambiwidth.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vista.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesitter.vim'
 
   if g:IsMacNeovimInMfs()
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
-    execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
-    execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesitter.vim'
   elseif g:IsMacNeovimInWezterm()
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-lsp.vim'
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
