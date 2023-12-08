@@ -552,7 +552,6 @@ if g:IsMacNeovim()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-bookmark.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/devicons.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-dadbod.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fern.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/denops-gh.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-vue.vim'
