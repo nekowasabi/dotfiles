@@ -3,14 +3,14 @@ command! -nargs=0 QC call CloseQuickRunWindow()
 function! CloseQuickRunWindow()
     execute "normal \<c-c>\<c-w>jZZ"
 endfunction
-nnoremap <Leader>Q :call CloseQuickRunWindow()<CR>
+nnoremap <Leader>q :call CloseQuickRunWindow()<CR>
 
 
 command! -nargs=0 QC call QuickExit()
 function! QuickExit()
 	execute "wqall!"
 endfunction
-nnoremap <Leader>q :call QuickExit()<CR>
+nnoremap <Leader>Q :call QuickExit()<CR>
 " }}}1
 
 if g:IsMacGvim()
