@@ -120,7 +120,7 @@ function! g:SetDdc() abort
   Plug 'Shougo/ddc-around'
   Plug 'Shougo/ddc-matcher_head'
   Plug 'Shougo/ddc-sorter_rank'
-  Plug 'Shougo/ddc-converter_remove_overlap' 
+  Plug 'Shougo/ddc-filter-converter_remove_overlap'
 	Plug 'Shougo/ddc-source-rg'
   Plug 'shun/ddc-source-vim-lsp'
   Plug 'fuenor/im_control.vim'
@@ -179,6 +179,7 @@ function g:SetDdu()
 	Plug 'nabezokodaikon/ddu-source-file_fd'
   Plug 'uga-rosa/ddu-source-lsp'
 	Plug 'peacock0803sz/ddu-source-git_stash'
+	Plug 'Shougo/ddc-filter-converter_truncate_abbr'
 endfunction
 
 function g:SetCoc()
@@ -284,7 +285,11 @@ if g:IsMacNeovim()
     Plug 'williamboman/mason.nvim'
     Plug 'williamboman/mason-lspconfig.nvim'
     Plug 'ErichDonGubler/lsp_lines.nvim'
+		Plug 'lukas-reineke/indent-blankline.nvim'
+    Plug 'HiPhish/rainbow-delimiters.nvim'
+    Plug 'folke/noice.nvim'
     call g:SetCoc()
+
   elseif g:IsMacNeovimInWezterm()
     call g:SetDdc()
   else
@@ -549,7 +554,6 @@ if g:IsMacNeovim()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-bookmark.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/devicons.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-dadbod.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fern.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/denops-gh.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-vue.vim'

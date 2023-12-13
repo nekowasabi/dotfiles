@@ -1,10 +1,17 @@
 " 簡単終了 {{{1
 command! -nargs=0 QC call CloseQuickRunWindow()
 function! CloseQuickRunWindow()
+    execute "normal \<c-c>\<c-w>jZZ"
+endfunction
+nnoremap <Leader>q :call CloseQuickRunWindow()<CR>
+
+
+command! -nargs=0 QC call QuickExit()
+function! QuickExit()
 	execute "wqall!"
 endfunction
+nnoremap <Leader>Q :call QuickExit()<CR>
 " }}}1
-nnoremap <Leader>q :call CloseQuickRunWindow()<CR>
 
 if g:IsMacGvim()
   " Change Ime off status {{{1
