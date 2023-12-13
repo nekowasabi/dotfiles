@@ -99,9 +99,10 @@ set renderoptions=type:directx
 
 " denops
 let g:denops#debug = 0
-let g:denops_server_addr = '127.0.0.1:32123'
+" let g:denops_server_addr = '127.0.0.1:32123'
 
-" outliner
+
+" outline
 function! s:textobject_outline(...) abort
   let from_parent = index(a:000, 'from_parent') >= 0
   let with_blank = index(a:000, 'with_blank') >= 0

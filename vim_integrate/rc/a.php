@@ -1,33 +1,10 @@
 <?php
 
-// Class for fizzbuzz
-class FizzBuzz
-{
-    private $n;
+// extract odd numbers from array
+$sample = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-    public function __construct($n)
-    {
-        $this->n = $n;
-    }
+$extracted = array_filter($sample, function ($value) {
+    return $value % 2;
+});
 
-    public function get()
-    {
-        $this->ccc();
-    }
-
-    private function ccc()
-    {
-        if ($this->n % 3 == 0 && $this->n % 5 == 0) {
-            return 'FizzBuzz';
-        } elseif ($this->n % 3 == 0) {
-            return 'Fizz';
-        } elseif ($this->n % 5 == 0) {
-            return 'Buzz';
-        } else {
-            return $this->n;
-        }
-    }
-}
-
-$fizzbuzz = new FizzBuzz(15);
-echo $fizzbuzz->get();
+var_dump($extracted);

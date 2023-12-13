@@ -490,7 +490,7 @@ if g:IsWindowsGvim()
 			execute ":buffer c:/takeda/repos/changelog/tentask.txt"
 		endif
 
-		call append("$", ['----- '.strftime('%Y-%m-%d %H:%M:%S'), '・Δ', '・'])
+		call append("$", ['----- '.strftime('%Y-%m-%d %H:%M:%S'), '・'])
 		exe "normal! GkA"
 
 	endfunction

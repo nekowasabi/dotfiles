@@ -189,7 +189,7 @@ function g:SetCoc()
 endfunction
 
 " }}}1
-"
+
 " Windows Gvim {{{1
 if g:IsWindowsGvim()
   Plug 'hail2u/vim-solarized-g'
@@ -588,7 +588,7 @@ if g:IsWindowsGvim()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/defx.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ale.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fern.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
+	execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/user-gf.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddu.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-ambiwidth.vim'
