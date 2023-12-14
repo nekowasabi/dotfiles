@@ -288,6 +288,7 @@ if g:IsMacNeovim()
 		Plug 'lukas-reineke/indent-blankline.nvim'
     Plug 'HiPhish/rainbow-delimiters.nvim'
     Plug 'folke/noice.nvim'
+		Plug 'rest-nvim/rest.nvim'
     call g:SetCoc()
 
   elseif g:IsMacNeovimInWezterm()
