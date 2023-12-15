@@ -1,7 +1,7 @@
 " 簡単終了 {{{1
 command! -nargs=0 QC call CloseQuickRunWindow()
 function! CloseQuickRunWindow()
-    execute "normal \<c-c>\<c-w>jZZ"
+    execute "normal \<c-c>\<c-w>\<C-w>ZZ"
 endfunction
 nnoremap <Leader>q :call CloseQuickRunWindow()<CR>
 

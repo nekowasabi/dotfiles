@@ -199,7 +199,7 @@ require("rest-nvim").setup({
     -- Keep the http file buffer above|left when split horizontal|vertical
     result_split_in_place = false,
     -- stay in current windows (.http file) or change to results window (default)
-    stay_in_current_window_after_split = false,
+    stay_in_current_window_after_split = true,
     -- Skip SSL verification, useful for unknown certificates
     skip_ssl_verification = true,
     -- Encode URL before making request

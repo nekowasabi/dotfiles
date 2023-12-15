@@ -411,6 +411,7 @@ if g:IsMacGvim() || g:IsMacNeovim()
 	command! OpenChangelog call <SID>OpenChangelog()
 	nnoremap <silent> ,c <ESC>:OpenChangelog<CR>:set showtabline=2<CR>
 	nnoremap <silent> ,l <ESC>:OpenChangelog<CR><C-home>o<CR>i<C-r>=neosnippet#expand('cpw')<CR>
+	nnoremap <silent> ,Cp <ESC>:OpenChangelog<CR><C-home>o<CR>i<C-r>=neosnippet#expand('cpp')<CR>
 
 	" setting reload
 	nnoremap <silent> ,rr :source ~/.vimrc<CR>:source ~/.gvimrc<CR>
