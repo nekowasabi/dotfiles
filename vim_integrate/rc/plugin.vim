@@ -94,7 +94,7 @@ Plug 'lambdalisue/kensaku.vim'
 Plug 'hrsh7th/vim-searchx'
 Plug 'lambdalisue/mr.vim'
 Plug 'vim-denops/denops-shared-server.vim'
-" Plug 'vim-denops/denops-helloworld.vim'
+Plug 'vim-denops/denops-helloworld.vim'
 
 " textobj
 Plug 'wellle/targets.vim'
