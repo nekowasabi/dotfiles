@@ -26,6 +26,8 @@ augroup my_vimrc
   autocmd FileType sql iabbrev <buffer> else ELSE
   autocmd FileType sql iabbrev <buffer> create CREATE
   autocmd FileType sql iabbrev <buffer> table TABLE
+  autocmd FileType sql iabbrev <buffer> update UPDATE
+  autocmd FileType sql iabbrev <buffer> insert INSERT
 
   autocmd FileType changelog iabbrev <buffer> cl: CL: <C-R>=Eatchar('\s')<CR>
   autocmd FileType changelog iabbrev <buffer> clo: CLO: <C-R>=Eatchar('\s')<CR>

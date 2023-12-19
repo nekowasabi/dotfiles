@@ -132,11 +132,6 @@ let g:lsp_settings_filetype_typescript = ['typescript-language-server', 'eslint-
 let g:gpt_commit_msg = {}
 let g:gpt_commit_msg.api_key = $OPENAI_API_KEY
 
-" vim-dadbod
-let g:dbs = {
-\  'dev': $DADBOD
-\ }
-
 " -----------------------------------------------------------
 " lua
 lua << EOF

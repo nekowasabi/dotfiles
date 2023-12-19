@@ -275,6 +275,9 @@ command! -range PushChangelog call s:PushChangelog()
 " -----------------------------------------------------------
 " test
 function! s:Test()
+  if &filetype == 'sql'
+    echo 'ok'
+  endif
 endfunction
 
 command! -range Test call s:Test() 
