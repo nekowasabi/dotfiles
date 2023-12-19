@@ -77,7 +77,7 @@ Plug 'tyru/current-func-info.vim'
 Plug 'liuchengxu/vista.vim' " クラスや関数を一覧表示する。lightlineにも連携している
 Plug 'haya14busa/vim-edgemotion'
 Plug 'rickhowe/wrapwidth/'
-
+Plug 'tyru/open-browser.vim'
 " AI
 " Plug 'github/copilot.vim'
 Plug 'madox2/vim-ai', { 'do': './install.sh' }
