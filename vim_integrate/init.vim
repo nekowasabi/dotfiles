@@ -113,10 +113,19 @@ set t_8b=^[[48;2;%lu;%lu;%lum
 
 " }}}1
 
-let g:denops#debug = 0
-let g:denops_server_addr = '127.0.0.1:32123'
+" let g:denops#debug = 1
+" let g:denops_server_addr = '127.0.0.1:32123'
 " let g:denops_disable_version_check = 0
 " let g:denops#deno = '/Users/takets/.deno/bin/deno'
+
+" let g:denops#server#deno_args = get(g:,
+"      \ 'denops#server#service#deno_args', [
+"      \ '-q',
+"      \ '--no-check',
+"      \ '--unstable',
+"      \ '-A',
+"      \ '--inspect-brk',
+"      \ ])
 
 let g:chat_gpt_max_tokens=2000
 let g:chat_gpt_model='gpt-4-1106-preview'
