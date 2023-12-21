@@ -5,6 +5,14 @@ function! CloseQuickRunWindow()
 endfunction
 nnoremap <Leader>q :call CloseQuickRunWindow()<CR>
 
+" 指定のウインドウを閉じる
+nnoremap <C-h> :<C-u>CloseSomeWindow
+\	(index(['qf','unite','dbout'], getwinvar(v:val,'&filetype')) != -1)
+\		\|\| (getwinvar(v:val, '&filetype') ==# 'help'
+\		\|\| (getwinvar(v:val, '&filetype') ==# 'httpRequest'
+\		\|\| (getwinvar(v:val, '&filetype') ==# 'dbout'
+\			&& !getwinvar(v:val, '&modifiable'))<CR>
+
 
 command! -nargs=0 QC call QuickExit()
 function! QuickExit()
@@ -275,9 +283,10 @@ command! -range PushChangelog call s:PushChangelog()
 " -----------------------------------------------------------
 " test
 function! s:Test()
-  if &filetype == 'sql'
-    echo 'ok'
-  endif
+  for winid in nvim_list_wins()
+    let bufid = winbufnr(winid)
+    echo getbufvar(bufid, '&filetype')
+  endfor
 endfunction
 
 command! -range Test call s:Test() 

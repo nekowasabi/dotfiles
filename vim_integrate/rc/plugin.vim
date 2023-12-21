@@ -521,6 +521,7 @@ execute 'source '.g:GetVimConfigRootPath().'rc/plugins/surround.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-ai.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/deepl.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/codeium.vim'
+execute 'source '.g:GetVimConfigRootPath().'rc/plugins/sayonara.vim'
 " }}}1
 
 " setting Mac Gvim {{{1

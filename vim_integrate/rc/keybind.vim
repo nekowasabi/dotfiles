@@ -115,7 +115,6 @@ vmap ; <PageDown>
 vmap : <PageUp>
 vmap : :
 
-	nnoremap <silent> <Leader>d :TpbDelete<CR>
 nnoremap <silent> <Leader>w :w<CR>
 
 ""---------------------------------------------------- 
