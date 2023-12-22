@@ -13,7 +13,8 @@ function! s:SetGinKeymaps()
   nnoremap <buffer> s :GinStatus<CR>
   nnoremap <buffer> L :GinLog --graph --oneline<CR>
   nnoremap <buffer> d :GinDiff --cached<CR>
-  nnoremap <buffer> q :bdelete<CR>
+  " ウインドウを閉じないように設定
+  nnoremap <buffer> q :Sayonara<CR>
   nnoremap <buffer> p :lua vim.notify("Gin push")<CR>:Gin push<CR>
   nnoremap <buffer> P :lua vim.notify("Gin pull")<CR>:Gin pull<CR>
 endfunction
