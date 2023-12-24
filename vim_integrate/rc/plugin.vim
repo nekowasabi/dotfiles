@@ -275,20 +275,20 @@ if g:IsMacNeovim()
   Plug 'adoy/vim-php-refactoring-toolbox'
   Plug 'dhruvasagar/vim-table-mode'
   Plug 'nvimtools/none-ls.nvim'
-  
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'kdheepak/lazygit.nvim'
+  Plug 'williamboman/mason.nvim'
+  Plug 'williamboman/mason-lspconfig.nvim'
+  Plug 'ErichDonGubler/lsp_lines.nvim'
+  Plug 'lukas-reineke/indent-blankline.nvim'
+  Plug 'rest-nvim/rest.nvim'
+  Plug 'HiPhish/rainbow-delimiters.nvim'
+
   call g:SetDdu()
 
   if g:IsMacNeovimInMfs()
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'gelguy/wilder.nvim'
-    Plug 'kdheepak/lazygit.nvim'
-    Plug 'williamboman/mason.nvim'
-    Plug 'williamboman/mason-lspconfig.nvim'
-    Plug 'ErichDonGubler/lsp_lines.nvim'
-		Plug 'lukas-reineke/indent-blankline.nvim'
-    Plug 'HiPhish/rainbow-delimiters.nvim'
     Plug 'folke/noice.nvim'
-		Plug 'rest-nvim/rest.nvim'
     call g:SetCoc()
 
   elseif g:IsMacNeovimInWezterm()
@@ -568,12 +568,12 @@ if g:IsMacNeovim()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ale.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-ambiwidth.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vista.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesitter.vim'
 
   if g:IsMacNeovimInMfs()
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
-    execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesitter.vim'
   elseif g:IsMacNeovimInWezterm()
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-lsp.vim'
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'

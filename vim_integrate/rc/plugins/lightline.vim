@@ -18,9 +18,10 @@ let g:lightline = {
       \ },
       \ 'tabline': {
       \   'left': [ ['gitbranch', 'gitstatus'], ['file_size', 'char_num'], ['vista']],
-      \   'right': [ ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok'] ]
+      \   'right': [ ['codeium'], ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok'] ]
       \ },
       \ 'component_function': {
+      \   'codeium': 'GetCodeiumCandidate',
       \   'gitstatus': 'gina#component#status#preset',
       \   'gitbranch': 'gina#component#repo#branch',
       \   'gitroot': 'gina#component#repo#name',
@@ -69,6 +70,10 @@ let s:p = g:lightline#colorscheme#wombat#palette
 let s:p.tabline.left = [ ['#444444', '#8ac6f2', 21, 231, 'bold' ], [ '#d0d0d0', '#585858', 231, 21 ], ['#000000',  '#ffffff', 231, 21, 'bold' ] ]
 
 " endif
+
+function! GetCodeiumCandidate()
+  return codeium#GetStatusString()
+endfunction
 
 function! NearestMethodOrFunction()
   if &filetype == 'changelog' || &filetype == 'text' || &filetype == 'ddu-ff-filter' || &filetype == 'ddu-filer' || &filetype == 'vim-plug' || &filetype == ''
