@@ -131,25 +131,24 @@ if g:IsLinux()
 
 	nnoremap <silent> <Space><Space>   :<C-u>FzfPreviewBuffers<CR>
 	" nnoremap <silent> <CR><CR> mD:<C-u>FzfPreviewFromResources mru buffer<CR>
-	nnoremap <silent> <Leader>gf mD:<C-u>FzfPreviewGitFiles<CR>
-	nnoremap <silent> <Leader>gs mD:<C-u>FzfPreviewGitStatus<CR>
-	nnoremap <silent> <Leader>ga mD:<C-u>FzfPreviewGitActions<CR>
-	nnoremap <silent> <Leader>gl mD:<C-u>FzfPreviewGitLogs<CR>
-	nnoremap <silent> <Leader>gb mD:<C-u>FzfPreviewGitBranches<CR>
-	nnoremap <silent> <Leader>C mD:<C-u>FzfPreviewChanges<CR>
-	nnoremap <silent> <Leader>l mD:<C-u>FzfPreviewLines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
-	nnoremap <silent> <Leader>L mD:<C-u>FzfPreviewLines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
+	" nnoremap <silent> <Leader>gf mD:<C-u>FzfPreviewGitFiles<CR>
+	" nnoremap <silent> <Leader>gs mD:<C-u>FzfPreviewGitStatus<CR>
+	" nnoremap <silent> <Leader>ga mD:<C-u>FzfPreviewGitActions<CR>
+	" nnoremap <silent> <Leader>gl mD:<C-u>FzfPreviewGitLogs<CR>
+	" nnoremap <silent> <Leader>gb mD:<C-u>FzfPreviewGitBranches<CR>
+	" nnoremap <silent> <Leader>C mD:<C-u>FzfPreviewChanges<CR>
+	" nnoremap <silent> <Leader>l mD:<C-u>FzfPreviewLines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
+	" nnoremap <silent> <Leader>L mD:<C-u>FzfPreviewLines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
 	nnoremap <silent> <Leader>b mD:<C-u>FzfPreviewBookmarks<CR>
 	" nnoremap <silent> <Space>pk  :<C-u>FzfPreviewProjectGrep imakoko<CR>
 	" nnoremap <silent> <Space>pa  :<C-u>FzfPreviewProjectGrep 
 	" nnoremap <silent> <Space>pA  :<C-u>FzfPreviewProjectGrep --add-fzf-arg=--no-sort --add-fzf-arg=--query="'" 
-	nnoremap <silent> <Space>Q   :<C-u>FzfPreviewQuickFix<CR>
-	nnoremap <silent> <Space>*   :<C-u>FzfPreviewLines --add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
-	nnoremap <silent> <Space>/ :<C-u>FzfPreviewLines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
-	nnoremap <silent> <Space>h   :<C-u>FzfPreviewCommandPalette<CR>
-	nnoremap <silent> <Space>y   :<C-u>FzfPreviewYankround<CR>
-	nnoremap <silent> <leader>cq     :<C-u>FzfPreviewQuickFix<CR>
-
+	" nnoremap <silent> <Space>Q   :<C-u>FzfPreviewQuickFix<CR>
+	" nnoremap <silent> <Space>*   :<C-u>FzfPreviewLines --add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
+	" nnoremap <silent> <Space>/ :<C-u>FzfPreviewLines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
+	" nnoremap <silent> <Space>h   :<C-u>FzfPreviewCommandPalette<CR>
+	" nnoremap <silent> <Space>y   :<C-u>FzfPreviewYankround<CR>
+	" nnoremap <silent> <leader>cq     :<C-u>FzfPreviewQuickFix<CR>
 endif
 
 augroup fzf_preview
