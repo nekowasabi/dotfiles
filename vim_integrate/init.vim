@@ -246,6 +246,10 @@ vim.api.nvim_set_keymap("n", "<leader>rr", "<Plug>RestNvim", opts)
 vim.api.nvim_set_keymap("n", "<leader>rp", "<Plug>RestNvimPreview", opts)
 vim.api.nvim_set_keymap("n", "<leader>rl", "<Plug>RestNvimLast", opts)
 
+vim.keymap.set({"x", "o"}, "m", function()
+    require("treemonkey").select({ ignore_injections = false })
+end)
+
 EOF
 
 " END

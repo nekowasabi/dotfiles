@@ -283,6 +283,7 @@ if g:IsMacNeovim()
   Plug 'lukas-reineke/indent-blankline.nvim'
   Plug 'rest-nvim/rest.nvim'
   Plug 'HiPhish/rainbow-delimiters.nvim'
+  Plug 'atusy/treemonkey.nvim'
 
   call g:SetDdu()
 
@@ -471,7 +472,17 @@ if g:IsWsl()
   Plug 'folke/trouble.nvim' " diagnoticを一覧表示する
   Plug 'adoy/vim-php-refactoring-toolbox'
   Plug 'dhruvasagar/vim-table-mode'
+  Plug 'nvimtools/none-ls.nvim'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'kdheepak/lazygit.nvim'
+  Plug 'williamboman/mason.nvim'
+  Plug 'williamboman/mason-lspconfig.nvim'
+  Plug 'ErichDonGubler/lsp_lines.nvim'
+  Plug 'lukas-reineke/indent-blankline.nvim'
+  Plug 'rest-nvim/rest.nvim'
+  Plug 'HiPhish/rainbow-delimiters.nvim'
   Plug 'gelguy/wilder.nvim'
+  Plug 'atusy/treemonkey.nvim'
 
   call g:SetCoc()
   call g:SetDdu()
@@ -658,19 +669,16 @@ endif
 " setting Wsl {{{1
 if g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/mark.vim'
-
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/neosnippet.vim'
-
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fzf-preview.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/defx.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/phpunit.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vimspector.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-bookmark.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/devicons.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-dadbod.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fern.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/denops-gh.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-vue.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-print-debug.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gitsign.vim'
@@ -679,12 +687,15 @@ if g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddu.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lightline.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ale.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddu.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-ambiwidth.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vista.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesitter.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
 
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
+
+   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fzf-preview.vim'
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lualine.vim'
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
