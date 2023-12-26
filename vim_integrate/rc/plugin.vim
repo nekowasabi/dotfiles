@@ -1,6 +1,8 @@
 "  -----------------------------------------------------------
 " vim-plug.vim
 
+" test
+
 " init {{{1
 if empty(g:GetAutoloadPath() . 'plug.vim')
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
