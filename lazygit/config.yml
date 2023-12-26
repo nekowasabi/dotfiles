@@ -1,0 +1,14 @@
+customCommands:
+  - key: 'c'
+    prompts:
+      - type: 'input'
+        title: 'Commit message'
+        initialValue: ''
+    command: "aicommits --type conventional"
+    context: 'files'
+    description: 'commit changes(Custom Command)'
+  - key: 'C'
+    command: "git commit --no-verify"
+    context: 'files'
+    subprocess: true
+    description: 'commit changes using git editor(Custom Command)'
