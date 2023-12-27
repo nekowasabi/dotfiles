@@ -291,6 +291,7 @@ if g:IsMacNeovim()
   if g:IsMacNeovimInMfs()
     Plug 'gelguy/wilder.nvim'
     Plug 'folke/noice.nvim'
+		Plug 'Robitx/gp.nvim'
     call g:SetCoc()
 
   elseif g:IsMacNeovimInWezterm()

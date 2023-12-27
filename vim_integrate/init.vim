@@ -169,8 +169,6 @@ vim.diagnostic.config({
   virtual_text = false,
 })
 
-require("ibl").setup()
-
 local highlight = {
     "RainbowRed",
     "RainbowYellow",
@@ -194,7 +192,6 @@ hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
     vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
 end)
 
-vim.g.rainbow_delimiters = { highlight = highlight }
 require("ibl").setup { indent = { highlight = highlight } }
 
 require("rest-nvim").setup({
@@ -249,6 +246,36 @@ vim.api.nvim_set_keymap("n", "<leader>rl", "<Plug>RestNvimLast", opts)
 vim.keymap.set({"x", "o"}, "m", function()
     require("treemonkey").select({ ignore_injections = false })
 end)
+
+-- gp.nvim
+require("gp").setup({
+agents =
+{
+  { 
+      name = "ChatGPT4", 
+      chat = true, 
+      command = true, 
+      -- string with model name or table with model name and parameters 
+      model = { model = "gpt-4-1106-preview", temperature = 1.1, top_p = 1 }, 
+      -- system prompt (use this to specify the persona/role of the AI) 
+      system_prompt = "You are a general AI assistant.\n\n" 
+      .. "The user provided the additional info about how they would like you to respond:\n\n" 
+      .. "- If you're unsure don't guess and say you don't know instead.\n" 
+      .. "- Ask question if you need clarification to provide better answer.\n" 
+      .. "- Think deeply and carefully from first principles step by step.\n" 
+      .. "- Zoom out first to see the big picture and then zoom in to details.\n" 
+      .. "- Use Socratic method to improve your thinking and coding skills.\n" 
+      .. "- Don't elide any code from your output if the answer requires coding.\n" 
+      .. "- Take a deep breath; You've got this!\n", 
+  }, 
+},
+chat_assistant_prefix = { "🤖:", "[{{agent}}]" }, 
+chat_dir = vim.fn.stdpath("data"):gsub("/$", "") .. "/gp/chats",
+chat_shortcut_respond = { modes = { "n", "i", "v", "x" }, shortcut = "<C-c>r" }, 
+chat_shortcut_delete = { modes = { "n", "i", "v", "x" }, shortcut = "<C-c>d" }, 
+chat_shortcut_stop = { modes = { "n", "i", "v", "x" }, shortcut = "<C-c>s" }, 
+chat_shortcut_new = { modes = { "n", "i", "v", "x" }, shortcut = "<C-c>c" }, 
+})
 
 EOF
 
