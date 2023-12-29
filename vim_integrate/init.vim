@@ -169,6 +169,7 @@ vim.diagnostic.config({
   virtual_text = false,
 })
 
+-- indent-blankline
 local highlight = {
     "RainbowRed",
     "RainbowYellow",
