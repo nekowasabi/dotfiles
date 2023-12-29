@@ -29,7 +29,7 @@ snippets:
     snippet: git checkout develop
   - name: git make branch
     keyword: gcb
-    snippet: git checkout -b {{branch}}
+    snippet: git checkout -b 
   # snippet with placeholder
   - name: git commit message
     keyword: gcim
@@ -37,6 +37,9 @@ snippets:
   - name: git add . && git commit
     keyword: gac
     snippet: git add . && git commit
+  - name: git add . && aicommits
+    keyword: gaa
+    snippet: git add . && aicommits --type conventional
   - name: "null"
     keyword: "null"
     snippet: ">/dev/null 2>&1"
