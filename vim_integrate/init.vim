@@ -261,9 +261,15 @@ agents =
       model = { model = "gpt-4-1106-preview", temperature = 1.1, top_p = 1 }, 
       -- system prompt (use this to specify the persona/role of the AI) 
       system_prompt = "レスポンスとは、日本語で回答してください\n\n" 
-			.. "1つずつ、step by stepで説明してください。\n\n"
-, 
+			.. "1つずつ、step by stepで説明してください。\n\n", 
   }, 
+	{
+			name = "ChatGPT3-5",
+	},
+	{
+			name = "CodeGPT3-5",
+	},
+
 },
 chat_assistant_prefix = { "🤖:", "[{{agent}}]" }, 
 chat_dir = vim.fn.stdpath("data"):gsub("/$", "") .. "/gp/chats",
