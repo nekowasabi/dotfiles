@@ -169,81 +169,56 @@ vim.diagnostic.config({
   virtual_text = false,
 })
 
--- indent-blankline
-local highlight = {
-    "RainbowRed",
-    "RainbowYellow",
-    "RainbowBlue",
-    "RainbowOrange",
-    "RainbowGreen",
-    "RainbowViolet",
-    "RainbowCyan",
-}
-
-local hooks = require "ibl.hooks"
--- create the highlight groups in the highlight setup hook, so they are reset
--- every time the colorscheme changes
-hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-    vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
-    vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
-    vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
-    vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
-    vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
-    vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
-    vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
-end)
-
-require("ibl").setup { indent = { highlight = highlight } }
-
--- rest.nvim
-require("rest-nvim").setup({
-    -- Open request results in a horizontal split
-    result_split_horizontal = false,
-    -- Keep the http file buffer above|left when split horizontal|vertical
-    result_split_in_place = false,
-    -- stay in current windows (.http file) or change to results window (default)
-    stay_in_current_window_after_split = true,
-    -- Skip SSL verification, useful for unknown certificates
-    skip_ssl_verification = true,
-    -- Encode URL before making request
-    encode_url = true,
-    -- Highlight request on run
-    highlight = {
-      enabled = true,
-      timeout = 150,
-    },
-    result = {
-      -- toggle showing URL, HTTP info, headers at top the of result window
-      show_url = true,
-      -- show the generated curl command in case you want to launch
-      -- the same request via the terminal (can be verbose)
-      show_curl_command = false,
-      show_http_info = true,
-      show_headers = true,
-      -- table of curl `--write-out` variables or false if disabled
-      -- for more granular control see Statistics Spec
-      show_statistics = false,
-      -- executables or functions for formatting response body [optional]
-      -- set them to false if you want to disable them
-      formatters = {
-        json = "jq",
-        html = function(body)
-          return vim.fn.system({"tidy", "-i", "-q", "-"}, body)
-        end
-      },
-    },
-    -- Jump to request line on run
-    jump_to_request = false,
-    env_file = '.env',
-    custom_dynamic_variables = {},
-    yank_dry_run = true,
-    search_back = true,
-})
-
-local opts = { noremap = true, silent = true }
-vim.api.nvim_set_keymap("n", "<leader>rr", "<Plug>RestNvim", opts)
-vim.api.nvim_set_keymap("n", "<leader>rp", "<Plug>RestNvimPreview", opts)
-vim.api.nvim_set_keymap("n", "<leader>rl", "<Plug>RestNvimLast", opts)
+ 
+-- -- rest.nvim
+-- require("rest-nvim").setup({
+--     -- Open request results in a horizontal split
+--     result_split_horizontal = false,
+--     -- Keep the http file buffer above|left when split horizontal|vertical
+--     result_split_in_place = false,
+--     -- stay in current windows (.http file) or change to results window (default)
+--     stay_in_current_window_after_split = true,
+--     -- Skip SSL verification, useful for unknown certificates
+--     skip_ssl_verification = true,
+--     -- Encode URL before making request
+--     encode_url = true,
+--     -- Highlight request on run
+--     highlight = {
+--       enabled = true,
+--       timeout = 150,
+--     },
+--     result = {
+--       -- toggle showing URL, HTTP info, headers at top the of result window
+--       show_url = true,
+--       -- show the generated curl command in case you want to launch
+--       -- the same request via the terminal (can be verbose)
+--       show_curl_command = false,
+--       show_http_info = true,
+--       show_headers = true,
+--       -- table of curl `--write-out` variables or false if disabled
+--       -- for more granular control see Statistics Spec
+--       show_statistics = false,
+--       -- executables or functions for formatting response body [optional]
+--       -- set them to false if you want to disable them
+--       formatters = {
+--         json = "jq",
+--         html = function(body)
+--           return vim.fn.system({"tidy", "-i", "-q", "-"}, body)
+--         end
+--       },
+--     },
+--     -- Jump to request line on run
+--     jump_to_request = false,
+--     env_file = '.env',
+--     custom_dynamic_variables = {},
+--     yank_dry_run = true,
+--     search_back = true,
+-- })
+-- 
+-- local opts = { noremap = true, silent = true }
+-- vim.api.nvim_set_keymap("n", "<leader>rr", "<Plug>RestNvim", opts)
+-- vim.api.nvim_set_keymap("n", "<leader>rp", "<Plug>RestNvimPreview", opts)
+-- vim.api.nvim_set_keymap("n", "<leader>rl", "<Plug>RestNvimLast", opts)
 
 vim.keymap.set({"x", "o"}, "m", function()
     require("treemonkey").select({ ignore_injections = false })
@@ -277,6 +252,74 @@ chat_shortcut_respond = { modes = { "n", "i", "v", "x" }, shortcut = "<C-c>r" },
 chat_shortcut_delete = { modes = { "n", "i", "v", "x" }, shortcut = "<C-c>d" }, 
 chat_shortcut_stop = { modes = { "n", "i", "v", "x" }, shortcut = "<C-c>s" }, 
 chat_shortcut_new = { modes = { "n", "i", "v", "x" }, shortcut = "<C-c>c" }, 
+})
+
+-- local highlight = {
+--     "RainbowRed",
+--     "RainbowYellow",
+--     "RainbowBlue",
+--     "RainbowOrange",
+--     "RainbowGreen",
+--     "RainbowViolet",
+--     "RainbowCyan",
+-- }
+-- 
+-- local hooks = require "ibl.hooks"
+-- hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
+-- -- create the highlight groups in the highlight setup hook, so they are reset
+-- -- every time the colorscheme changes
+-- hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+--     vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+--     vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+--     vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+--     vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+--     vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+--     vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+--     vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+-- end)
+-- 
+-- require("ibl").setup { indent = { highlight = highlight } }
+
+require("hlchunk").setup({
+chunk = {
+  enable = true,
+  use_treesitter = true,
+  notify = true,
+  chars = {
+    horizontal_line = "─",
+    vertical_line = "│",
+    left_top = "╭",
+    left_bottom = "╰",
+    right_arrow = "▶",
+  },
+  style = "#806d9c",
+},
+indent = {
+  chars = {
+    "│",
+  },
+  style = {
+    "#FF0000",
+    "#FF7F00",
+    "#FFFF00",
+    "#00FF00",
+    "#00FFFF",
+    "#0000FF",
+    "#8B00FF",
+  },
+},
+line_num = {
+  style = "#806d9c",
+},
+support_filetypes = {
+  "*.vim",
+  "*.php",
+  "*.md",
+  "*changelogmemo",
+},
+blank = {
+  enable = false,
+}
 })
 
 EOF
