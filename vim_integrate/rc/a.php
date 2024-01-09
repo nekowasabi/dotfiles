@@ -1,9 +1,9 @@
 <?php
 
-// extract odd numbers from array
-$sample = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+// extract odd number from array
+$sample_array = [1, 2, 3, 4, 5];
 
-$extracted = array_filter($sample, function ($value) {
+$extracted = array_filter($sample_array, function ($value) {
     return $value % 2;
 });
 
