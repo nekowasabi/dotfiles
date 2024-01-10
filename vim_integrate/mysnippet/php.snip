@@ -160,42 +160,6 @@ snippet doc
 	 * 
 	 */
 
-snippet el
-	error_log(${0:string});
-
-snippet elp
-	error_log(print_r(${0:array}, true));
-
-
-snippet e
-	error_log(print_r(${0:array}, true));exit;
-
-snippet loge
-	Common::logError(${0:message});
-
-
-snippet logw
-	Common::logWarning(${0:message});
-
-snippet logok
-	Common::logOk(${0:message});
-
-snippet ec
-	error_log(print_r(${0:array}, true));error_log(print_r('--- Canary', true));exit;
-
-snippet class_with_constructor
-	/**
-	 * ${1}
-	 */
-	class ${2:#:ClassName}${3:#:extends}
-	{
-		$5
-		function ${4:__construct}(${5:#:argument})
-		{
-			${0:# code...}
-		}
-	}
-
 snippet class
 options head
 	class ${2:#:ClassName} {
@@ -205,6 +169,8 @@ options head
 snippet def
 	${1}defined('${2}')${0}
 
+snippet ej
+	\Log::channel('json')->info('${1:message}', ${2:['data' => ]});
 
 snippet dowhile
 options head
@@ -431,16 +397,6 @@ snippet var_export
 alias inspect
   var_export(${1}, true)
 
-
-snippet     logger
-options     head
-		$filename='d:/logger.txt';
-		ob_start();
-		echo "var:\n";
-		var_dump(${1});
-		$out=ob_get_contents();
-		ob_end_clean();
-		file_put_contents($filename,$out,FILE_APPEND);
 
 
 snippet pq
