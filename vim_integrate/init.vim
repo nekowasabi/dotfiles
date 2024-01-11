@@ -292,7 +292,7 @@ chunk = {
     left_bottom = "╰",
     right_arrow = "▶",
   },
-  style = "#806d9c",
+  style = "#edea82",
 },
 indent = {
   chars = {

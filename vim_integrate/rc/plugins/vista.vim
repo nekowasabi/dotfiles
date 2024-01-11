@@ -13,11 +13,9 @@ endif
 if g:IsMacNeovimInMfs()
 	let g:vista_default_executive = 'coc'
 endif
-
-let g:vista_executive_for = {
-      \ 'markdown': 'vim_lsp',
-      \ 'php': 'vim_lsp',
-      \ }
+if g:IsWsl()
+	let g:vista_default_executive = 'coc'
+endif
 
 let g:vista#renderer#enable_icon = 1
 
