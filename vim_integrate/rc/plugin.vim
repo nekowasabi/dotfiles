@@ -86,6 +86,7 @@ Plug 'yuki-yano/ai-review.vim'
 Plug 'Exafunction/codeium.vim'
 Plug 'nekowasabi/vim-chatgpt'
 Plug 'ktakayama/gpt-commit-msg.vim'
+Plug 'nekowasabi/vim-perplexity'
 
 " denops
 Plug 'vim-denops/denops.vim'
@@ -245,7 +246,7 @@ endif
 " }}}1
 
 " Mac Neovim {{{1
-if g:IsMacNeovim()
+if g:IsMacNeovim() || g:IsWsl()
   " Plug 'puremourning/vimspector' 
   Plug 'itchyny/lightline.vim'
   Plug 'mengelbrecht/lightline-bufferline'
@@ -295,7 +296,10 @@ if g:IsMacNeovim()
     Plug 'gelguy/wilder.nvim'
     Plug 'folke/noice.nvim'
     call g:SetCoc()
-
+  elseif g:IsWsl()
+    Plug 'gelguy/wilder.nvim'
+    Plug 'folke/noice.nvim'
+    call g:SetCoc()
   elseif g:IsMacNeovimInWezterm()
     call g:SetDdc()
   else
@@ -445,54 +449,54 @@ if g:IsMacGvim()
 endif
 " }}}1
 
-" Wsl {{{1
-if g:IsWsl()
-  " Plug 'puremourning/vimspector' 
-  Plug 'itchyny/lightline.vim'
-  Plug 'mengelbrecht/lightline-bufferline'
-  Plug 'maximbaz/lightline-ale'
-  Plug 'dense-analysis/ale' " textlint
-  Plug 'pwntester/octo.nvim' " github操作
-  Plug 'nvim-lua/plenary.nvim' " luaのライブラリ
-  Plug 'nvim-tree/nvim-web-devicons'
-  Plug 'nvim-telescope/telescope.nvim' " 普段は使わないけれど、プラグイン連携でたまに使う
-  Plug 'elzr/vim-json'
-  Plug 'andymass/vim-matchup'
-  Plug 'Shougo/context_filetype.vim'
-  Plug 'Shougo/defx.nvim'
-  Plug 'kristijanhusak/defx-git'
-  Plug 'kristijanhusak/defx-icons'
-  Plug 'MattesGroeger/vim-bookmarks' " fzf-previewと連携して使う（単体でも一応使える）
-  Plug 'tpope/vim-dadbod'  " DBクライアント
-  Plug 'kristijanhusak/vim-dadbod-ui' 
-  Plug 'lewis6991/gitsigns.nvim'
-  Plug 'overcache/NeoSolarized'
-  Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
-  Plug 'akinsho/git-conflict.nvim'
-  Plug 'folke/lsp-colors.nvim' " lspの色を変更する
-  Plug 'MunifTanjim/nui.nvim' " おしゃれなコマンドライン変更
-  Plug 'rcarriga/nvim-notify' " 通知（おしゃれだけれどバギー）
-  Plug 'nvim-tree/nvim-web-devicons'
-  Plug 'folke/trouble.nvim' " diagnoticを一覧表示する
-  Plug 'adoy/vim-php-refactoring-toolbox'
-  Plug 'dhruvasagar/vim-table-mode'
-  Plug 'nvimtools/none-ls.nvim'
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  Plug 'kdheepak/lazygit.nvim'
-  Plug 'williamboman/mason.nvim'
-  Plug 'williamboman/mason-lspconfig.nvim'
-  Plug 'ErichDonGubler/lsp_lines.nvim'
-  Plug 'lukas-reineke/indent-blankline.nvim'
-  Plug 'rest-nvim/rest.nvim'
-  Plug 'HiPhish/rainbow-delimiters.nvim'
-  Plug 'gelguy/wilder.nvim'
-  Plug 'atusy/treemonkey.nvim'
-
-  call g:SetCoc()
-  call g:SetDdu()
-
-endif
-" }}}1
+" " Wsl {{{1
+" if g:IsWsl()
+"   " Plug 'puremourning/vimspector' 
+"   Plug 'itchyny/lightline.vim'
+"   Plug 'mengelbrecht/lightline-bufferline'
+"   Plug 'maximbaz/lightline-ale'
+"   Plug 'dense-analysis/ale' " textlint
+"   Plug 'pwntester/octo.nvim' " github操作
+"   Plug 'nvim-lua/plenary.nvim' " luaのライブラリ
+"   Plug 'nvim-tree/nvim-web-devicons'
+"   Plug 'nvim-telescope/telescope.nvim' " 普段は使わないけれど、プラグイン連携でたまに使う
+"   Plug 'elzr/vim-json'
+"   Plug 'andymass/vim-matchup'
+"   Plug 'Shougo/context_filetype.vim'
+"   Plug 'Shougo/defx.nvim'
+"   Plug 'kristijanhusak/defx-git'
+"   Plug 'kristijanhusak/defx-icons'
+"   Plug 'MattesGroeger/vim-bookmarks' " fzf-previewと連携して使う（単体でも一応使える）
+"   Plug 'tpope/vim-dadbod'  " DBクライアント
+"   Plug 'kristijanhusak/vim-dadbod-ui' 
+"   Plug 'lewis6991/gitsigns.nvim'
+"   Plug 'overcache/NeoSolarized'
+"   Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
+"   Plug 'akinsho/git-conflict.nvim'
+"   Plug 'folke/lsp-colors.nvim' " lspの色を変更する
+"   Plug 'MunifTanjim/nui.nvim' " おしゃれなコマンドライン変更
+"   Plug 'rcarriga/nvim-notify' " 通知（おしゃれだけれどバギー）
+"   Plug 'nvim-tree/nvim-web-devicons'
+"   Plug 'folke/trouble.nvim' " diagnoticを一覧表示する
+"   Plug 'adoy/vim-php-refactoring-toolbox'
+"   Plug 'dhruvasagar/vim-table-mode'
+"   Plug 'nvimtools/none-ls.nvim'
+"   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+"   Plug 'kdheepak/lazygit.nvim'
+"   Plug 'williamboman/mason.nvim'
+"   Plug 'williamboman/mason-lspconfig.nvim'
+"   Plug 'ErichDonGubler/lsp_lines.nvim'
+"   Plug 'lukas-reineke/indent-blankline.nvim'
+"   Plug 'rest-nvim/rest.nvim'
+"   Plug 'HiPhish/rainbow-delimiters.nvim'
+"   Plug 'gelguy/wilder.nvim'
+"   Plug 'atusy/treemonkey.nvim'
+" 
+"   call g:SetCoc()
+"   call g:SetDdu()
+" 
+" endif
+" " }}}1
 
 " Windows Neovim {{{1
 if g:IsWindowsNeovim()
