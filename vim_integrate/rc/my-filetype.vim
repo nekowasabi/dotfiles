@@ -10,8 +10,7 @@ augroup fileTypeIndent
   autocmd InsertCharPre fzf redraw
   autocmd BufNewFile,BufRead json set tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
   autocmd BufNewFile,BufRead,BufWinEnter,BufNewFile *.js setlocal filetype=javascript tabstop=4 softtabstop=4 shiftwidth=4 expandtab
-  autocmd BufNewFile,BufRead,BufWinEnter,BufNewFile Result setlocal filetype=dbext
-  autocmd FileType dbext resize 100 set fileencoding=utf-8
+  autocmd BufWinEnter,BufNewFile,BufRead *.dbout setlocal foldmethod=marker
   autocmd BufRead,BufNewFile changelogmemo setfiletype changelog|setlocal commentstring=%s
   autocmd FileType gitcommit resize 100 set fileencoding=utf-8
   autocmd BufRead,BufNewFile old_changelogmemo setfiletype changelog|setlocal commentstring=%s
