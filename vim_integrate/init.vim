@@ -285,18 +285,31 @@ chunk = {
   enable = true,
   use_treesitter = true,
   notify = true,
+  -- chars = {
+  --   horizontal_line = "─",
+  --   vertical_line = "│",
+  --   left_top = "╭",
+  --   left_bottom = "╰",
+  --   right_arrow = "▶",
+  -- },
   chars = {
-    horizontal_line = "─",
-    vertical_line = "│",
-    left_top = "╭",
-    left_bottom = "╰",
+    horizontal_line = "━",
+    vertical_line = "┃",
+    left_top = "┏",
+    left_bottom = "┗",
     right_arrow = "▶",
   },
+
   style = "#edea82",
+  support_filetypes = {
+    "*.vim",
+    "*.php",
+    "*.md",
+  },
 },
 indent = {
   chars = {
-    "│",
+    "┃",
   },
   style = {
     "#FF0000",
@@ -310,12 +323,6 @@ indent = {
 },
 line_num = {
   style = "#806d9c",
-},
-support_filetypes = {
-  "*.vim",
-  "*.php",
-  "*.md",
-  "*changelogmemo",
 },
 blank = {
   enable = false,
