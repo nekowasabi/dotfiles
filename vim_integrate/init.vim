@@ -141,6 +141,10 @@ let g:lsp_settings_filetype_typescript = ['typescript-language-server', 'eslint-
 let g:gpt_commit_msg = {}
 let g:gpt_commit_msg.api_key = $OPENAI_API_KEY
 
+" vim-perplexity
+let g:perplexity_token = $PERPLEXITY_TOKEN
+let g:perplexity_model = 'llama-2-70b-chat'
+
 " -----------------------------------------------------------
 " lua
 lua << EOF
@@ -305,6 +309,8 @@ chunk = {
     "*.vim",
     "*.php",
     "*.md",
+    "*.ts",
+    "*.js",
   },
 },
 indent = {
