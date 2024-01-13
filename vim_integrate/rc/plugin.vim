@@ -124,14 +124,11 @@ function! g:SetDdc() abort
   Plug 'Shougo/ddc-sorter_rank'
   Plug 'Shougo/ddc-filter-converter_remove_overlap'
 	Plug 'Shougo/ddc-source-rg'
-  Plug 'shun/ddc-source-vim-lsp'
   Plug 'fuenor/im_control.vim'
   Plug 'matsui54/ddc-buffer'
   Plug 'Shougo/pum.vim'
   Plug 'Shougo/ddc-ui-pum'
   Plug 'Shougo/neco-vim'
-  Plug 'prabirshrestha/vim-lsp'
-  Plug 'mattn/vim-lsp-settings'
   Plug 'matsui54/denops-signature_help'
   Plug 'LumaKernel/ddc-source-file'
   Plug 'tani/ddc-fuzzy'
@@ -142,6 +139,16 @@ function! g:SetDdc() abort
 	Plug 'Shougo/ddc-source-mocword'
   Plug 'gamoutatsumi/ddc-emoji'
   Plug 'Shougo/ddc-source-codeium'
+
+  if g:IsWindowsGvim()
+    Plug 'prabirshrestha/vim-lsp'
+    Plug 'mattn/vim-lsp-settings'
+  else
+    Plug 'Shougo/ddc-source-lsp'
+    Plug 'uga-rosa/ddc-source-lsp-setup'
+    Plug 'neovim/nvim-lspconfig'
+  endif
+
 endfunction
 
 " ddu

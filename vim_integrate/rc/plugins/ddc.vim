@@ -1,13 +1,32 @@
+lua << EOF
+require("ddc_source_lsp_setup").setup()
+require("mason").setup()
+require("mason-lspconfig").setup()
+require("lspconfig").vimls.setup {}
+require("lspconfig").denols.setup {}
+EOF
+
 call ddc#custom#patch_global('ui','pum')
-call ddc#custom#patch_global('sources', ['around', 'buffer', 'neosnippet', 'vim-lsp', 'cmdline-history', 'file', 'rg'])
+call ddc#custom#patch_global('sources', ['around', 'buffer', 'neosnippet', 'lsp', 'cmdline-history', 'file', 'rg'])
 call ddc#custom#patch_filetype(['aichat'], 'sources', [])
 call ddc#custom#patch_filetype(['changelog'], 'sources', ['around', 'file', 'rg'])
 call ddc#custom#patch_filetype(['markdown'], 'sources', ['around', 'file'])
 call ddc#custom#patch_filetype(['text'], 'sources', ['around'])
-call ddc#custom#patch_filetype(['vim'], 'sources', ['vim-lsp', 'around', 'buffer', 'neosnippet', 'rg'])
-call ddc#custom#patch_filetype(['javascript'], 'sources', ['vim-lsp', 'around', 'buffer', 'rg'])
-call ddc#custom#patch_filetype(['php'], 'sources', ['vim-lsp', 'around', 'buffer', 'rg'])
+call ddc#custom#patch_filetype(['vim'], 'sources', ['lsp', 'around', 'buffer', 'neosnippet', 'rg'])
+call ddc#custom#patch_filetype(['javascript'], 'sources', ['lsp', 'around', 'buffer', 'rg'])
+call ddc#custom#patch_filetype(['php'], 'sources', ['lsp', 'around', 'buffer', 'rg'])
 call popup_preview#enable()
+
+" lsp
+call ddc#custom#patch_global(#{
+      \ sourceOptions: #{
+      \   nvim-lsp: #{
+      \     dup: 'keep',
+      \     keywordPattern: '\k+',
+      \     sorters: ['sorter_lsp-kind']
+      \   },
+      \ },
+      \})
 
 " rg
 call ddc#custom#patch_global('sourceOptions', #{
@@ -68,12 +87,6 @@ call ddc#custom#patch_global('sourceOptions', #{
 	\     ignoreCase: v:true
   \   },
   \ })
-call ddc#custom#patch_global('sourceOptions', {
-  \   'vim-lsp': {
-  \   'matchers': ['matcher_fuzzy'],
-  \   'mark': 'lsp',
-  \   },
-  \ })
 
 call ddc#custom#patch_global('sourceOptions', {
   \   'around': {
@@ -112,7 +125,6 @@ call ddc#custom#patch_global('sourceParams', {
 call ddc#custom#patch_global('sourceOptions', #{
       \   cmdline-history: #{ mark: '[cmdhis]' },
       \ })
-call ddc#custom#patch_global('sources', ['vim-lsp'])
 inoremap <silent><expr> <TAB>
      \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
      \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?

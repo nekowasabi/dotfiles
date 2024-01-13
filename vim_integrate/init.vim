@@ -136,6 +136,7 @@ let g:chat_gpt_lang = 'Japanese'
 
 call ai_review#config({ 'chat_gpt': { 'model': 'gpt-4' } })
 
+
 let g:lsp_settings_filetype_typescript = ['typescript-language-server', 'eslint-language-server', 'deno']
 
 let g:gpt_commit_msg = {}
@@ -145,22 +146,10 @@ let g:gpt_commit_msg.api_key = $OPENAI_API_KEY
 let g:perplexity_token = $PERPLEXITY_TOKEN
 let g:perplexity_model = 'llama-2-70b-chat'
 
-" vim-lsp
-if executable("deno")
-  augroup LspTypeScript
-    autocmd!
-    autocmd User lsp_setup call lsp#register_server({
-    \ "name": "deno lsp",
-    \ "cmd": {server_info -> ["deno", "lsp"]},
-    \ "root_uri": {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), "tsconfig.json"))},
-    \ "whitelist": ["typescript", "typescript.tsx"],
-    \ })
-  augroup END
-endif
-
 " -----------------------------------------------------------
 " lua
 lua << EOF
+
 --- for caw's workaround
 local M = {}
 ---@param lnum integer
