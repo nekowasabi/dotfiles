@@ -1,11 +1,3 @@
-lua << EOF
-require("ddc_source_lsp_setup").setup()
-require("mason").setup()
-require("mason-lspconfig").setup()
-require("lspconfig").vimls.setup {}
-require("lspconfig").denols.setup {}
-EOF
-
 call ddc#custom#patch_global('ui','pum')
 call ddc#custom#patch_global('sources', ['around', 'buffer', 'neosnippet', 'lsp', 'cmdline-history', 'file', 'rg'])
 call ddc#custom#patch_filetype(['aichat'], 'sources', [])
