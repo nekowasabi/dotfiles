@@ -145,6 +145,19 @@ let g:gpt_commit_msg.api_key = $OPENAI_API_KEY
 let g:perplexity_token = $PERPLEXITY_TOKEN
 let g:perplexity_model = 'llama-2-70b-chat'
 
+" vim-lsp
+if executable("deno")
+  augroup LspTypeScript
+    autocmd!
+    autocmd User lsp_setup call lsp#register_server({
+    \ "name": "deno lsp",
+    \ "cmd": {server_info -> ["deno", "lsp"]},
+    \ "root_uri": {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), "tsconfig.json"))},
+    \ "whitelist": ["typescript", "typescript.tsx"],
+    \ })
+  augroup END
+endif
+
 " -----------------------------------------------------------
 " lua
 lua << EOF

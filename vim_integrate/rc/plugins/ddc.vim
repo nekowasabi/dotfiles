@@ -17,8 +17,8 @@ call ddc#custom#patch_global('sourceOptions', #{
         \   },
         \ })
 
-" Add matching patterns
-call ddc#custom#patch_global('keywordPattern', '[a-zA-Z_:]\w*')
+" " Add matching patterns
+" call ddc#custom#patch_global('keywordPattern', '[a-zA-Z_:]\w*')
 
 " emulate default mappings (see `:help ins-completion`)
 function! s:ddc_complete(...) abort
