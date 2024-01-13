@@ -191,4 +191,8 @@ let g:chat_gpt_session_mode=1
 let g:chat_gpt_temperature = 0.7
 let g:chat_gpt_lang = 'Japanese'
 
+" perplexity
+let g:perplexity_token = 'ok'
+let g:perplexity_model = 'aaa'
+
 "  END

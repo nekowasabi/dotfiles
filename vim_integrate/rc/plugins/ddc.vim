@@ -1,24 +1,43 @@
 call ddc#custom#patch_global('ui','pum')
-call ddc#custom#patch_global('sources', ['around', 'buffer', 'neosnippet', 'lsp', 'cmdline-history', 'file', 'rg'])
-call ddc#custom#patch_filetype(['aichat'], 'sources', [])
-call ddc#custom#patch_filetype(['changelog'], 'sources', ['around', 'file', 'rg'])
-call ddc#custom#patch_filetype(['markdown'], 'sources', ['around', 'file'])
-call ddc#custom#patch_filetype(['text'], 'sources', ['around'])
-call ddc#custom#patch_filetype(['vim'], 'sources', ['lsp', 'around', 'buffer', 'neosnippet', 'rg'])
-call ddc#custom#patch_filetype(['javascript'], 'sources', ['lsp', 'around', 'buffer', 'rg'])
-call ddc#custom#patch_filetype(['php'], 'sources', ['lsp', 'around', 'buffer', 'rg'])
-call popup_preview#enable()
 
-" lsp
-call ddc#custom#patch_global(#{
-      \ sourceOptions: #{
-      \   nvim-lsp: #{
-      \     dup: 'keep',
-      \     keywordPattern: '\k+',
-      \     sorters: ['sorter_lsp-kind']
-      \   },
-      \ },
-      \})
+if g:IsWindowsGvim()
+	call ddc#custom#patch_global('sources', ['around', 'buffer', 'neosnippet', 'vim-lsp', 'cmdline-history', 'file', 'rg'])
+	call ddc#custom#patch_filetype(['aichat'], 'sources', [])
+	call ddc#custom#patch_filetype(['changelog'], 'sources', ['around', 'file', 'rg'])
+	call ddc#custom#patch_filetype(['markdown'], 'sources', ['around', 'file'])
+	call ddc#custom#patch_filetype(['text'], 'sources', ['around'])
+	call ddc#custom#patch_filetype(['vim'], 'sources', ['vim-lsp', 'around', 'buffer', 'neosnippet', 'rg'])
+	call ddc#custom#patch_filetype(['javascript'], 'sources', ['vim-lsp', 'around', 'buffer', 'rg'])
+	call ddc#custom#patch_filetype(['php'], 'sources', ['vim-lsp', 'around', 'buffer', 'rg'])
+
+  call ddc#custom#patch_global('sourceOptions', #{
+        \   vim-lsp: #{
+        \     matchers: ['matcher_head'],
+        \     mark: 'lsp',
+        \   },
+        \ })
+else
+  call ddc#custom#patch_global('sources', ['around', 'buffer', 'neosnippet', 'lsp', 'cmdline-history', 'file', 'rg'])
+  call ddc#custom#patch_filetype(['aichat'], 'sources', [])
+  call ddc#custom#patch_filetype(['changelog'], 'sources', ['around', 'file', 'rg'])
+  call ddc#custom#patch_filetype(['markdown'], 'sources', ['around', 'file'])
+  call ddc#custom#patch_filetype(['text'], 'sources', ['around'])
+  call ddc#custom#patch_filetype(['vim'], 'sources', ['lsp', 'around', 'buffer', 'neosnippet', 'rg'])
+  call ddc#custom#patch_filetype(['javascript'], 'sources', ['lsp', 'around', 'buffer', 'rg'])
+  call ddc#custom#patch_filetype(['php'], 'sources', ['lsp', 'around', 'buffer', 'rg'])
+
+  call ddc#custom#patch_global(#{
+        \ sourceOptions: #{
+        \   nvim-lsp: #{
+        \     dup: 'keep',
+        \     keywordPattern: '\k+',
+        \     sorters: ['sorter_lsp-kind']
+        \   },
+        \ },
+        \})
+endif
+
+call popup_preview#enable()
 
 " rg
 call ddc#custom#patch_global('sourceOptions', #{
