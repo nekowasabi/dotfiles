@@ -139,11 +139,11 @@ function! g:SetDdc() abort
 	Plug 'Shougo/ddc-source-mocword'
   Plug 'gamoutatsumi/ddc-emoji'
   Plug 'Shougo/ddc-source-codeium'
+  Plug 'prabirshrestha/vim-lsp'
 
   if g:IsWindowsGvim()
+  Plug 'mattn/vim-lsp-settings'
     Plug 'shun/ddc-source-vim-lsp'
-    Plug 'prabirshrestha/vim-lsp'
-    Plug 'mattn/vim-lsp-settings'
   else
     Plug 'Shougo/ddc-source-lsp'
     Plug 'uga-rosa/ddc-source-lsp-setup'

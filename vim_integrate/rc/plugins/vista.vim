@@ -4,7 +4,7 @@ let g:vista_update_on_text_changed = 1
 let g:vista_blink                  = [1, 100]
 let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
 
-if g:IsWindowsGvim() || g:IsMacNeovim() || g:IsWsl()
+if g:IsWindowsGvim()
 	let g:vista_default_executive = 'vim_lsp'
 endif
 if g:IsLinux() && !g:IsWsl() 
@@ -12,6 +12,9 @@ if g:IsLinux() && !g:IsWsl()
 endif
 if g:IsMacNeovimInMfs()
 	let g:vista_default_executive = 'coc'
+endif
+if g:IsMacNeovimInWezterm()
+	let g:vista_default_executive = 'nvim_lsp'
 endif
 if g:IsWsl()
 	let g:vista_default_executive = 'coc'

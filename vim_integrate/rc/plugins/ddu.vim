@@ -356,7 +356,11 @@ function DduLineEstimate() abort
 endfunction
 
 " vim-lsp
-let g:ddu_source_lsp_clientName = 'vim-lsp'
+if g:IsWindowsGvim()
+  let g:ddu_source_lsp_clientName = 'vim-lsp'
+else
+  let g:ddu_source_lsp_clientName = 'nvim-lsp'
+endif
 call ddu#custom#patch_global(#{
       \ kindOptions: #{
       \   lsp: #{
