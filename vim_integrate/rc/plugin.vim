@@ -142,7 +142,7 @@ function! g:SetDdc() abort
   Plug 'prabirshrestha/vim-lsp'
 
   if g:IsWindowsGvim()
-  Plug 'mattn/vim-lsp-settings'
+    Plug 'mattn/vim-lsp-settings'
     Plug 'shun/ddc-source-vim-lsp'
   else
     Plug 'Shougo/ddc-source-lsp'
