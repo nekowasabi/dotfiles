@@ -146,8 +146,6 @@ function! g:SetDdc() abort
     Plug 'shun/ddc-source-vim-lsp'
   else
     Plug 'Shougo/ddc-source-lsp'
-    Plug 'uga-rosa/ddc-source-lsp-setup'
-    Plug 'neovim/nvim-lspconfig'
   endif
 
 endfunction
@@ -295,6 +293,8 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'rest-nvim/rest.nvim'
   Plug 'atusy/treemonkey.nvim'
   Plug 'Robitx/gp.nvim'
+  Plug 'uga-rosa/ddc-source-lsp-setup'
+  Plug 'neovim/nvim-lspconfig'
 
   call g:SetDdu()
 

@@ -150,7 +150,7 @@ let g:perplexity_model = 'llama-2-70b-chat'
 lua << EOF
 
 -- lsp
-require("ddc_source_lsp_setup").setup()
+-- require("ddc_source_lsp_setup").setup()
 require("mason").setup()
 require("mason-lspconfig").setup()
 require("lspconfig").vimls.setup {}
