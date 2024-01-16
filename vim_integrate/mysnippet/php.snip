@@ -170,7 +170,7 @@ snippet def
 	${1}defined('${2}')${0}
 
 snippet ej
-	\Log::channel('json')->info('${1:message}', ${2:['data' => ]});
+	\Log::channel('json')->info('${1:message}', ['data' => ${2:}]);
 
 snippet dowhile
 options head
