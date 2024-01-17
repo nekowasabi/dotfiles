@@ -757,24 +757,6 @@
                             {
                                 "conditions": [],
                                 "from": {
-                                    "key_code": "m",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "control"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "return_or_enter",
-                                        "modifiers": "command"
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [],
-                                "from": {
                                     "key_code": "right_command"
                                 },
                                 "to": [
