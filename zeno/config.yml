@@ -73,6 +73,9 @@ snippets:
   - name: qmk compile
     keyword: qc
     snippet: qmk compile -kb jisplit89 -km chimera
+  - name: lazygit
+    keyword: lg
+    snippet: lazygit
 
 completions:
   - name: kill
