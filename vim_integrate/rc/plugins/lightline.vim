@@ -72,7 +72,10 @@ let s:p.tabline.left = [ ['#444444', '#8ac6f2', 21, 231, 'bold' ], [ '#d0d0d0', 
 " endif
 
 function! GetCodeiumCandidate()
-  return codeium#GetStatusString()
+  if g:IsWindowsGvim()
+    return codeium#GetStatusString()
+  endif
+  return ''
 endfunction
 
 function! NearestMethodOrFunction()

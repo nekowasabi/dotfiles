@@ -80,13 +80,17 @@ Plug 'rickhowe/wrapwidth/'
 Plug 'tyru/open-browser.vim'
 
 " AI
-" Plug 'github/copilot.vim'
 Plug 'madox2/vim-ai', { 'do': './install.sh' }
 Plug 'yuki-yano/ai-review.vim'
-Plug 'Exafunction/codeium.vim'
 Plug 'nekowasabi/vim-chatgpt'
 Plug 'ktakayama/gpt-commit-msg.vim'
 Plug 'nekowasabi/vim-perplexity'
+
+if g:IsWindowsGvim()
+  Plug 'Exafunction/codeium.vim'
+else
+  Plug 'github/copilot.vim'
+endif
 
 " denops
 Plug 'vim-denops/denops.vim'
@@ -545,8 +549,9 @@ execute 'source '.g:GetVimConfigRootPath().'rc/plugins/surround.vim'
 " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-altr.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-ai.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/deepl.vim'
-execute 'source '.g:GetVimConfigRootPath().'rc/plugins/codeium.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/sayonara.vim'
+
+execute 'source '.g:GetVimConfigRootPath().'rc/plugins/codeium.vim'
 " }}}1
 
 " setting Mac Gvim {{{1
@@ -594,6 +599,7 @@ if g:IsMacNeovim()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-ambiwidth.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vista.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesitter.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
 
   if g:IsMacNeovimInMfs()
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
@@ -607,7 +613,6 @@ if g:IsMacNeovim()
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
   endif
 
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
 endif
 " }}}1
 

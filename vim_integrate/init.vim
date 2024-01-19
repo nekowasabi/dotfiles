@@ -144,6 +144,7 @@ let g:gpt_commit_msg.api_key = $OPENAI_API_KEY
 " vim-perplexity
 let g:perplexity_token = $PERPLEXITY_TOKEN
 let g:perplexity_model = 'llama-2-70b-chat'
+let g:perplexity_log_directory = '/tmp/perplexity'
 
 " -----------------------------------------------------------
 " lua

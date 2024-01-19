@@ -1,8 +1,8 @@
 " coc.nvim
 
 " codeium
-let g:codeium_disable_bindings = 1
-imap <script><silent><nowait><expr> <C-l> codeium#Accept()
+" let g:codeium_disable_bindings = 1
+" imap <script><silent><nowait><expr> <C-l> codeium#Accept()
 
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm()
    \: "\<C-g>u" . lexima#expand('<LT>CR>', 'i')
