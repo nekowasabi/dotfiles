@@ -197,4 +197,21 @@ function select-history() {
 zle -N select-history
 bindkey '^r' select-history
 
+# コマンドラインに応じてファイルまたはディレクトリを検索し、結果をコマンドラインに挿入する関数
+fzf_find_path() {
+    if [[ $LBUFFER == cd\ * ]]; then
+        # 'cd'コマンドの場合はディレクトリのみを検索
+        local selected_path=$(find * -type d 2> /dev/null | fzf)
+    else
+        # それ以外のコマンドではファイルとディレクトリを検索
+        local selected_path=$(find * -type f -o -type d 2> /dev/null | fzf)
+    fi
 
+    if [[ -n $selected_path ]]; then
+        LBUFFER+="$selected_path"
+    fi
+}
+
+# Ctrl+t のキーバインドを設定
+zle -N fzf_find_path
+bindkey '^t' fzf_find_path
