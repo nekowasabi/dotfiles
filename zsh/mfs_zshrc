@@ -32,6 +32,7 @@ export DENOPS_TEST_NVIM=/usr/local/bin/nvim
 export DENO_INSTALL="/Users/ttakeda/.deno"
 export MOCWORD_DATA='/Users/ttakeda/.config/mocword/mocword.sqlite'
 export ZENO_HOME='/Users/ttakeda/.config/zeno'
+export RIPGREP_CONFIG_PATH='/Users/ttakeda/.ripgreprc'
 # }}}1
 
 # standard settings {{{1
@@ -149,29 +150,19 @@ export ZENO_GIT_CAT="bat --color=always"
 export ZENO_GIT_TREE="eza --tree"
 
 if [[ -n $ZENO_LOADED ]]; then
-  bindkey ' '  zeno-auto-snippet
+  snippet_and_completion() {
+    zeno-auto-snippet
+    zeno-completion
+  }
+  zle -N snippet_and_completion
+  bindkey '^x^x' snippet_and_completion
+
+  bindkey '^u'  zeno-auto-snippet
   bindkey '^o' zeno-auto-snippet-and-accept-line
   bindkey '^i' zeno-completion
   bindkey '^x^s' zeno-insert-snippet
+  export ZENO_COMPLETION_FALLBACK=expand-or-complete
 fi
-
-# 
-# 
-# if [[ -n $ZENO_LOADED ]]; then
-#   snippet_and_completion() {
-#     zeno-auto-snippet
-#     zeno-completion
-#   }
-#   zle -N snippet_and_completion
-#   bindkey '^x^x' snippet_and_completion
-# 
-# 
-#   # bindkey ' '  zeno-auto-snippet
-#   bindkey '^o' zeno-auto-snippet-and-accept-line
-#   bindkey '^i' zeno-completion
-#   bindkey '^x^s' zeno-insert-snippet
-#   export ZENO_COMPLETION_FALLBACK=expand-or-complete
-# fi
 
 export FZF_DEFAULT_COMMAND'=rg --files --hidden --follow --glob "!.git/*"'
 export FZF_DEFAULT_OPTS='--height 80% --reverse'
@@ -231,3 +222,21 @@ function select-history() {
 zle -N select-history
 bindkey '^r' select-history
 
+# コマンドラインに応じてファイルまたはディレクトリを検索し、結果をコマンドラインに挿入する関数
+fzf_find_path() {
+    if [[ $LBUFFER == cd\ * ]]; then
+        # 'cd'コマンドの場合はディレクトリのみを検索
+        local selected_path=$(find * -type d 2> /dev/null | fzf)
+    else
+        # それ以外のコマンドではファイルとディレクトリを検索
+        local selected_path=$(find * -type f -o -type d 2> /dev/null | fzf)
+    fi
+
+    if [[ -n $selected_path ]]; then
+        LBUFFER+="$selected_path"
+    fi
+}
+
+# Ctrl+t のキーバインドを設定
+zle -N fzf_find_path
+bindkey '^t' fzf_find_path

@@ -324,6 +324,7 @@ chunk = {
     "*.md",
     "*.ts",
     "*.js",
+    "*.yml",
   },
 },
 indent = {
