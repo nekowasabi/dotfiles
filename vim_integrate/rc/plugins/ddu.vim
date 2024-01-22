@@ -579,7 +579,7 @@ call ddu#custom#patch_local('filer', {
 \ })
 
 autocmd TabEnter,CursorHold,FocusGained <buffer>
-	\ call ddu#ui#filer#do_action('checkItems')
+	\ call ddu#ui#do_action('checkItems')
 
 autocmd FileType ddu-filer call s:ddu_filer_my_settings()
 function! s:ddu_filer_my_settings() abort
@@ -614,11 +614,11 @@ function! s:ddu_filer_my_settings() abort
 	nnoremap <buffer><silent> r
 				\ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'rename'})<CR>
   nnoremap <buffer><silent> c
-    \ <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'copy'})<CR>
+    \ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'copy'})<CR>
   nnoremap <buffer><silent> p
-    \ <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'paste'})<CR>
+    \ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'paste'})<CR>
   nnoremap <buffer><silent> d
-    \ <Cmd>call ddu#ui#filer#do_action('itemAction', {'name': 'delete'})<CR>
+    \ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'delete'})<CR>
 	nnoremap <buffer><silent> q
 				\ <Cmd>call ddu#ui#do_action('quit')<CR>
 endfunction
