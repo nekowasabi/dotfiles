@@ -10,4 +10,5 @@ let g:copilot_filetypes = {
 			\ 'shd': v:false,
 			\ 'aichat': v:false,
 			\ 'gitcommit': v:true,
+			\ 'yaml': v:true,
 			\ }
