@@ -306,6 +306,7 @@ if g:IsMacNeovim() || g:IsWsl()
     Plug 'gelguy/wilder.nvim'
     Plug 'folke/noice.nvim'
     Plug 'vinnymeller/swagger-preview.nvim'
+		Plug 'jellydn/CopilotChat.nvim'
     call g:SetCoc()
   elseif g:IsWsl()
     Plug 'gelguy/wilder.nvim'

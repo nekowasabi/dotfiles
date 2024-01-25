@@ -149,6 +149,9 @@ let g:perplexity_log_directory = '/tmp/perplexity'
 " lazygit
 nnoremap <silent> <leader>lg :LazyGit<CR>
 
+" CopilotChat
+nnoremap <silent> <leader>cce :CopilotChatExplain<CR>
+
 " -----------------------------------------------------------
 " lua
 lua << EOF
@@ -271,32 +274,6 @@ chat_shortcut_stop = { modes = { "n", "i", "v", "x" }, shortcut = "<C-c>s" },
 chat_shortcut_new = { modes = { "n", "i", "v", "x" }, shortcut = "<C-c>c" }, 
 })
 
--- local highlight = {
---     "RainbowRed",
---     "RainbowYellow",
---     "RainbowBlue",
---     "RainbowOrange",
---     "RainbowGreen",
---     "RainbowViolet",
---     "RainbowCyan",
--- }
--- 
--- local hooks = require "ibl.hooks"
--- hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
--- -- create the highlight groups in the highlight setup hook, so they are reset
--- -- every time the colorscheme changes
--- hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
---     vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
---     vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
---     vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
---     vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
---     vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
---     vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
---     vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
--- end)
--- 
--- require("ibl").setup { indent = { highlight = highlight } }
-
 require("hlchunk").setup({
 chunk = {
   enable = true,
@@ -361,7 +338,7 @@ local on_attach = function(client, bufnr)
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', '<space>ck', im.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', '<space>ck', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', '<space>cd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', '<space>ci', vim.lsp.buf.implementation, bufopts)
   vim.keymap.set('n', '<space>gr', vim.lsp.buf.references, bufopts)
@@ -373,6 +350,19 @@ require("swagger-preview").setup({
     port = 8000,
     -- The host to run the preview server on
     host = "localhost",
+})
+
+
+require("CopilotChat").setup({
+  mode = "split",
+  prompts = {
+    Explain = "コードの内容を日本語でステップバイステップで説明してください",
+    Review = "review the following code and provide concise suggestions.",
+    Tests = "briefly explain how the selected code works, then generate unit tests.",
+    Refactor = "refactor the code to improve clarity and readability.",
+    Aaa = "Add comment by Japanese",
+  },
+  event = "VeryLazy",
 })
 
 EOF
