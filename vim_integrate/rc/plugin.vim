@@ -299,6 +299,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'Robitx/gp.nvim'
   Plug 'uga-rosa/ddc-source-lsp-setup'
   Plug 'neovim/nvim-lspconfig'
+  Plug 'jellydn/CopilotChat.nvim', { 'branch': 'develop' }
 
   call g:SetDdu()
 
@@ -306,7 +307,6 @@ if g:IsMacNeovim() || g:IsWsl()
     Plug 'gelguy/wilder.nvim'
     Plug 'folke/noice.nvim'
     Plug 'vinnymeller/swagger-preview.nvim'
-		Plug 'jellydn/CopilotChat.nvim'
     call g:SetCoc()
   elseif g:IsWsl()
     Plug 'gelguy/wilder.nvim'
@@ -317,9 +317,9 @@ if g:IsMacNeovim() || g:IsWsl()
   else
     call g:SetDdc()
   endif
-	if g:IsWindowsGvim()
-    call g:SetDdc()
-	endif
+	" if g:IsWindowsGvim()
+ "    call g:SetDdc()
+	" endif
 endif
 
 " }}}1
