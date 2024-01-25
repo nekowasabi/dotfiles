@@ -368,6 +368,13 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
 end
 
+require("swagger-preview").setup({
+    -- The port to run the preview server on
+    port = 8000,
+    -- The host to run the preview server on
+    host = "localhost",
+})
+
 EOF
 
 " END

@@ -305,6 +305,7 @@ if g:IsMacNeovim() || g:IsWsl()
   if g:IsMacNeovimInMfs()
     Plug 'gelguy/wilder.nvim'
     Plug 'folke/noice.nvim'
+    Plug 'vinnymeller/swagger-preview.nvim'
     call g:SetCoc()
   elseif g:IsWsl()
     Plug 'gelguy/wilder.nvim'
