@@ -300,13 +300,13 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'uga-rosa/ddc-source-lsp-setup'
   Plug 'neovim/nvim-lspconfig'
   Plug 'jellydn/CopilotChat.nvim', { 'branch': 'develop' }
+  Plug 'vinnymeller/swagger-preview.nvim'
 
   call g:SetDdu()
 
   if g:IsMacNeovimInMfs()
     Plug 'gelguy/wilder.nvim'
     Plug 'folke/noice.nvim'
-    Plug 'vinnymeller/swagger-preview.nvim'
     call g:SetCoc()
   elseif g:IsWsl()
     Plug 'gelguy/wilder.nvim'
