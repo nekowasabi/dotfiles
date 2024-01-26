@@ -502,27 +502,27 @@ endif
 autocmd FileType ddu-ff call s:ddu_uu_my_settings()
 function! s:ddu_uu_my_settings() abort
   nnoremap <buffer><silent> <CR>
-        \ <Cmd>call ddu#ui#ff#do_action('itemAction')<CR>
+        \ <Cmd>call ddu#ui#do_action('itemAction')<CR>
   nnoremap <buffer><silent> o
-        \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'params': {'command': 'split'}})<CR>
+        \ <Cmd>call ddu#ui#do_action('itemAction', {'params': {'command': 'split'}})<CR>
   nnoremap <buffer><silent> v
-        \ <Cmd>call ddu#ui#ff#do_action('itemAction', {'params': {'command': 'vsplit'}})<CR>
+        \ <Cmd>call ddu#ui#do_action('itemAction', {'params': {'command': 'vsplit'}})<CR>
   nnoremap <buffer><silent> <C-j>
-        \ <Cmd>call ddu#ui#ff#do_action('kensaku')<CR>
+        \ <Cmd>call ddu#ui#do_action('kensaku')<CR>
   nnoremap <buffer><silent> <C-a>
-        \ <Cmd>call ddu#ui#ff#do_action('chooseAction')<CR>
+        \ <Cmd>call ddu#ui#do_action('chooseAction')<CR>
   nnoremap <buffer><silent> s
-        \ <Cmd>call ddu#ui#ff#do_action('toggleSelectItem')<CR>
+        \ <Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>
   nnoremap <buffer><silent> i
-        \ <Cmd>call ddu#ui#ff#do_action('openFilterWindow')<CR>
+        \ <Cmd>call ddu#ui#do_action('openFilterWindow')<CR>
   nnoremap <buffer><silent> c
-        \ <Cmd>call ddu#ui#ff#do_action('closeFilterWindow')<CR>
+        \ <Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>
   nnoremap <buffer><silent> p
-        \ <Cmd>call ddu#ui#ff#do_action('preview')<CR>
+        \ <Cmd>call ddu#ui#do_action('preview')<CR>
   nnoremap <buffer><silent> e
-        \ <Cmd>call ddu#ui#ff#do_action('expandItem', {'mode': 'toggle'})<CR>
+        \ <Cmd>call ddu#ui#do_action('expandItem', {'mode': 'toggle'})<CR>
   nnoremap <buffer><silent> q
-        \ <Cmd>call ddu#ui#ff#do_action('quit')<CR>
+        \ <Cmd>call ddu#ui#do_action('quit')<CR>
 endfunction
 
 autocmd FileType ddu-ff-filter call s:ddu_filter_my_settings()
@@ -534,21 +534,21 @@ function! s:ddu_filter_my_settings() abort
 	nnoremap <buffer><silent> q
 				\ <Cmd>close<CR>
   nnoremap <buffer><silent> <C-a>
-            \ <Cmd>call ddu#ui#ff#do_action('chooseAction')<CR>
+            \ <Cmd>call ddu#ui#do_action('chooseAction')<CR>
   nnoremap <buffer><silent> c
-        \ <Cmd>call ddu#ui#ff#do_action('closeFilterWindow')<CR>
+        \ <Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>
   inoremap <buffer><silent> <C-a>
-            \ <Cmd>call ddu#ui#ff#do_action('chooseAction')<CR>
+            \ <Cmd>call ddu#ui#do_action('chooseAction')<CR>
 	inoremap <C-j>
 				\ <Cmd>call ddu#ui#do_action('cursorNext')<CR>
 	inoremap <C-k>
 				\ <Cmd>call ddu#ui#do_action('cursorPrevious')<CR>
   nnoremap <buffer><silent> <Space>
-   \ <Cmd>call ddu#ui#ff#do_action('toggleSelectItem')<CR>
+   \ <Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>
   nnoremap <buffer><silent> i
-   \ <Cmd>call ddu#ui#ff#do_action('openFilterWindow')<CR>
+   \ <Cmd>call ddu#ui#do_action('openFilterWindow')<CR>
   nnoremap <buffer><silent> q
-   \ <Cmd>call ddu#ui#ff#do_action('quit')<CR>
+   \ <Cmd>call ddu#ui#do_action('quit')<CR>
 endfunction
 
 call ddu#custom#patch_local('filer', {
