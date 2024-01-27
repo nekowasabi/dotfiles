@@ -253,7 +253,7 @@ agents =
       chat = true, 
       command = true, 
       -- string with model name or table with model name and parameters 
-      model = { model = "gpt-4-1106-preview", temperature = 1.1, top_p = 1 }, 
+      model = { model = "gpt-4-0125-preview", temperature = 1.1, top_p = 1 }, 
       -- system prompt (use this to specify the persona/role of the AI) 
       system_prompt = "レスポンスとは、日本語で回答してください\n\n" 
 			.. "1つずつ、step by stepで説明してください。\n\n", 

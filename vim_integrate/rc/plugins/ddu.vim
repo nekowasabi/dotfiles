@@ -471,7 +471,7 @@ call ddu#custom#patch_global({
   \ }
   \ })
 
-" call ai_review#config({ 'chat_gpt': { 'model': 'gpt-4-1106-preview' } })
+call ai_review#config({ 'chat_gpt': { 'model': 'gpt-4-0125-preview' } })
 
 if g:IsWindowsGvim() || g:IsMacGvim() || g:IsLinux() || g:IsMacNeovim()
   nnoremap <silent> <Leader><Leader>
