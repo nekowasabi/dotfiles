@@ -107,6 +107,10 @@ alias ....='cd ../../../'
 alias emacs='TERM=screen.putty-256color /usr/bin/emacs'
 alias v='/usr/local/bin/nvim'
 alias deno='~/.deno/bin/deno'
+alias gaa='git add --all && git commit'
+alias gps='git push'
+alias gp='git pull'
+
 # alias xargs='gxargs'
 # }}}1
 
@@ -127,17 +131,18 @@ zinit light sindresorhus/pure
 zinit ice from"gh-r" as"program"
 zinit load junegunn/fzf-bin
 
-zinit ice lucid depth"1" blockf
-zinit light yuki-yano/zeno.zsh
-
-export ZENO_GIT_TREE="exa --tree"
-
-if [[ -n $ZENO_LOADED ]]; then
-  bindkey ' '  zeno-auto-snippet
-  bindkey '^o' zeno-auto-snippet-and-accept-line
-  bindkey '^i' zeno-completion
-  bindkey '^x^s' zeno-insert-snippet
-fi
+# zinit ice lucid depth"1" blockf
+# zinit light yuki-yano/zeno.zsh
+# # zinit light kakikubo/zeno.zsh 
+# 
+# export ZENO_GIT_TREE="exa --tree"
+# 
+# if [[ -n $ZENO_LOADED ]]; then
+#   bindkey ' '  zeno-auto-snippet
+#   bindkey '^o' zeno-auto-snippet-and-accept-line
+#   bindkey '^i' zeno-completion
+#   bindkey '^x^s' zeno-insert-snippet
+# fi
 
 export FZF_DEFAULT_COMMAND'=rg --files --hidden --follow --glob "!.git/*"'
 export FZF_DEFAULT_OPTS='--height 80% --reverse'
@@ -215,3 +220,4 @@ fzf_find_path() {
 # Ctrl+t のキーバインドを設定
 zle -N fzf_find_path
 bindkey '^t' fzf_find_path
+
