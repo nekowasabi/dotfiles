@@ -110,6 +110,7 @@ alias deno='~/.deno/bin/deno'
 alias gaa='git add --all && git commit'
 alias gps='git push'
 alias gp='git pull'
+alias lg='lazygit'
 
 # alias xargs='gxargs'
 # }}}1
@@ -202,19 +203,36 @@ function select-history() {
 zle -N select-history
 bindkey '^r' select-history
 
-# コマンドラインに応じてファイルまたはディレクトリを検索し、結果をコマンドラインに挿入する関数
+# カレント以下のコマンドやパスを取得
 fzf_find_path() {
-    if [[ $LBUFFER == cd\ * ]]; then
-        # 'cd'コマンドの場合はディレクトリのみを検索
-        local selected_path=$(find * -type d 2> /dev/null | fzf)
-    else
-        # それ以外のコマンドではファイルとディレクトリを検索
-        local selected_path=$(find * -type f -o -type d 2> /dev/null | fzf)
-    fi
+  # 現在のコマンドラインの状態を保存
+  local original_lbuffer=$LBUFFER
 
-    if [[ -n $selected_path ]]; then
-        LBUFFER+="$selected_path"
+  if [[ $LBUFFER == cd\ * ]]; then
+    # 'cd'コマンドの場合はディレクトリのみを検索
+    local path_prefix=${LBUFFER#cd }
+    # 特殊文字を含むパスを正しく展開
+    local expanded_path_prefix=$(eval echo $path_prefix)
+    local selected_path=$(find "$expanded_path_prefix"* -type d 2> /dev/null | fzf)
+  else
+    local current_buffer=$LBUFFER
+    local command_prefix=${current_buffer%% *}
+    local path_prefix=${current_buffer#$command_prefix }
+    local expanded_path_prefix=$(eval echo $path_prefix)
+    local selected_path=$(find "$expanded_path_prefix"* -type f -o -type d 2> /dev/null | fzf)
+  fi
+
+  if [[ -n $selected_path ]]; then
+    if [[ $LBUFFER == cd\ * ]]; then
+      local trimmed_selected_path=${selected_path#$expanded_path_prefix}
+      LBUFFER+="$trimmed_selected_path"
+    else
+      LBUFFER="$command_prefix $selected_path"
     fi
+  else
+    # fzfがキャンセルされた場合、元の状態を復元
+    LBUFFER=$original_lbuffer
+  fi
 }
 
 # Ctrl+t のキーバインドを設定
