@@ -301,6 +301,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'neovim/nvim-lspconfig'
   Plug 'jellydn/CopilotChat.nvim', { 'branch': 'develop' }
   Plug 'vinnymeller/swagger-preview.nvim'
+  Plug 'nekowasabi/ddu-source-vim-bookmark'
 
   call g:SetDdu()
 
