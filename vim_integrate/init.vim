@@ -164,6 +164,12 @@ require("lspconfig").vimls.setup {}
 require("lspconfig").intelephense.setup {}
 require("lspconfig").denols.setup {}
 
+-- LSPのdiagnoticを無効にする
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+        virtual_text = false
+    }
+)
 --- for caw's workaround
 local M = {}
 ---@param lnum integer
@@ -186,7 +192,7 @@ require("mason").setup()
 
 require("lsp_lines").setup()
 vim.diagnostic.config({
-  virtual_text = true,
+  virtual_text = false,
 })
 
  
