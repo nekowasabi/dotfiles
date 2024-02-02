@@ -553,8 +553,8 @@ execute 'source '.g:GetVimConfigRootPath().'rc/plugins/surround.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-ai.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/deepl.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/sayonara.vim'
+execute 'source '.g:GetVimConfigRootPath().'rc/plugins/caw.vim'
 
-execute 'source '.g:GetVimConfigRootPath().'rc/plugins/codeium.vim'
 " }}}1
 
 " setting Mac Gvim {{{1
@@ -603,6 +603,7 @@ if g:IsMacNeovim()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vista.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesitter.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/nvim-lspconfig.vim'
 
   if g:IsMacNeovimInMfs()
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
@@ -611,6 +612,7 @@ if g:IsMacNeovim()
   elseif g:IsMacNeovimInWezterm()
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-lsp.vim'
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
+		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc-source-lsp.vim'
   else
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-lsp.vim'
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
@@ -632,6 +634,7 @@ if g:IsWindowsGvim()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddu.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-ambiwidth.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-lsp.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/codeium.vim'
 
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'

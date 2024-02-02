@@ -156,44 +156,6 @@ nnoremap <silent> <leader>cce :CopilotChatExplain<CR>
 " lua
 lua << EOF
 
--- lsp
--- require("ddc_source_lsp_setup").setup()
-require("mason").setup()
-require("mason-lspconfig").setup()
-require("lspconfig").vimls.setup {}
-require("lspconfig").intelephense.setup {}
-require("lspconfig").denols.setup {}
-
--- LSPのdiagnoticを無効にする
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-        virtual_text = false
-    }
-)
---- for caw's workaround
-local M = {}
----@param lnum integer
----@param col integer
----@return boolean
-function M.has_syntax(lnum, col)
-  local bufnr = vim.api.nvim_get_current_buf()
-  local captures = vim.treesitter.get_captures_at_pos(bufnr, lnum - 1, col - 1)
-  for _, capture in ipairs(captures) do
-    if capture.capture == "comment" then
-      return true
-    end
-  end
-  return false
-end
----@diagnostic disable-next-line: duplicate-set-field
-_G.package.preload.caw = function() return M end
-
-require("mason").setup()
-
-require("lsp_lines").setup()
-vim.diagnostic.config({
-  virtual_text = false,
-})
 
  
 -- rest.nvim
