@@ -7,7 +7,7 @@ function! s:PHPUnitCurrentMethod()
   if l:filename =~ ".*Test\.php"
     if g:IsMacNeovimInMfs()
 			cd $BACKEND_LARAVEL_MAC_DIR
-      execute "!./mac test --color --filter ".cfi#format("%s", ""). " ".l:filepath
+      execute "!./mac test --testdox --color --filter ".cfi#format("%s", ""). " ".l:filepath
     endif
     return
   endif
@@ -25,7 +25,7 @@ function! s:PHPUnitCurrentFile()
   if l:filename =~ ".*Test\.php"
     if g:IsMacNeovimInMfs()
 			cd $BACKEND_LARAVEL_MAC_DIR
-      execute "!./mac test --color " .l:filepath
+      execute "!./mac test --testdox --color " .l:filepath
     endif
     return
   endif

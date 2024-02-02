@@ -475,7 +475,8 @@ call ai_review#config({ 'chat_gpt': { 'model': 'gpt-4-0125-preview' } })
 
 if g:IsWindowsGvim() || g:IsMacGvim() || g:IsLinux() || g:IsMacNeovim()
   nnoremap <silent> <Leader><Leader>
-        \ <Cmd>call ddu#start({'sources': [{'name': 'mr'}]})<CR>
+        \ <Cmd>call ddu#start({'sources': [{'name': 'mr', 'params': {'kind': 'mrw'}}]})<CR>
+        "\ <Cmd>call ddu#start({'sources': [{'name': 'mr'}, 'params': {'kind': 'mrw'}]})<CR>
   nnoremap <silent> <Leader>lw
         \ <Cmd>call ddu#start({
         \ 'input' : '[worklog]',
