@@ -192,6 +192,7 @@ function g:SetDdu()
   Plug 'uga-rosa/ddu-source-lsp'
 	Plug 'peacock0803sz/ddu-source-git_stash'
 	Plug 'Shougo/ddc-filter-converter_truncate_abbr'
+	Plug 'nekowasabi/ddu-source-vim-bookmark'
 endfunction
 
 function g:SetCoc()
@@ -301,7 +302,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'neovim/nvim-lspconfig'
   Plug 'jellydn/CopilotChat.nvim', { 'branch': 'develop' }
   Plug 'vinnymeller/swagger-preview.nvim'
-  Plug 'nekowasabi/ddu-source-vim-bookmark'
+	Plug 'xiyaowong/telescope-emoji.nvim'
 
   call g:SetDdu()
 
