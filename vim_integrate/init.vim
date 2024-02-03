@@ -134,6 +134,7 @@ let g:chat_gpt_temperature = 0.7
 let g:chat_gpt_lang = 'Japanese'
 " let g:chat_gpt_split_direction = 'vertical'
 
+
 call ai_review#config({ 'chat_gpt': { 'model': 'gpt-4' } })
 
 let g:lsp_settings_filetype_typescript = ['typescript-language-server', 'eslint-language-server', 'deno']
@@ -311,24 +312,19 @@ blank = {
 }
 })
 
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local opts = { noremap=true, silent=true }
-vim.keymap.set('n', '<space>E', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
-  -- Mappings.
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', '<space>ck', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', '<space>cd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', '<space>ci', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<space>gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
-end
+-- lsp keyboard shortcut
+vim.keymap.set('n', '<space>ck',  '<cmd>lua vim.lsp.buf.hover()<CR>')
+vim.keymap.set('n', '<space>cf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+vim.keymap.set('n', '<space>cr', '<cmd>lua vim.lsp.buf.references()<CR>')
+vim.keymap.set('n', '<space>cd', '<cmd>lua vim.lsp.buf.definition()<CR>')
+vim.keymap.set('n', '<space>cD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
+vim.keymap.set('n', '<space>ci', '<cmd>lua vim.lsp.buf.implementation()<CR>')
+vim.keymap.set('n', '<space>ct', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
+vim.keymap.set('n', '<space>cn', '<cmd>lua vim.lsp.buf.rename()<CR>')
+vim.keymap.set('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+vim.keymap.set('n', '<space>ce', '<cmd>lua vim.diagnostic.open_float()<CR>')
+vim.keymap.set('n', '<space>c]', '<cmd>lua vim.diagnostic.goto_next()<CR>')
+vim.keymap.set('n', '<space>c[', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
 
 require("swagger-preview").setup({
     -- The port to run the preview server on
