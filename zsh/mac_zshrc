@@ -1,3 +1,8 @@
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+source "${ZINIT_HOME}/zinit.zsh"
+
 # setting path {{{1
 export PATH=$PATH:/usr/local/bin:/bin:/usr/bin:$GOROOT/bin:$GOPATH/bin:/Users/takets/.nodebrew/current/bin:/Users/takets/go/bin:/Users/takets/.cargo/bin:/usr/local/Cellar/python@3.11/3.11.5/bin::$DENO_INSTALL/bin:$PATH:/Users/takets/.deno/bin
 
@@ -116,11 +121,9 @@ alias lg='lazygit'
 # }}}1
 
 
-source $HOME/.zinit/bin/zinit.zsh
-
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
-# zinit light zsh-users/zsh-autosuggestions
+zinit light zsh-users/zsh-autosuggestions
 # zinit light zsh-users/zsh-syntax-highlighting
 # zinit light rupa/z
 # zinit wait lucid atload"zicompinit; zicdreplay" blockf for zsh-users/zsh-completions
@@ -132,18 +135,42 @@ zinit light sindresorhus/pure
 zinit ice from"gh-r" as"program"
 zinit load junegunn/fzf-bin
 
-# zinit ice lucid depth"1" blockf
-# zinit light yuki-yano/zeno.zsh
-# # zinit light kakikubo/zeno.zsh 
-# 
-# export ZENO_GIT_TREE="exa --tree"
-# 
+zinit ice lucid depth"1" blockf
+zinit light yuki-yano/zeno.zsh
+
+export ZENO_GIT_TREE="exa --tree"
+
 # if [[ -n $ZENO_LOADED ]]; then
 #   bindkey ' '  zeno-auto-snippet
 #   bindkey '^o' zeno-auto-snippet-and-accept-line
 #   bindkey '^i' zeno-completion
 #   bindkey '^x^s' zeno-insert-snippet
 # fi
+
+export ZENO_HOME=~/.config/zeno
+export ZENO_FZF_TMUX_OPTIONS="-p"
+
+if [[ -n $ZENO_LOADED ]]; then
+  bindkey ' '  zeno-auto-snippet
+
+  # fallback if snippet not matched (default: self-insert)
+  # export ZENO_AUTO_SNIPPET_FALLBACK=self-insert
+
+  # if you use zsh's incremental search
+  # bindkey -M isearch ' ' self-insert
+
+  bindkey '^m' zeno-auto-snippet-and-accept-line
+
+  bindkey '^i' zeno-completion
+
+  bindkey '^x '  zeno-insert-space
+  bindkey '^x^m' accept-line
+  bindkey '^x^z' zeno-toggle-auto-snippet
+
+  # fallback if completion not matched
+  # (default: fzf-completion if exists; otherwise expand-or-complete)
+  # export ZENO_COMPLETION_FALLBACK=expand-or-complete
+fi
 
 export FZF_DEFAULT_COMMAND'=rg --files --hidden --follow --glob "!.git/*"'
 export FZF_DEFAULT_OPTS='--height 80% --reverse'
