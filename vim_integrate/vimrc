@@ -99,6 +99,7 @@ set renderoptions=type:directx
 
 " denops
 let g:denops#debug = 0
+let g:denops_disable_version_check = v:true
 " let g:denops_server_addr = '127.0.0.1:32123'
 
 

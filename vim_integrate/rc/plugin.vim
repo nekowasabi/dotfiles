@@ -54,7 +54,6 @@ Plug 'tyru/columnskip.vim'
 Plug 'rhysd/git-messenger.vim'
 Plug 'thinca/vim-prettyprint' " PPでいい感じに変数の内容を出力
 Plug 'cocopon/inspecthi.vim' " colorscheme inspector
-Plug 'tyru/caw.vim' 
 Plug 'itchyny/vim-gitbranch' " lightlineにブランチ名を表示
 Plug 'deton/jasegment.vim'
 Plug 'lambdalisue/nerdfont.vim'
@@ -303,6 +302,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'jellydn/CopilotChat.nvim', { 'branch': 'develop' }
   Plug 'vinnymeller/swagger-preview.nvim'
 	Plug 'xiyaowong/telescope-emoji.nvim'
+  Plug 'tyru/caw.vim' 
 
   call g:SetDdu()
 
@@ -370,6 +370,8 @@ if g:IsLinux()  && !g:IsWsl()
   " Plug 'skanehira/denops-gh.vim'
   Plug 'gelguy/wilder.nvim'
 	Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+
+  Plug 'tyru/caw.vim' 
 
   Plug 'yuki-yano/ai-review.vim'
   Plug 'dpayne/CodeGPT.nvim'
@@ -554,7 +556,6 @@ execute 'source '.g:GetVimConfigRootPath().'rc/plugins/surround.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-ai.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/deepl.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/sayonara.vim'
-execute 'source '.g:GetVimConfigRootPath().'rc/plugins/caw.vim'
 
 " }}}1
 
@@ -572,6 +573,7 @@ if g:IsMacGvim()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddu.vim'
+execute 'source '.g:GetVimConfigRootPath().'rc/plugins/caw.vim'
 
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/leaderf.vim'
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fzf-preview.vim'
@@ -605,6 +607,7 @@ if g:IsMacNeovim()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesitter.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/nvim-lspconfig.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/caw.vim'
 
   if g:IsMacNeovimInMfs()
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
