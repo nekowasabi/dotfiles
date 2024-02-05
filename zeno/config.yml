@@ -76,6 +76,9 @@ snippets:
   - name: lazygit
     keyword: lg
     snippet: lazygit
+  - name: aider
+    keyword: ad
+    snippet: aider --no-auto-commits --model gpt-4-0125-preview
 
 completions:
   - name: kill
