@@ -313,18 +313,36 @@ blank = {
 })
 
 -- lsp keyboard shortcut
-vim.keymap.set('n', '<space>ck',  '<cmd>lua vim.lsp.buf.hover()<CR>')
-vim.keymap.set('n', '<space>cf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
-vim.keymap.set('n', '<space>cr', '<cmd>lua vim.lsp.buf.references()<CR>')
-vim.keymap.set('n', '<space>cd', '<cmd>lua vim.lsp.buf.definition()<CR>')
-vim.keymap.set('n', '<space>cD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
-vim.keymap.set('n', '<space>ci', '<cmd>lua vim.lsp.buf.implementation()<CR>')
-vim.keymap.set('n', '<space>ct', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-vim.keymap.set('n', '<space>cn', '<cmd>lua vim.lsp.buf.rename()<CR>')
-vim.keymap.set('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-vim.keymap.set('n', '<space>ce', '<cmd>lua vim.diagnostic.open_float()<CR>')
-vim.keymap.set('n', '<space>c]', '<cmd>lua vim.diagnostic.goto_next()<CR>')
-vim.keymap.set('n', '<space>c[', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
+-- vim.keymap.set('n', '<space>ck',  '<cmd>lua vim.lsp.buf.hover()<CR>')
+-- vim.keymap.set('n', '<space>cf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+-- vim.keymap.set('n', '<space>cr', '<cmd>lua vim.lsp.buf.references()<CR>')
+-- vim.keymap.set('n', '<space>cd', '<cmd>lua vim.lsp.buf.definition()<CR>')
+-- vim.keymap.set('n', '<space>cD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
+-- vim.keymap.set('n', '<space>ci', '<cmd>lua vim.lsp.buf.implementation()<CR>')
+-- vim.keymap.set('n', '<space>ct', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
+-- vim.keymap.set('n', '<space>cn', '<cmd>lua vim.lsp.buf.rename()<CR>')
+-- vim.keymap.set('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+-- vim.keymap.set('n', '<space>ce', '<cmd>lua vim.diagnostic.open_float()<CR>')
+-- vim.keymap.set('n', '<space>c]', '<cmd>lua vim.diagnostic.goto_next()<CR>')
+-- vim.keymap.set('n', '<space>c[', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
+
+local on_attach = function(client, bufnr)
+  -- Mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', '<space>ck', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', '<space>cd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', '<space>ci', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<space>cr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<space>cr', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<space>cD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', '<space>ci', vim.lsp.buf.implementation, bufopts)
+  vim.keymap.set('n', '<space>ct', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', '<space>ce', vim.diagnostic.open_float, bufopts)
+end
+
+
 
 require("swagger-preview").setup({
     -- The port to run the preview server on
