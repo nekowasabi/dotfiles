@@ -490,7 +490,7 @@ if g:IsWindowsGvim() || g:IsMacGvim() || g:IsLinux() || g:IsMacNeovim()
         \ <Cmd>call ddu#start({'sources': [{'name': 'command_history'}]})<CR>
   nnoremap <silent> <Leader>B
         \ <Cmd>call ddu#start({'sources': [{'name': 'buffer'}]})<CR>
-  nnoremap <silent> <Leader>j
+  nnoremap <silent> <Leader>J
         \ <Cmd>call ddu#start({'sources': [{'name': 'jumplist'}]})<CR>
   nnoremap <silent> <Leader>H
         \ <Cmd>call ddu#start({'sources': [{'name': 'help'}]})<CR>
