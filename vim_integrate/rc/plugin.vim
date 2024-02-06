@@ -723,7 +723,7 @@ if g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
-
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/caw.vim'
 
    " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fzf-preview.vim'
