@@ -6,8 +6,6 @@
 
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm()
    \: "\<C-g>u" . lexima#expand('<LT>CR>', 'i')
-" imap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm()
-"     \: "\<C-g>u" . lexima#expand('<LT>CR>', 'i')
 
 inoremap <silent><expr> <C-n> coc#pum#visible() ? coc#pum#next(1) : "\<C-n>"
 inoremap <silent><expr> <C-p> coc#pum#visible() ? coc#pum#prev(1) : "\<C-p>"
@@ -43,20 +41,10 @@ let g:markdown_fenced_languages = [
      \ 'help'
      \]
 
-let g:coc_disabled_sources = ['around']
-
-
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
-
-" Insert <tab> when previous text is space, refresh completion if not.
-" inoremap <silent><expr> <TAB>
-"      \ coc#pum#visible() ? coc#pum#next(1):
-"      \ <SID>check_back_space() ? "\<Tab>" :
-"      \ coc#refresh()
-" inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 imap <silent><expr> <TAB>
      \ coc#pum#visible() ? coc#pum#next(1):
@@ -64,11 +52,7 @@ imap <silent><expr> <TAB>
      \ coc#refresh()
 imap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-
-
-
 let g:coc_snippet_next = '<tab>'
-
 
 " Remap keys for gotos
 nmap <silent> <Leader>cd <Plug>(coc-definition)
