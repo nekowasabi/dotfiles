@@ -26,7 +26,7 @@ zinit light-mode for \
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # setting path {{{1
-export PATH=$PATH:/usr/local/bin:/bin:/usr/bin:$GOROOT/bin:$GOPATH/bin:/home/takets/bin:/home/takets/.bin
+export PATH=$PATH:/usr/local/bin:/bin:/usr/bin:$GOROOT/bin:$GOPATH/bin:/home/takets/bin:/home/takets/.bin:/home/takets/.deno/bin
 
 export EDITOR=vim
 export GOROOT=/usr/local/opt/go/libexec
@@ -115,8 +115,8 @@ fpath=(/usr/local/share/zsh-completions ${fpath})
 # }}}1
 
 # alias {{{1
-alias ll='exa --long --header --git  --sort=type --classify --git'
-alias la='exa --long --header --git --grid --classify --sort=type --git'
+alias ll='eza --long --header --git  --sort=type --classify --git'
+alias la='eza --long --header --git --grid --classify --sort=type --git'
 alias phpctags='/usr/local/bin/phpctags'
 alias ...='cd ../../'
 alias ....='cd ../../../'
