@@ -713,7 +713,6 @@ if g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-vue.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-print-debug.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gitsign.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/git-conflict.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lsp-color.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddu.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lightline.vim'
@@ -727,7 +726,8 @@ if g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/caw.vim'
 
-   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/git-conflict.vim'
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fzf-preview.vim'
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lualine.vim'
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
