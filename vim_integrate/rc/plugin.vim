@@ -278,7 +278,8 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'lewis6991/gitsigns.nvim'
   Plug 'overcache/NeoSolarized'
   Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
-  Plug 'akinsho/git-conflict.nvim'
+  " Plug 'akinsho/git-conflict.nvim'
+  Plug 'rhysd/conflict-marker.vim'
   Plug 'folke/lsp-colors.nvim' " lspの色を変更する
   Plug 'MunifTanjim/nui.nvim' " おしゃれなコマンドライン変更
   Plug 'rcarriga/nvim-notify' " 通知（おしゃれだけれどバギー）
@@ -303,6 +304,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'vinnymeller/swagger-preview.nvim'
 	Plug 'xiyaowong/telescope-emoji.nvim'
   Plug 'tyru/caw.vim' 
+	Plug 'cshuaimin/ssr.nvim'
 
   call g:SetDdu()
 
@@ -597,7 +599,7 @@ if g:IsMacNeovim()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-vue.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-print-debug.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gitsign.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/git-conflict.vim'
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/git-conflict.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lsp-color.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddu.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lightline.vim'
