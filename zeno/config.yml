@@ -18,9 +18,12 @@ snippets:
   - name: push origin
     keyword: gpo
     snippet: git push --force-with-lease --force-if-includes origin 
-  - name: git checkout
+  - name: git switch
     keyword: gc
     snippet: git switch {{branch}}
+  - name: git switch previous branch 
+    keyword: gb
+    snippet: git switch -
   - name: git checkout -f
     keyword: gcf
     snippet: git checkout -f
@@ -79,6 +82,12 @@ snippets:
   - name: aider
     keyword: ad
     snippet: aider --no-auto-commits --model gpt-4-0125-preview
+  - name: migration
+    keyword: mam
+    snippet: ./mac artisan migrate
+  - name: migration rollback
+    keyword: mamr
+    snippet: ./mac artisan migrate:rollback
 
 completions:
   - name: kill
