@@ -282,6 +282,7 @@ let s:rules += [
       \ { 'filetype': 'php', 'char': '$' ,       'at': '$\%#',                  'input': 'this->'                            },
       \ { 'filetype': 'php', 'char': '>' ,       'at': '$.*\%#',                  'input': '->'                              },
       \ { 'filetype': 'php', 'char': '>' ,       'at': '.*)\%#',                  'input': '->'                              },
+      \ { 'filetype': 'php', 'char': '>' ,       'at': '.*\%#''',                'input': '<Right> => '                              },
       \ ]
 
 let s:rules += [
