@@ -142,9 +142,9 @@ function! g:SetDdc() abort
 	Plug 'Shougo/ddc-source-mocword'
   Plug 'gamoutatsumi/ddc-emoji'
   Plug 'Shougo/ddc-source-codeium'
-  Plug 'prabirshrestha/vim-lsp'
 
   if g:IsWindowsGvim()
+  Plug 'prabirshrestha/vim-lsp'
     Plug 'mattn/vim-lsp-settings'
     Plug 'shun/ddc-source-vim-lsp'
   else
@@ -288,6 +288,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'adoy/vim-php-refactoring-toolbox'
   Plug 'dhruvasagar/vim-table-mode'
   Plug 'nvimtools/none-ls.nvim'
+  Plug 'jay-babu/mason-null-ls.nvim'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'kdheepak/lazygit.nvim'
   Plug 'williamboman/mason.nvim'
@@ -317,6 +318,7 @@ if g:IsMacNeovim() || g:IsWsl()
     Plug 'folke/noice.nvim'
     call g:SetCoc()
   elseif g:IsMacNeovimInWezterm()
+    Plug 'sigmaSd/deno-nvim'
     call g:SetDdc()
   else
     call g:SetDdc()
@@ -616,7 +618,7 @@ if g:IsMacNeovim()
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
   elseif g:IsMacNeovimInWezterm()
-		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-lsp.vim'
+		" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-lsp.vim'
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc-source-lsp.vim'
   else
