@@ -17,7 +17,7 @@ let g:lightline = {
       \     'linter_ok': 'right',
       \ },
       \ 'tabline': {
-      \   'left': [ ['gitbranch', 'gitstatus'], ['file_size', 'char_num'], ['vista']],
+      \   'left': [ ['gitbranch', 'gitstatus'], ['file_size', 'char_num']],
       \   'right': [ ['codeium'], ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok'] ]
       \ },
       \ 'component_function': {
@@ -27,7 +27,6 @@ let g:lightline = {
       \   'gitroot': 'gina#component#repo#name',
       \   'file_size': 'File_size',
       \   'char_num': 'CountCharInBuffer',
-      \   'vista': 'NearestMethodOrFunction',
       \ },
       \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
       \ 'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
@@ -78,25 +77,26 @@ function! GetCodeiumCandidate()
   return ''
 endfunction
 
-function! NearestMethodOrFunction()
-  if &filetype == 'changelog' || &filetype == 'text' || &filetype == 'ddu-ff-filter' || &filetype == 'ddu-filer' || &filetype == 'vim-plug' || &filetype == ''
-    return ''
-  endif
-  return ' :'.get(b:, 'vista_nearest_method_or_function', 'no func')
-endfunction
-
-function! UpdateNearestMethodOrFunction() abort
-  if &filetype == 'changelog' || &filetype == 'text' || &filetype == 'ddu-ff-filter' || &filetype == 'ddu-filer' || &filetype == 'vim-plug' || &filetype == ''
-    return
-  endif
-  call vista#RunForNearestMethodOrFunction()
-endfunction
+" function! NearestMethodOrFunction()
+"   return ''
+"   " if &filetype == 'changelog' || &filetype == 'text' || &filetype == 'ddu-ff-filter' || &filetype == 'ddu-filer' || &filetype == 'vim-plug' || &filetype == ''
+"   "   return ''
+"   " endif
+"   " return ' :'.get(b:, 'vista_nearest_method_or_function', 'no func')
+" endfunction
+" 
+" function! UpdateNearestMethodOrFunction() abort
+"   if &filetype == 'changelog' || &filetype == 'text' || &filetype == 'ddu-ff-filter' || &filetype == 'ddu-filer' || &filetype == 'vim-plug' || &filetype == ''
+"     return
+"   endif
+"   call vista#RunForNearestMethodOrFunction()
+" endfunction
 
 " By default vista.vim never run if you don't call it explicitly.
 "
 " If you want to show the nearest function in your statusline automatically,
 " you can add the following line to your vimrc
-autocmd VimEnter,TextChanged,TextChangedI * call UpdateNearestMethodOrFunction()
+" autocmd VimEnter,TextChanged,TextChangedI * call UpdateNearestMethodOrFunction()
 autocmd VimEnter,TextChanged,TextChangedI * call lightline#update()
 
 function! File_size()

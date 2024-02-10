@@ -14,7 +14,7 @@ if g:IsMacNeovimInMfs()
 	let g:vista_default_executive = 'coc'
 endif
 if g:IsMacNeovimInWezterm()
-	let g:vista_default_executive = 'nvim_lsp'
+	let g:vista_default_executive = 'vim_lsp'
 endif
 if g:IsWsl()
 	let g:vista_default_executive = 'coc'

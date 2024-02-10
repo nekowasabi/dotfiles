@@ -73,7 +73,7 @@ Plug 'rbtnn/vim-ambiwidth'
 Plug 'previm/previm'
 Plug 'yuki-yano/lexima-alter-command.vim'
 Plug 'tyru/current-func-info.vim'
-Plug 'liuchengxu/vista.vim' " クラスや関数を一覧表示する。lightlineにも連携している
+" Plug 'liuchengxu/vista.vim' " クラスや関数を一覧表示する。lightlineにも連携している
 Plug 'haya14busa/vim-edgemotion'
 Plug 'rickhowe/wrapwidth/'
 Plug 'tyru/open-browser.vim'
@@ -142,9 +142,11 @@ function! g:SetDdc() abort
 	Plug 'Shougo/ddc-source-mocword'
   Plug 'gamoutatsumi/ddc-emoji'
   Plug 'Shougo/ddc-source-codeium'
+	Plug 'prabirshrestha/vim-lsp'
+  Plug 'mattn/vim-lsp-settings'
+  Plug 'Shougo/ddc-source-lsp'
 
   if g:IsWindowsGvim()
-  Plug 'prabirshrestha/vim-lsp'
     Plug 'mattn/vim-lsp-settings'
     Plug 'shun/ddc-source-vim-lsp'
   else
@@ -306,6 +308,7 @@ if g:IsMacNeovim() || g:IsWsl()
 	Plug 'xiyaowong/telescope-emoji.nvim'
   Plug 'tyru/caw.vim' 
 	Plug 'cshuaimin/ssr.nvim'
+	Plug 'sigmaSd/deno-nvim'
 
   call g:SetDdu()
 
@@ -607,7 +610,7 @@ if g:IsMacNeovim()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lightline.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ale.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-ambiwidth.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vista.vim'
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vista.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesitter.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/nvim-lspconfig.vim'
@@ -628,6 +631,7 @@ if g:IsMacNeovim()
 
 endif
 " }}}1
+
 
 " setting Windows Gvim {{{1
 if g:IsWindowsGvim()

@@ -135,6 +135,9 @@ call ddu#custom#patch_global(#{
     \     action: #{
     \       defaultAction: 'do',
     \     },
+    \     bookmark: #{
+    \       defaultAction: 'open',
+    \     },
     \   }
     \ })
 
@@ -175,6 +178,9 @@ call ddu#custom#patch_global(#{
     \       matchers: ['matcher_matchfuzzy'],
     \     },
     \     rg: #{
+    \       matchers: ['matcher_kensaku'],
+    \     },
+    \     vim-bookmark: #{
     \       matchers: ['matcher_kensaku'],
     \     },
     \   }
@@ -471,10 +477,11 @@ call ddu#custom#patch_global({
   \ }
   \ })
 
+
 call ai_review#config({ 'chat_gpt': { 'model': 'gpt-4-0125-preview' } })
 
 if g:IsWindowsGvim() || g:IsMacGvim() || g:IsLinux() || g:IsMacNeovim()
-  nnoremap <silent> <Leader>S
+  nnoremap <silent> <Leader>b
         \ <Cmd>call ddu#start({'sources': [{'name': 'vim-bookmark'}]})<CR>
 
 
