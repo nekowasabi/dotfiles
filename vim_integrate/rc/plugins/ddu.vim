@@ -513,6 +513,8 @@ endif
 
 autocmd FileType ddu-ff call s:ddu_uu_my_settings()
 function! s:ddu_uu_my_settings() abort
+  inoremap <buffer><silent> <CR>
+        \ <Cmd>call ddu#ui#do_action('itemAction')<CR>
   nnoremap <buffer><silent> <CR>
         \ <Cmd>call ddu#ui#do_action('itemAction')<CR>
   nnoremap <buffer><silent> o
@@ -521,7 +523,7 @@ function! s:ddu_uu_my_settings() abort
         \ <Cmd>call ddu#ui#do_action('itemAction', {'params': {'command': 'vsplit'}})<CR>
   nnoremap <buffer><silent> <C-j>
         \ <Cmd>call ddu#ui#do_action('kensaku')<CR>
-  nnoremap <buffer><silent> <C-a>
+  nnoremap <buffer><silent> A
         \ <Cmd>call ddu#ui#do_action('chooseAction')<CR>
   nnoremap <buffer><silent> s
         \ <Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>
@@ -541,16 +543,19 @@ autocmd FileType ddu-ff-filter call s:ddu_filter_my_settings()
 function! s:ddu_filter_my_settings() abort
 	inoremap <buffer> <CR>
 				\ <Esc><Cmd>call ddu#ui#do_action('itemAction')<CR>
+	inoremap <buffer> <C-c>
+				\ <Esc><Cmd>call ddu#ui#do_action('itemAction')<CR>
 	nnoremap <buffer><silent> <CR>
 				\ <Cmd>close<CR>
 	nnoremap <buffer><silent> q
 				\ <Cmd>close<CR>
-  nnoremap <buffer><silent> <C-a>
+  " insert modeのままだとiiと変な文字が入ってしまうので、<Esc>を入れる
+  inoremap <buffer><silent> A
+            \ <Esc><Cmd>call ddu#ui#do_action('chooseAction')<CR>
+  nnoremap <buffer><silent> A
             \ <Cmd>call ddu#ui#do_action('chooseAction')<CR>
   nnoremap <buffer><silent> c
         \ <Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>
-  inoremap <buffer><silent> <C-a>
-            \ <Cmd>call ddu#ui#do_action('chooseAction')<CR>
 	inoremap <C-j>
 				\ <Cmd>call ddu#ui#do_action('cursorNext')<CR>
 	inoremap <C-k>
