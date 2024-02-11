@@ -167,7 +167,7 @@ call ddc#custom#patch_global(#{
       \     'InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineChanged',
       \   ],
       \   cmdlineSources: {
-      \     ':': ['cmdline', 'cmdline-history'],
+      \     ':': ['cmdline'],
       \     '/': ['around'],
       \     '?': ['around'],
       \   },
@@ -220,5 +220,7 @@ function CommandlinePost() abort
   silent! xunmap <C-e>
 endfunction
 
+" pum
+call pum#set_option('border', 'double')
 
 " END
