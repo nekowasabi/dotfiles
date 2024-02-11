@@ -48,4 +48,30 @@ nvim_lsp.intelephense.setup({
 
 vim.lsp.diagnostics_trigger_update = false
 
+local border = {
+      {"┏", "FloatBorder"},  -- upper left
+      {"━", "FloatBorder"},  -- upper
+      {"┓", "FloatBorder"},  -- upper right
+      {"┃", "FloatBorder"},  -- right
+      {"┛", "FloatBorder"},  -- lower right
+      {"━", "FloatBorder"},  -- lower
+      {"┗", "FloatBorder"},  -- lower left
+      {"┃", "FloatBorder"},  -- left
+}
+
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+  vim.lsp.handlers.hover,
+  {
+    border = "rounded", -- "shadow" , "none", "rounded"
+    border = border
+    -- width = 100,
+  }
+)
+
+vim.cmd [[
+autocmd ColorScheme * highlight NormalFloat guifg=gray guibg=#073642
+autocmd ColorScheme * highlight FloatBorder guifg=gray guibg=#073642
+autocmd ColorScheme * highlight! link FloatBorder NormalFloat
+]]
+
 EOF
