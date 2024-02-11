@@ -31,13 +31,13 @@ call lexima#add_rule({
 call lexima#add_rule({
     \   'at'    : ')\%#',
     \   'char'  : '>',
-    \   'input' : ' => {}<Left>',
+    \   'input' : ' => ',
     \   })
-call lexima#add_rule({
-    \   'at'    : '\%#)',
-    \   'char'  : '>',
-    \   'input' : '<Right> => {}<Left>',
-    \   })
+" call lexima#add_rule({
+"    \   'at'    : '\%#))',
+"    \   'char'  : '>',
+"    \   'input' : '<Right> => ',
+"    \   })
 
 call lexima#add_rule({
     \   'at'    : '\%#]',

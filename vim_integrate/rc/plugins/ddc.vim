@@ -17,24 +17,22 @@ if g:IsWindowsGvim()
         \   },
         \ })
 else
-  call ddc#custom#patch_global('sources', ['around', 'buffer', 'neosnippet', 'lsp', 'cmdline-history', 'file', 'rg'])
+  call ddc#custom#patch_global('sources', ['lsp', 'around', 'buffer', 'neosnippet', 'lsp', 'cmdline-history', 'file', 'rg'])
   call ddc#custom#patch_filetype(['aichat'], 'sources', [])
   call ddc#custom#patch_filetype(['changelog'], 'sources', ['around', 'file', 'rg'])
   call ddc#custom#patch_filetype(['markdown'], 'sources', ['around', 'file'])
   call ddc#custom#patch_filetype(['text'], 'sources', ['around'])
   call ddc#custom#patch_filetype(['vim'], 'sources', ['lsp', 'around', 'buffer', 'neosnippet', 'rg'])
   call ddc#custom#patch_filetype(['javascript'], 'sources', ['lsp', 'around', 'buffer', 'rg'])
+  call ddc#custom#patch_filetype(['typescipt'], 'sources', ['lsp', 'around', 'buffer', 'rg'])
   call ddc#custom#patch_filetype(['php'], 'sources', ['lsp', 'around', 'buffer', 'rg'])
 
-  call ddc#custom#patch_global(#{
-        \ sourceOptions: #{
-        \   nvim-lsp: #{
-        \     dup: 'keep',
-        \     keywordPattern: '\k+',
-        \     sorters: ['sorter_lsp-kind']
+  call ddc#custom#patch_global('sourceOptions', #{
+        \   lsp: #{
+        \     mark: '[LS]',
+        \     forceCompletionPattern: '\.\w*|:\w*|->\w*',
         \   },
-        \ },
-        \})
+        \ })
 endif
 
 call popup_preview#enable()
@@ -46,9 +44,6 @@ call ddc#custom#patch_global('sourceOptions', #{
         \     minAutoCompleteLength: 4,
         \   },
         \ })
-
-" " Add matching patterns
-" call ddc#custom#patch_global('keywordPattern', '[a-zA-Z_:]\w*')
 
 " emulate default mappings (see `:help ins-completion`)
 function! s:ddc_complete(...) abort
@@ -162,9 +157,6 @@ else
 endif
 
 call signature_help#enable()
-
-" if you use with vim-lsp, disable vim-lsp's signature help feature
-let g:lsp_signature_help_enabled = 0
 
 " Use ddc.
 call ddc#enable()

@@ -3,32 +3,6 @@ local mason = require('mason')
 local mason_lspconfig = require('mason-lspconfig')
 local nvim_lsp = require('lspconfig')
 
-nvim_lsp.denols.setup({
-  root_dir = nvim_lsp.util.root_pattern("deno.json"),
-  init_options = {
-    lint = true,
-    unstable = true,
-    suggest = {
-      imports = {
-        hosts = {
-          ["https://deno.land"] = true,
-          ["https://cdn.nest.land"] = true,
-          ["https://crux.land"] = true,
-        },
-      },
-    },
-  },
-  on_attach = function()
-    local active_clients = vim.lsp.get_active_clients()
-    for _, client in pairs(active_clients) do
-      -- stop tsserver if denols is already active
-      if client.name == "tsserver" then
-        client.stop()
-      end
-    end
-  end,
-})
-
 mason.setup()
 
 require("lspconfig").vimls.setup {}
@@ -40,5 +14,38 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
         virtual_text = false
     }
 )
+
+local bufopts = { noremap=true, silent=true, buffer=bufnr }
+vim.keymap.set('n', '<space>ck', vim.lsp.buf.hover, bufopts)
+-- vim.keymap.set('n', '<space>cd', vim.lsp.buf.definition, bufopts)
+vim.keymap.set('n', '<space>ci', vim.lsp.buf.implementation, bufopts)
+vim.keymap.set('n', '<space>cr', vim.lsp.buf.references, bufopts)
+vim.keymap.set('n', '<space>cr', vim.lsp.buf.rename, bufopts)
+vim.keymap.set('n', '<space>cD', vim.lsp.buf.declaration, bufopts)
+vim.keymap.set('n', '<space>ci', vim.lsp.buf.implementation, bufopts)
+vim.keymap.set('n', '<space>ct', vim.lsp.buf.type_definition, bufopts)
+vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+vim.keymap.set('n', '<space>ce', vim.diagnostic.open_float, bufopts)
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = {"*.php", "*.ts"},
+	buffer = buffer,
+	callback = function()
+	vim.lsp.buf.format { async = false }
+	end
+})
+
+local capabilities = require("ddc_source_lsp").make_client_capabilities()
+nvim_lsp.denols.setup({
+  capabilities = capabilities,
+})
+nvim_lsp.vimls.setup({
+  capabilities = capabilities,
+})
+nvim_lsp.intelephense.setup({
+  capabilities = capabilities,
+})
+
+vim.lsp.diagnostics_trigger_update = false
 
 EOF

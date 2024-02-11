@@ -246,24 +246,6 @@ blank = {
 -- vim.keymap.set('n', '<space>c]', '<cmd>lua vim.diagnostic.goto_next()<CR>')
 -- vim.keymap.set('n', '<space>c[', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
 
-local on_attach = function(client, bufnr)
-  -- Mappings.
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', '<space>ck', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', '<space>cd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', '<space>ci', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<space>cr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<space>cr', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<space>cD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', '<space>ci', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<space>ct', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', '<space>ce', vim.diagnostic.open_float, bufopts)
-end
-
-
-
 require("swagger-preview").setup({
     -- The port to run the preview server on
     port = 8000,
@@ -304,14 +286,14 @@ vim.keymap.set({ "n", "x" }, "<leader>sr", function() require("ssr").open() end)
 require("deno-nvim").setup({
 })
 
-local null_ls = require("null-ls")
-null_ls.setup({
-    sources = {
-      null_ls.builtins.formatting.deno_fmt, 
-      null_ls.builtins.diagnostics.deno_lint,
-    },
-})
-vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format { async = true } end)
+-- local null_ls = require("null-ls")
+-- null_ls.setup({
+--     sources = {
+--       null_ls.builtins.formatting.deno_fmt, 
+--       null_ls.builtins.diagnostics.deno_lint,
+--     },
+-- })
+-- vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format { async = true } end)
 EOF
 
 " END
