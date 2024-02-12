@@ -1,10 +1,19 @@
 <?php
 
-// extract odd number from array
-$sample_array = [1, 2, 3, 4, 5];
-
-$extracted = array_filter($sample_array, function ($value) {
-    return $value % 2;
-});
-
-var_dump($extracted);
+/**
+ * MyArrayTools クラス
+ * 配列に対するユーティリティ関数を提供します。
+ */
+class MyArrayTools {
+    /**
+     * 配列から奇数を抽出します。
+     *
+     * @param array $array 奇数を抽出する元の配列
+     * @return array 奇数のみを含む配列
+     */
+    public static function extractOddNumbers($array) {
+        return array_filter($array, function ($value) {
+            return $value % 2;
+        });
+    }
+}
