@@ -302,12 +302,12 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'Robitx/gp.nvim'
   Plug 'uga-rosa/ddc-source-lsp-setup'
   Plug 'neovim/nvim-lspconfig'
-  Plug 'jellydn/CopilotChat.nvim', { 'branch': 'develop' }
   Plug 'vinnymeller/swagger-preview.nvim'
 	Plug 'xiyaowong/telescope-emoji.nvim'
   Plug 'tyru/caw.vim' 
 	Plug 'cshuaimin/ssr.nvim'
 	Plug 'sigmaSd/deno-nvim'
+  Plug 'CopilotC-Nvim/CopilotChat.nvim'
 
   call g:SetDdu()
 
