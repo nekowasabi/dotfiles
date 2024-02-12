@@ -81,7 +81,7 @@ snippets:
     snippet: lazygit
   - name: aider
     keyword: ad
-    snippet: aider --no-auto-commits --model gpt-4-0125-preview
+    snippet: aider --no-auto-commits --4turbo
   - name: migration
     keyword: mam
     snippet: ./mac artisan migrate
