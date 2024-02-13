@@ -314,6 +314,7 @@ if g:IsMacNeovim() || g:IsWsl()
   if g:IsMacNeovimInMfs()
     Plug 'gelguy/wilder.nvim'
     Plug 'folke/noice.nvim'
+    Plug 'Shougo/ddc-source-lsp'
     call g:SetCoc()
   elseif g:IsWsl()
     Plug 'gelguy/wilder.nvim'

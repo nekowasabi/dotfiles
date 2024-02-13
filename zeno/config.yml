@@ -43,9 +43,13 @@ snippets:
   - name: git add . && aicommits
     keyword: gaa
     snippet: git add . && aicommits --type conventional
+  - name: create PR
+    keyword: gpr
+    snippet: gh pr create
   - name: "null"
     keyword: "null"
     snippet: ">/dev/null 2>&1"
+
     # auto expand condition
     # If not defined, it is only valid at the beginning of a line.
     context:
