@@ -47,20 +47,7 @@ let g:denops#debug = 0
 "      \ '--inspect-brk',
 "      \ ])
 
-let g:chat_gpt_max_tokens=2000
-let g:chat_gpt_model='gpt-4-1106-preview'
-let g:chat_gpt_session_mode=1
-let g:chat_gpt_temperature = 0.7
-let g:chat_gpt_lang = 'Japanese'
-" let g:chat_gpt_split_direction = 'vertical'
-
-
 call ai_review#config({ 'chat_gpt': { 'model': 'gpt-4' } })
-
-let g:lsp_settings_filetype_typescript = ['typescript-language-server', 'eslint-language-server', 'deno']
-
-let g:gpt_commit_msg = {}
-let g:gpt_commit_msg.api_key = $OPENAI_API_KEY
 
 " vim-perplexity
 let g:perplexity_token = $PERPLEXITY_TOKEN
@@ -71,7 +58,9 @@ let g:perplexity_log_directory = '/tmp/perplexity'
 nnoremap <silent> <leader>lg :LazyGit<CR>
 
 " CopilotChat
-nnoremap <silent> <leader>cce :CopilotChatExplain<CR>
+vnoremap <silent> <leader>cv :CopilotChatVisual 
+vnoremap <silent> <leader>cx :CopilotChatInPlace<CR>
+nnoremap <silent> <leader>ce :CopilotChatExplain<CR>
 
 " -----------------------------------------------------------
 " lua
@@ -161,7 +150,7 @@ agents =
       -- string with model name or table with model name and parameters 
       model = { model = "gpt-4-0125-preview", temperature = 1.1, top_p = 1 }, 
       -- system prompt (use this to specify the persona/role of the AI) 
-      system_prompt = "レスポンスとは、日本語で回答してください\n\n" 
+      system_prompt = "レスポンスは、日本語で回答してください\n\n" 
 			.. "1つずつ、step by stepで説明してください。\n\n", 
   }, 
 	{
@@ -254,18 +243,6 @@ require("swagger-preview").setup({
 })
 
 
-require("CopilotChat").setup({
-  mode = "split",
-  prompts = {
-    Explain = "コードの内容を日本語でステップバイステップで説明してください",
-    Review = "review the following code and provide concise suggestions.",
-    Tests = "briefly explain how the selected code works, then generate unit tests.",
-    Refactor = "refactor the code to improve clarity and readability.",
-    Aaa = "Add comment by Japanese",
-  },
-  event = "VeryLazy",
-})
-
 require("ssr").setup({
   border = "rounded",
   min_width = 50,
@@ -284,6 +261,24 @@ require("ssr").setup({
 vim.keymap.set({ "n", "x" }, "<leader>sr", function() require("ssr").open() end)
 
 require("deno-nvim").setup({
+})
+
+local copilot_chat = require("CopilotChat")
+copilot_chat.setup({
+    opts = {
+      debug = true,
+      show_help = "yes",
+      prompts = {
+        Explain = "Explain how it works.",
+        Review = "Review the following code and provide concise suggestions.",
+        Tests = "Briefly explain how the selected code works, then generate unit tests.",
+        Refactor = "Refactor the code to improve clarity and readability.",
+      },
+    },
+    build = function()
+      vim.notify("Please update the remote plugins by running ':UpdateRemotePlugins', then restart Neovim.")
+    end,
+    event = "VeryLazy",
 })
 
 -- local null_ls = require("null-ls")
