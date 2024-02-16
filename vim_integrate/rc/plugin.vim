@@ -149,7 +149,6 @@ function! g:SetDdc() abort
     Plug 'mattn/vim-lsp-settings'
     Plug 'shun/ddc-source-vim-lsp'
   else
-    Plug 'Shougo/ddc-source-lsp'
   endif
 
 endfunction
@@ -314,10 +313,12 @@ if g:IsMacNeovim() || g:IsWsl()
   if g:IsMacNeovimInMfs()
     Plug 'gelguy/wilder.nvim'
     Plug 'folke/noice.nvim'
+    Plug 'Shougo/ddc-source-lsp'
     call g:SetCoc()
   elseif g:IsWsl()
     Plug 'gelguy/wilder.nvim'
     Plug 'folke/noice.nvim'
+    Plug 'Shougo/ddc-source-lsp'
     call g:SetCoc()
   elseif g:IsMacNeovimInWezterm()
     Plug 'sigmaSd/deno-nvim'
