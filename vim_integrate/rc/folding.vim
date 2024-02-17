@@ -38,7 +38,7 @@ nnoremap <silent>Z<C-f>    zMzvzc
 " すべてを折り畳む
 nnoremap <silent>zC    zRggvGzc
 " 現在の折り畳み以外を閉じる
-nnoremap <silent>z0    :<C-u>set foldlevel=<C-r>=foldlevel('.')<CR><CR>
+" nnoremap <silent>z0    :<C-u>set foldlevel=<C-r>=foldlevel('.')<CR><CR>
 
 " 親に遡っていい感じに折り畳みを閉じる {{{1
 function! s:smart_foldcloser()
@@ -310,13 +310,7 @@ function! MarkdownSetupFolds()
   setlocal foldexpr=s:MarkdownFoldExpr(v:lnum)
 	setlocal foldlevel=2
 	let v:folddashes = ''
-
-	autocmd FileType markdown nnoremap <silent><CR> zMzv
-  autocmd FileType markdown nnoremap <silent><CR><CR> za
 endfunction
-
-autocmd FileType markdown nnoremap <silent><CR> zMzv
-autocmd FileType markdown nnoremap <silent><CR><CR> za
 
 function! s:MarkdownFoldExpr(lnum)
 	let this_line = getline(a:lnum)

@@ -79,13 +79,11 @@ Plug 'rickhowe/wrapwidth/'
 Plug 'tyru/open-browser.vim'
 
 " AI
-Plug 'madox2/vim-ai', { 'do': './install.sh' }
 Plug 'yuki-yano/ai-review.vim'
-Plug 'nekowasabi/vim-chatgpt'
-Plug 'ktakayama/gpt-commit-msg.vim'
 Plug 'nekowasabi/vim-perplexity'
 
 if g:IsWindowsGvim()
+	Plug 'madox2/vim-ai', { 'do': './install.sh' }
   Plug 'Exafunction/codeium.vim'
 else
   Plug 'github/copilot.vim'
@@ -561,7 +559,6 @@ execute 'source '.g:GetVimConfigRootPath().'rc/plugins/edgemotion.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/twihi.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/surround.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-altr.vim'
-execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-ai.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/deepl.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/sayonara.vim'
 
@@ -581,7 +578,7 @@ if g:IsMacGvim()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddu.vim'
-execute 'source '.g:GetVimConfigRootPath().'rc/plugins/caw.vim'
+	execute 'source '.g:GetVimConfigRootPath().'rc/plugins/caw.vim'
 
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/leaderf.vim'
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fzf-preview.vim'
@@ -617,6 +614,7 @@ if g:IsMacNeovim()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/nvim-lspconfig.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/caw.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lsp-lines.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gp.vim'
 
   if g:IsMacNeovimInMfs()
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
@@ -648,6 +646,7 @@ if g:IsWindowsGvim()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-ambiwidth.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-lsp.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/codeium.vim'
+	execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-ai.vim'
 
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'

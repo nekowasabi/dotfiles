@@ -142,38 +142,9 @@ vim.api.nvim_set_keymap("n", "<leader>rp", "<Plug>RestNvimPreview", opts)
 vim.api.nvim_set_keymap("n", "<leader>rl", "<Plug>RestNvimLast", opts)
 
 vim.keymap.set({"x", "o"}, "m", function()
-    require("treemonkey").select({ ignore_injections = false })
+  require("treemonkey").select({ ignore_injections = false })
 end)
 
--- gp.nvim
-require("gp").setup({
-agents =
-{
-  { 
-      name = "ChatGPT4", 
-      chat = true, 
-      command = true, 
-      -- string with model name or table with model name and parameters 
-      model = { model = "gpt-4-0125-preview", temperature = 1.1, top_p = 1 }, 
-      -- system prompt (use this to specify the persona/role of the AI) 
-      system_prompt = "レスポンスは、日本語で回答してください\n\n" 
-			.. "1つずつ、step by stepで説明してください。\n\n", 
-  }, 
-	{
-			name = "ChatGPT3-5",
-	},
-	{
-			name = "CodeGPT3-5",
-	},
-
-},
-chat_assistant_prefix = { "🤖:", "[{{agent}}]" }, 
-chat_dir = vim.fn.stdpath("data"):gsub("/$", "") .. "/gp/chats",
-chat_shortcut_respond = { modes = { "n", "i", "v", "x" }, shortcut = "<C-c>r" }, 
-chat_shortcut_delete = { modes = { "n", "i", "v", "x" }, shortcut = "<C-c>d" }, 
-chat_shortcut_stop = { modes = { "n", "i", "v", "x" }, shortcut = "<C-c>s" }, 
-chat_shortcut_new = { modes = { "n", "i", "v", "x" }, shortcut = "<C-c>c" }, 
-})
 
 require("hlchunk").setup({
 chunk = {
@@ -226,20 +197,6 @@ blank = {
   enable = false,
 }
 })
-
--- lsp keyboard shortcut
--- vim.keymap.set('n', '<space>ck',  '<cmd>lua vim.lsp.buf.hover()<CR>')
--- vim.keymap.set('n', '<space>cf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
--- vim.keymap.set('n', '<space>cr', '<cmd>lua vim.lsp.buf.references()<CR>')
--- vim.keymap.set('n', '<space>cd', '<cmd>lua vim.lsp.buf.definition()<CR>')
--- vim.keymap.set('n', '<space>cD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
--- vim.keymap.set('n', '<space>ci', '<cmd>lua vim.lsp.buf.implementation()<CR>')
--- vim.keymap.set('n', '<space>ct', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
--- vim.keymap.set('n', '<space>cn', '<cmd>lua vim.lsp.buf.rename()<CR>')
--- vim.keymap.set('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
--- vim.keymap.set('n', '<space>ce', '<cmd>lua vim.diagnostic.open_float()<CR>')
--- vim.keymap.set('n', '<space>c]', '<cmd>lua vim.diagnostic.goto_next()<CR>')
--- vim.keymap.set('n', '<space>c[', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
 
 require("swagger-preview").setup({
     -- The port to run the preview server on
