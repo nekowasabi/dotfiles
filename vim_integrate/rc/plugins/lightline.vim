@@ -79,18 +79,18 @@ function! GetCodeiumCandidate()
 endfunction
 
 function! NearestMethodOrFunction()
-  " return ''
-  if &filetype == 'changelog' || &filetype == 'text' || &filetype == 'ddu-ff-filter' || &filetype == 'ddu-filer' || &filetype == 'vim-plug' || &filetype == '' || &filetype == 'php'
-    return ''
+  if &filetype == 'vim' || &filetype == 'php' || &filetype == 'typescript' || &filetype == 'javascript'
+    return ' :'.get(b:, 'vista_nearest_method_or_function', 'no func')
   endif
-  return ' :'.get(b:, 'vista_nearest_method_or_function', 'no func')
+  return ''
 endfunction
 
 function! UpdateNearestMethodOrFunction() abort
-  if &filetype == 'changelog' || &filetype == 'text' || &filetype == 'ddu-ff-filter' || &filetype == 'ddu-filer' || &filetype == 'vim-plug' || &filetype == '' || &filetype == 'php'
-    return
+  if &filetype == 'vim' || &filetype == 'php' || &filetype == 'typescript' || &filetype == 'javascript'
+    call vista#RunForNearestMethodOrFunction()
   endif
-  call vista#RunForNearestMethodOrFunction()
+
+  return
 endfunction
 
 " By default vista.vim never run if you don't call it explicitly.

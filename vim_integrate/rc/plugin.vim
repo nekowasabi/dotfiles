@@ -321,6 +321,7 @@ if g:IsMacNeovim() || g:IsWsl()
     Plug 'Shougo/ddc-source-lsp'
     call g:SetCoc()
   elseif g:IsMacNeovimInWezterm()
+    Plug 'Shougo/ddc-source-lsp'
     Plug 'sigmaSd/deno-nvim'
     call g:SetDdc()
   else

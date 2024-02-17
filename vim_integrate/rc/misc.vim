@@ -292,3 +292,20 @@ endfunction
 command! -range Test call s:Test() 
 nnoremap <silent> <F2> :Test<CR>
 vnoremap <silent> <F2> :Test<CR>
+
+function! SendCommandToTerminalWindows()
+    " すべてのウィンドウをループ
+    for win_id in range(1, winnr('$'))
+        " ウィンドウのバッファ番号を取得
+        let bufnr = winbufnr(win_id)
+        " バッファタイプを確認
+        if getbufvar(bufnr, '&buftype') ==# 'terminal'
+            " ターミナルバッファのジョブIDを取得
+            let job_id = getbufvar(bufnr, 'terminal_job_id')
+            if job_id != 0
+                " ターミナルにコマンドを送信
+                call jobsend(job_id, "echo 'Hello from terminal two'\n")
+            endif
+        endif
+    endfor
+endfunction
