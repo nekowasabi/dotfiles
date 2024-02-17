@@ -302,7 +302,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'vinnymeller/swagger-preview.nvim'
 	Plug 'xiyaowong/telescope-emoji.nvim'
   Plug 'tyru/caw.vim' 
-	Plug 'cshuaimin/ssr.nvim'
+	Plug 'cshuaimin/ssr.nvim' " あとで練習する
 	Plug 'sigmaSd/deno-nvim'
   Plug 'CopilotC-Nvim/CopilotChat.nvim'
 
@@ -564,28 +564,6 @@ execute 'source '.g:GetVimConfigRootPath().'rc/plugins/sayonara.vim'
 
 " }}}1
 
-" setting Mac Gvim {{{1
-if g:IsMacGvim()
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lightline.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/mark.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/voom.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/defx.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ale.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fern.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/user-gf.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/neosnippet.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddu.vim'
-	execute 'source '.g:GetVimConfigRootPath().'rc/plugins/caw.vim'
-
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/leaderf.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fzf-preview.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
-endif
-" }}}1
-
 " setting Mac Neovim {{{1
 if g:IsMacNeovim()
   execute 'source '.g:GetVimConfigRootPath().'rc/mark.vim'
@@ -616,6 +594,14 @@ if g:IsMacNeovim()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lsp-lines.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gp.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot-chat.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/telescope.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/rest.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/hlchunk.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treemonkey.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/swagger-preview.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ssr.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/deno-nvim.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/null-ls.vim'
 
   if g:IsMacNeovimInMfs()
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
@@ -701,6 +687,28 @@ if g:IsLinux() && !g:IsWsl()
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cmp.vim'
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vsnip.vim'
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lsp.vim'
+endif
+" }}}1
+
+" setting Mac Gvim {{{1
+if g:IsMacGvim()
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lightline.vim'
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/mark.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/voom.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/defx.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ale.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fern.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/user-gf.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/neosnippet.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddu.vim'
+	execute 'source '.g:GetVimConfigRootPath().'rc/plugins/caw.vim'
+
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/leaderf.vim'
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fzf-preview.vim'
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
 endif
 " }}}1
 
