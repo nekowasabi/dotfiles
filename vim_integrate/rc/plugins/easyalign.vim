@@ -1,6 +1,6 @@
 " -----------------------------------------------------------
 " easy-align
-vmap <Enter> <Plug>(EasyAlign)
+vmap A <Plug>(EasyAlign)
 
 let g:easy_align_delimiters = {
       \ ' ': { 'pattern': ' ', 'left_margin': 0, 'right_margin': 0, 'stick_to_left': 0 },

@@ -17,3 +17,6 @@ class MyArrayTools {
         });
     }
 }
+
+$obj = new MyArrayTools();
+var_dump($obj->extractOddNumbers([1, 2, 3, 4, 5])); // [1, 3, 5]

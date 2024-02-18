@@ -308,7 +308,7 @@ if g:IsMacNeovim() || g:IsWsl()
 
   call g:SetDdu()
 
-  if g:IsMacNeovimInMfs()
+  if g:IsMacNeovimInMfs() || g:IsWsl()
     Plug 'gelguy/wilder.nvim'
     Plug 'folke/noice.nvim'
     Plug 'Shougo/ddc-source-lsp'
@@ -565,10 +565,9 @@ execute 'source '.g:GetVimConfigRootPath().'rc/plugins/sayonara.vim'
 " }}}1
 
 " setting Mac Neovim {{{1
-if g:IsMacNeovim()
+if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/mark.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/neosnippet.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fzf-preview.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/defx.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/phpunit.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vimspector.vim'
@@ -603,7 +602,9 @@ if g:IsMacNeovim()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/deno-nvim.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/null-ls.vim'
 
-  if g:IsMacNeovimInMfs()
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fzf-preview.vim'
+
+  if g:IsMacNeovimInMfs() || g:IsWsl()
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
@@ -713,47 +714,47 @@ endif
 " }}}1
 
 " setting Wsl {{{1
-if g:IsWsl()
-  execute 'source '.g:GetVimConfigRootPath().'rc/mark.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/neosnippet.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fzf-preview.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/defx.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/phpunit.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vimspector.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-bookmark.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/devicons.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-dadbod.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fern.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/denops-gh.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-vue.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-print-debug.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gitsign.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lsp-color.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddu.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lightline.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ale.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-ambiwidth.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vista.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesitter.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/caw.vim'
-
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/git-conflict.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fzf-preview.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lualine.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/noice.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/aerial.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesitter.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/nvim-context-vt.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cmp.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vsnip.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lsp.vim'
-endif
+" if g:IsWsl()
+"   execute 'source '.g:GetVimConfigRootPath().'rc/mark.vim'
+"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/neosnippet.vim'
+"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fzf-preview.vim'
+"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/defx.vim'
+"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/phpunit.vim'
+"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vimspector.vim'
+"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-bookmark.vim'
+"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/devicons.vim'
+"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-dadbod.vim'
+"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fern.vim'
+"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/denops-gh.vim'
+"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-vue.vim'
+"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-print-debug.vim'
+"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gitsign.vim'
+"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lsp-color.vim'
+"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddu.vim'
+"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lightline.vim'
+"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ale.vim'
+"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-ambiwidth.vim'
+"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vista.vim'
+"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesitter.vim'
+"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
+"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
+"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
+"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
+"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/caw.vim'
+" 
+"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/git-conflict.vim'
+"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
+"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fzf-preview.vim'
+"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lualine.vim'
+"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
+"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/noice.vim'
+"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/aerial.vim'
+"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesitter.vim'
+"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/nvim-context-vt.vim'
+"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cmp.vim'
+"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vsnip.vim'
+"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lsp.vim'
+" endif
 " }}}1
 
 " vimproc 

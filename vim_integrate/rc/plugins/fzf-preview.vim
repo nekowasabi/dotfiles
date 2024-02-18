@@ -35,7 +35,7 @@ if g:IsMacNeovimInMfs()
 	" nnoremap <silent> <Leader>C mD:<C-u>CocCommand fzf-preview.Changes<CR>
 	" nnoremap <silent> <Leader>l mD:<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
 	" nnoremap <silent> <Leader>L mD:<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
-	nnoremap <silent> <Leader>b mD:<C-u>CocCommand fzf-preview.Bookmarks<CR>
+	" nnoremap <silent> <Leader>b mD:<C-u>CocCommand fzf-preview.Bookmarks<CR>
 	" nnoremap <silent> <Space>Q   :<C-u>CocCommand fzf-preview.QuickFix<CR>
 	" nnoremap <silent> <Space>*   :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
 	" nnoremap <silent> <Space>/ :<C-u>CocCommand fzf-preview.Lines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
@@ -72,13 +72,13 @@ if g:IsMacGvim()
 		execute 'FzfPreviewProjectGrep '.l:input
 	endfunction
 
-	nnoremap <Space><Space>  :<C-u>call FromResources()<CR>
-  function FromResources() abort
-		" cocの補完対象にしたくないバッファを削除
-		execute ":silent! bdelete! /Users/takets/Library/CloudStorage/Dropbox/files/changelog/tenTask.txt"
-		execute ":silent! bdelete! /Users/takets/Library/CloudStorage/Dropbox/files/changelog/changelogmemo"
-    execute 'CocCommand fzf-preview.FromResources mru'
-  endfunction
+	" nnoremap <Space><Space>  :<C-u>call FromResources()<CR>
+ "  function FromResources() abort
+	" 	" cocの補完対象にしたくないバッファを削除
+	" 	execute ":silent! bdelete! /Users/takets/Library/CloudStorage/Dropbox/files/changelog/tenTask.txt"
+	" 	execute ":silent! bdelete! /Users/takets/Library/CloudStorage/Dropbox/files/changelog/changelogmemo"
+ "    execute 'CocCommand fzf-preview.FromResources mru'
+ "  endfunction
 
 	" nnoremap <silent> <Leader><Leader> mD:<C-u>CocCommand fzf-preview.FromResources mru<CR>
 	nnoremap <silent> <Leader>gf mD:<C-u>CocCommand fzf-preview.GitFiles<CR>
@@ -102,34 +102,32 @@ if g:IsMacGvim()
 	" nnoremap <silent> <Space>pa  :<C-u>FzfPreviewProjectGrep 
 	" nnoremap <silent> <Space>pA  :<C-u>FzfPreviewProjectGrep --add-fzf-arg=--no-sort --add-fzf-arg=--query="'" 
 else
-	noremap <silent> <CR><CR> :<C-u>call FzfFromResourceBufferMru()<CR>
-	function FzfFromResourceBufferMru() abort
-		if fnamemodify(expand('%'), ':t') == "01_ver01.txt.shd"
-			exe 'VoomQuitAll'
-		endif
-
-		execute "FzfPreviewFromResources buffer mru"
-	endfunction
-
-
+	" noremap <silent> <CR><CR> :<C-u>call FzfFromResourceBufferMru()<CR>
+	" function FzfFromResourceBufferMru() abort
+	" 	if fnamemodify(expand('%'), ':t') == "01_ver01.txt.shd"
+	" 		exe 'VoomQuitAll'
+	" 	endif
+ " 
+	" 	execute "FzfPreviewFromResources buffer mru"
+	" endfunction
 endif
 
 if g:IsLinux()
-	nnoremap <Space>pa  :<C-u>call FzFGrepForProject()<CR>
-	function FzFGrepForProject() abort
-		cd /home/kf/app
-		let l:input = input("Project grep > ")
-		execute 'FzfPreviewProjectGrep '.l:input
-	endfunction
-
-	nnoremap <Space>pw :<C-u>call FzFGrepCwordForProject()<CR>
-	function FzFGrepCwordForProject() abort
-		cd /home/kf/app
-		let search_word = expand("<cword>")
-		execute 'FzfPreviewProjectGrep '.search_word
-	endfunction
-
-	nnoremap <silent> <Space><Space>   :<C-u>FzfPreviewBuffers<CR>
+	" nnoremap <Space>pa  :<C-u>call FzFGrepForProject()<CR>
+	" function FzFGrepForProject() abort
+	" 	cd /home/kf/app
+	" 	let l:input = input("Project grep > ")
+	" 	execute 'FzfPreviewProjectGrep '.l:input
+	" endfunction
+ " 
+	" nnoremap <Space>pw :<C-u>call FzFGrepCwordForProject()<CR>
+	" function FzFGrepCwordForProject() abort
+	" 	cd /home/kf/app
+	" 	let search_word = expand("<cword>")
+	" 	execute 'FzfPreviewProjectGrep '.search_word
+	" endfunction
+ " 
+	" nnoremap <silent> <Space><Space>   :<C-u>FzfPreviewBuffers<CR>
 	" nnoremap <silent> <CR><CR> mD:<C-u>FzfPreviewFromResources mru buffer<CR>
 	" nnoremap <silent> <Leader>gf mD:<C-u>FzfPreviewGitFiles<CR>
 	" nnoremap <silent> <Leader>gs mD:<C-u>FzfPreviewGitStatus<CR>
@@ -139,7 +137,7 @@ if g:IsLinux()
 	" nnoremap <silent> <Leader>C mD:<C-u>FzfPreviewChanges<CR>
 	" nnoremap <silent> <Leader>l mD:<C-u>FzfPreviewLines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'"<CR>
 	" nnoremap <silent> <Leader>L mD:<C-u>FzfPreviewLines --add-fzf-arg=--no-sort --add-fzf-arg=--query="'<C-r>=expand('<cword>')<CR>"<CR>
-	nnoremap <silent> <Leader>b mD:<C-u>FzfPreviewBookmarks<CR>
+	" nnoremap <silent> <Leader>b mD:<C-u>FzfPreviewBookmarks<CR>
 	" nnoremap <silent> <Space>pk  :<C-u>FzfPreviewProjectGrep imakoko<CR>
 	" nnoremap <silent> <Space>pa  :<C-u>FzfPreviewProjectGrep 
 	" nnoremap <silent> <Space>pA  :<C-u>FzfPreviewProjectGrep --add-fzf-arg=--no-sort --add-fzf-arg=--query="'" 

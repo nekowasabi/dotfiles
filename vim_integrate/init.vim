@@ -54,13 +54,13 @@ let g:perplexity_token = $PERPLEXITY_TOKEN
 let g:perplexity_model = 'llama-2-70b-chat'
 let g:perplexity_log_directory = '/tmp/perplexity'
 
+"hell
 " lazygit
 nnoremap <silent> <leader>lg :LazyGit<CR>
 
 " keybind
 nnoremap <silent> <Tab> <C-w>w
-
-" telescop
+nnoremap <silent> <CR> :w!<CR>
 
 " -----------------------------------------------------------
 " lua
