@@ -283,10 +283,6 @@ command! -range PushChangelog call s:PushChangelog()
 " -----------------------------------------------------------
 " test
 function! s:Test()
-  for winid in nvim_list_wins()
-    let bufid = winbufnr(winid)
-    echo getbufvar(bufid, '&filetype')
-  endfor
 endfunction
 
 command! -range Test call s:Test() 
