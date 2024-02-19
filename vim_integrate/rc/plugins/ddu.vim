@@ -22,7 +22,7 @@ if g:IsMacNeovim()
   let s:WinRow = 2
   let s:WinCol = 2
   let s:previewWidth= 160
-  let s:previewHeight= 20
+  let s:previewHeight= 30
   let s:previewRow= 34 
   let s:previewCol= 2
 	let s:previewSplit = 'vertical'
@@ -166,7 +166,8 @@ call ddu#custom#patch_global(#{
 call ddu#custom#patch_global(#{
     \   sourceOptions: #{
     \     _: #{
-    \       matchers: ['matcher_matchfuzzy', 'matcher_ignores'],
+    \       matchers: ['matcher_matchfuzzy'],
+    \       ignoreCase: v:true,
     \     },
     \     help: #{
     \       matchers: ['matcher_substring'],
