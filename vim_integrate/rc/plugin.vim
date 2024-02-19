@@ -291,7 +291,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'kdheepak/lazygit.nvim'
   Plug 'williamboman/mason.nvim'
   Plug 'williamboman/mason-lspconfig.nvim'
-	Plug 'ryoppippi/lsp_lines.nvim'
+	Plug 'ErichDonGubler/lsp_lines.nvim'
   Plug 'HiPhish/rainbow-delimiters.nvim'
   Plug 'shellRaining/hlchunk.nvim'
   Plug 'rest-nvim/rest.nvim'
