@@ -62,6 +62,9 @@ nnoremap <silent> <leader>lg :LazyGit<CR>
 nnoremap <silent> <Tab> <C-w>w
 nnoremap <silent> <CR> :w!<CR>
 
+" aider.vim
+let g:aider_command = 'aider --no-auto-commits --4turbo'
+
 " -----------------------------------------------------------
 " lua
 lua << EOF
