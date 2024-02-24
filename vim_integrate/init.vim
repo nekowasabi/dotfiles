@@ -64,6 +64,10 @@ nnoremap <silent> <CR> :w!<CR>
 
 " aider.vim
 let g:aider_command = 'aider --no-auto-commits --4turbo'
+let g:aider_split_direction = 'vsplit'
+
+" keymap
+tnoremap jj <C-\><C-n>
 
 " -----------------------------------------------------------
 " lua
