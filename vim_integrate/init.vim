@@ -81,11 +81,6 @@ lua << EOF
 -- })
 -- vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format { async = true } end)
 
-require('aider').setup({
-  auto_manage_context = false,
-  default_bindings = false
-})
-
 EOF
 
 " END
