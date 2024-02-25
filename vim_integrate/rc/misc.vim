@@ -300,7 +300,7 @@ function! SendCommandToTerminalWindows()
             let job_id = getbufvar(bufnr, 'terminal_job_id')
             if job_id != 0
                 " ターミナルにコマンドを送信
-                call jobsend(job_id, "echo 'Hello from terminal two'\n")
+                call chansend(job_id, "echo 'Hello from terminal two'\n")
             endif
         endif
     endfor

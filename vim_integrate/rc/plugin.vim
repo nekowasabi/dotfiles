@@ -86,6 +86,7 @@ if g:IsWindowsGvim()
 	Plug 'madox2/vim-ai', { 'do': './install.sh' }
   Plug 'Exafunction/codeium.vim'
 else
+  Plug 'joshuavial/aider.nvim'
   Plug 'github/copilot.vim'
 endif
 
