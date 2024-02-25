@@ -86,8 +86,9 @@ if g:IsWindowsGvim()
 	Plug 'madox2/vim-ai', { 'do': './install.sh' }
   Plug 'Exafunction/codeium.vim'
 else
-  Plug 'joshuavial/aider.nvim'
   Plug 'github/copilot.vim'
+	Plug 'nekowasabi/aider.vim'
+  Plug 'Robitx/gp.nvim'
 endif
 
 " denops
@@ -297,7 +298,6 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'shellRaining/hlchunk.nvim'
   Plug 'rest-nvim/rest.nvim'
   Plug 'atusy/treemonkey.nvim'
-  Plug 'Robitx/gp.nvim'
   Plug 'uga-rosa/ddc-source-lsp-setup'
   Plug 'neovim/nvim-lspconfig'
   Plug 'vinnymeller/swagger-preview.nvim'
@@ -306,7 +306,6 @@ if g:IsMacNeovim() || g:IsWsl()
 	Plug 'cshuaimin/ssr.nvim' " あとで練習する
 	Plug 'sigmaSd/deno-nvim'
   Plug 'CopilotC-Nvim/CopilotChat.nvim'
-	Plug 'nekowasabi/aider.vim'
 
   call g:SetDdu()
 
