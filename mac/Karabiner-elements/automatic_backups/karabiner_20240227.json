@@ -720,7 +720,7 @@
                                 ],
                                 "to_if_alone": [
                                     {
-                                        "key_code": "delete_or_backspace"
+                                        "key_code": "tab"
                                     }
                                 ],
                                 "type": "basic"
@@ -760,7 +760,7 @@
                                 ],
                                 "to_if_alone": [
                                     {
-                                        "key_code": "delete_or_backspace"
+                                        "key_code": "tab"
                                     }
                                 ],
                                 "type": "basic"
@@ -1689,7 +1689,7 @@
                                 ],
                                 "to_if_alone": [
                                     {
-                                        "key_code": "delete_or_backspace"
+                                        "key_code": "tab"
                                     }
                                 ],
                                 "type": "basic"
@@ -29893,16 +29893,6 @@
                         },
                         {
                             "from": {
-                                "key_code": "japanese_kana"
-                            },
-                            "to": [
-                                {
-                                    "key_code": "left_command"
-                                }
-                            ]
-                        },
-                        {
-                            "from": {
                                 "key_code": "japanese_pc_nfer"
                             },
                             "to": [
@@ -29928,6 +29918,16 @@
                             "to": [
                                 {
                                     "key_code": "tab"
+                                }
+                            ]
+                        },
+                        {
+                            "from": {
+                                "key_code": "japanese_kana"
+                            },
+                            "to": [
+                                {
+                                    "key_code": "left_command"
                                 }
                             ]
                         }

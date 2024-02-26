@@ -29,7 +29,7 @@
                                             "^org\\.vim\\.",
                                             "^com\\.electron\\.taskchute-cloud",
                                             "com\\.rememberthemilk\\.Deskmilk",
-                                            "^com\\.github\\.wez\\.wezterm$"
+                                            "com\\.github\\.wez\\.wezterm"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -57,9 +57,41 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^org\\.vim\\.",
+                                            "^org\\.gnu\\.Emacs$",
                                             "^com\\.googlecode\\.iterm2$",
-                                            "^com\\.github\\.wez\\.wezterm$"
+                                            "^org\\.vim\\.",
+                                            "^com\\.electron\\.taskchute-cloud",
+                                            "com\\.rememberthemilk\\.Deskmilk",
+                                            "com\\.github\\.wez\\.wezterm"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "f20"
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "japanese_eisuu"
+                                    },
+                                    {
+                                        "shell_command": "/usr/local/bin/swim use com.justsystems.inputmethod.atok32.Roman"
+                                    },
+                                    {
+                                        "key_code": "escape"
+                                    },
+                                    {
+                                        "key_code": "japanese_eisuu"
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^org\\.vim\\.",
+                                            "^com\\.googlecode\\.iterm2$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -84,12 +116,6 @@
                                     },
                                     {
                                         "key_code": "japanese_eisuu"
-                                    },
-                                    {
-                                        "key_code": "japanese_eisuu"
-                                    },
-                                    {
-                                        "key_code": "japanese_eisuu"
                                     }
                                 ],
                                 "type": "basic"
@@ -99,8 +125,7 @@
                                     {
                                         "bundle_identifiers": [
                                             "^org\\.vim\\.",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^com\\.github\\.wez\\.wezterm$"
+                                            "^com\\.googlecode\\.iterm2$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -126,8 +151,7 @@
                                     {
                                         "bundle_identifiers": [
                                             "^org\\.vim\\.",
-                                            "^com\\.googlecode\\.iterm2$",
-                                            "^com\\.github\\.wez\\.wezterm$"
+                                            "^com\\.googlecode\\.iterm2$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -154,7 +178,7 @@
                                         "bundle_identifiers": [
                                             "^org\\.vim\\.",
                                             "^com\\.googlecode\\.iterm2$",
-                                            "^com\\.github\\.wez\\.wezterm$"
+                                            "^com\\.github\\.wez\\.wezterm"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -760,7 +784,7 @@
                                 ],
                                 "to_if_alone": [
                                     {
-                                        "key_code": "delete_or_backspace"
+                                        "key_code": "delete_forward"
                                     }
                                 ],
                                 "type": "basic"
@@ -29893,7 +29917,7 @@
                         },
                         {
                             "from": {
-                                "key_code": "japanese_kana"
+                                "key_code": "japanese_pc_katakana"
                             },
                             "to": [
                                 {
@@ -29927,7 +29951,7 @@
                             },
                             "to": [
                                 {
-                                    "key_code": "tab"
+                                    "key_code": "delete_or_backspace"
                                 }
                             ]
                         }
