@@ -2,7 +2,7 @@
 
 class A
 {
-    public function hello_world()
+    public function helloWorldNameForUsers()
     {
         return "Hallo";
     }
