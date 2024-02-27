@@ -2,7 +2,7 @@
 
 class A
 {
-    public function helloWorldName()
+    public function helloWorldNameAaa()
     {
         echo 'ok';
         return "Hallo";
