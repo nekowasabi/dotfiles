@@ -2,8 +2,9 @@
 
 class A
 {
-    public function helloWorldNameForUsers()
+    public function helloWorldName()
     {
+        echo 'ok';
         return "Hallo";
     }
 }
