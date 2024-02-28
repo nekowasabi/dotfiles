@@ -47,6 +47,7 @@ let g:denops#debug = 0
 "      \ '--inspect-brk',
 "      \ ])
 
+
 call ai_review#config({ 'chat_gpt': { 'model': 'gpt-4' } })
 
 " vim-perplexity
@@ -65,6 +66,8 @@ nnoremap <silent> <CR> :w!<CR>
 " aider.vim
 let g:aider_command = 'aider --no-auto-commits --4turbo'
 let g:aider_split_direction = 'vsplit'
+let g:aider_floatwin_width = 100
+let g:aider_floatwin_height = 20
 
 " keymap
 tnoremap jj <C-\><C-n>
