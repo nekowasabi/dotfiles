@@ -1,4 +1,4 @@
-<?php
+<?phps
 
 /**
  * MyArrayTools クラス
