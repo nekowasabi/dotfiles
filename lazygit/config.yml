@@ -1,10 +1,28 @@
 gui:
   language: 'en'
-  showIcons: true
+  showIcons: false
+  nerdFontsVersion: '3'
+  theme:
+    selectedLineBgColor:
+      - reverse
+    selectedRangeBgColor:
+      - reverse
+    optionsTextColor:
+      - blue
+    cherryPickedCommitBgColor:
+      - cyan
+    cherryPickedCommitFgColor:
+      - blue
+    unstagedChangesColor:
+      - red
+    defaultFgColor:
+      - default
 
 git:
-  parseEmoji: true
-
+  parseEmoji: false
+  paging:
+    colorArg: always
+    pager: delta --paging=never
 os:
   editPreset: "nvim"
 

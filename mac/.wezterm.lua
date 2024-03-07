@@ -3,14 +3,11 @@ local wezterm = require("wezterm")
 local solarized = wezterm.get_builtin_color_schemes()["Solarized Dark - Patched"]
 solarized.cursor_bg = "red"
 
-window_decorations = "NONE
-
 return {
 -- wsl_domains = wsl_domains,
   default_cwd = "/Users/ttakeda",
-  -- default_prog = {"wsl.exe", "--distribution", "Ubuntu", "--exec", "/home/linuxbrew/.linuxbrew/bin/zsh", "-l"},
-  font = wezterm.font("RuikaMono", { weight = 7, style = 'Normal',  italic = false }),
-  font_size = 18,
+  font = wezterm.font("RuikaMono07 Nerd Font", { weight = 7, stretch="Normal", style = 'Normal',  italic = false }),
+  font_size = 22,
   color_schemes = {
     -- Override the builtin Gruvbox Light scheme with our modification.
     ["Solarized Dark - Patched"] = solarized,
