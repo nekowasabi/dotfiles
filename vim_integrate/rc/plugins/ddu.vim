@@ -418,7 +418,7 @@ nnoremap <silent> <Leader>cD
 	    \ }],
 	    \})<CR>
 
-nnoremap <silent> <Leader>co
+nnoremap <silent> <Leader>o
     \ <Cmd>call ddu#start(#{
 	    \ sources: [#{
 	    \   name: 'lsp_documentSymbol',
