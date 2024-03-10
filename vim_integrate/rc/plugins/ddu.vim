@@ -16,7 +16,7 @@ if g:IsMacGvim()
   let s:cursorLine = 'CursorLine'
 endif
 
-if g:IsMacNeovim()
+if g:IsMacNeovimInMfs()
   let s:Height = 15 
   let s:Width  = 160
   let s:WinRow = 2
@@ -29,6 +29,22 @@ if g:IsMacNeovim()
   let s:previewFloatingBorder = 'double'
   let s:cursorLine = 'String'
 endif
+
+if g:IsMacNeovim() && !g:IsMacNeovimInMfs()
+  let s:Height = 15 
+  let s:Width  = 160
+  let s:WinRow = 2
+  let s:WinCol = 2
+  let s:previewWidth= 160
+  let s:previewHeight= 20
+  let s:previewRow= 34 
+  let s:previewCol= 2
+	let s:previewSplit = 'vertical'
+  let s:previewFloatingBorder = 'double'
+  let s:cursorLine = 'String'
+endif
+
+
 
 if g:IsWindowsGvim()
   let s:Height = 22
