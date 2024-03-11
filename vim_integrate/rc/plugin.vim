@@ -305,7 +305,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'tyru/caw.vim' 
 	Plug 'cshuaimin/ssr.nvim' " あとで練習する
 	Plug 'sigmaSd/deno-nvim'
-  Plug 'CopilotC-Nvim/CopilotChat.nvim'
+	Plug 'CopilotC-Nvim/CopilotChat.nvim', {'branch': 'canary'}
 
   call g:SetDdu()
 
