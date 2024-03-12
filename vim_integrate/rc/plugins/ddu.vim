@@ -16,7 +16,7 @@ if g:IsMacGvim()
   let s:cursorLine = 'CursorLine'
 endif
 
-if g:IsMacNeovimInMfs()
+if g:IsMacNeovim()
   let s:Height = 15 
   let s:Width  = 160
   let s:WinRow = 2
@@ -29,22 +29,6 @@ if g:IsMacNeovimInMfs()
   let s:previewFloatingBorder = 'double'
   let s:cursorLine = 'String'
 endif
-
-if g:IsMacNeovim() && !g:IsMacNeovimInMfs()
-  let s:Height = 15 
-  let s:Width  = 160
-  let s:WinRow = 2
-  let s:WinCol = 2
-  let s:previewWidth= 160
-  let s:previewHeight= 20
-  let s:previewRow= 34 
-  let s:previewCol= 2
-	let s:previewSplit = 'vertical'
-  let s:previewFloatingBorder = 'double'
-  let s:cursorLine = 'String'
-endif
-
-
 
 if g:IsWindowsGvim()
   let s:Height = 22
@@ -418,7 +402,7 @@ nnoremap <silent> <Leader>cD
 	    \ }],
 	    \})<CR>
 
-nnoremap <silent> <Leader>o
+nnoremap <silent> <Leader>co
     \ <Cmd>call ddu#start(#{
 	    \ sources: [#{
 	    \   name: 'lsp_documentSymbol',
@@ -494,7 +478,6 @@ call ddu#custom#patch_global({
   \ }
   \ })
 
-
 call ai_review#config({ 'chat_gpt': { 'model': 'gpt-4-0125-preview' } })
 
 if g:IsWindowsGvim() || g:IsMacGvim() || g:IsLinux() || g:IsMacNeovim()
@@ -505,7 +488,6 @@ if g:IsWindowsGvim() || g:IsMacGvim() || g:IsLinux() || g:IsMacNeovim()
 
   nnoremap <silent> <Leader><Leader>
         \ <Cmd>call ddu#start({'sources': [{'name': 'mr', 'params': {'kind': 'mrw'}}]})<CR>
-        "\ <Cmd>call ddu#start({'sources': [{'name': 'mr'}, 'params': {'kind': 'mrw'}]})<CR>
   nnoremap <silent> <Leader>lw
         \ <Cmd>call ddu#start({
         \ 'input' : '[worklog]',

@@ -1,4 +1,3 @@
-
 " init setting {{{1
 
 " 環境ごとの設定ディレクトリパスを取得
@@ -65,13 +64,15 @@ nnoremap <silent> <Tab> <C-w>w
 nnoremap <silent> <CR> :w!<CR>
 
 " aider.vim
-let g:aider_command = 'aider --no-auto-commits --dark-mode --4turbo'
+let g:aider_command = 'aider --no-auto-commits --4turbo'
 let g:aider_split_direction = 'vsplit'
 let g:aider_floatwin_width = 100
 let g:aider_floatwin_height = 20
 
 " keymap
 tnoremap ll <C-\><C-n>
+
+autocmd FileType ddu-ff call timer_start(1, {-> ddu#ui#do_action('openFilterWindow')})
 
 " -----------------------------------------------------------
 " lua
