@@ -651,8 +651,8 @@ function! DduFiler() abort
         \ 'sourceOptions': {'_': {'columns': ['icon_filename']}},
         \ 'uiParams': {
         \	'filer': {
-        \		'split': 'horizontal',
-        \		'splitDirectoin': 'topleft',
+        \		'split': 'floating',
+        \		'floatingBorder': 'double',
         \		'previewFloating': v:true,
         \	}
         \ },

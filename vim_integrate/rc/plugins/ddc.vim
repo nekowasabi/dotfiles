@@ -1,7 +1,7 @@
 call ddc#custom#patch_global('ui','pum')
 
 if g:IsWindowsGvim()
-	call ddc#custom#patch_global('sources', ['around', 'buffer', 'neosnippet', 'vim-lsp', 'cmdline-history', 'file', 'rg'])
+	call ddc#custom#patch_global('sources', ['around'])
 	call ddc#custom#patch_filetype(['aichat'], 'sources', [])
 	call ddc#custom#patch_filetype(['changelog'], 'sources', ['around', 'file', 'rg'])
 	call ddc#custom#patch_filetype(['markdown'], 'sources', ['around', 'file'])
@@ -17,7 +17,7 @@ if g:IsWindowsGvim()
         \   },
         \ })
 else
-  call ddc#custom#patch_global('sources', ['lsp', 'around', 'buffer', 'neosnippet', 'lsp', 'cmdline-history', 'file', 'rg'])
+  call ddc#custom#patch_global('sources', ['around'])
   call ddc#custom#patch_filetype(['aichat'], 'sources', [])
   call ddc#custom#patch_filetype(['changelog'], 'sources', ['around', 'file', 'rg'])
   call ddc#custom#patch_filetype(['markdown'], 'sources', ['around', 'file'])
@@ -168,13 +168,15 @@ call ddc#custom#patch_global(#{
       \   ],
       \   cmdlineSources: {
       \     ':': ['cmdline'],
-      \     '/': ['around'],
-      \     '?': ['around'],
       \   },
       \ })
 nnoremap <Space>:       <Cmd>call CommandlinePre()<CR>:
-nnoremap /       :SearchxForward<CR><Cmd>call CommandlinePre()<CR>
-nnoremap ?       :SearchxBackrward<CR><Cmd>call CommandlinePre()<CR>
+nnoremap /       :SearchxForward<CR>
+nnoremap ?       :SearchxBackrward<CR>
+" nnoremap /       :SearchxForward<CR><Cmd>call CommandlinePre()<CR>
+" nnoremap ?       :SearchxBackrward<CR><Cmd>call CommandlinePre()<CR>
+      "\     '/': ['around'],
+      "\     '?': ['around'],
 
 function CommandlinePre() abort
   " cnoremap <expr> <Tab>

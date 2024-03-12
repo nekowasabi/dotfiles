@@ -1,6 +1,5 @@
 lua << EOF
 local copilot_chat = require("CopilotChat")
-local select = require("CopilotChat.select")
 copilot_chat.setup({
   debug = false,
   show_system_prompt = false,
@@ -22,11 +21,9 @@ copilot_chat.setup({
     },
     FixDiagnostic = {
       prompt = 'Please assist with the following diagnostic issue in file:',
-      selection = select.diagnostics,
     },
     Commit = {
       prompt = 'Write commit message for the change with commitizen convention. Make sure the title has maximum 50 characters and message is wrapped at 72 characters. Wrap the whole message in code block with language gitcommit. And copilot system message text by Japanese.',
-      selection = select.gitdiff,
     },
     CommitStaged = {
       prompt = 'Write commit message for the change with commitizen convention. Make sure the title has maximum 50 characters and message is wrapped at 72 characters. Wrap the whole message in code block with language gitcommit. And copilot system message text by Japanese.',
