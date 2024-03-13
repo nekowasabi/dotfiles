@@ -57,7 +57,9 @@ let g:perplexity_log_directory = '/tmp/perplexity'
 "hell
 " lazygit
 nnoremap <silent> <leader>lg :LazyGit<CR>
-let g:lazygit_floating_window_use_plenary = 1 " use plenary.nvim to manage floating window if available
+let g:lazygit_floating_window_use_plenary = 0 " use plenary.nvim to manage floating window if available
+
+
 
 " keybind
 nnoremap <silent> <Tab> <C-w>w
@@ -105,6 +107,10 @@ vim.api.nvim_create_autocmd("TermOpen", {
 --     },
 -- })
 -- vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format { async = true } end)
+
+-- require("toggleterm").setup({
+-- 
+-- })
 
 EOF
 
