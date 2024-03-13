@@ -642,12 +642,11 @@ endfunction
 
 " filer 表示
 function! DduFiler() abort
-  execute 'cd' expand('%:p:h')
   call ddu#start({
         \ 'ui': 'filer',
         \ 'name': 'ui_filer_preview_layout',
         \ 'resume': v:true,
-        \ 'sources': [{'name': 'file'}],
+				\ 'sources': [{'name': 'file', 'options': {'path': expand('%:p:h')}}],
         \ 'sourceOptions': {'_': {'columns': ['icon_filename']}},
         \ 'uiParams': {
         \	'filer': {
