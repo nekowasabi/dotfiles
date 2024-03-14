@@ -1,3 +1,17 @@
+" minimum setting {{{1
+source ~/.config/nvim/rc/env.vim
+if empty(g:GetAutoloadPath() . 'plug.vim')
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
+
+call plug#begin(g:GetVimConfigRootPath() . 'plugged')
+  Plug 'kdheepak/lazygit.nvim'
+call plug#end()
+
+" }}}1
+
 " init setting {{{1
 
 " 環境ごとの設定ディレクトリパスを取得
@@ -54,12 +68,9 @@ let g:perplexity_token = $PERPLEXITY_TOKEN
 let g:perplexity_model = 'llama-2-70b-chat'
 let g:perplexity_log_directory = '/tmp/perplexity'
 
-"hell
 " lazygit
 nnoremap <silent> <leader>lg :LazyGit<CR>
-let g:lazygit_floating_window_use_plenary = 0 " use plenary.nvim to manage floating window if available
-
-
+let g:lazygit_floating_window_use_plenary = 1 " use plenary.nvim to manage floating window if available
 
 " keybind
 nnoremap <silent> <Tab> <C-w>w
@@ -76,12 +87,19 @@ tnoremap ll <C-\><C-n>
 
 autocmd FileType ddu-ff call timer_start(1, {-> ddu#ui#do_action('openFilterWindow')})
 
+
+call setcellwidths([
+  \ [ 0x2500, 0x257f, 2 ],
+  \ [ 0x2100, 0x214d, 2 ],
+  \ [ 0x26A0, 0x26A0, 2 ],
+  \ ])
+
 " -----------------------------------------------------------
 " lua
 lua << EOF
 -- Lazygit起動時にESCを無効化する
 vim.api.nvim_create_augroup("LazygitKeyMapping", {})
--- ⚠️TermEnterでは起動されたバッファではなく、起動したバッファが対象になってしまう
+-- TermEnterでは起動されたバッファではなく、起動したバッファが対象になってしまう
 local bkey = vim.api.nvim_buf_set_keymap
 vim.api.nvim_create_autocmd("TermOpen", {
   group = "LazygitKeyMapping",
