@@ -89,7 +89,7 @@ autocmd FileType ddu-ff call timer_start(1, {-> ddu#ui#do_action('openFilterWind
 
 
 call setcellwidths([
-  \ [ 0x2500, 0x257f, 2 ],
+  \ [ 0x2500, 0x257f, 1 ],
   \ [ 0x2100, 0x214d, 2 ],
   \ [ 0x26A0, 0x26A0, 2 ],
   \ ])
