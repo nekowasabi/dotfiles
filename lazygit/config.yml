@@ -1,6 +1,6 @@
 gui:
   language: 'en'
-  showIcons: false
+  showIcons: true
   nerdFontsVersion: '3'
   theme:
     selectedLineBgColor:
@@ -19,7 +19,7 @@ gui:
       - default
 
 git:
-  parseEmoji: false
+  parseEmoji: true
   paging:
     colorArg: always
     pager: delta --paging=never
