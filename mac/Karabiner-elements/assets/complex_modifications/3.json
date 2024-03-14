@@ -810,6 +810,51 @@
 				},
 				{
 					"type": "basic",
+					"description": "たいおう",
+					"conditions": [
+						{
+							"type": "input_source_if",
+							"input_sources": [
+								{
+									"language": "ja"
+								}
+							]
+						}
+					],
+					"from": {
+						"simultaneous": [
+							{
+								"key_code": "t"
+							},
+							{
+								"key_code": "i"
+							},
+							{
+								"key_code": "o"
+							}
+						]
+					},
+					"to": [
+						{
+							"key_code": "t"
+						},
+						{
+							"key_code": "a"
+						},
+						{
+							"key_code": "i"
+						},
+						{
+							"key_code": "o"
+						},
+						{
+							"key_code": "u",
+							"repeat": false
+						}
+					]
+				},
+				{
+					"type": "basic",
 					"description": "たすく",
 					"conditions": [
 						{

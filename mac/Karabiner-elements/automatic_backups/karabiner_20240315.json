@@ -2513,51 +2513,6 @@
                                         "type": "input_source_if"
                                     }
                                 ],
-                                "description": "たいおう",
-                                "from": {
-                                    "simultaneous": [
-                                        {
-                                            "key_code": "t"
-                                        },
-                                        {
-                                            "key_code": "i"
-                                        },
-                                        {
-                                            "key_code": "o"
-                                        }
-                                    ]
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "t"
-                                    },
-                                    {
-                                        "key_code": "a"
-                                    },
-                                    {
-                                        "key_code": "i"
-                                    },
-                                    {
-                                        "key_code": "o"
-                                    },
-                                    {
-                                        "key_code": "u",
-                                        "repeat": false
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "input_sources": [
-                                            {
-                                                "language": "ja"
-                                            }
-                                        ],
-                                        "type": "input_source_if"
-                                    }
-                                ],
                                 "description": "たすく",
                                 "from": {
                                     "simultaneous": [
@@ -24116,7 +24071,7 @@
                                 ],
                                 "to_if_alone": [
                                     {
-                                        "key_code": "tab"
+                                        "key_code": "delete_or_backspace"
                                     }
                                 ],
                                 "type": "basic"
