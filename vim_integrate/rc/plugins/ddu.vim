@@ -18,6 +18,7 @@ endif
 
 if g:IsMacNeovim()
   let s:Height = 15 
+  let s:FilerHeight = 60
   let s:Width  = 160
   let s:WinRow = 2
   let s:WinCol = 2
@@ -82,7 +83,6 @@ call ddu#custom#patch_global(#{
 		\ 	    }
 		\     },
     \     ff: #{
-    \         startFilter: v:true,
     \         prompt: '> ' ,
     \         highlights: #{floatingCursorLine: s:cursorLine, filterText: 'Statement', floating: "Normal", floatingBorder: "Special", selected: 'Special'},
     \         autoAction: #{name: "preview", sync: v:true},
@@ -600,14 +600,14 @@ autocmd TabEnter,CursorHold,FocusGained <buffer>
 
 autocmd FileType ddu-filer call s:ddu_filer_my_settings()
 function! s:ddu_filer_my_settings() abort
-  nnoremap <buffer><expr> <CR>
-        \ ddu#ui#get_item()->get('isTree', v:false) ?
-        \ "<Cmd>call ddu#ui#do_action('itemAction', {'name': 'narrow'})<CR>" :
-        \ "<Cmd>call ddu#ui#do_action('itemAction')<CR>"
-  nnoremap <buffer><expr> l
-        \ ddu#ui#get_item()->get('isTree', v:false) ?
-        \ "<Cmd>call ddu#ui#do_action('itemAction', {'name': 'narrow'})<CR>" :
-        \ "<Cmd>call ddu#ui#do_action('itemAction')<CR>"
+	nnoremap <buffer><expr> <CR>
+				\ ddu#ui#get_item()->get('isTree', v:false) ?
+				\ "<Cmd>call ddu#ui#do_action('itemAction', {'name': 'narrow'})<CR>" :
+				\ "<Cmd>call ddu#ui#do_action('itemAction')<CR>"
+	nnoremap <buffer><expr> l
+				\ ddu#ui#get_item()->get('isTree', v:false) ?
+				\ "<Cmd>call ddu#ui#do_action('itemAction', {'name': 'narrow'})<CR>" :
+				\ "<Cmd>call ddu#ui#do_action('itemAction')<CR>"
 	nnoremap <silent><buffer> h
 				\ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'narrow', 'params': {'path': '..'}})<CR>
 	nnoremap <buffer><silent> e
@@ -630,14 +630,24 @@ function! s:ddu_filer_my_settings() abort
 				\ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'newDirectory'})<CR>
 	nnoremap <buffer><silent> r
 				\ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'rename'})<CR>
-  nnoremap <buffer><silent> c
-    \ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'copy'})<CR>
-  nnoremap <buffer><silent> p
-    \ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'paste'})<CR>
-  nnoremap <buffer><silent> d
-    \ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'delete'})<CR>
+	nnoremap <buffer><silent> c
+				\ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'copy'})<CR>
+	nnoremap <buffer><silent> p
+				\ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'paste'})<CR>
+	nnoremap <buffer><silent> d
+				\ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'delete'})<CR>
 	nnoremap <buffer><silent> q
 				\ <Cmd>call ddu#ui#do_action('quit')<CR>
+	nnoremap <buffer> >
+				\ <Cmd>call ddu#ui#filer#do_action('updateOptions', #{
+				\   sourceOptions: #{
+				\     file: #{
+				\       matchers: ToggleHidden('file'),
+				\     },
+				\   },
+				\ })<CR>
+	nnoremap <buffer> gr
+    \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'rg' })<CR>
 endfunction
 
 " filer 表示
@@ -653,6 +663,11 @@ function! DduFiler() abort
         \		'split': 'floating',
         \		'floatingBorder': 'double',
         \		'previewFloating': v:true,
+        \		'winWidth': &columns - 4,
+        \		'winHeight': &lines - 4,
+        \		'winCol': s:WinCol,
+        \		'winRow': s:WinRow,
+        \		'sort': 'extension',
         \	}
         \ },
         \ })

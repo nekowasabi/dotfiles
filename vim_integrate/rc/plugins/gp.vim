@@ -34,8 +34,7 @@ EOF
 nnoremap <silent> <leader>gv :GpChatNew vsplit<CR>
 vmap <silent> <CR><CR> :GpChatNew vsplit<CR>
 vnoremap <silent> <leader>gp :GpChatPaste vsplit<CR>
-vmap <silent> <CR> :GpChatPaste vsplit<CR>
 vnoremap <silent> <leader>gr :GpRewrite 
 
 " .gitリポジトリのトップに、コンテキストとなるファイルを作成する（GpRewriteとかするてき、文脈として参照される）
-nnoremap <silent> <leader>gP :GpContext<CR>hatNew vsplit
+nnoremap <silent> <leader>gP :GpContext<CR>

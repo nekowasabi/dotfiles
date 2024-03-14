@@ -44,3 +44,4 @@ EOF
 vnoremap <silent> <leader>cv :CopilotChatVisual 
 vnoremap <silent> <leader>cx :CopilotChatInPlace<CR>
 nnoremap <silent> <leader>ce :CopilotChatExplain<CR>
+vnoremap <silent> <leader>ce :CopilotChatExplain<CR>
