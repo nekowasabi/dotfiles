@@ -24,6 +24,8 @@ augroup fileTypeIndent
 	autocmd FileType php,blade let b:coc_root_patterns = ['.git', '.env', 'composer.json', 'artisan']
   au BufNewFile,BufRead *.blade.php set ft=blade tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
 
+  autocmd! WinClosed * wincmd p
+
   let g:changelog_username = "takets <nolifeking00@gmail.com>"
 augroup END
 
