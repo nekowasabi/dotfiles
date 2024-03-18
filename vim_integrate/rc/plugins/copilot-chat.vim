@@ -41,7 +41,8 @@ copilot_chat.setup({
 EOF
 
 " CopilotChat
-vnoremap <leader>cv :CopilotChat 
+" vnoremap <leader>cv :CopilotChat 
+vnoremap <CR> :CopilotChat 
 vnoremap <silent> <leader>cx :CopilotChatInPlace<CR>
 nnoremap <silent> <leader>ce :CopilotChatExplain<CR>
 vnoremap <silent> <leader>ce :CopilotChatExplain<CR>
