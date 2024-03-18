@@ -27,9 +27,9 @@ snippets:
   - name: git checkout -f
     keyword: gcf
     snippet: git checkout -f
-  - name: git checkout develop
+  - name: git switch develop
     keyword: gcd
-    snippet: git checkout develop
+    snippet: git switch develop
   - name: git make branch
     keyword: gcb
     snippet: git checkout -b 
