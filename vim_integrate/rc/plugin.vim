@@ -297,7 +297,9 @@ if g:IsMacNeovim() || g:IsWsl()
 	Plug 'ErichDonGubler/lsp_lines.nvim'
   Plug 'HiPhish/rainbow-delimiters.nvim'
   Plug 'shellRaining/hlchunk.nvim'
-  Plug 'rest-nvim/rest.nvim'
+  Plug 'rest-nvim/rest.nvim', { 'tag': '1ce984c694345f3801bc656072f9a8dd51286a04' }
+	Plug 'vhyrro/luarocks.nvim'
+  Plug 'nvim-neotest/nvim-nio'
   Plug 'atusy/treemonkey.nvim'
   Plug 'uga-rosa/ddc-source-lsp-setup'
   Plug 'neovim/nvim-lspconfig'
