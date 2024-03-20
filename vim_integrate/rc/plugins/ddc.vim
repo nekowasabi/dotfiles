@@ -25,6 +25,7 @@ else
   call ddc#custom#patch_filetype(['vim'], 'sources', ['lsp', 'around', 'buffer', 'neosnippet', 'rg'])
   call ddc#custom#patch_filetype(['javascript'], 'sources', ['lsp', 'around', 'buffer', 'rg'])
   call ddc#custom#patch_filetype(['typescipt'], 'sources', ['lsp', 'around', 'buffer', 'rg'])
+  call ddc#custom#patch_filetype(['deno'], 'sources', ['lsp', 'around', 'buffer', 'rg'])
   call ddc#custom#patch_filetype(['php'], 'sources', ['lsp', 'around', 'buffer', 'rg'])
 
   call ddc#custom#patch_global('sourceOptions', #{

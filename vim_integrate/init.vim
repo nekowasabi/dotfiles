@@ -81,11 +81,15 @@ let g:aider_command = 'aider --no-auto-commits --4turbo'
 let g:aider_split_direction = 'vsplit'
 let g:aider_floatwin_width = 100
 let g:aider_floatwin_height = 20
+nnoremap <silent> <leader>Aa :AiderAddCurrentFile<CR>
+vmap <leader>Av :AiderVisualTextWithPrompt<CR>
 
 " keymap
-tnoremap ll <C-\><C-n>
+tnoremap ii <C-\><C-n>
 
 autocmd FileType ddu-ff call timer_start(1, {-> ddu#ui#do_action('openFilterWindow')})
+
+
 
 
 call setcellwidths([
@@ -93,7 +97,7 @@ call setcellwidths([
   \ [ 0x2100, 0x214d, 2 ],
   \ [ 0x26A0, 0x26A0, 2 ],
   \ [ 0x2014, 0x2014, 2 ],
-  \ [ 0x2191, 0x2191, 2 ],
+  \ [ 0x2191, 0x2191, 1 ],
   \ ])
 
 

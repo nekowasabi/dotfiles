@@ -325,11 +325,19 @@ if g:IsMacNeovim() || g:IsWsl()
     Plug 'Shougo/ddc-source-lsp'
     call g:SetCoc()
   elseif g:IsMacNeovimInWezterm()
+    " Plug 'Shougo/ddc-source-lsp'
+    " Plug 'sigmaSd/deno-nvim'
+    " call g:SetDdc()
+    Plug 'gelguy/wilder.nvim'
+    Plug 'folke/noice.nvim'
     Plug 'Shougo/ddc-source-lsp'
-    Plug 'sigmaSd/deno-nvim'
-    call g:SetDdc()
+    call g:SetCoc()
   else
-    call g:SetDdc()
+    Plug 'gelguy/wilder.nvim'
+    Plug 'folke/noice.nvim'
+    Plug 'Shougo/ddc-source-lsp'
+    call g:SetCoc()
+    " call g:SetDdc()
   endif
 	" if g:IsWindowsGvim()
  "    call g:SetDdc()
@@ -594,7 +602,6 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vista.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesitter.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/nvim-lspconfig.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/caw.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lsp-lines.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gp.vim'
@@ -604,9 +611,10 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/hlchunk.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treemonkey.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/swagger-preview.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ssr.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/deno-nvim.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/null-ls.vim'
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/deno-nvim.vim'
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ssr.vim'
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/nvim-lspconfig.vim'
 
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fzf-preview.vim'
 
@@ -616,11 +624,18 @@ if g:IsMacNeovim() || g:IsWsl()
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
   elseif g:IsMacNeovimInWezterm()
 		" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-lsp.vim'
-		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
-		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc-source-lsp.vim'
+		" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
+		" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc-source-lsp.vim'
+		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
+    execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
+    execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
   else
-		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-lsp.vim'
-		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
+		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
+    execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
+    execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
+		" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-lsp.vim'
+		" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc-source-lsp.vim'
+		" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
   endif
 
 endif
