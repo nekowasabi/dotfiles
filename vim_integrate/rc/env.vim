@@ -152,8 +152,7 @@ endfunction
 
 if g:IsMacNeovimInMfs()
   let g:python3_host_prog = '/opt/homebrew/bin/python3'
-endif
-if g:IsMacNeovim()
+elseif g:IsMacNeovim()
   let g:python3_host_prog = '/usr/local/opt/python@3.11/bin/python3.11'
 endif
 
