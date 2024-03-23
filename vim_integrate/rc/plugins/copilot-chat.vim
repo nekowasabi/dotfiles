@@ -6,7 +6,7 @@ copilot_chat.setup({
   mappings = {
     complete = {
       detail = 'Use @<Tab> or /<Tab> for options.',
-      insert ='<Tab>',
+      insert ='gc',
     },
     close = {
       normal = 'q',
@@ -17,7 +17,7 @@ copilot_chat.setup({
       insert = '<C-l>'
     },
     submit_prompt = {
-      normal = '<CR>',
+      normal = 'gm',
       insert = '<C-m>'
     },
     accept_diff = {
