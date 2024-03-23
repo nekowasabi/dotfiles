@@ -138,6 +138,9 @@ call ddu#custom#patch_global(#{
     \     bookmark: #{
     \       defaultAction: 'open',
     \     },
+    \     aider: #{
+    \       defaultAction: 'add',
+    \     },
     \   }
     \ })
 
