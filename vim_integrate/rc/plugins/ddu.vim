@@ -552,7 +552,7 @@ function! s:ddu_filter_my_settings() abort
 	nnoremap <buffer><silent> q
 				\ <Cmd>close<CR>
   " insert modeのままだとiiと変な文字が入ってしまうので、<Esc>を入れる
-  inoremap <buffer><silent> A
+  inoremap <buffer><silent> <C-a>
             \ <Esc><Cmd>call ddu#ui#do_action('chooseAction')<CR>
   nnoremap <buffer><silent> A
             \ <Cmd>call ddu#ui#do_action('chooseAction')<CR>

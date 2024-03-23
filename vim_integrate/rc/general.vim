@@ -88,7 +88,7 @@ set splitkeep=screen
 set scrolloff=5 " 5行余裕を持ってスクロール
 set splitbelow            " 新しく開くときに下に開く
 set splitright            " 新しく開くときに右に開く
-set signcolumn=number
+set signcolumn=auto:9
 " set showtabline=2
 set formatoptions=q
 set fileformats=unix,dos,mac
