@@ -3,6 +3,50 @@ local copilot_chat = require("CopilotChat")
 copilot_chat.setup({
   debug = false,
   show_system_prompt = false,
+  mappings = {
+    complete = {
+      detail = 'Use @<Tab> or /<Tab> for options.',
+      insert ='<Tab>',
+    },
+    close = {
+      normal = 'q',
+      insert = '<C-c>'
+    },
+    reset = {
+      normal ='<C-l>',
+      insert = '<C-l>'
+    },
+    submit_prompt = {
+      normal = '<CR>',
+      insert = '<C-m>'
+    },
+    accept_diff = {
+      normal = 'gy',
+      insert = '<C-y>'
+    },
+    show_diff = {
+      normal = 'gd'
+    },
+    show_system_prompt = {
+      normal = 'gp'
+    },
+    show_user_selection = {
+      normal = 'gs'
+    },
+  },
+  window = {
+    layout = 'horizontal', -- 'vertical', 'horizontal', 'float'
+    -- Options below only apply to floating windows
+    relative = 'editor', -- 'editor', 'win', 'cursor', 'mouse'
+    border = 'double', -- 'none', single', 'double', 'rounded', 'solid', 'shadow'
+    width = 0.8, -- fractional width of parent
+    height = 0.6, -- fractional height of parent
+    row = nil, -- row position of the window, default is centered
+    col = nil, -- column position of the window, default is centered
+    title = 'Copilot Chat', -- title of chat window
+    footer = nil, -- footer of chat window
+    zindex = 1, -- determines if window is on top or below other floating windows
+  },
   prompts = {
     Explain = {
       prompt = '/COPILOT_EXPLAIN Write a explanation for the code above as paragraphs of text by Japanese.',

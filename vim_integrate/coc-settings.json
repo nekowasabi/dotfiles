@@ -1,6 +1,6 @@
 {
   "tsserver.enable": true,
-  "diagnostic.enable": true,
+  "diagnostic.enable": false,
   "inlayHint.enable": true,
   "suggest.virtualText": true,
   "suggest.noselect": true,

@@ -611,7 +611,7 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/null-ls.vim'
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/deno-nvim.vim'
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ssr.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/nvim-lspconfig.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/nvim-lspconfig.vim'
 
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fzf-preview.vim'
 
@@ -620,7 +620,7 @@ if g:IsMacNeovim() || g:IsWsl()
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
   elseif g:IsMacNeovimInWezterm()
-		" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-lsp.vim'
+		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-lsp.vim'
 		" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
 		" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc-source-lsp.vim'
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
