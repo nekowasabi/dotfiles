@@ -64,7 +64,7 @@ copilot_chat.setup({
       prompt = '/COPILOT_REFACTOR Write documentation for the selected code. The reply should be a codeblock containing the original code with the documentation added as comments. Use the most appropriate documentation style for the programming language used (e.g. JSDoc for JavaScript, docstrings for Python etc. And copilot system message text by Japanese.',
     },
     FixDiagnostic = {
-      prompt = 'Please assist with the following diagnostic issue in file:',
+      prompt = 'Please assist with the following diagnostic issue in file. And copilot system message text by Japanese.:',
     },
     Commit = {
       prompt = 'Write commit message for the change with commitizen convention. Make sure the title has maximum 50 characters and message is wrapped at 72 characters. Wrap the whole message in code block with language gitcommit. And copilot system message text by Japanese.',
