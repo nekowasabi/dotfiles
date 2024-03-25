@@ -175,10 +175,11 @@ function! s:MoveChangelogItemToTop()
     execute "normal! zR"
 	let txt = MoveSectionToTop()
 	call append(2, txt)
+  call feedkeys("gg")
 	" execute "normal! z0"
 endfunction
 command! -range MoveChangelogItemToTop call s:MoveChangelogItemToTop() 
-nnoremap <silent> ,C :MoveChangelogItemToTop<CR>
+nnoremap ,C :MoveChangelogItemToTop<CR>
 
 function! MoveSectionToTop()
     let current_section = []
