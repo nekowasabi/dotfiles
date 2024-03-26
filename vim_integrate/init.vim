@@ -89,7 +89,7 @@ tnoremap ii <C-\><C-n>
 
 autocmd FileType ddu-ff call timer_start(1, {-> ddu#ui#do_action('openFilterWindow')})
 
-
+cnoremap <C-X><C-X> <Cmd>Capture mes<CR>
 
 
 call setcellwidths([

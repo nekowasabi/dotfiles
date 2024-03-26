@@ -51,5 +51,11 @@ let g:sandwich#recipes += [
       \     'filetype': ['changelog'],
       \     'nesting': 1,
       \   },
+      \   {
+      \     'external': ["\<Plug>(textobj-parameter-i)", "\<Plug>(textobj-functioncall-a)"],
+      \     'noremap': 0,
+      \     'kind': ['delete', 'replace', 'query'],
+      \     'input': ['f']
+      \   },
       \ ]
 
