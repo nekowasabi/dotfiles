@@ -82,6 +82,7 @@ let g:aider_split_direction = 'split'
 let g:aider_floatwin_width = 100
 let g:aider_floatwin_height = 20
 nnoremap <silent> <leader>Aa :AiderAddCurrentFile<CR>
+nnoremap <silent> <leader>Ap :AiderSendPromptWithInput<CR>
 vmap <leader>Av :AiderVisualTextWithPrompt<CR>
 
 " keymap
