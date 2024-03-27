@@ -55,7 +55,7 @@ function! s:DuplicateLineFormat()
 	if line =~ "^[\t　]*\+ "
 		return "\<End>\n+ "
 	end
-	if line =~ "^[\t　]*\- "
+	if line =~ "^[\t　 ]*\- "
 		return "\<End>\n- "
 	end
 	return  ''

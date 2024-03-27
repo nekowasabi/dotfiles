@@ -90,6 +90,7 @@ set splitbelow            " 新しく開くときに下に開く
 set splitright            " 新しく開くときに右に開く
 set formatoptions=q
 set fileformats=unix,dos,mac
+set signcolumn=auto
 
 if g:IsMacGvim()
   set backupdir=$HOME/Dropbox/files/time_backup
@@ -119,9 +120,6 @@ if g:IsWindowsGvim()
   set backupdir=g:/dropbox/files/time_backup
 	set undodir=g:/dropbox/files/time_backup
   set clipboard=unnamed
-  set signcolumn=auto
-else
-  set signcolumn=auto:9
 endif
 
 if g:IsWindowsNeovim()

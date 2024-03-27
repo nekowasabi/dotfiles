@@ -34,6 +34,7 @@ let g:coc_global_extensions = [
   \, 'coc-sh'
   \, 'coc-db'
   \, 'coc-yaml'
+  \, 'coc-markdownlint'
   \ ]
 
 let g:markdown_fenced_languages = [
