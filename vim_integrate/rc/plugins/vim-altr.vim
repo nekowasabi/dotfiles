@@ -11,6 +11,7 @@ if g:IsMacNeovimInMfs()
 else
 endif
 
+" M3 Macbook
 if g:IsMacNeovimInWezterm() && g:IsMacNeovimInMfs() == v:false
 	call altr#define(
 				\   '/Users/takets/repos/7clock/establish.md',
