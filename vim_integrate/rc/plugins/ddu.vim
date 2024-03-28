@@ -182,7 +182,7 @@ call ddu#custom#patch_global(#{
     \       matchers: ['matcher_matchfuzzy'],
     \     },
     \     rg: #{
-    \       matchers: ['matcher_kensaku'],
+    \       matchers: ['matcher_kensaku', 'matcher_matchfuzzy'],
     \     },
     \     vim-bookmark: #{
     \       matchers: ['matcher_kensaku'],
@@ -240,11 +240,16 @@ call ddu#custom#patch_global({
     \   },
     \ })
 
-if g:IsMacGvim() || g:IsMacNeovim()
+if g:IsMacNeovim()
   let g:dropbox_dir = '/Users/takets/Library/CloudStorage/Dropbox/files/changelog'
+  let g:config_dir =  '~/.config/'
+endif
+if g:IsWsl()
+  let g:config_dir =  '/home/takets/.config/'
 endif
 if g:IsWindowsGvim()
   let g:dropbox_dir = 'g:/dropbox/files/changelog'
+  let g:config_dir =  'c:/tools/vim'
 endif
 
 " or git ls-files
@@ -308,6 +313,8 @@ function DduGrepProject() abort
 				\   'sourceParams' : #{
 				\     rg : #{
 				\       args: ['--json'],
+				\       matchers: ['matcher_matchfuzzy'],
+				\       ignoreCase: v:true,
 				\     },
 				\   },
 				\   'sources':[
@@ -344,26 +351,33 @@ function DduGrepProjectWord() abort
 				\ })
 endfunction
 
-nnoremap <Space>pe  :<C-u>call DduLineEstimate()<CR>
-function DduLineEstimate() abort
-  if g:IsMacGvim() || g:IsMacNeovim()
-    execute ":e ~/Library/CloudStorage/Dropbox/files/estimate/log/estimate.csv"
-  endif
+nnoremap <Space>pv  :<C-u>call DduGrepConfig()<CR>
+function DduGrepConfig() abort
   if g:IsWindowsGvim()
-    execute ":e g:/dropbox/files/estimate/log/estimate.csv"
+    cd c:/takeda/repos/changelog
   endif
+  if g:IsWsl() || g:IsMacNeovim()
+    cd ~/.config
+  endif
+  if g:IsMacNeovimInMfs()
+    cd $BACKEND_LARAVEL_DIR
+  endif
+
+  let s:input = input('project grep > ')
 
 	call ddu#start({
 				\   'sourceParams' : #{
-				\     line : #{
+				\     rg : #{
 				\       args: ['--json'],
 				\     },
 				\   },
 				\   'sources':[
-        \     {'name': 'line', 'params': {'inputType': 'regex'}},
+				\     {'name': 'rg', 'params': {'inputType': 'migemo', 'input': s:input}},
 				\   ],
 				\ })
 endfunction
+
+
 
 " vim-lsp
 if g:IsWindowsGvim()
