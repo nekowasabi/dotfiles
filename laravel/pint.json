@@ -1,0 +1,41 @@
+{
+    "preset": "laravel",
+    "cache-file": ".pint.cache",
+    "exclude": [
+        "database/migrations"
+    ],
+    "rules": {
+        "binary_operator_spaces": {
+            "operators": {
+                "=": "align_single_space_minimal",
+                "=>": "align_single_space_by_scope"
+            }
+        },
+        "array_indentation": true,
+        "cast_spaces": {
+            "space": "single"
+        },
+        "phpdoc_indent": true,
+        "no_multiline_whitespace_around_double_arrow": false,
+        "no_space_around_double_colon": false,
+        "date_time_immutable": true,
+        "declare_parentheses": true,
+        "declare_strict_types": true,
+        "final_class": false,
+        "global_namespace_import": {
+            "import_classes": true,
+            "import_constants": true,
+            "import_functions": true
+        },
+        "mb_str_functions": true,
+        "not_operator_with_successor_space": true,
+        "phpdoc_align": {
+            "align": "left"
+        },
+        "php_unit_test_case_static_method_calls": {
+            "call_type": "this"
+        },
+        "simplified_if_return": false,
+        "simplified_null_return": false
+    }
+}
