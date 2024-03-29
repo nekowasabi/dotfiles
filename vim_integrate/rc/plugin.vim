@@ -77,8 +77,6 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'lambdalisue/nerdfont.vim'
 Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 
-
-
 " Plug 'rbtnn/vim-ambiwidth'
 
 " AI
@@ -281,7 +279,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'lewis6991/gitsigns.nvim'
   Plug 'overcache/NeoSolarized'
   Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
-  " Plug 'akinsho/git-conflict.nvim'
+
   Plug 'rhysd/conflict-marker.vim'
   Plug 'folke/lsp-colors.nvim' " lspの色を変更する
   Plug 'MunifTanjim/nui.nvim' " おしゃれなコマンドライン変更
@@ -289,13 +287,17 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'folke/trouble.nvim' " diagnoticを一覧表示する
   Plug 'adoy/vim-php-refactoring-toolbox'
   Plug 'dhruvasagar/vim-table-mode'
+ 
   Plug 'nvimtools/none-ls.nvim'
-  Plug 'jay-babu/mason-null-ls.nvim'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  Plug 'williamboman/mason.nvim'
-  Plug 'williamboman/mason-lspconfig.nvim'
-	Plug 'ErichDonGubler/lsp_lines.nvim'
+  
+  " Plug 'jay-babu/mason-null-ls.nvim'
+  " Plug 'williamboman/mason.nvim'
+  " Plug 'williamboman/mason-lspconfig.nvim'
+
+  Plug 'ErichDonGubler/lsp_lines.nvim'
   Plug 'HiPhish/rainbow-delimiters.nvim'
+ 
   Plug 'shellRaining/hlchunk.nvim'
   Plug 'rest-nvim/rest.nvim', { 'tag': '1ce984c694345f3801bc656072f9a8dd51286a04' }
 	Plug 'vhyrro/luarocks.nvim'
@@ -309,8 +311,7 @@ if g:IsMacNeovim() || g:IsWsl()
 	Plug 'cshuaimin/ssr.nvim' " あとで練習する
 	Plug 'sigmaSd/deno-nvim'
 	Plug 'CopilotC-Nvim/CopilotChat.nvim', {'branch': 'canary'}
-
-  " Plug 'nvim-tree/nvim-web-devicons'
+  Plug 'nvim-tree/nvim-web-devicons'
 
   call g:SetDdu()
 
@@ -611,7 +612,7 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/null-ls.vim'
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/deno-nvim.vim'
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ssr.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/nvim-lspconfig.vim'
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/nvim-lspconfig.vim'
 
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fzf-preview.vim'
 

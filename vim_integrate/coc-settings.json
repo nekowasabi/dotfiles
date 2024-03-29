@@ -67,6 +67,8 @@
     "typeParameter": "\uf728",
     "default": "\uf29c"
   },
+  "coc.preferences.formatOnType": true,
+  "intelephense.format.braces": "psr12",
   "coc.preferences.formatOnSave": true,
   "[blade]": {
     "coc.preferences.formatOnSave": false
@@ -83,7 +85,7 @@
     ".phpstorm.meta.php"
   ],
   "intelephense.files.maxSize": 10000000000,
-  "intelephense.format.enable": true,
+  "intelephense.format.enable": false,
   "intelephense.diagnostics.typeErrors": true,
   "intelephense.completion.triggerParameterHints": true,
   "intelephense.compatibility.correctForBaseClassStaticUnionTypes": true,
@@ -177,5 +179,10 @@
       "phpcs",
       "phpstan"
     ]
+  },
+  "php-cs-fixer.enable": true,
+  "php-cs-fixer.activateTool": "pint",
+  "[php]": {
+    "coc.preferences.formatOnSave": true
   },
 }
