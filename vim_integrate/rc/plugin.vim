@@ -279,7 +279,6 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'lewis6991/gitsigns.nvim'
   Plug 'overcache/NeoSolarized'
   Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
-
   Plug 'rhysd/conflict-marker.vim'
   Plug 'folke/lsp-colors.nvim' " lspの色を変更する
   Plug 'MunifTanjim/nui.nvim' " おしゃれなコマンドライン変更
@@ -287,17 +286,10 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'folke/trouble.nvim' " diagnoticを一覧表示する
   Plug 'adoy/vim-php-refactoring-toolbox'
   Plug 'dhruvasagar/vim-table-mode'
- 
   Plug 'nvimtools/none-ls.nvim'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  
-  " Plug 'jay-babu/mason-null-ls.nvim'
-  " Plug 'williamboman/mason.nvim'
-  " Plug 'williamboman/mason-lspconfig.nvim'
-
   Plug 'ErichDonGubler/lsp_lines.nvim'
   Plug 'HiPhish/rainbow-delimiters.nvim'
- 
   Plug 'shellRaining/hlchunk.nvim'
   Plug 'rest-nvim/rest.nvim', { 'tag': '1ce984c694345f3801bc656072f9a8dd51286a04' }
 	Plug 'vhyrro/luarocks.nvim'
@@ -312,6 +304,11 @@ if g:IsMacNeovim() || g:IsWsl()
 	Plug 'sigmaSd/deno-nvim'
 	Plug 'CopilotC-Nvim/CopilotChat.nvim', {'branch': 'canary'}
   Plug 'nvim-tree/nvim-web-devicons'
+	Plug 'tani/dmacro.nvim'
+
+  " Plug 'jay-babu/mason-null-ls.nvim'
+  " Plug 'williamboman/mason.nvim'
+  " Plug 'williamboman/mason-lspconfig.nvim'
 
   call g:SetDdu()
 

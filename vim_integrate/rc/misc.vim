@@ -179,7 +179,7 @@ function! s:MoveChangelogItemToTop()
 	" execute "normal! z0"
 endfunction
 command! -range MoveChangelogItemToTop call s:MoveChangelogItemToTop() 
-nnoremap ,C :MoveChangelogItemToTop<CR>
+nnoremap <silent> ,C :MoveChangelogItemToTop<CR>
 
 function! MoveSectionToTop()
     let current_section = []

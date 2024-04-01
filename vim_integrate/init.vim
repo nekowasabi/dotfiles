@@ -127,6 +127,10 @@ vim.api.nvim_create_autocmd("TermOpen", {
   end,
 })
 
+require('dmacro').setup({
+    dmacro_key = '<C-t>' --  you need to set the dmacro_key
+})
+
 -- local null_ls = require("null-ls")
 -- null_ls.setup({
 --     sources = {
