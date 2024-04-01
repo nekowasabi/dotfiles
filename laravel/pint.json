@@ -60,6 +60,9 @@
         "no_multiline_whitespace_around_double_arrow": false,
         "no_space_around_double_colon": false,
         "no_spaces_inside_parenthesis": true,
+        "not_operator_with_space": false,
+        "not_operator_with_successor_space": false,
+        "unary_operator_spaces": false,
         "date_time_immutable": true,
         "declare_parentheses": true,
         "declare_strict_types": true,
@@ -70,7 +73,6 @@
             "import_functions": true
         },
         "mb_str_functions": true,
-        "not_operator_with_successor_space": true,
         "phpdoc_align": {
             "align": "left"
         },
