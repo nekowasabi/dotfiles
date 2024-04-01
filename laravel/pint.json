@@ -59,6 +59,7 @@
         "no_empty_phpdoc": false,
         "no_multiline_whitespace_around_double_arrow": false,
         "no_space_around_double_colon": false,
+        "no_spaces_inside_parenthesis": true,
         "date_time_immutable": true,
         "declare_parentheses": true,
         "declare_strict_types": true,
