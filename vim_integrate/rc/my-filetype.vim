@@ -1,7 +1,5 @@
 augroup fileTypeIndent
   autocmd!
-  autocmd BufWinEnter,BufNewFile,BufRead *.php,*.inc setlocal tabstop=4 softtabstop=4 shiftwidth=4
-  autocmd BufWinEnter,BufNewFile,BufRead *Test.php setlocal tabstop=4 softtabstop=4 shiftwidth=4
   autocmd Filetype changelog,text,shd setlocal tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab autoindent formatoptions=q tw=0
   autocmd BufNewFile,BufRead changelog,text,shd set tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab autoindent nospell
   autocmd BufWinEnter,BufNewFile *.js.tpl setlocal filetype=javascript tabstop=4 softtabstop=4 shiftwidth=4
@@ -22,10 +20,14 @@ augroup fileTypeIndent
   autocmd FileType markdown set tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent nospell conceallevel=0
   autocmd FileType http set tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab autoindent nospell conceallevel=0
   autocmd FileType vue syntax sync fromstart
+  
 	autocmd FileType php,blade let b:coc_root_patterns = ['.git', '.env', 'composer.json', 'artisan']
-  au BufNewFile,BufRead *.blade.php set ft=blade tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
+  autocmd BufNewFile,BufRead *.php setlocal tabstop=4 softtabstop=4 shiftwidth=4
+  autocmd BufNewFile,BufRead *.blade.php setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
-  autocmd! WinClosed * wincmd p
+  " autocmd BufWinEnter,BufNewFile,BufRead *Test.php setlocal tabstop=4 softtabstop=4 shiftwidth=4
+
+  " autocmd! WinClosed * wincmd p
 
   let g:changelog_username = "takets <nolifeking00@gmail.com>"
 augroup END

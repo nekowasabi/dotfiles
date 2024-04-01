@@ -55,5 +55,6 @@ EOF
 
 " Set the *.blade.php file to be filetype of blade 
 augroup BladeFiltypeRelated
-  au BufNewFile,BufRead *.blade.php set ft=blade
+  " au BufNewFile,BufRead *.blade.php set ft=blade
+  au BufNewFile,BufRead *.blade.php set ft=blade tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
 augroup END
