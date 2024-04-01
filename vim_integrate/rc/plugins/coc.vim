@@ -102,3 +102,6 @@ augroup command_window
     autocmd CmdwinEnter * startinsert
     autocmd CmdwinEnter * call ReInitCoc()
 augroup END
+
+" for PHP
+autocmd BufWritePre   *.php call CocAction('format')
