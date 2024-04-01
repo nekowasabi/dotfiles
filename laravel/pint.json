@@ -16,6 +16,47 @@
             "space": "single"
         },
         "phpdoc_indent": true,
+        "phpdoc_order": {
+            "order": [
+                "param",
+                "throws",
+                "return"
+            ]
+        },
+        "phpdoc_separation": {
+            "groups": [
+                [
+                    "author",
+                    "copyright",
+                    "license"
+                ],
+                [
+                    "category",
+                    "package",
+                    "subpackage"
+                ],
+                [
+                    "property",
+                    "property-read",
+                    "property-write"
+                ],
+                [
+                    "deprecated",
+                    "link",
+                    "see",
+                    "since"
+                ],
+                [
+                    "param",
+                    "throws",
+                    "return"
+                ]
+            ]
+        },
+        "phpdoc_trim": false,
+        "general_phpdoc_annotation_remove": {},
+        "no_superfluous_phpdoc_tags": false,
+        "no_empty_phpdoc": false,
         "no_multiline_whitespace_around_double_arrow": false,
         "no_space_around_double_colon": false,
         "date_time_immutable": true,
