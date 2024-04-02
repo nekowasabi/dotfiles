@@ -21,8 +21,7 @@ copilot_chat.setup({
       insert = '<C-m>'
     },
     accept_diff = {
-      normal = 'gy',
-      insert = '<C-y>'
+      normal = 'ga',
     },
     show_diff = {
       normal = 'gd'
