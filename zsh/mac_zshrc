@@ -4,7 +4,7 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 source "${ZINIT_HOME}/zinit.zsh"
 
 # setting path {{{1
-export PATH=$PATH:/usr/local/bin:/bin:/usr/bin:$GOROOT/bin:$GOPATH/bin:/Users/takets/.nodebrew/current/bin:/Users/takets/go/bin:/Users/takets/.cargo/bin:/usr/local/Cellar/python@3.11/3.11.5/bin::$DENO_INSTALL/bin:$PATH:/Users/takets/.deno/bin
+export PATH=$PATH:/usr/local/bin:/bin:/usr/bin:$GOROOT/bin:$GOPATH/bin:/Users/takets/.nodebrew/current/bin:/Users/takets/go/bin:/Users/takets/.cargo/bin:/usr/local/Cellar/python@3.11/3.11.8/bin::$DENO_INSTALL/bin:$PATH:/Users/takets/.deno/bin:/Users/takets/.local/bin:/Users/takets/.luarocks
 
 export EDITOR=vim
 export GOROOT=/usr/local/opt/go/libexec
@@ -101,11 +101,11 @@ function wezterm_neovim_mfs() {
 }
 alias m='wezterm_neovim_mfs'
 
-alias ll='exa --long --header --git  --sort=type --classify --git'
-alias la='exa --long --header --git --grid --classify --sort=type --git'
-alias python='/usr/local/Cellar/python@3.11/3.11.5/bin/python3'
-alias pip3='/usr/local/Cellar/python@3.11/3.11.5/bin/pip3'
-alias pip='/usr/local/Cellar/python@3.11/3.11.5/bin/pip3'
+alias ll='eza --long --header --git  --sort=type --classify --git'
+alias la='eza --long --header --git --grid --classify --sort=type --git'
+alias python='/usr/local/Cellar/python@3.12/3.12.2_1/bin/python3'
+alias pip3='/usr/local/Cellar/python@3.12/3.12.2_1/bin/pip3.12'
+alias pip= '/usr/local/Cellar/python@3.12/3.12.2_1/bin/pip3.12'
 alias phpctags='/usr/local/bin/phpctags'
 alias ...='cd ../../'
 alias ....='cd ../../../'
@@ -138,7 +138,7 @@ zinit load junegunn/fzf-bin
 zinit ice lucid depth"1" blockf
 zinit light yuki-yano/zeno.zsh
 
-export ZENO_GIT_TREE="exa --tree"
+export ZENO_GIT_TREE="eza --tree"
 
 # if [[ -n $ZENO_LOADED ]]; then
 #   bindkey ' '  zeno-auto-snippet
@@ -154,7 +154,7 @@ if [[ -n $ZENO_LOADED ]]; then
   bindkey ' '  zeno-auto-snippet
 
   # fallback if snippet not matched (default: self-insert)
-  # export ZENO_AUTO_SNIPPET_FALLBACK=self-insert
+  export ZENO_AUTO_SNIPPET_FALLBACK=self-insert
 
   # if you use zsh's incremental search
   # bindkey -M isearch ' ' self-insert
@@ -266,3 +266,4 @@ fzf_find_path() {
 zle -N fzf_find_path
 bindkey '^t' fzf_find_path
 
+if [ -f "/Users/takets/.config/fabric/fabric-bootstrap.inc" ]; then . "/Users/takets/.config/fabric/fabric-bootstrap.inc"; fi
