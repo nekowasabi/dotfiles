@@ -11,6 +11,8 @@ if [ "$1" = "private" ]; then
   cp -rfv ~/repos/dotfiles/zsh/mac_zshrc ~/.zshrc 
   cp -rfv ~/repos/dotfiles/mac/mac_wezterm.lua ~/.wezterm.lua 
   cp -rfv ~/repos/dotfiles/mac/scripts/* ~/scripts
+
+  cp -rfv ~/repos/dotfiles/mac/superwhisper/* ~/Documents/superwhisper
 fi
 
 cd ~/
