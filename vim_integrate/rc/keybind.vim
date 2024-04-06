@@ -300,8 +300,45 @@ if g:IsMacGvim() || g:IsMacNeovim()
 			execute ":buffer repos/changelog/tenTask.txt"
 		endif
 
-		call append("$", ['----- '.strftime('%Y-%m-%d %H:%M:%S'), '・'])
-		exe "normal! GkA"
+		" call append("$", ['----- '.strftime('%Y-%m-%d %H:%M:%S'), '・'])
+		" exe "normal! GkA"
+		" 現在のバッファの総行数を取得
+		let l:total_lines = line('$')
+
+		" 最後から30行前に移動する行数を計算
+		let l:start_line = l:total_lines > 30 ? l:total_lines - 29 : 1
+
+		" 指定された範囲のテキストを取得
+		let l:lines = getline(l:start_line, '$')
+		" l:linesを文字列に連結
+		let l:lines = join(l:lines, "\n")
+
+		" 現在のタイムスタンプを取得
+		let current_timestamp = localtime()
+
+		" 昨日のタイムスタンプを計算（1日 = 86400秒）
+		let yesterday_timestamp = current_timestamp - 86400
+
+		" 昨日の日付をYYYY-MM-DD形式で取得
+		let yesterday_date = strftime('%Y-%m-%d', yesterday_timestamp)
+
+		let today_date = strftime('%Y-%m-%d', current_timestamp)
+
+		" l:linesにyesterday_dateが含まれていて、today_dateが含まれていない場合
+		let l:found = 0
+		if l:lines =~ yesterday_date && l:lines !~ today_date
+			echomsg string(yesterday_date. ' '. today_date)
+			let l:found = 1
+		endif
+		if l:found == 1
+			call append("$", ['',  '--------------------------------------- '.strftime('%Y-%m-%d')])
+			call append("$", ['----- '.strftime('%Y-%m-%d %H:%M:%S'), '・'])
+			exe "normal! GA"
+		else
+			call append("$", ['----- '.strftime('%Y-%m-%d %H:%M:%S'), '・'])
+			exe "normal! GA"
+		endif
+
 	endfunction
 	command! OpenTentask call <SID>OpenTentask()
 	nnoremap <silent> ,t :OpenTentask<CR>GA
