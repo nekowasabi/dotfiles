@@ -17,13 +17,13 @@ if g:IsMacGvim()
 endif
 
 if g:IsMacNeovim()
-  let s:Height = 15 
   let s:FilerHeight = 60
   let s:Width  = 160
+  let s:Height = 15 
   let s:WinRow = 2
   let s:WinCol = 2
   let s:previewWidth= 160
-  let s:previewHeight= 30
+  let s:previewHeight= 20
   let s:previewRow= 34 
   let s:previewCol= 2
 	let s:previewSplit = 'vertical'
@@ -345,7 +345,7 @@ function DduGrepConfig() abort
     cd c:/takeda/repos/changelog
   endif
   if g:IsWsl() || g:IsMacNeovim()
-    cd ~/.config
+    cd ~/.config/nvim
   endif
   if g:IsMacNeovimInMfs()
     cd $BACKEND_LARAVEL_DIR
@@ -356,7 +356,7 @@ function DduGrepConfig() abort
 	call ddu#start({
 				\   'sourceParams' : #{
 				\     rg : #{
-				\       args: ['--json'],
+				\       args: ['--json', '-g', '!plugged', '-g', '!dict'],
 				\     },
 				\   },
 				\   'sources':[
