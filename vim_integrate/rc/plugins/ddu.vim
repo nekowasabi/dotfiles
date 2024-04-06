@@ -59,21 +59,6 @@ if g:IsLinux()
   let s:cursorLine = 'String'
 endif
 
-" cui {{{1
-" call ddu#custom#patch_global(#{
-"    \   uiParams: #{
-"    \     ff: #{
-"    \         startFilter: v:true,
-"    \         prompt: '> ' ,
-"    \         highlights: #{filterText: 'Statement', floating: "Normal", floatingBorder: "Special", selected: "Special", floatingCursorLine: "Special", CursorLine: "Statement"},
-"    \         autoAction: #{name: "preview", sync: v:true},
-"    \         startAutoAction: v:true,
-"    \         split: 'no',
-"    \     }
-"    \   },
-"    \ })
-" }}}1
-
 " floating
 call ddu#custom#patch_global(#{
     \     uiParams: #{
@@ -183,6 +168,9 @@ call ddu#custom#patch_global(#{
     \     },
     \     rg: #{
     \       matchers: ['matcher_kensaku', 'matcher_matchfuzzy'],
+    \     },
+    \     line: #{
+    \       matchers: ['matcher_kensaku'],
     \     },
     \     vim-bookmark: #{
     \       matchers: ['matcher_kensaku'],
@@ -513,7 +501,7 @@ if g:IsWindowsGvim() || g:IsMacGvim() || g:IsLinux() || g:IsMacNeovim()
         \ 'sources': [{'name': 'line'}]
         \ })<CR>
   nnoremap <silent> <Leader>ll
-        \ <Cmd>call ddu#start({'sources': [{'name': 'line'}]})<CR>
+        \ <Cmd>call ddu#start({'sources': [{'name': 'line', 'params': {'matchers': 'matcher_matchfuzzy'}}]})<CR>
   nnoremap <silent> <Leader>F
         \ <Cmd>call ddu#start({'sources': [{'name': 'file'}]})<CR>
   nnoremap <silent> <Leader>h

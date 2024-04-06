@@ -74,7 +74,7 @@ nnoremap <silent> <space>cls  :<C-u>CocFzfList symbols<CR>
 nnoremap <silent> <space>clS  :<C-u>CocFzfList services<CR>
 nnoremap <silent> <space>clp  :<C-u>CocFzfListResume<CR>
 
-nnoremap <silent> <space>o  :<C-u>CocFzfList outline<CR>
+autocmd FileType php,typescript,python,markdown,javascript,vim nnoremap <silent> <space>o  :<C-u>CocFzfList outline<CR>
 
 nmap <silent> <Leader>gA <Plug>(coc-codeaction)
 nmap <silent> <Leader>ga <Plug>(coc-codeaction-line)
