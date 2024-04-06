@@ -243,9 +243,13 @@ endif
 " or git ls-files
 call ddu#custom#patch_global('sourceParams', {
 	 \   'file_external': {
-	 \     'cmd': ['git', 'ls-files']
+	 \     'cmd': ['fd', '--no-ignore', '--hidden', '--exclude', '.git', '--type', 'file', '--type', 'symlink']
 	 \   },
 	 \ })
+
+"\     'cmd': ['git', 'ls-files']
+
+" 'fd', '--no-ignore', '--hidden', '--exclude', '.git', '--type', 'file', '--type', 'symlink'
 
 nmap <silent> <Leader>p <Cmd>call ddu#start({
     \   'sourceParams' : #{
