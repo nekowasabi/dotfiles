@@ -26,7 +26,7 @@ zinit light-mode for \
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # setting path {{{1
-export PATH=$PATH:/usr/local/bin:/bin:/usr/bin:$GOROOT/bin:$GOPATH/bin:/home/takets/bin:/home/takets/.bin:/home/takets/.deno/bin
+export PATH=$PATH:/usr/local/bin:/bin:/usr/bin:$GOROOT/bin:$GOPATH/bin:/home/takets/bin:/home/takets/.bin:/home/takets/.deno/bin:/home/takets/.cargo/bin
 
 export EDITOR=vim
 export GOROOT=/usr/local/opt/go/libexec
@@ -241,6 +241,43 @@ fde() {
 fdc() {
     docker-compose exec $(docker-compose config --services | fzf) bash
 }
+
+# カレント以下のコマンドやパスを取得
+fzf_find_path() {
+  # 現在のコマンドラインの状態を保存
+  local original_lbuffer=$LBUFFER
+
+  if [[ $LBUFFER == cd\ * ]]; then
+    # 'cd'コマンドの場合はディレクトリのみを検索
+    local path_prefix=${LBUFFER#cd }
+    # 特殊文字を含むパスを正しく展開
+    local expanded_path_prefix=$(eval echo $path_prefix)
+    local selected_path=$(find "$expanded_path_prefix"* -type d 2> /dev/null | fzf)
+  else
+    local current_buffer=$LBUFFER
+    local command_prefix=${current_buffer%% *}
+    local path_prefix=${current_buffer#$command_prefix }
+    local expanded_path_prefix=$(eval echo $path_prefix)
+    local selected_path=$(find "$expanded_path_prefix"* -type f -o -type d 2> /dev/null | fzf)
+  fi
+
+  if [[ -n $selected_path ]]; then
+    if [[ $LBUFFER == cd\ * ]]; then
+      local trimmed_selected_path=${selected_path#$expanded_path_prefix}
+      LBUFFER+="$trimmed_selected_path"
+    else
+      LBUFFER="$command_prefix $selected_path"
+    fi
+  else
+    # fzfがキャンセルされた場合、元の状態を復元
+    LBUFFER=$original_lbuffer
+  fi
+}
+
+# Ctrl+t のキーバインドを設定
+zle -N fzf_find_path
+bindkey '^t' fzf_find_path
+
 
 # zsh-autosuggestions {{{
 ZSH_AUTOSUGGEST_USE_ASYNC=1
