@@ -298,6 +298,7 @@ if g:IsMacGvim() || g:IsMacNeovim()
 
 		if bufnr('tenTask.txt') != -1
 			execute ":buffer repos/changelog/tenTask.txt"
+			execute ":e %"
 		endif
 
 		" call append("$", ['----- '.strftime('%Y-%m-%d %H:%M:%S'), '・'])
@@ -356,6 +357,7 @@ if g:IsMacGvim() || g:IsMacNeovim()
 
 		if bufnr('tenTask.txt') != -1
 			execute ":buffer repos/changelog/tenTask.txt"
+			execute ":e %"
 		endif
 		exe "normal! G"
 		redraw
