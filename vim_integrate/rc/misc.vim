@@ -266,7 +266,8 @@ command! -range PasteWatchMemo call s:PasteWatchMemo()
 " changelogをpull
 function! s:PullChangelog()
   execute "cd ".g:GetChangelogDirectory()
-  execute "silent Git pull > /dev/null 2>&1"
+  execute "silent Git pull"
+	echo 'pull done.'
 endfunction
 
 command! -range PullChangelog call s:PullChangelog() 
@@ -278,7 +279,7 @@ function! s:PushChangelog()
   execute "silent Git commit -m 'update.'"
   execute "silent Git push"
   execute "silent :e %"
-  echo 'done'
+  echo 'push done'
 endfunction
 
 command! -range PushChangelog call s:PushChangelog() 
