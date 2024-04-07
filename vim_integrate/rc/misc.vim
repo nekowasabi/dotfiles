@@ -274,10 +274,10 @@ command! -range PullChangelog call s:PullChangelog()
 " changelogをgitに更新
 function! s:PushChangelog()
   execute "cd ".g:GetChangelogDirectory()
-  execute "Git add ."
-  execute "silent Git commit -m 'update.' > /dev/null 2>&1"
+  execute "silent Git add ."
+  execute "silent Git commit -m 'update.'"
+  execute "silent Git push"
   execute "silent :e %"
-  execute "silent Git push > /dev/null 2>&1"
   echo 'done'
 endfunction
 
