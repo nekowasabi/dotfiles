@@ -301,8 +301,6 @@ if g:IsMacGvim() || g:IsMacNeovim()
 			execute ":e %"
 		endif
 
-		" call append("$", ['----- '.strftime('%Y-%m-%d %H:%M:%S'), '・'])
-		" exe "normal! GkA"
 		" 現在のバッファの総行数を取得
 		let l:total_lines = line('$')
 
@@ -312,7 +310,8 @@ if g:IsMacGvim() || g:IsMacNeovim()
 		" 指定された範囲のテキストを取得
 		let l:lines = getline(l:start_line, '$')
 		" l:linesを文字列に連結
-		let l:lines = join(l:lines, "\n")
+		let l:lines = join(l:lines, " ")
+		echomsg l:lines
 
 		" 現在のタイムスタンプを取得
 		let current_timestamp = localtime()
@@ -327,8 +326,8 @@ if g:IsMacGvim() || g:IsMacNeovim()
 
 		" l:linesにyesterday_dateが含まれていて、today_dateが含まれていない場合
 		let l:found = 0
-		if l:lines =~ yesterday_date && l:lines !~ today_date
-			echomsg string(yesterday_date. ' '. today_date)
+		" if l:lines =~ yesterday_date && l:lines !~ today_date
+		if l:lines !~ today_date
 			let l:found = 1
 		endif
 		if l:found == 1

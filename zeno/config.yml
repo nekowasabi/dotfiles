@@ -27,9 +27,9 @@ snippets:
   - name: git checkout -f
     keyword: gcf
     snippet: git checkout -f
-  - name: git checkout develop
-    keyword: gcd
-    snippet: git checkout develop
+  - name: git pull develop
+    keyword: gpd
+    snippet: git pull origin develop-valuation-of-assets
   - name: git make branch
     keyword: gcb
     snippet: git checkout -b 
@@ -86,6 +86,9 @@ snippets:
   - name: aider
     keyword: ad
     snippet: aider --no-auto-commits --4turbo
+  - name: php artisan migration
+    keyword: pam
+    snippet: php artisan migrate
   - name: migration
     keyword: mam
     snippet: ./mac artisan migrate

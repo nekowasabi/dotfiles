@@ -11,7 +11,17 @@ if [ "$1" = "private" ]; then
   cp -rfv ~/scripts ~/repos/dotfiles/mac/
 
   cd ~/Documents/superwhisper
-  cp -rfv models settings ~/repos/dotfiles/mac/superwhisper
+  cp -rfv models settings ~/repos/private_dotfiles/mac/superwhisper
+fi
+
+if [ "$1" = "mfs" ]; then
+  cp -rfv ~/Library/Application Support/lazygit/* ~/repos/dotfiles/lazygit
+  cp -rfv ~/.zshrc ~/repos/dotfiles/zsh/mfs_zshrc
+  cp -rfv ~/.wezterm.lua ~/repos/dotfiles/mac/mfs_wezterm.lua
+  cp -rfv ~/scripts ~/repos/dotfiles/mac/
+
+  cd ~/Documents/superwhisper
+  cp -rfv models settings ~/repos/private_dotfiles/mac/superwhisper
 fi
 
 if [ "$1" = "wsl" ]; then
