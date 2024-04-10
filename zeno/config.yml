@@ -95,6 +95,9 @@ snippets:
   - name: migration rollback
     keyword: mamr
     snippet: ./mac artisan migrate:rollback
+  - name: make migration
+    keyword: mamm
+    snippet: ./mac artisan make:migration 
 
 completions:
   - name: kill

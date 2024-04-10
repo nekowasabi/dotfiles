@@ -181,7 +181,9 @@
       "phpstan"
     ]
   },
+  "php-cs-fixer.pint.config": "pint.json",
   "php-cs-fixer.enable": true,
+  "php-cs-fixer.pint.preset": "laravel",
   "php-cs-fixer.activateTool": "pint",
   "[php]": {
     "coc.preferences.formatOnSave": true

@@ -106,6 +106,7 @@ augroup END
 
 " for PHP
 " autocmd BufWritePre *.php call CocAction('format')
+" 
 " function! CustomPhpFormat()
 "     " 現在のファイル名が '*.blade.php' で終わるかどうかをチェック
 "     if expand('%:t') !~ '\.blade\.php$'
@@ -113,6 +114,6 @@ augroup END
 "         call CocAction('format')
 "     endif
 " endfunction
-
+" 
 " PHPファイルを保存前にCustomPhpFormat関数を呼び出す
 " autocmd BufWritePre *.php call CustomPhpFormat()
