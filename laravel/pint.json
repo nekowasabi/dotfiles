@@ -54,6 +54,7 @@
             ]
         },
         "phpdoc_trim": false,
+        "phpdoc_no_package": false,
         "general_phpdoc_annotation_remove": {},
         "no_superfluous_phpdoc_tags": false,
         "no_empty_phpdoc": false,
