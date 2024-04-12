@@ -306,6 +306,7 @@ if g:IsMacNeovim() || g:IsWsl()
 	Plug 'CopilotC-Nvim/CopilotChat.nvim', {'branch': 'canary'}
   Plug 'nvim-tree/nvim-web-devicons'
 	Plug 'tani/dmacro.nvim'
+  Plug 'nekowasabi/vim-rule-switcher'
 
   " Plug 'jay-babu/mason-null-ls.nvim'
   " Plug 'williamboman/mason.nvim'
@@ -319,7 +320,7 @@ if g:IsMacNeovim() || g:IsWsl()
     Plug 'Shougo/ddc-source-lsp'
     call g:SetCoc()
   elseif g:IsWsl()
-    Plug 'gelguy/wilder.nvim'
+    " Plug 'gelguy/wilder.nvim'
     Plug 'folke/noice.nvim'
     Plug 'Shougo/ddc-source-lsp'
     call g:SetCoc()
