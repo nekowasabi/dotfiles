@@ -8,7 +8,8 @@ if [ "$1" = "private" ]; then
   cp -rfv ~/Library/Application Support/lazygit/* ~/repos/dotfiles/lazygit
   cp -rfv ~/.zshrc ~/repos/dotfiles/zsh/mac_zshrc
   cp -rfv ~/.wezterm.lua ~/repos/dotfiles/mac/mac_wezterm.lua
-  cp -rfv ~/scripts ~/repos/dotfiles/mac/
+  cp -rfv ~/Dropbox/Keyboard Maestro Macros.kmsync ~/repos/dotfiles/mac
+  # cp -rfv ~/scripts ~/repos/dotfiles/mac/
 
   cd ~/Documents/superwhisper
   cp -rfv models settings ~/repos/private_dotfiles/mac/superwhisper
