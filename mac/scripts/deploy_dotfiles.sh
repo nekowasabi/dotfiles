@@ -1,6 +1,7 @@
 #!/bin/bash
 
 cd ~/repos/dotfiles/vim_integrate
+git pull
 cp -rfv coc-settings.json init.vim rc mysnippet syntax ~/.config/nvim
 cd ~/repos/dotfiles
 cp -rfv ./zeno/* ~/.config/zeno
