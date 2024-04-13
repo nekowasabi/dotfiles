@@ -283,6 +283,14 @@ endfunction
 
 command! -range PushChangelog call s:PushChangelog() 
 
+function! s:OpenByCursor()
+  let l:path = expand('%:p')
+  let l:line = line('.')
+  " コマンド実行結果を表示することなく実行
+  silent! exe '!cursor --g '.l:path.':'.l:line
+endfunction
+command! -range Cursor call s:OpenByCursor()
+
 " -----------------------------------------------------------
 " test
 function! s:Test()
@@ -291,10 +299,15 @@ function! s:Test()
   " コマンド実行結果を表示することなく実行
   silent! exe '!cursor --g '.l:path.':'.l:line
 endfunction
-
 command! -range Test call s:Test() 
+
 nnoremap <silent> <F2> :Test<CR>
 vnoremap <silent> <F2> :Test<CR>
+
+nnoremap x "_x
+xnoremap x "_x
+nnoremap X "_X
+xnoremap X "_X
 
 function! SendCommandToTerminalWindows()
     " すべてのウィンドウをループ
