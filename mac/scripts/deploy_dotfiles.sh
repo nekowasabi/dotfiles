@@ -16,7 +16,7 @@ if [ "$1" = "private" ]; then
   cp -rfv ~/repos/dotfiles/mac/superwhisper/* ~/Documents/superwhisper
 fi
 
-if [ "$1" = "private" ]; then
+if [ "$1" = "mfs" ]; then
   cp -rfv ~/repos/dotfiles/lazygit/* ~/Library/Application\ Support/lazygit
   cp -rfv ~/repos/dotfiles/zsh/mfs_zshrc ~/.zshrc 
   cp -rfv ~/repos/dotfiles/mac/mfs_wezterm.lua ~/.wezterm.lua 
