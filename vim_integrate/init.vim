@@ -108,6 +108,19 @@ call setcellwidths([
   \ [ 0x2459, 0x2469, 2 ],
   \ ])
 
+cmap <expr> <C-e> wilder#in_context() ?
+      \ WilderEnter() :
+      \ "<Down>"
+
+function! WilderEnter() abort
+  call wilder#next()
+  call wilder#accept_completion()
+  call feedkeys("\<CR>")
+endfunction
+
+" cmap <expr> <Down> wilder#can_accept_completion() ?
+"      \ wilder#accept_completion() :
+"      \ "<Down>"
 
 " -----------------------------------------------------------
 " lua

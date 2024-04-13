@@ -226,7 +226,7 @@ if g:IsWindowsGvim()
   Plug 'MattesGroeger/vim-bookmarks'
   Plug 'dense-analysis/ale'
   Plug 'kyoh86/vim-ripgrep'
-  " Plug 'gelguy/wilder.nvim'
+  Plug 'gelguy/wilder.nvim'
   Plug 'Shougo/neosnippet.vim'
   Plug 'Shougo/neosnippet-snippets'
 	Plug 'kana/vim-gf-user'
@@ -307,6 +307,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'nvim-tree/nvim-web-devicons'
 	Plug 'tani/dmacro.nvim'
   Plug 'nekowasabi/vim-rule-switcher'
+  Plug 'Shougo/cmdline.vim'
 
   " Plug 'jay-babu/mason-null-ls.nvim'
   " Plug 'williamboman/mason.nvim'
@@ -320,7 +321,7 @@ if g:IsMacNeovim() || g:IsWsl()
     Plug 'Shougo/ddc-source-lsp'
     call g:SetCoc()
   elseif g:IsWsl()
-    " Plug 'gelguy/wilder.nvim'
+    Plug 'gelguy/wilder.nvim'
     Plug 'folke/noice.nvim'
     Plug 'Shougo/ddc-source-lsp'
     call g:SetCoc()
@@ -590,12 +591,10 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-vue.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-print-debug.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gitsign.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/git-conflict.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lsp-color.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddu.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lightline.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ale.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-ambiwidth.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vista.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesitter.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
@@ -609,10 +608,13 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treemonkey.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/swagger-preview.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/null-ls.vim'
+
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/noice.vim'
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/git-conflict.vim'
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-ambiwidth.vim'
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/deno-nvim.vim'
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ssr.vim'
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/nvim-lspconfig.vim'
-
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fzf-preview.vim'
 
   if g:IsMacNeovimInMfs() || g:IsWsl()

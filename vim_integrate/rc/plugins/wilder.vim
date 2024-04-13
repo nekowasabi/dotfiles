@@ -15,7 +15,8 @@ function! SetUpWilder() abort
 
 	call wilder#setup({
 				\ 'modes': [':', '/', '?'],
-				\ 'accept_key': '<C-e>',
+				\ 'accept_key': '<C-y>',
+				\ 'enable_cmdline_enter': 1,
 				\ })
 
   call wilder#set_option('renderer',
