@@ -162,6 +162,12 @@ require('dmacro').setup({
 -- 
 -- })
 
+vim.fn['cmdline#set_option']({
+    blend = 0,
+    border = "double",
+    highlight_window = "Pmenu",
+})
+
 EOF
 
 " END

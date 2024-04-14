@@ -317,22 +317,22 @@ if g:IsMacNeovim() || g:IsWsl()
 
   if g:IsMacNeovimInMfs() || g:IsWsl()
     Plug 'gelguy/wilder.nvim'
-    Plug 'folke/noice.nvim'
+    " Plug 'folke/noice.nvim'
     Plug 'Shougo/ddc-source-lsp'
     call g:SetCoc()
   elseif g:IsWsl()
     Plug 'gelguy/wilder.nvim'
-    Plug 'folke/noice.nvim'
+    " Plug 'folke/noice.nvim'
     Plug 'Shougo/ddc-source-lsp'
     call g:SetCoc()
   elseif g:IsMacNeovimInWezterm()
     Plug 'gelguy/wilder.nvim'
-    Plug 'folke/noice.nvim'
+    " Plug 'folke/noice.nvim'
     Plug 'Shougo/ddc-source-lsp'
     call g:SetCoc()
   else
     Plug 'gelguy/wilder.nvim'
-    Plug 'folke/noice.nvim'
+    " Plug 'folke/noice.nvim'
     Plug 'Shougo/ddc-source-lsp'
     call g:SetCoc()
     " call g:SetDdc()
