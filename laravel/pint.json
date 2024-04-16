@@ -23,36 +23,7 @@
         "throws"
       ]
     },
-    "phpdoc_separation": {
-      "groups": [
-        [
-          "author",
-          "copyright",
-          "license"
-        ],
-        [
-          "category",
-          "package",
-          "subpackage"
-        ],
-        [
-          "property",
-          "property-read",
-          "property-write"
-        ],
-        [
-          "deprecated",
-          "link",
-          "see",
-          "since"
-        ],
-        [
-          "param",
-          "return",
-          "throws"
-        ]
-      ]
-    },
+    "phpdoc_separation": false,
     "phpdoc_trim": false,
     "phpdoc_no_package": false,
     "general_phpdoc_annotation_remove": {},
