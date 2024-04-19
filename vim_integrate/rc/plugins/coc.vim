@@ -38,6 +38,9 @@ let g:coc_global_extensions = [
   \, 'coc-markdownlint'
   \ ]
 
+
+  "\, 'coc-phpactor'
+
 let g:markdown_fenced_languages = [
      \ 'vim',
      \ 'help'
