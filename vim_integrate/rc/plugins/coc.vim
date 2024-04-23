@@ -22,7 +22,7 @@ let g:coc_global_extensions = [
   \, 'coc-vimlsp'
   \, 'coc-git'
   \, 'coc-github-users'
-  \, '@yaegassy/coc-intelephense'
+  \, 'coc-phpactor'
   \, '@yaegassy/coc-laravel'
   \, '@yaegassy/coc-phpstan'
   \, '@yaegassy/coc-typescript-vue-plugin'
@@ -38,8 +38,8 @@ let g:coc_global_extensions = [
   \, 'coc-markdownlint'
   \ ]
 
+  "\, '@yaegassy/coc-intelephense'
 
-  "\, 'coc-phpactor'
 
 let g:markdown_fenced_languages = [
      \ 'vim',

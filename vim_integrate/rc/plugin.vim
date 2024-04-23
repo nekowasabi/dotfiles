@@ -200,6 +200,7 @@ function g:SetCoc()
   Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'yarn install --frozen-lockfile'}
   Plug 'neoclide/coc-neco'
   Plug 'antoinemadec/coc-fzf'
+  Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
 endfunction
 
 " }}}1
