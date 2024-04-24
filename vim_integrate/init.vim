@@ -168,6 +168,8 @@ vim.fn['cmdline#set_option']({
     highlight_window = "Pmenu",
 })
 
+require("blame").setup()
+
 EOF
 
 " END

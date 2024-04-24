@@ -309,6 +309,7 @@ if g:IsMacNeovim() || g:IsWsl()
 	Plug 'tani/dmacro.nvim'
   Plug 'nekowasabi/vim-rule-switcher'
   Plug 'Shougo/cmdline.vim'
+  Plug 'FabijanZulj/blame.nvim'
 
   " Plug 'jay-babu/mason-null-ls.nvim'
   " Plug 'williamboman/mason.nvim'
