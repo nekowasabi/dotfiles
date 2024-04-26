@@ -36,5 +36,36 @@ vmap <silent> <CR><CR> :GpChatNew vsplit<CR>
 vnoremap <silent> <leader>gp :GpChatPaste vsplit<CR>
 vnoremap <silent> <leader>gr :GpRewrite 
 
-" .gitリポジトリのトップに、コンテキストとなるファイルを作成する（GpRewriteとかするてき、文脈として参照される）
+" .gitリポジトリのトップに、コンテキストとなるファイルを作成する（GpRewriteとかするとき、文脈として参照される）
 nnoremap <silent> <leader>gP :GpContext<CR>
+
+" 選択範囲のテキストをechoするコマンド
+function! GpRewriteTidyToMarkdown()
+	let prompt =<< trim END
+	Your task is to take the text provided and rewrite it into a clear, grammatically correct version while preserving the original meaning as closely as possible. Correct any spelling mistakes, punctuation errors, verb tense issues, word choice problems, and other grammatical mistakes.
+
+	Output should only include the rewritten text, without any quotes or commentary or preamble from you. :
+	Reformat the following sentences. Structure it so that notes can be taken effectively. Ensure that key points, ideas, and action items are clearly highlighted. Check for correct grammar and punctuation. Do not change the tone. Use as much of the original text as possible.
+
+	Must!! Do not remove raw voice input!!!!
+	Must!! Do not remove raw voice input!!!!
+	Must!! Do not remove raw voice input!!!!
+	Must!! Do not remove raw voice input!!!!
+	Must!! Do not remove raw voice input!!!!
+
+	````
+	## 変換前のテキスト
+	`ここに変換前のテキストを一切変更することなく表示する`
+
+	## Text after reformatting
+	`ここに整理されたテキストをmarkdownで構造的に整理して出力する`
+	```
+	END
+
+    " 選択範囲のテキストを出力
+		echo prompt
+    exe "GpRewrite " . join(prompt, "\n")
+endfunction
+
+" コマンドを定義（ビジュアルモード用）
+command! -range=% GpRewriteTidyToMarkdown call GpRewriteTidyToMarkdown()

@@ -394,9 +394,9 @@ if g:IsLinux()  && !g:IsWsl()
   Plug 'tyru/caw.vim' 
 
   Plug 'yuki-yano/ai-review.vim'
-  Plug 'dpayne/CodeGPT.nvim'
-  Plug 'dense-analysis/neural'
-  Plug 'elpiloto/significant.nvim'
+  "Plug 'dpayne/CodeGPT.nvim'
+  "Plug 'dense-analysis/neural'
+  "Plug 'elpiloto/significant.nvim'
 
   Plug 'lambdalisue/gin.vim'
 
