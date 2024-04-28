@@ -13,7 +13,7 @@ if [ "$1" = "private" ]; then
   cp -rfv ~/repos/dotfiles/mac/mac_wezterm.lua ~/.wezterm.lua 
   cp -rfv ~/repos/dotfiles/mac/scripts/* ~/scripts
 
-  cp -rfv ~/repos/dotfiles/mac/superwhisper/* ~/Documents/superwhisper
+  cp -rfv ~/repos/private_dotfiles/mac/superwhisper/* ~/Documents/superwhisper
 fi
 
 if [ "$1" = "mfs" ]; then
