@@ -4,7 +4,7 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 source "${ZINIT_HOME}/zinit.zsh"
 
 # setting path {{{1
-export PATH=$PATH:/usr/local/bin:/bin:/usr/bin:$GOROOT/bin:$GOPATH/bin:/Users/takets/.nodebrew/current/bin:/Users/takets/go/bin:/Users/takets/.cargo/bin:/usr/local/Cellar/python@3.11/3.11.8/bin::$DENO_INSTALL/bin:$PATH:/Users/takets/.deno/bin:/Users/takets/.local/bin
+export PATH=$PATH:/usr/local/bin:/bin:/usr/bin:$GOROOT/bin:$GOPATH/bin:/Users/takets/.nodebrew/current/bin:/Users/takets/go/bin:/Users/takets/.cargo/bin:/usr/local/Cellar/python@3.11/3.11.8/bin::$DENO_INSTALL/bin:$PATH:/Users/takets/.deno/bin:/Users/takets/.local/bin:/Users/takets/bin
 
 export EDITOR=vim
 export GOROOT=/usr/local/opt/go/libexec
