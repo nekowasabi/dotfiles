@@ -1,14 +1,10 @@
 <?php
 
-function fibonatti($n)
+class A
 {
-    if ($n <= 0) {
-        return [];
+    public function aaa()
+    {
+        echo 'aaa';
     }
-    $fib = [0, 1];
-    for ($i = 2; $i < $n; $i++) {
-        $fib[] = $fib[$i - 1] + $fib[$i - 2];
-    }
-
-    return $fib;
 }
+$obj = new A();
