@@ -5,6 +5,8 @@ git pull
 cp -rfv coc-settings.json init.vim rc mysnippet syntax ~/.config/nvim
 cd ~/repos/dotfiles
 cp -rfv ./zeno/* ~/.config/zeno
+cd ~/repos/private_dotfiles
+git pull
 
 # 引数がprivateの場合はprivateディレクトリにコピー
 if [ "$1" = "private" ]; then
