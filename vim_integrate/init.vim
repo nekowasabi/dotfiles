@@ -60,6 +60,7 @@ let g:denops#debug = 0
 "      \ '--inspect-brk',
 "      \ ])
 
+" availableg 
 
 call ai_review#config({ 'chat_gpt': { 'model': 'gpt-4' } })
 
@@ -121,6 +122,18 @@ endfunction
 " cmap <expr> <Down> wilder#can_accept_completion() ?
 "      \ wilder#accept_completion() :
 "      \ "<Down>"
+
+let g:switch_rule =  #{
+      \   rules :[
+      \     #{
+      \     rule: 'file',
+      \     path: [
+      \       "~/.config/nvim/init.vim",
+      \       "~/.config/nvim/rc/plugin.vim"
+      \     ]},
+      \   ],
+      \ }
+
 
 " -----------------------------------------------------------
 " lua
