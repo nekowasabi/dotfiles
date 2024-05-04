@@ -24,5 +24,5 @@ if g:IsWindowsGvim()
 				\   'C:/takeda/repos/7clock/establish.md')
 endif
 
-nmap <silent> <Leader>j <Plug>(altr-forward)
+" nmap <silent> <Leader>j <Plug>(altr-forward)
 " nmap <silent> <Leader>J <Plug>(altr-back)

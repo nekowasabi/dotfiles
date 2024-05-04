@@ -1,14 +1,11 @@
-" " minimum setting {{{1
-" source ~/.config/nvim/rc/env.vim
-" if empty(g:GetAutoloadPath() . 'plug.vim')
-"   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-"        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-"   autocmd VimEnter * PlugInstall | source $MYVIMRC
-" endif
+" " minimum setting {{{1 source ~/.config/nvim/rc/env.vim if
+" empty(g:GetAutoloadPath() . 'plug.vim') silent !curl -fLo
+" ~/.vim/autoload/plug.vim --create-dirs \
+" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim autocmd
+" VimEnter * PlugInstall | source $MYVIMRC endif
 " 
-" call plug#begin(g:GetVimConfigRootPath() . 'plugged')
-"   Plug 'kdheepak/lazygit.nvim'
-" call plug#end()
+" call plug#begin(g:GetVimConfigRootPath() . 'plugged') Plug
+" 'kdheepak/lazygit.nvim' call plug#end()
 " 
 " " }}}1
 
@@ -124,16 +121,34 @@ endfunction
 "      \ "<Down>"
 
 let g:switch_rule =  #{
-      \   rules :[
+      \   conditions:[
       \     #{
-      \     rule: 'file',
-      \     path: [
-      \       "~/.config/nvim/init.vim",
-      \       "~/.config/nvim/rc/plugin.vim"
+      \       rule: 'file',
+      \       path: [
+      \         "~/.config/nvim/init.vim",
+      \         "~/.config/nvim/rc/plugin.vim"
+      \       ]},
+      \     #{
+      \       rule: 'git',
+      \       prefix: 'Test',
+      \       postfix: 'Test',
+      \       path: [
+      \         "%.php",
+      \         "%Test.php"
+      \     ]},
+      \     #{
+      \       rule: 'file',
+      \       prefix: 'Test',
+      \       postfix: 'Test',
+      \       path: [
+      \         "~/.config/nvim/rc/%.php",
+      \         "~/.config/nvim/rc/%Test.php"
       \     ]},
       \   ],
       \ }
 
+nnoremap <silent> <Leader>j :SwitchFileByRule<CR>
+nnoremap <silent> <Leader>J :SwitchFileByRule git<CR>
 
 " -----------------------------------------------------------
 " lua
