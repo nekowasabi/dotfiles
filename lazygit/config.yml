@@ -28,7 +28,7 @@ os:
 
 customCommands:
   - key: 'C'
-    command: "aicommits --type conventional"
+    command: "aicommit2 --type conventional -y --generate 1 -p 'Please add emojis that represent the commit message at the end of the commit message'"
     context: 'files'
     subprocess: true
     description: 'commit changes using git editor(Custom Command)'

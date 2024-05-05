@@ -75,7 +75,7 @@ nnoremap <silent> <Tab> <C-w>w
 nnoremap <silent> <CR> :w!<CR>
 
 " aider.vim
-let g:aider_command = 'aider --no-auto-commits --4turbo'
+let g:aider_command = 'aider --no-auto-commits --opus'
 let g:aider_split_direction = 'split'
 let g:aider_floatwin_width = 100
 let g:aider_floatwin_height = 20
@@ -104,6 +104,7 @@ call setcellwidths([
   \ [ 0x203B, 0x203B, 2 ],
   \ [ 0x2935, 0x2935, 2 ],
   \ [ 0x2459, 0x2469, 2 ],
+  \ [ 0x2606, 0x2606, 2 ],
   \ ])
 
 cmap <expr> <C-e> wilder#in_context() ?
@@ -122,6 +123,12 @@ endfunction
 
 let g:switch_rule =  #{
       \   conditions:[
+      \     #{
+      \       rule: 'file',
+      \       path: [
+      \         "~/repos/changelog/changelogmemo",
+      \         "~/repos/changelog/tenTask.txt",
+      \       ]},
       \     #{
       \       rule: 'file',
       \       path: [
