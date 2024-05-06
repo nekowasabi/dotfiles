@@ -1,13 +1,15 @@
-" " minimum setting {{{1 source ~/.config/nvim/rc/env.vim if
-" empty(g:GetAutoloadPath() . 'plug.vim') silent !curl -fLo
-" ~/.vim/autoload/plug.vim --create-dirs \
-" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim autocmd
-" VimEnter * PlugInstall | source $MYVIMRC endif
-" 
-" call plug#begin(g:GetVimConfigRootPath() . 'plugged') Plug
-" 'kdheepak/lazygit.nvim' call plug#end()
-" 
-" " }}}1
+" minimum setting {{{1
+source ~/.config/nvim/rc/env.vim
+if empty(g:GetAutoloadPath() . 'plug.vim')
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd  VimEnter * PlugInstall | source $MYVIMRC
+endif
+
+call plug#begin(g:GetVimConfigRootPath() . 'plugged')
+Plug 'kdheepak/lazygit.nvim'
+call plug#end()
+
+" }}}1
 
 " init setting {{{1
 
@@ -44,221 +46,19 @@ set t_8b=^[[48;2;%lu;%lu;%lum
 " }}}1
 
 let g:denops#debug = 0 
-" let g:denops_server_addr = '127.0.0.1:32123'
-" let g:denops_disable_version_check = 0
-" let g:denops#deno = '/Users/takets/.deno/bin/deno'
 
-" let g:denops#server#deno_args = get(g:,
-"      \ 'denops#server#service#deno_args', [
-"      \ '-q',
-"      \ '--no-check',
-"      \ '--unstable',
-"      \ '-A',
-"      \ '--inspect-brk',
-"      \ ])
-
-" availableg 
-
-call ai_review#config({ 'chat_gpt': { 'model': 'gpt-4' } })
-
-" vim-perplexity
-let g:perplexity_token = $PERPLEXITY_TOKEN
-let g:perplexity_model = 'llama-2-70b-chat'
-let g:perplexity_log_directory = '/tmp/perplexity'
-
-" lazygit
-nnoremap <silent> <leader>lg :LazyGit<CR>
-let g:lazygit_floating_window_use_plenary = 1 " use plenary.nvim to manage floating window if available
-
-" keybind
-nnoremap <silent> <Tab> <C-w>w
-
-" aider.vim
-let g:aider_command = 'aider --no-auto-commits --opus'
-let g:aider_split_direction = 'split'
-let g:aider_floatwin_width = 100
-let g:aider_floatwin_height = 20
-let g:convension_path = "~/.config/nvim/plugged/aider.vim/CONVENTION.md"
-nnoremap <silent> <leader>Aa :AiderAddCurrentFile<CR>
-nnoremap <silent> <leader>Ap :AiderSendPromptWithInput<CR>
-vmap <leader>Av :AiderVisualTextWithPrompt<CR>
-
-" keymap
-tnoremap ii <C-\><C-n>
-
-autocmd FileType ddu-ff call timer_start(1, {-> ddu#ui#do_action('openFilterWindow')})
-
-cnoremap <C-X><C-X> <Cmd>Capture mes<CR>
-
-
-call setcellwidths([
-  \ [ 0x2500, 0x257f, 1 ],
-  \ [ 0x2100, 0x214d, 2 ],
-  \ [ 0x26A0, 0x26A0, 2 ],
-  \ [ 0x2014, 0x2014, 2 ],
-  \ [ 0x2191, 0x2191, 1 ],
-  \ [ 0x2026, 0x2026, 2 ],
-  \ [ 0x2192, 0x2192, 2 ],
-  \ [ 0x2713, 0x2713, 1 ],
-  \ [ 0x203B, 0x203B, 2 ],
-  \ [ 0x2935, 0x2935, 2 ],
-  \ [ 0x2459, 0x2469, 2 ],
-  \ [ 0x2606, 0x2606, 2 ],
-  \ ])
-
-cmap <expr> <C-e> wilder#in_context() ?
-      \ WilderEnter() :
-      \ "<Down>"
-
-function! WilderEnter() abort
-  call wilder#next()
-  call wilder#accept_completion()
-  call feedkeys("\<CR>")
-endfunction
-
-" cmap <expr> <Down> wilder#can_accept_completion() ?
-"      \ wilder#accept_completion() :
-"      \ "<Down>"
-
-" let g:switch_rule =  #{
-"     \   conditions:[
-"     \     #{
-"     \       rule: 'file',
-"     \       path: [
-"     \         "~/repos/changelog/changelogmemo",
-"     \         "~/repos/changelog/tenTask.txt",
-"     \       ]},
-"     \     #{
-"     \       rule: 'file',
-"     \       path: [
-"     \         "~/.config/nvim/init.vim",
-"     \         "~/.config/nvim/rc/plugin.vim"
-"     \       ]},
-"     \     #{
-"     \       rule: 'git',
-"     \       prefix: 'Test',
-"     \       postfix: 'Test',
-"     \       path: [
-"     \         "%.php",
-"     \         "%Test.php"
-"     \     ]},
-"     \     #{
-"     \       rule: 'file',
-"     \       prefix: 'Test',
-"     \       postfix: 'Test',
-"     \       path: [
-"     \         "~/.config/nvim/rc/%.php",
-"     \         "~/.config/nvim/rc/%Test.php"
-"     \     ]},
-"     \   ],
-"     \ }
 let g:switch_rule = "/home/takets/.config/nvim/rule_switch.json"
 
 nnoremap <silent> <Leader>j :SwitchFileByRule<CR>
 nnoremap <silent> <Leader>J :SwitchFileByRule git<CR>
 
-" table-mode
-let g:table_mode_disable_mappings = 1
 
 " -----------------------------------------------------------
 " lua
 lua << EOF
--- Lazygit起動時にESCを無効化する
-vim.api.nvim_create_augroup("LazygitKeyMapping", {})
--- TermEnterでは起動されたバッファではなく、起動したバッファが対象になってしまう
-local bkey = vim.api.nvim_buf_set_keymap
-vim.api.nvim_create_autocmd("TermOpen", {
-  group = "LazygitKeyMapping",
-  pattern = "*",
-  callback = function()
-  local filetype = vim.bo.filetype
-  -- filetypeにはlazygitが渡る。空文字ではない
-  if filetype == "lazygit" then
-    -- このkeymapが肝。なんでこれで動くのかは謎
-    bkey(0, "t", "<ESC>", "<ESC>", { silent = true })
-    -- <C-\><C-n>がNeovimとしてのESC。<ESC>はLazygitが奪う
-    bkey(0, "t", "<C-x><C-x>", [[<C-\><C-n>]], { silent = true })
-    bkey(0, "t", "jj", "<Down><Down>", { silent = true })
-    end
-  end,
-})
 
-require('dmacro').setup({
-    dmacro_key = '<C-s>' --  you need to set the dmacro_key
-})
-
--- local null_ls = require("null-ls")
--- null_ls.setup({
---     sources = {
---       null_ls.builtins.formatting.deno_fmt, 
---       null_ls.builtins.diagnostics.deno_lint,
---     },
--- })
--- vim.keymap.set('n', '<leader>p', function() vim.lsp.buf.format { async = true } end)
-
--- require("toggleterm").setup({
--- 
--- })
-
-vim.fn['cmdline#set_option']({
-    blend = 0,
-    border = "double",
-    highlight_window = "Pmenu",
-})
-
-require("blame").setup()
 
 require('gitlinker').setup()
-
-require('notion').setup({
-  autoUpdate = true, --Allow the plugin to automatically update the data from the Notion API
-  open = "notion", --If not set, or set to something different to notion, will open in web browser
-  keys = { --Menu keys
-      deleteKey = "d", 
-      editKey = "e",
-      openNotion = "o",
-      itemAdd = "a",
-      viewKey = "v"
-  },
-  delays = { --Delays before running specific actions
-      reminder = 4000,
-      format = 200,
-      update = 10000
-  },
-  notifications = true, --Enable notifications
-  editor = "light", --light/medium/full, changes the amount of data displayed in editor
-  viewOnEdit = {
-      enabled = true, --Enable double window, view and edit simultaneously
-      replace = true --Replace current window with preview window, only if enabled = true
-  },
-  direction = "vsplit", --Direction windows will be opened in
-  noEvent = "No events",
-})
-
-
-require('treesj').setup({
-  ---@type boolean Use default keymaps (<space>m - toggle, <space>j - join, <space>s - split)
-  use_default_keymaps = false,
-  ---@type boolean Node with syntax error will not be formatted
-  check_syntax_error = true,
-  ---If line after join will be longer than max value,
-  ---@type number If line after join will be longer than max value, node will not be formatted
-  max_join_length = 120,
-  ---Cursor behavior:
-  ---hold - cursor follows the node/place on which it was called
-  ---start - cursor jumps to the first symbol of the node being formatted
-  ---end - cursor jumps to the last symbol of the node being formatted
-  ---@type 'hold'|'start'|'end'
-  cursor_behavior = 'hold',
-  ---@type boolean Notify about possible problems or not
-  notify = true,
-  ---@type boolean Use `dot` for repeat action
-  dot_repeat = true,
-  ---@type nil|function Callback for treesj error handler. func (err_text, level, ...other_text)
-  on_error = nil,
-  ---@type table Presets for languages
-  -- langs = {}, -- See the default presets in lua/treesj/langs
-})
 
 EOF
 

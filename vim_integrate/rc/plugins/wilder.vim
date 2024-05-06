@@ -53,5 +53,15 @@ function! SetUpWilder() abort
 				\     }),
 				\   ),
 				\ ])
+
+  cmap <expr> <C-e> wilder#in_context() ?
+        \ WilderEnter() :
+        \ "<Down>"
+
+  function! WilderEnter() abort
+    call wilder#next()
+    call wilder#accept_completion()
+    call feedkeys("\<CR>")
+  endfunction
 endfunction
 call SetUpWilder()

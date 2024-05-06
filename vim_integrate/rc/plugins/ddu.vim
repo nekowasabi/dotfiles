@@ -704,3 +704,4 @@ call ddu#custom#patch_global('sourceOptions', {
       \ 'file_fd': {'path': expand("~")},
       \ })
 
+autocmd FileType ddu-ff call timer_start(1, {-> ddu#ui#do_action('openFilterWindow')})

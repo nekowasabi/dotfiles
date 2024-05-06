@@ -46,6 +46,8 @@ inoremap <C-b> →
 nnoremap <C-Tab> 0i	
 nnoremap <S-Tab> 0x
 
+nnoremap <silent> <Tab> <C-w>w
+
 " 単語移動
 if has("mac")
 	nnoremap <D-k> :<C-U>call jasegment#MoveN(g:jasegment#model, 'jasegment#MoveB', v:count1, 0, 0, 0)<CR>

@@ -77,11 +77,9 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'lambdalisue/nerdfont.vim'
 Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 
-" Plug 'rbtnn/vim-ambiwidth'
-
 " AI
 Plug 'yuki-yano/ai-review.vim'
-Plug 'nekowasabi/vim-perplexity'
+" Plug 'nekowasabi/vim-perplexity'
 
 if g:IsWindowsGvim()
 	Plug 'madox2/vim-ai', { 'do': './install.sh' }
@@ -316,6 +314,7 @@ if g:IsMacNeovim() || g:IsWsl()
   " Plug 'williamboman/mason.nvim'
   " Plug 'williamboman/mason-lspconfig.nvim'
   Plug 'Wansmer/treesj'
+  Plug 'stevearc/oil.nvim'
 
   call g:SetDdu()
 
@@ -613,14 +612,15 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treemonkey.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/swagger-preview.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/null-ls.vim'
-
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/noice.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/git-conflict.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-ambiwidth.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/deno-nvim.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ssr.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/nvim-lspconfig.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fzf-preview.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/aider.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lazygit.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/dmacro.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/notion.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesj.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/oil.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/table-mode.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/blame.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gitlinker.vim'
 
   if g:IsMacNeovimInMfs() || g:IsWsl()
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
@@ -628,8 +628,6 @@ if g:IsMacNeovim() || g:IsWsl()
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
   elseif g:IsMacNeovimInWezterm()
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-lsp.vim'
-		" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
-		" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc-source-lsp.vim'
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
