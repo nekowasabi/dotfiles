@@ -315,6 +315,7 @@ if g:IsMacNeovim() || g:IsWsl()
   " Plug 'jay-babu/mason-null-ls.nvim'
   " Plug 'williamboman/mason.nvim'
   " Plug 'williamboman/mason-lspconfig.nvim'
+  Plug 'Wansmer/treesj'
 
   call g:SetDdu()
 
@@ -562,7 +563,7 @@ execute 'source '.g:GetVimConfigRootPath().'rc/plugins/quickrun.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/easyalign.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-rtm.vim'
 
-execute 'source '.g:GetVimConfigRootPath().'rc/plugins/mastodon.vim'
+" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/mastodon.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/searchx.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fuzzy-motion.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-sandwich.vim'

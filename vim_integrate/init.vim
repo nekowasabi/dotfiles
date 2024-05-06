@@ -157,6 +157,9 @@ let g:switch_rule = "/home/takets/.config/nvim/rule_switch.json"
 nnoremap <silent> <Leader>j :SwitchFileByRule<CR>
 nnoremap <silent> <Leader>J :SwitchFileByRule git<CR>
 
+" table-mode
+let g:table_mode_disable_mappings = 1
+
 " -----------------------------------------------------------
 " lua
 lua << EOF
@@ -230,6 +233,31 @@ require('notion').setup({
   },
   direction = "vsplit", --Direction windows will be opened in
   noEvent = "No events",
+})
+
+
+require('treesj').setup({
+  ---@type boolean Use default keymaps (<space>m - toggle, <space>j - join, <space>s - split)
+  use_default_keymaps = false,
+  ---@type boolean Node with syntax error will not be formatted
+  check_syntax_error = true,
+  ---If line after join will be longer than max value,
+  ---@type number If line after join will be longer than max value, node will not be formatted
+  max_join_length = 120,
+  ---Cursor behavior:
+  ---hold - cursor follows the node/place on which it was called
+  ---start - cursor jumps to the first symbol of the node being formatted
+  ---end - cursor jumps to the last symbol of the node being formatted
+  ---@type 'hold'|'start'|'end'
+  cursor_behavior = 'hold',
+  ---@type boolean Notify about possible problems or not
+  notify = true,
+  ---@type boolean Use `dot` for repeat action
+  dot_repeat = true,
+  ---@type nil|function Callback for treesj error handler. func (err_text, level, ...other_text)
+  on_error = nil,
+  ---@type table Presets for languages
+  -- langs = {}, -- See the default presets in lua/treesj/langs
 })
 
 EOF
