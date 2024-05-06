@@ -311,7 +311,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'Shougo/cmdline.vim'
   Plug 'FabijanZulj/blame.nvim'
   Plug 'linrongbin16/gitlinker.nvim'
-
+  Plug 'Al0den/notion.nvim'
   " Plug 'jay-babu/mason-null-ls.nvim'
   " Plug 'williamboman/mason.nvim'
   " Plug 'williamboman/mason-lspconfig.nvim'
