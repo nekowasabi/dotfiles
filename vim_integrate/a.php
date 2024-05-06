@@ -2,9 +2,13 @@
 
 class A
 {
-    public function aaa()
+    /**
+     * hello
+     */
+    public function aaa(): void
     {
         echo 'aaa';
     }
 }
 $obj = new A();
+$obj->aaa();

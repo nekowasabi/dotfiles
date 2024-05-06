@@ -72,7 +72,6 @@ let g:lazygit_floating_window_use_plenary = 1 " use plenary.nvim to manage float
 
 " keybind
 nnoremap <silent> <Tab> <C-w>w
-nnoremap <silent> <CR> :w!<CR>
 
 " aider.vim
 let g:aider_command = 'aider --no-auto-commits --opus'
@@ -121,38 +120,39 @@ endfunction
 "      \ wilder#accept_completion() :
 "      \ "<Down>"
 
-let g:switch_rule =  #{
-      \   conditions:[
-      \     #{
-      \       rule: 'file',
-      \       path: [
-      \         "~/repos/changelog/changelogmemo",
-      \         "~/repos/changelog/tenTask.txt",
-      \       ]},
-      \     #{
-      \       rule: 'file',
-      \       path: [
-      \         "~/.config/nvim/init.vim",
-      \         "~/.config/nvim/rc/plugin.vim"
-      \       ]},
-      \     #{
-      \       rule: 'git',
-      \       prefix: 'Test',
-      \       postfix: 'Test',
-      \       path: [
-      \         "%.php",
-      \         "%Test.php"
-      \     ]},
-      \     #{
-      \       rule: 'file',
-      \       prefix: 'Test',
-      \       postfix: 'Test',
-      \       path: [
-      \         "~/.config/nvim/rc/%.php",
-      \         "~/.config/nvim/rc/%Test.php"
-      \     ]},
-      \   ],
-      \ }
+" let g:switch_rule =  #{
+"     \   conditions:[
+"     \     #{
+"     \       rule: 'file',
+"     \       path: [
+"     \         "~/repos/changelog/changelogmemo",
+"     \         "~/repos/changelog/tenTask.txt",
+"     \       ]},
+"     \     #{
+"     \       rule: 'file',
+"     \       path: [
+"     \         "~/.config/nvim/init.vim",
+"     \         "~/.config/nvim/rc/plugin.vim"
+"     \       ]},
+"     \     #{
+"     \       rule: 'git',
+"     \       prefix: 'Test',
+"     \       postfix: 'Test',
+"     \       path: [
+"     \         "%.php",
+"     \         "%Test.php"
+"     \     ]},
+"     \     #{
+"     \       rule: 'file',
+"     \       prefix: 'Test',
+"     \       postfix: 'Test',
+"     \       path: [
+"     \         "~/.config/nvim/rc/%.php",
+"     \         "~/.config/nvim/rc/%Test.php"
+"     \     ]},
+"     \   ],
+"     \ }
+let g:switch_rule = "/home/takets/.config/nvim/rule_switch.json"
 
 nnoremap <silent> <Leader>j :SwitchFileByRule<CR>
 nnoremap <silent> <Leader>J :SwitchFileByRule git<CR>
@@ -181,7 +181,7 @@ vim.api.nvim_create_autocmd("TermOpen", {
 })
 
 require('dmacro').setup({
-    dmacro_key = '<C-a>' --  you need to set the dmacro_key
+    dmacro_key = '<C-s>' --  you need to set the dmacro_key
 })
 
 -- local null_ls = require("null-ls")
