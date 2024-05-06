@@ -57,9 +57,6 @@ nnoremap <silent> <Leader>J :SwitchFileByRule git<CR>
 " lua
 lua << EOF
 
-
-require('gitlinker').setup()
-
 EOF
 
 " END
