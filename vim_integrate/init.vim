@@ -205,6 +205,8 @@ vim.fn['cmdline#set_option']({
 
 require("blame").setup()
 
+require('gitlinker').setup()
+
 EOF
 
 " END

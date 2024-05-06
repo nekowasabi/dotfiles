@@ -310,6 +310,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'nekowasabi/vim-rule-switcher'
   Plug 'Shougo/cmdline.vim'
   Plug 'FabijanZulj/blame.nvim'
+  Plug 'linrongbin16/gitlinker.nvim'
 
   " Plug 'jay-babu/mason-null-ls.nvim'
   " Plug 'williamboman/mason.nvim'
@@ -527,6 +528,7 @@ if g:IsWsl()
   Plug 'HiPhish/rainbow-delimiters.nvim'
   Plug 'gelguy/wilder.nvim'
   Plug 'atusy/treemonkey.nvim'
+  Plug 'linrongbin16/gitlinker.nvim'
 
   call g:SetCoc()
   call g:SetDdu()
