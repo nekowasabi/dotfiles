@@ -10,11 +10,10 @@ copilot_chat.setup({
     },
     close = {
       normal = 'q',
-      insert = '<C-c>'
     },
     reset = {
-      normal ='<C-l>',
-      insert = '<C-l>'
+      normal ='<C-c>',
+      insert = '<C-c>'
     },
     submit_prompt = {
       normal = 'gm',
@@ -85,7 +84,7 @@ EOF
 
 " CopilotChat
 " vnoremap <leader>cv :CopilotChat 
-vnoremap <CR> :CopilotChat 
-vnoremap <silent> <leader>cx :CopilotChatInPlace<CR>
-nnoremap <silent> <leader>ce :CopilotChatExplain<CR>
-vnoremap <silent> <leader>ce :CopilotChatExplain<CR>
+vnoremap <CR>c :CopilotChat 
+vnoremap <CR>f :CopilotChatFix 
+vnoremap <CR>o :CopilotChatOptimize 
+nnoremap <CR>c :CopilotChat<CR>

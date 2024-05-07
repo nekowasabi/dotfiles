@@ -79,10 +79,10 @@ nnoremap <silent> <space>clp  :<C-u>CocFzfListResume<CR>
 
 autocmd FileType php,typescript,python,markdown,javascript,vim nnoremap <silent> <space>o  :<C-u>CocFzfList outline<CR>
 
-nmap <silent> <Leader>ga <Plug>(coc-codeaction)
-nmap <silent> <Leader>gA <Plug>(coc-codeaction-line)
-xmap <silent> <Leader>ga <Plug>(coc-codeaction-selected)
-nmap <silent> <leader>ca <Plug>(coc-codeaction-cursor)
+nmap <silent> <Leader>caA <Plug>(coc-codeaction)
+nmap <silent> <Leader>cal <Plug>(coc-codeaction-line)
+xmap <silent> <Leader>cas <Plug>(coc-codeaction-selected)
+nmap <silent> <leader>caa <Plug>(coc-codeaction-cursor)
 let g:coc_fzf_opts = ['--layout=reverse']
 let g:fzf_layout = { 'up': '~40%' }
 let g:fzf_layout = { 'window': { 'width': 0.7, 'height': 0.6,} }

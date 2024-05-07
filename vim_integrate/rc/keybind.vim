@@ -97,80 +97,36 @@ vmap : :
 
 nnoremap <silent> <Leader>w :w<CR>
 
-""---------------------------------------------------- 
-" vimshell
-augroup my-vimshell
-	" Recommended key-mappings.
-	" <CR>: close popup and save indent.
-	inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-	function! s:my_cr_function()
-		return pumvisible() ? "\<C-y>" : "\<CR>"
-	endfunction
-	autocmd!
-	autocmd FileType vimshell
-				\       imap <expr> <buffer> <C-n> pumvisible() ? "\<C-n>" : "\<Plug>(vimshell_history_neocomplete)"
-augroup END
-
-
 " gfでいい感じに開く
 autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','') | setlocal path+=;/
 
 "" ---------------------------------------------------
-" ctags
-if g:IsWsl()
-	autocmd FileType php :set tags=/home/takets/php.tags
-	autocmd BufEnter *.php :set tags=/home/takets/php.tags
-	autocmd FileType javascript :set tags=/home/takets/jstags
-	autocmd BufEnter *.js :set tags=/home/takets/jstags
-	" for linux setting
-	noremap <silent> ,tp :!/home/linuxbrew/.linuxbrew/bin/ctags -r --php-kinds=+cdfint-a --fields=+laims --languages=php  -f /home/takets/php.tags /home/takets/source/spider/sp2-php<cr>
-	noremap <silent> ,tj :!/home/linuxbrew/.linuxbrew/bin/ctags -r --exclude=\*core.js --exclude=\*.min.js --exclude=\*.debug.js  --exclude=node_modules --fields=+laims --languages=javascript -f /home/kf/jstags /home/kf/app/<cr>
-
-	" tagsジャンプの時に複数ある時は一覧表示
-	nnoremap <c-]> g<c-]>
-endif
-
-if g:IsLinux()
-	autocmd FileType php :set tags=/home/kf/php.tags
-	autocmd BufEnter *.php :set tags=/home/kf/php.tags
-	autocmd FileType javascript :set tags=/home/kf/jstags
-	autocmd BufEnter *.js :set tags=/home/kf/jstags
-	" for linux setting
-	noremap <silent> ,tp :!/usr/bin/ctags -R --php-kinds=+cdfint -a --fields=+laims --languages=php -f /home/kf/php.tags /home/kf/app/php<cr>
-	noremap <silent> ,tj :!/usr/bin/ctags -R --exclude=\*core.js --exclude=\*.min.js --exclude=\*.debug.js  --exclude=node_modules --fields=+laims --languages=javascript -f /home/kf/jstags /home/kf/app/web/js<cr>
-
-	" tagsジャンプの時に複数ある時は一覧表示
-	nnoremap <c-]> g<c-]>
-endif
-
-
-
-" 辞書検索 {{{1
-function! s:DictionaryTranslate(...)
-	let l:word = a:0 == 0 ? expand('<cword>') : a:1
-	call histadd('cmd', 'DictionaryTranslate '  . l:word)
-	if l:word ==# '' | return | endif
-	let l:gene_path = 'c:/takeda/tools/vim/bin/GENE.TXT'
-	let l:jpn_to_eng = l:word !~? '^[a-z_]\+$'
-	let l:output_option = l:jpn_to_eng ? '-B 1' : '-A 1' " 和英 or 英和
-
-	silent pedit Translate\ Result | wincmd P | %delete " 前の結果が残っていることがあるため
-	setlocal buftype=nofile noswapfile modifiable
-	silent execute 'read !grep -ihw' l:output_option l:word l:gene_path
-	silent 0delete
-	let l:esc = @z
-	let @z = ''
-	while search("^" . l:word . "$", "Wc") > 0 " 完全一致したものを上部に移動
-		silent execute line('.') - l:jpn_to_eng . "delete Z 2"
-	endwhile
-	silent 0put z
-	let @z = l:esc
-	silent call append(line('.'), '==')
-	silent 1delete
-	silent wincmd l
-endfunction
-command! -nargs=? -complete=command DictionaryTranslate call <SID>DictionaryTranslate(<f-args>)
-nnoremap <silent> ,D :DictionaryTranslate 
+" ctags {{{1
+" if g:IsWsl()
+" 	autocmd FileType php :set tags=/home/takets/php.tags
+" 	autocmd BufEnter *.php :set tags=/home/takets/php.tags
+" 	autocmd FileType javascript :set tags=/home/takets/jstags
+" 	autocmd BufEnter *.js :set tags=/home/takets/jstags
+" 	" for linux setting
+" 	noremap <silent> ,tp :!/home/linuxbrew/.linuxbrew/bin/ctags -r --php-kinds=+cdfint-a --fields=+laims --languages=php  -f /home/takets/php.tags /home/takets/source/spider/sp2-php<cr>
+" 	noremap <silent> ,tj :!/home/linuxbrew/.linuxbrew/bin/ctags -r --exclude=\*core.js --exclude=\*.min.js --exclude=\*.debug.js  --exclude=node_modules --fields=+laims --languages=javascript -f /home/kf/jstags /home/kf/app/<cr>
+" 
+" 	" tagsジャンプの時に複数ある時は一覧表示
+" 	nnoremap <c-]> g<c-]>
+" endif
+" 
+" if g:IsLinux()
+" 	autocmd FileType php :set tags=/home/kf/php.tags
+" 	autocmd BufEnter *.php :set tags=/home/kf/php.tags
+" 	autocmd FileType javascript :set tags=/home/kf/jstags
+" 	autocmd BufEnter *.js :set tags=/home/kf/jstags
+" 	" for linux setting
+" 	noremap <silent> ,tp :!/usr/bin/ctags -R --php-kinds=+cdfint -a --fields=+laims --languages=php -f /home/kf/php.tags /home/kf/app/php<cr>
+" 	noremap <silent> ,tj :!/usr/bin/ctags -R --exclude=\*core.js --exclude=\*.min.js --exclude=\*.debug.js  --exclude=node_modules --fields=+laims --languages=javascript -f /home/kf/jstags /home/kf/app/web/js<cr>
+" 
+" 	" tagsジャンプの時に複数ある時は一覧表示
+" 	nnoremap <c-]> g<c-]>
+" endif
 " }}}1
 
 " エンコーディング指定オープン {{{1 
@@ -230,9 +186,6 @@ set cmdwinheight=20
 
 
 "}}}1
-
-" remove highlighting and redraw
-" nnoremap <silent> <BS> :nohlsearch<CR><C-L>
 
 " vを二回で行末まで選択
 vnoremap v $h
@@ -421,8 +374,8 @@ if g:IsMacGvim() || g:IsMacNeovim()
 
 	" inoremap <expr> j getline('.')[col('.') - 2] ==# 'j' ? "\<BS>\<ESC>" : 'j'
 
-	imap <F6> <ESC>i■<C-R>=strftime("%Y/%m/%d (%a) %H:%M")<CR><CR>・<CR>
-	nmap <F6> <ESC>i■<C-r>=strftime("%Y-%m-%d %H:%M:%S")<CR><CR>
+	" imap <F6> <ESC>i■<C-R>=strftime("%Y/%m/%d (%a) %H:%M")<CR><CR>・<CR>
+	" nmap <F6> <ESC>i■<C-r>=strftime("%Y-%m-%d %H:%M:%S")<CR><CR>
 
 
 	command! OpenChangelog call <SID>OpenChangelog()
@@ -557,39 +510,6 @@ if g:IsWindowsGvim()
 
 endif
 
-if g:IsWindowsNeovim()
-	nnoremap <silent> ,rr :source ~/.config/nvim/init.vim<CR>
-endif
-
-if g:IsLinux()
-	" TODO: use noremap!
-	imap <C-b> <Left>
-	imap <C-f> <Right>
-	imap <C-p> <Up>
-	imap <C-n> <Down>
-	" imap <C-a> <C-o>^
-	" imap <C-e> <C-o>$
-
-	cnoremap <C-b> <Left>
-	cnoremap <C-f> <Right>
-	cnoremap <C-a> <Home>
-	cnoremap <C-e> <End>
-	inoremap <C-f> ／
-	inoremap <C-x><C-x> ？／
-	cnoremap <C-f> ／
-	inoremap <C-b> →
-	nnoremap <C-Tab> 0i	
-	nnoremap <S-Tab> 0x
-  nnoremap <silent>H 10h
-  nnoremap <silent>J 5gj
-  nnoremap <silent>K 5gk
-  nmap <silent>K 5gk
-  nnoremap <silent>L 10l
-
-
-endif
-
-
 " Fast switching to the alternate file
 " <BS>に割り当てると、<PageUp>後にkkkとすると、コマンドが暴発する謎が発生する
-nnoremap <silent> <Leader>a :buffer#<CR>
+nnoremap <silent> ,a :buffer#<CR>

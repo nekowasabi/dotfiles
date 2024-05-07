@@ -81,28 +81,28 @@ if g:IsWindowsGvim()
 endif
 
  "ビジュアルモードで選択中のテクストを取得する {{{
-function! s:get_visual_text()
-    try
-        " ビジュアルモードの選択開始/終了位置を取得
-        let pos = getpos('')
-        normal `<
-        let start_line = line('.')
-        let start_col = col('.')
-        normal `>
-        let end_line = line('.')
-        let end_col = col('.')
-        call setpos('.', pos)
+ function! s:get_visual_text()
+   try
+     " ビジュアルモードの選択開始/終了位置を取得
+     let pos = getpos('')
+     normal `<
+     let start_line = line('.')
+     let start_col = col('.')
+     normal `>
+     let end_line = line('.')
+     let end_col = col('.')
+     call setpos('.', pos)
 
-        let tmp = @@
-        silent normal gvy
-        let selected = @@
-        let @@ = tmp
-        return selected
-    catch
-        return ''
-    endtry
-endfunction
-" }}}
+     let tmp = @@
+     silent normal gvy
+     let selected = @@
+     let @@ = tmp
+     return selected
+   catch
+     return ''
+   endtry
+ endfunction
+ " }}}
 
 " plantumlのマインドマップを開く
 function! s:OpenMindMap()
@@ -138,10 +138,10 @@ function! s:HugoGeneratePost()
   endif
   execute "!hugo new post/".s:markdown
   execute ":e ".s:path.'content/post/'.s:markdown
-
 endfunction
 
 command! HugoGeneratePost call s:HugoGeneratePost() 
+nnoremap <silent> ,Hg :HugoGeneratePost<CR>
 
 function! s:HugoRunServer()
 	if g:IsMacGvim()
@@ -155,6 +155,7 @@ function! s:HugoRunServer()
 endfunction
 
 command! HugoRunServer call s:HugoRunServer() 
+nnoremap <silent> ,Hr :HugoRunServer<CR>
 
 function! s:HugoDeploy()
 	if g:IsMacNeovim()
@@ -167,6 +168,7 @@ function! s:HugoDeploy()
 endfunction
 
 command! HugoDeploy call s:HugoDeploy() 
+nnoremap <silent> ,Hd :HugoDeploy<CR>
 " }}}1
 
 " changelogメモの項目を一番上に移動する
@@ -243,20 +245,6 @@ function! s:PasteWatchMemo()
 			silent execute "!del " . file
 		endif
 	endfor
-	" for file in files
- "    if g:IsMacGvim() || g:IsMacNeovim()
- "      let content = readfile(file)->join("\r") . "\r"
- "      " let content = substitute(content, "", "\r", 'g')
- "      execute "normal! i" . content
- "      " silent execute "!rm " . file
- "    endif
- "    if g:IsWindowsGvim()
- "      let content = readfile(file)->join("\r") . "\r"
- "      let content = substitute(content, "", "\r", 'g')
- "      execute "normal! i" . content
- "      silent execute "!del " . file
- "    endif
-	" endfor
 endfunction
 
 command! -range PasteWatchMemo call s:PasteWatchMemo() 
@@ -306,19 +294,3 @@ xnoremap x "_x
 nnoremap X "_X
 xnoremap X "_X
 
-" function! SendCommandToTerminalWindows()
-"     " すべてのウィンドウをループ
-"     for win_id in range(1, winnr('$'))
-"         " ウィンドウのバッファ番号を取得
-"         let bufnr = winbufnr(win_id)
-"         " バッファタイプを確認
-"         if getbufvar(bufnr, '&buftype') ==# 'terminal'
-"             " ターミナルバッファのジョブIDを取得
-"             let job_id = getbufvar(bufnr, 'terminal_job_id')
-"             if job_id != 0
-"                 " ターミナルにコマンドを送信
-"                 call chansend(job_id, "echo 'Hello from terminal two'\n")
-"             endif
-"         endif
-"     endfor
-" endfunction
