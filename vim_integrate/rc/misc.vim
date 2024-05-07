@@ -157,16 +157,16 @@ endfunction
 command! HugoRunServer call s:HugoRunServer() 
 
 function! s:HugoDeploy()
-	if g:IsMacGvim()
-		cd /Users/takets/Dropbox/files/blog/
+	if g:IsMacNeovim()
+		let cmd = '/Users/takets/Dropbox/files/blog/deploy.sh'
+    execute "terminal ".cmd
 	endif
 	if g:IsWindowsGvim()
 		cd g:/dropbox/files/blog
 	endif
-  execute "!./deploy.sh"
 endfunction
 
-command! DeployHugo call s:DeployHugo() 
+command! HugoDeploy call s:HugoDeploy() 
 " }}}1
 
 " changelogメモの項目を一番上に移動する
