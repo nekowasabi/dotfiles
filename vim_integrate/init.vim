@@ -63,6 +63,7 @@ nnoremap <silent> ,J :SwitchFileByRule git<CR>
 " lua
 lua << EOF
 
+-- for navic
 require("mason").setup()
 
 local navic = require("nvim-navic")
