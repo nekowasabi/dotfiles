@@ -47,10 +47,16 @@ set t_8b=^[[48;2;%lu;%lu;%lum
 
 let g:denops#debug = 0 
 
-let g:switch_rule = "/home/takets/.config/nvim/rule_switch.json"
+if g:IsMacNeovim()
+  let g:switch_rule = "/Users/takets/.config/nvim/rule_switch.json"
+elseif g:IsMacNeovimInMfs()
+  let g:switch_rule = "/Users/ttakeda/.config/nvim/rule_switch.json"
+elseif g:IsWsl()
+  let g:switch_rule = "/home/takets/.config/nvim/rule_switch.json"
+endif
 
-nnoremap <silent> <Leader>j :SwitchFileByRule<CR>
-nnoremap <silent> <Leader>J :SwitchFileByRule git<CR>
+nnoremap <silent> ,j :SwitchFileByRule<CR>
+nnoremap <silent> ,J :SwitchFileByRule git<CR>
 
 
 " -----------------------------------------------------------
