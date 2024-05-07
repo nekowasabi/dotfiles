@@ -2,21 +2,9 @@
 
 let mapleader = "\<Space>"
 
-" nnoremap <silent> qq  q:itgs
-nnoremap <silent> Q q:i<C-r>=neosnippet#expand('tgs')<CR>
-
 " カレントディレクトリ設定
 command! -nargs=0 CdCurrent cd %:p:h
 nnoremap ,d :CdCurrent<CR>
-
-" reload and restart
-if has("mac")
-	nnoremap <silent> ,rr :source ~/.vimrc<CR>:source ~/.gvimrc<CR>
-	nnoremap <silent> ,RR :Restart<CR>
-else
-	nnoremap <silent> ,rr :source c:/takeda/tools/vim/vimrc<CR>:source c:/takeda/tools/vim/gvimrc<CR>
-	nnoremap <silent> ,RR :Restart<CR>
-endif
 
 nnoremap <silent><C-j> }
 nnoremap <silent><C-k> {
@@ -41,16 +29,14 @@ vnoremap <silent>L 10l
 
 inoremap <C-f> ／
 inoremap <C-x><C-x> ？／
-cnoremap <C-f> ／
 inoremap <C-b> →
-nnoremap <C-Tab> 0i	
-nnoremap <S-Tab> 0x
 
+" move window
 nnoremap <silent> <Tab> <C-w>w
 
 " 単語移動
 if has("mac")
-	nnoremap <D-k> :<C-U>call jasegment#MoveN(g:jasegment#model, 'jasegment#MoveB', v:count1, 0, 0, 0)<CR>
+	nnoremap <D-d> :<C-U>call jasegment#MoveN(g:jasegment#model, 'jasegment#MoveB', v:count1, 0, 0, 0)<CR>
 	nnoremap <D-l> :<C-U>call jasegment#MoveN(g:jasegment#model, 'jasegment#MoveW', v:count1, 0, 0, 0)<CR>
 	inoremap <D-k> <S-Left><S-Left>
 	inoremap <D-l> <S-Right><S-Right>
@@ -79,7 +65,7 @@ function! s:DeleteJapaneseWords()
 		return 1
 	endif
 endfunction
-" inoremap <silent> <expr> <C-w> <SID>DeleteJapaneseWords() ? "\<BS>\<C-w>\<C-w>" : "\<C-w>\<C-w>" 
+
 au Filetype vim inoremap <silent> <buffer> <C-w> <C-w>
 au Filetype shd,changelog,txt, inoremap <silent> <expr> <C-w> <SID>DeleteJapaneseWords() ? "\<BS>\<C-w>\<C-w>" : "\<C-w>\<C-w>" 
 
@@ -94,14 +80,6 @@ function! s:prev_cursor_char(n)
 endfunction
 
 nnoremap <ESC><ESC> :nohlsearch<CR><ESC>
-
-nnoremap ,d :CdCurrent<CR>
-
-" ""---------------------------------------------------- 
-" " change encoding
-" nnoremap <silent> ,o :set fenc=cp932<CR>
-" nnoremap <silent> ,u :set fenc=utf-8<CR>
-" nnoremap <silent> ,p :set ff=dos<CR>
 
 ""---------------------------------------------------- 
 " mark

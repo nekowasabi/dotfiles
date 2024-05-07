@@ -62,7 +62,9 @@ nnoremap <silent> ,J :SwitchFileByRule git<CR>
 " -----------------------------------------------------------
 " lua
 lua << EOF
-
+vim.keymap.set('n', '<Char-0xAA>', '<cmd>write<cr>', {
+  desc = 'N: Save current file by <command-s>',
+})
 EOF
 
 " END

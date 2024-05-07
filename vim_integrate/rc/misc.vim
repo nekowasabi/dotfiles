@@ -301,6 +301,7 @@ function! s:Test()
 endfunction
 command! -range Test call s:Test() 
 
+nnoremap <silent> <D-s> :Test<CR>
 nnoremap <silent> <F2> :Test<CR>
 vnoremap <silent> <F2> :Test<CR>
 
