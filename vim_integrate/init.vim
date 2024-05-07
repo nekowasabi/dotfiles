@@ -47,7 +47,7 @@ set t_8b=^[[48;2;%lu;%lu;%lum
 
 let g:denops#debug = 0 
 
-if g:IsMacNeovim()
+if g:IsMacNeovim() || !g:IsMacNeovimInMfs()
   let g:switch_rule = "/Users/takets/.config/nvim/rule_switch.json"
 elseif g:IsMacNeovimInMfs()
   let g:switch_rule = "/Users/ttakeda/.config/nvim/rule_switch.json"
