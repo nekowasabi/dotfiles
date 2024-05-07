@@ -294,35 +294,31 @@ command! -range Cursor call s:OpenByCursor()
 " -----------------------------------------------------------
 " test
 function! s:Test()
-  let l:path = expand('%:p')
-  let l:line = line('.')
-  " コマンド実行結果を表示することなく実行
-  silent! exe '!cursor --g '.l:path.':'.l:line
+  echo 'ok'
 endfunction
 command! -range Test call s:Test() 
 
-nnoremap <silent> <D-s> :Test<CR>
+nnoremap <silent> <M-w> :Test<CR>
 nnoremap <silent> <F2> :Test<CR>
 vnoremap <silent> <F2> :Test<CR>
-
 nnoremap x "_x
 xnoremap x "_x
 nnoremap X "_X
 xnoremap X "_X
 
-function! SendCommandToTerminalWindows()
-    " すべてのウィンドウをループ
-    for win_id in range(1, winnr('$'))
-        " ウィンドウのバッファ番号を取得
-        let bufnr = winbufnr(win_id)
-        " バッファタイプを確認
-        if getbufvar(bufnr, '&buftype') ==# 'terminal'
-            " ターミナルバッファのジョブIDを取得
-            let job_id = getbufvar(bufnr, 'terminal_job_id')
-            if job_id != 0
-                " ターミナルにコマンドを送信
-                call chansend(job_id, "echo 'Hello from terminal two'\n")
-            endif
-        endif
-    endfor
-endfunction
+" function! SendCommandToTerminalWindows()
+"     " すべてのウィンドウをループ
+"     for win_id in range(1, winnr('$'))
+"         " ウィンドウのバッファ番号を取得
+"         let bufnr = winbufnr(win_id)
+"         " バッファタイプを確認
+"         if getbufvar(bufnr, '&buftype') ==# 'terminal'
+"             " ターミナルバッファのジョブIDを取得
+"             let job_id = getbufvar(bufnr, 'terminal_job_id')
+"             if job_id != 0
+"                 " ターミナルにコマンドを送信
+"                 call chansend(job_id, "echo 'Hello from terminal two'\n")
+"             endif
+"         endif
+"     endfor
+" endfunction

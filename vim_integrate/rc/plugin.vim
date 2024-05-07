@@ -311,10 +311,11 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'linrongbin16/gitlinker.nvim'
   Plug 'Al0den/notion.nvim'
   " Plug 'jay-babu/mason-null-ls.nvim'
-  " Plug 'williamboman/mason.nvim'
+  Plug 'williamboman/mason.nvim'
   " Plug 'williamboman/mason-lspconfig.nvim'
   Plug 'Wansmer/treesj'
   Plug 'stevearc/oil.nvim'
+  Plug 'SmiteshP/nvim-navic'
 
   call g:SetDdu()
 

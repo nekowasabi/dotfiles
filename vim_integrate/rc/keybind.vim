@@ -36,7 +36,7 @@ nnoremap <silent> <Tab> <C-w>w
 
 " 単語移動
 if has("mac")
-	nnoremap <D-d> :<C-U>call jasegment#MoveN(g:jasegment#model, 'jasegment#MoveB', v:count1, 0, 0, 0)<CR>
+	nnoremap <D-k> :<C-U>call jasegment#MoveN(g:jasegment#model, 'jasegment#MoveB', v:count1, 0, 0, 0)<CR>
 	nnoremap <D-l> :<C-U>call jasegment#MoveN(g:jasegment#model, 'jasegment#MoveW', v:count1, 0, 0, 0)<CR>
 	inoremap <D-k> <S-Left><S-Left>
 	inoremap <D-l> <S-Right><S-Right>

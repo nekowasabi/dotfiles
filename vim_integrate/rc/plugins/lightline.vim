@@ -79,8 +79,18 @@ function! GetCodeiumCandidate()
 endfunction
 
 function! NearestMethodOrFunction()
+  if g:IsWindowsGvim()
+    return ''
+  endif
+
   if &filetype == 'vim' || &filetype == 'php' || &filetype == 'typescript' || &filetype == 'javascript'
-    return ' :'.get(b:, 'vista_nearest_method_or_function', 'no func')
+    let l:nav = v:lua.require'nvim-navic'.get_location()
+    if l:nav == ''
+      return ''
+      " return ' :'.get(b:, 'vista_nearest_method_or_function', 'no func')
+    else
+      return l:nav
+    endif
   endif
   return ''
 endfunction
@@ -89,7 +99,7 @@ function! UpdateNearestMethodOrFunction() abort
   if &filetype == 'vim' || &filetype == 'php' || &filetype == 'typescript' || &filetype == 'javascript'
     call vista#RunForNearestMethodOrFunction()
   endif
-
+  call lightline#update()
   return
 endfunction
 
@@ -97,8 +107,8 @@ endfunction
 "
 " If you want to show the nearest function in your statusline automatically,
 " you can add the following line to your vimrc
-autocmd VimEnter,TextChanged,TextChangedI * call UpdateNearestMethodOrFunction()
-autocmd VimEnter,TextChanged,TextChangedI * call lightline#update()
+autocmd BufWritePost,VimEnter,InsertEnter,ModeChanged,InsertLeave,CmdwinLeave * call UpdateNearestMethodOrFunction()
+" autocmd VimEnter,TextChanged,TextChangedI,CursorHold,CursorMoved,InsertEnter * call lightline#update()
 
 function! File_size()
   let l:size = getfsize(expand(@%))

@@ -62,9 +62,37 @@ nnoremap <silent> ,J :SwitchFileByRule git<CR>
 " -----------------------------------------------------------
 " lua
 lua << EOF
-vim.keymap.set('n', '<Char-0xAA>', '<cmd>write<cr>', {
-  desc = 'N: Save current file by <command-s>',
-})
+
+require("mason").setup()
+
+local navic = require("nvim-navic")
+
+require("lspconfig").vimls.setup {
+    on_attach = function(client, bufnr)
+        navic.attach(client, bufnr)
+    end
+}
+
+require("lspconfig").denols.setup {
+    on_attach = function(client, bufnr)
+        navic.attach(client, bufnr)
+    end
+}
+
+require("lspconfig").intelephense.setup {
+    on_attach = function(client, bufnr)
+        navic.attach(client, bufnr)
+    end
+}
+
 EOF
+
+
+
+"vim.keymap.set('n', '<Char-0xAA>', '<cmd>write<cr>', {
+"  desc = 'N: Save current file by <command-s>',
+"})
+
+
 
 " END
