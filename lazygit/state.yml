@@ -1,14 +1,20 @@
 lastupdatecheck: 0
 recentrepos:
+- /Users/ttakeda/repos/private_dotfiles
+- /Users/ttakeda/repos/dotfiles
 - /Users/ttakeda/works/invase-backend
 - /Users/ttakeda/repos/changelog
-- /Users/ttakeda/repos/dotfiles
 - /Users/ttakeda/repos/surfingkeys
 - /Users/ttakeda/.config/nvim/plugged/aider.vim
 - /Users/ttakeda/works/invase-api-schema
-- /Users/ttakeda/repos/private_dotfiles
 - /Users/ttakeda/works/invase-app-backend
 startuppopupversion: 5
+lastversion: 0.41.0
 customcommandshistory: []
 hidecommandlog: false
 ignorewhitespaceindiffview: false
+diffcontextsize: 3
+localbranchsortorder: recency
+remotebranchsortorder: alphabetical
+gitlogorder: topo-order
+gitlogshowgraph: always
