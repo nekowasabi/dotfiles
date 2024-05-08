@@ -267,7 +267,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'nvim-lua/plenary.nvim' " luaのライブラリ
   Plug 'nvim-telescope/telescope.nvim' " 普段は使わないけれど、プラグイン連携でたまに使う
   Plug 'elzr/vim-json'
-  Plug 'andymass/vim-matchup'
+  "Plug 'andymass/vim-matchup'
   Plug 'Shougo/context_filetype.vim'
   Plug 'Shougo/defx.nvim'
   Plug 'kristijanhusak/defx-git'
