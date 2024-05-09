@@ -58,6 +58,16 @@ endif
 nnoremap <silent> ,j :SwitchFileByRule<CR>
 nnoremap <silent> ,J :SwitchFileByRule git<CR>
 
+" function! s:enable_coc_for_type()
+"   let l:filesuffix_whitelist = ['php', 'ts', 'vim', 'sh', 'py', 'shd', 'json', 'changelog']
+"   if index(l:filesuffix_whitelist, expand('%:e')) == -1
+"     echo 'ok'
+"     let b:coc_enabled = 0
+"   endif
+" endfunction
+" autocmd BufRead,BufNewFile * call s:enable_coc_for_type()
+
+autocmd FileType changelog let g:coc_disabled_sources = ['file']
 
 " -----------------------------------------------------------
 " lua
@@ -93,7 +103,5 @@ EOF
 "vim.keymap.set('n', '<Char-0xAA>', '<cmd>write<cr>', {
 "  desc = 'N: Save current file by <command-s>',
 "})
-
-
 
 " END

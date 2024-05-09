@@ -17,16 +17,16 @@ if g:IsWindowsGvim()
         \   },
         \ })
 else
-  call ddc#custom#patch_global('sources', ['around'])
-  call ddc#custom#patch_filetype(['aichat'], 'sources', [])
+  call ddc#custom#patch_global('sources', [])
+  " call ddc#custom#patch_filetype(['aichat'], 'sources', [])
   call ddc#custom#patch_filetype(['changelog'], 'sources', ['around', 'file', 'rg'])
   call ddc#custom#patch_filetype(['markdown'], 'sources', ['around', 'file'])
   call ddc#custom#patch_filetype(['text'], 'sources', ['around'])
-  call ddc#custom#patch_filetype(['vim'], 'sources', ['lsp', 'around', 'buffer', 'neosnippet', 'rg'])
-  call ddc#custom#patch_filetype(['javascript'], 'sources', ['lsp', 'around', 'buffer', 'rg'])
-  call ddc#custom#patch_filetype(['typescipt'], 'sources', ['lsp', 'around', 'buffer', 'rg'])
-  call ddc#custom#patch_filetype(['deno'], 'sources', ['lsp', 'around', 'buffer', 'rg'])
-  call ddc#custom#patch_filetype(['php'], 'sources', ['lsp', 'around', 'buffer', 'rg'])
+  " call ddc#custom#patch_filetype(['vim'], 'sources', ['lsp', 'around', 'buffer', 'neosnippet', 'rg'])
+  " call ddc#custom#patch_filetype(['javascript'], 'sources', ['lsp', 'around', 'buffer', 'rg'])
+  " call ddc#custom#patch_filetype(['typescipt'], 'sources', ['lsp', 'around', 'buffer', 'rg'])
+  " call ddc#custom#patch_filetype(['deno'], 'sources', ['lsp', 'around', 'buffer', 'rg'])
+  " call ddc#custom#patch_filetype(['php'], 'sources', ['lsp', 'around', 'buffer', 'rg'])
 
   call ddc#custom#patch_global('sourceOptions', #{
         \   lsp: #{
@@ -162,18 +162,18 @@ call signature_help#enable()
 " Use ddc.
 call ddc#enable()
 
-call ddc#custom#patch_global(#{
-      \   ui: 'pum',
-      \   autoCompleteEvents: [
-      \     'InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineChanged',
-      \   ],
-      \   cmdlineSources: {
-      \     ':': ['cmdline'],
-      \   },
-      \ })
-nnoremap <Space>:       <Cmd>call CommandlinePre()<CR>:
-nnoremap /       :SearchxForward<CR>
-nnoremap ?       :SearchxBackrward<CR>
+" call ddc#custom#patch_global(#{
+"      \   ui: 'pum',
+"      \   autoCompleteEvents: [
+"      \     'InsertEnter', 'TextChangedI', 'TextChangedP', 'CmdlineChanged',
+"      \   ],
+"      \   cmdlineSources: {
+"      \     ':': ['cmdline'],
+"      \   },
+"      \ })
+" nnoremap <Space>:       <Cmd>call CommandlinePre()<CR>:
+" nnoremap /       :SearchxForward<CR>
+" nnoremap ?       :SearchxBackrward<CR>
 " nnoremap /       :SearchxForward<CR><Cmd>call CommandlinePre()<CR>
 " nnoremap ?       :SearchxBackrward<CR><Cmd>call CommandlinePre()<CR>
       "\     '/': ['around'],
