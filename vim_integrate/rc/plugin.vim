@@ -198,7 +198,7 @@ function g:SetCoc()
   Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'yarn install --frozen-lockfile'}
   Plug 'neoclide/coc-neco'
   Plug 'antoinemadec/coc-fzf'
-  Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
+  " Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
 endfunction
 
 " }}}1
@@ -359,22 +359,17 @@ if g:IsLinux()  && !g:IsWsl()
   Plug 'tpope/vim-dadbod' 
   Plug 'kristijanhusak/vim-dadbod-ui' 
   Plug 'github/copilot.vim'
-  " Plug 'folke/todo-comments.nvim'
   Plug 'liuchengxu/vista.vim'
   Plug 'lewis6991/gitsigns.nvim'
   Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
   Plug 'shaunsingh/solarized.nvim'
   Plug 'overcache/NeoSolarized'
   Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
-  Plug 'sentriz/vim-print-debug'
   Plug 'akinsho/git-conflict.nvim'
   Plug 'folke/lsp-colors.nvim'
   Plug 'stevearc/aerial.nvim'
   Plug 'MunifTanjim/nui.nvim'
   Plug 'rcarriga/nvim-notify'
-  " Plug 'folke/noice.nvim'
-  " Plug 'rcarriga/nvim-notify'
-  " Plug 'j-hui/fidget.nvim'
   Plug 'nvim-tree/nvim-web-devicons'
   Plug 'folke/trouble.nvim'
   Plug 'EthanJWright/toolwindow.nvim'
@@ -383,20 +378,11 @@ if g:IsLinux()  && !g:IsWsl()
   Plug 'puremourning/vimspector' 
   Plug 'adoy/vim-php-refactoring-toolbox'
   Plug 'dhruvasagar/vim-table-mode'
-  " Plug 'skanehira/denops-gh.vim'
   Plug 'gelguy/wilder.nvim'
 	Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
-
   Plug 'tyru/caw.vim' 
-
   Plug 'yuki-yano/ai-review.vim'
-  "Plug 'dpayne/CodeGPT.nvim'
-  "Plug 'dense-analysis/neural'
-  "Plug 'elpiloto/significant.nvim'
-
   Plug 'lambdalisue/gin.vim'
-
-
   Plug 'Shougo/neosnippet.vim'
   Plug 'Shougo/neosnippet-snippets'
 
@@ -588,7 +574,6 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fern.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/denops-gh.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-vue.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-print-debug.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gitsign.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lsp-color.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddu.vim'
@@ -637,6 +622,7 @@ if g:IsMacNeovim() || g:IsWsl()
 
 	execute 'source '.g:GetVimConfigRootPath().'rc/plugins/completion-keybind.vim'
 
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-print-debug.vim'
 endif
 " }}}1
 

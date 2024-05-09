@@ -271,6 +271,7 @@ function! s:PushChangelog()
 endfunction
 
 command! -range PushChangelog call s:PushChangelog() 
+nnoremap <silent> ,p :PushChangelog<CR>
 
 function! s:OpenByCursor()
   let l:path = expand('%:p')
