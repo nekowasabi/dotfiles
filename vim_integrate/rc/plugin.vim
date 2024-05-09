@@ -321,30 +321,23 @@ if g:IsMacNeovim() || g:IsWsl()
 
   if g:IsMacNeovimInMfs() || g:IsWsl()
     Plug 'gelguy/wilder.nvim'
-    " Plug 'folke/noice.nvim'
     Plug 'Shougo/ddc-source-lsp'
     call g:SetCoc()
   elseif g:IsWsl()
     Plug 'gelguy/wilder.nvim'
-    " Plug 'folke/noice.nvim'
     Plug 'Shougo/ddc-source-lsp'
     call g:SetCoc()
   elseif g:IsMacNeovimInWezterm()
     Plug 'gelguy/wilder.nvim'
-    " Plug 'folke/noice.nvim'
     Plug 'Shougo/ddc-source-lsp'
     call g:SetCoc()
-    " call g:SetDdc()
+    call g:SetDdc()
   else
     Plug 'gelguy/wilder.nvim'
-    " Plug 'folke/noice.nvim'
     Plug 'Shougo/ddc-source-lsp'
     call g:SetCoc()
     " call g:SetDdc()
   endif
-	" if g:IsWindowsGvim()
- "    call g:SetDdc()
-	" endif
 endif
 
 " }}}1
@@ -633,7 +626,7 @@ if g:IsMacNeovim() || g:IsWsl()
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
-		" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
+		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
   else
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
@@ -641,6 +634,8 @@ if g:IsMacNeovim() || g:IsWsl()
 		" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-lsp.vim'
 		" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc-source-lsp.vim'
   endif
+
+	execute 'source '.g:GetVimConfigRootPath().'rc/plugins/completion-keybind.vim'
 
 endif
 " }}}1
