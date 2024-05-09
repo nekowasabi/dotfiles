@@ -1,4 +1,4 @@
-" 簡単終了 {{{1
+"A Neovim plugin that allows one to quickly create, navigate to, and edit subfiles which are integrated into a main file. This way, a codebase becomes more modular and easier to manage. 簡単終了 {{{1
 command! -nargs=0 QC call CloseQuickRunWindow()
 function! CloseQuickRunWindow()
     execute "normal \<c-c>\<c-w>\<C-w>ZZ"
@@ -180,7 +180,8 @@ function! s:MoveChangelogItemToTop()
 	" execute "normal! z0"
 endfunction
 command! -range MoveChangelogItemToTop call s:MoveChangelogItemToTop() 
-nnoremap <silent> ,C :MoveChangelogItemToTop<CR>
+nnoremap ,C :MoveChangelogItemToTop<CR>
+"nnoremap <silent> ,C :MoveChangelogItemToTop<CR>
 
 function! MoveSectionToTop()
     let current_section = []
