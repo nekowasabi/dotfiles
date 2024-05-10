@@ -123,7 +123,7 @@ command! -range OpenMindMap call s:OpenMindMap()
 " hugo {{{1
 function! s:HugoGeneratePost()
   let s:path = ''
-	if g:IsMacGvim()
+	if g:IsMacGvim() || g:IsMacNeovimInWezterm()
     let s:path = '/Users/takets/Dropbox/files/blog/'
     cd /Users/takets/Dropbox/files/blog/
 	endif
@@ -158,7 +158,7 @@ command! HugoRunServer call s:HugoRunServer()
 nnoremap <silent> ,Hr :HugoRunServer<CR>
 
 function! s:HugoDeploy()
-	if g:IsMacNeovim()
+	if g:IsMacNeovim() || g:IsMacNeovimInWezterm()
 		let cmd = '/Users/takets/Dropbox/files/blog/deploy.sh'
     execute "terminal ".cmd
 	endif
