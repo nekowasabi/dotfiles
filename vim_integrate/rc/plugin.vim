@@ -317,6 +317,8 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'stevearc/oil.nvim'
   Plug 'SmiteshP/nvim-navic'
 
+Plug 'vim-test/vim-test'
+
   call g:SetDdu()
 
   if g:IsMacNeovimInMfs() || g:IsWsl()
