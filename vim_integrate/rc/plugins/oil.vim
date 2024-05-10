@@ -175,3 +175,5 @@ require("oil").setup({
   },
 })
 EOF
+
+nnoremap <silent> <leader>F :Oil<CR>

@@ -1,5 +1,5 @@
-nnoremap <silent> <Leader>gh :Gitsigns stage_hunk<CR>
-vnoremap <silent> <Leader>gh :Gitsigns stage_hunk<CR>
+nnoremap <silent> ,gh :Gitsigns stage_hunk<CR>
+vnoremap <silent> ,gh :Gitsigns stage_hunk<CR>
 
 lua << EOF
 require('gitsigns').setup {

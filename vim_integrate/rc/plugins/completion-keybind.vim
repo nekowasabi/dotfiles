@@ -1,5 +1,5 @@
 function! s:enable_coc_for_type()
-  let l:filesuffix_whitelist = ['php', 'ts', 'vim', 'sh', 'py', 'shd', 'json', 'changelog', 'md', 'txt']
+  let l:filesuffix_whitelist = ['php', 'ts', 'vim', 'sh', 'py', 'shd', 'json', 'changelog', 'md', 'txt', 'copilot-chat']
   if index(l:filesuffix_whitelist, expand('%:e')) == -1
     echo 'ok'
     let b:coc_enabled = 0

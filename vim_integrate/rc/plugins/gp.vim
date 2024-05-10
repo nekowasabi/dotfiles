@@ -30,17 +30,6 @@ chat_shortcut_new = { modes = { "n", "i", "v", "x" }, shortcut = "<C-c>c" },
 
 EOF
 
-" チャット画面呼び出し
-nnoremap <silent> <leader>gv :GpChatNew vsplit<CR>
-nnoremap <silent> ,, :GpChatNew vsplit<CR>
-vmap <silent> <CR><CR> :GpChatNew vsplit<CR>
-vnoremap <silent> <leader>gp :GpChatPaste vsplit<CR>
-vnoremap <silent> ,, :GpChatPaste vsplit<CR>
-vnoremap <silent> <leader>gr :GpRewrite 
-
-" .gitリポジトリのトップに、コンテキストとなるファイルを作成する（GpRewriteとかするとき、文脈として参照される）
-nnoremap <silent> <leader>gP :GpContext<CR>
-
 " 選択範囲のテキストをechoするコマンド
 function! GpRewriteTidyToMarkdown()
 	let prompt =<< trim END
@@ -71,3 +60,12 @@ endfunction
 
 " コマンドを定義（ビジュアルモード用）
 command! -range=% GpRewriteTidyToMarkdown call GpRewriteTidyToMarkdown()
+
+" チャット画面呼び出し
+nnoremap <silent> ,, :GpChatNew vsplit<CR>
+vmap <silent> <CR><CR> :GpChatNew vsplit<CR>
+vnoremap <silent> ,, :GpChatPaste vsplit<CR>
+vnoremap <silent> <leader>gr :GpRewrite 
+
+" .gitリポジトリのトップに、コンテキストとなるファイルを作成する（GpRewriteとかするとき、文脈として参照される）
+nnoremap <silent> <leader>gP :GpContext<CR>

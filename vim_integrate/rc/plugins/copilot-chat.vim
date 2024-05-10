@@ -84,7 +84,7 @@ EOF
 
 " CopilotChat
 " vnoremap <leader>cv :CopilotChat 
-vnoremap <CR>c :CopilotChat 
-vnoremap <CR>f :CopilotChatFix 
-vnoremap <CR>o :CopilotChatOptimize 
-nnoremap <CR>c :CopilotChat<CR>
+vnoremap <CR>cc :CopilotChat 
+vnoremap <CR>cf :CopilotChatFix 
+vnoremap <CR>co :CopilotChatOptimize 
+nnoremap <CR>cc :CopilotChat<CR>

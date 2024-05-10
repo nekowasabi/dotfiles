@@ -44,8 +44,8 @@ require("rest-nvim").setup({
 })
 
 local opts = { noremap = true, silent = true }
-vim.api.nvim_set_keymap("n", "<leader>rr", "<Plug>RestNvim", opts)
-vim.api.nvim_set_keymap("n", "<leader>rp", "<Plug>RestNvimPreview", opts)
-vim.api.nvim_set_keymap("n", "<leader>rl", "<Plug>RestNvimLast", opts)
+vim.api.nvim_set_keymap("n", ",rr", "<Plug>RestNvim", opts)
+vim.api.nvim_set_keymap("n", ",rp", "<Plug>RestNvimPreview", opts)
+vim.api.nvim_set_keymap("n", ",rl", "<Plug>RestNvimLast", opts)
 EOF
 

@@ -1,4 +1,4 @@
-nnoremap <silent> <leader>t <cmd>lua require('treesj').toggle()<CR>
+nnoremap <silent> ,T <cmd>lua require('treesj').toggle()<CR>
 
 lua << EOF
 require('treesj').setup({
