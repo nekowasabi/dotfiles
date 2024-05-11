@@ -301,7 +301,6 @@ if g:IsMacNeovim() || g:IsWsl()
 	Plug 'xiyaowong/telescope-emoji.nvim'
   Plug 'tyru/caw.vim' 
 	Plug 'cshuaimin/ssr.nvim' " あとで練習する
-	Plug 'sigmaSd/deno-nvim'
 	Plug 'CopilotC-Nvim/CopilotChat.nvim', {'branch': 'canary'}
   Plug 'nvim-tree/nvim-web-devicons'
 	Plug 'tani/dmacro.nvim'
@@ -317,7 +316,14 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'stevearc/oil.nvim'
   Plug 'SmiteshP/nvim-navic'
 
-Plug 'vim-test/vim-test'
+  Plug 'vim-test/vim-test'
+  Plug 'skywind3000/asyncrun.vim'
+
+
+	Plug 'sigmaSd/deno-nvim'
+  Plug 'mfussenegger/nvim-dap'
+  Plug 'rcarriga/nvim-dap-ui'
+  Plug 'theHamsta/nvim-dap-virtual-text'
 
   call g:SetDdu()
 
