@@ -219,7 +219,7 @@ vnoremap <expr> cN g:mc . "``cgN"
 
 " vim type {{{1
 " mac gvim {{{2
-if g:IsMacGvim() || g:IsMacNeovim()
+if g:IsMacGvim() || g:IsMacNeovim() || g:IsWsl()
 	function! s:OpenTentask()
 		if fnamemodify(expand('%'), ':t') == "01_ver01.txt.shd"
 			execute ":VoomQuitAll"

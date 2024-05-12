@@ -72,6 +72,13 @@ let test#strategy = {
   \ 'suite':   'basic',
 \}
 
+if g:IsMacNeovim()
+  let g:js_dap_adapter = "/Users/takets/.config/nvim/js-debug/src/dapDebugServer.js"
+endif
+if g:IsWsl()
+  let g:js_dap_adapter = "/home/takets/.config/nvim/js-debug/src/dapDebugServer.js"
+endif
+
 " -----------------------------------------------------------
 " lua
 lua << EOF
@@ -123,7 +130,8 @@ require("deno-nvim").setup {
     adapter = {
       executable = {
         args = {
-          "/Users/takets/.config/nvim/js-debug/src/dapDebugServer.js", "${port}"
+          vim.g.js_dap_adapter, "${port}"
+          -- "/Users/takets/.config/nvim/js-debug/src/dapDebugServer.js", "${port}"
         }
         }
       }
