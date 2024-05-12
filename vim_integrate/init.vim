@@ -60,12 +60,17 @@ endif
 nnoremap <silent> ,j :SwitchFileByRule<CR>
 nnoremap <silent> ,J :SwitchFileByRule git<CR>
 
-nnoremap <silent> ,uu :TestFile<CR>
-nnoremap <silent> ,un :TestNearest<CR>
+nnoremap <silent> ,uu :TestNearest<CR>
+nnoremap <silent> ,uf :TestFile<CR>
 nnoremap <silent> ,ul :TestLast<CR>
 nnoremap <silent> ,us :TestSuite<CR>
 nnoremap <silent> ,uv :TestVisit<CR>
-let test#strategy = "neovim_sticky"
+
+let test#strategy = {
+  \ 'nearest': 'neovim',
+  \ 'file':    'neovim_sticky',
+  \ 'suite':   'basic',
+\}
 
 " -----------------------------------------------------------
 " lua
