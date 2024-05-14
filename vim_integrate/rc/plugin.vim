@@ -330,6 +330,7 @@ if g:IsMacNeovim() || g:IsWsl()
   if g:IsMacNeovimInMfs() || g:IsWsl()
     Plug 'gelguy/wilder.nvim'
     Plug 'Shougo/ddc-source-lsp'
+    call g:SetDdc()
     call g:SetCoc()
   elseif g:IsWsl()
     Plug 'gelguy/wilder.nvim'
@@ -614,6 +615,7 @@ if g:IsMacNeovim() || g:IsWsl()
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
+		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
   elseif g:IsMacNeovimInWezterm()
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-lsp.vim'
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
