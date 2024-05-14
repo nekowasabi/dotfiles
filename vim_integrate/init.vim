@@ -75,6 +75,9 @@ let test#strategy = {
 if g:IsMacNeovim()
   let g:js_dap_adapter = "/Users/takets/.config/nvim/js-debug/src/dapDebugServer.js"
 endif
+if g:IsMacNeovimInMfs()
+  let g:js_dap_adapter = "/Users/ttakeda/.config/nvim/js-debug/src/dapDebugServer.js"
+endif
 if g:IsWsl()
   let g:js_dap_adapter = "/home/takets/.config/nvim/js-debug/src/dapDebugServer.js"
 endif
@@ -131,7 +134,6 @@ require("deno-nvim").setup {
       executable = {
         args = {
           vim.g.js_dap_adapter, "${port}"
-          -- "/Users/takets/.config/nvim/js-debug/src/dapDebugServer.js", "${port}"
         }
         }
       }
