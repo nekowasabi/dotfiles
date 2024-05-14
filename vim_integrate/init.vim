@@ -72,6 +72,7 @@ let test#strategy = {
   \ 'suite':   'basic',
 \}
 
+" for dap
 if g:IsMacNeovim()
   let g:js_dap_adapter = "/Users/takets/.config/nvim/js-debug/src/dapDebugServer.js"
 endif
