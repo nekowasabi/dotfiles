@@ -79,7 +79,6 @@ Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 
 " AI
 Plug 'yuki-yano/ai-review.vim'
-" Plug 'nekowasabi/vim-perplexity'
 
 if g:IsWindowsGvim()
 	Plug 'madox2/vim-ai', { 'do': './install.sh' }
