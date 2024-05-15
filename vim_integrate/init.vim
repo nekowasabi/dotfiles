@@ -83,6 +83,43 @@ if g:IsWsl()
   let g:js_dap_adapter = "/home/takets/.config/nvim/js-debug/src/dapDebugServer.js"
 endif
 
+
+let s:term_win_id = v:null
+let s:term_buf_id = v:null
+
+function! OpenTerminalInFloatingWindow()
+    " ウィンドウが開いていて有効であれば、閉じる
+    if s:term_win_id != v:null && nvim_win_is_valid(s:term_win_id)
+        call nvim_win_close(s:term_win_id, v:true)
+        let s:term_win_id = v:null
+        return
+    endif
+
+    " フローティングウィンドウのサイズを定義
+    let width = float2nr(&columns * 0.8)
+    let height = float2nr(&lines * 0.8)
+
+    " 中央に位置するように計算
+    let col = float2nr((&columns - width) / 2)
+    let row = float2nr((&lines - height) / 2)
+
+    " ウィンドウオプションを定義
+    let opts = {'relative': 'editor', 'width': width, 'height': height, 'row': row, 'col': col, 'style': 'minimal'}
+
+    " バッファがまだ存在しない場合、または有効でない場合に新しいバッファを作成
+    if s:term_buf_id == v:null || !nvim_buf_is_valid(s:term_buf_id)
+        let s:term_buf_id = nvim_create_buf(v:false, v:true)
+    endif
+    let s:term_win_id = nvim_open_win(s:term_buf_id, v:true, opts)
+
+    " ターミナルを開始（既に開始されていない場合）
+    echo 
+    if (&buftype != 'terminal')
+      call termopen('bash', {'buffer': s:term_buf_id})
+    endif
+endfunction
+
+
 " -----------------------------------------------------------
 " lua
 lua << EOF
