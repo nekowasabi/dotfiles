@@ -118,7 +118,7 @@ function! OpenTerminalInFloatingWindow()
       call termopen('bash', {'buffer': s:term_buf_id})
     endif
 endfunction
-
+tnoremap <Esc> <C-\><C-n>:close!<CR>
 
 " -----------------------------------------------------------
 " lua
