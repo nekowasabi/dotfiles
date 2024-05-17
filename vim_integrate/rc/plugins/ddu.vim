@@ -18,14 +18,14 @@ endif
 
 if g:IsMacNeovim()
   let s:FilerHeight = 60
-  let s:Width  = 160
-  let s:Height = 15 
+  let s:Width = round(&columns)
+  let s:Height = round(&lines * 0.3)
   let s:WinRow = 2
   let s:WinCol = 2
-  let s:previewWidth= 160
-  let s:previewHeight= 20
-  let s:previewRow= 34 
-  let s:previewCol= 2
+  let s:previewWidth = round(&columns) 
+  let s:previewHeight = round(&lines * 0.58)
+  let s:previewRow =  round(&lines * 0.3)+3
+  let s:previewCol = 2
 	let s:previewSplit = 'vertical'
   let s:previewFloatingBorder = 'double'
   let s:cursorLine = 'String'
