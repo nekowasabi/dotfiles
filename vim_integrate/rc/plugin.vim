@@ -403,7 +403,7 @@ if g:IsLinux()  && !g:IsWsl()
   Plug 'antoinemadec/coc-fzf'
   Plug 'josa42/vim-lightline-coc'
   Plug 'lighttiger2505/sqls.vim'
-  Plug 'prabirshrestha/vim-lsp'
+  "Plug 'prabirshrestha/vim-lsp'
   Plug 'prabirshrestha/async.vim'
   Plug '2072/PHP-Indenting-for-VIm'
   Plug 'captbaritone/better-indent-support-for-php-with-html'
@@ -616,7 +616,7 @@ if g:IsMacNeovim() || g:IsWsl()
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
   elseif g:IsMacNeovimInWezterm()
-		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-lsp.vim'
+		"execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-lsp.vim'
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'

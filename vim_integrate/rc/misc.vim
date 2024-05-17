@@ -284,13 +284,14 @@ command! -range Cursor call s:OpenByCursor()
 " -----------------------------------------------------------
 " test
 function! s:Test()
-  echo 'ok'
+  echo expand("%:p")
 endfunction
 command! -range Test call s:Test() 
 
 nnoremap <silent> <M-w> :Test<CR>
 nnoremap <silent> <F2> :Test<CR>
 vnoremap <silent> <F2> :Test<CR>
+
 nnoremap x "_x
 xnoremap x "_x
 nnoremap X "_X

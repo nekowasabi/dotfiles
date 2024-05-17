@@ -158,18 +158,8 @@ endif
 nnoremap <silent> <F10> :<C-u>call <SID>source_script('%')<CR>
 " }}}1
 
-" カレントファイルのパスをクリプボぅ! {{{
-command! -nargs=* -bang -bar CopyCurrentFilepath :call s:copy_current_filepath('<bang>', <q-args>)
-
-function! s:copy_current_filepath (bang, modifier)
-	let l:path = expand('%' . a:modifier)
-	if a:bang ==# '!'
-		let l:path = printf('L%d@%s', line('.'), l:path)
-	endif
-	let @* = l:path
-	let @+ = l:path
-	echo printf('>> %s', l:path)
-endfunction
+" カレントファイルのフルパスをクリプボぅ! {{{
+command! CopyCurrentFilepath :echo expand("%:p")
 
 " }}}
 
