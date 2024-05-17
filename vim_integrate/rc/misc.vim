@@ -284,13 +284,18 @@ command! -range Cursor call s:OpenByCursor()
 " -----------------------------------------------------------
 " test
 function! s:Test()
-  echo expand("%:p")
+  " 選択範囲の開始行と終了行を取得
+  let start_line = line("'<")
+  let last_line = line("'>")
+
+  execute start_line.",".last_line."GpRewrite translate English"
 endfunction
-command! -range Test call s:Test() 
+command! Test call s:Test() 
+command! -range VTest call s:Test() 
 
 nnoremap <silent> <M-w> :Test<CR>
 nnoremap <silent> <F2> :Test<CR>
-vnoremap <silent> <F2> :Test<CR>
+vnoremap <silent> <F2> :VTest<CR>
 
 nnoremap x "_x
 xnoremap x "_x
