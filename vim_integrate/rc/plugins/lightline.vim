@@ -17,11 +17,10 @@ let g:lightline = {
       \     'linter_ok': 'right',
       \ },
       \ 'tabline': {
-      \   'left': [ ['gitbranch', 'gitstatus'], ['file_size', 'char_num'], ['nearestmethodorfunction']],
-      \   'right': [ ['codeium'], ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok'] ]
+      \   'left': [ ['gitbranch', 'gitstatus'], ['file_size'], ['char_num']],
+      \   'right': [ ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok'] ]
       \ },
       \ 'component_function': {
-      \   'codeium': 'GetCodeiumCandidate',
       \   'gitstatus': 'gina#component#status#preset',
       \   'gitbranch': 'gina#component#repo#branch',
       \   'gitroot': 'gina#component#repo#name',
@@ -71,13 +70,6 @@ let s:p.tabline.left = [ ['#444444', '#8ac6f2', 21, 231, 'bold' ], [ '#d0d0d0', 
 
 " endif
 
-function! GetCodeiumCandidate()
-  if g:IsWindowsGvim()
-    return codeium#GetStatusString()
-  endif
-  return ''
-endfunction
-
 function! NearestMethodOrFunction()
   if g:IsWindowsGvim()
     return ''
@@ -107,8 +99,8 @@ endfunction
 "
 " If you want to show the nearest function in your statusline automatically,
 " you can add the following line to your vimrc
-autocmd BufWritePost,VimEnter,InsertEnter,ModeChanged,InsertLeave,CmdwinLeave * call UpdateNearestMethodOrFunction()
-" autocmd VimEnter,TextChanged,TextChangedI,CursorHold,CursorMoved,InsertEnter * call lightline#update()
+" autocmd BufWritePost,VimEnter,InsertEnter,ModeChanged,InsertLeave,CmdwinLeave * call UpdateNearestMethodOrFunction()
+autocmd VimEnter,TextChanged,TextChangedI,CursorHold,CursorMoved,InsertEnter * call lightline#update()
 
 function! File_size()
   let l:size = getfsize(expand(@%))

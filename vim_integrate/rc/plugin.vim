@@ -69,7 +69,7 @@ Plug 'kana/vim-gf-user'
 Plug 'previm/previm'
 Plug 'yuki-yano/lexima-alter-command.vim'
 Plug 'tyru/current-func-info.vim'
-Plug 'liuchengxu/vista.vim' " クラスや関数を一覧表示する。lightlineにも連携している
+" Plug 'liuchengxu/vista.vim' " クラスや関数を一覧表示する。lightlineにも連携している
 Plug 'haya14busa/vim-edgemotion'
 Plug 'rickhowe/wrapwidth'
 Plug 'tyru/open-browser.vim'
@@ -587,7 +587,7 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddu.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lightline.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ale.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vista.vim'
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vista.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesitter.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/caw.vim'
