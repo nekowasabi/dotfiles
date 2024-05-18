@@ -190,6 +190,7 @@ function g:SetDdu()
 	Plug 'peacock0803sz/ddu-source-git_stash'
 	Plug 'Shougo/ddc-filter-converter_truncate_abbr'
 	Plug 'nekowasabi/ddu-source-vim-bookmark'
+  Plug 'nekowasabi/ddu-source-ai-prompt'
 endfunction
 
 function g:SetCoc()
