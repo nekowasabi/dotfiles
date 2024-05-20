@@ -46,6 +46,9 @@ snippets:
   - name: create PR
     keyword: gpr
     snippet: gh pr create
+  - name: create PR with base develop
+    keyword: gprb
+    snippet: gh pr create --base 
   - name: "null"
     keyword: "null"
     snippet: ">/dev/null 2>&1"
