@@ -74,6 +74,7 @@ command! DuplicateLineFormatNormal call <SID>DuplicateLineFormatNormal()
 if g:IsMacGvim() || g:IsMacNeovim()
   nnoremap <silent> <F4> :DuplicateLineFormatNormal<CR>
   inoremap <expr> <F4> <SID>DuplicateLineFormat()
+  inoremap <expr> <C-o> <SID>DuplicateLineFormat()
 endif
 if g:IsWindowsGvim()
   nnoremap <silent> <F4> :DuplicateLineFormatNormal<CR>
