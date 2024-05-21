@@ -91,6 +91,7 @@ set splitright            " 新しく開くときに右に開く
 set formatoptions=q
 set fileformats=unix,dos,mac
 set signcolumn=auto
+set autoread
 
 call setcellwidths([
   \ [ 0x2500, 0x257f, 1 ],
