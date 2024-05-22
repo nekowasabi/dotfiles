@@ -190,7 +190,6 @@ function g:SetDdu()
 	Plug 'peacock0803sz/ddu-source-git_stash'
 	Plug 'Shougo/ddc-filter-converter_truncate_abbr'
 	Plug 'nekowasabi/ddu-source-vim-bookmark'
-  Plug 'nekowasabi/ddu-source-ai-prompt'
 endfunction
 
 function g:SetCoc()
@@ -324,6 +323,8 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'mfussenegger/nvim-dap'
   Plug 'rcarriga/nvim-dap-ui'
   Plug 'theHamsta/nvim-dap-virtual-text'
+
+  Plug 'nekowasabi/ai-prompt-connecter'
 
   call g:SetDdu()
 
