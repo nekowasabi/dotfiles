@@ -1,9 +1,16 @@
 function! s:enable_coc_for_type() 
-  let l:filesuffix_whitelist = ['php', 'ts', 'vim', 'sh', 'py', 'shd', 'json', 'changelog', 'md', 'txt', 'copilot-chat']
+  let l:filesuffix_whitelist = ['php', 'ts', 'vim', 'sh', 'py', 'shd', 'json', 'changelog', 'md', 'txt', 'copilot-chat', 'sql']
   if index(l:filesuffix_whitelist, expand('%:e')) == -1
-    echo 'ok'
     let b:coc_enabled = 0
   endif
+
+let l:fileprefix_blacklist = ['dev-query-']
+for l:prefix in l:fileprefix_blacklist
+  if match(expand('%:t:r'), '^' . l:prefix) != -1
+    let b:coc_enabled = 1
+    break
+  endif
+endfor
 endfunction
 autocmd BufRead,BufNewFile * call s:enable_coc_for_type()
 
