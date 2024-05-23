@@ -274,6 +274,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'MattesGroeger/vim-bookmarks' " fzf-previewと連携して使う（単体でも一応使える）
   Plug 'tpope/vim-dadbod'  " DBクライアント
   Plug 'kristijanhusak/vim-dadbod-ui' 
+  Plug 'kristijanhusak/vim-dadbod-completion'
   Plug 'lewis6991/gitsigns.nvim'
   Plug 'overcache/NeoSolarized'
   Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }

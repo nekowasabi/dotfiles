@@ -71,6 +71,7 @@
     "typeParameter": "\uf728",
     "default": "\uf29c"
   },
+  "coc.source.db.enable": true,
   "coc.preferences.formatOnType": true,
   "coc.preferences.formatOnSaveTimeout": 2000,
   "intelephense.format.braces": "psr12",
