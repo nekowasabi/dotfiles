@@ -8,12 +8,12 @@ xmap g<C-x> g<Plug>(dps-dial-decrement)
 
 " searchx
 " Overwrite / and ?.
-nnoremap <silent> g? :MigemoSearchxBackrward<CR>
-nnoremap <silent> g/ :MigemoSearchxForward<CR>
-nnoremap <silent> ? :SearchxBackrward<CR>
-nnoremap <silent> / :SearchxForward<CR>
-xnoremap <silent> ? <Cmd>call searchx#start({ 'dir': 0 })<CR>
-xnoremap <silent> / <Cmd>call searchx#start({ 'dir': 1 })<CR>
+nnoremap <silent> ? :MigemoSearchxBackrward<CR>
+nnoremap <silent> / :MigemoSearchxForward<CR>
+" nnoremap <silent> ? :SearchxBackrward<CR>
+" nnoremap <silent> / :SearchxForward<CR>
+xnoremap <silent> g? <Cmd>call searchx#start({ 'dir': 0 })<CR>
+xnoremap <silent> g/ <Cmd>call searchx#start({ 'dir': 1 })<CR>
 cnoremap <silent> ; <Cmd>call searchx#select()<CR>
 
 " Move to next/prev match.

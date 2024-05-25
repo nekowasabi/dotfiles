@@ -68,15 +68,15 @@ call ddu#custom#patch_global(#{
 		\ 	    }
 		\     },
     \     ff: #{
-    \         prompt: '> ' ,
+    \         prompt: '>> ' ,
     \         highlights: #{floatingCursorLine: s:cursorLine, filterText: 'Statement', floating: "Normal", floatingBorder: "Special", selected: 'Special'},
     \         autoAction: #{name: "preview", sync: v:true},
     \         startAutoAction: v:true,
     \         floatingBorder: 'double',
+    \         floatingTitle: 'ddu',
+    \         floatingTitlePos: 'left',
     \         split: 'floating',
-    \         floatingTitle: '',
     \         previewSplit: s:previewSplit,
-    \         filterFloatingPosition: 'top',
     \         previewFloatingBorder: s:previewFloatingBorder,
     \         previewWidth: s:previewWidth,
     \         previewHeight: s:previewHeight,
@@ -525,12 +525,31 @@ if g:IsWindowsGvim() || g:IsMacGvim() || g:IsLinux() || g:IsMacNeovim()
         \ <Cmd>call ddu#start({'sources': [{'name': 'git_stash'}]})<CR>
 endif
 
+autocmd User Ddu:ui:ff:openFilterWindow
+      \ call s:ddu_ff_filter_my_settings()
+function s:ddu_ff_filter_my_settings() abort
+  let s:save_cr = '<CR>'->maparg('c', v:false, v:true)
+
+  cnoremap <CR>
+        \ <ESC><Cmd>call ddu#ui#do_action('itemAction')<CR>
+endfunction
+autocmd User Ddu:ui:ff:closeFilterWindow
+      \ call s:ddu_ff_filter_cleanup()
+function s:ddu_ff_filter_cleanup() abort
+  if s:save_cr->empty()
+    cunmap <CR>
+  else
+    call mapset('c', 0, s:save_cr)
+  endif
+endfunction
+
 autocmd FileType ddu-ff call s:ddu_uu_my_settings()
 function! s:ddu_uu_my_settings() abort
   inoremap <buffer><silent> <CR>
         \ <Cmd>call ddu#ui#do_action('itemAction')<CR>
   nnoremap <buffer><silent> <CR>
         \ <Cmd>call ddu#ui#do_action('itemAction')<CR>
+
   nnoremap <buffer><silent> o
         \ <Cmd>call ddu#ui#do_action('itemAction', {'params': {'command': 'split'}})<CR>
   nnoremap <buffer><silent> v
@@ -704,4 +723,5 @@ call ddu#custom#patch_global('sourceOptions', {
       \ 'file_fd': {'path': expand("~")},
       \ })
 
-autocmd FileType ddu-ff call timer_start(1, {-> ddu#ui#do_action('openFilterWindow')})
+" autocmd User Ddu:uiDone ++nested
+"      \ call ddu#ui#async_action('openFilterWindow')
