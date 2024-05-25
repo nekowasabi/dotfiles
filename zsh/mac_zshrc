@@ -124,16 +124,20 @@ alias lg='lazygit'
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 zinit light zsh-users/zsh-autosuggestions
-# zinit light zsh-users/zsh-syntax-highlighting
-# zinit light rupa/z
-# zinit wait lucid atload"zicompinit; zicdreplay" blockf for zsh-users/zsh-completions
 #
 # zinit light mafredri/zsh-async
 zinit ice pick"async.zsh" src"pure.zsh"
 zinit light sindresorhus/pure
 
+zinit light zdharma-continuum/fast-syntax-highlighting
+
+zinit ice pick"async.zsh" src"pure.zsh"
+zinit light sindresorhus/pure
+
+
 zinit ice from"gh-r" as"program"
 zinit load junegunn/fzf-bin
+
 
 zinit ice lucid depth"1" blockf
 zinit light yuki-yano/zeno.zsh
@@ -150,27 +154,44 @@ export ZENO_GIT_TREE="eza --tree"
 export ZENO_HOME=~/.config/zeno
 export ZENO_FZF_TMUX_OPTIONS="-p"
 
+# if [[ -n $ZENO_LOADED ]]; then
+#   bindkey ' '  zeno-auto-snippet
+# 
+#   # fallback if snippet not matched (default: self-insert)
+#   export ZENO_AUTO_SNIPPET_FALLBACK=self-insert
+# 
+#   # if you use zsh's incremental search
+#   # bindkey -M isearch ' ' self-insert
+# 
+#   bindkey '^m' zeno-auto-snippet-and-accept-line
+# 
+#   bindkey '^i' zeno-completion
+# 
+#   bindkey '^x '  zeno-insert-space
+#   bindkey '^x^m' accept-line
+#   bindkey '^x^z' zeno-toggle-auto-snippet
+# 
+#   # fallback if completion not matched
+#   # (default: fzf-completion if exists; otherwise expand-or-complete)
+#   # export ZENO_COMPLETION_FALLBACK=expand-or-complete
+# fi
+
 if [[ -n $ZENO_LOADED ]]; then
-  bindkey ' '  zeno-auto-snippet
+  snippet_and_completion() {
+    zeno-auto-snippet
+    zeno-completion
+  }
+  zle -N snippet_and_completion
+  bindkey '^x^x' snippet_and_completion
 
-  # fallback if snippet not matched (default: self-insert)
-  export ZENO_AUTO_SNIPPET_FALLBACK=self-insert
-
-  # if you use zsh's incremental search
-  # bindkey -M isearch ' ' self-insert
-
-  bindkey '^m' zeno-auto-snippet-and-accept-line
-
+  bindkey '^u'  zeno-auto-snippet
+  bindkey '^o' zeno-auto-snippet-and-accept-line
   bindkey '^i' zeno-completion
-
-  bindkey '^x '  zeno-insert-space
-  bindkey '^x^m' accept-line
-  bindkey '^x^z' zeno-toggle-auto-snippet
-
-  # fallback if completion not matched
-  # (default: fzf-completion if exists; otherwise expand-or-complete)
-  # export ZENO_COMPLETION_FALLBACK=expand-or-complete
+  bindkey '^x^s' zeno-insert-snippet
+  export ZENO_COMPLETION_FALLBACK=expand-or-complete
 fi
+
+
 
 export FZF_DEFAULT_COMMAND'=rg --files --hidden --follow --glob "!.git/*"'
 export FZF_DEFAULT_OPTS='--height 80% --reverse'
