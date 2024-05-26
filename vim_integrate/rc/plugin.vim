@@ -341,8 +341,13 @@ if g:IsMacNeovim() || g:IsWsl()
   elseif g:IsMacNeovimInWezterm()
     Plug 'gelguy/wilder.nvim'
     Plug 'Shougo/ddc-source-lsp'
+    Plug 'hrsh7th/nvim-cmp'
+    Plug 'hrsh7th/cmp-buffer'
+    Plug 'hrsh7th/cmp-path'
+    Plug 'hrsh7th/cmp-cmdline'
+    Plug 'petertriho/cmp-git'
     call g:SetCoc()
-    call g:SetDdc()
+
   else
     Plug 'gelguy/wilder.nvim'
     Plug 'Shougo/ddc-source-lsp'
@@ -419,16 +424,11 @@ if g:IsLinux()  && !g:IsWsl()
   " Plug 'williamboman/mason.nvim'
   " Plug 'williamboman/mason-lspconfig.nvim'
   " Plug 'tami5/lspsaga.nvim'
-  " Plug 'hrsh7th/nvim-cmp'
   " Plug 'hrsh7th/cmp-nvim-lsp'
-  " Plug 'hrsh7th/cmp-buffer'
-  " Plug 'hrsh7th/cmp-path'
-  " Plug 'hrsh7th/cmp-cmdline'
   " Plug 'hrsh7th/vim-vsnip'
   " Plug 'hrsh7th/vim-vsnip-integ'
   " Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
   " Plug 'onsails/lspkind.nvim'
-  " Plug 'petertriho/cmp-git'
   " Plug 'hrsh7th/cmp-vsnip'
   " Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
   " " Plug 'ray-x/cmp-treesitter'
@@ -623,7 +623,8 @@ if g:IsMacNeovim() || g:IsWsl()
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
-		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
+    execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cmp.vim'
+		" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
   else
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
@@ -633,7 +634,6 @@ if g:IsMacNeovim() || g:IsWsl()
   endif
 
 	execute 'source '.g:GetVimConfigRootPath().'rc/plugins/completion-keybind.vim'
-
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-print-debug.vim'
 endif
 " }}}1

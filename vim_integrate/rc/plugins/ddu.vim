@@ -723,5 +723,3 @@ call ddu#custom#patch_global('sourceOptions', {
       \ 'file_fd': {'path': expand("~")},
       \ })
 
-" autocmd User Ddu:uiDone ++nested
-"      \ call ddu#ui#async_action('openFilterWindow')

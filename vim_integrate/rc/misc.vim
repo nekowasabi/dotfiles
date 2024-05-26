@@ -284,12 +284,11 @@ command! -range Cursor call s:OpenByCursor()
 
 " -----------------------------------------------------------
 " test
-function! s:Test()
-  " 選択範囲の開始行と終了行を取得
-  let start_line = line("'<")
-  let last_line = line("'>")
 
-  execute start_line.",".last_line."GpRewrite translate English"
+let s:jp_pattern = '\v[\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FAF\uFF00-\uFFEF]+'
+function! s:Test()
+    highlight JapaneseText ctermfg=red guifg=red
+    syntax match JapaneseText /<SID>jp_pattern/
 endfunction
 command! Test call s:Test() 
 command! -range VTest call s:Test() 

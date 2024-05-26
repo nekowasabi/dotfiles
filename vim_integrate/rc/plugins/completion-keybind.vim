@@ -4,7 +4,7 @@ function! s:enable_coc_for_type()
     let b:coc_enabled = 0
   endif
 
-let l:fileprefix_blacklist = ['dev-query-']
+let l:fileprefix_blacklist = ['dev-query-', 'ddc-ff']
 for l:prefix in l:fileprefix_blacklist
   if match(expand('%:t:r'), '^' . l:prefix) != -1
     let b:coc_enabled = 1
@@ -14,6 +14,7 @@ endfor
 endfunction
 autocmd BufRead,BufNewFile * call s:enable_coc_for_type()
 
+
 " .vimrc や任意のVim設定ファイルに追加
 
 " filetypeに基づいてキーバインドを設定する関数
@@ -21,20 +22,20 @@ function! SetFileTypeBindings()
   " filetypeを取得
   let l:filetype = &filetype
 
-  " filetypeがmarkdownの場合
-  if l:filetype   == 'changelog'
-    " for ddc.vim
-    inoremap <silent><expr> <TAB>
-          \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
-          \ (col('.') < = 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
-          \ '<TAB>' : ddc#map#manual_complete()
-    inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
-    inoremap <C-n>   <Cmd>call pum#map#select_relative(+1)<CR>
-    inoremap <C-p>   <Cmd>call pum#map#select_relative(-1)<CR>
-    inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
-    inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
-    inoremap <expr><CR> pum#visible() ? '<Cmd>call pum#map#confirm()<CR>' : lexima#expand('<CR>', 'i')
-  else
+  " " filetypeがmarkdownの場合
+  " if l:filetype   == 'changelog'
+  "   " for ddc.vim
+  "   inoremap <silent><expr> <TAB>
+  "        \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
+  "        \ (col('.') < = 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
+  "        \ '<TAB>' : ddc#map#manual_complete()
+  "   inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
+  "   inoremap <C-n>   <Cmd>call pum#map#select_relative(+1)<CR>
+  "   inoremap <C-p>   <Cmd>call pum#map#select_relative(-1)<CR>
+  "   inoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
+  "   inoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
+  "   inoremap <expr><CR> pum#visible() ? '<Cmd>call pum#map#confirm()<CR>' : lexima#expand('<CR>', 'i')
+  " else
     " for coc.nvim
     inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm()
           \: "\<C-g>u" . lexima#expand('<LT>CR>', 'i')
@@ -79,7 +80,7 @@ function! SetFileTypeBindings()
     nmap <silent> <leader>caa <Plug>(coc-codeaction-cursor)
 
     autocmd FileType php,typescript,python,markdown,javascript,vim nnoremap <silent> <space>co  :<C-u>CocFzfList outline<CR>
-  endif
+  " endif
 endfunction
 
 " BufEnterイベントが発生したときにSetFileTypeBindings関数を呼び出す

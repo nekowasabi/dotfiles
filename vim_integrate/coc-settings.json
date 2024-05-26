@@ -25,9 +25,10 @@
     "rounded": true,
     "shadow": true,
   },
-  "suggest.asciiCharactersOnly": true,
+  "suggest.asciiMatch": true,
   "suggest.ignoreRegexps": [
-    "^.*の.*$"
+    "^[ぁ-んァ-ヶｱ-ﾝﾞﾟ一-龠]*$",
+    "^ddu.*$"
   ],
   "suggest.preferCompleteThanJumpPlaceholder": true,
   "codeLens.enable": true,

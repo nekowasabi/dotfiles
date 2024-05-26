@@ -1,4 +1,6 @@
 call ddc#custom#patch_global('ui','pum')
+call pum#set_option('border', 'double')
+
 
 if g:IsWindowsGvim()
 	call ddc#custom#patch_global('sources', ['around'])
@@ -22,19 +24,12 @@ else
   call ddc#custom#patch_filetype(['changelog'], 'sources', ['around', 'file', 'rg'])
   call ddc#custom#patch_filetype(['markdown'], 'sources', ['around', 'file'])
   call ddc#custom#patch_filetype(['text'], 'sources', ['around'])
+  call ddc#custom#patch_filetype(['ddc-ff'], 'sources', ['around'])
   " call ddc#custom#patch_filetype(['vim'], 'sources', ['lsp', 'around', 'buffer', 'neosnippet', 'rg'])
   " call ddc#custom#patch_filetype(['javascript'], 'sources', ['lsp', 'around', 'buffer', 'rg'])
   " call ddc#custom#patch_filetype(['typescipt'], 'sources', ['lsp', 'around', 'buffer', 'rg'])
   " call ddc#custom#patch_filetype(['deno'], 'sources', ['lsp', 'around', 'buffer', 'rg'])
   " call ddc#custom#patch_filetype(['php'], 'sources', ['lsp', 'around', 'buffer', 'rg'])
-
-call ddc#custom#patch_filetype(['sql', 'mysql', 'plsql'], 'sources', 'dadbod-completion')
-call ddc#custom#patch_filetype(['sql', 'mysql', 'plsql'], 'sourceOptions', {
-\ 'dadbod-completion': {
-\   'mark': 'DB',
-\   'isVolatile': v:true,
-\ },
-\ })
 
 " Make sure `substring` is part of this list. Other items are optional for this completion source
 let g:completion_matching_strategy_list = ['exact', 'substring']
@@ -149,6 +144,8 @@ call ddc#custom#patch_global('sourceOptions', #{
      "\ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
      "\ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
      "\ '<TAB>' : ddc#map#manual_complete()
+
+" TODO:
 inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
 inoremap <C-n>   <Cmd>call pum#map#select_relative(+1)<CR>
 inoremap <C-p>   <Cmd>call pum#map#select_relative(-1)<CR>
@@ -192,51 +189,48 @@ call ddc#enable()
       "\     '/': ['around'],
       "\     '?': ['around'],
 
-function CommandlinePre() abort
-  " cnoremap <expr> <Tab>
-  "     \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
-       "\ ddc#manual_complete()
-
-  cnoremap <expr> <Tab>
-        \ wildmenumode() ? &wildcharm->nr2char() :
-        \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
-        \ ddc#map#manual_complete()
-  cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
-  cnoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
-  cnoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
-  cnoremap <expr><CR> pum#visible() ? '<Cmd>call pum#map#confirm()<CR>' : '<CR>'
-  cnoremap <PageDown> <Cmd>call pum#map#insert_relative(-1)<CR>
-  cnoremap <PageUp> <Cmd>call pum#map#insert_relative(+1)<CR>
-
-  xnoremap <expr> <Tab>
-       \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
-       \ ddc#manual_complete()
-  xnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
-  xnoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
-  xnoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
-  xnoremap <expr><CR> pum#visible() ? '<Cmd>call pum#map#confirm()<CR>' : '<CR>'
-
-  autocmd User DDCCmdlineLeave ++once call CommandlinePost()
-
-  " Enable command line completion for the buffer
-  call ddc#enable_cmdline_completion()
-endfunction
-function CommandlinePost() abort
-  silent! cunmap <Tab>
-  silent! cunmap <S-Tab>
-  silent! cunmap <C-n>
-  silent! cunmap <C-p>
-  silent! cunmap <C-y>
-  silent! cunmap <C-e>
-  silent! xunmap <Tab>
-  silent! xunmap <S-Tab>
-  silent! xunmap <C-n>
-  silent! xunmap <C-p>
-  silent! xunmap <C-y>
-  silent! xunmap <C-e>
-endfunction
-
-" pum
-call pum#set_option('border', 'double')
+" function CommandlinePre() abort
+"   " cnoremap <expr> <Tab>
+"   "     \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
+"        "\ ddc#manual_complete()
+" 
+"   cnoremap <expr> <Tab>
+"        \ wildmenumode() ? &wildcharm->nr2char() :
+"        \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
+"        \ ddc#map#manual_complete()
+"   cnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
+"   cnoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
+"   cnoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
+"   cnoremap <expr><CR> pum#visible() ? '<Cmd>call pum#map#confirm()<CR>' : '<CR>'
+"   cnoremap <PageDown> <Cmd>call pum#map#insert_relative(-1)<CR>
+"   cnoremap <PageUp> <Cmd>call pum#map#insert_relative(+1)<CR>
+" 
+"   xnoremap <expr> <Tab>
+"       \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
+"       \ ddc#manual_complete()
+"   xnoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>
+"   xnoremap <C-y>   <Cmd>call pum#map#confirm()<CR>
+"   xnoremap <C-e>   <Cmd>call pum#map#cancel()<CR>
+"   xnoremap <expr><CR> pum#visible() ? '<Cmd>call pum#map#confirm()<CR>' : '<CR>'
+" 
+"   autocmd User DDCCmdlineLeave ++once call CommandlinePost()
+" 
+"   " Enable command line completion for the buffer
+"   call ddc#enable_cmdline_completion()
+" endfunction
+" function CommandlinePost() abort
+"   silent! cunmap <Tab>
+"   silent! cunmap <S-Tab>
+"   silent! cunmap <C-n>
+"   silent! cunmap <C-p>
+"   silent! cunmap <C-y>
+"   silent! cunmap <C-e>
+"   silent! xunmap <Tab>
+"   silent! xunmap <S-Tab>
+"   silent! xunmap <C-n>
+"   silent! xunmap <C-p>
+"   silent! xunmap <C-y>
+"   silent! xunmap <C-e>
+" endfunction
 
 " END
