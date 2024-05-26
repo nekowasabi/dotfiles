@@ -19,7 +19,6 @@ function! s:enable_coc_for_type()
 endfunction
 autocmd BufRead,BufNewFile * call s:enable_coc_for_type()
 
-
 " .vimrc や任意のVim設定ファイルに追加
 
 " filetypeに基づいてキーバインドを設定する関数

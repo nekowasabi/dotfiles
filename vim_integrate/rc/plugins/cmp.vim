@@ -28,6 +28,11 @@ sources = {
   { name = 'path' },
 },
 method = "getCompletionsCycling",
+matching = {
+	disallow_fuzzy_matching = true,
+	disallow_partial_fuzzy_matching = true,
+  disallow_partial_matching = true,
+	},
 })
 
 -- Set configuration for specific filetype.
