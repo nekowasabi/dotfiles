@@ -314,10 +314,10 @@ if g:IsMacGvim() || g:IsMacNeovim() || g:IsWsl()
 		endif
 	endfunction
 	" TODO: use noremap!
-	imap <C-b> <Left>
-	imap <C-f> <Right>
-	imap <C-p> <Up>
-	imap <C-n> <Down>
+	" imap <C-b> <Left>
+	" imap <C-f> <Right>
+	" imap <C-p> <Up>
+	" imap <C-n> <Down>
 	" imap <C-a> <C-o>^
 	" imap <C-e> <C-o>$
 
@@ -474,10 +474,10 @@ if g:IsWindowsGvim()
 	nnoremap <silent> ,T :OpenOnlyTentask<CR>
 
 	" TODO: use noremap!
-	imap <C-b> <Left>
-	imap <C-f> <Right>
-	imap <C-p> <Up>
-	imap <C-n> <Down>
+	" imap <C-b> <Left>
+	" imap <C-f> <Right>
+	" imap <C-p> <Up>
+	" imap <C-n> <Down>
 	" imap <C-a> <C-o>
 	" imap <C-e> <C-o>$
 
