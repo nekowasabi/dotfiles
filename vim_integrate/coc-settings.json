@@ -194,4 +194,17 @@
   "[php]": {
     "coc.preferences.formatOnSave": true
   },
+  "languageserver": {
+    "sql": {
+      "command": "sqls",
+      "args": [
+        "-config",
+        "/Users/ttakeda/.config/sqls/config.yml"
+      ],
+      "filetypes": [
+        "sql"
+      ],
+      "shell": true
+    }
+  }
 }

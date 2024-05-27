@@ -3,7 +3,6 @@
 let g:coc_global_extensions = [
   \  'coc-json'
   \, 'coc-lists'
-  \, 'coc-sql'
   \, 'coc-eslint'
   \, 'coc-tsserver'
   \, 'coc-diagnostic'
@@ -20,13 +19,14 @@ let g:coc_global_extensions = [
   \, 'coc-php-cs-fixer'
   \, 'coc-fzf-preview'
   \, 'coc-sh'
-  \, 'coc-db'
   \, 'coc-yaml'
   \, 'coc-blade'
   \, 'coc-deno'
   \, 'coc-markdownlint'
   \ ]
 
+  "\, 'coc-sql'
+  "\, 'coc-db'
   "\, 'coc-phpactor'
 
 
