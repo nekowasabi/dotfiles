@@ -274,7 +274,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'MattesGroeger/vim-bookmarks' " fzf-previewと連携して使う（単体でも一応使える）
   Plug 'tpope/vim-dadbod'  " DBクライアント
   Plug 'kristijanhusak/vim-dadbod-ui'
-  Plug 'kristijanhusak/vim-dadbod-completion'
+  "Plug 'kristijanhusak/vim-dadbod-completion'
   Plug 'lewis6991/gitsigns.nvim'
   Plug 'overcache/NeoSolarized'
   Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
@@ -299,7 +299,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'neovim/nvim-lspconfig'
   Plug 'vinnymeller/swagger-preview.nvim'
 	Plug 'xiyaowong/telescope-emoji.nvim'
-  Plug 'tyru/caw.vim' 
+  "Plug 'tyru/caw.vim' 
 	Plug 'cshuaimin/ssr.nvim' " あとで練習する
 	Plug 'CopilotC-Nvim/CopilotChat.nvim', {'branch': 'canary'}
   Plug 'nvim-tree/nvim-web-devicons'
@@ -327,12 +327,19 @@ if g:IsMacNeovim() || g:IsWsl()
 
   Plug 'nekowasabi/ai-prompt-connecter'
 
+  Plug 'numToStr/Comment.nvim'
+
   call g:SetDdu()
 
   if g:IsMacNeovimInMfs() || g:IsWsl()
     Plug 'gelguy/wilder.nvim'
     Plug 'Shougo/ddc-source-lsp'
-    call g:SetDdc()
+    Plug 'hrsh7th/nvim-cmp'
+    Plug 'hrsh7th/cmp-buffer'
+    Plug 'hrsh7th/cmp-path'
+    Plug 'hrsh7th/cmp-cmdline'
+    Plug 'petertriho/cmp-git'
+    "call g:SetDdc()
     call g:SetCoc()
   elseif g:IsWsl()
     Plug 'gelguy/wilder.nvim'
@@ -593,7 +600,7 @@ if g:IsMacNeovim() || g:IsWsl()
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vista.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesitter.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/caw.vim'
+  "execute 'source '.g:GetVimConfigRootPath().'rc/plugins/caw.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lsp-lines.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gp.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot-chat.vim'
@@ -617,7 +624,8 @@ if g:IsMacNeovim() || g:IsWsl()
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
-		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
+		"execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
+    execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cmp.vim'
   elseif g:IsMacNeovimInWezterm()
 		"execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-lsp.vim'
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'

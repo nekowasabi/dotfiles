@@ -124,6 +124,8 @@ tnoremap <Esc> <C-\><C-n>:close!<CR>
 " lua
 lua << EOF
 
+require('Comment').setup()
+
 -- for navic
 require("mason").setup()
 
