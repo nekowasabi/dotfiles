@@ -8,14 +8,23 @@ xmap g<C-x> g<Plug>(dps-dial-decrement)
 
 " searchx
 " Overwrite / and ?.
-nnoremap <silent> ? :MigemoSearchxBackrward<CR>
-nnoremap <silent> / :MigemoSearchxForward<CR>
-" nnoremap <silent> ? :SearchxBackrward<CR>
-" nnoremap <silent> / :SearchxForward<CR>
-xnoremap <silent> g? <Cmd>call searchx#start({ 'dir': 0 })<CR>
-xnoremap <silent> g/ <Cmd>call searchx#start({ 'dir': 1 })<CR>
-cnoremap <silent> ; <Cmd>call searchx#select()<CR>
-
+if g:IsWsl()
+  nnoremap <silent> g? :MigemoSearchxBackrward<CR>
+  nnoremap <silent> g/ :MigemoSearchxForward<CR>
+  nnoremap <silent> ? :SearchxBackrward<CR>
+  nnoremap <silent> / :SearchxForward<CR>
+  xnoremap <silent> g? <Cmd>call searchx#start({ 'dir': 0 })<CR>
+  xnoremap <silent> g/ <Cmd>call searchx#start({ 'dir': 1 })<CR>
+  cnoremap <silent> ; <Cmd>call searchx#select()<CR>
+else
+  nnoremap <silent> ? :MigemoSearchxBackrward<CR>
+  nnoremap <silent> / :MigemoSearchxForward<CR>
+  nnoremap <silent> g? :SearchxBackrward<CR>
+  nnoremap <silent> g/ :SearchxForward<CR>
+  xnoremap <silent> g? <Cmd>call searchx#start({ 'dir': 0 })<CR>
+  xnoremap <silent> g/ <Cmd>call searchx#start({ 'dir': 1 })<CR>
+  cnoremap <silent> ; <Cmd>call searchx#select()<CR>
+endif
 " Move to next/prev match.
 nnoremap <silent> N <Cmd>call searchx#prev_dir()<CR>
 nnoremap <silent> n <Cmd>call searchx#next_dir()<CR>
