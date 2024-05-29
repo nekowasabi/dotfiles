@@ -127,30 +127,31 @@ alias v='/home/linuxbrew/.linuxbrew/bin/nvim'
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
+
+zinit light zsh-users/zsh-autosuggestions
 zinit ice pick"async.zsh" src"pure.zsh"
 zinit light sindresorhus/pure
-zinit load rupa/z
-zinit light mafredri/zsh-async
-zinit wait lucid atload"zicompinit; zicdreplay" blockf for zsh-users/zsh-completions
-zinit ice lucid wait"!0" depth"1" atinit"zpcompinit; zpcdreplay" atload"set_fast_theme"
 zinit light zdharma-continuum/fast-syntax-highlighting
+zinit ice pick"async.zsh" src"pure.zsh"
+zinit light sindresorhus/pure
 zinit ice from"gh-r" as"program"
-
+zinit load junegunn/fzf-bin
+zinit load rupa/z
 
 export DENO_INSTALL="/home/linuxbrew/.linuxbrew"
 export PATH="$DENO_INSTALL/bin:$PATH:/home/takets/.local/bin"
-
 
 # zeno
 zinit ice lucid depth"1" blockf
 zinit light yuki-yano/zeno.zsh
 
-
-
 # default
 # git folder preview with color
 export ZENO_GIT_TREE="exa --tree"
 export ZENO_GIT_CAT="bat --color=always"
+export ZENO_HOME=~/.config/zeno
+export ZENO_FZF_TMUX_OPTIONS="-p"
+
 
 if [[ -n $ZENO_LOADED ]]; then
   snippet_and_completion() {
@@ -160,21 +161,13 @@ if [[ -n $ZENO_LOADED ]]; then
   zle -N snippet_and_completion
   bindkey '^x^x' snippet_and_completion
 
-  bindkey ' ' zeno-auto-snippet
-
-  # fallback if snippet not matched (default: self-insert)
-  # export ZENO_AUTO_SNIPPET_FALLBACK=self-insert
-
-  # if you use zsh's incremental search
-  # bindkey -M isearch ' ' self-insert
-
+  bindkey '^u'  zeno-auto-snippet
   bindkey '^o' zeno-auto-snippet-and-accept-line
-
-  bindkey '^x^t' zeno-completion
-
-  bindkey '^x^r'   zeno-history-selection
-  bindkey '^p' zeno-insert-snippet
+  bindkey '^i' zeno-completion
+  bindkey '^x^s' zeno-insert-snippet
+  export ZENO_COMPLETION_FALLBACK=expand-or-complete
 fi
+
 
 export FZF_DEFAULT_COMMAND'=rg --files --hidden --follow --glob "!.git/*"'
 export FZF_DEFAULT_OPTS='--height 80% --reverse'
