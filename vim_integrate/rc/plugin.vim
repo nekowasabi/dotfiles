@@ -620,6 +620,8 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/blame.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gitlinker.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/nvim-dap.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-rule-switcher.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-test.vim'
 
   if g:IsMacNeovimInMfs() || g:IsWsl()
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
