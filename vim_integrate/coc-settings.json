@@ -191,6 +191,7 @@
   "php-cs-fixer.enable": true,
   "php-cs-fixer.pint.preset": "laravel",
   "php-cs-fixer.activateTool": "pint",
+  "php-cs-fixer.toolPath": "~/.config/coc/extensions/coc-php-cs-fixer-data/pint",
   "[php]": {
     "coc.preferences.formatOnSave": true
   },
