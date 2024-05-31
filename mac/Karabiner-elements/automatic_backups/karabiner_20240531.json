@@ -30053,6 +30053,16 @@
                                     "key_code": "japanese_kana"
                                 }
                             ]
+                        },
+                        {
+                            "from": {
+                                "key_code": "right_command"
+                            },
+                            "to": [
+                                {
+                                    "key_code": "tab"
+                                }
+                            ]
                         }
                     ],
                     "treat_as_built_in_keyboard": false
