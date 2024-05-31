@@ -25,9 +25,10 @@ autocmd BufRead,BufNewFile * call s:enable_coc_for_type()
 function! SetFileTypeBindings()
   " filetypeを取得
   let l:filetype = &filetype
+	let l:file_types = ['changelog', 'text', 'markdown']
 
-  " filetypeがmarkdownの場合
-  if l:filetype   == 'changelog'
+
+	if index(l:file_types, l:filetype) != -1
     " for nvim-cmp
 lua << EOF
 
