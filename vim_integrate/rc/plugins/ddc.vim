@@ -140,10 +140,11 @@ call ddc#custom#patch_global('sourceParams', {
 call ddc#custom#patch_global('sourceOptions', #{
       \   cmdline-history: #{ mark: '[cmdhis]' },
       \ })
-"inoremap <silent><expr> <TAB>
-     "\ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
-     "\ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
-     "\ '<TAB>' : ddc#map#manual_complete()
+
+inoremap <silent><expr> <TAB>
+     \ pum#visible() ? '<Cmd>call pum#map#insert_relative(+1)<CR>' :
+     \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
+     \ '<TAB>' : ddc#map#manual_complete()
 
 " TODO:
 inoremap <S-Tab> <Cmd>call pum#map#insert_relative(-1)<CR>

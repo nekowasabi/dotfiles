@@ -82,7 +82,7 @@ Plug 'yuki-yano/ai-review.vim'
 
 if g:IsWindowsGvim()
 	Plug 'madox2/vim-ai', { 'do': './install.sh' }
-  Plug 'Exafunction/codeium.vim'
+  " Plug 'Exafunction/codeium.vim'
 else
   Plug 'github/copilot.vim'
 	Plug 'nekowasabi/aider.vim'
@@ -231,12 +231,13 @@ if g:IsWindowsGvim()
   Plug 'Shougo/neosnippet-snippets'
 	Plug 'kana/vim-gf-user'
   Plug 'liuchengxu/vista.vim'
+	Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
+  Plug 'tyru/caw.vim' 
 
 	call g:SetDdc()
 	call g:SetDdu()
 
 	" disable
-	" Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 	" Plug 'tamago324/LeaderF-bookmark'
 	" Plug 'voldikss/LeaderF-emoji'
   " Plug 'Yggdroot/LeaderF-changes'
@@ -662,14 +663,14 @@ if g:IsWindowsGvim()
 	execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/user-gf.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddu.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-ambiwidth.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-lsp.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/codeium.vim'
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/codeium.vim'
 	execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-ai.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/leaderf.vim'
 
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-ambiwidth.vim'
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/leaderf.vim'
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
   " execute 'source '.g:GetVimConfigRootPath().'rc/syntax.vim'
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vimfiler.vim'
