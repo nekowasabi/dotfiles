@@ -17,7 +17,7 @@ let g:lightline = {
       \     'linter_ok': 'right',
       \ },
       \ 'tabline': {
-      \   'left': [ ['gitbranch', 'gitstatus'], ['file_size'], ['char_num']],
+      \   'left': [ ['gitbranch', 'gitstatus'], ['file_size'], ['char_num'], ['nearestmethodorfunction']],
       \   'right': [ ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok'] ]
       \ },
       \ 'component_function': {
@@ -76,21 +76,17 @@ function! NearestMethodOrFunction()
   endif
 
   if &filetype == 'vim' || &filetype == 'php' || &filetype == 'typescript' || &filetype == 'javascript'
-    let l:nav = v:lua.require'nvim-navic'.get_location()
-    if l:nav == ''
-      return ''
-      " return ' :'.get(b:, 'vista_nearest_method_or_function', 'no func')
-    else
-      return l:nav
-    endif
+    return ''.get(b:,'coc_current_function','')
   endif
-  return ''
+  return ' :No Function'
 endfunction
 
 function! UpdateNearestMethodOrFunction() abort
   if &filetype == 'vim' || &filetype == 'php' || &filetype == 'typescript' || &filetype == 'javascript'
-    call vista#RunForNearestMethodOrFunction()
+    call NearestMethodOrFunction()
   endif
+  redraw
+  redrawstatus
   call lightline#update()
   return
 endfunction
@@ -99,8 +95,9 @@ endfunction
 "
 " If you want to show the nearest function in your statusline automatically,
 " you can add the following line to your vimrc
-" autocmd BufWritePost,VimEnter,InsertEnter,ModeChanged,InsertLeave,CmdwinLeave * call UpdateNearestMethodOrFunction()
-autocmd VimEnter,TextChanged,TextChangedI,CursorHold,CursorMoved,InsertEnter * call lightline#update()
+autocmd BufWritePost,VimEnter,InsertEnter,ModeChanged,InsertLeave,CmdwinLeave * call NearestMethodOrFunction()
+" autocmd VimEnter,TextChanged,TextChangedI,CursorHold,CursorMoved,InsertEnter * call lightline#update()
+autocmd User CocStatusChange redraws
 
 function! File_size()
   let l:size = getfsize(expand(@%))

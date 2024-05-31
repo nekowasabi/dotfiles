@@ -75,6 +75,8 @@
   "coc.source.db.enable": true,
   "coc.preferences.formatOnType": true,
   "coc.preferences.formatOnSaveTimeout": 2000,
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
+  "coc.preferences.currentFunctionSymbolDebounceTime": 1000,
   "intelephense.format.braces": "psr12",
   "coc.preferences.formatOnSave": true,
   "[blade]": {
