@@ -14,7 +14,7 @@ function! SetUpWilder() abort
   let l:hl = wilder#make_hl('WilderAccent', 'Pmenu', [{}, {}, {'foreground': '#f4468f'}])
 
 	call wilder#setup({
-				\ 'modes': [':', '/', '?'],
+				\ 'modes': [':'],
 				\ 'accept_key': '<C-y>',
 				\ 'enable_cmdline_enter': 1,
 				\ })

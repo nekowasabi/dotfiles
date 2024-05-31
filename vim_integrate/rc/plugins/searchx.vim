@@ -11,19 +11,25 @@ xmap g<C-x> g<Plug>(dps-dial-decrement)
 if g:IsWsl()
   nnoremap <silent> g? :MigemoSearchxBackrward<CR>
   nnoremap <silent> g/ :MigemoSearchxForward<CR>
-  nnoremap <silent> ? :SearchxBackrward<CR>
-  nnoremap <silent> / :SearchxForward<CR>
+  nnoremap <silent> ? <Cmd>call searchx#start({ 'dir': 0 })<CR>
+  nnoremap <silent> / <Cmd>call searchx#start({ 'dir': 1 })<CR>
+  nnoremap <silent> r/ :RegexSearchxForward<CR>
+  nnoremap <silent> r? :RegexSearchxBackrward<CR>
+
   xnoremap <silent> g? <Cmd>call searchx#start({ 'dir': 0 })<CR>
   xnoremap <silent> g/ <Cmd>call searchx#start({ 'dir': 1 })<CR>
-  cnoremap <silent> ; <Cmd>call searchx#select()<CR>
 else
   nnoremap <silent> ? :MigemoSearchxBackrward<CR>
   nnoremap <silent> / :MigemoSearchxForward<CR>
-  nnoremap <silent> g? :SearchxBackrward<CR>
-  nnoremap <silent> g/ :SearchxForward<CR>
+  nnoremap <silent> r/ :RegexSearchxForward<CR>
+  nnoremap <silent> r? :RegexSearchxBackrward<CR>
+  nnoremap <silent> g? <Cmd>call searchx#start({ 'dir': 0 })<CR>
+  nnoremap <silent> g/ <Cmd>call searchx#start({ 'dir': 1 })<CR>
+
+  xnoremap <silent> ? :MigemoSearchxBackrward<CR>
+  xnoremap <silent> / :MigemoSearchxForward<CR>
   xnoremap <silent> g? <Cmd>call searchx#start({ 'dir': 0 })<CR>
   xnoremap <silent> g/ <Cmd>call searchx#start({ 'dir': 1 })<CR>
-  cnoremap <silent> ; <Cmd>call searchx#select()<CR>
 endif
 " Move to next/prev match.
 nnoremap <silent> N <Cmd>call searchx#prev_dir()<CR>
@@ -52,35 +58,108 @@ let g:searchx.scrolloff = &scrolloff
 " To enable scrolling animation.
 let g:searchx.scrolltime = 0
 
-let g:is_migemo = v:false
+
+" migmeo setting
+let g:migemo_length = 4
+
+" あいうえお
+" let g:is_migemo = v:false
 function! s:MigemoSearchxForward() abort
-	let g:is_migemo = v:true
+	" let g:is_migemo = v:true
+  let g:searchx.convert = g:searchx.migemo
 	exe "call searchx#start({ 'dir': 1 })"
 endfunction
 command! -range MigemoSearchxForward call s:MigemoSearchxForward() 
 
 function! s:MigemoSearchxBackrward() abort
-	let g:is_migemo = v:true
+	" let g:is_migemo = v:true
+  let g:searchx.convert = g:searchx.migemo
 	exe "call searchx#start({ 'dir': 1 })"
 endfunction
 command! -range MigemoSearchxBackrward call s:MigemoSearchxBackrward() 
   
-
 function! s:SearchxForward() abort
-	let g:is_migemo = v:false
 	exe "call searchx#start({ 'dir': 1 })"
 endfunction
 command! -range SearchxForward call s:SearchxForward() 
 
 function! s:SearchxBackrward() abort
-	let g:is_migemo = v:false
 	exe "call searchx#start({ 'dir': 0 })"
 endfunction
 command! -range SearchxBackrward call s:SearchxBackrward() 
 
-let g:migemo_length = 4
+function! s:RegexSearchxForward() abort
+  let g:searchx.convert = g:searchx.regex
+  exe "call searchx#start({ 'dir': 1 })"
+endfunction
+command! -range RegexSearchxForward call s:RegexSearchxForward()
+
+function! s:RegexSearchxBackrward() abort
+  let g:searchx.convert = g:searchx.regex
+  exe "call searchx#start({ 'dir': 0 })"
+endfunction
+command! -range RegexSearchxBackrward call s:RegexSearchxBackrward()
+
+function! g:searchx.regex(input) abort
+  return '\m' .. escape(a:input, '/')
+endfunction
+
+function! g:searchx.migemo(input) abort
+  let l:input = ''
+	if len(a:input) >= g:migemo_length
+    if g:IsLinux()
+      let l:input = system('/usr/bin/cmigemo -v -w "'.a:input.'" -d "'.g:migemodict.'"')
+    else
+      let l:input = system('cmigemo -v -w "'.a:input.'" -d "'.g:migemodict.'"')
+    endif
+  else
+    let l:input = a:input
+	endif
+
+  if l:input !~# '\k'
+    return '\V' .. l:input
+  endif
+
+  return join(split(l:input, ' '), '.\{-}')
+endfunction
 
 
+
+function! g:searchx.convert(input) abort
+  let l:input = ''
+	if len(a:input) >= g:migemo_length && g:is_migemo
+    if g:IsLinux()
+      let l:input = system('/usr/bin/cmigemo -v -w "'.a:input.'" -d "'.g:migemodict.'"')
+    else
+      let l:input = system('cmigemo -v -w "'.a:input.'" -d "'.g:migemodict.'"')
+    endif
+  else
+    let l:input = a:input
+	endif
+
+  if l:input !~# '\k'
+    return '\V' .. l:input
+  endif
+
+  if l:input =~# ';'
+    let max_score = 0
+    for q in s:fuzzy_query(l:input)
+      let targets = denops#request('fuzzy-motion', 'targets', [q])
+
+      if len(targets) > 0 && targets[0].score > max_score
+        let max_score = targets[0].score
+        let fuzzy_input = join(split(q, ' '), '.\{-}')
+      endif
+    endfor
+
+    return fuzzy_input ==# '' ? l:input : fuzzy_input
+  endif
+
+  return join(split(l:input, ' '), '.\{-}')
+endfunction
+
+
+" misc {{{1
 function! s:has(list, value) abort
   return index(a:list, a:value) isnot -1
 endfunction
@@ -218,37 +297,4 @@ if g:IsMacNeovimInMfs()
   let g:migemodict = '/opt/homebrew/Cellar/cmigemo/20110227/share/migemo/utf-8/migemo-dict'
 endif
 
-function! g:searchx.convert(input) abort
-  let l:input = ''
-	if len(a:input) >= g:migemo_length && g:is_migemo
-    if g:IsLinux()
-      let l:input = system('/usr/bin/cmigemo -v -w "'.a:input.'" -d "'.g:migemodict.'"')
-    else
-      let l:input = system('cmigemo -v -w "'.a:input.'" -d "'.g:migemodict.'"')
-    endif
-  else
-    let l:input = a:input
-	endif
-
-  if l:input !~# '\k'
-    return '\V' .. l:input
-  endif
-
-  if l:input =~# ';'
-    let max_score = 0
-    for q in s:fuzzy_query(l:input)
-      let targets = denops#request('fuzzy-motion', 'targets', [q])
-
-      if len(targets) > 0 && targets[0].score > max_score
-        let max_score = targets[0].score
-        let fuzzy_input = join(split(q, ' '), '.\{-}')
-      endif
-    endfor
-
-    return fuzzy_input ==# '' ? l:input : fuzzy_input
-  endif
-
-  return join(split(l:input, ' '), '.\{-}')
-endfunction
-
-
+" }}}1
