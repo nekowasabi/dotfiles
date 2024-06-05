@@ -26,10 +26,10 @@ else
   nnoremap <silent> g? <Cmd>call searchx#start({ 'dir': 0 })<CR>
   nnoremap <silent> g/ <Cmd>call searchx#start({ 'dir': 1 })<CR>
 
-  xnoremap <silent> g? :MigemoSearchxBackrward<CR>
-  xnoremap <silent> g/ :MigemoSearchxForward<CR>
-  xnoremap <silent> ? <Cmd>call searchx#start({ 'dir': 0 })<CR>
-  xnoremap <silent> / <Cmd>call searchx#start({ 'dir': 1 })<CR>
+  xnoremap <silent> ? :MigemoSearchxBackrward<CR>
+  xnoremap <silent> / :MigemoSearchxForward<CR>
+  xnoremap <silent> g? <Cmd>call searchx#start({ 'dir': 0 })<CR>
+  xnoremap <silent> g/ <Cmd>call searchx#start({ 'dir': 1 })<CR>
 endif
 " Move to next/prev match.
 nnoremap <silent> N <Cmd>call searchx#prev_dir()<CR>

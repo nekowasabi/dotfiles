@@ -233,6 +233,7 @@ if g:IsWindowsGvim()
   Plug 'liuchengxu/vista.vim'
 	Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
   Plug 'tyru/caw.vim' 
+	Plug 'tennashi/gitsign.vim'
 
 	call g:SetDdc()
 	call g:SetDdu()
@@ -667,6 +668,7 @@ if g:IsWindowsGvim()
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/codeium.vim'
 	execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-ai.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/leaderf.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gvim-gitsign.vim'
 
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-ambiwidth.vim'
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
