@@ -525,23 +525,23 @@ if g:IsWindowsGvim() || g:IsMacGvim() || g:IsLinux() || g:IsMacNeovim()
         \ <Cmd>call ddu#start({'sources': [{'name': 'git_stash'}]})<CR>
 endif
 
-autocmd User Ddu:ui:ff:openFilterWindow
-      \ call s:ddu_ff_filter_my_settings()
-function s:ddu_ff_filter_my_settings() abort
-  let s:save_cr = '<CR>'->maparg('c', v:false, v:true)
-
-  cnoremap <CR>
-        \ <ESC><Cmd>call ddu#ui#do_action('itemAction')<CR>
-endfunction
-autocmd User Ddu:ui:ff:closeFilterWindow
-      \ call s:ddu_ff_filter_cleanup()
-function s:ddu_ff_filter_cleanup() abort
-  if s:save_cr->empty()
-    cunmap <CR>
-  else
-    call mapset('c', 0, s:save_cr)
-  endif
-endfunction
+" autocmd User Ddu:ui:ff:openFilterWindow
+"       \ call s:ddu_ff_filter_my_settings()
+" function s:ddu_ff_filter_my_settings() abort
+"   let s:save_cr = '<CR>'->maparg('c', v:false, v:true)
+"
+"   cnoremap <CR>
+"         \ <ESC><Cmd>call ddu#ui#do_action('itemAction')<CR>
+" endfunction
+" autocmd User Ddu:ui:ff:closeFilterWindow
+"       \ call s:ddu_ff_filter_cleanup()
+" function s:ddu_ff_filter_cleanup() abort
+"   if s:save_cr->empty()
+"     cunmap <CR>
+"   else
+"     call mapset('c', 0, s:save_cr)
+"   endif
+" endfunction
 
 autocmd FileType ddu-ff call s:ddu_uu_my_settings()
 function! s:ddu_uu_my_settings() abort
