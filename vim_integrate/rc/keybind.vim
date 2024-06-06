@@ -31,6 +31,13 @@ inoremap <C-f> ／
 inoremap <C-x><C-x> ？／
 inoremap <C-b> →
 
+xnoremap a" 2i"
+xnoremap a' 2i'
+xnoremap a` 2i`
+onoremap a" 2i"
+onoremap a' 2i'
+onoremap a` 2i`
+
 " move window
 nnoremap <silent> <Tab> <C-w>w
 
