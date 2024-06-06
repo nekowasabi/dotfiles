@@ -33,7 +33,6 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim' 
 Plug 'deton/jasentence.vim'
 Plug 'thinca/vim-prettyprint'
-Plug 'monaqa/dps-dial.vim'
 Plug 'ryicoh/deepl.vim'
 Plug 'mmikeww/autohotkey.vim'
 Plug 'thinca/vim-quickrun'
@@ -234,6 +233,7 @@ if g:IsWindowsGvim()
 	Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
   Plug 'tyru/caw.vim' 
 	Plug 'tennashi/gitsign.vim'
+  Plug 'monaqa/dps-dial.vim'
 
 	call g:SetDdc()
 	call g:SetDdu()
@@ -270,7 +270,6 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'nvim-lua/plenary.nvim' " luaのライブラリ
   Plug 'nvim-telescope/telescope.nvim' " 普段は使わないけれど、プラグイン連携でたまに使う
   Plug 'elzr/vim-json'
-  "Plug 'andymass/vim-matchup'
   Plug 'Shougo/context_filetype.vim'
   Plug 'Shougo/defx.nvim'
   Plug 'kristijanhusak/defx-git'
@@ -278,7 +277,6 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'MattesGroeger/vim-bookmarks' " fzf-previewと連携して使う（単体でも一応使える）
   Plug 'tpope/vim-dadbod'  " DBクライアント
   Plug 'kristijanhusak/vim-dadbod-ui'
-  "Plug 'kristijanhusak/vim-dadbod-completion'
   Plug 'lewis6991/gitsigns.nvim'
   Plug 'overcache/NeoSolarized'
   Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
@@ -303,7 +301,6 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'neovim/nvim-lspconfig'
   Plug 'vinnymeller/swagger-preview.nvim'
 	Plug 'xiyaowong/telescope-emoji.nvim'
-  "Plug 'tyru/caw.vim' 
 	Plug 'cshuaimin/ssr.nvim' " あとで練習する
 	Plug 'CopilotC-Nvim/CopilotChat.nvim', {'branch': 'canary'}
   Plug 'nvim-tree/nvim-web-devicons'
@@ -313,25 +310,21 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'FabijanZulj/blame.nvim'
   Plug 'linrongbin16/gitlinker.nvim'
   Plug 'Al0den/notion.nvim'
-  " Plug 'jay-babu/mason-null-ls.nvim'
   Plug 'williamboman/mason.nvim'
+  " Plug 'jay-babu/mason-null-ls.nvim'
   " Plug 'williamboman/mason-lspconfig.nvim'
   Plug 'Wansmer/treesj'
   Plug 'stevearc/oil.nvim'
   Plug 'SmiteshP/nvim-navic'
-
   Plug 'vim-test/vim-test'
   Plug 'skywind3000/asyncrun.vim'
-
-
 	Plug 'sigmaSd/deno-nvim'
   Plug 'mfussenegger/nvim-dap'
   Plug 'rcarriga/nvim-dap-ui'
   Plug 'theHamsta/nvim-dap-virtual-text'
-
   Plug 'nekowasabi/ai-prompt-connecter'
-
   Plug 'numToStr/Comment.nvim'
+  Plug 'monaqa/dial.nvim'
 
   call g:SetDdu()
 
