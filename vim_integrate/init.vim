@@ -49,21 +49,39 @@ let g:denops#debug = 0
 
 tnoremap <Esc> <C-\><C-n>:close!<CR>
 
-nmap g<C-a> g<Plug>(dial-increment)
-nmap g<C-x> g<Plug>(dial-decrement)
-
 " -----------------------------------------------------------
 " lua
 lua << EOF
-
 
 local augend = require("dial.augend")
 require("dial.config").augends:register_group{
   default = {
     augend.integer.alias.decimal,
     augend.integer.alias.hex,
-    augend.date.alias["%Y/%m/%d"],
-    augend.date.alias["%Y-%m-%d"],
+    -- augend.date.alias["%Y/%m/%d"],
+    augend.date.new {
+      pattern = "%(year)/%m/%d",
+      default_kind = "day",
+      custom_date_elements = {
+        year = {
+          -- %(year) カーソルがあたってるとき day が increment されるようになる
+          kind = "day",
+          regex = [[\d\d\d\d]],
+          -- %(year) にマッチしたテキストをどう日付として解釈するか
+          update_date = function(text, date)
+            -- %(year) のテキストが "2024" だったとしたら、
+            -- 日付のうち年の情報を 2024 に更新してくださいね、という意味
+            date["year"] = tonumber(text)
+            return date
+          end,
+          -- 増減後の日付をテキストの %(year) の部分に落とし込む方法
+          format = function(time)
+            local year = os.date("*t", time).year
+            return ("%04d"):format(year)
+          end,
+        },
+      },
+    },
     augend.constant.alias.bool,
   },
   typescript = {
@@ -80,6 +98,7 @@ require("dial.config").augends:register_group{
   },
 }
 
+
 vim.keymap.set("n", "<C-a>", function()
     require("dial.map").manipulate("increment", "normal")
 end)
@@ -88,7 +107,7 @@ vim.keymap.set("n", "<C-x>", function()
 end)
 vim.keymap.set("n", "g<C-a>", function()
     require("dial.map").manipulate("increment", "gnormal")
-end)
+end, {desc = "dial.nvim の gnormal increment"})
 vim.keymap.set("n", "g<C-x>", function()
     require("dial.map").manipulate("decrement", "gnormal")
 end)
