@@ -8,6 +8,24 @@ if g:IsWsl()
   let g:switch_rule = "/home/takets/.config/nvim/rule_switch.json"
 endif
 
-nnoremap <silent> ,j :SwitchFileByRule<CR>
+" nnoremap <silent> ,j :SwitchFileByRule<CR>
 nnoremap <silent> ,J :SwitchFileByRule git<CR>
+
+inoremap <C-s> <Esc>:SwitchFuzzy<CR>
+
+nnoremap <silent> ,j :SwitchFuzzy<CR>
+command! SwitchFuzzy call s:switch_fuzzy() 
+function! s:switch_fuzzy()
+  let l:now_file = expand('%')
+  try
+    execute 'SwitchFileByRule'
+  catch
+    echo 'Error: SwitchFileByRule command not found.'
+    return
+  endtry
+  if l:now_file == expand('%')
+    execute 'SwitchFileByRule git'
+  endif
+endfunction
+
 

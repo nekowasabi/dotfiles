@@ -222,7 +222,7 @@ endfunction
 " Dropboxのwatchmemoをバッファに出力して、ファイル削除
 function! s:PasteWatchMemo()
   if g:IsMacGvim() || g:IsMacNeovim()
-    let g:dropbox_dir = '/Users/takets/Library/CloudStorage/Dropbox/files/'
+    let g:dropbox_dir = '/Users/takets/Dropbox/files/'
   endif
   if g:IsWindowsGvim()
     let g:dropbox_dir = 'g:/dropbox/files/'
@@ -255,6 +255,7 @@ command! -range PasteWatchMemo call s:PasteWatchMemo()
 " changelogをpull
 function! s:PullChangelog()
   execute "cd ".g:GetChangelogDirectory()
+  execute "silent Git checkout -f"
   execute "silent Git pull"
 	echo 'pull done.'
 endfunction

@@ -58,7 +58,6 @@ require("dial.config").augends:register_group{
   default = {
     augend.integer.alias.decimal,
     augend.integer.alias.hex,
-    -- augend.date.alias["%Y/%m/%d"],
     augend.date.new {
       pattern = "%(year)/%m/%d",
       default_kind = "day",
@@ -83,6 +82,7 @@ require("dial.config").augends:register_group{
       },
     },
     augend.constant.alias.bool,
+    augend.constant.new{ elements = {'public', 'private', 'private'}},
   },
   typescript = {
     augend.integer.alias.decimal,

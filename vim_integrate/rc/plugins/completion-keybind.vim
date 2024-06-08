@@ -72,11 +72,11 @@ EOF
       return !col || getline('.')[col - 1]  =~ '\s'
     endfunction
 
-    imap <silent><expr> <TAB>
-          \ coc#pum#visible() ? coc#pum#next(1):
-          \ <SID>check_back_space() ? "\<Tab>" :
-          \ coc#refresh()
-    imap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+    " imap <silent><expr> <TAB>
+    "       \ coc#pum#visible() ? coc#pum#next(1):
+    "       \ <SID>check_back_space() ? "\<Tab>" :
+    "       \ coc#refresh()
+    " imap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
     let g:coc_snippet_next = '<tab>'
 

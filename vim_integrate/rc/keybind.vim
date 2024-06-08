@@ -39,7 +39,7 @@ onoremap a' 2i'
 onoremap a` 2i`
 
 " move window
-nnoremap <silent> <Tab> <C-w>w
+nnoremap <silent> <C-t> <C-w>w
 
 " 単語移動
 if has("mac")
@@ -510,3 +510,4 @@ endif
 " Fast switching to the alternate file
 " <BS>に割り当てると、<PageUp>後にkkkとすると、コマンドが暴発する謎が発生する
 nnoremap <silent> ,a :buffer#<CR>
+nnoremap <silent> <BS> :buffer#<CR>
