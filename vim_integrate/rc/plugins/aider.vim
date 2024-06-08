@@ -17,6 +17,7 @@ nnoremap <silent> <leader>aa :AiderAddCurrentFile<CR>
 nnoremap <silent> <leader>aw :AiderAddWeb<CR>
 nnoremap <silent> <leader>ap :AiderSendPromptWithInput<CR>
 nnoremap <silent> <leader>ax :AiderExit<CR>
-nnoremap <silent> <leader>ai :AiderOpenIgnore<CR>
+nnoremap <silent> <leader>ai :AiderAddIgnoreCurrentFile<CR>
+nnoremap <silent> <leader>aI :AiderOpenIgnore<CR>
 vmap <leader>av :AiderVisualTextWithPrompt<CR>
 

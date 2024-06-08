@@ -493,7 +493,7 @@ call ddu#custom#patch_global({
 call ai_review#config({ 'chat_gpt': { 'model': 'gpt-4-0125-preview' } })
 
 if g:IsWindowsGvim() || g:IsMacGvim() || g:IsLinux() || g:IsMacNeovim()
-  nnoremap <silent> <Leader>b
+  nnoremap <silent> <Leader>ad
         \ <Cmd>call ddu#start({'sources': [{'name': 'aider'}]})<CR>
   nnoremap <silent> <CR><CR>
         \ <Cmd>call ddu#start({'sources': [{'name': 'vim-bookmark'}]})<CR>
