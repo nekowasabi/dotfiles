@@ -49,6 +49,9 @@ let g:denops#debug = 0
 
 tnoremap <Esc> <C-\><C-n>:close!<CR>
 
+nnoremap <silent> g<C-o> :Back<CR>
+nnoremap <silent> g<C-i> :Forward<CR>
+
 " -----------------------------------------------------------
 " lua
 lua << EOF
