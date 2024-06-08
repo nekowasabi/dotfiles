@@ -378,6 +378,8 @@ if g:IsMacGvim() || g:IsMacNeovim() || g:IsWsl()
 	command! OpenChangelog call <SID>OpenChangelog()
 	nnoremap <silent> ,c <ESC>:OpenChangelog<CR>:set showtabline=2<CR>
 	nnoremap <silent> ,l <ESC>:OpenChangelog<CR><C-home>o<CR>i<C-r>=neosnippet#expand('cpw')<CR>
+
+	nnoremap <silent> ,L :buffer changelogmemo<CR><C-home>o<CR>a<C-r>=neosnippet#expand('cpwd')<CR>
 	nnoremap <silent> ,Cp <ESC>:OpenChangelog<CR><C-home>o<CR>i<C-r>=neosnippet#expand('cpp')<CR>
 
 	" setting reload
@@ -448,6 +450,7 @@ if g:IsWindowsGvim()
 	command! OpenTentask call <SID>OpenTentask()
 	nnoremap <silent> ,c <ESC>:OpenChangelog<CR>
 	nnoremap <silent> ,l :buffer changelogmemo<CR><C-home>o<CR>a<C-r>=neosnippet#expand('cpw')<CR>
+	nnoremap <silent> ,L :buffer changelogmemo<CR><C-home>o<CR>a<C-r>=neosnippet#expand('cpwd')<CR>
 
 	function! s:OpenTentask()
 		if expand("%") != "tenTask.txt" && bufnr('tenTask.txt') == -1
