@@ -68,14 +68,13 @@ Plug 'kana/vim-gf-user'
 Plug 'previm/previm'
 Plug 'yuki-yano/lexima-alter-command.vim'
 Plug 'tyru/current-func-info.vim'
-" Plug 'liuchengxu/vista.vim' " クラスや関数を一覧表示する。lightlineにも連携している
 Plug 'haya14busa/vim-edgemotion'
 Plug 'rickhowe/wrapwidth'
 Plug 'tyru/open-browser.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'lambdalisue/nerdfont.vim'
 Plug 'lambdalisue/fern-renderer-nerdfont.vim'
-
+Plug 'Bakudankun/BackAndForward.vim'
 " AI
 Plug 'yuki-yano/ai-review.vim'
 
