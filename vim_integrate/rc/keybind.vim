@@ -511,3 +511,11 @@ endif
 " <BS>に割り当てると、<PageUp>後にkkkとすると、コマンドが暴発する謎が発生する
 nnoremap <silent> ,a :buffer#<CR>
 nnoremap <silent> <BS> :buffer#<CR>
+inoremap <C-z> <Esc>:SwitchPreviousBuffer<CR>
+nnoremap <C-z> <Esc>:SwitchPreviousBuffer<CR>
+
+function! s:SwitchPreviousBuffer()
+  buffer#
+endfunction
+command! SwitchPreviousBuffer call <SID>SwitchPreviousBuffer()
+
