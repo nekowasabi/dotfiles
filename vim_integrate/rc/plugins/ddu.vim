@@ -511,6 +511,9 @@ if g:IsWindowsGvim() || g:IsMacGvim() || g:IsLinux() || g:IsMacNeovim()
         \ <Cmd>call ddu#start({'sources': [{'name': 'mr', 'params': {'kind': 'mrw'}}]})<CR>
   nnoremap <silent> <Leader>P
         \ <Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'CopilotChat'}}]})<CR>
+
+  vnoremap <silent> <Leader>P
+        \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'CopilotChat', 'selected': @@}}]})<CR>
   nnoremap <silent> <Leader>lw
         \ <Cmd>call ddu#start({
         \ 'input' : '[worklog]',
