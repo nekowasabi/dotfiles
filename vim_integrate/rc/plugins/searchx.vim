@@ -11,8 +11,8 @@ endif
 " searchx
 " Overwrite / and ?.
 if g:IsWsl()
-  nnoremap <silent> g? :MigemoSearchxBackrward<CR>
-  nnoremap <silent> g/ :MigemoSearchxForward<CR>
+  " nnoremap <silent> g? :MigemoSearghxBackrward<CR>
+  " nnoremap <silent> g/ :MigemoSearchxForward<CR>
   nnoremap <silent> ? <Cmd>call searchx#start({ 'dir': 0 })<CR>
   nnoremap <silent> / <Cmd>call searchx#start({ 'dir': 1 })<CR>
   nnoremap <silent> r/ :RegexSearchxForward<CR>
@@ -63,18 +63,18 @@ let g:searchx.scrolltime = 0
 
 " migmeo setting
 let g:migemo_length = 4
+let g:is_migemo = v:false
 
-" あいうえお
 " let g:is_migemo = v:false
 function! s:MigemoSearchxForward() abort
-	" let g:is_migemo = v:true
+	let g:is_migemo = v:true
   let g:searchx.convert = g:searchx.migemo
 	exe "call searchx#start({ 'dir': 1 })"
 endfunction
 command! -range MigemoSearchxForward call s:MigemoSearchxForward() 
 
 function! s:MigemoSearchxBackrward() abort
-	" let g:is_migemo = v:true
+	let g:is_migemo = v:true
   let g:searchx.convert = g:searchx.migemo
 	exe "call searchx#start({ 'dir': 1 })"
 endfunction
