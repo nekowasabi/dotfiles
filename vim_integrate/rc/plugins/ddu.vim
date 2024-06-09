@@ -129,6 +129,9 @@ call ddu#custom#patch_global(#{
     \     aider: #{
     \       defaultAction: 'add',
     \     },
+    \     prompt: #{
+    \       defaultAction: 'execute',
+    \     },
     \   }
     \ })
 
@@ -176,6 +179,9 @@ call ddu#custom#patch_global(#{
     \       matchers: ['matcher_kensaku'],
     \     },
     \     vim-bookmark: #{
+    \       matchers: ['matcher_kensaku'],
+    \     },
+    \     prompt: #{
     \       matchers: ['matcher_kensaku'],
     \     },
     \   }
@@ -495,6 +501,7 @@ call ai_review#config({ 'chat_gpt': { 'model': 'gpt-4-0125-preview' } })
 if g:IsWindowsGvim() || g:IsMacGvim() || g:IsLinux() || g:IsMacNeovim()
   nnoremap <silent> <Leader>ad
         \ <Cmd>call ddu#start({'sources': [{'name': 'aider'}]})<CR>
+
   nnoremap <silent> <CR><CR>
         \ <Cmd>call ddu#start({'sources': [{'name': 'vim-bookmark'}]})<CR>
   nnoremap <silent> <CR>
@@ -502,6 +509,8 @@ if g:IsWindowsGvim() || g:IsMacGvim() || g:IsLinux() || g:IsMacNeovim()
 
   nnoremap <silent> <Leader><Leader>
         \ <Cmd>call ddu#start({'sources': [{'name': 'mr', 'params': {'kind': 'mrw'}}]})<CR>
+  nnoremap <silent> <Leader>P
+        \ <Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'CopilotChat'}}]})<CR>
   nnoremap <silent> <Leader>lw
         \ <Cmd>call ddu#start({
         \ 'input' : '[worklog]',
