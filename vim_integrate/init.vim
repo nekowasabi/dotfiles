@@ -132,7 +132,6 @@ vim.keymap.set("v", "g<C-x>", function()
     require("dial.map").manipulate("decrement", "gvisual")
 end)
 
-
 require('Comment').setup()
 
 require("mason").setup()
@@ -143,7 +142,7 @@ require('modes').setup({
 		copy = "#f5c359",
 		delete = "#c75c6a",
 		insert = "#78ccc5",
-		visual = "#9745be",
+		visual = "#950000",
 	},
 
 	-- Set opacity for cursorline and number background
