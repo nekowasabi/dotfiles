@@ -52,7 +52,12 @@ tnoremap <Esc> <C-\><C-n>:close!<CR>
 nnoremap <silent> g<C-o> :Back<CR>
 nnoremap <silent> g<C-i> :Forward<CR>
 
-let g:prompt_toml = '/home/takets/.config/nvim/prompt.toml'
+if g:IsMacNeovim()
+  let g:prompt_toml = '/home/takets/.config/nvim/prompt.toml'
+endif
+if g:IsMacNeovimInMfs()
+  let g:prompt_toml = '/home/ttakeda/.config/nvim/prompt.toml'
+endif
 
 " -----------------------------------------------------------
 " lua
