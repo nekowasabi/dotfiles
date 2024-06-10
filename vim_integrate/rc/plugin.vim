@@ -324,6 +324,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'theHamsta/nvim-dap-virtual-text'
   Plug 'numToStr/Comment.nvim'
   Plug 'monaqa/dial.nvim'
+  Plug 'mvllow/modes.nvim'
 
   call g:SetDdu()
 
