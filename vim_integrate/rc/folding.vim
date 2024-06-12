@@ -30,6 +30,7 @@ let g:surround_{char2nr("s")} = "\r {{{1\n\n}}}1"
 
 " toggle folding
 nnoremap <silent> <D-f> za
+nnoremap <silent> zz za
 
 " カーソルがあるところ以外を折り畳む
 nnoremap <silent>z<C-f>    zMzv

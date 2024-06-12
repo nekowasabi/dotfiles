@@ -177,7 +177,7 @@ function! s:MoveChangelogItemToTop()
     execute "normal! zR"
 	let txt = MoveSectionToTop()
 	call append(2, txt)
-  call feedkeys("gg")
+  call feedkeys("ggzC")
 	" execute "normal! z0"
 endfunction
 command! -range MoveChangelogItemToTop call s:MoveChangelogItemToTop() 
