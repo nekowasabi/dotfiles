@@ -75,6 +75,8 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'lambdalisue/nerdfont.vim'
 Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 Plug 'Bakudankun/BackAndForward.vim'
+Plug 'thinca/vim-qfreplace'
+
 " AI
 Plug 'yuki-yano/ai-review.vim'
 

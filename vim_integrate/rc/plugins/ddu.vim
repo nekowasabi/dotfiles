@@ -378,7 +378,24 @@ function DduGrepConfig() abort
 				\ })
 endfunction
 
-
+nnoremap <Space>pl  :<C-u>call DduGrepLive()<CR>
+function DduGrepLive() abort
+  call ddu#start(#{
+        \   sources: [#{
+        \     name: 'rg',
+        \     options: #{
+        \       matchers: [],
+        \       volatile: v:true,
+        \     },
+        \   }],
+        \   uiParams: #{
+        \     ff: #{
+        \       ignoreEmpty: v:false,
+        \       autoResize: v:false,
+        \     }
+        \   },
+        \ })
+endfunction
 
 " vim-lsp
 if g:IsWindowsGvim()
@@ -615,7 +632,7 @@ function! s:ddu_filter_my_settings() abort
   nnoremap <buffer><silent> <Space>
    \ <Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>
   nnoremap <buffer><silent> i
-   \ <Cmd>call ddu#ui#do_action('openFilterWindow')<CR>
+        \ <Cmd>call ddu#ui#do_action('quickfix')<CR>
   nnoremap <buffer><silent> q
    \ <Cmd>call ddu#ui#do_action('quit')<CR>
 endfunction

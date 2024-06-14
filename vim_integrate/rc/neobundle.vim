@@ -103,12 +103,12 @@ NeoBundle 'Shougo/vimproc.vim', {
 " NeoBundle 'tpope/vim-fugitive'
 " NeoBundle 'itchyny/calendar.vim'
 " " NeoBundle 'Shougo/neopairs.vim'
-" NeoBundle 'shawncplus/phpcomplete.vim'
+" NeoBundle 'shawncplus/aaacomplete.vim'
 " NeoBundle 'gcmt/wildfire.vim'
 " NeoBundle 'sorah/unite-ghq'
 " NeoBundle "vim-scripts/taglist.vim"
 " NeoBundle "junegunn/vim-easy-align"
-" NeoBundle "StanAngeloff/php.vim"
+" NeoBundle "StanAngeloff/aaa.vim"
 " " Macのみブラウザをリロード
 " NeoBundle 'tell-k/vim-browsereload-mac'
 " NeoBundle 'malithsen/trello-vim'
