@@ -21,7 +21,7 @@ local super_vim_keys_map = {
   ['.'] = utf8.char(0xAD),
   c = utf8.char(0xAE),
   d = utf8.char(0xAF),
-  a = utf8.char(0xBA),
+  a = utf8.char(0xB0),
 }
 
 local function bind_super_key_to_vim(key)

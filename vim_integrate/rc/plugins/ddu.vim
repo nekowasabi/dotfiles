@@ -527,7 +527,7 @@ if g:IsWindowsGvim() || g:IsMacGvim() || g:IsLinux() || g:IsMacNeovim()
         \ <Cmd>call ddu#start({'sources': [{'name': 'vim-bookmark'}]})<CR>
   nnoremap <silent> <M-b>
         \ <Cmd>call ddu#start({'sources': [{'name': 'vim-bookmark'}]})<CR>
-  nnoremap <silent> <C-b>
+  nnoremap <silent> <D-b>
         \ <Cmd>call ddu#start({'sources': [{'name': 'vim-bookmark'}]})<CR>
 
   nnoremap <silent> <CR>
@@ -535,16 +535,21 @@ if g:IsWindowsGvim() || g:IsMacGvim() || g:IsLinux() || g:IsMacNeovim()
 
   nnoremap <silent> <Leader><Leader>
         \ <Cmd>call ddu#start({'sources': [{'name': 'mr', 'params': {'kind': 'mrw'}}]})<CR>
+
   nnoremap <silent> <Leader>P
+        \ <Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'CopilotChat'}}]})<CR>
+  nnoremap <silent> <M-c>c
+        \ <Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'CopilotChat'}}]})<CR>
+  nnoremap <silent> <D-c>c
         \ <Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'CopilotChat'}}]})<CR>
 
   vnoremap <silent> <Leader>P
         \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'CopilotChat', 'selected': @@}}]})<CR>
-  nnoremap <silent> <Leader>lw
-        \ <Cmd>call ddu#start({
-        \ 'input' : '[worklog]',
-        \ 'sources': [{'name': 'line'}]
-        \ })<CR>
+  vnoremap <silent> <M-c>c
+        \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'CopilotChat', 'selected': @@}}]})<CR>
+  vnoremap <silent> <D-c>c
+        \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'CopilotChat', 'selected': @@}}]})<CR>
+
   nnoremap <silent> <Leader>ll
         \ <Cmd>call ddu#start({'sources': [{'name': 'line', 'params': {'matchers': 'matcher_matchfuzzy'}}]})<CR>
   nnoremap <silent> <Leader>F

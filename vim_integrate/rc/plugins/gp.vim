@@ -63,6 +63,8 @@ command! -range=% GpRewriteTidyToMarkdown call GpRewriteTidyToMarkdown()
 
 " チャット画面呼び出し
 nnoremap <silent> ,, :GpChatNew vsplit<CR>
+nnoremap <silent> <M-g> :GpChatNew vsplit<CR>
+nnoremap <silent> <D-g> :GpChatNew vsplit<CR>
 vmap <silent> <CR><CR> :GpChatNew vsplit<CR>
 vnoremap <silent> ,, :GpChatPaste vsplit<CR>
 vnoremap <silent> <leader>gr :GpRewrite 

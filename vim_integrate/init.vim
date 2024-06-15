@@ -58,10 +58,14 @@ nnoremap <silent> g<C-i> :Forward<CR>
 if g:IsWsl()
   let g:prompt_toml = '/home/takets/.config/nvim/prompt.toml'
 endif
+if g:IsMacNeovimInWezterm()
+  let g:prompt_toml = '/Users/takets/.config/nvim/prompt.toml'
+endif
 if g:IsMacNeovimInMfs()
   let g:prompt_toml = '/Users/ttakeda/.config/nvim/prompt.toml'
 endif
 
+nnoremap <silent> <M-v> :normal! vip<CR>
 
 let &grepprg='rg --vimgrep'
 
