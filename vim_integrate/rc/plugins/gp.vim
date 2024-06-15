@@ -33,24 +33,18 @@ EOF
 " 選択範囲のテキストをechoするコマンド
 function! GpRewriteTidyToMarkdown()
 	let prompt =<< trim END
-	Your task is to take the text provided and rewrite it into a clear, grammatically correct version while preserving the original meaning as closely as possible. Correct any spelling mistakes, punctuation errors, verb tense issues, word choice problems, and other grammatical mistakes.
+- 英語の記事は日本語に翻訳する
+- 誤字脱字を修正する
+- 要約はmarkdown形式とする
+- 最初の項目に、タイトルは以下のフォーマットとする
+  - `* {{記事のタイトル}}:`
+    - ``で強調されたテンプレートのフォーマットに従う
+- 次の項目に、## Raw input という項目だけを追加し、入力されたテキストをそのままコピーしてください
+- 次の項目に、## Structure（構造） という項目を追加し、人間が書き込むスペースのため、空欄にしてください
+- 次の項目に、## Process（再現性）という項目を追加し、人間が書き込むスペースのため、空欄にしてください
+- 次の項目に、## summary（内容を2～3行で要約する） という項目を追加し、人間が書き込むスペースのため、空欄にしてください
+- キャッチフレーズまで作成したら、処理を終了してください。
 
-	Output should only include the rewritten text, without any quotes or commentary or preamble from you. :
-	Reformat the following sentences. Structure it so that notes can be taken effectively. Ensure that key points, ideas, and action items are clearly highlighted. Check for correct grammar and punctuation. Do not change the tone. Use as much of the original text as possible.
-
-	Must!! Do not remove raw voice input!!!!
-	Must!! Do not remove raw voice input!!!!
-	Must!! Do not remove raw voice input!!!!
-	Must!! Do not remove raw voice input!!!!
-	Must!! Do not remove raw voice input!!!!
-
-	````
-	## 変換前のテキスト
-	`ここに変換前のテキストを一切変更することなく表示する`
-
-	## Text after reformatting
-	`ここに整理されたテキストをmarkdownで構造的に整理して出力する`
-	```
 	END
 
     " 選択範囲のテキストを出力
