@@ -27,9 +27,10 @@ vnoremap <silent>K 5gk
 vmap <silent>K 5gk
 vnoremap <silent>L 10l
 
-inoremap <C-f> ／
-inoremap <C-x><C-x> ？／
-inoremap <C-b> →
+inoremap <M-f> ／
+inoremap <M-x><M-x> ？／
+inoremap <M-b> →
+inoremap <D-b> →
 
 xnoremap a" 2i"
 xnoremap a' 2i'

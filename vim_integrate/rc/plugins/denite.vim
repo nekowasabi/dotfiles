@@ -22,9 +22,9 @@ function! Denite_project_grep_all(options)
 endfunction
 
 " customize ignore globs
-call denite#custom#source('grep', 'matchers', ['matcher_fuzzy','matcher_ignore_globs'])
+" call denite#custom#source('grep', 'matchers', ['matcher_fuzzy','matcher_ignore_globs'])
 
-call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
+" call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
 			\ [
 			\ '.*.min.js',
 			\ '.*.json',

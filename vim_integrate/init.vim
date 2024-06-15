@@ -62,6 +62,9 @@ if g:IsMacNeovimInMfs()
   let g:prompt_toml = '/Users/ttakeda/.config/nvim/prompt.toml'
 endif
 
+
+let &grepprg='rg --vimgrep'
+
 " -----------------------------------------------------------
 " lua
 lua << EOF

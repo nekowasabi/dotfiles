@@ -67,6 +67,10 @@ copilot_chat.setup({
     Commit = {
       prompt = 'Write commit message for the change with commitizen convention. Make sure the title has maximum 50 characters and message is wrapped at 72 characters. Wrap the whole message in code block with language gitcommit. And copilot system message text by Japanese.',
     },
+    Review = {
+      prompt = 'Review the selected code. And copilot system message text by Japanese.',
+    },
+
     CommitStaged = {
       prompt = 'Write commit message for the change with commitizen convention. Make sure the title has maximum 50 characters and message is wrapped at 72 characters. Wrap the whole message in code block with language gitcommit. And copilot system message text by Japanese.',
       selection = function(source)
@@ -80,6 +84,8 @@ copilot_chat.setup({
   event = "VeryLazy",
 })
 
+
+
 EOF
 
 " CopilotChat
@@ -88,6 +94,10 @@ vnoremap <CR>cr :CopilotChatReview
 vnoremap <CR>cd :CopilotChat
 vnoremap <CR>ce :CopilotChatExplain
 vnoremap <CR>cc :CopilotChat 
+vnoremap <M-c> :CopilotChat 
+vnoremap <D-c> :CopilotChat 
 vnoremap <CR>cf :CopilotChatFix 
 vnoremap <CR>co :CopilotChatOptimize 
 nnoremap <CR>cc :CopilotChat<CR>
+nnoremap <silent> <M-c> :CopilotChat<CR>
+nnoremap <silent> <D-c> :CopilotChat<CR>

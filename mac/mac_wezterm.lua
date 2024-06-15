@@ -15,11 +15,13 @@ end
 
 --- cmd+keys that we want to send to neovim.
 local super_vim_keys_map = {
-	s = utf8.char(0xAA),
-	x = utf8.char(0xAB),
-	b = utf8.char(0xAC),
-	['.'] = utf8.char(0xAD),
-	o = utf8.char(0xAF),
+  s = utf8.char(0xAA),
+  x = utf8.char(0xAB),
+  b = utf8.char(0xAC),
+  ['.'] = utf8.char(0xAD),
+  c = utf8.char(0xAE),
+  d = utf8.char(0xAF),
+  a = utf8.char(0xBA),
 }
 
 local function bind_super_key_to_vim(key)

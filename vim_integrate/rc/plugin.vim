@@ -55,10 +55,6 @@ Plug 'cocopon/inspecthi.vim' " colorscheme inspector
 Plug 'itchyny/vim-gitbranch' " lightlineにブランチ名を表示
 Plug 'deton/jasegment.vim'
 Plug 'lambdalisue/glyph-palette.vim'
-Plug 'lambdalisue/fern.vim'
-Plug 'LumaKernel/fern-mapping-reload-all.vim'
-Plug 'lambdalisue/fern-git-status.vim'
-Plug 'yuki-yano/fern-preview.vim'
 Plug 'airblade/vim-rooter'
 Plug 'haya14busa/vim-asterisk'
 Plug 'mattn/webapi-vim'
@@ -73,9 +69,15 @@ Plug 'rickhowe/wrapwidth'
 Plug 'tyru/open-browser.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'lambdalisue/nerdfont.vim'
-Plug 'lambdalisue/fern-renderer-nerdfont.vim'
 Plug 'Bakudankun/BackAndForward.vim'
 Plug 'thinca/vim-qfreplace'
+
+" Plug 'lambdalisue/fern.vim'
+" Plug 'LumaKernel/fern-mapping-reload-all.vim'
+" Plug 'lambdalisue/fern-git-status.vim'
+" Plug 'yuki-yano/fern-preview.vim'
+" Plug 'lambdalisue/fern-renderer-nerdfont.vim'
+
 
 " AI
 Plug 'yuki-yano/ai-review.vim'
@@ -566,7 +568,7 @@ execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-sandwich.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lexima.vim'
 " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gina.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gin.vim'
-execute 'source '.g:GetVimConfigRootPath().'rc/plugins/BackAndForward.vim'
+" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/BackAndForward.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/easymotion.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/edgemotion.vim'
 " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/twihi.vim'
@@ -587,7 +589,6 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-bookmark.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/devicons.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-dadbod.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fern.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/denops-gh.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-vue.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gitsign.vim'
@@ -595,10 +596,8 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddu.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lightline.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ale.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vista.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesitter.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
-  "execute 'source '.g:GetVimConfigRootPath().'rc/plugins/caw.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lsp-lines.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gp.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot-chat.vim'
@@ -643,6 +642,10 @@ if g:IsMacNeovim() || g:IsWsl()
   endif
 
 	execute 'source '.g:GetVimConfigRootPath().'rc/plugins/completion-keybind.vim'
+
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vista.vim'
+  "execute 'source '.g:GetVimConfigRootPath().'rc/plugins/caw.vim'
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fern.vim'
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-print-debug.vim'
 endif
 " }}}1

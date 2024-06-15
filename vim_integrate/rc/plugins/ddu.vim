@@ -518,9 +518,18 @@ call ai_review#config({ 'chat_gpt': { 'model': 'gpt-4-0125-preview' } })
 if g:IsWindowsGvim() || g:IsMacGvim() || g:IsLinux() || g:IsMacNeovim()
   nnoremap <silent> <Leader>ad
         \ <Cmd>call ddu#start({'sources': [{'name': 'aider'}]})<CR>
+  nnoremap <silent> <M-a>
+        \ <Cmd>call ddu#start({'sources': [{'name': 'aider'}]})<CR>
+  nnoremap <silent> <D-a>
+        \ <Cmd>call ddu#start({'sources': [{'name': 'aider'}]})<CR>
 
   nnoremap <silent> <CR><CR>
         \ <Cmd>call ddu#start({'sources': [{'name': 'vim-bookmark'}]})<CR>
+  nnoremap <silent> <M-b>
+        \ <Cmd>call ddu#start({'sources': [{'name': 'vim-bookmark'}]})<CR>
+  nnoremap <silent> <C-b>
+        \ <Cmd>call ddu#start({'sources': [{'name': 'vim-bookmark'}]})<CR>
+
   nnoremap <silent> <CR>
         \ <Cmd>call ddu#start({'sources': [{'name': 'rule_switch'}]})<CR>
 
@@ -585,7 +594,6 @@ function! s:ddu_uu_my_settings() abort
         \ <Cmd>call ddu#ui#do_action('cursorNext')<CR>
   cnoremap <C-k>
         \ <Cmd>call ddu#ui#do_action('cursorPrevious')<CR>
-
   nnoremap <buffer><silent> o
         \ <Cmd>call ddu#ui#do_action('itemAction', {'params': {'command': 'split'}})<CR>
   nnoremap <buffer><silent> v
@@ -594,18 +602,24 @@ function! s:ddu_uu_my_settings() abort
         \ <Cmd>call ddu#ui#do_action('kensaku')<CR>
   nnoremap <buffer><silent> A
         \ <Cmd>call ddu#ui#do_action('chooseAction')<CR>
+  nnoremap <buffer> *
+        \ <Cmd>call ddu#ui#do_action('toggleAllItems')<CR>
   nnoremap <buffer><silent> s
         \ <Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>
   nnoremap <buffer><silent> i
         \ <Cmd>call ddu#ui#do_action('openFilterWindow')<CR>
   nnoremap <buffer><silent> c
         \ <Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>
+  nnoremap <buffer> r
+        \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'quickfix' })<CR>
   nnoremap <buffer><silent> p
         \ <Cmd>call ddu#ui#do_action('preview')<CR>
   nnoremap <buffer><silent> e
         \ <Cmd>call ddu#ui#do_action('expandItem', {'mode': 'toggle'})<CR>
   nnoremap <buffer><silent> q
         \ <Cmd>call ddu#ui#do_action('quit')<CR>
+  nnoremap <buffer> gr
+        \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'grep' })<CR>
 endfunction
 
 autocmd FileType ddu-ff-filter call s:ddu_filter_my_settings()
