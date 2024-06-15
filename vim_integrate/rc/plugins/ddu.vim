@@ -536,26 +536,17 @@ if g:IsWindowsGvim() || g:IsMacGvim() || g:IsLinux() || g:IsMacNeovim()
   nnoremap <silent> <Leader><Leader>
         \ <Cmd>call ddu#start({'sources': [{'name': 'mr', 'params': {'kind': 'mrw'}}]})<CR>
 
-  nnoremap <silent> <Leader>P
-        \ <Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'CopilotChat'}}]})<CR>
-  nnoremap <silent> <M-c>c
-        \ <Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'CopilotChat'}}]})<CR>
-  nnoremap <silent> <D-c>c
-        \ <Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'CopilotChat'}}]})<CR>
-
-  vnoremap <silent> <Leader>P
-        \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'CopilotChat', 'selected': @@}}]})<CR>
   vnoremap <silent> <M-c>c
         \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'CopilotChat', 'selected': @@}}]})<CR>
   vnoremap <silent> <D-c>c
         \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'CopilotChat', 'selected': @@}}]})<CR>
-  vnoremap <silent> <M-c>g
+  vnoremap <silent> <M-g>g
         \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'GpAppend', 'selected': @@}}]})<CR>
-  vnoremap <silent> <D-c>g
+  vnoremap <silent> <D-g>g
         \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'GpAppend', 'selected': @@}}]})<CR>
-  vnoremap <silent> <M-c>G
+  vnoremap <silent> <M-g>G
         \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'GpRewrite', 'selected': @@}}]})<CR>
-  vnoremap <silent> <D-c>G
+  vnoremap <silent> <D-g>G
         \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'GpRewrite', 'selected': @@}}]})<CR>
 
   nnoremap <silent> <Leader>ll
