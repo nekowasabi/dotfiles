@@ -65,7 +65,8 @@ if g:IsMacNeovimInMfs()
   let g:prompt_toml = '/Users/ttakeda/.config/nvim/prompt.toml'
 endif
 
-nnoremap <silent> <M-v> :normal! vip<CR>
+nnoremap <silent> <M-p> :normal! vip<CR>
+nnoremap <silent> <D-p> :normal! vip<CR>
 
 let &grepprg='rg --vimgrep'
 

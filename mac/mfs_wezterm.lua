@@ -54,6 +54,8 @@ return {
   default_cwd = "/Users/ttakeda",
   font = wezterm.font("RuikaMono07 Nerd Font", { weight = 7, stretch="Normal", style = 'Normal',  italic = false }),
   font_size = 22,
+  enable_csi_u_key_encoding = false,
+  enable_kitty_keyboard = true,
   color_schemes = {
     -- Override the builtin Gruvbox Light scheme with our modification.
     ["Solarized Dark - Patched"] = solarized,
@@ -71,7 +73,14 @@ return {
 	disable_default_key_bindings = true,
   window_decorations = 'RESIZE',
   keys = {
-    { key = 'v', mods = 'CMD',  action=wezterm.action{PasteFrom="Clipboard"}},
+    { key = 'v', mods = 'CMD', action=wezterm.action{PasteFrom="Clipboard"}},
     bind_super_key_to_vim('s'),
   },
 }
+
+
+-- --- in your wezterm keys config, use it like:
+-- keys = {
+--    bind_super_key_to_vim('s'),
+--   --- others....
+-- }
