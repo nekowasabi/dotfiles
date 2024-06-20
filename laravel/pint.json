@@ -23,6 +23,7 @@
                 "throws"
             ]
         },
+        "no_unused_imports": false,
         "phpdoc_separation": false,
         "phpdoc_trim": false,
         "phpdoc_no_package": false,
