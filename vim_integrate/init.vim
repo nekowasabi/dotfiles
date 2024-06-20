@@ -45,7 +45,7 @@ set t_8b=^[[48;2;%lu;%lu;%lum
 
 " }}}1
 
-let g:denops#debug = 1
+let g:denops#debug = 0
 if g:IsWsl()
   let g:denops_server_addr = '127.0.0.1:32123'
 endif
