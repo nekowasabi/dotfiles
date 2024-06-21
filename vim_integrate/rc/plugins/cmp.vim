@@ -1,6 +1,7 @@
-autocmd FileType vim,php,typescript lua require('cmp').setup.buffer {
+autocmd FileType sql,vim,php,typescript lua require('cmp').setup.buffer {
 \   enabled = false
 \ }
+
 
 lua << EOF
 local cmp = require'cmp'
