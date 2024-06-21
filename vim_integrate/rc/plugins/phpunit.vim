@@ -43,7 +43,8 @@ function! s:PHPUnitCurrentFile()
   if l:filename =~ ".*Test\.php"
     if g:IsMacNeovimInMfs()
 			cd $BACKEND_LARAVEL_MAC_DIR
-      execute "!docker exec -i invase-backend-app ./vendor/bin/phpunit --testdox --color " .l:filepath
+      execute "!./mac test --testdox --color " .l:filepath
+      " execute "!docker exec -i invase-backend-app ./vendor/bin/phpunit --testdox --color " .l:filepath
     endif
     return
   endif
