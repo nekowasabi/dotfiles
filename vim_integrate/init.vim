@@ -47,7 +47,7 @@ set t_8b=^[[48;2;%lu;%lu;%lum
 
 let g:denops#debug = 0
 if g:IsWsl()
-  let g:denops_server_addr = '127.0.0.1:32123'
+  " let g:denops_server_addr = '127.0.0.1:32123'
 endif
 
 tnoremap <Esc> <C-\><C-n>:close!<CR>
