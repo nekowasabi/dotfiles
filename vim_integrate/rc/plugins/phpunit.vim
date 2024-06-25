@@ -7,7 +7,7 @@ function! s:PHPUnitCurrentMethod()
   if l:filename =~ ".*Test\.php"
     if g:IsMacNeovimInMfs()
 			cd $BACKEND_LARAVEL_MAC_DIR
-      execute "!./mac paratest --testdox --color --filter ".cfi#format("%s", ""). " ".l:filepath
+      execute "!./mac paratest --testdox --filter ".cfi#format("%s", ""). " ".l:filepath
       " execute "!docker exec -i invase-backend-app ./vendor/bin/phpunit --testdox --color --filter ".cfi#format("%s", ""). " ".l:filepath
     endif
     return
@@ -26,7 +26,7 @@ function! s:PHPUnitCurrentMethodWithInitialize()
   if l:filename =~ ".*Test\.php"
     if g:IsMacNeovimInMfs()
 			cd $BACKEND_LARAVEL_MAC_DIR
-      execute "!./mac test --testdox --color --filter ".cfi#format("%s", ""). " ".l:filepath
+      execute "!./mac test --testdox --filter ".cfi#format("%s", ""). " ".l:filepath
     endif
     return
   endif
