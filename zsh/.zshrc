@@ -1,0 +1,224 @@
+if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} The clone has failed.%f%b"
+fi
+
+
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+source $HOME/.local/share/zinit/zinit.git/zinit.zsh
+
+# setting path {{{1
+export PATH=/usr/local/bin:/bin:/usr/bin:$GOROOT/bin:$GOPATH/bin:$DENO_INSTALL/bin:/opt/homebrew/bin:$HOME/.nodenv/bin:/opt/homebrew/opt/php@8.1/bin:/opt/homebrew/opt/php@8.1/sbin:~/.deno/bin/:/opt/homebrew/Cellar/python@3.11/3.11.6_1/libexec/bin:$PATH
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+export EDITOR=nvim
+export GOROOT=/usr/local/opt/go/libexec
+export GOPATH=$HOME/go
+export PYENV_ROOT=$HOME/.pyenv
+export NVIM_NODE_LOG_FILE='/Users/ttakeda/nvim_node_log.log' 
+export NVIM_NODE_LOG_LEVEL=info
+export FZF_PREVIEW_DEBUG=1
+export DENOPS_TEST_VIM=/usr/local/bin/vim
+export DENOPS_PATH=/Users/ttakeda/.vim/plugged/denops.vim
+export DENOPS_TEST_NVIM=/usr/local/bin/nvim
+export DENO_INSTALL="/Users/ttakeda/.deno"
+export MOCWORD_DATA='/Users/ttakeda/.config/mocword/mocword.sqlite'
+export ZENO_HOME='/Users/ttakeda/.config/zeno'
+export RIPGREP_CONFIG_PATH='/Users/ttakeda/.ripgreprc'
+# }}}1
+
+# standard settings {{{1
+stty stop undef
+
+# 色を使用
+autoload -Uz colors
+
+# 補完
+autoload -Uz compinit
+compinit
+
+# emacsキーバインド
+bindkey -e
+
+# 他のターミナルとヒストリーを共有
+setopt share_history
+
+# ヒストリーに重複を表示しない
+setopt histignorealldups
+
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+
+# cdコマンドを省略して、ディレクトリ名のみの入力で移動
+setopt auto_cd
+
+# 補完候補が複数ある時に、一覧表示
+setopt auto_list
+
+# auto_list の補完候補一覧で、ls -F のようにファイルの種別をマーク表示
+setopt list_types
+
+# コマンドが入力されるとすぐに追加
+setopt inc_append_history
+
+# 自動でpushdを実行
+setopt auto_pushd
+
+# pushdから重複を削除
+setopt pushd_ignore_dups
+
+# コマンドミスを修正
+setopt correct
+
+#プロンプトの自動リロード
+autoload -U promptinit
+promptinit
+
+# Googleライクにサジェスト #
+setopt correct
+SPROMPT="( ´・ω・) ＜ もしかして: %{$fg[red]%}%r%{${reset_color}%}？ [(y)es,(n)o,(a)bort,(e)dit]-> "
+
+# 補完後、メニュー選択モードになり左右キーで移動が出来る
+zstyle ':completion:*:default' menu select=2
+
+# 補完で大文字にもマッチ
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+alias ls="ls -GF"
+alias gls="gls --color"
+alias ctags="`brew --prefix`/bin/ctags"
+alias date="gdate"
+
+zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
+# zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z} r:|[-_.]=**'
+
+
+fpath=(/usr/local/share/zsh-completions ${fpath})
+# }}}1
+
+# alias {{{1
+function wezterm_neovim() {
+  /usr/local/bin/nvim $1 ~/wezterm
+}
+alias n='wezterm_neovim'
+
+function wezterm_neovim_mfs() {
+ /opt/homebrew/bin/nvim  $1 ~/mfs
+}
+alias m='wezterm_neovim_mfs'
+
+alias ll='eza --long --header --git  --sort=type --classify --git'
+alias la='eza --long --header --git --grid --classify --sort=type --git'
+# alias python='/opt/homebrew/bin/python3'
+# alias python3='/opt/homebrew/bin/python3'
+# alias pip3='/opt/homebrew/bin//pip3'
+# alias pip='/opt/homebrew/bin/pip'
+# alias phpctags='/usr/local/bin/phpctags'
+alias ...='cd ../../'
+alias ....='cd ../../../'
+alias emacs='TERM=screen.putty-256color /usr/bin/emacs'
+alias v='/opt/homebrew/bin/nvim'
+alias deno='~/.deno/bin/deno'
+# }}}0
+
+zinit light zdharma-continuum/fast-syntax-highlighting
+# zinit wait lucid atload"zicompinit; zicdreplay" blockf for zsh-users/zsh-completions
+# zinit light zsh-users/zsh-autosuggestions
+
+zinit ice pick"async.zsh" src"pure.zsh"
+zinit light sindresorhus/pure
+
+zinit ice from"gh-r" as"program"
+zinit load junegunn/fzf-bin
+
+zinit ice lucid depth"1" blockf
+zinit light yuki-yano/zeno.zsh
+
+# Experimental: Use UNIX Domain Socket
+# export ZENO_ENABLE_SOCK=1
+
+export ZENO_GIT_CAT="bat --color=always"
+export ZENO_GIT_TREE="eza --tree"
+
+if [[ -n $ZENO_LOADED ]]; then
+  snippet_and_completion() {
+    zeno-auto-snippet
+    zeno-completion
+  }
+  zle -N snippet_and_completion
+  bindkey '^x^x' snippet_and_completion
+
+  bindkey '^u'  zeno-auto-snippet
+  bindkey '^o' zeno-auto-snippet-and-accept-line
+  bindkey '^i' zeno-completion
+  bindkey '^x^s' zeno-insert-snippet
+  export ZENO_COMPLETION_FALLBACK=expand-or-complete
+fi
+
+export FZF_DEFAULT_COMMAND'=rg --files --hidden --follow --glob "!.git/*"'
+export FZF_DEFAULT_OPTS='--height 80% --reverse'
+
+# 移動したディレクトリ検索(Ctrl+Z)
+zle -N fzf-z-search
+bindkey '^Z' fzf-z-search
+
+function chpwd() {
+  powered_cd_add_log
+}
+
+function powered_cd_add_log() {
+  local i=0
+  cat ~/.powered_cd.log | while read line; do
+    (( i++ ))
+    if [ $i = 99 ]; then
+      sed -i -e "99,99d" ~/.powered_cd.log
+    elif [ "$line" = "$PWD" ]; then
+      sed -i -e "${i},${i}d" ~/.powered_cd.log
+    fi
+  done
+  echo "$PWD" >> ~/.powered_cd.log
+}
+
+function powered_cd_2() {
+  if [ $# = 0 ]; then
+    cd $(tail -r ~/.powered_cd.log | fzf)
+  else
+    echo "powered_cd_2: This command does not accept any arguments."
+  fi
+}
+
+_powered_cd() {
+  _files -/
+}
+
+compdef _powered_cd powered_cd
+
+[ -e ~/.powered_cd.log ] || touch ~/.powered_cd.log
+
+# run powered_cd with shortcut ^t
+function run_powered_cd_2() {
+  echo "run powered_cd_2";
+  clear
+  powered_cd_2;
+  zle reset-prompt;
+  zle redisplay
+}
+zle -N run_powered_cd_2
+bindkey '^z' run_powered_cd_2
+
+function select-history() {
+  BUFFER=$(history -n -r 1 | fzf --no-sort +m --query "$LBUFFER" --prompt="History > ")
+  CURSOR=$#BUFFER
+}
+zle -N select-history
+bindkey '^r' select-history
+

@@ -1,0 +1,999 @@
+{
+  "title": "default setting",
+  "rule_list": false,
+  "make_extra_description": true,
+  "rules": [
+    {
+      "description": "グローバル設定",
+      "manipulators": [
+        {
+          "type": "basic",
+          "conditions": [],
+          "from": {
+            "key_code": "m",
+            "modifiers": {
+              "mandatory": [
+                "control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "return_or_enter",
+              "modifiers": "command"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "conditions": [],
+          "from": {
+            "key_code": "right_command"
+          },
+          "to": [
+            {
+              "key_code": "right_command"
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "delete_or_backspace"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "conditions": [],
+          "from": {
+            "key_code": "left_option"
+          },
+          "to": [
+            {
+              "key_code": "left_option"
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "return_or_enter",
+              "modifiers": "option"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "conditions": [],
+          "from": {
+            "key_code": "japanese_kana"
+          },
+          "to": [
+            {
+              "key_code": "left_control"
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "return_or_enter"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "en"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "slash",
+            "modifiers": {
+              "mandatory": [
+                "command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "spacebar"
+            },
+            {
+              "key_code": "slash"
+            },
+            {
+              "key_code": "spacebar"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "ja"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "slash",
+            "modifiers": {
+              "mandatory": [
+                "command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "japanese_eisuu"
+            },
+            {
+              "key_code": "spacebar"
+            },
+            {
+              "key_code": "slash"
+            },
+            {
+              "key_code": "spacebar"
+            },
+            {
+              "key_code": "japanese_kana"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "en"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "spacebar"
+          },
+          "to": [
+            {
+              "key_code": "left_shift"
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "spacebar"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "en"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "left_command"
+          },
+          "to": [
+            {
+              "key_code": "left_command"
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "japanese_kana"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "conditions": [
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "ja"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "left_command"
+          },
+          "to": [
+            {
+              "key_code": "left_command"
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "japanese_eisuu"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "description": "音声入力",
+          "conditions": [],
+          "from": {
+            "key_code": "j",
+            "modifiers": {
+              "mandatory": [
+                "command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "j",
+              "modifiers": [
+                "shift",
+                "option"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "description": "音声入力モードトグル",
+          "conditions": [],
+          "from": {
+            "key_code": "l",
+            "modifiers": {
+              "mandatory": [
+                "option"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "l",
+              "modifiers": [
+                "shift",
+                "option"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "conditions": [],
+          "from": {
+            "key_code": "comma",
+            "modifiers": {
+              "mandatory": [
+                "shift",
+                "command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "page_down"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "conditions": [],
+          "from": {
+            "key_code": "i",
+            "modifiers": {
+              "mandatory": [
+                "shift",
+                "command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "page_up"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "conditions": [],
+          "from": {
+            "key_code": "g",
+            "modifiers": {
+              "mandatory": [
+                "control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "escape"
+            },
+            {
+              "set_variable": {
+                "name": "is_japanese_kana_underscore",
+                "value": 0
+              }
+            },
+            {
+              "set_variable": {
+                "name": "is_japanese_kana_z",
+                "value": 0
+              }
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "conditions": [],
+          "from": {
+            "key_code": "h",
+            "modifiers": {
+              "mandatory": [
+                "shift",
+                "command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_arrow"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "conditions": [],
+          "from": {
+            "key_code": "j",
+            "modifiers": {
+              "mandatory": [
+                "shift",
+                "command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "down_arrow"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "conditions": [],
+          "from": {
+            "key_code": "k",
+            "modifiers": {
+              "mandatory": [
+                "shift",
+                "command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "up_arrow"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "conditions": [],
+          "from": {
+            "key_code": "l",
+            "modifiers": {
+              "mandatory": [
+                "shift",
+                "command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_arrow"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "conditions": [],
+          "from": {
+            "key_code": "u",
+            "modifiers": {
+              "mandatory": [
+                "shift",
+                "command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "home"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "conditions": [],
+          "from": {
+            "key_code": "m",
+            "modifiers": {
+              "mandatory": [
+                "shift",
+                "command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "end"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "conditions": [],
+          "from": {
+            "key_code": "e",
+            "modifiers": {
+              "mandatory": [
+                "command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "lang2"
+            },
+            {
+              "key_code": "return_or_enter"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "conditions": [],
+          "from": {
+            "key_code": "m",
+            "modifiers": {
+              "mandatory": [
+                "command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "delete_or_backspace"
+            },
+            {
+              "key_code": "delete_or_backspace"
+            },
+            {
+              "key_code": "delete_or_backspace"
+            },
+            {
+              "key_code": "delete_or_backspace"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "conditions": [],
+          "from": {
+            "key_code": "h",
+            "modifiers": {
+              "mandatory": [
+                "command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "delete_forward"
+            },
+            {
+              "key_code": "delete_forward"
+            },
+            {
+              "key_code": "delete_forward"
+            },
+            {
+              "key_code": "delete_forward"
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "z",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "1",
+              "repeat": false
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "eisuu",
+              "value": 1
+            },
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "en"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "x",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "2",
+              "repeat": false
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "eisuu",
+              "value": 1
+            },
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "en"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "c",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "3",
+              "repeat": false
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "eisuu",
+              "value": 1
+            },
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "en"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "v",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "4",
+              "repeat": false
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "eisuu",
+              "value": 1
+            },
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "en"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "b",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "5",
+              "repeat": false
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "eisuu",
+              "value": 1
+            },
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "en"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "n",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "6",
+              "repeat": false
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "eisuu",
+              "value": 1
+            },
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "en"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "m",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "7",
+              "repeat": false
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "eisuu",
+              "value": 1
+            },
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "en"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "comma",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "8",
+              "repeat": false
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "eisuu",
+              "value": 1
+            },
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "en"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "period",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "9",
+              "repeat": false
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "eisuu",
+              "value": 1
+            },
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "en"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "slash",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "0",
+              "repeat": false
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "eisuu",
+              "value": 1
+            },
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "en"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "q",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "hyphen",
+              "repeat": false
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "eisuu",
+              "value": 1
+            },
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "en"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "w",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "international3",
+              "repeat": false
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "eisuu",
+              "value": 1
+            },
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "en"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "e",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "international1",
+              "repeat": false
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "eisuu",
+              "value": 1
+            },
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "en"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "r",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "4",
+              "modifiers": {
+                "mandatory": [
+                  "shift"
+                ]
+              },
+              "repeat": false
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "eisuu",
+              "value": 1
+            },
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "en"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "japanese_eisuu"
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "eisuu",
+                "value": 1
+              }
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "delete_or_backspace"
+            }
+          ],
+          "to_after_key_up": [
+            {
+              "set_variable": {
+                "name": "eisuu",
+                "value": 0
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

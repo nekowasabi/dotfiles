@@ -1,0 +1,934 @@
+{
+  "title": "アプリケーションごとの設定",
+  "rule_list": false,
+  "make_extra_description": true,
+  "rules": [
+    {
+      "description": "Macvim設定",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "left_control"
+          },
+          "to": [
+            {
+              "key_code": "japanese_eisuu"
+            },
+            {
+              "shell_command": "/usr/local/bin/swim use com.justsystems.inputmethod.atok32.Roman"
+            },
+            {
+              "key_code": "escape"
+            },
+            {
+              "key_code": "japanese_eisuu"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^org\\.gnu\\.Emacs$",
+                "^com\\.googlecode\\.iterm2$",
+                "^org\\.vim\\.",
+                "^com\\.electron\\.taskchute-cloud",
+                "com\\.rememberthemilk\\.Deskmilk",
+                "^com\\.github\\.wez\\.wezterm$"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "g",
+            "modifiers": {
+              "mandatory": [
+                "control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "japanese_eisuu"
+            },
+            {
+              "shell_command": "/usr/local/bin/swim use com.justsystems.inputmethod.atok32.Roman"
+            },
+            {
+              "key_code": "escape"
+            },
+            {
+              "key_code": "japanese_eisuu"
+            },
+            {
+              "key_code": "japanese_eisuu"
+            },
+            {
+              "key_code": "japanese_eisuu"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^org\\.vim\\.",
+                "^com\\.googlecode\\.iterm2$",
+                "^com\\.github\\.wez\\.wezterm$"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "l",
+            "modifiers": {
+              "mandatory": [
+                "command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_arrow",
+              "modifiers": "shift"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^org\\.vim\\.",
+                "^com\\.googlecode\\.iterm2$",
+                "^com\\.github\\.wez\\.wezterm$"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "k",
+            "modifiers": {
+              "mandatory": [
+                "command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_arrow",
+              "modifiers": "shift"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^org\\.vim\\.",
+                "^com\\.googlecode\\.iterm2$",
+                "^com\\.github\\.wez\\.wezterm$"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "w",
+            "modifiers": {
+              "mandatory": [
+                "command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "w",
+              "modifiers": "option"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^org\\.vim\\.",
+                "^com\\.googlecode\\.iterm2$",
+                "^com\\.github\\.wez\\.wezterm$"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "semicolon",
+            "modifiers": {
+              "mandatory": [
+                "command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "f4"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^org\\.vim\\.",
+                "^com\\.googlecode\\.iterm2$",
+                "^com\\.github\\.wez\\.wezterm$"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "period",
+            "modifiers": {
+              "mandatory": [
+                "control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "c",
+              "modifiers": "control"
+            },
+            {
+              "key_code": "c",
+              "modifiers": "control"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^org\\.vim\\.",
+                "^com\\.googlecode\\.iterm2$"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "comma",
+            "modifiers": {
+              "mandatory": [
+                "control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "c",
+              "modifiers": "control"
+            },
+            {
+              "key_code": "x",
+              "modifiers": "control"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^org\\.vim\\.",
+                "^com\\.googlecode\\.iterm2$"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "q",
+            "modifiers": {
+              "mandatory": [
+                "control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "x",
+              "modifiers": "control"
+            },
+            {
+              "key_code": "y",
+              "modifiers": "control"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^org\\.vim\\."
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "k",
+            "modifiers": {
+              "mandatory": [
+                "option"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "c",
+              "modifiers": "control"
+            },
+            {
+              "key_code": "k",
+              "modifiers": "control"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^org\\.vim\\."
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "l",
+            "modifiers": {
+              "mandatory": [
+                "option"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "c",
+              "modifiers": "control"
+            },
+            {
+              "key_code": "l",
+              "modifiers": "control"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^org\\.vim\\."
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "a",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "hyphen",
+              "modifiers": "shift",
+              "repeat": false
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "eisuu",
+              "value": 1
+            },
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "en"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "s",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "2",
+              "modifiers": "shift",
+              "repeat": false
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "eisuu",
+              "value": 1
+            },
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "en"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "d",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "7",
+              "modifiers": "shift",
+              "repeat": false
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "eisuu",
+              "value": 1
+            },
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "en"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "e",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "international1",
+              "repeat": false
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "eisuu",
+              "value": 1
+            },
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "en"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "r",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "4",
+              "modifiers": "shift",
+              "repeat": false
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "eisuu",
+              "value": 1
+            },
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "en"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "f",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "8",
+              "modifiers": "shift",
+              "repeat": false
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "eisuu",
+              "value": 1
+            },
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "en"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "g",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "close_bracket",
+              "modifiers": "shift",
+              "repeat": false
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "eisuu",
+              "value": 1
+            },
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "en"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "j",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "hyphen",
+              "repeat": false
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "eisuu",
+              "value": 1
+            },
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "en"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "h",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "close_bracket",
+              "repeat": false
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "eisuu",
+              "value": 1
+            },
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "en"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "i",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "4",
+              "modifiers": "shift"
+            },
+            {
+              "key_code": "t"
+            },
+            {
+              "key_code": "h"
+            },
+            {
+              "key_code": "i"
+            },
+            {
+              "key_code": "s"
+            },
+            {
+              "key_code": "hyphen"
+            },
+            {
+              "key_code": "period",
+              "modifiers": "shift",
+              "repeat": false
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "eisuu",
+              "value": 1
+            },
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "en"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "semicolon",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "right_arrow"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "variable_if",
+              "name": "eisuu",
+              "value": 1
+            },
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "en"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "japanese_eisuu"
+          },
+          "to": [
+            {
+              "set_variable": {
+                "name": "eisuu",
+                "value": 1
+              }
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "delete_or_backspace"
+            }
+          ],
+          "to_after_key_up": [
+            {
+              "set_variable": {
+                "name": "eisuu",
+                "value": 0
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "RTM設定",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "j",
+            "modifiers": {
+              "mandatory": [
+                "control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "j"
+            },
+            {
+              "key_code": "j"
+            },
+            {
+              "key_code": "j"
+            },
+            {
+              "key_code": "j"
+            },
+            {
+              "key_code": "j"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.rememberthemilk\\.Deskmilk"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "k",
+            "modifiers": {
+              "mandatory": [
+                "control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "k"
+            },
+            {
+              "key_code": "k"
+            },
+            {
+              "key_code": "k"
+            },
+            {
+              "key_code": "k"
+            },
+            {
+              "key_code": "k"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.rememberthemilk\\.Deskmilk"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "Firefox設定",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "t",
+            "modifiers": {
+              "mandatory": [
+                "command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "t",
+              "modifiers": "command"
+            },
+            {
+              "key_code": "lang2"
+            },
+            {
+              "key_code": "lang2"
+            },
+            {
+              "key_code": "lang2"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^org\\.mozilla\\.firefox",
+                "^org\\.waterfoxproject\\.waterfox"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "l",
+            "modifiers": {
+              "mandatory": [
+                "command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "l",
+              "modifiers": "command"
+            },
+            {
+              "key_code": "lang2"
+            },
+            {
+              "key_code": "lang2"
+            },
+            {
+              "key_code": "lang2"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^org\\.mozilla\\.firefox",
+                "^org\\.waterfoxproject\\.waterfox"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "description": "taskchute設定",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "m",
+            "modifiers": {
+              "mandatory": [
+                "control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "return_or_enter"
+            },
+            {
+              "key_code": "lang2"
+            },
+            {
+              "key_code": "lang2"
+            },
+            {
+              "key_code": "lang2"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "^com\\.electron\\.taskchute-cloud"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

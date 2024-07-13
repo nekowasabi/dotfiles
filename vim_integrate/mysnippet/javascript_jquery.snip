@@ -1,0 +1,295 @@
+
+#------------------------------------------------------
+snippet     ///
+abbr        Comment
+    /**
+     * ${1}
+     */
+
+#------------------------------------------------------
+snippet     log
+abbr        console.log
+    console.log(${1});
+
+#---------------------------------------------
+snippet     func
+abbr        Function
+    /**
+     * ${4}
+     * @param  $3    
+     * @retval 
+     */
+    function ${1:FuncName}( ${2:ParamType} ${3:ParamName} )
+    {
+    }
+
+#---------------------------------------------
+snippet     class
+abbr        Class
+    /**
+     * $1 Class
+     */
+    var ${1} = function(arg1) {
+        // Properties
+        this.field1 = arg1;
+    };
+    ${1}.prototype = {
+        func1: function()
+        {
+        }
+    }
+
+#---------------------------------------------
+snippet     if
+abbr        if
+    if (${1}) {
+        ${2}
+    }
+
+#---------------------------------------------
+snippet     while
+abbr        while
+    while (${1}) {
+        ${2}
+    }
+
+#---------------------------------------------
+snippet     for
+abbr        for
+    for (int ${1:idx}=0; idx<${2:cnt}; idx++) {
+        ${3}
+    }
+
+#---------------------------------------------
+snippet     forin
+abbr        for-in
+    for (var ${1:key} in ${2}) {
+    }
+
+#---------------------------------------------
+snippet     foreach
+abbr        for-each
+    for each (var ${1:val} in ${2}) {
+        ${3}
+    }
+
+#---------------------------------------------
+snippet     try
+abbr        try catch finally
+    try {
+        throw new Error("error");
+    } catch(e) {
+    } finally {
+    }
+
+#---------------------------------------------
+snippet     jq_func
+abbr        (jQuery) function
+    $(function(){${1}
+    })
+
+#---------------------------------------------
+snippet     jq_sel
+alias       $
+abbr        (jQuery) selector
+    $("${1}")${2}
+
+#---------------------------------------------
+snippet     jq_sel_id
+alias       #
+abbr        (jQuery) selector id
+    $("#${1}")${2}
+
+#---------------------------------------------
+snippet     jq_sel_attr
+alias       []
+abbr        (jQuery) selector attr
+    $([${1:attr}='${2:val}'])${3}
+
+#---------------------------------------------
+snippet     jq_click
+alias       click
+abbr        (jQuery) click event
+    $("${1}").click(function(){${2}
+    });
+
+#---------------------------------------------
+snippet     jq_dblclick
+alias       dblclick
+abbr        (jQuery) dblclick event
+    $("${1}").dblclick(function(){${2}
+    });
+
+#---------------------------------------------
+snippet     jq_mousedown
+alias       mousedown
+abbr        (jQuery) mousedown event
+    $("${1}").mousedown(function(){${2}
+    });
+
+#---------------------------------------------
+snippet     jq_mouseup
+alias       mouseup
+abbr        (jQuery) mouseup event
+    $("${1}").mouseup(function(){${2}
+    });
+
+#---------------------------------------------
+snippet     jq_mouseout
+alias       mouseout
+abbr        (jQuery) mouseout event
+    $("${1}").mouseout(function(){${2}
+    });
+
+#---------------------------------------------
+snippet     jq_mouseover
+alias       mouseoveer
+abbr        (jQuery) mouseover event
+    $("${1}").mouseover(function(){${2}
+    });
+
+#---------------------------------------------
+snippet     jq_mousemove
+alias       mousemove
+abbr        (jQuery) mousemove event
+    $("${1}").mousemove(function(){${2}
+    });
+
+#---------------------------------------------
+snippet     jq_show
+alias       show
+abbr        (jQuery) animation show
+    $("${1}").show(${2});
+
+#---------------------------------------------
+snippet     jq_hide
+alias       hide
+abbr        (jQuery) animation hide
+    $("${1}").hide(${2});
+
+#---------------------------------------------
+snippet     jq_slideDown
+alias       slideDown
+abbr        (jQuery) animation slideDown
+    $("${1}").slideDown(${2});
+
+#---------------------------------------------
+snippet     jq_slideUp
+alias       slideUp
+abbr        (jQuery) animation slideUp
+    $("${1}").slideUp(${2});
+
+#---------------------------------------------
+snippet     jq_fadeIn
+alias       fadeIn
+abbr        (jQuery) animation fadeIn
+    $("${1}").fadeIn(${2});
+
+#---------------------------------------------
+snippet     jq_fadeOut
+alias       fadeOut
+abbr        (jQuery) animation fadeOut
+    $("${1}").fadeOut(${2});
+
+#---------------------------------------------
+snippet     jq_css
+alias       css
+abbr        (jQuery) style css
+    $("${1}").css(${2});
+
+#---------------------------------------------
+snippet     jq_val
+alias       val
+abbr        (jQuery) value
+    $("${1}").val(${2});
+
+#---------------------------------------------
+snippet     jq_attr
+alias       attr
+abbr        (jQuery) attrue
+    $("${1}").attr(${2});
+
+#---------------------------------------------
+snippet     jq_text
+alias       text
+abbr        (jQuery) text
+    $("${1}").text(${2});
+
+#---------------------------------------------
+snippet     jq_html
+alias       html
+abbr        (jQuery) html
+    $("${1}").html(${2});
+
+#---------------------------------------------
+snippet     jq_prepend
+alias       prepend
+abbr        (jQuery) html prepend
+    $("${1}").prepend(${2});
+
+#---------------------------------------------
+snippet     jq_before
+alias       before
+abbr        (jQuery) html before
+    $("${1}").before(${2});
+
+#---------------------------------------------
+snippet     jq_after
+alias       after
+abbr        (jQuery) html after
+    $("${1}").after(${2});
+
+#---------------------------------------------
+snippet     jq_prependTo
+alias       prependTo
+abbr        (jQuery) html prependTo
+    $("${1}").prependTo(${2});
+
+#---------------------------------------------
+snippet     jq_appendTo
+alias       appendTo
+abbr        (jQuery) html appendTo
+    $("${1}").appendTo(${2});
+
+#---------------------------------------------
+snippet     jq_insertBefore
+alias       insertBefore
+abbr        (jQuery) html insertBefore
+    $("${1}").insertBefore(${2});
+
+#---------------------------------------------
+snippet     jq_insertAfter
+alias       insertAfter
+abbr        (jQuery) html insertAfter
+    $("${1}").insertAfter(${2});
+
+#---------------------------------------------
+snippet     jq_wrap
+alias       wrap
+abbr        (jQuery) html wrap
+    $("${1}").wrap(${2});
+
+#---------------------------------------------
+snippet     jq_wrapAll
+alias       wrapAll
+abbr        (jQuery) html wrapAll
+    $("${1}").wrapAll(${2});
+
+#---------------------------------------------
+snippet     jq_wrapInner
+alias       wrapInner
+abbr        (jQuery) html wrapInner
+    $("${1}").wrapInner(${2});
+
+#---------------------------------------------
+snippet     jq_replaceWith
+alias       replaceWith
+abbr        (jQuery) html replaceWith
+    $("${1}").replaceWith(${2});
+
+#---------------------------------------------
+snippet     jq_remove
+alias       remove
+abbr        (jQuery) html remove
+    $("${1}").remove(${2});
+

@@ -1,0 +1,29 @@
+[core]
+	pager = delta
+
+[pager]
+	diff = delta
+	log = delta
+	reflog = delta
+	show = delta
+
+[delta]
+	navigate = true
+
+[interactive]
+	diffFilter = delta --color-only
+
+[merge]
+	conflictstyle = diff3
+
+[diff]
+	compactionHeuristic = false
+	colorMoved = default
+
+[color "diff"]
+	meta         = "#bdae93"
+	frag         = "#d3869b"
+	old          = "#af3a03"
+	new          = "#b8bb26"
+	func         = "#f9f5d7"
+	context      = "#928374"

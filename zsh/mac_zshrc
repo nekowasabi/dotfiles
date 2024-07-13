@@ -1,0 +1,285 @@
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+source "${ZINIT_HOME}/zinit.zsh"
+
+# setting path {{{1
+export PATH=$PATH:/usr/local/bin:/bin:/usr/bin:$GOROOT/bin:$GOPATH/bin:/Users/takets/.nodebrew/current/bin:/Users/takets/go/bin:/Users/takets/.cargo/bin:/usr/local/Cellar/python@3.11/3.11.8/bin::$DENO_INSTALL/bin:$PATH:/Users/takets/.deno/bin:/Users/takets/.local/bin:/Users/takets/bin
+
+export EDITOR=vim
+export GOROOT=/usr/local/opt/go/libexec
+export GOPATH=$HOME/go
+export ZPLUG_HOME=~/.zplug
+export PYENV_ROOT=$HOME/.pyenv
+export NEXTWORD_DATA_PATH=~/tmp/nextword-data-large
+export NVIM_NODE_LOG_FILE='/Users/takets/nvim_node_log.log' 
+export NVIM_NODE_LOG_LEVEL=info
+export FZF_PREVIEW_DEBUG=1
+export DENOPS_TEST_VIM=/usr/local/bin/vim
+export DENOPS_PATH=/Users/takets/.vim/plugged/denops.vim
+export DENOPS_TEST_NVIM=/usr/local/bin/nvim
+export DENO_INSTALL="/Users/takets/.deno/bin"
+export MOCWORD_DATA='/Users/takets/.config/mocword/mocword.sqlite'
+# }}}1
+
+# standard settings {{{1
+stty stop undef
+
+# 色を使用
+autoload -Uz colors
+
+# 補完
+autoload -Uz compinit
+compinit
+
+# emacsキーバインド
+bindkey -e
+
+# 他のターミナルとヒストリーを共有
+setopt share_history
+
+# ヒストリーに重複を表示しない
+setopt histignorealldups
+
+HISTFILE=~/.zsh_history
+HISTSIZE=10000
+SAVEHIST=10000
+
+# cdコマンドを省略して、ディレクトリ名のみの入力で移動
+setopt auto_cd
+
+# 補完候補が複数ある時に、一覧表示
+setopt auto_list
+
+# auto_list の補完候補一覧で、ls -F のようにファイルの種別をマーク表示
+setopt list_types
+
+# コマンドが入力されるとすぐに追加
+setopt inc_append_history
+
+# 自動でpushdを実行
+setopt auto_pushd
+
+# pushdから重複を削除
+setopt pushd_ignore_dups
+
+# コマンドミスを修正
+setopt correct
+
+#プロンプトの自動リロード
+autoload -U promptinit
+promptinit
+
+# Googleライクにサジェスト #
+setopt correct
+SPROMPT="( ´・ω・) ＜ もしかして: %r？ [(y)es,(n)o,(a)bort,(e)dit]-> "
+
+# 補完後、メニュー選択モードになり左右キーで移動が出来る
+zstyle ':completion:*:default' menu select=2
+
+# 補完で大文字にもマッチ
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+alias ls="ls -GF"
+alias gls="gls --color"
+alias ctags="`brew --prefix`/bin/ctags"
+alias date="gdate"
+
+zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
+
+fpath=(/usr/local/share/zsh-completions ${fpath})
+# }}}1
+
+# alias {{{1
+function wezterm_neovim() {
+  /usr/local/bin/nvim $1 wezterm
+}
+alias n='wezterm_neovim'
+
+alias ll='eza --long --header --git  --sort=type --classify --git'
+alias la='eza --long --header --git --grid --classify --sort=type --git'
+alias python='/usr/local/Cellar/python@3.12/3.12.2_1/bin/python3'
+alias pip3='/usr/local/Cellar/python@3.12/3.12.2_1/bin/pip3.12'
+alias pip= '/usr/local/Cellar/python@3.12/3.12.2_1/bin/pip3.12'
+alias phpctags='/usr/local/bin/phpctags'
+alias ...='cd ../../'
+alias ....='cd ../../../'
+alias emacs='TERM=screen.putty-256color /usr/bin/emacs'
+alias v='/usr/local/bin/nvim'
+alias deno='~/.deno/bin/deno'
+alias gaa='git add --all && aicommits --generate 3'
+alias gps='git push'
+alias gp='git pull'
+alias lg='lazygit'
+
+# alias xargs='gxargs'
+# }}}1
+
+
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+zinit light zsh-users/zsh-autosuggestions
+#
+# zinit light mafredri/zsh-async
+zinit ice pick"async.zsh" src"pure.zsh"
+zinit light sindresorhus/pure
+
+zinit light zdharma-continuum/fast-syntax-highlighting
+
+zinit ice pick"async.zsh" src"pure.zsh"
+zinit light sindresorhus/pure
+
+
+zinit ice from"gh-r" as"program"
+zinit load junegunn/fzf-bin
+
+
+zinit ice lucid depth"1" blockf
+zinit light yuki-yano/zeno.zsh
+
+export ZENO_GIT_TREE="eza --tree"
+
+# if [[ -n $ZENO_LOADED ]]; then
+#   bindkey ' '  zeno-auto-snippet
+#   bindkey '^o' zeno-auto-snippet-and-accept-line
+#   bindkey '^i' zeno-completion
+#   bindkey '^x^s' zeno-insert-snippet
+# fi
+
+export ZENO_HOME=~/.config/zeno
+export ZENO_FZF_TMUX_OPTIONS="-p"
+
+# if [[ -n $ZENO_LOADED ]]; then
+#   bindkey ' '  zeno-auto-snippet
+# 
+#   # fallback if snippet not matched (default: self-insert)
+#   export ZENO_AUTO_SNIPPET_FALLBACK=self-insert
+# 
+#   # if you use zsh's incremental search
+#   # bindkey -M isearch ' ' self-insert
+# 
+#   bindkey '^m' zeno-auto-snippet-and-accept-line
+# 
+#   bindkey '^i' zeno-completion
+# 
+#   bindkey '^x '  zeno-insert-space
+#   bindkey '^x^m' accept-line
+#   bindkey '^x^z' zeno-toggle-auto-snippet
+# 
+#   # fallback if completion not matched
+#   # (default: fzf-completion if exists; otherwise expand-or-complete)
+#   # export ZENO_COMPLETION_FALLBACK=expand-or-complete
+# fi
+
+if [[ -n $ZENO_LOADED ]]; then
+  snippet_and_completion() {
+    zeno-auto-snippet
+    zeno-completion
+  }
+  zle -N snippet_and_completion
+  bindkey '^x^x' snippet_and_completion
+
+  bindkey '^u'  zeno-auto-snippet
+  bindkey '^o' zeno-auto-snippet-and-accept-line
+  bindkey '^i' zeno-completion
+  bindkey '^x^s' zeno-insert-snippet
+  export ZENO_COMPLETION_FALLBACK=expand-or-complete
+fi
+
+
+
+export FZF_DEFAULT_COMMAND'=rg --files --hidden --follow --glob "!.git/*"'
+export FZF_DEFAULT_OPTS='--height 80% --reverse'
+
+# 移動したディレクトリ検索(Ctrl+Z)
+zle -N fzf-z-search
+bindkey '^Z' fzf-z-search
+
+function chpwd() {
+  powered_cd_add_log
+}
+
+function powered_cd_add_log() {
+  local i=0
+  cat ~/.powered_cd.log | while read line; do
+    (( i++ ))
+    if [ $i = 99 ]; then
+      sed -i -e "99,99d" ~/.powered_cd.log
+    elif [ "$line" = "$PWD" ]; then
+      sed -i -e "${i},${i}d" ~/.powered_cd.log
+    fi
+  done
+  echo "$PWD" >> ~/.powered_cd.log
+}
+
+function powered_cd_2() {
+  if [ $# = 0 ]; then
+    cd $(tail -r ~/.powered_cd.log | fzf)
+  else
+    echo "powered_cd_2: This command does not accept any arguments."
+  fi
+}
+
+_powered_cd() {
+  _files -/
+}
+
+compdef _powered_cd powered_cd
+
+[ -e ~/.powered_cd.log ] || touch ~/.powered_cd.log
+
+# run powered_cd with shortcut ^t
+function run_powered_cd_2() {
+  echo "run powered_cd_2";
+  clear
+  powered_cd_2;
+  zle reset-prompt;
+  zle redisplay
+}
+zle -N run_powered_cd_2
+bindkey '^z' run_powered_cd_2
+
+function select-history() {
+  BUFFER=$(history -n -r 1 | fzf --no-sort +m --query "$LBUFFER" --prompt="History > ")
+  CURSOR=$#BUFFER
+}
+zle -N select-history
+bindkey '^r' select-history
+
+# カレント以下のコマンドやパスを取得
+fzf_find_path() {
+  # 現在のコマンドラインの状態を保存
+  local original_lbuffer=$LBUFFER
+
+  if [[ $LBUFFER == cd\ * ]]; then
+    # 'cd'コマンドの場合はディレクトリのみを検索
+    local path_prefix=${LBUFFER#cd }
+    # 特殊文字を含むパスを正しく展開
+    local expanded_path_prefix=$(eval echo $path_prefix)
+    local selected_path=$(find "$expanded_path_prefix"* -type d 2> /dev/null | fzf)
+  else
+    local current_buffer=$LBUFFER
+    local command_prefix=${current_buffer%% *}
+    local path_prefix=${current_buffer#$command_prefix }
+    local expanded_path_prefix=$(eval echo $path_prefix)
+    local selected_path=$(find "$expanded_path_prefix"* -type f -o -type d 2> /dev/null | fzf)
+  fi
+
+  if [[ -n $selected_path ]]; then
+    if [[ $LBUFFER == cd\ * ]]; then
+      local trimmed_selected_path=${selected_path#$expanded_path_prefix}
+      LBUFFER+="$trimmed_selected_path"
+    else
+      LBUFFER="$command_prefix $selected_path"
+    fi
+  else
+    # fzfがキャンセルされた場合、元の状態を復元
+    LBUFFER=$original_lbuffer
+  fi
+}
+
+# Ctrl+t のキーバインドを設定
+zle -N fzf_find_path
+bindkey '^t' fzf_find_path
+
+if [ -f "/Users/takets/.config/fabric/fabric-bootstrap.inc" ]; then . "/Users/takets/.config/fabric/fabric-bootstrap.inc"; fi

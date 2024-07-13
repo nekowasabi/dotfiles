@@ -1,0 +1,31 @@
+{
+	"filters": {},
+	"plugins": {
+		"@textlint/text": {
+			"extensions": [""]
+		}
+	},
+	"rules": {
+		"no-todo": true,
+    "prh": {
+      "rulePaths": [
+        "./textlint/common.yml"
+      ]
+    },
+    "max-ten": {
+      "max": 3
+    },
+		"no-doubled-joshi": {
+			"min_interval" : 1,
+			"strict": false,
+			"allow": ["も","や", "に", "が"]
+		},
+		"@textlint-ja/textlint-rule-no-insert-dropping-sa": true,
+		"ja-hiragana-hojodoushi": true,
+		"ja-hiragana-fukushi": true,
+		"textlint-rule-no-doubled-conjunctive-particle-ga" : true,
+		"textlint-rule-no-doubled-conjunction" : true,
+		"ja-no-abusage": true,
+		"ja-no-redundant-expression": true
+	}
+}

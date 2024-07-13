@@ -1,0 +1,19 @@
+version: 1
+rules:
+  - expected: ということ
+    patterns:
+      - という事
+  - expected: こと[がはにを]
+    patterns:
+      - /[^何人物食仕返]事[がはにを]/
+  - expected: ゆく。
+    patterns:
+      - いく。 
+      - 行く。 
+  - expected: で
+    patterns:
+      - でで
+  - expected: ならない
+    patterns:
+      - /[鳴成]らない/
+

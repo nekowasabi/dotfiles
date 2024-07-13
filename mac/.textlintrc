@@ -1,0 +1,52 @@
+{
+  "filters": {
+    "comments": {
+      "enablingComment": "textlint-enable",
+      "disablingComment": "textlint-disable"
+    },
+    "allowlist": {
+      "allow": [
+        "ignored-word",
+        "/\\d{4}-\\d{2}-\\d{2}/",
+        "/===IGNORE===[\\s\\S]*?===\/IGNORE===/m"
+      ]
+    }
+  },
+
+  "plugins": {
+    "@textlint/text": {
+      "extensions": ["changelog", ".shd"]
+    }
+  },
+  "rules": {
+    "prh": {
+      "rulePaths": [
+        "~/words/textlint/common.yml"
+      ]
+    },
+    "max-ten": {
+      "max": 5 
+    },
+    "no-doubled-joshi": {
+      "min_interval" : 1,
+      "strict": false,
+      "allow": ["も","や", "に", "が"],
+      "separatorCharacters": [
+        ".",
+        "．",
+        "?",
+        "!",
+        "？",
+        "、",
+        "！"
+      ],
+      "commaCharacters": [
+        "。",
+        "、",
+        "／",
+        "，"
+      ]
+    },
+		"textlint-rule-no-doubled-conjunctive-particle-ga" : true
+	}
+}
