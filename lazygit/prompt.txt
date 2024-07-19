@@ -1,0 +1,5 @@
+Generate a {type} commit message in {locale}.
+Please add emojis that represent the commit message at the end of the commit message. Please transalte to Japanese！
+
+# Must
+- Translate message to Japanese.
