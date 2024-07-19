@@ -1,0 +1,112 @@
+
+# 2024-02-11 17:09:33.360456
++/add vim_integrate/init.vim
+
+# 2024-02-11 17:09:59.700778
++Add Comment by Japanese. and Explain Process by Japanese
+
+# 2024-02-11 17:17:02.985794
++refactoring
+
+# 2024-02-11 17:17:36.427819
++Removing redundant settings
++
+
+# 2024-02-17 09:12:31.544455
++echo 'Hello from terminal two'
+
+# 2024-02-17 09:13:24.109619
++exit
+
+# 2024-03-10 10:06:23.035010
++```vim
++let g:perplexity_token = $PERPLEXITY_TOKEN
++let g:perplexity_model = 'llama-2-70b-chat'
++let g:perplexity_log_directory = '/tmp/perplexity'
++
++```
++処理内容を説明するコメント文を、処理の1行↑に追加してください。
+
+# 2024-03-10 10:06:47.223908
++日本語に翻訳して
+
+# 2024-03-10 10:43:20.729081
++/add http://www.google.co.jp
+
+# 2024-03-10 10:44:44.599213
++/web https://vim-denops.github.io/denops-documentation/
+
+# 2024-03-10 10:47:53.061052
++exit
+
+# 2024-03-10 10:51:33.587423
++hello
+
+# 2024-03-10 10:52:30.273541
++/web https://vim-denops.github.io/denops-documentation/
+
+# 2024-03-10 10:57:33.487096
++/exit
+
+# 2024-03-10 11:06:20.626567
++```vim
++let g:perplexity_token = $PERPLEXITY_TOKEN
++let g:perplexity_model = 'llama-2-70b-chat'
++let g:perplexity_log_directory = '/tmp/perplexity'
++
++```
++1行ごとに処理内容をコメントを追加してください
+
+# 2024-03-13 05:08:01.334946
++/exit
+
+# 2024-03-13 05:08:36.238747
++```vim
++let g:perplexity_token = $PERPLEXITY_TOKEN
++let g:perplexity_model = 'llama-2-70b-chat'
++let g:perplexity_log_directory = '/tmp/perplexity'
++```
++処理ごとに処理内容をコメントで記述してください。
++
+
+# 2024-03-13 05:09:13.312989
++追加したコメント日本語に翻訳してください
+
+# 2024-04-02 16:47:53.685184
++Add fibonatti function by `function fibonatti()`
+
+# 2024-04-02 16:48:52.370525
++`vim_integrate/syntax/aap.vim`
+
+# 2024-04-02 16:48:55.240522
++Add fibonatti function by `function fibonatti()`
+
+# 2024-04-02 16:49:19.839635
++Add class Calc
+
+# 2024-04-02 16:49:30.131666
++Move fibo
+
+# 2024-04-02 16:49:35.349805
++Move `fibonatti`
+
+# 2024-04-02 16:49:49.012056
++Move `fibonatti` to Calc class.
+
+# 2024-04-02 16:50:28.208803
++Add phpdoc to `fibonatti`
+
+# 2024-04-02 16:50:46.457964
++Translate phpdoc to Japanese.
+
+# 2024-04-02 17:01:41.599832
++Add usecase in phpdoc
+
+# 2024-04-02 17:05:05.117614
++/add /Users/takets/repos/dotfiles/vim_integrate/rc/a.php
+
+# 2024-04-02 17:05:32.191119
++Add phpdoc to Calc class
+
+# 2024-05-05 12:25:06.257608
++add fibonacci function.
