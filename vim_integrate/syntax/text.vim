@@ -16,6 +16,7 @@ unlet! b:current_syntax
 
 syn case ignore
 
+syn match shdBrace1 "[『「].\{-}.[』」]"
 syn match	shdText	"^・"
 syn match	shdOutline "^[\t]*・"
 syn match	shdOutline "^[+-] "

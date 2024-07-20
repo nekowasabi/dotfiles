@@ -17,10 +17,8 @@ silent! nmap <unique><silent> Srb <Plug>(operator-sandwich-replace)<Plug>(operat
 
 let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
 let g:sandwich#recipes += [
-\   {'buns': ['（', '）'], 'nesting': 1, 'input': ['j(', 'j)', 'jp']},
-\   {'buns': ['「', '」'], 'nesting': 1, 'input': ['j[', 'j]', 'jB']},
-\   {'buns': ['『', '』'], 'nesting': 1, 'input': ['j{', 'j}', 'jb']},
-\   {'buns': ['【', '】'], 'nesting': 1, 'input': ['j<', 'j>', 'jk']},
+\   {'buns': ['「', '」'], 'nesting': 1, 'input': ['j[', 'j]', 'J']},
+\   {'buns': ['『', '』'], 'nesting': 1, 'input': ['j{', 'j}', 'j']},
 \ ]
 
 let g:sandwich#recipes += [
