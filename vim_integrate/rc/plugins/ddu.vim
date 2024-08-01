@@ -591,6 +591,8 @@ function! s:ddu_uu_my_settings() abort
         \ <Cmd>call ddu#ui#do_action('itemAction')<CR>
   nnoremap <buffer><silent> <CR>
         \ <Cmd>call ddu#ui#do_action('itemAction')<CR>
+  nnoremap <buffer><silent> o
+        \ <Cmd>call ddu#ui#do_action('itemAction')<CR>
 
   call ddu#ui#ff#save_cmaps(['<C-j>', '<C-k>'])
 
@@ -598,7 +600,7 @@ function! s:ddu_uu_my_settings() abort
         \ <Cmd>call ddu#ui#do_action('cursorNext')<CR>
   cnoremap <C-k>
         \ <Cmd>call ddu#ui#do_action('cursorPrevious')<CR>
-  nnoremap <buffer><silent> o
+  nnoremap <buffer><silent> h
         \ <Cmd>call ddu#ui#do_action('itemAction', {'params': {'command': 'split'}})<CR>
   nnoremap <buffer><silent> v
         \ <Cmd>call ddu#ui#do_action('itemAction', {'params': {'command': 'vsplit'}})<CR>
