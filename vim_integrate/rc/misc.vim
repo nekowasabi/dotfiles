@@ -286,7 +286,7 @@ command! -range Cursor call s:OpenByCursor()
 " -----------------------------------------------------------
 " test
 function! s:Test()
-  echo 'ok'
+  execute "CocDisable"
 endfunction
 command! Test call s:Test() 
 command! -range VTest call s:Test() 

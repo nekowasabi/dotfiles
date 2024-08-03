@@ -354,7 +354,7 @@ if g:IsMacNeovim() || g:IsWsl()
     Plug 'hrsh7th/cmp-cmdline'
     Plug 'petertriho/cmp-git'
     call g:SetCoc()
-
+		" call g:SetDdc()
   else
     Plug 'gelguy/wilder.nvim'
     Plug 'Shougo/ddc-source-lsp'
