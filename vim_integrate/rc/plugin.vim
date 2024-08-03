@@ -339,7 +339,6 @@ if g:IsMacNeovim() || g:IsWsl()
     Plug 'hrsh7th/cmp-path'
     Plug 'hrsh7th/cmp-cmdline'
     Plug 'petertriho/cmp-git'
-    "call g:SetDdc()
     call g:SetCoc()
   elseif g:IsWsl()
     Plug 'gelguy/wilder.nvim'
@@ -354,12 +353,10 @@ if g:IsMacNeovim() || g:IsWsl()
     Plug 'hrsh7th/cmp-cmdline'
     Plug 'petertriho/cmp-git'
     call g:SetCoc()
-		" call g:SetDdc()
   else
     Plug 'gelguy/wilder.nvim'
     Plug 'Shougo/ddc-source-lsp'
     call g:SetCoc()
-    " call g:SetDdc()
   endif
 endif
 

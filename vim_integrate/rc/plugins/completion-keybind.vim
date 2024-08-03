@@ -1,4 +1,8 @@
 function! SetFileTypeBindings()
+	if &filetype == 'ddu-ff'
+		return
+	endif
+
   if &filetype   == 'changelog' || &filetype == 'markdown' || &filetype == 'text'
     " for cmp
     execute "CocDisable"
