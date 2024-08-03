@@ -1,4 +1,3 @@
-" ファイルタイプで補完プラグインの切り替え
 function! SetFileTypeBindings()
   if &filetype   == 'changelog' || &filetype == 'markdown' || &filetype == 'text'
     " for cmp
