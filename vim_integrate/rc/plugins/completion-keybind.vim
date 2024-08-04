@@ -3,7 +3,7 @@ function! SetFileTypeBindings()
 		return
 	endif
 
-  if &filetype   == 'changelog' || &filetype == 'markdown' || &filetype == 'text'
+  if &filetype   == 'changelog' || &filetype == 'markdown' || &filetype == 'text' || &filetype == ''
     " for cmp
     silent execute "CocDisable"
     silent execute "lua require('cmp').setup.buffer { enabled = true }"
