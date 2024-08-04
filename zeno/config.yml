@@ -56,7 +56,6 @@ snippets:
     # auto expand condition
     # If not defined, it is only valid at the beginning of a line.
     context:
-      # buffer: '' 
       lbuffer: '.+\s'
       # rbuffer: ''
   - name: branch
@@ -64,7 +63,7 @@ snippets:
     snippet: git symbolic-ref --short HEAD
     context:
       lbuffer: '^git\s+checkout\s+'
-    evaluate: true # eval snippet
+    evaluate: true
   - name: push master
     keyword: gpuom
     snippet: git push origin master
@@ -89,6 +88,12 @@ snippets:
   - name: aider
     keyword: ad
     snippet: aider --no-auto-commits --4turbo
+  - name: commit.sh
+    keyword: cmt
+    snippet: ~/repos/private_dotfiles/mac/scripts/commit_dotfiles.sh
+  - name: deploy.sh
+    keyword: dpl
+    snippet: ~/repos/private_dotfiles/mac/scripts/deploy_dotfiles.sh
   - name: php artisan migration
     keyword: pam
     snippet: php artisan migrate
