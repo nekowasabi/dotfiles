@@ -28,7 +28,7 @@ os:
 
 customCommands:
   - key: 'C'
-    command: "aicommit2 --locale ja --type conventional -y --generate 3 -p 'Please add emojis that represent the commit message at the end of the commit message. 必ずコミットメッセージを日本語に翻訳してください！'"
+    command: "aicommit2 --locale ja --type conventional -y --generate 3 -p ~/repos/dotfiles/lazygit/prompt.txt"
     context: 'files'
     subprocess: true
     description: 'commit changes using git editor(Custom Command)'

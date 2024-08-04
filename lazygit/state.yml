@@ -1,11 +1,9 @@
 lastupdatecheck: 0
+recentrepos:
+- /Users/takets/repos/private_dotfiles
+- /Users/takets/repos/dotfiles
+- /Users/takets/.config/nvim/plugged/ddu-source-vim-bookmark
 startuppopupversion: 5
-lastversion: 0.41.0
 customcommandshistory: []
 hidecommandlog: false
 ignorewhitespaceindiffview: false
-diffcontextsize: 3
-localbranchsortorder: recency
-remotebranchsortorder: alphabetical
-gitlogorder: topo-order
-gitlogshowgraph: always
