@@ -70,12 +70,12 @@ call ddu#custom#patch_global(#{
     \     ff: #{
     \         prompt: '>> ' ,
     \         highlights: #{floatingCursorLine: s:cursorLine, filterText: 'Statement', floating: "Normal", floatingBorder: "Special", selected: 'Special'},
-    \         autoAction: #{name: "preview", sync: v:true},
-    \         startAutoAction: v:true,
     \         floatingBorder: 'double',
     \         floatingTitle: 'ddu',
     \         floatingTitlePos: 'left',
     \         split: 'floating',
+    \         autoAction: #{name: "preview", sync: v:true},
+    \         startAutoAction: v:true,
     \         previewSplit: s:previewSplit,
     \         previewFloatingBorder: s:previewFloatingBorder,
     \         previewWidth: s:previewWidth,
@@ -90,6 +90,7 @@ call ddu#custom#patch_global(#{
     \     }
     \   },
     \ })
+
 
 call ddu#custom#patch_global(#{
     \   kindOptions: #{

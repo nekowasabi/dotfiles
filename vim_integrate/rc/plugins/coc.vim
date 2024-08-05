@@ -23,6 +23,7 @@ let g:coc_global_extensions = [
   \, 'coc-blade'
   \, 'coc-deno'
   \, 'coc-markdownlint'
+  \, 'coc-yank'
   \ ]
 
 let g:markdown_fenced_languages = [
@@ -49,6 +50,7 @@ endfunction
 
 let g:coc_snippet_next = '<tab>'
 
+nnoremap <silent> <Leader>y  :<C-u>CocList -A --normal yank<cr>
 nmap <silent> <Leader>cd <Plug>(coc-definition)
 nmap <silent> <Leader>cy <Plug>(coc-type-definition)
 nmap <silent> <Leader>ci <Plug>(coc-implementation)
