@@ -70,6 +70,8 @@ nnoremap <silent> <D-p> :normal! vip<CR>
 
 let &grepprg='rg --vimgrep'
 
+let g:aider_additional_prompt = "- 出力は日本語で表示してください。"
+
 " -----------------------------------------------------------
 " lua
 lua << EOF
