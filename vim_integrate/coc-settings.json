@@ -74,6 +74,7 @@
   },
   "coc.preferences.formatOnType": true,
   "coc.preferences.formatOnSaveTimeout": 4000,
+  "coc.preferences.willSaveHandlerTimeout": 4000,
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.preferences.currentFunctionSymbolDebounceTime": 2000,
   "coc.preferences.formatOnSave": true,
