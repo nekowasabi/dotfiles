@@ -81,7 +81,8 @@
   "[blade]": {
     "coc.preferences.formatOnSave": false
   },
-  "markdownlint.onSave": true,
+  "markdownlint.onSave": false,
+  "markdownlint.onChange": false,
   "intelephense.files.associations": [
     "*.inc",
     "*.php",
