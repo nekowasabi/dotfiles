@@ -1,5 +1,5 @@
 " aider.vim
-let g:aider_command = 'aider --no-auto-commits --sonnet'
+let g:aider_command = 'aider --no-auto-commits '
 let g:aider_floatwin_width = 100
 let g:aider_floatwin_height = 50
 let g:aider_buffer_open_type = 'floating'
@@ -10,7 +10,8 @@ if g:IsWsl()
  let g:convension_path = "~/.config/nvim/plugged/aider.vim/CONVENTION.md"
 endif
 if g:IsMacNeovimInWork()
- let g:convension_path = $BACKEND_LARAVEL_MAC_DIR . "/laravel/CONVENTION.md"
+ let g:convension_path = $BACKEND_LARAVEL_DIR . "/CONVENTION.md"
+ let g:aider_command = g:aider_command . g:convension_path
 endif
 nnoremap <silent> <leader>ar :AiderRun<CR>
 nnoremap <silent> <leader>aR :AiderSilentRun<CR>
