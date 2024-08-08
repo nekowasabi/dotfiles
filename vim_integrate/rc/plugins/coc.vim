@@ -12,7 +12,6 @@ let g:coc_global_extensions = [
   \, '@yaegassy/coc-intelephense'
   \, '@yaegassy/coc-laravel'
   \, '@yaegassy/coc-phpstan'
-  \, '@yaegassy/coc-typescript-vue-plugin'
   \, 'coc-swagger'
   \, '@yaegassy/coc-volar-tools'
   \, '@yaegassy/coc-volar'
