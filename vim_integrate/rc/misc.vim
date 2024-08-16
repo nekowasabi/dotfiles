@@ -1,6 +1,15 @@
 "A Neovim plugin that allows one to quickly create, navigate to, and edit subfiles which are integrated into a main file. This way, a codebase becomes more modular and easier to manage. 簡単終了 {{{1
 command! -nargs=0 QC call CloseQuickRunWindow()
 function! CloseQuickRunWindow()
+  " 全てのバッファを取得
+  let buffers = filter(range(1, bufnr('$')), 'buflisted(v:val)')
+
+  " term://で始まるバッファを削除
+  for buf in buffers
+    if bufname(buf) =~ '^term://'
+      execute 'bdelete! ' . buf
+    endif
+  endfor
     execute "normal \<c-c>\<c-w>\<C-w>ZZ"
 endfunction
 nnoremap <Leader>q :call CloseQuickRunWindow()<CR>
