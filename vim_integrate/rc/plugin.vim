@@ -319,7 +319,7 @@ if g:IsMacNeovim() || g:IsWsl()
   " Plug 'williamboman/mason-lspconfig.nvim'
   Plug 'Wansmer/treesj'
   Plug 'stevearc/oil.nvim'
-  Plug 'SmiteshP/nvim-navic'
+  " Plug 'SmiteshP/nvim-navic'
   Plug 'vim-test/vim-test'
   Plug 'skywind3000/asyncrun.vim'
 	Plug 'sigmaSd/deno-nvim'
