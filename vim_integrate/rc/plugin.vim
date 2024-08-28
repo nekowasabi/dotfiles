@@ -328,6 +328,8 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'theHamsta/nvim-dap-virtual-text'
   Plug 'numToStr/Comment.nvim'
   Plug 'monaqa/dial.nvim'
+  Plug 'stevearc/dressing.nvim'
+  Plug 'yetone/avante.nvim'
 
   call g:SetDdu()
 
