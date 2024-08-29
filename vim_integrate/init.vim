@@ -151,6 +151,16 @@ require('Comment').setup()
 
 require("mason").setup()
 
+require("img-clip").setup({
+  default = {
+    embed_image_as_base64 = false,
+    prompt_for_file_name = false,
+    drag_and_drop = {
+      insert_mode = true,
+    },
+  },
+})
+
 require("avante").setup({
   ---@alias Provider "openai" | "claude" | "azure"  | "copilot" | "cohere" | [string]
   provider = "claude",
@@ -160,6 +170,11 @@ require("avante").setup({
     temperature = 0,
     max_tokens = 4096,
   },
+  behaviour  =  {
+    auto_set_highlight_group  =  true, 
+    auto_apply_diff_after_generation  =  false, 
+    support_paste_from_clipboard  =  true, 
+  }, 
   mappings = {
     ask = "<leader>va",
     edit = "<leader>ve",

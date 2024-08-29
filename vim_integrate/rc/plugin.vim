@@ -330,6 +330,8 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'monaqa/dial.nvim'
   Plug 'stevearc/dressing.nvim'
   Plug 'yetone/avante.nvim'
+  Plug 'HakonHarnes/img-clip.nvim'
+  Plug 'MeanderingProgrammer/render-markdown.nvim'
 
   call g:SetDdu()
 
