@@ -225,6 +225,8 @@ require("avante").setup({
   },
 })
 
+require('avante_lib').load()
+
 EOF
 
 " END
