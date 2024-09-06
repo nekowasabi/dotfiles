@@ -351,11 +351,11 @@ if g:IsMacNeovim() || g:IsWsl()
   elseif g:IsMacNeovimInWezterm()
     Plug 'gelguy/wilder.nvim'
     Plug 'Shougo/ddc-source-lsp'
-    Plug 'hrsh7th/nvim-cmp'
-    Plug 'hrsh7th/cmp-buffer'
-    Plug 'hrsh7th/cmp-path'
-    Plug 'hrsh7th/cmp-cmdline'
-    Plug 'petertriho/cmp-git'
+    " Plug 'hrsh7th/nvim-cmp'
+    " Plug 'hrsh7th/cmp-buffer'
+    " Plug 'hrsh7th/cmp-path'
+    " Plug 'hrsh7th/cmp-cmdline'
+    " Plug 'petertriho/cmp-git'
     call g:SetCoc()
   else
     Plug 'gelguy/wilder.nvim'
@@ -632,8 +632,8 @@ if g:IsMacNeovim() || g:IsWsl()
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
-    execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cmp.vim'
-    execute 'source '.g:GetVimConfigRootPath().'rc/plugins/completion-keybind.vim'
+    " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/completion-keybind.vim'
+    " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cmp.vim'
 		" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
   else
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
