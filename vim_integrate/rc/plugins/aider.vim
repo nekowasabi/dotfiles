@@ -1,5 +1,5 @@
 " aider.vim
-let g:aider_command = 'aider --no-auto-commits --sonnet --cache-prompts --no-stream --cache-keepalive-pings 6 --no-suggest-shell-commands'
+let g:aider_command = 'aider --no-auto-commits --sonnet --cache-prompts --cache-keepalive-pings 6 --no-suggest-shell-commands --chat-language ja'
 let g:aider_floatwin_width = 100
 let g:aider_floatwin_height = 50
 let g:aider_buffer_open_type = 'floating'
@@ -20,6 +20,7 @@ nnoremap <silent> <leader>ap :AiderSendPromptWithInput<CR>
 nnoremap <silent> <leader>ax :AiderExit<CR>
 nnoremap <silent> <leader>ai :AiderAddIgnoreCurrentFile<CR>
 nnoremap <silent> <leader>aI :AiderOpenIgnore<CR>
+nnoremap <silent> <leader>ah :AiderHide<CR>
 vmap <leader>av :AiderVisualTextWithPrompt<CR>
 tnoremap <C-x><C-x> <C-\><C-n>:AiderHide<CR>
 

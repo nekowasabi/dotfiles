@@ -108,4 +108,3 @@ augroup END
 " PHPファイルを保存前にCustomPhpFormat関数を呼び出す
 " autocmd BufWritePre *.php call CustomPhpFormat()
 
-
