@@ -22,7 +22,6 @@ nnoremap <silent> <leader>ai :AiderAddIgnoreCurrentFile<CR>
 nnoremap <silent> <leader>aI :AiderOpenIgnore<CR>
 nnoremap <silent> <leader>ah :AiderHide<CR>
 vmap <leader>av :AiderVisualTextWithPrompt<CR>
-tnoremap <C-x><C-x> <C-\><C-n>:AiderHide<CR>
 
 augroup AiderOpenGroup
   autocmd!
@@ -30,6 +29,7 @@ augroup AiderOpenGroup
 augroup END
 
 function! s:AiderOpenHandler() abort
+  tnoremap <C-x><C-x> <C-\><C-n>:AiderHide<CR>
   tnoremap <buffer> <Esc> <C-\><C-n>
   nnoremap <buffer> <Esc> :AiderHide<CR>
 endfunction
