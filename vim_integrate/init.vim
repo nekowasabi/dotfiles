@@ -50,8 +50,6 @@ let g:denops#debug = 0
 "   let g:denops_server_addr = '127.0.0.1:32123'
 " endif
 
-tnoremap <Esc> <C-\><C-n>:close!<CR>
-
 nnoremap <silent> g<C-o> :Back<CR>
 nnoremap <silent> g<C-i> :Forward<CR>
 
