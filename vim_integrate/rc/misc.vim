@@ -309,3 +309,64 @@ xnoremap x "_x
 nnoremap X "_X
 xnoremap X "_X
 
+function! ReloadAllBuffers()
+  " 保存されたウィンドウ数を取得
+  let win_count = winnr('$')
+
+  " すべてのバッファを別ウィンドウで異動せずに一括再読み込み
+  split
+
+  try
+    " :bdoコマンドを使用してすべての読み込みされたバッファを更新
+    execute 'silent! bdo e!'
+  catch
+    " エラー時の処理をスキップ
+  finally
+    " 新しく作成したウィンドウを閉じる
+    quit
+    " 元のウィンドウ数が一致することを確認
+    if win_count != winnr('$')
+      echo "一部のウィンドウが予期しない形で消えたかもしれません。"
+    endif
+  endtry
+endfunction
+
+" コマンドとして使用可能に
+command! ReloadAllBuffers :call ReloadAllBuffers()
+
+
+function! MonitorTerminalBuffer()
+  for buf in range(1, bufnr('$'))
+    if bufexists(buf) && getbufvar(buf, '&buftype') == 'terminal' && bufname(buf) =~ 'aider'
+      " ジョブIDを取得
+      let job_id = getbufvar(buf, 'terminal_job_id')
+      " ジョブIDが存在する場合
+      if job_id != 0
+      endif
+    endif
+  endfor
+endfunction
+
+" ジョブ終了時のハンドラー
+function! s:on_exit(job_id, data, event)
+  echo "Terminal job ended"
+endfunction
+
+" ウィンドウ内の任意のバッファを監視
+command! -nargs=0 MonitorTerm :call MonitorTerminalBuffer()
+
+
+function! RunLsAndEchoOk()
+  let cmd = 'ls'
+  let job_opts = {
+    \ 'on_exit': function('s:on_exit')
+    \ }
+call termopen(cmd, job_opts)
+endfunction
+
+function! s:on_exit(job_id, data, event)
+  echo "ok"
+endfunction
+
+" 実行するためのコマンドを提供
+command! RunLs :call RunLsAndEchoOk()

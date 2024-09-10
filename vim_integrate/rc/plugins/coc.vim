@@ -22,7 +22,6 @@ let g:coc_global_extensions = [
   \, 'coc-yaml'
   \, 'coc-blade'
   \, 'coc-deno'
-  \, 'coc-markdownlint'
   \, 'coc-yank'
   \ ]
 
@@ -109,5 +108,3 @@ augroup END
 " PHPファイルを保存前にCustomPhpFormat関数を呼び出す
 " autocmd BufWritePre *.php call CustomPhpFormat()
 
-" for markdown
-autocmd BufRead,BufWritePost *.md CocCommand markdownlint.fixAll
