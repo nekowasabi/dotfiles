@@ -50,6 +50,7 @@ let g:denops#debug = 0
 "   let g:denops_server_addr = '127.0.0.1:32123'
 " endif
 
+# Aider用のコマンド
 tnoremap <C-x><C-x> <C-\><C-n>:AiderHide<CR>
 tnoremap <Esc><Esc> <C-\><C-n>:close!<CR>
 
