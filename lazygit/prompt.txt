@@ -1,5 +1,6 @@
-Generate a {type} commit message in {locale}.
-Please add emojis that represent the commit message at the end of the commit message. Please transalte to Japanese！
+- {type}のコミットメッセージを{locale}で生成してください。
+- コミットメッセージの最後に、そのメッセージを表す絵文字を追加してください。
+- 必須: 日本語に翻訳してください！
 
 # Must
 - 必ず日本語に翻訳してください
