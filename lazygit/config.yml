@@ -28,7 +28,7 @@ os:
 
 customCommands:
   - key: 'C'
-    command: "aicommit2 --locale ja --type conventional -y --generate 3 -p ~/repos/dotfiles/lazygit/prompt.txt"
+    command: "aicommit2 --locale ja --type conventional -y --generate 3"
     context: 'files'
     subprocess: true
     description: 'commit changes using git editor(Custom Command)'
