@@ -1,5 +1,5 @@
 " aider.vim
-let g:aider_command = 'aider --no-auto-commits --sonnet --cache-prompts --cache-keepalive-pings 6 --no-suggest-shell-commands --chat-language ja'
+let g:aider_command = 'aider --no-auto-commits --stream --sonnet --cache-prompts --cache-keepalive-pings 6 --no-suggest-shell-commands'
 let g:aider_floatwin_width = 100
 let g:aider_floatwin_height = 50
 let g:aider_buffer_open_type = 'floating'
@@ -33,3 +33,7 @@ function! s:AiderOpenHandler() abort
   tnoremap <buffer> <Esc> <C-\><C-n>
   nnoremap <buffer> <Esc> :AiderHide<CR>
 endfunction
+
+let g:aider_additional_prompt = "選択された範囲のコードだけを修正対象として、他のコードを変更することを禁じます。\n\n- 編集内容の説明は日本語で表示してください。\n\n- コードはシンプルに保ってください。"
+
+

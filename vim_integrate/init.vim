@@ -69,7 +69,6 @@ nnoremap <silent> <D-p> :normal! vip<CR>
 
 let &grepprg='rg --vimgrep'
 
-let g:aider_additional_prompt = "- 出力は日本語で表示してください。"
 
 " viwがやりやすいようにする
 onoremap i<space> iw
@@ -77,16 +76,9 @@ xnoremap i<space> iw
 onoremap i<CR> iW
 xnoremap i<CR> iW
 
-" Visual コピー時にカーソル位置を保存
-xnoremap y mzy`z
-
 " Visual <, >で連続してインデントを操作
 xnoremap < <gv
 xnoremap > >gv
-
-" ペースト結果のインデントを自動で揃える
-nnoremap p ]p`]
-nnoremap P ]P`]
 
 " -----------------------------------------------------------
 " lua
