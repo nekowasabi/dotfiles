@@ -169,6 +169,7 @@ require("img-clip").setup({
   },
 })
 
+require('avante_lib').load()
 require("avante").setup({
   ---@alias Provider "openai" | "claude" | "azure"  | "copilot" | "cohere" | [string]
   provider = "claude",
@@ -233,7 +234,6 @@ require("avante").setup({
   },
 })
 
-require('avante_lib').load()
 
 EOF
 
