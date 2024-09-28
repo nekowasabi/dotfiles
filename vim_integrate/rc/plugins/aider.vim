@@ -1,5 +1,5 @@
 " aider.vim
-let g:aider_command = 'aider --no-auto-commits --stream --sonnet --cache-prompts --cache-keepalive-pings 6 --no-suggest-shell-commands'
+let g:aider_command = 'aider --no-auto-commits --no-stream --sonnet --cache-prompts --cache-keepalive-pings 6 --no-suggest-shell-commands'
 let g:aider_floatwin_width = 100
 let g:aider_floatwin_height = 50
 let g:aider_buffer_open_type = 'split'
