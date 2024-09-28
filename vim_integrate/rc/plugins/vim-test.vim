@@ -4,6 +4,8 @@ nnoremap <silent> ,ul :TestLast<CR>
 nnoremap <silent> ,us :TestSuite<CR>
 nnoremap <silent> ,uv :TestVisit<CR>
 
+let test#javascript#denotest#options = ' -A --quiet --allow-env '
+
 let test#strategy = {
   \ 'nearest': 'neovim',
   \ 'file':    'neovim_sticky',

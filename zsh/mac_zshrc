@@ -15,9 +15,10 @@ export NEXTWORD_DATA_PATH=~/tmp/nextword-data-large
 export NVIM_NODE_LOG_FILE='/Users/takets/nvim_node_log.log' 
 export NVIM_NODE_LOG_LEVEL=info
 export FZF_PREVIEW_DEBUG=1
-export DENOPS_TEST_VIM=/usr/local/bin/vim
 export DENOPS_PATH=/Users/takets/.vim/plugged/denops.vim
 export DENOPS_TEST_NVIM=/usr/local/bin/nvim
+export DENOPS_TEST_DENOPS_PATH=/Users/takets/.config/nvim/plugged/denops.vim
+export DENOPS_TEST_VERBOSE=1
 export DENO_INSTALL="/Users/takets/.deno/bin"
 export MOCWORD_DATA='/Users/takets/.config/mocword/mocword.sqlite'
 # }}}1
