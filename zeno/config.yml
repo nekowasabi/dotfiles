@@ -52,6 +52,12 @@ snippets:
   - name: "null"
     keyword: "null"
     snippet: ">/dev/null 2>&1"
+  - name: "commit.sh"
+    keyword: "cmm"
+    snippet: "~/repos/private_dotfiles/mac/scripts/commit_dotfiles.sh"
+  - name: "deploy.sh"
+    keyword: "dpl"
+    snippet: "~/repos/private_dotfiles/mac/scripts/deploy_dotfiles.sh"
 
     # auto expand condition
     # If not defined, it is only valid at the beginning of a line.
