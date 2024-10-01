@@ -26,7 +26,7 @@ os:
 
 customCommands:
   - key: 'C'
-    command: "aicommit2 --locale 'ja' --type 'conventional' -y --generate 3"
+    command: "aicommit2 --locale 'ja' --type 'conventional' -y --generate 5"
     context: 'files'
     subprocess: true
     description: 'commit changes using git editor(Custom Command)'
