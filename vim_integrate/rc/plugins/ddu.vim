@@ -629,33 +629,24 @@ function! s:ddu_uu_my_settings() abort
         \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'grep' })<CR>
 endfunction
 
-autocmd FileType ddu-ff-filter call s:ddu_filter_my_settings()
-function! s:ddu_filter_my_settings() abort
-	inoremap <buffer> <CR>
-				\ <Esc><Cmd>call ddu#ui#do_action('itemAction')<CR>
-	inoremap <buffer> <C-c>
-				\ <Esc><Cmd>call ddu#ui#do_action('itemAction')<CR>
-	nnoremap <buffer><silent> <CR>
-				\ <Cmd>close<CR>
-	nnoremap <buffer><silent> q
-				\ <Cmd>close<CR>
-  " insert modeのままだとiiと変な文字が入ってしまうので、<Esc>を入れる
-  inoremap <buffer><silent> <C-a>
-            \ <Esc><Cmd>call ddu#ui#do_action('chooseAction')<CR>
-  nnoremap <buffer><silent> A
-            \ <Cmd>call ddu#ui#do_action('chooseAction')<CR>
-  nnoremap <buffer><silent> c
-        \ <Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>
-	inoremap <C-j>
-				\ <Cmd>call ddu#ui#do_action('cursorNext')<CR>
-	inoremap <C-k>
-				\ <Cmd>call ddu#ui#do_action('cursorPrevious')<CR>
-  nnoremap <buffer><silent> <Space>
-   \ <Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>
-  nnoremap <buffer><silent> i
-        \ <Cmd>call ddu#ui#do_action('quickfix')<CR>
-  nnoremap <buffer><silent> q
-   \ <Cmd>call ddu#ui#do_action('quit')<CR>
+autocmd User Ddu:ui:ff:openFilterWindow
+      \ call s:ddu_ff_filter_my_settings()
+function s:ddu_ff_filter_my_settings() abort
+  let s:save_cr = '<CR>'->maparg('c', v:false, v:true)
+
+  cnoremap <CR>
+        \ <ESC><Cmd>call ddu#ui#do_action('itemAction')<CR>
+  cnoremap <C-c>
+        \ <ESC><Cmd>call ddu#ui#do_action('itemAction')<CR>
+endfunction
+autocmd User Ddu:ui:ff:closeFilterWindow
+      \ call s:ddu_ff_filter_cleanup()
+function s:ddu_ff_filter_cleanup() abort
+  if s:save_cr->empty()
+    cunmap <CR>
+  else
+    call mapset('c', 0, s:save_cr)
+  endif
 endfunction
 
 call ddu#custom#patch_local('filer', {
