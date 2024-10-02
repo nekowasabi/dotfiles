@@ -1,6 +1,6 @@
 augroup fileTypeIndent
   autocmd!
-  autocmd Filetype changelog,text,shd setlocal tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab autoindent formatoptions=q tw=0
+  autocmd Filetype changelog,text,shd setlocal tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab autoindent formatoptions=q tw=0 conceallevel=0
   autocmd BufNewFile,BufRead changelog,text,shd set tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab autoindent nospell
   autocmd BufWinEnter,BufNewFile *.js.tpl setlocal filetype=javascript tabstop=4 softtabstop=4 shiftwidth=4
   autocmd BufWinEnter,BufNewFile *.ts setlocal filetype=typescript tabstop=2 softtabstop=2 shiftwidth=2

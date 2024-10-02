@@ -637,7 +637,7 @@ function s:ddu_ff_filter_my_settings() abort
   cnoremap <CR>
         \ <ESC><Cmd>call ddu#ui#do_action('itemAction')<CR>
   cnoremap <C-c>
-        \ <ESC><Cmd>call ddu#ui#do_action('itemAction')<CR>
+        \ <ESC><Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>
 endfunction
 autocmd User Ddu:ui:ff:closeFilterWindow
       \ call s:ddu_ff_filter_cleanup()
