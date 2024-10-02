@@ -1,8 +1,8 @@
 " aider.vim
-let g:aider_command = 'aider --no-auto-commits --no-stream --architect --model gpt-4o --editor-model anthropic/claude-3-5-sonnet-20240620 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands --auto-test'
+let g:aider_command = 'aider --no-auto-commits --no-stream --architect --model gpt-4o --editor-model anthropic/claude-3-5-sonnet-20240620 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands'
 let g:aider_floatwin_width = 100
 let g:aider_floatwin_height = 50
-let g:aider_buffer_open_type = 'split'
+let g:aider_buffer_open_type = 'floating'
 if g:IsMacNeovimInWezterm()
  let g:convension_path = "~/.config/nvim/plugged/aider.vim/CONVENTION.md"
 endif
