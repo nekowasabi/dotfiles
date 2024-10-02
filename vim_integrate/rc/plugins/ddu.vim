@@ -626,7 +626,7 @@ function! s:ddu_uu_my_settings() abort
   nnoremap <buffer><silent> q
         \ <Cmd>call ddu#ui#do_action('quit')<CR>
   nnoremap <buffer> gr
-        \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'grep' })<CR>
+        \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'rg' })<CR>
 endfunction
 
 autocmd User Ddu:ui:ff:openFilterWindow
@@ -634,10 +634,8 @@ autocmd User Ddu:ui:ff:openFilterWindow
 function s:ddu_ff_filter_my_settings() abort
   let s:save_cr = '<CR>'->maparg('c', v:false, v:true)
 
-  cnoremap <CR>
-        \ <ESC><Cmd>call ddu#ui#do_action('itemAction')<CR>
   cnoremap <C-c>
-        \ <ESC><Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>
+        \ <ESC><Cmd>call ddu#ui#do_action('itemAction')<CR>
 endfunction
 autocmd User Ddu:ui:ff:closeFilterWindow
       \ call s:ddu_ff_filter_cleanup()
