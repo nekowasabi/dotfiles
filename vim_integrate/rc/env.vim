@@ -145,7 +145,7 @@ function! g:GetChangelogDirectory() abort
   if g:IsWindowsGvim()
     return 'c:/takeda/repos/changelog'
   endif
-  if g:IsMacNeovim()
+  if g:IsMacNeovim() || g:IsWsl()
     return '~/repos/changelog'
   endif
 endfunction

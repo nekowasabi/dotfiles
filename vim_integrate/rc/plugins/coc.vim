@@ -23,6 +23,7 @@ let g:coc_global_extensions = [
   \, 'coc-blade'
   \, 'coc-deno'
   \, 'coc-yank'
+  \, '@hexuhua/coc-copilot'
   \ ]
 
 let g:markdown_fenced_languages = [
