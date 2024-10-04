@@ -168,6 +168,7 @@ nnoremap <silent> <F10> :<C-u>call <SID>source_script('%')<CR>
 
 " カレントファイルのフルパスをクリプボぅ! {{{
 command! CopyCurrentFilepath :let @* = expand("%:p")
+nnoremap <silent> ,cp :CopyCurrentFilepath<CR>
 
 " }}}
 
