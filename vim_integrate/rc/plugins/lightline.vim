@@ -81,21 +81,11 @@ function! NearestMethodOrFunction()
   return ' :No Function'
 endfunction
 
-function! UpdateNearestMethodOrFunction() abort
-  if &filetype == 'vim' || &filetype == 'php' || &filetype == 'typescript' || &filetype == 'javascript'
-    call NearestMethodOrFunction()
-  endif
-  redraw
-  redrawstatus
-  call lightline#update()
-  return
-endfunction
-
 " By default vista.vim never run if you don't call it explicitly.
 "
 " If you want to show the nearest function in your statusline automatically,
 " you can add the following line to your vimrc
-autocmd BufWritePost,VimEnter,InsertEnter,ModeChanged,InsertLeave,CmdwinLeave * call NearestMethodOrFunction()
+autocmd BufWritePost,VimEnter,InsertEnter,ModeChanged,InsertLeave,CmdwinLeave,CursorMoved * call NearestMethodOrFunction()
 " autocmd VimEnter,TextChanged,TextChangedI,CursorHold,CursorMoved,InsertEnter * call lightline#update()
 autocmd User CocStatusChange redraws
 
