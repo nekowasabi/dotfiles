@@ -21,10 +21,12 @@ let g:coc_global_extensions = [
   \, 'coc-sh'
   \, 'coc-yaml'
   \, 'coc-blade'
-  \, 'coc-deno'
   \, 'coc-yank'
+  \, 'coc-biome'
   \, '@hexuhua/coc-copilot'
+  \, 'coc-deno'
   \ ]
+
 
 let g:markdown_fenced_languages = [
      \ 'vim',

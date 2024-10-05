@@ -12,79 +12,64 @@ endif
 call plug#begin(g:GetVimConfigRootPath() . 'plugged')
 
 " ----- common {{{1
-Plug 'Shougo/vimproc.vim'
 Plug 'AmaiSaeta/closesomewindow.vim'
-Plug 'rhysd/clever-f.vim'
-Plug 'LeafCage/yankround.vim'
 Plug 'AndrewRadev/switch.vim'
-Plug 't9md/vim-choosewin'
-Plug 'vim-jp/vital.vim'
-Plug 'lambdalisue/vital-ArgumentParser'
-Plug 'lambdalisue/vital-Whisky'
-Plug 'itchyny/vim-parenmatch'
-Plug 'termoshtt/curl.vim'
-Plug 'junegunn/vim-easy-align'
-Plug 'Shougo/neosnippet.vim'
+Plug 'Bakudankun/BackAndForward.vim'
+Plug 'LeafCage/yankround.vim'
 Plug 'Shougo/neosnippet-snippets'
-" Plug 'kana/vim-altr'
-Plug 'vim-jp/vimdoc-ja'
-Plug 'machakann/vim-highlightedyank'
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/vimproc.vim'
+Plug 'airblade/vim-rooter'
+Plug 'cocopon/inspecthi.vim' " colorscheme inspector
+Plug 'cohama/lexima.vim'
+Plug 'deton/jasegment.vim'
+Plug 'deton/jasentence.vim'
+Plug 'haya14busa/vim-asterisk'
+Plug 'haya14busa/vim-edgemotion'
+Plug 'itchyny/vim-gitbranch' " lightlineにブランチ名を表示
+Plug 'itchyny/vim-parenmatch'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim' 
-Plug 'deton/jasentence.vim'
-Plug 'thinca/vim-prettyprint'
-Plug 'ryicoh/deepl.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'kana/vim-gf-user'
+Plug 'kana/vim-repeat'
+Plug 'lambdalisue/gin.vim'
+Plug 'lambdalisue/gina.vim' " lightlineにブランチ名を表示に仕様
+Plug 'lambdalisue/glyph-palette.vim'
+Plug 'lambdalisue/nerdfont.vim'
+Plug 'lambdalisue/vital-ArgumentParser'
+Plug 'lambdalisue/vital-Whisky'
+Plug 'machakann/vim-highlightedyank'
+Plug 'machakann/vim-sandwich'
+Plug 'machakann/vim-swap'
+Plug 'mattn/vim-oauth'
+Plug 'mattn/webapi-vim'
 Plug 'mmikeww/autohotkey.vim'
+Plug 'nekowasabi/foldCC.vim'
+Plug 'nekowasabi/nvimdoc-ja'
+Plug 'nekowasabi/vim-sayonara'
+Plug 'previm/previm'
+Plug 'rhysd/clever-f.vim'
+Plug 'rhysd/git-messenger.vim'
+Plug 'rickhowe/wrapwidth'
+Plug 'ryanoasis/vim-devicons'
+Plug 't9md/vim-choosewin'
+Plug 'termoshtt/curl.vim'
+Plug 'thinca/vim-partedit'
+Plug 'thinca/vim-prettyprint' " PPでいい感じに変数の内容を出力
+Plug 'thinca/vim-qfreplace'
 Plug 'thinca/vim-quickrun'
 Plug 'tpope/vim-fugitive'
-Plug 'machakann/vim-swap'
-Plug 'lambdalisue/gina.vim'
-Plug 'lambdalisue/gin.vim'
-Plug 'nekowasabi/vim-sayonara'
-Plug 'nekowasabi/nvimdoc-ja'
-Plug 'nekowasabi/foldCC.vim'
-Plug 'thinca/vim-partedit'
-Plug 'cohama/lexima.vim'
-Plug 'machakann/vim-sandwich'
-Plug 'kana/vim-repeat'
 Plug 'tyru/capture.vim' " コマンドラインの結果をバッファに出力
 Plug 'tyru/columnskip.vim' 
-Plug 'rhysd/git-messenger.vim'
-Plug 'thinca/vim-prettyprint' " PPでいい感じに変数の内容を出力
-Plug 'cocopon/inspecthi.vim' " colorscheme inspector
-Plug 'itchyny/vim-gitbranch' " lightlineにブランチ名を表示
-Plug 'deton/jasegment.vim'
-Plug 'lambdalisue/glyph-palette.vim'
-Plug 'airblade/vim-rooter'
-Plug 'haya14busa/vim-asterisk'
-Plug 'mattn/webapi-vim'
-Plug 'tyru/open-browser.vim'
-Plug 'mattn/vim-oauth'
-Plug 'kana/vim-gf-user'
-Plug 'previm/previm'
-Plug 'yuki-yano/lexima-alter-command.vim'
 Plug 'tyru/current-func-info.vim'
-Plug 'haya14busa/vim-edgemotion'
-Plug 'rickhowe/wrapwidth'
 Plug 'tyru/open-browser.vim'
-Plug 'ryanoasis/vim-devicons'
-Plug 'lambdalisue/nerdfont.vim'
-Plug 'Bakudankun/BackAndForward.vim'
-Plug 'thinca/vim-qfreplace'
-
-" Plug 'lambdalisue/fern.vim'
-" Plug 'LumaKernel/fern-mapping-reload-all.vim'
-" Plug 'lambdalisue/fern-git-status.vim'
-" Plug 'yuki-yano/fern-preview.vim'
-" Plug 'lambdalisue/fern-renderer-nerdfont.vim'
-
-
+Plug 'vim-jp/vimdoc-ja'
+Plug 'vim-jp/vital.vim'
+Plug 'yuki-yano/lexima-alter-command.vim'
 " AI
-Plug 'yuki-yano/ai-review.vim'
 
 if g:IsWindowsGvim()
-	Plug 'madox2/vim-ai', { 'do': './install.sh' }
-  " Plug 'Exafunction/codeium.vim'
 else
   Plug 'github/copilot.vim'
 	Plug 'nekowasabi/aider.vim'
@@ -92,57 +77,55 @@ else
 endif
 
 " denops
-Plug 'vim-denops/denops.vim'
-Plug 'nekowasabi/rtm_deno'
-Plug 'yuki-yano/fuzzy-motion.vim'
+Plug 'hrsh7th/vim-searchx'
 Plug 'lambdalisue/kensaku.vim'
+Plug 'lambdalisue/mr.vim'
 Plug 'lambdalisue/vim-kensaku-command'
 Plug 'lambdalisue/vim-kensaku-search'
-Plug 'hrsh7th/vim-searchx'
-Plug 'lambdalisue/mr.vim'
-Plug 'vim-denops/denops-shared-server.vim'
+Plug 'nekowasabi/rtm_deno'
 Plug 'vim-denops/denops-helloworld.vim'
+Plug 'vim-denops/denops-shared-server.vim'
+Plug 'vim-denops/denops.vim'
 
 " textobj
-Plug 'wellle/targets.vim'
 Plug 'kana/vim-operator-user'
-Plug 'kana/vim-textobj-underscore'
-Plug 'osyo-manga/vim-textobj-from_regexp'
-Plug 'sgur/vim-textobj-parameter'
-Plug 'osyo-manga/vim-textobj-blockwise'
 Plug 'kana/vim-textobj-fold'
+Plug 'kana/vim-textobj-jabraces'
+Plug 'kana/vim-textobj-underscore'
 Plug 'kana/vim-textobj-user'
+Plug 'machakann/vim-textobj-equation'
+Plug 'machakann/vim-textobj-functioncall'
+Plug 'osyo-manga/vim-textobj-blockwise'
+Plug 'osyo-manga/vim-textobj-from_regexp'
 Plug 'osyo-manga/vim-textobj-multiblock'
 Plug 'osyo-manga/vim-textobj-multitextobj'
+Plug 'sgur/vim-textobj-parameter'
 Plug 'thalesmello/vim-textobj-methodcall'
-Plug 'machakann/vim-textobj-equation'
-Plug 'kana/vim-textobj-jabraces'
-Plug 'kana/vim-textobj-fold'
-Plug 'machakann/vim-textobj-functioncall'
 
+Plug 'wellle/targets.vim'
 " ddc
 function! g:SetDdc() abort
-  Plug 'Shougo/ddc.vim'
-  Plug 'Shougo/ddc-ui-native'
+	Plug 'Shougo/ddc-source-mocword'
+	Plug 'Shougo/ddc-source-rg'
+  Plug 'LumaKernel/ddc-source-file'
   Plug 'Shougo/ddc-around'
+  Plug 'Shougo/ddc-filter-converter_remove_overlap'
   Plug 'Shougo/ddc-matcher_head'
   Plug 'Shougo/ddc-sorter_rank'
-  Plug 'Shougo/ddc-filter-converter_remove_overlap'
-	Plug 'Shougo/ddc-source-rg'
-  Plug 'fuenor/im_control.vim'
-  Plug 'matsui54/ddc-buffer'
-  Plug 'Shougo/pum.vim'
-  Plug 'Shougo/ddc-ui-pum'
-  Plug 'Shougo/neco-vim'
-  Plug 'matsui54/denops-signature_help'
-  Plug 'LumaKernel/ddc-source-file'
-  Plug 'tani/ddc-fuzzy'
-  Plug 'matsui54/denops-popup-preview.vim'
-  Plug 'Shougo/ddc-source-cmdline-history'
   Plug 'Shougo/ddc-source-cmdline'
+  Plug 'Shougo/ddc-source-cmdline-history'
   Plug 'Shougo/ddc-source-copilot'
-	Plug 'Shougo/ddc-source-mocword'
+  Plug 'Shougo/ddc-ui-native'
+  Plug 'Shougo/ddc-ui-pum'
+  Plug 'Shougo/ddc.vim'
+  Plug 'Shougo/neco-vim'
+  Plug 'Shougo/pum.vim'
+  Plug 'fuenor/im_control.vim'
   Plug 'gamoutatsumi/ddc-emoji'
+  Plug 'matsui54/ddc-buffer'
+  Plug 'matsui54/denops-popup-preview.vim'
+  Plug 'matsui54/denops-signature_help'
+  Plug 'tani/ddc-fuzzy'
 
   if g:IsWindowsGvim()
     Plug 'prabirshrestha/vim-lsp'
@@ -157,52 +140,50 @@ endfunction
 
 " ddu
 function g:SetDdu()
-  Plug 'Shougo/ddu.vim'
-  Plug 'Shougo/ddu-ui-ff'
-  Plug 'Shougo/ddu-filter-matcher_substring'
-  Plug 'Shougo/ddu-source-file_rec'
-  Plug 'Shougo/ddu-kind-word'
-	Plug 'shun/ddu-source-buffer'
-	Plug 'kuuote/ddu-source-mr'
-	Plug 'Shougo/ddu-commands.vim'
-	Plug 'matsui54/ddu-source-command_history'
-	Plug 'shun/ddu-source-rg'
-	Plug 'Shougo/ddu-source-line'
-	Plug 'Milly/ddu-filter-kensaku'
 	Plug 'Bakudankun/ddu-filter-matchfuzzy'
+	Plug 'Milly/ddu-filter-kensaku'
+	Plug 'Shougo/ddc-filter-converter_truncate_abbr'
+	Plug 'Shougo/ddu-column-filename'
+	Plug 'Shougo/ddu-commands.vim'
+	Plug 'Shougo/ddu-source-line'
+	Plug 'Shougo/ddu-ui-filer'
 	Plug 'kuuote/ddu-source-git_diff'
+	Plug 'kuuote/ddu-source-mr'
+	Plug 'kyoh86/ddu-filter-converter_hl_dir'
+	Plug 'matsui54/ddu-source-command_history'
+	Plug 'matsui54/ddu-source-file_external'
+	Plug 'nabezokodaikon/ddu-source-file_fd'
+	Plug 'nekowasabi/ddu-source-vim-bookmark'
+	Plug 'peacock0803sz/ddu-source-git_stash'
+	Plug 'ryota2357/ddu-column-icon_filename'
+	Plug 'shun/ddu-source-buffer'
+	Plug 'shun/ddu-source-rg'
 	Plug 'tamago3keran/ddu-column-devicon_filename'
 	Plug 'uga-rosa/ddu-filter-converter_devicon'
-  Plug 'yuki-yano/ddu-filter-fzf'
-	Plug 'matsui54/ddu-source-file_external'
-  Plug 'matsui54/ddu-source-help'
-  Plug 'mikanIchinose/ddu-source-markdown'
-  Plug 'kamecha/ddu-source-jumplist'
-	Plug 'kyoh86/ddu-filter-converter_hl_dir'
-  Plug 'Shougo/ddu-filter-matcher_ignores'
   Plug '4513ECHO/ddu-source-emoji'
+  Plug 'Shougo/ddu-filter-matcher_ignores'
+  Plug 'Shougo/ddu-filter-matcher_substring'
+  Plug 'Shougo/ddu-kind-file'
+  Plug 'Shougo/ddu-kind-word'
+  Plug 'Shougo/ddu-source-action'
+  Plug 'Shougo/ddu-source-file'
+  Plug 'Shougo/ddu-source-file_rec'
+  Plug 'Shougo/ddu-ui-ff'
+  Plug 'Shougo/ddu.vim'
   Plug 'kamecha/ddu-filter-converter_file_icon'
   Plug 'kamecha/ddu-filter-converter_file_info'
-  Plug 'Shougo/ddu-source-action'
-	Plug 'Shougo/ddu-ui-filer'
-	Plug 'Shougo/ddu-column-filename'
-  Plug 'Shougo/ddu-source-file'
-  Plug 'Shougo/ddu-kind-file'
-	Plug 'ryota2357/ddu-column-icon_filename'
-	Plug 'nabezokodaikon/ddu-source-file_fd'
-  Plug 'uga-rosa/ddu-source-lsp'
-	Plug 'peacock0803sz/ddu-source-git_stash'
-	Plug 'Shougo/ddc-filter-converter_truncate_abbr'
-	Plug 'nekowasabi/ddu-source-vim-bookmark'
+  Plug 'kamecha/ddu-source-jumplist'
+  Plug 'matsui54/ddu-source-help'
+  Plug 'mikanIchinose/ddu-source-markdown'
   Plug 'nekowasabi/ddu-ai-prompt-connecter'
+  Plug 'uga-rosa/ddu-source-lsp'
+  Plug 'yuki-yano/ddu-filter-fzf'
 endfunction
 
 function g:SetCoc()
-  " coc
   Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'yarn install --frozen-lockfile'}
   Plug 'neoclide/coc-neco'
   Plug 'antoinemadec/coc-fzf'
-  " Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
 endfunction
 
 " }}}1
@@ -241,24 +222,6 @@ if g:IsWindowsGvim()
 
 	call g:SetDdc()
 	call g:SetDdu()
-
-	" disable
-	" Plug 'tamago324/LeaderF-bookmark'
-	" Plug 'voldikss/LeaderF-emoji'
-  " Plug 'Yggdroot/LeaderF-changes'
-  " Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
-  " Plug 'itchyny/lightline.vim'
-  " Plug 'mengelbrecht/lightline-bufferline'
-  " Plug 'gelguy/wilder.nvim'
-  " Plug 'roxma/nvim-yarp'
-  " Plug 'roxma/vim-hug-neovim-rpc'
-  " Plug 'itchyny/calendar.vim'
-  " Plug 'fuenor/im_control.vim'
-  " Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
-  " Plug 'LeafCage/foldCC.vim'
-  " Plug 'dbmrq/vim-chalk'
-  " Plug 'Shougo/neosnippet.vim'
-  " Plug 'Shougo/neosnippet-snippets'
 endif
 " }}}1
 
@@ -289,7 +252,6 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'MunifTanjim/nui.nvim' " おしゃれなコマンドライン変更
   Plug 'rcarriga/nvim-notify' " 通知（おしゃれだけれどバギー）
   Plug 'folke/trouble.nvim' " diagnoticを一覧表示する
-  Plug 'adoy/vim-php-refactoring-toolbox'
   Plug 'dhruvasagar/vim-table-mode'
   Plug 'nvimtools/none-ls.nvim'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -315,11 +277,8 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'linrongbin16/gitlinker.nvim'
   Plug 'Al0den/notion.nvim'
   Plug 'williamboman/mason.nvim'
-  " Plug 'jay-babu/mason-null-ls.nvim'
-  " Plug 'williamboman/mason-lspconfig.nvim'
   Plug 'Wansmer/treesj'
   Plug 'stevearc/oil.nvim'
-  " Plug 'SmiteshP/nvim-navic'
   Plug 'vim-test/vim-test'
   Plug 'skywind3000/asyncrun.vim'
 	Plug 'sigmaSd/deno-nvim'
@@ -400,7 +359,6 @@ if g:IsLinux()  && !g:IsWsl()
   Plug 'akinsho/nvim-toggleterm.lua'
   Plug 'nvim-lualine/lualine.nvim'
   Plug 'puremourning/vimspector' 
-  Plug 'adoy/vim-php-refactoring-toolbox'
   Plug 'dhruvasagar/vim-table-mode'
   Plug 'gelguy/wilder.nvim'
 	Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
@@ -412,39 +370,18 @@ if g:IsLinux()  && !g:IsWsl()
 
   " coc
   Plug 'lifepillar/vim-solarized8' " colorscheme
-  " Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'yarn install --frozen-lockfile'}
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'neoclide/coc-neco'
   Plug 'wellle/tmux-complete.vim'
   Plug 'antoinemadec/coc-fzf'
   Plug 'josa42/vim-lightline-coc'
   Plug 'lighttiger2505/sqls.vim'
-  "Plug 'prabirshrestha/vim-lsp'
   Plug 'prabirshrestha/async.vim'
   Plug '2072/PHP-Indenting-for-VIm'
   Plug 'captbaritone/better-indent-support-for-php-with-html'
   Plug 'yaegassy/coc-marksman', {'do': 'yarn install --frozen-lockfile'}
 
   call g:SetDdu()
-
-  " suspend
-  " Plug 'neovim/nvim-lspconfig'
-  " Plug 'williamboman/mason.nvim'
-  " Plug 'williamboman/mason-lspconfig.nvim'
-  " Plug 'tami5/lspsaga.nvim'
-  " Plug 'hrsh7th/cmp-nvim-lsp'
-  " Plug 'hrsh7th/vim-vsnip'
-  " Plug 'hrsh7th/vim-vsnip-integ'
-  " Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
-  " Plug 'onsails/lspkind.nvim'
-  " Plug 'hrsh7th/cmp-vsnip'
-  " Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
-  " " Plug 'ray-x/cmp-treesitter'
-  " Plug 'hrsh7th/cmp-nvim-lsp-document-symbol'
-  " treesiterは数万行だとまともに動かない
-  " Plug 'posva/vim-vue'
-  " Plug 'leafOfTree/vim-vue-plugin'
-
 endif
 " }}}1
 
@@ -487,53 +424,53 @@ endif
 " }}}1
 
 " Wsl {{{1
-if g:IsWsl()
-  " Plug 'puremourning/vimspector' 
-  Plug 'itchyny/lightline.vim'
-  Plug 'mengelbrecht/lightline-bufferline'
-  Plug 'maximbaz/lightline-ale'
-  Plug 'dense-analysis/ale' " textlint
-  Plug 'pwntester/octo.nvim' " github操作
-  Plug 'nvim-lua/plenary.nvim' " luaのライブラリ
-  Plug 'nvim-tree/nvim-web-devicons'
-  Plug 'nvim-telescope/telescope.nvim' " 普段は使わないけれど、プラグイン連携でたまに使う
-  Plug 'elzr/vim-json'
-  Plug 'andymass/vim-matchup'
-  Plug 'Shougo/context_filetype.vim'
-  Plug 'Shougo/defx.nvim'
-  Plug 'kristijanhusak/defx-git'
-  Plug 'kristijanhusak/defx-icons'
-  Plug 'MattesGroeger/vim-bookmarks' " fzf-previewと連携して使う（単体でも一応使える）
-  Plug 'tpope/vim-dadbod'  " DBクライアント
-  Plug 'kristijanhusak/vim-dadbod-ui' 
-  Plug 'lewis6991/gitsigns.nvim'
-  Plug 'overcache/NeoSolarized'
-  Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
-  Plug 'akinsho/git-conflict.nvim'
-  Plug 'folke/lsp-colors.nvim' " lspの色を変更する
-  Plug 'MunifTanjim/nui.nvim' " おしゃれなコマンドライン変更
-  Plug 'rcarriga/nvim-notify' " 通知（おしゃれだけれどバギー）
-  Plug 'nvim-tree/nvim-web-devicons'
-  Plug 'folke/trouble.nvim' " diagnoticを一覧表示する
-  Plug 'adoy/vim-php-refactoring-toolbox'
-  Plug 'dhruvasagar/vim-table-mode'
-  Plug 'nvimtools/none-ls.nvim'
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  Plug 'kdheepak/lazygit.nvim'
-  Plug 'williamboman/mason.nvim'
-  Plug 'williamboman/mason-lspconfig.nvim'
-  Plug 'ErichDonGubler/lsp_lines.nvim'
-  Plug 'lukas-reineke/indent-blankline.nvim'
-  Plug 'rest-nvim/rest.nvim'
-  Plug 'HiPhish/rainbow-delimiters.nvim'
-  Plug 'gelguy/wilder.nvim'
-  Plug 'atusy/treemonkey.nvim'
-  Plug 'linrongbin16/gitlinker.nvim'
-
-  call g:SetCoc()
-  call g:SetDdu()
-
-endif
+" if g:IsWsl()
+"   " Plug 'puremourning/vimspector' 
+"   Plug 'itchyny/lightline.vim'
+"   Plug 'mengelbrecht/lightline-bufferline'
+"   Plug 'maximbaz/lightline-ale'
+"   Plug 'dense-analysis/ale' " textlint
+"   Plug 'pwntester/octo.nvim' " github操作
+"   Plug 'nvim-lua/plenary.nvim' " luaのライブラリ
+"   Plug 'nvim-tree/nvim-web-devicons'
+"   Plug 'nvim-telescope/telescope.nvim' " 普段は使わないけれど、プラグイン連携でたまに使う
+"   Plug 'elzr/vim-json'
+"   Plug 'andymass/vim-matchup'
+"   Plug 'Shougo/context_filetype.vim'
+"   Plug 'Shougo/defx.nvim'
+"   Plug 'kristijanhusak/defx-git'
+"   Plug 'kristijanhusak/defx-icons'
+"   Plug 'MattesGroeger/vim-bookmarks' " fzf-previewと連携して使う（単体でも一応使える）
+"   Plug 'tpope/vim-dadbod'  " DBクライアント
+"   Plug 'kristijanhusak/vim-dadbod-ui' 
+"   Plug 'lewis6991/gitsigns.nvim'
+"   Plug 'overcache/NeoSolarized'
+"   Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
+"   Plug 'akinsho/git-conflict.nvim'
+"   Plug 'folke/lsp-colors.nvim' " lspの色を変更する
+"   Plug 'MunifTanjim/nui.nvim' " おしゃれなコマンドライン変更
+"   Plug 'rcarriga/nvim-notify' " 通知（おしゃれだけれどバギー）
+"   Plug 'nvim-tree/nvim-web-devicons'
+"   Plug 'folke/trouble.nvim' " diagnoticを一覧表示する
+"   " Plug 'adoy/vim-php-refactoring-toolbox'
+"   Plug 'dhruvasagar/vim-table-mode'
+"   Plug 'nvimtools/none-ls.nvim'
+"   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+"   Plug 'kdheepak/lazygit.nvim'
+"   Plug 'williamboman/mason.nvim'
+"   Plug 'williamboman/mason-lspconfig.nvim'
+"   Plug 'ErichDonGubler/lsp_lines.nvim'
+"   Plug 'lukas-reineke/indent-blankline.nvim'
+"   Plug 'rest-nvim/rest.nvim'
+"   Plug 'HiPhish/rainbow-delimiters.nvim'
+"   Plug 'gelguy/wilder.nvim'
+"   Plug 'atusy/treemonkey.nvim'
+"   Plug 'linrongbin16/gitlinker.nvim'
+"
+"   call g:SetCoc()
+"   call g:SetDdu()
+"
+" endif
 " }}}1
 
 " Windows Neovim {{{1
@@ -546,12 +483,10 @@ call plug#end()
 " setting common {{{1
 execute 'source '.g:GetVimConfigRootPath().'rc/general.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/keybind.vim'
-
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/neosnippet.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/folding.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/my-filetype.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/misc.vim'
-
 execute 'source '.g:GetVimConfigRootPath().'rc/colorscheme.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/abbrev.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/clever-f.vim'
@@ -561,23 +496,15 @@ execute 'source '.g:GetVimConfigRootPath().'rc/plugins/choosewin.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/quickrun.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/easyalign.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-rtm.vim'
-
-" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/mastodon.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/searchx.vim'
-execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fuzzy-motion.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-sandwich.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lexima.vim'
-" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gina.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gin.vim'
-" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/BackAndForward.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/easymotion.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/edgemotion.vim'
-" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/twihi.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/surround.vim'
-" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-altr.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/deepl.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/sayonara.vim'
-
 " }}}1
 
 " setting Mac Neovim {{{1
@@ -642,12 +569,6 @@ if g:IsMacNeovim() || g:IsWsl()
 		" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-lsp.vim'
 		" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc-source-lsp.vim'
   endif
-
-
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vista.vim'
-  "execute 'source '.g:GetVimConfigRootPath().'rc/plugins/caw.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fern.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-print-debug.vim'
 endif
 " }}}1
 

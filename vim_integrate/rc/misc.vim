@@ -295,7 +295,33 @@ command! -range Cursor call s:OpenByCursor()
 " -----------------------------------------------------------
 " test
 function! s:Test()
-  execute "CocDisable"
+  " 選択肢リストを定義
+  let options = [
+        \ '選択肢を選んでください:',
+        \ '1. オプション1',
+        \ '2. オプション2',
+        \ '3. オプション3',
+        \ 'a. 特定のオプション',
+        \ 'b. 特定のオプション'
+        \ ]
+
+  " ユーザーにリストを表示し、選んだオプションの番号を取得
+  let user_choice = inputlist(options)
+
+  " 'a'を入力として特別に処理
+  if user_choice == 4
+    let user_choice = 0
+  endif
+
+  " 'a'を入力として特別に処理
+  if user_choice == 5
+    let user_choice = 999
+  endif
+
+
+
+  " 結果を出力
+  echo '選んだオプションの番号は: ' . user_choice
 endfunction
 command! Test call s:Test() 
 command! -range VTest call s:Test() 

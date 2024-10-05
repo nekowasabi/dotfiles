@@ -18,10 +18,6 @@ if g:IsWsl()
   let g:neosnippet#snippets_directory = '/home/takets/.config/nvim/mysnippet'
 endif
 
-if g:IsLinux()
-  let g:neosnippet#snippets_directory = '/home/kf/.config/nvim/mysnippet'
-endif
-
 let g:neosnippet#enable_completed_snippet = 1
 
 " imap <C-s>     <Plug>(neosnippet_expand_or_jump)

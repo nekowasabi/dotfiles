@@ -296,18 +296,9 @@ endfunction
 
 nnoremap <Space>pa  :<C-u>call DduGrepProject()<CR>
 function DduGrepProject() abort
-  if g:IsMacGvim()
-    cd /Users/takets/Library/CloudStorage/Dropbox/files/changelog
-  endif
-  if g:IsWindowsGvim()
-    cd c:/takeda/repos/changelog
-  endif
-  if g:IsLinux()
-    cd /home/kf/app
-  endif
-  if g:IsMacNeovimInWork()
-    cd $BACKEND_LARAVEL_DIR
-  endif
+  let git_root = system('git rev-parse --show-toplevel')
+  let git_root = substitute(git_root, '\n', '', 'g') " 改行を削除
+  execute 'cd' git_root
 
   let s:input = input('project grep > ')
 
@@ -327,18 +318,9 @@ endfunction
 
 nnoremap <Space>pw  :<C-u>call DduGrepProjectWord()<CR>
 function DduGrepProjectWord() abort
-  if g:IsMacGvim()
-    cd /Users/takets/Library/CloudStorage/Dropbox/files/changelog
-  endif
-  if g:IsWindowsGvim()
-    cd c:/takeda/repos/changelog
-  endif
-  if g:IsLinux()
-    cd /home/kf/app
-  endif
-  if g:IsMacNeovimInWork()
-    cd $BACKEND_LARAVEL_DIR
-  endif
+  let git_root = system('git rev-parse --show-toplevel')
+  let git_root = substitute(git_root, '\n', '', 'g') " 改行を削除
+  execute 'cd' git_root
 
   let search_word = expand("<cword>")
 	call ddu#start({
@@ -500,21 +482,6 @@ call ddu#custom#patch_global({
     \   },
     \ })
 
-call ddu#custom#patch_global({
-  \ 'kindOptions': {
-  \   'ai-review-request': {
-  \     'defaultAction': 'open',
-  \   },
-  \   'ai-review-log': {
-  \     'defaultAction': 'resume',
-  \   },
-	\   'word': {
-  \     'defaultAction': 'append',
-  \   },
-  \ }
-  \ })
-
-call ai_review#config()
 
 if g:IsWindowsGvim() || g:IsMacGvim() || g:IsLinux() || g:IsMacNeovim()
   nnoremap <silent> <Leader>ad
@@ -568,24 +535,6 @@ if g:IsWindowsGvim() || g:IsMacGvim() || g:IsLinux() || g:IsMacNeovim()
         \ <Cmd>call ddu#start({'sources': [{'name': 'git_stash'}]})<CR>
 endif
 
-" autocmd User Ddu:ui:ff:openFilterWindow
-"       \ call s:ddu_ff_filter_my_settings()
-" function s:ddu_ff_filter_my_settings() abort
-"   let s:save_cr = '<CR>'->maparg('c', v:false, v:true)
-"
-"   cnoremap <CR>
-"         \ <ESC><Cmd>call ddu#ui#do_action('itemAction')<CR>
-" endfunction
-" autocmd User Ddu:ui:ff:closeFilterWindow
-"       \ call s:ddu_ff_filter_cleanup()
-" function s:ddu_ff_filter_cleanup() abort
-"   if s:save_cr->empty()
-"     cunmap <CR>
-"   else
-"     call mapset('c', 0, s:save_cr)
-"   endif
-" endfunction
-
 autocmd FileType ddu-ff call s:ddu_uu_my_settings()
 function! s:ddu_uu_my_settings() abort
   inoremap <buffer><silent> <CR>
@@ -605,9 +554,7 @@ function! s:ddu_uu_my_settings() abort
         \ <Cmd>call ddu#ui#do_action('itemAction', {'params': {'command': 'split'}})<CR>
   nnoremap <buffer><silent> v
         \ <Cmd>call ddu#ui#do_action('itemAction', {'params': {'command': 'vsplit'}})<CR>
-  nnoremap <buffer><silent> <C-j>
-        \ <Cmd>call ddu#ui#do_action('kensaku')<CR>
-  nnoremap <buffer><silent> A
+  nnoremap <buffer><silent> a
         \ <Cmd>call ddu#ui#do_action('chooseAction')<CR>
   nnoremap <buffer> *
         \ <Cmd>call ddu#ui#do_action('toggleAllItems')<CR>
@@ -625,9 +572,59 @@ function! s:ddu_uu_my_settings() abort
         \ <Cmd>call ddu#ui#do_action('expandItem', {'mode': 'toggle'})<CR>
   nnoremap <buffer><silent> q
         \ <Cmd>call ddu#ui#do_action('quit')<CR>
-  nnoremap <buffer> gr
-        \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'rg' })<CR>
+  nnoremap <buffer> ms
+        \ <Cmd>call ddu#ui#multi_actions([
+        \   [
+        \      'updateOptions', g:source_options_substring
+        \   ],
+        \   [
+        \      'redraw', #{ method: 'refreshItems' },
+        \   ],
+        \ ])<CR>
+  nnoremap <buffer> mf
+        \ <Cmd>call ddu#ui#multi_actions([
+        \   [
+        \      'updateOptions', g:source_options_fuzzy
+        \   ],
+        \   [
+        \      'redraw', #{ method: 'refreshItems' },
+        \   ],
+        \ ])<CR>
+
 endfunction
+
+let g:source_options_substring = #{
+      \ sourceOptions: #{
+      \   mr: #{
+      \     matchers: ['matcher_substring'],
+      \   },
+      \   rg: #{
+      \     matchers: ['matcher_substring'],
+      \   },
+      \   line: #{
+      \     matchers: ['matcher_substring'],
+      \   },
+      \ },
+      \ }
+
+let g:source_options_fuzzy = #{
+      \ sourceOptions: #{
+      \   mr: #{
+      \     matchers: ['matcher_matchfuzzy', 'matcher_kensaku'],
+      \     ignoreCase: v:true,
+      \   },
+      \   rg: #{
+      \     matchers: ['matcher_matchfuzzy', 'matcher_kensaku'],
+      \     ignoreCase: v:true,
+      \   },
+      \   line: #{
+      \     matchers: ['matcher_matchfuzzy', 'matcher_kensaku'],
+      \     ignoreCase: v:true,
+      \   },
+      \ },
+      \ }
+
+
 
 autocmd User Ddu:ui:ff:openFilterWindow
       \ call s:ddu_ff_filter_my_settings()
