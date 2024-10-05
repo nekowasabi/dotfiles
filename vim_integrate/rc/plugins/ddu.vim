@@ -386,94 +386,6 @@ function DduGrepConfig() abort
 endfunction
 " }}}1
 
-" vim-lsp {{{1
-" if g:IsWindowsGvim()
-"   let g:ddu_source_lsp_clientName = 'vim-lsp'
-" else
-"   let g:ddu_source_lsp_clientName = 'nvim-lsp'
-" endif
-" call ddu#custom#patch_global(#{
-"       \ kindOptions: #{
-"       \   lsp: #{
-"       \     defaultAction: 'open',
-"       \   },
-"       \   lsp_codeAction: #{
-"       \     defaultAction: 'apply',
-"       \   },
-"       \ },
-"       \})
-"
-" nnoremap <silent> <Leader>cd
-"     \ <Cmd>call ddu#start(#{
-" 	    \ sync: v:true,
-" 	    \ sources: [#{
-" 	    \   name: 'lsp_definition',
-" 	    \ }],
-" 	    \ uiParams: #{
-" 	    \   ff: #{
-" 	    \     immediateAction: 'open',
-" 	    \   },
-" 	    \ }
-" 	    \})<CR>
-"
-" nnoremap <silent> <Leader>cD
-"     \ <Cmd>call ddu#start(#{
-" 	    \ sources: [#{
-" 	    \   name: 'lsp_diagnostic',
-" 	    \   params: #{
-" 	    \     buffer: 0,
-" 	    \   }
-" 	    \ }],
-" 	    \})<CR>
-"
-" nnoremap <silent> <Leader>co
-"     \ <Cmd>call ddu#start(#{
-" 	    \ sources: [#{
-" 	    \   name: 'lsp_documentSymbol',
-" 	    \ }],
-" 	    \ sourceOptions: #{
-" 	    \   lsp: #{
-" 	    \     volatile: v:true,
-" 	    \   },
-" 	    \ },
-" 	    \ uiParams: #{
-" 	    \   ff: #{
-" 	    \     ignoreEmpty: v:false
-" 	    \   },
-" 	    \ }
-" 	    \})<CR>
-"
-" nnoremap <silent> <Leader>cw
-"     \ <Cmd>call ddu#start(#{
-" 	    \ sources: [#{
-" 	    \   name: 'lsp_workspaceSymbol',
-" 	    \ }],
-" 	    \ sourceOptions: #{
-" 	    \   lsp: #{
-" 	    \     volatile: v:true,
-" 	    \   },
-" 	    \ },
-" 	    \ uiParams: #{
-" 	    \   ff: #{
-" 	    \     ignoreEmpty: v:false
-" 	    \   },
-" 	    \ }
-" 	    \})<CR>
-"
-" nmap <silent> <Leader>cr
-"     \ <Cmd>call ddu#start(#{
-"     \ sync: v:true,
-"     \ sources: [#{
-"     \   name: 'lsp_references',
-"     \ }],
-"     \ uiParams: #{
-"     \   ff: #{
-"     \     immediateAction: 'open',
-"     \   },
-"     \ }
-"     \})<CR>
-" }}}1
-
 " commands {{{1
 nnoremap <silent> <Leader>ad
       \ <Cmd>call ddu#start({'sources': [{'name': 'aider'}]})<CR>
@@ -764,3 +676,90 @@ call ddu#custom#patch_global('sourceOptions', {
 
 " }}}1
 
+" vim-lsp {{{1
+" if g:IsWindowsGvim()
+"   let g:ddu_source_lsp_clientName = 'vim-lsp'
+" else
+"   let g:ddu_source_lsp_clientName = 'nvim-lsp'
+" endif
+" call ddu#custom#patch_global(#{
+"       \ kindOptions: #{
+"       \   lsp: #{
+"       \     defaultAction: 'open',
+"       \   },
+"       \   lsp_codeAction: #{
+"       \     defaultAction: 'apply',
+"       \   },
+"       \ },
+"       \})
+"
+" nnoremap <silent> <Leader>cd
+"     \ <Cmd>call ddu#start(#{
+" 	    \ sync: v:true,
+" 	    \ sources: [#{
+" 	    \   name: 'lsp_definition',
+" 	    \ }],
+" 	    \ uiParams: #{
+" 	    \   ff: #{
+" 	    \     immediateAction: 'open',
+" 	    \   },
+" 	    \ }
+" 	    \})<CR>
+"
+" nnoremap <silent> <Leader>cD
+"     \ <Cmd>call ddu#start(#{
+" 	    \ sources: [#{
+" 	    \   name: 'lsp_diagnostic',
+" 	    \   params: #{
+" 	    \     buffer: 0,
+" 	    \   }
+" 	    \ }],
+" 	    \})<CR>
+"
+" nnoremap <silent> <Leader>co
+"     \ <Cmd>call ddu#start(#{
+" 	    \ sources: [#{
+" 	    \   name: 'lsp_documentSymbol',
+" 	    \ }],
+" 	    \ sourceOptions: #{
+" 	    \   lsp: #{
+" 	    \     volatile: v:true,
+" 	    \   },
+" 	    \ },
+" 	    \ uiParams: #{
+" 	    \   ff: #{
+" 	    \     ignoreEmpty: v:false
+" 	    \   },
+" 	    \ }
+" 	    \})<CR>
+"
+" nnoremap <silent> <Leader>cw
+"     \ <Cmd>call ddu#start(#{
+" 	    \ sources: [#{
+" 	    \   name: 'lsp_workspaceSymbol',
+" 	    \ }],
+" 	    \ sourceOptions: #{
+" 	    \   lsp: #{
+" 	    \     volatile: v:true,
+" 	    \   },
+" 	    \ },
+" 	    \ uiParams: #{
+" 	    \   ff: #{
+" 	    \     ignoreEmpty: v:false
+" 	    \   },
+" 	    \ }
+" 	    \})<CR>
+"
+" nmap <silent> <Leader>cr
+"     \ <Cmd>call ddu#start(#{
+"     \ sync: v:true,
+"     \ sources: [#{
+"     \   name: 'lsp_references',
+"     \ }],
+"     \ uiParams: #{
+"     \   ff: #{
+"     \     immediateAction: 'open',
+"     \   },
+"     \ }
+"     \})<CR>
+" }}}1

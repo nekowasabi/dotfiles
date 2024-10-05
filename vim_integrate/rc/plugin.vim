@@ -267,7 +267,6 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'neovim/nvim-lspconfig'
   Plug 'vinnymeller/swagger-preview.nvim'
 	Plug 'xiyaowong/telescope-emoji.nvim'
-	Plug 'cshuaimin/ssr.nvim' " あとで練習する
 	Plug 'CopilotC-Nvim/CopilotChat.nvim', {'branch': 'canary'}
   Plug 'nvim-tree/nvim-web-devicons'
 	Plug 'tani/dmacro.nvim'
