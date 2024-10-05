@@ -2,6 +2,7 @@ call ddu#custom#patch_global(#{
       \   ui: 'ff',
       \ })
 
+" ddu window settings {{{1
 if g:IsMacGvim()
   let s:Height = 35
   let s:Width  = 65
@@ -59,7 +60,6 @@ if g:IsLinux()
   let s:cursorLine = 'String'
 endif
 
-" floating
 call ddu#custom#patch_global(#{
     \     uiParams: #{
 		\       uiOptions: #{
@@ -91,7 +91,9 @@ call ddu#custom#patch_global(#{
     \   },
     \ })
 
+" }}}1
 
+" kind options {{{1
 call ddu#custom#patch_global(#{
     \   kindOptions: #{
     \     file: #{
@@ -136,6 +138,9 @@ call ddu#custom#patch_global(#{
     \   }
     \ })
 
+" }}}1
+
+" source options {{{1
 call ddu#custom#alias('column', 'icon_filename_for_ff', 'icon_filename')
 call ddu#custom#patch_global(#{
   \   sourceOptions: #{
@@ -158,6 +163,52 @@ call ddu#custom#patch_global(#{
   \   }
   \ })
 
+call ddu#custom#patch_global({
+    \   'sourceParams' : {
+    \     'rg' : {
+    \       'args': ['--json'],
+    \       'inputType': 'migemo',
+    \     },
+    \   },
+    \ })
+
+if g:IsMacNeovim()
+  let g:dropbox_dir = '/Users/takets/Library/CloudStorage/Dropbox/files/changelog'
+  let g:config_dir =  '~/.config/'
+endif
+if g:IsWsl()
+  let g:config_dir =  '/home/takets/.config/'
+endif
+if g:IsWindowsGvim()
+  let g:dropbox_dir = 'g:/dropbox/files/changelog'
+  let g:config_dir =  'c:/tools/vim'
+endif
+
+call ddu#custom#patch_global('sourceParams', {
+	 \   'file_external': {
+   \     'cmd': ['git', 'ls-files']
+	 \   },
+	 \ })
+
+call ddu#custom#patch_global({
+    \   'sourceOptions' : {
+    \     'markdown' : {
+    \       'sorters': [],
+    \     },
+    \   },
+    \   'sourceParams' : {
+    \     'markdown' : {
+    \       'style': 'none',
+    \       'chunkSize': 5,
+    \       'limit': 1000,
+    \     },
+    \   },
+    \ })
+
+
+" }}}1
+
+" matcher options {{{1
 call ddu#custom#patch_global(#{
     \   sourceOptions: #{
     \     _: #{
@@ -229,49 +280,26 @@ call ddu#custom#patch_global(#{
     \   }
     \ })
 
-call ddu#custom#patch_global({
-    \   'sourceParams' : {
-    \     'rg' : {
-    \       'args': ['--json'],
-    \       'inputType': 'migemo',
-    \     },
-    \   },
-    \ })
 
-if g:IsMacNeovim()
-  let g:dropbox_dir = '/Users/takets/Library/CloudStorage/Dropbox/files/changelog'
-  let g:config_dir =  '~/.config/'
-endif
-if g:IsWsl()
-  let g:config_dir =  '/home/takets/.config/'
-endif
-if g:IsWindowsGvim()
-  let g:dropbox_dir = 'g:/dropbox/files/changelog'
-  let g:config_dir =  'c:/tools/vim'
-endif
+" }}}1
 
-" or git ls-files
-call ddu#custom#patch_global('sourceParams', {
-	 \   'file_external': {
-   \     'cmd': ['git', 'ls-files']
-	 \   },
-	 \ })
-
-
-	 "\     'cmd': ['fd', '--no-ignore', '--hidden', '--exclude', '.git', '--type', 'file', '--type', 'symlink']
-" 'fd', '--no-ignore', '--hidden', '--exclude', '.git', '--type', 'file', '--type', 'symlink'
-
-nmap <silent> <Leader>p <Cmd>call ddu#start({
-    \   'sourceParams' : #{
-    \     rg : #{
-    \       args: ['--json'],
-    \       inputType: 'migemo',
-    \     },
-    \   },
-    \   'sources':[
-    \     {'name': 'rg', 'options': {'path': g:dropbox_dir}, 'params': {'input': 'worklog'}},
-    \   ],
-    \ })<CR>
+" commands {{{1
+nnoremap <space>pc :<C-u>call DduGrepCurrentDirectory()<CR>
+function DduGrepCurrentDirectory() abort
+  let s:input = input('current dir grep > ')
+ 	call ddu#start({
+				\   'sourceParams' : #{
+				\     rg : #{
+				\       args: ['--json'],
+				\       matchers: ['matcher_matchfuzzy'],
+				\       ignoreCase: v:true,
+				\     },
+				\   },
+				\   'sources':[
+				\     {'name': 'rg', 'params': {'inputType': 'migemo', 'input': s:input}},
+				\   ],
+				\ })
+endfunction
 
 nnoremap <Space>pm  :<C-u>call DduGrepChangelogHeader()<CR>
 function DduGrepChangelogHeader() abort
@@ -343,11 +371,7 @@ function DduGrepConfig() abort
   if g:IsWsl() || g:IsMacNeovim()
     cd ~/.config/nvim
   endif
-  if g:IsMacNeovimInWork()
-    cd $BACKEND_LARAVEL_DIR
-  endif
-
-  let s:input = input('project grep > ')
+  let s:input = input('config grep > ')
 
 	call ddu#start({
 				\   'sourceParams' : #{
@@ -360,181 +384,150 @@ function DduGrepConfig() abort
 				\   ],
 				\ })
 endfunction
+" }}}1
 
-nnoremap <Space>pl  :<C-u>call DduGrepLive()<CR>
-function DduGrepLive() abort
-  call ddu#start(#{
-        \   sources: [#{
-        \     name: 'rg',
-        \     options: #{
-        \       matchers: [],
-        \       volatile: v:true,
-        \     },
-        \   }],
-        \   uiParams: #{
-        \     ff: #{
-        \       ignoreEmpty: v:false,
-        \       autoResize: v:false,
-        \     }
-        \   },
-        \ })
-endfunction
+" vim-lsp {{{1
+" if g:IsWindowsGvim()
+"   let g:ddu_source_lsp_clientName = 'vim-lsp'
+" else
+"   let g:ddu_source_lsp_clientName = 'nvim-lsp'
+" endif
+" call ddu#custom#patch_global(#{
+"       \ kindOptions: #{
+"       \   lsp: #{
+"       \     defaultAction: 'open',
+"       \   },
+"       \   lsp_codeAction: #{
+"       \     defaultAction: 'apply',
+"       \   },
+"       \ },
+"       \})
+"
+" nnoremap <silent> <Leader>cd
+"     \ <Cmd>call ddu#start(#{
+" 	    \ sync: v:true,
+" 	    \ sources: [#{
+" 	    \   name: 'lsp_definition',
+" 	    \ }],
+" 	    \ uiParams: #{
+" 	    \   ff: #{
+" 	    \     immediateAction: 'open',
+" 	    \   },
+" 	    \ }
+" 	    \})<CR>
+"
+" nnoremap <silent> <Leader>cD
+"     \ <Cmd>call ddu#start(#{
+" 	    \ sources: [#{
+" 	    \   name: 'lsp_diagnostic',
+" 	    \   params: #{
+" 	    \     buffer: 0,
+" 	    \   }
+" 	    \ }],
+" 	    \})<CR>
+"
+" nnoremap <silent> <Leader>co
+"     \ <Cmd>call ddu#start(#{
+" 	    \ sources: [#{
+" 	    \   name: 'lsp_documentSymbol',
+" 	    \ }],
+" 	    \ sourceOptions: #{
+" 	    \   lsp: #{
+" 	    \     volatile: v:true,
+" 	    \   },
+" 	    \ },
+" 	    \ uiParams: #{
+" 	    \   ff: #{
+" 	    \     ignoreEmpty: v:false
+" 	    \   },
+" 	    \ }
+" 	    \})<CR>
+"
+" nnoremap <silent> <Leader>cw
+"     \ <Cmd>call ddu#start(#{
+" 	    \ sources: [#{
+" 	    \   name: 'lsp_workspaceSymbol',
+" 	    \ }],
+" 	    \ sourceOptions: #{
+" 	    \   lsp: #{
+" 	    \     volatile: v:true,
+" 	    \   },
+" 	    \ },
+" 	    \ uiParams: #{
+" 	    \   ff: #{
+" 	    \     ignoreEmpty: v:false
+" 	    \   },
+" 	    \ }
+" 	    \})<CR>
+"
+" nmap <silent> <Leader>cr
+"     \ <Cmd>call ddu#start(#{
+"     \ sync: v:true,
+"     \ sources: [#{
+"     \   name: 'lsp_references',
+"     \ }],
+"     \ uiParams: #{
+"     \   ff: #{
+"     \     immediateAction: 'open',
+"     \   },
+"     \ }
+"     \})<CR>
+" }}}1
 
-" vim-lsp
-if g:IsWindowsGvim()
-  let g:ddu_source_lsp_clientName = 'vim-lsp'
-else
-  let g:ddu_source_lsp_clientName = 'nvim-lsp'
-endif
-call ddu#custom#patch_global(#{
-      \ kindOptions: #{
-      \   lsp: #{
-      \     defaultAction: 'open',
-      \   },
-      \   lsp_codeAction: #{
-      \     defaultAction: 'apply',
-      \   },
-      \ },
-      \})
+" commands {{{1
+nnoremap <silent> <Leader>ad
+      \ <Cmd>call ddu#start({'sources': [{'name': 'aider'}]})<CR>
+nnoremap <silent> <M-a>
+      \ <Cmd>call ddu#start({'sources': [{'name': 'aider'}]})<CR>
+nnoremap <silent> <D-a>
+      \ <Cmd>call ddu#start({'sources': [{'name': 'aider'}]})<CR>
 
-nnoremap <silent> <Leader>cd
-    \ <Cmd>call ddu#start(#{
-	    \ sync: v:true,
-	    \ sources: [#{
-	    \   name: 'lsp_definition',
-	    \ }],
-	    \ uiParams: #{
-	    \   ff: #{
-	    \     immediateAction: 'open',
-	    \   },
-	    \ }
-	    \})<CR>
+nnoremap <silent> <CR><CR>
+      \ <Cmd>call ddu#start({'sources': [{'name': 'vim-bookmark'}]})<CR>
+nnoremap <silent> <M-b>
+      \ <Cmd>call ddu#start({'sources': [{'name': 'vim-bookmark'}]})<CR>
+nnoremap <silent> <D-b>
+      \ <Cmd>call ddu#start({'sources': [{'name': 'vim-bookmark'}]})<CR>
 
-nnoremap <silent> <Leader>cD
-    \ <Cmd>call ddu#start(#{
-	    \ sources: [#{
-	    \   name: 'lsp_diagnostic',
-	    \   params: #{
-	    \     buffer: 0,
-	    \   }
-	    \ }],
-	    \})<CR>
+nnoremap <silent> <CR>
+      \ <Cmd>call ddu#start({'sources': [{'name': 'rule_switch'}]})<CR>
 
-nnoremap <silent> <Leader>co
-    \ <Cmd>call ddu#start(#{
-	    \ sources: [#{
-	    \   name: 'lsp_documentSymbol',
-	    \ }],
-	    \ sourceOptions: #{
-	    \   lsp: #{
-	    \     volatile: v:true,
-	    \   },
-	    \ },
-	    \ uiParams: #{
-	    \   ff: #{
-	    \     ignoreEmpty: v:false
-	    \   },
-	    \ }
-	    \})<CR>
+nnoremap <silent> <Leader><Leader>
+      \ <Cmd>call ddu#start({'sources': [{'name': 'mr', 'params': {'kind': 'mrw'}}]})<CR>
 
-nnoremap <silent> <Leader>cw
-    \ <Cmd>call ddu#start(#{
-	    \ sources: [#{
-	    \   name: 'lsp_workspaceSymbol',
-	    \ }],
-	    \ sourceOptions: #{
-	    \   lsp: #{
-	    \     volatile: v:true,
-	    \   },
-	    \ },
-	    \ uiParams: #{
-	    \   ff: #{
-	    \     ignoreEmpty: v:false
-	    \   },
-	    \ }
-	    \})<CR>
+vnoremap <silent> <C-c>c
+      \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'CopilotChat', 'selected': @@}}]})<CR>
+vnoremap <silent> <C-c>c
+      \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'CopilotChat', 'selected': @@}}]})<CR>
+vnoremap <silent> <C-c>g
+      \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'GpAppend', 'selected': @@}}]})<CR>
+vnoremap <silent> <C-c>g
+      \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'GpAppend', 'selected': @@}}]})<CR>
+vnoremap <silent> <C-c>G
+      \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'GpRewrite', 'selected': @@}}]})<CR>
+vnoremap <silent> <C-c>G
+      \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'GpRewrite', 'selected': @@}}]})<CR>
 
-nmap <silent> <Leader>cr
-    \ <Cmd>call ddu#start(#{
-    \ sync: v:true,
-    \ sources: [#{
-    \   name: 'lsp_references',
-    \ }],
-    \ uiParams: #{
-    \   ff: #{
-    \     immediateAction: 'open',
-    \   },
-    \ }
-    \})<CR>
+nnoremap <silent> <Leader>ll
+      \ <Cmd>call ddu#start({'sources': [{'name': 'line', 'params': {'matchers': 'matcher_matchfuzzy'}}]})<CR>
+nnoremap <silent> <Leader>F
+      \ <Cmd>call ddu#start({'sources': [{'name': 'file'}]})<CR>
+nnoremap <silent> <Leader>h
+      \ <Cmd>call ddu#start({'sources': [{'name': 'command_history'}]})<CR>
+nnoremap <silent> <Leader>B
+      \ <Cmd>call ddu#start({'sources': [{'name': 'buffer'}]})<CR>
+nnoremap <silent> <Leader>J
+      \ <Cmd>call ddu#start({'sources': [{'name': 'jumplist'}]})<CR>
+nnoremap <silent> <Leader>H
+      \ <Cmd>call ddu#start({'sources': [{'name': 'help'}]})<CR>
+nnoremap <silent> <Leader>gf
+      \ <Cmd>call ddu#start({'sources': [{'name': 'file_external'}]})<CR>
+nnoremap <silent> <Leader>gs
+      \ <Cmd>call ddu#start({'sources': [{'name': 'git_stash'}]})<CR>
 
-call ddu#custom#patch_global({
-    \   'sourceOptions' : {
-    \     'markdown' : {
-    \       'sorters': [],
-    \     },
-    \   },
-    \   'sourceParams' : {
-    \     'markdown' : {
-    \       'style': 'none',
-    \       'chunkSize': 5,
-    \       'limit': 1000,
-    \     },
-    \   },
-    \ })
+" }}}1
 
-
-if g:IsWindowsGvim() || g:IsMacGvim() || g:IsLinux() || g:IsMacNeovim()
-  nnoremap <silent> <Leader>ad
-        \ <Cmd>call ddu#start({'sources': [{'name': 'aider'}]})<CR>
-  nnoremap <silent> <M-a>
-        \ <Cmd>call ddu#start({'sources': [{'name': 'aider'}]})<CR>
-  nnoremap <silent> <D-a>
-        \ <Cmd>call ddu#start({'sources': [{'name': 'aider'}]})<CR>
-
-  nnoremap <silent> <CR><CR>
-        \ <Cmd>call ddu#start({'sources': [{'name': 'vim-bookmark'}]})<CR>
-  nnoremap <silent> <M-b>
-        \ <Cmd>call ddu#start({'sources': [{'name': 'vim-bookmark'}]})<CR>
-  nnoremap <silent> <D-b>
-        \ <Cmd>call ddu#start({'sources': [{'name': 'vim-bookmark'}]})<CR>
-
-  nnoremap <silent> <CR>
-        \ <Cmd>call ddu#start({'sources': [{'name': 'rule_switch'}]})<CR>
-
-  nnoremap <silent> <Leader><Leader>
-        \ <Cmd>call ddu#start({'sources': [{'name': 'mr', 'params': {'kind': 'mrw'}}]})<CR>
-
-  vnoremap <silent> <C-c>c
-        \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'CopilotChat', 'selected': @@}}]})<CR>
-  vnoremap <silent> <C-c>c
-        \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'CopilotChat', 'selected': @@}}]})<CR>
-  vnoremap <silent> <C-c>g
-        \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'GpAppend', 'selected': @@}}]})<CR>
-  vnoremap <silent> <C-c>g
-        \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'GpAppend', 'selected': @@}}]})<CR>
-  vnoremap <silent> <C-c>G
-        \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'GpRewrite', 'selected': @@}}]})<CR>
-  vnoremap <silent> <C-c>G
-        \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'GpRewrite', 'selected': @@}}]})<CR>
-
-  nnoremap <silent> <Leader>ll
-        \ <Cmd>call ddu#start({'sources': [{'name': 'line', 'params': {'matchers': 'matcher_matchfuzzy'}}]})<CR>
-  nnoremap <silent> <Leader>F
-        \ <Cmd>call ddu#start({'sources': [{'name': 'file'}]})<CR>
-  nnoremap <silent> <Leader>h
-        \ <Cmd>call ddu#start({'sources': [{'name': 'command_history'}]})<CR>
-  nnoremap <silent> <Leader>B
-        \ <Cmd>call ddu#start({'sources': [{'name': 'buffer'}]})<CR>
-  nnoremap <silent> <Leader>J
-        \ <Cmd>call ddu#start({'sources': [{'name': 'jumplist'}]})<CR>
-  nnoremap <silent> <Leader>H
-        \ <Cmd>call ddu#start({'sources': [{'name': 'help'}]})<CR>
-  nnoremap <silent> <Leader>gf
-        \ <Cmd>call ddu#start({'sources': [{'name': 'file_external'}]})<CR>
-  nnoremap <silent> <Leader>gs
-        \ <Cmd>call ddu#start({'sources': [{'name': 'git_stash'}]})<CR>
-endif
-
+" candidates settings {{{1
 autocmd FileType ddu-ff call s:ddu_uu_my_settings()
 function! s:ddu_uu_my_settings() abort
   inoremap <buffer><silent> <CR>
@@ -624,8 +617,9 @@ let g:source_options_fuzzy = #{
       \ },
       \ }
 
+" }}}1
 
-
+" filter settings {{{1
 autocmd User Ddu:ui:ff:openFilterWindow
       \ call s:ddu_ff_filter_my_settings()
 function s:ddu_ff_filter_my_settings() abort
@@ -645,85 +639,87 @@ function s:ddu_ff_filter_cleanup() abort
 endfunction
 
 call ddu#custom#patch_local('filer', {
-\   'ui': 'filer',
-\   'sources': [
-\     {
-\       'name': 'file',
-\       'params': {},
-\     },
-\   ],
-\   'sourceOptions': {
-\     '_': {
-\       'columns': ['filename', 'icon_filename'],
-\     },
-\   },
-\   'kindOptions': {
-\     'file': {
-\       'defaultAction': 'open',
-\     },
-\   },
-\   'uiParams': {
-\     'filer': {
-\       'winWidth': 40,
-\       'split': 'vertical',
-\       'splitDirection': 'topleft',
-\     }
-\   },
-\ })
+      \   'ui': 'filer',
+      \   'sources': [
+      \     {
+      \       'name': 'file',
+      \       'params': {},
+      \     },
+      \   ],
+      \   'sourceOptions': {
+      \     '_': {
+      \       'columns': ['filename', 'icon_filename'],
+      \     },
+      \   },
+      \   'kindOptions': {
+      \     'file': {
+      \       'defaultAction': 'open',
+      \     },
+      \   },
+      \   'uiParams': {
+      \     'filer': {
+      \       'winWidth': 40,
+      \       'split': 'vertical',
+      \       'splitDirection': 'topleft',
+      \     }
+      \   },
+      \ })
+" }}}1
 
+" filer settings {{{1
 autocmd TabEnter,CursorHold,FocusGained <buffer>
-	\ call ddu#ui#do_action('checkItems')
+      \ call ddu#ui#do_action('checkItems')
 
 autocmd FileType ddu-filer call s:ddu_filer_my_settings()
 function! s:ddu_filer_my_settings() abort
-	nnoremap <buffer><expr> <CR>
-				\ ddu#ui#get_item()->get('isTree', v:false) ?
-				\ "<Cmd>call ddu#ui#do_action('itemAction', {'name': 'narrow'})<CR>" :
-				\ "<Cmd>call ddu#ui#do_action('itemAction')<CR>"
-	nnoremap <buffer><expr> l
-				\ ddu#ui#get_item()->get('isTree', v:false) ?
-				\ "<Cmd>call ddu#ui#do_action('itemAction', {'name': 'narrow'})<CR>" :
-				\ "<Cmd>call ddu#ui#do_action('itemAction')<CR>"
-	nnoremap <silent><buffer> h
-				\ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'narrow', 'params': {'path': '..'}})<CR>
-	nnoremap <buffer><silent> e
-				\ <Cmd>call ddu#ui#do_action('expandItem', {'mode': 'toggle'})<CR>
-	nnoremap <buffer><silent> p
-				\ <Cmd>call ddu#ui#do_action('togglePreview')<CR>
-	nnoremap <buffer><silent> s
-				\ <Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>
-	nnoremap <buffer><silent> o
-				\ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'open', 'params': {'command': 'split'}})<CR>
-	nnoremap <buffer><silent> v
-				\ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'open', 'params': {'command': 'vsplit'}})<CR>
-	nnoremap <buffer><silent> t
-				\ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'open', 'params': {'command': 'tabnew'}})<CR>
-	nnoremap <buffer><silent> a
-				\ <Cmd>call ddu#ui#do_action('chooseAction')<CR>
-	nnoremap <buffer><silent> F
-				\ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'newFile'})<CR>
-	nnoremap <buffer><silent> K
-				\ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'newDirectory'})<CR>
-	nnoremap <buffer><silent> r
-				\ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'rename'})<CR>
-	nnoremap <buffer><silent> c
-				\ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'copy'})<CR>
-	nnoremap <buffer><silent> p
-				\ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'paste'})<CR>
-	nnoremap <buffer><silent> d
-				\ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'delete'})<CR>
-	nnoremap <buffer><silent> q
-				\ <Cmd>call ddu#ui#do_action('quit')<CR>
-	nnoremap <buffer> >
-				\ <Cmd>call ddu#ui#filer#do_action('updateOptions', #{
-				\   sourceOptions: #{
-				\     file: #{
-				\       matchers: ToggleHidden('file'),
-				\     },
-				\   },
-				\ })<CR>
-	nnoremap <buffer> gr
-    \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'rg' })<CR>
+  nnoremap <buffer><expr> <CR>
+        \ ddu#ui#get_item()->get('isTree', v:false) ?
+        \ "<Cmd>call ddu#ui#do_action('itemAction', {'name': 'narrow'})<CR>" :
+        \ "<Cmd>call ddu#ui#do_action('itemAction')<CR>"
+  nnoremap <buffer><expr> l
+        \ ddu#ui#get_item()->get('isTree', v:false) ?
+        \ "<Cmd>call ddu#ui#do_action('itemAction', {'name': 'narrow'})<CR>" :
+        \ "<Cmd>call ddu#ui#do_action('itemAction')<CR>"
+  nnoremap <silent><buffer> h
+        \ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'narrow', 'params': {'path': '..'}})<CR>
+  nnoremap <buffer><silent> e
+        \ <Cmd>call ddu#ui#do_action('expandItem', {'mode': 'toggle'})<CR>
+  nnoremap <buffer><silent> p
+        \ <Cmd>call ddu#ui#do_action('togglePreview')<CR>
+  nnoremap <buffer><silent> s
+        \ <Cmd>call ddu#ui#do_action('toggleSelectItem')<CR>
+  nnoremap <buffer><silent> o
+        \ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'open', 'params': {'command': 'split'}})<CR>
+  nnoremap <buffer><silent> v
+        \ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'open', 'params': {'command': 'vsplit'}})<CR>
+  nnoremap <buffer><silent> t
+        \ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'open', 'params': {'command': 'tabnew'}})<CR>
+  nnoremap <buffer><silent> a
+        \ <Cmd>call ddu#ui#do_action('chooseAction')<CR>
+  nnoremap <buffer><silent> F
+        \ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'newFile'})<CR>
+  nnoremap <buffer><silent> K
+        \ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'newDirectory'})<CR>
+  nnoremap <buffer><silent> r
+        \ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'rename'})<CR>
+  nnoremap <buffer><silent> c
+        \ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'copy'})<CR>
+  nnoremap <buffer><silent> p
+        \ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'paste'})<CR>
+  nnoremap <buffer><silent> d
+        \ <Cmd>call ddu#ui#do_action('itemAction', {'name': 'delete'})<CR>
+  nnoremap <buffer><silent> q
+        \ <Cmd>call ddu#ui#do_action('quit')<CR>
+  nnoremap <buffer> >
+        \ <Cmd>call ddu#ui#filer#do_action('updateOptions', #{
+        \   sourceOptions: #{
+        \     file: #{
+        \       matchers: ToggleHidden('file'),
+        \     },
+        \   },
+        \ })<CR>
+  nnoremap <buffer> gr
+        \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'rg' })<CR>
 endfunction
 
 " filer 表示
@@ -732,7 +728,7 @@ function! DduFiler() abort
         \ 'ui': 'filer',
         \ 'name': 'ui_filer_preview_layout',
         \ 'resume': v:true,
-				\ 'sources': [{'name': 'file', 'options': {'path': expand('%:p:h')}}],
+        \ 'sources': [{'name': 'file', 'options': {'path': expand('%:p:h')}}],
         \ 'sourceOptions': {'_': {'columns': ['icon_filename']}},
         \ 'uiParams': {
         \	'filer': {
@@ -751,12 +747,12 @@ endfunction
 nnoremap <silent> <Leader>e :<C-u>call DduFiler()<CR>
 
 function s:file_rec(args)
-	let items = a:args->get('items')
-	let action = items[0]->get('action')
-	call ddu#start(#{
-				\ sources: [#{ name: 'file_rec', options: #{ path: action->get('path') } }]
-				\ })
-	return 0
+  let items = a:args->get('items')
+  let action = items[0]->get('action')
+  call ddu#start(#{
+        \ sources: [#{ name: 'file_rec', options: #{ path: action->get('path') } }]
+        \ })
+  return 0
 endfunction
 
 call ddu#custom#action('source', 'file', 'file_rec', function('s:file_rec'))
@@ -765,4 +761,6 @@ call ddu#custom#action('source', 'file', 'file_rec', function('s:file_rec'))
 call ddu#custom#patch_global('sourceOptions', {
       \ 'file_fd': {'path': expand("~")},
       \ })
+
+" }}}1
 
