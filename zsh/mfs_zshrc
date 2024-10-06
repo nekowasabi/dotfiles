@@ -142,6 +142,9 @@ zinit load junegunn/fzf-bin
 zinit ice lucid depth"1" blockf
 zinit light yuki-yano/zeno.zsh
 
+autoload -Uz cd-bookmark
+alias b='cd-bookmark'
+
 # Experimental: Use UNIX Domain Socket
 # export ZENO_ENABLE_SOCK=1
 

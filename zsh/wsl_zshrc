@@ -136,6 +136,9 @@ zinit ice from"gh-r" as"program"
 zinit load junegunn/fzf-bin
 zinit load rupa/z
 
+autoload -Uz cd-bookmark
+alias b='cd-bookmark'
+
 export DENO_INSTALL="/home/linuxbrew/.linuxbrew"
 export PATH="$DENO_INSTALL/bin:$PATH:/home/takets/.local/bin"
 
