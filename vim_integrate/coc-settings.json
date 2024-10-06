@@ -212,7 +212,7 @@
   },
   "deno.lint": false,
   "biome.enable": true,
-  "biome.bin": "/home/linuxbrew/.linuxbrew/bin/biome",
+  "biome.bin": "/usr/local/bin/biome",
   "biome.trace.server": "verbose",
   "biome.requireConfiguration": true
 }

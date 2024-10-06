@@ -12,19 +12,3 @@ nnoremap <leader>s :SelectSwitchRule<CR>
 inoremap <C-s> <Esc>:SwitchFileByRule<CR>
 nnoremap <C-s> :SwitchFileByRule<CR>
 
-command! SwitchFuzzyRule call s:switch_fuzzy() 
-function! s:switch_fuzzy()
-  execute('SwitchFileByRule')
-  let l:now_file = expand('%')
-  try
-    execute('SwitchFileByRule')
-  catch
-    echo 'Error: SwitchFileByRule command not found.'
-  endtry
-  if l:now_file == expand('%')
-    execute('SwitchFileByRule git')
-  endif
-  return
-endfunction
-
-
