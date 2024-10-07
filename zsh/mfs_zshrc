@@ -142,6 +142,7 @@ zinit load junegunn/fzf-bin
 zinit ice lucid depth"1" blockf
 zinit light yuki-yano/zeno.zsh
 
+zinit light mollifier/cd-bookmark
 autoload -Uz cd-bookmark
 alias b='cd-bookmark'
 

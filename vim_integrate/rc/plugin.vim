@@ -260,6 +260,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'HiPhish/rainbow-delimiters.nvim'
   Plug 'shellRaining/hlchunk.nvim'
   Plug 'rest-nvim/rest.nvim', { 'tag': '1ce984c694345f3801bc656072f9a8dd51286a04' }
+  " Plug 'rest-nvim/rest.nvim'
 	Plug 'vhyrro/luarocks.nvim'
   Plug 'nvim-neotest/nvim-nio'
   Plug 'atusy/treemonkey.nvim'
@@ -287,9 +288,12 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'numToStr/Comment.nvim'
   Plug 'monaqa/dial.nvim'
   Plug 'stevearc/dressing.nvim'
-  Plug 'yetone/avante.nvim'
+  " Plug 'yetone/avante.nvim'
   Plug 'HakonHarnes/img-clip.nvim'
   Plug 'MeanderingProgrammer/render-markdown.nvim'
+  Plug 'mistweaverco/kulala.nvim'
+	Plug 'heilgar/nvim-http-client'
+
 
   call g:SetDdu()
 

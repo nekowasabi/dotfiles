@@ -169,71 +169,70 @@ require("img-clip").setup({
   },
 })
 
-require('avante_lib').load()
-require("avante").setup({
-  ---@alias Provider "openai" | "claude" | "azure"  | "copilot" | "cohere" | [string]
-  provider = "claude",
-  claude = {
-    endpoint = "https://api.anthropic.com",
-    model = "claude-3-5-sonnet-20240620",
-    temperature = 0,
-    max_tokens = 4096,
-  },
-  behaviour  =  {
-    auto_set_highlight_group  =  true, 
-    auto_apply_diff_after_generation  =  false, 
-    support_paste_from_clipboard  =  true, 
-  }, 
-  mappings = {
-    ask = "<leader>va",
-    edit = "<leader>ve",
-    refresh = "<leader>vr",
-    --- @class AvanteConflictMappings
-    diff = {
-      ours = "co",
-      theirs = "ct",
-      both = "cb",
-      next = "]x",
-      prev = "[x",
-    },
-    jump = {
-      next = "]]",
-      prev = "[[",
-    },
-    submit = {
-      normal = "<CR>",
-      insert = "<C-s>",
-    },
-    toggle = {
-      debug = "<leader>vd",
-      hint = "<leader>vh",
-    },
-  },
-  hints = { enabled = true },
-  windows = {
-    wrap = true, -- similar to vim.o.wrap
-    width = 30, -- default % based on available width
-    sidebar_header = {
-      align = "center", -- left, center, right for title
-      rounded = true,
-    },
-  },
-  highlights = {
-    ---@type AvanteConflictHighlights
-    diff = {
-      current = "DiffText",
-      incoming = "DiffAdd",
-    },
-  },
-  --- @class AvanteConflictUserConfig
-  diff = {
-    debug = false,
-    autojump = true,
-    ---@type string | fun(): any
-    list_opener = "copen",
-  },
-})
-
+-- require('avante_lib').load()
+-- require("avante").setup({
+--   ---@alias Provider "openai" | "claude" | "azure"  | "copilot" | "cohere" | [string]
+--   provider = "claude",
+--   claude = {
+--     endpoint = "https://api.anthropic.com",
+--     model = "claude-3-5-sonnet-20240620",
+--     temperature = 0,
+--     max_tokens = 4096,
+--   },
+--   behaviour  =  {
+--     auto_set_highlight_group  =  true, 
+--     auto_apply_diff_after_generation  =  false, 
+--     support_paste_from_clipboard  =  true, 
+--   }, 
+--   mappings = {
+--     ask = "<leader>va",
+--     edit = "<leader>ve",
+--     refresh = "<leader>vr",
+--     --- @class AvanteConflictMappings
+--     diff = {
+--       ours = "co",
+--       theirs = "ct",
+--       both = "cb",
+--       next = "]x",
+--       prev = "[x",
+--     },
+--     jump = {
+--       next = "]]",
+--       prev = "[[",
+--     },
+--     submit = {
+--       normal = "<CR>",
+--       insert = "<C-s>",
+--     },
+--     toggle = {
+--       debug = "<leader>vd",
+--       hint = "<leader>vh",
+--     },
+--   },
+--   hints = { enabled = true },
+--   windows = {
+--     wrap = true, -- similar to vim.o.wrap
+--     width = 30, -- default % based on available width
+--     sidebar_header = {
+--       align = "center", -- left, center, right for title
+--       rounded = true,
+--     },
+--   },
+--   highlights = {
+--     ---@type AvanteConflictHighlights
+--     diff = {
+--       current = "DiffText",
+--       incoming = "DiffAdd",
+--     },
+--   },
+--   --- @class AvanteConflictUserConfig
+--   diff = {
+--     debug = false,
+--     autojump = true,
+--     ---@type string | fun(): any
+--     list_opener = "copen",
+--   },
+-- })
 
 EOF
 
