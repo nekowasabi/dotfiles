@@ -295,11 +295,16 @@ command! -range Cursor call s:OpenByCursor()
 " -----------------------------------------------------------
 " test
 function! s:Test()
+  let bufnr = bufnr('%')
 	buffer ~/works/rest_invase/202410070600_dev_get_journey_reserve_histories.http
 	" 全てのテキストを選択 (ggVG)
 	execute "normal! ggVG"
 	" Luaスクリプトを実行します
 	call luaeval("require('kulala').run()")
+  " ウインドウ移動
+  execute "wincmd w"
+  " bufnrのバッファを開く
+  execute "buffer ".bufnr
 endfunction
 command! Test call s:Test() 
 command! -range VTest call s:Test() 
