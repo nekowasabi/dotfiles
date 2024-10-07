@@ -363,6 +363,26 @@ function DduGrepProjectWord() abort
 				\ })
 endfunction
 
+nnoremap <space>gi :<C-u>call DduGrepForConstructorInjection()<CR>
+function DduGrepForConstructorInjection() abort
+  let git_root = system('git rev-parse --show-toplevel')
+  let git_root = substitute(git_root, '\n', '', 'g') " 改行を削除
+  execute 'cd' git_root
+
+  let search_word = expand("<cword>")
+	call ddu#start({
+				\   'sourceParams' : #{
+				\     rg : #{
+				\       args: ['--json'],
+				\     },
+				\   },
+				\   'sources':[
+				\     {'name': 'rg', 'params': {'inputType': 'regex', 'input': ".*implements ".search_word}},
+				\   ],
+				\ })
+endfunction
+
+
 nnoremap <Space>pv  :<C-u>call DduGrepConfig()<CR>
 function DduGrepConfig() abort
   if g:IsWindowsGvim()
