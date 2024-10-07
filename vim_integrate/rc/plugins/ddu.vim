@@ -204,8 +204,6 @@ call ddu#custom#patch_global({
     \     },
     \   },
     \ })
-
-
 " }}}1
 
 " matcher options {{{1
@@ -381,7 +379,6 @@ function DduGrepForConstructorInjection() abort
 				\   ],
 				\ })
 endfunction
-
 
 nnoremap <Space>pv  :<C-u>call DduGrepConfig()<CR>
 function DduGrepConfig() abort
