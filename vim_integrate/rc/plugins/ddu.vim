@@ -363,7 +363,7 @@ function DduGrepProjectWord() abort
 				\ })
 endfunction
 
-nnoremap <space>gi :<C-u>call DduGrepForConstructorInjection()<CR>
+nnoremap <space>pi :<C-u>call DduGrepForConstructorInjection()<CR>
 function DduGrepForConstructorInjection() abort
   let git_root = system('git rev-parse --show-toplevel')
   let git_root = substitute(git_root, '\n', '', 'g') " 改行を削除
