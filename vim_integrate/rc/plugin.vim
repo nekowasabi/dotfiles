@@ -288,12 +288,10 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'numToStr/Comment.nvim'
   Plug 'monaqa/dial.nvim'
   Plug 'stevearc/dressing.nvim'
-  " Plug 'yetone/avante.nvim'
+  Plug 'yetone/avante.nvim'
   Plug 'HakonHarnes/img-clip.nvim'
   Plug 'MeanderingProgrammer/render-markdown.nvim'
   Plug 'mistweaverco/kulala.nvim'
-	Plug 'heilgar/nvim-http-client'
-
 
   call g:SetDdu()
 
