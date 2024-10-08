@@ -17,9 +17,10 @@ endif
 if g:IsMacNeovimInWork()
  let g:convension_path = $BACKEND_LARAVEL_MAC_DIR . "/laravel/CONVENTION.md"
 endif
-nnoremap <silent> <leader>ar :AiderRun<CR>
+nnoremap <silent> <leader>ae :AiderRun<CR>
 nnoremap <silent> <leader>aR :AiderSilentRun<CR>
 nnoremap <silent> <leader>aa :AiderAddCurrentFile<CR>
+nnoremap <silent> <leader>ar :AiderAddCurrentFileReadOnly<CR>
 nnoremap <silent> <leader>aw :AiderAddWeb<CR>
 nnoremap <silent> <leader>ap :AiderSendPromptWithInput<CR>
 nnoremap <silent> <leader>ax :AiderExit<CR>

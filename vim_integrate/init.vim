@@ -188,6 +188,7 @@ require("avante").setup({
     ask = "<leader>va",
     edit = "<leader>ve",
     refresh = "<leader>vr",
+    toggle = "<leader>vt",
     --- @class AvanteConflictMappings
     diff = {
       ours = "co",

@@ -1,5 +1,5 @@
 {
-  "tsserver.enable": true,
+  "tsserver.enable": false,
   "diagnostic.enable": true,
   "inlayHint.enable": true,
   "suggest.virtualText": true,
@@ -210,7 +210,9 @@
       "shell": true
     }
   },
-  "deno.lint": false,
+  "deno.enable": true,
+  "deno.lint": true,
+  "deno.cacheOnSave": true,
   "biome.enable": true,
   "biome.bin": "/usr/local/bin/biome",
   "biome.trace.server": "verbose",
