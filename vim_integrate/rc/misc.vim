@@ -303,8 +303,8 @@ function! s:Test()
 	call luaeval("require('kulala').run()")
   " ウインドウ移動
   execute "wincmd w"
-  " bufnrのバッファを開く
-  execute "buffer ".bufnr
+  " " bufnrのバッファを開く
+  " execute "buffer ".bufnr
 endfunction
 command! Test call s:Test() 
 command! -range VTest call s:Test() 
