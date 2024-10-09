@@ -292,26 +292,74 @@ function! s:OpenByCursor()
 endfunction
 command! -range Cursor call s:OpenByCursor()
 
-" -----------------------------------------------------------
-" test
-function! s:Test()
-  let bufnr = bufnr('%')
-	buffer ~/works/rest_invase/202410070600_dev_get_journey_reserve_histories.http
-	" 全てのテキストを選択 (ggVG)
-	execute "normal! ggVG"
-	" Luaスクリプトを実行します
-	call luaeval("require('kulala').run()")
-  " ウインドウ移動
-  execute "wincmd w"
-  " " bufnrのバッファを開く
-  " execute "buffer ".bufnr
+" テキスト用リンク生成 
+function! s:GenerateTextLinkTag()
+ let l:link_hash = GenerateRandomString(8)
+ let l:link = "[link](".l:link_hash.")"
+ let l:col = col('.')
+ execute "normal! i" . l:link
+ call cursor(line('.'), l:col + len(l:link))
+ " 構文ハイライトを更新
+ syntax sync fromstart
+ " 画面を再描画
+ redraw
 endfunction
-command! Test call s:Test() 
-command! -range VTest call s:Test() 
+command! GenerateTextLinkTag call s:GenerateTextLinkTag() 
+command! -range GenerateTextLinkTag call s:GenerateTextLinkTag() 
 
 nnoremap <silent> <M-w> :Test<CR>
 nnoremap <silent> <F2> :Test<CR>
 vnoremap <silent> <F2> :VTest<CR>
+
+function! GenerateRandomString(length)
+    let l:chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+    let l:result = ''
+    for i in range(a:length)
+        let l:result .= l:chars[rand() % len(l:chars)]
+    endfor
+    return l:result
+endfunction
+
+
+
+" -----------------------------------------------------------
+" test
+function! s:GenerateTextLinkTag()
+ "  let bufnr = bufnr('%')
+	" buffer ~/works/rest_invase/202410070600_dev_get_journey_reserve_histories.http
+	" " 全てのテキストを選択 (ggVG)
+	" execute "normal! ggVG"
+	" " Luaスクリプトを実行します
+	" call luaeval("require('kulala').run()")
+ "  " ウインドウ移動
+ "  execute "wincmd w"
+ "  " " bufnrのバッファを開く
+ "  " execute "buffer ".bufnr
+
+ let l:link_hash = GenerateRandomString(8)
+ let l:link = "[link](".l:link_hash.")"
+ " 現在のカーソル位置に文字列を挿入
+ call append(line('.'), l:link)
+ " 構文ハイライトを更新
+ syntax sync fromstart
+ " 画面を再描画
+ redraw
+endfunction
+command! Test call s:GenerateTextLinkTag() 
+command! -range VTest call s:GenerateTextLinkTag() 
+
+nnoremap <silent> <M-w> :Test<CR>
+nnoremap <silent> <F2> :Test<CR>
+vnoremap <silent> <F2> :VTest<CR>
+
+function! GenerateRandomString(length)
+    let l:chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+    let l:result = ''
+    for i in range(a:length)
+        let l:result .= l:chars[rand() % len(l:chars)]
+    endfor
+    return l:result
+endfunction
 
 nnoremap x "_x
 xnoremap x "_x

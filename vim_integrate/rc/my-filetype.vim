@@ -1,6 +1,6 @@
 augroup fileTypeIndent
   autocmd!
-  autocmd Filetype changelog,text,shd setlocal tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab autoindent formatoptions=q tw=0 conceallevel=0
+  autocmd Filetype changelog,text,shd setlocal tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab autoindent formatoptions=q tw=0
   autocmd BufNewFile,BufRead changelog,text,shd set tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab autoindent nospell
   autocmd BufWinEnter,BufNewFile *.js.tpl setlocal filetype=javascript tabstop=4 softtabstop=4 shiftwidth=4
   autocmd BufWinEnter,BufNewFile *.ts setlocal filetype=typescript tabstop=2 softtabstop=2 shiftwidth=2
@@ -30,6 +30,14 @@ augroup fileTypeIndent
   " autocmd! WinClosed * wincmd p
 
   let g:changelog_username = "takets <nolifeking00@gmail.com>"
+augroup END
+
+augroup changelogConceal
+  autocmd!
+  autocmd FileType changelog syntax match ChangelogLink "\[.\{-}\](.\{-})" contains=ChangelogLinkText,ChangelogLinkURL
+  autocmd FileType changelog syntax match ChangelogLinkText "\[.\{-}\]" contained conceal
+  autocmd FileType changelog syntax match ChangelogLinkURL "(.\{-})" contained conceal cchar=🔗
+  autocmd FileType changelog setlocal conceallevel=2
 augroup END
 
 
