@@ -7,8 +7,8 @@ function! s:PHPUnitCurrentMethod()
   if l:filename =~ ".*Test\.php"
     if g:IsMacNeovimInWork()
 			cd $BACKEND_LARAVEL_MAC_DIR
-      " execute "!./mac test --color --testdox --filter ".cfi#format("%s", ""). " ".l:filepath
-      execute "!docker exec -i $BACKEND_APP ./vendor/bin/phpunit --testdox --color --filter ".cfi#format("%s", ""). " ".l:filepath
+      execute "!./mac test --color --testdox --filter ".cfi#format("%s", ""). " ".l:filepath
+      " execute "!docker exec -i $BACKEND_APP ./vendor/bin/phpunit --testdox --color --filter ".cfi#format("%s", ""). " ".l:filepath
     endif
     return
   endif

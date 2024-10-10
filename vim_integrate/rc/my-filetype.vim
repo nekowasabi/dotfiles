@@ -36,8 +36,16 @@ augroup changelogConceal
   autocmd!
   autocmd FileType changelog syntax match ChangelogLink "\[.\{-}\](.\{-})" contains=ChangelogLinkText,ChangelogLinkURL
   autocmd FileType changelog syntax match ChangelogLinkText "\[.\{-}\]" contained conceal
-  autocmd FileType changelog syntax match ChangelogLinkURL "(.\{-})" contained conceal cchar=🔗
+  " " Define a syntax group for the pattern you want to conceal
+syntax match ChangelogLinkURL "(.\{-})" conceal
+
+" Set the conceal character for the syntax group
+set conceallevel=2
+let &concealcursor = 'nc'
+
+" Define the conceal character for the specific syntax group
+highlight default link ChangelogLinkURL Conceal
+let g:ChangelogLinkURL_conceal = '🔗URL'
   autocmd FileType changelog setlocal conceallevel=2
 augroup END
-
 
