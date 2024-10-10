@@ -28,8 +28,14 @@ nnoremap <silent> <leader>ai :AiderAddIgnoreCurrentFile<CR>
 nnoremap <silent> <leader>aI :AiderOpenIgnore<CR>
 nnoremap <silent> <leader>ah :AiderHide<CR>
 vmap <leader>av :AiderVisualTextWithPrompt<CR>
+nnoremap <leader>av :AiderVisualTextWithPrompt<CR>
 
-let g:aider_additional_prompt = ["- 選択された範囲のコードだけを修正対象として、他のコードを変更することを禁じます。", "- 編集内容の説明は日本語で表示してください。", "- コードはシンプルに保ってください。"]
+let g:aider_additional_prompt = [
+      \ "- // targetがある場合は、出力したコードで置換してください", 
+      \ "- 選択された範囲のコードだけを修正対象として、他のコードを変更することを禁じます。", 
+      \ "- 編集内容の説明は日本語で表示してください。",
+      \ "- コードはシンプルに保ってください。"
+      \]
 
 augroup AiderOpenGroup
   autocmd!
