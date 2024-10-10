@@ -296,9 +296,9 @@ command! -range Cursor call s:OpenByCursor()
 function! s:GenerateTextLinkTag()
  let l:link_hash = GenerateRandomString(8)
  let l:link = "[link](".l:link_hash.")"
- let l:col = col('.')
- execute "normal! i" . l:link
- call cursor(line('.'), l:col + len(l:link))
+ let pos = getpos(".")
+ execute ":normal i" . l:link
+ call setpos('.', pos)
  " 構文ハイライトを更新
  syntax sync fromstart
  " 画面を再描画

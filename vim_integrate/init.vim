@@ -80,6 +80,9 @@ xnoremap i<CR> iW
 xnoremap < <gv
 xnoremap > >gv
 
+" kulala
+nnoremap <silent> ,rr :lua require('kulala').run()<CR>
+
 " -----------------------------------------------------------
 " lua
 lua << EOF
