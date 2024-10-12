@@ -12,6 +12,24 @@ function! CloseQuickRunWindow()
   endfor
     execute "normal \<c-c>\<c-w>\<C-w>ZZ"
 endfunction
+
+function! Fibonacci(n)
+    if a:n <= 0
+        return []
+    elseif a:n == 1
+        return [0]
+    elseif a:n == 2
+        return [0, 1]
+    endif
+
+    let fib_sequence = [0, 1]
+    for i in range(2, a:n - 1)
+        let next_num = fib_sequence[i - 1] + fib_sequence[i - 2]
+        call add(fib_sequence, next_num)
+    endfor
+
+    return fib_sequence
+endfunction
 nnoremap <Leader>q :call CloseQuickRunWindow()<CR>
 
 " 指定のウインドウを閉じる
@@ -294,15 +312,15 @@ command! -range Cursor call s:OpenByCursor()
 
 " テキスト用リンク生成 
 function! s:GenerateTextLinkTag()
- let l:link_hash = GenerateRandomString(8)
- let l:link = "[link](".l:link_hash.")"
- let pos = getpos(".")
- execute ":normal i" . l:link
- call setpos('.', pos)
- " 構文ハイライトを更新
- syntax sync fromstart
- " 画面を再描画
- redraw
+	let l:link_hash = GenerateRandomString(8)
+	let l:link = "[link](".l:link_hash.")"
+	let pos = getpos(".")
+	execute ":normal i" . l:link
+	call setpos('.', pos)
+	" 構文ハイライトを更新
+	syntax sync fromstart
+	" 画面を再描画
+	redraw
 endfunction
 command! GenerateTextLinkTag call s:GenerateTextLinkTag() 
 command! -range GenerateTextLinkTag call s:GenerateTextLinkTag() 
@@ -317,17 +335,29 @@ function! GenerateRandomString(length)
 endfunction
 
 
+
+
 " -----------------------------------------------------------
 " test
 function! s:Test()
-	    " aider --message hello コマンドを実行
-    let output = system('aider --message /read-only README.md')
-    
-    " コマンドラインに実行結果を表示
-    echo output
+    echo "Press 1, 2, or 3"
+    let choice = getchar()
+    call HandleChoice(choice - char2nr('0'))  " 数字のオフセット調整
 endfunction
 command! Test call s:Test() 
 command! -range Test call s:Test() 
+
+function! HandleChoice(choice)
+    if a:choice == 1
+        echo "Option One Selected"
+    elseif a:choice == 2
+        echo "Option Two Selected"
+    elseif a:choice == 3
+        echo "Option Three Selected"
+    else
+        echo "Invalid Choice"
+    endif
+endfunction
 
 nnoremap <silent> <M-w> :Test<CR>
 nnoremap <silent> <F2> :Test<CR>

@@ -39,11 +39,7 @@
   "diagnostic.infoSign": "📑",
   "suggest.labelMaxLength": 30,
   "semanticTokens.enable": true,
-  "semanticTokens.incrementTypes": [
-    "variable",
-    "string",
-    "parameter"
-  ],
+  "semanticTokens.incrementTypes": ["variable", "string", "parameter"],
   "suggest.completionItemKindLabels": {
     "keyword": "\uf1de",
     "variable": "\ue79b",
@@ -76,23 +72,11 @@
   "coc.preferences.willSaveHandlerTimeout": 700,
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.preferences.currentFunctionSymbolDebounceTime": 1000,
-  "coc.preferences.formatOnSave": true,
   "[blade]": {
     "coc.preferences.formatOnSave": false
   },
-  "markdownlint.onSave": false,
-  "markdownlint.onChange": false,
-  "intelephense.files.associations": [
-    "*.inc",
-    "*.php",
-    "*Test.php",
-    "*.phtml"
-  ],
-  "intelephense.environment.includePaths": [
-    "_ide_helper.php",
-    "_ide_helper_models.php",
-    ".phpstorm.meta.php"
-  ],
+  "intelephense.files.associations": ["*.inc", "*.php", "*Test.php", "*.phtml"],
+  "intelephense.environment.includePaths": ["_ide_helper.php", "_ide_helper_models.php", ".phpstorm.meta.php"],
   "intelephense.files.maxSize": 10000000000,
   "intelephense.format.enable": false,
   "intelephense.diagnostics.typeErrors": true,
@@ -184,10 +168,7 @@
     "vim": "vint",
     "sh": "shellcheck",
     "javascript": "eslint",
-    "php": [
-      "phpcs",
-      "phpstan"
-    ]
+    "php": ["phpcs", "phpstan"]
   },
   "php-cs-fixer.pint.config": "pint.json",
   "php-cs-fixer.enable": true,
@@ -200,19 +181,11 @@
   "languageserver": {
     "sql": {
       "command": "sqls",
-      "args": [
-        "-config",
-        "/Users/ttakeda/.config/sqls/config.yml"
-      ],
-      "filetypes": [
-        "sql"
-      ],
+      "args": ["-config", "/Users/ttakeda/.config/sqls/config.yml"],
+      "filetypes": ["sql"],
       "shell": true
     }
   },
-  "deno.enable": true,
-  "deno.lint": true,
-  "deno.cacheOnSave": true,
   "biome.enable": true,
   "biome.bin": "/usr/local/bin/biome",
   "biome.trace.server": "verbose",

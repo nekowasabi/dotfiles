@@ -1,7 +1,7 @@
 " aider.vim
 if g:IsMacNeovim() || g:IsWsl()
   let g:aider_command = 'aider --no-auto-commits --no-stream --architect --model openai/gpt-4o --editor-model anthropic/claude-3-5-sonnet-20240620 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands'
-  " let g:aider_command = 'aider --no-stream --architect --model  openai/o1-mini --editor-model anthropic/claude-3-5-sonnet-20240620 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands'
+  " let g:aider_command = 'aider --no-auto-commits --no-stream --architect --model  openai/o1-mini --editor-model anthropic/claude-3-5-sonnet-20240620 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands'
 else
   let g:aider_command = 'aider --no-auto-commits --no-stream --architect --model openai/o1-mini --editor-model anthropic/claude-3-5-sonnet-20240620 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands'
 endif
@@ -44,9 +44,9 @@ augroup END
 
 function! s:AiderOpenHandler() abort
   tnoremap <Esc> <C-\><C-n>
-  tnoremap <C-x><C-x> <C-\><C-n>:AiderHide<CR><C-\><C-n>:AiderHide<CR>
+  tnoremap <C-x><C-x> <C-\><C-n><C-\><C-n><ESC>:AiderHide<CR>
   tnoremap <C-x><C-c> <Esc> <C-\><C-n><C-w>w
-  nnoremap <C-x><C-x> :AiderHide<CR>:AiderHide<CR>
+  nnoremap <C-c><C-c> :AiderHide<CR>
 endfunction
 
 
