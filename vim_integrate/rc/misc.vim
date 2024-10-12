@@ -307,10 +307,6 @@ endfunction
 command! GenerateTextLinkTag call s:GenerateTextLinkTag() 
 command! -range GenerateTextLinkTag call s:GenerateTextLinkTag() 
 
-nnoremap <silent> <M-w> :Test<CR>
-nnoremap <silent> <F2> :Test<CR>
-vnoremap <silent> <F2> :VTest<CR>
-
 function! GenerateRandomString(length)
     let l:chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
     let l:result = ''
@@ -319,111 +315,26 @@ function! GenerateRandomString(length)
     endfor
     return l:result
 endfunction
-
 
 
 " -----------------------------------------------------------
 " test
-function! s:GenerateTextLinkTag()
- "  let bufnr = bufnr('%')
-	" buffer ~/works/rest_invase/202410070600_dev_get_journey_reserve_histories.http
-	" " 全てのテキストを選択 (ggVG)
-	" execute "normal! ggVG"
-	" " Luaスクリプトを実行します
-	" call luaeval("require('kulala').run()")
- "  " ウインドウ移動
- "  execute "wincmd w"
- "  " " bufnrのバッファを開く
- "  " execute "buffer ".bufnr
-
- let l:link_hash = GenerateRandomString(8)
- let l:link = "[link](".l:link_hash.")"
- " 現在のカーソル位置に文字列を挿入
- call append(line('.'), l:link)
- " 構文ハイライトを更新
- syntax sync fromstart
- " 画面を再描画
- redraw
+function! s:Test()
+	    " aider --message hello コマンドを実行
+    let output = system('aider --message /read-only README.md')
+    
+    " コマンドラインに実行結果を表示
+    echo output
 endfunction
-command! Test call s:GenerateTextLinkTag() 
-command! -range VTest call s:GenerateTextLinkTag() 
+command! Test call s:Test() 
+command! -range Test call s:Test() 
 
 nnoremap <silent> <M-w> :Test<CR>
 nnoremap <silent> <F2> :Test<CR>
 vnoremap <silent> <F2> :VTest<CR>
-
-function! GenerateRandomString(length)
-    let l:chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-    let l:result = ''
-    for i in range(a:length)
-        let l:result .= l:chars[rand() % len(l:chars)]
-    endfor
-    return l:result
-endfunction
 
 nnoremap x "_x
 xnoremap x "_x
 nnoremap X "_X
 xnoremap X "_X
 
-function! ReloadAllBuffers()
-  " 保存されたウィンドウ数を取得
-  let win_count = winnr('$')
-
-  " すべてのバッファを別ウィンドウで異動せずに一括再読み込み
-  split
-
-  try
-    " :bdoコマンドを使用してすべての読み込みされたバッファを更新
-    execute 'silent! bdo e!'
-  catch
-    " エラー時の処理をスキップ
-  finally
-    " 新しく作成したウィンドウを閉じる
-    quit
-    " 元のウィンドウ数が一致することを確認
-    if win_count != winnr('$')
-      echo "一部のウィンドウが予期しない形で消えたかもしれません。"
-    endif
-  endtry
-endfunction
-
-" コマンドとして使用可能に
-command! ReloadAllBuffers :call ReloadAllBuffers()
-
-
-function! MonitorTerminalBuffer()
-  for buf in range(1, bufnr('$'))
-    if bufexists(buf) && getbufvar(buf, '&buftype') == 'terminal' && bufname(buf) =~ 'aider'
-      " ジョブIDを取得
-      let job_id = getbufvar(buf, 'terminal_job_id')
-      " ジョブIDが存在する場合
-      if job_id != 0
-      endif
-    endif
-  endfor
-endfunction
-
-" ジョブ終了時のハンドラー
-function! s:on_exit(job_id, data, event)
-  echo "Terminal job ended"
-endfunction
-
-" ウィンドウ内の任意のバッファを監視
-command! -nargs=0 MonitorTerm :call MonitorTerminalBuffer()
-
-
-function! RunLsAndEchoOk()
-  let cmd = 'ls'
-  let job_opts = {
-    \ 'on_exit': function('s:on_exit')
-    \ }
-call termopen(cmd, job_opts)
-endfunction
-
-function! s:on_exit(job_id, data, event)
-  echo "ok"
-endfunction
-
-" 実行するためのコマンドを提供
-command! RunLs :call RunLsAndEchoOk()

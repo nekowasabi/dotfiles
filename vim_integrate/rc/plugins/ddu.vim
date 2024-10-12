@@ -424,16 +424,12 @@ nnoremap <silent> <CR>
 nnoremap <silent> <Leader><Leader>
       \ <Cmd>call ddu#start({'sources': [{'name': 'mr', 'params': {'kind': 'mrw'}}]})<CR>
 
-vnoremap <silent> <C-c>c
-      \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'CopilotChat', 'selected': @@}}]})<CR>
+vnoremap <silent> <C-c>a
+      \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'AiderAsk', 'selected': @@}}]})<CR>
 vnoremap <silent> <C-c>c
       \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'CopilotChat', 'selected': @@}}]})<CR>
 vnoremap <silent> <C-c>g
       \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'GpAppend', 'selected': @@}}]})<CR>
-vnoremap <silent> <C-c>g
-      \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'GpAppend', 'selected': @@}}]})<CR>
-vnoremap <silent> <C-c>G
-      \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'GpRewrite', 'selected': @@}}]})<CR>
 vnoremap <silent> <C-c>G
       \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'GpRewrite', 'selected': @@}}]})<CR>
 
