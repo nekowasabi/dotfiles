@@ -13,23 +13,6 @@ function! CloseQuickRunWindow()
     execute "normal \<c-c>\<c-w>\<C-w>ZZ"
 endfunction
 
-function! Fibonacci(n)
-    if a:n <= 0
-        return []
-    elseif a:n == 1
-        return [0]
-    elseif a:n == 2
-        return [0, 1]
-    endif
-
-    let fib_sequence = [0, 1]
-    for i in range(2, a:n - 1)
-        let next_num = fib_sequence[i - 1] + fib_sequence[i - 2]
-        call add(fib_sequence, next_num)
-    endfor
-
-    return fib_sequence
-endfunction
 nnoremap <Leader>q :call CloseQuickRunWindow()<CR>
 
 " 指定のウインドウを閉じる
@@ -340,9 +323,8 @@ endfunction
 " -----------------------------------------------------------
 " test
 function! s:Test()
-    echo "Press 1, 2, or 3"
-    let choice = getchar()
-    call HandleChoice(choice - char2nr('0'))  " 数字のオフセット調整
+  call feedkeys(":echomsg 'foo'\<CR>", 'nx')
+  echomsg 'bar'
 endfunction
 command! Test call s:Test() 
 command! -range Test call s:Test() 
