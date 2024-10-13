@@ -47,7 +47,7 @@ function! s:AiderOpenHandler() abort
   tnoremap <Esc> <C-\><C-n>
   tnoremap <C-x><C-x> <C-\><C-n><C-\><C-n><ESC>:AiderHide<CR>
   tnoremap <C-x><C-c> <Esc> <C-\><C-n><C-w>w
-  nnoremap <C-c><C-c> :AiderHide<CR>
+  nnoremap <C-x><C-x> :AiderHide<CR>
 endfunction
 
 
