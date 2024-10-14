@@ -45,6 +45,7 @@ require("noice").setup({
   },
   routes = {
     ignoreNotify("No information available"),
+    ignoreMessage("書込み"),
     ignoreMessage("written"),
     ignoreMessage("search_count"),
     ignoreMessage("lines yanked"),
