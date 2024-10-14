@@ -361,6 +361,7 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/dial.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/kulala.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/BackAndForward.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/noice.vim'
 
   if g:IsMacNeovimInWork() || g:IsWsl()
     " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'

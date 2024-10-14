@@ -14,27 +14,29 @@ snippet = {
   end,
 },
 mapping = cmp.mapping.preset.insert({
-['<C-u>'] = cmp.mapping.scroll_docs(-4),
-['<C-d>'] = cmp.mapping.scroll_docs(4),
-["<C-p>"] = cmp.mapping.select_prev_item(),
-["<C-n>"] = cmp.mapping.select_next_item(),
-['<C-e>'] = cmp.mapping.abort(),
-["<CR>"] = cmp.mapping.confirm { select = true },
+  ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+  ['<C-d>'] = cmp.mapping.scroll_docs(4),
+  ["<C-p>"] = cmp.mapping.select_prev_item(),
+  ["<C-n>"] = cmp.mapping.select_next_item(),
+  ['<C-e>'] = cmp.mapping.abort(),
+  -- insert, commandモードでの補完を有効にする
+  -- cmp.mappingと{'i', 'c'}を指定することで、insert, commandモードでの補完を有効にする
+  ["<CR>"] = cmp.mapping(cmp.mapping.confirm { select = true }, {'i', 'c'}),
 }),
 window = {
-      completion = cmp.config.window.bordered(),
-      documentation = cmp.config.window.bordered(),
-  },
+  completion = cmp.config.window.bordered(),
+  documentation = cmp.config.window.bordered(),
+},
 sources = {
   { name = 'buffer' },
   { name = 'path' },
 },
 method = "getCompletionsCycling",
 matching = {
-	disallow_fuzzy_matching = false,
-	disallow_partial_fuzzy_matching = false,
+  disallow_fuzzy_matching = false,
+  disallow_partial_fuzzy_matching = false,
   disallow_partial_matching = true,
-	},
+},
 })
 
 -- Set configuration for specific filetype.
@@ -64,7 +66,10 @@ cmp.setup.filetype('markdown', {
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
-  mapping = cmp.mapping.preset.cmdline(),
+  mapping = cmp.mapping.preset.cmdline({
+    ["<CR>"] = cmp.mapping.confirm { select = true },
+  }),
+
   sources = cmp.config.sources({
   { name = 'path' }
   }, {
