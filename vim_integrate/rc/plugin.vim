@@ -23,7 +23,6 @@ Plug 'airblade/vim-rooter'
 Plug 'cocopon/inspecthi.vim' " colorscheme inspector
 Plug 'cohama/lexima.vim'
 Plug 'deton/jasegment.vim'
-" Plug 'deton/jasentence.vim'
 Plug 'haya14busa/vim-asterisk'
 Plug 'haya14busa/vim-edgemotion'
 Plug 'itchyny/vim-gitbranch' " lightlineにブランチ名を表示
@@ -222,8 +221,6 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'ErichDonGubler/lsp_lines.nvim'
   Plug 'HiPhish/rainbow-delimiters.nvim'
   Plug 'shellRaining/hlchunk.nvim'
-  " Plug 'rest-nvim/rest.nvim', { 'tag': '1ce984c694345f3801bc656072f9a8dd51286a04' }
-  " Plug 'rest-nvim/rest.nvim'
 	Plug 'vhyrro/luarocks.nvim'
   Plug 'nvim-neotest/nvim-nio'
   Plug 'atusy/treemonkey.nvim'
@@ -260,7 +257,6 @@ if g:IsMacNeovim() || g:IsWsl()
   call g:SetDdu()
 
   if g:IsMacNeovimInWork() || g:IsWsl()
-    " Plug 'gelguy/wilder.nvim'
     Plug 'folke/noice.nvim'
     Plug 'MunifTanjim/nui.nvim'
     Plug 'hrsh7th/nvim-cmp'
@@ -269,18 +265,20 @@ if g:IsMacNeovim() || g:IsWsl()
     Plug 'hrsh7th/cmp-cmdline'
     Plug 'petertriho/cmp-git'
     " Plug 'Shougo/ddc-source-lsp'
+    " Plug 'gelguy/wilder.nvim'
     call g:SetCoc()
   elseif g:IsWsl()
     Plug 'gelguy/wilder.nvim'
     Plug 'Shougo/ddc-source-lsp'
     call g:SetCoc()
   elseif g:IsMacNeovimInWezterm()
-    Plug 'gelguy/wilder.nvim'
+    Plug 'folke/noice.nvim'
     Plug 'hrsh7th/nvim-cmp'
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-path'
     Plug 'hrsh7th/cmp-cmdline'
     Plug 'petertriho/cmp-git'
+    " Plug 'gelguy/wilder.nvim'
     " Plug 'Shougo/ddc-source-lsp'
     call g:SetCoc()
   else
