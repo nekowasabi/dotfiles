@@ -21,7 +21,6 @@ let g:coc_global_extensions = [
   \, 'coc-sh'
   \, 'coc-yaml'
   \, 'coc-blade'
-  \, 'coc-yank'
   \, 'coc-biome'
   \, '@hexuhua/coc-copilot'
   \, 'coc-deno'
@@ -52,7 +51,6 @@ endfunction
 
 let g:coc_snippet_next = '<tab>'
 
-nnoremap <silent> <Leader>y  :<C-u>CocList -A --normal yank<cr>
 nmap <silent> <Leader>cd <Plug>(coc-definition)
 nmap <silent> <Leader>cy <Plug>(coc-type-definition)
 nmap <silent> <Leader>ci <Plug>(coc-implementation)
