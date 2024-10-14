@@ -260,7 +260,9 @@ if g:IsMacNeovim() || g:IsWsl()
   call g:SetDdu()
 
   if g:IsMacNeovimInWork() || g:IsWsl()
-    Plug 'gelguy/wilder.nvim'
+    " Plug 'gelguy/wilder.nvim'
+    Plug 'folke/noice.nvim'
+    Plug 'MunifTanjim/nui.nvim'
     Plug 'hrsh7th/nvim-cmp'
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-path'
@@ -363,7 +365,7 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/BackAndForward.vim'
 
   if g:IsMacNeovimInWork() || g:IsWsl()
-    execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
+    " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cmp.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
@@ -387,7 +389,6 @@ if g:IsMacNeovim() || g:IsWsl()
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/rest.vim'
 endif
 " }}}1
-
 
 " vimproc 
 let g:vimproc#download_windows_dll = 1
