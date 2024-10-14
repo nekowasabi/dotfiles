@@ -93,6 +93,8 @@ set fileformats=unix,dos,mac
 set signcolumn=auto
 set autoread
 
+let &grepprg='rg --vimgrep'
+
 call setcellwidths([
   \ [ 0x2500, 0x257f, 1 ],
   \ [ 0x2100, 0x214d, 2 ],

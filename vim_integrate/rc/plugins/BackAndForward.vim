@@ -1,2 +1,4 @@
-nmap <silent> <C-b> <Plug>(backandforward-back)
-nmap <silent> <C-f> <Plug>(backandforward-forward)
+nnoremap <silent> g<C-o> :Back<CR>
+nnoremap <silent> g<C-i> :Forward<CR>
+
+

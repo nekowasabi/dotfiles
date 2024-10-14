@@ -74,4 +74,7 @@ nnoremap `w `W
 nnoremap `x `X
 nnoremap `y `Y
 nnoremap `z `Z
+
+nnoremap <silent> ,W mW
+nnoremap <silent> ,w `W
 " }}}1

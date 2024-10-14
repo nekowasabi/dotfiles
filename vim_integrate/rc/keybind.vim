@@ -1,15 +1,8 @@
-" Insert & Comandline Mode "{{{
-
 let mapleader = "\<Space>"
 
-" カレントディレクトリ設定
-command! -nargs=0 CdCurrent cd %:p:h
-nnoremap ,d :CdCurrent<CR>
-
+" global keybind {{{1
 nnoremap <silent><C-j> }
 nnoremap <silent><C-k> {
-" nnoremap <silent><C-j> :<C-u>keepjumps normal! }<CR>
-" nnoremap <silent><C-k> :<C-u>keepjumps normal! {<CR>
 vnoremap <C-j> }
 vnoremap <C-k> {
 
@@ -32,13 +25,6 @@ inoremap <M-x><M-x> ？／
 inoremap <M-b> →
 inoremap <D-b> →
 
-xnoremap a" 2i"
-xnoremap a' 2i'
-xnoremap a` 2i`
-onoremap a" 2i"
-onoremap a' 2i'
-onoremap a` 2i`
-
 " move window
 nnoremap <silent> <C-t> <C-w>w
 
@@ -59,8 +45,7 @@ else
 	cnoremap <A-l> <S-Right>
 endif
 
-
-" " backward
+" delete word
 nnoremap <silent> D :<C-U>call jasegment#select_function_wrapper(g:jasegment#model, 'jasegment#select_i','o', v:count1)<CR>xh
 function! s:DeleteJapaneseWords()
 	let l:moji =  s:prev_cursor_char(0)
@@ -86,15 +71,9 @@ function! s:prev_cursor_char(n)
 		return chars[len(chars) - a:n - 1]
 	endif
 endfunction
+" }}}1
 
-nnoremap <ESC><ESC> :nohlsearch<CR><ESC>
-
-""---------------------------------------------------- 
-" mark
-nnoremap <silent> ,W mW
-nnoremap <silent> ,w `W
-
-" leader
+" leader {{{1
 nnoremap Â :
 nnoremap <Leader>: :
 nmap ; <PageDown>
@@ -104,41 +83,15 @@ vmap : <PageUp>
 vmap : :
 
 nnoremap <silent> <Leader>w :w!<CR>
+" }}}1
 
-" Visual <, >で連続してインデントを操作
+" Visual <, >で連続してインデントを操作 {{{1
 xnoremap < <gv
 xnoremap > >gv
+" }}}1
 
-" gfでいい感じに開く
+" gfでいい感じに開く {{{1
 autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','') | setlocal path+=;/
-
-"" ---------------------------------------------------
-" ctags {{{1
-" if g:IsWsl()
-" 	autocmd FileType php :set tags=/home/takets/php.tags
-" 	autocmd BufEnter *.php :set tags=/home/takets/php.tags
-" 	autocmd FileType javascript :set tags=/home/takets/jstags
-" 	autocmd BufEnter *.js :set tags=/home/takets/jstags
-" 	" for linux setting
-" 	noremap <silent> ,tp :!/home/linuxbrew/.linuxbrew/bin/ctags -r --php-kinds=+cdfint-a --fields=+laims --languages=php  -f /home/takets/php.tags /home/takets/source/spider/sp2-php<cr>
-" 	noremap <silent> ,tj :!/home/linuxbrew/.linuxbrew/bin/ctags -r --exclude=\*core.js --exclude=\*.min.js --exclude=\*.debug.js  --exclude=node_modules --fields=+laims --languages=javascript -f /home/kf/jstags /home/kf/app/<cr>
-" 
-" 	" tagsジャンプの時に複数ある時は一覧表示
-" 	nnoremap <c-]> g<c-]>
-" endif
-" 
-" if g:IsLinux()
-" 	autocmd FileType php :set tags=/home/kf/php.tags
-" 	autocmd BufEnter *.php :set tags=/home/kf/php.tags
-" 	autocmd FileType javascript :set tags=/home/kf/jstags
-" 	autocmd BufEnter *.js :set tags=/home/kf/jstags
-" 	" for linux setting
-" 	noremap <silent> ,tp :!/usr/bin/ctags -R --php-kinds=+cdfint -a --fields=+laims --languages=php -f /home/kf/php.tags /home/kf/app/php<cr>
-" 	noremap <silent> ,tj :!/usr/bin/ctags -R --exclude=\*core.js --exclude=\*.min.js --exclude=\*.debug.js  --exclude=node_modules --fields=+laims --languages=javascript -f /home/kf/jstags /home/kf/app/web/js<cr>
-" 
-" 	" tagsジャンプの時に複数ある時は一覧表示
-" 	nnoremap <c-]> g<c-]>
-" endif
 " }}}1
 
 " エンコーディング指定オープン {{{1 
@@ -172,12 +125,9 @@ nnoremap <silent> <F10> :<C-u>call <SID>source_script('%')<CR>
 
 " カレントファイルのフルパスをクリプボぅ! {{{
 command! CopyCurrentFilepath :let @* = expand("%:p")
-nnoremap <silent> ,cp :CopyCurrentFilepath<CR>
+nnoremap <silent> ,cp :CopyCurrentFilepath<CR>:echo "Copied: " . expand("%:p")<CR>
 
 " }}}
-
-" Grep and Open current buffer
-command! -nargs=1 GrepNow vimgrep <args> % | cwindow
 
 " Command line buffer."{{{1
 nnoremap <SID>(command-line-enter) q:
@@ -186,16 +136,21 @@ nnoremap <SID>(command-line-norange) q:<C-u>
 
 " コマンドラインウィンドウの幅
 set cmdwinheight=20
-
-
 "}}}1
 
-" vを二回で行末まで選択
-vnoremap v $h
+" カレントディレクトリ設定 {{{1
+command! -nargs=0 CdCurrent cd %:p:h
+nnoremap ,d :CdCurrent<CR>
+" }}}1
 
-" 現在のバッファを分割して表示
+" vを二回で行末まで選択 {{{1
+vnoremap v $h
+" }}}1
+
+" 現在のバッファを分割して表示 {{{1
 nnoremap <Leader>BH :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
 nnoremap <Leader>BV :split<CR> :exe("tjump ".expand('<cword>'))<CR>
+" }}}1
 
 " 画面分割トグル {{{1
 let g:toggle_window_size = 0
@@ -220,8 +175,35 @@ vnoremap <expr> cn g:mc . "``cgn"
 vnoremap <expr> cN g:mc . "``cgN"
 " }}}1
 
-" vim type {{{1
-" mac gvim {{{2
+" }}}2
+
+" text object {{{1
+onoremap i<space> iw
+xnoremap i<space> iw
+onoremap i<CR> iW
+xnoremap i<CR> iW
+nnoremap <silent> <M-p> :normal! vip<CR>
+nnoremap <silent> <D-p> :normal! vip<CR>
+
+xnoremap a" 2i"
+xnoremap a' 2i'
+xnoremap a` 2i`
+onoremap a" 2i"
+onoremap a' 2i'
+onoremap a` 2i`
+" }}}1
+
+" Fast switching to the alternate file {{{
+inoremap <C-z> <Esc>:SwitchPreviousBuffer<CR>
+nnoremap <C-z> <Esc>:SwitchPreviousBuffer<CR>
+
+function! s:SwitchPreviousBuffer()
+  buffer#
+endfunction
+command! SwitchPreviousBuffer call <SID>SwitchPreviousBuffer()
+" }}}1
+
+" mac gvim {{{1
 if g:IsMacGvim() || g:IsMacNeovim() || g:IsWsl()
 	function! s:OpenTentask()
 		if fnamemodify(expand('%'), ':t') == "01_ver01.txt.shd"
@@ -326,13 +308,11 @@ if g:IsMacGvim() || g:IsMacNeovim() || g:IsWsl()
 			execute ":buffer changelog/changelogmemo"
 		endif
 	endfunction
-	" TODO: use noremap!
-	" imap <C-b> <Left>
-	" imap <C-f> <Right>
-	" imap <C-p> <Up>
-	" imap <C-n> <Down>
-	" imap <C-a> <C-o>^
-	" imap <C-e> <C-o>$
+	command! OpenChangelog call <SID>OpenChangelog()
+	nnoremap <silent> ,c <ESC>:OpenChangelog<CR>:set showtabline=2<CR>
+	nnoremap <silent> ,l <ESC>:OpenChangelog<CR><C-home>o<CR>i<C-r>=neosnippet#expand('cpw')<CR>
+	nnoremap <silent> ,L :buffer changelogmemo<CR><C-home>o<CR>a<C-r>=neosnippet#expand('cpwd')<CR>
+	nnoremap <silent> ,Cp <ESC>:OpenChangelog<CR><C-home>o<CR>i<C-r>=neosnippet#expand('cpp')<CR>
 
 	cnoremap <C-b> <Left>
 	cnoremap <C-f> <Right>
@@ -350,49 +330,11 @@ if g:IsMacGvim() || g:IsMacNeovim() || g:IsWsl()
   nmap <silent>K 5gk
   nnoremap <silent>L 10l
 
-
-
-	"}}}
-
-	" Change current directory.
-	" nnoremap <silent> ,cd :<C-u>call <SID>cd_buffer_dir()<CR>
-	function! s:cd_buffer_dir()
-		let filetype = getbufvar(bufnr('%'), '&filetype')
-		if filetype ==# 'vimfiler'
-			let dir = getbufvar(bufnr('%'), 'vimfiler').current_dir
-		elseif filetype ==# 'vimshell'
-			let dir = getbufvar(bufnr('%'), 'vimshell').save_dir
-		else
-			let dir = isdirectory(bufname('%')) ?
-						\ bufname('%') : fnamemodify(bufname('%'), ':p:h')
-		endif
-
-		execute 'lcd' fnameescape(dir)
-	endfunction
-
-
 	let g:tabpagebuffer#command#bdelete_keeptabpage = 1
 
 	inoremap <silent><C-g> <Esc>:wa<CR>
 
-	" inoremap <expr> j getline('.')[col('.') - 2] ==# 'j' ? "\<BS>\<ESC>" : 'j'
-
-	" imap <F6> <ESC>i■<C-R>=strftime("%Y/%m/%d (%a) %H:%M")<CR><CR>・<CR>
-	" nmap <F6> <ESC>i■<C-r>=strftime("%Y-%m-%d %H:%M:%S")<CR><CR>
-
-
-	command! OpenChangelog call <SID>OpenChangelog()
-	nnoremap <silent> ,c <ESC>:OpenChangelog<CR>:set showtabline=2<CR>
-	nnoremap <silent> ,l <ESC>:OpenChangelog<CR><C-home>o<CR>i<C-r>=neosnippet#expand('cpw')<CR>
-
-	nnoremap <silent> ,L :buffer changelogmemo<CR><C-home>o<CR>a<C-r>=neosnippet#expand('cpwd')<CR>
-	nnoremap <silent> ,Cp <ESC>:OpenChangelog<CR><C-home>o<CR>i<C-r>=neosnippet#expand('cpp')<CR>
-
-	" setting reload
-	nnoremap <silent> ,rr :source ~/.vimrc<CR>:source ~/.gvimrc<CR>
-	nnoremap <silent> ,RR :Restart<CR>
-
-	" 単語削除 {{{1
+	" 単語削除
 	function! s:RemoveContextWord()
 		if s:prev_cursor_char(0) =~  "[a-zA-z]"
 			return "\<C-w>" 
@@ -420,117 +362,98 @@ if g:IsMacGvim() || g:IsMacNeovim() || g:IsWsl()
 			return chars[len(chars) - a:n - 1]
 		endif
 	endfunction
-	" }}}1
 	command! RemoveContextWord call s:RemoveContextWord() 
 	inoremap <silent> <expr> <C-w> <SID>RemoveContextWord()
 
 	nnoremap <ESC><ESC> :nohlsearch<CR><ESC>
-
-
-endif
-" }}}2
-
-" viwがやりやすいようにする
-onoremap i<space> iw
-xnoremap i<space> iw
-onoremap i<CR> iW
-xnoremap i<CR> iW
-
-if g:IsWindowsGvim()
-	set backupdir=$HOME/time_backup
-
-	nnoremap <silent> ,rr :source c:/takeda/tools/vim/vimrc<CR>:source c:/takeda/tools/vim/gvimrc<CR>
-	nnoremap <silent> ,RR :Restart<CR>
-
-	function! s:OpenChangelog()
-		if expand("%") != "changelogmemo"
-			execute ":e c:/takeda/repos/changelog/changelogmemo"
-		endif
-	endfunction
-	command! OpenChangelog call <SID>OpenChangelog()
-	nnoremap <silent> ,c <ESC>:OpenChangelog<CR>
-
-	function! s:OpenTentask()
-		if expand("%") != "tenTask.txt" && bufnr('tenTask.txt') == -1
-			execute ":e c:/takeda/repos/changelog/tenTask.txt"
-		endif
-
-		call append("$", ['----- '.strftime('%Y-%m-%d %H:%M:%S'), '・'])
-		exe "normal! GkA"
-		redraw
-	endfunction
-	command! OpenTentask call <SID>OpenTentask()
-	nnoremap <silent> ,c <ESC>:OpenChangelog<CR>
-	nnoremap <silent> ,l :buffer changelogmemo<CR><C-home>o<CR>a<C-r>=neosnippet#expand('cpw')<CR>
-	nnoremap <silent> ,L :buffer changelogmemo<CR><C-home>o<CR>a<C-r>=neosnippet#expand('cpwd')<CR>
-
-	function! s:OpenTentask()
-		if expand("%") != "tenTask.txt" && bufnr('tenTask.txt') == -1
-			execute ":e c:/takeda/repos/changelog/tentask.txt"
-		endif
-
-		if bufnr('tenTask.txt') != -1
-			execute ":buffer c:/takeda/repos/changelog/tentask.txt"
-		endif
-
-		call append("$", ['----- '.strftime('%Y-%m-%d %H:%M:%S'), '・'])
-		exe "normal! GkA"
-
-	endfunction
-	command! OpenTentask call <SID>OpenTentask()
-	nnoremap <silent> ,t :OpenTentask<CR>GA
-
-	function! s:OpenOnlyTentask()
-		if expand("%") != "tenTask.txt" && bufnr('tenTask.txt') == -1
-			execute ":e c:/takeda/repos/changelog/tentask.txt"
-		endif
-
-		if bufnr('tenTask.txt') != -1
-			execute ":buffer c:/takeda/repos/changelog/tentask.txt"
-		endif
-
-		exe "normal! Gz+"
-		redraw
-	endfunction
-	command! OpenOnlyTentask call <SID>OpenOnlyTentask()
-	nnoremap <silent> ,T :OpenOnlyTentask<CR>
-
-	" TODO: use noremap!
-	" imap <C-b> <Left>
-	" imap <C-f> <Right>
-	" imap <C-p> <Up>
-	" imap <C-n> <Down>
-	" imap <C-a> <C-o>
-	" imap <C-e> <C-o>$
-
-	cnoremap <C-b> <Left>
-	cnoremap <C-f> <Right>
-	cnoremap <C-a> <Home>
-	cnoremap <C-e> <End>
-	inoremap <C-f> ／
-	inoremap <C-x><C-x> ？／
-	cnoremap <C-f> ／
-	inoremap <C-b> →
-	" nnoremap <C-Tab> 0i	
-	" nnoremap <S-Tab> 0x
-  nnoremap <silent>H 10h
-  nnoremap <silent>J 5gj
-  nnoremap <silent>K 5gk
-  nmap <silent>K 5gk
-  nnoremap <silent>L 10l
-
-
 endif
 
-" Fast switching to the alternate file
-" <BS>に割り当てると、<PageUp>後にkkkとすると、コマンドが暴発する謎が発生する
-nnoremap <silent> ,a :buffer#<CR>
-nnoremap <silent> <BS> :buffer#<CR>
-inoremap <C-z> <Esc>:SwitchPreviousBuffer<CR>
-nnoremap <C-z> <Esc>:SwitchPreviousBuffer<CR>
+"}}}1
 
-function! s:SwitchPreviousBuffer()
-  buffer#
-endfunction
-command! SwitchPreviousBuffer call <SID>SwitchPreviousBuffer()
-
+" 2024/12/31 まで使わなかったら削除 {{{1
+" if g:IsWindowsGvim()
+" 	set backupdir=$HOME/time_backup
+"
+" 	nnoremap <silent> ,rr :source c:/takeda/tools/vim/vimrc<CR>:source c:/takeda/tools/vim/gvimrc<CR>
+" 	nnoremap <silent> ,RR :Restart<CR>
+"
+" 	function! s:OpenChangelog()
+" 		if expand("%") != "changelogmemo"
+" 			execute ":e c:/takeda/repos/changelog/changelogmemo"
+" 		endif
+" 	endfunction
+" 	command! OpenChangelog call <SID>OpenChangelog()
+" 	nnoremap <silent> ,c <ESC>:OpenChangelog<CR>
+"
+" 	function! s:OpenTentask()
+" 		if expand("%") != "tenTask.txt" && bufnr('tenTask.txt') == -1
+" 			execute ":e c:/takeda/repos/changelog/tenTask.txt"
+" 		endif
+"
+" 		call append("$", ['----- '.strftime('%Y-%m-%d %H:%M:%S'), '・'])
+" 		exe "normal! GkA"
+" 		redraw
+" 	endfunction
+" 	command! OpenTentask call <SID>OpenTentask()
+" 	nnoremap <silent> ,c <ESC>:OpenChangelog<CR>
+" 	nnoremap <silent> ,l :buffer changelogmemo<CR><C-home>o<CR>a<C-r>=neosnippet#expand('cpw')<CR>
+" 	nnoremap <silent> ,L :buffer changelogmemo<CR><C-home>o<CR>a<C-r>=neosnippet#expand('cpwd')<CR>
+"
+" 	function! s:OpenTentask()
+" 		if expand("%") != "tenTask.txt" && bufnr('tenTask.txt') == -1
+" 			execute ":e c:/takeda/repos/changelog/tentask.txt"
+" 		endif
+"
+" 		if bufnr('tenTask.txt') != -1
+" 			execute ":buffer c:/takeda/repos/changelog/tentask.txt"
+" 		endif
+"
+" 		call append("$", ['----- '.strftime('%Y-%m-%d %H:%M:%S'), '・'])
+" 		exe "normal! GkA"
+"
+" 	endfunction
+" 	command! OpenTentask call <SID>OpenTentask()
+" 	nnoremap <silent> ,t :OpenTentask<CR>GA
+"
+" 	function! s:OpenOnlyTentask()
+" 		if expand("%") != "tenTask.txt" && bufnr('tenTask.txt') == -1
+" 			execute ":e c:/takeda/repos/changelog/tentask.txt"
+" 		endif
+"
+" 		if bufnr('tenTask.txt') != -1
+" 			execute ":buffer c:/takeda/repos/changelog/tentask.txt"
+" 		endif
+"
+" 		exe "normal! Gz+"
+" 		redraw
+" 	endfunction
+" 	command! OpenOnlyTentask call <SID>OpenOnlyTentask()
+" 	nnoremap <silent> ,T :OpenOnlyTentask<CR>
+"
+" 	" TODO: use noremap!
+" 	" imap <C-b> <Left>
+" 	" imap <C-f> <Right>
+" 	" imap <C-p> <Up>
+" 	" imap <C-n> <Down>
+" 	" imap <C-a> <C-o>
+" 	" imap <C-e> <C-o>$
+"
+" 	cnoremap <C-b> <Left>
+" 	cnoremap <C-f> <Right>
+" 	cnoremap <C-a> <Home>
+" 	cnoremap <C-e> <End>
+" 	inoremap <C-f> ／
+" 	inoremap <C-x><C-x> ？／
+" 	cnoremap <C-f> ／
+" 	inoremap <C-b> →
+" 	" nnoremap <C-Tab> 0i	
+" 	" nnoremap <S-Tab> 0x
+"   nnoremap <silent>H 10h
+"   nnoremap <silent>J 5gj
+"   nnoremap <silent>K 5gk
+"   nmap <silent>K 5gk
+"   nnoremap <silent>L 10l
+"
+"
+" endif
+" }}}1

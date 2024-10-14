@@ -548,6 +548,9 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/nvim-dap.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-rule-switcher.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-test.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/dial.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/kulala.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/BackAndForward.vim'
 
   if g:IsMacNeovimInWork() || g:IsWsl()
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
