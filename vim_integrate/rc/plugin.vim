@@ -23,7 +23,7 @@ Plug 'airblade/vim-rooter'
 Plug 'cocopon/inspecthi.vim' " colorscheme inspector
 Plug 'cohama/lexima.vim'
 Plug 'deton/jasegment.vim'
-Plug 'deton/jasentence.vim'
+" Plug 'deton/jasentence.vim'
 Plug 'haya14busa/vim-asterisk'
 Plug 'haya14busa/vim-edgemotion'
 Plug 'itchyny/vim-gitbranch' " lightlineにブランチ名を表示

@@ -3,6 +3,8 @@
 " text-obj
 let g:textobj_multitextobj_textobjects_i = [
       \ "\<Plug>(textobj-multiblock-i)",
+      \	[ '"', '"', 1 ],
+      \	[ "'", "'", 1 ],
       \ "\<Plug>(textobj-jabraces-parens-i)",
       \ "\<Plug>(textobj-jabraces-braces-i)",
       \ "\<Plug>(textobj-jabraces-brackets-i)",
@@ -17,6 +19,8 @@ let g:textobj_multitextobj_textobjects_i = [
       \]
 let g:textobj_multitextobj_textobjects_a = [
       \ "\<Plug>(textobj-multiblock-a)",
+      \	[ '"', '"', 1 ],
+      \	[ "'", "'", 1 ],
       \ "\<Plug>(textobj-jabraces-parens-a)",
       \ "\<Plug>(textobj-jabraces-braces-a)",
       \ "\<Plug>(textobj-jabraces-brackets-a)",
@@ -34,11 +38,12 @@ omap ib <Plug>(textobj-multitextobj-i)
 vmap ab <Plug>(textobj-multitextobj-a)
 vmap ib <Plug>(textobj-multitextobj-i)
 
+
+
 " textobj（数字のみ取得）
 omap <expr> in textobj#from_regexp#mapexpr('\d\+')
 vmap <expr> in textobj#from_regexp#mapexpr('\d\+')
 
 omap <expr> iD textobj#from_regexp#mapexpr('\d\d\d\d-\d\d-\d\d')
 vmap <expr> iD textobj#from_regexp#mapexpr('\d\d\d\d-\d\d-\d\d')
-
 

@@ -281,6 +281,16 @@ call ddu#custom#patch_global(#{
 
 " }}}1
 
+if g:IsWsl()
+  let g:prompt_toml = '/home/takets/.config/nvim/prompt.toml'
+endif
+if g:IsMacNeovimInWezterm()
+  let g:prompt_toml = '/Users/takets/.config/nvim/prompt.toml'
+endif
+if g:IsMacNeovimInWork()
+  let g:prompt_toml = '/Users/ttakeda/.config/nvim/prompt.toml'
+endif
+
 " commands {{{1
 nnoremap <space>pc :<C-u>call DduGrepCurrentDirectory()<CR>
 function DduGrepCurrentDirectory() abort
@@ -502,6 +512,12 @@ function! s:ddu_uu_my_settings() abort
         \      'redraw', #{ method: 'refreshItems' },
         \   ],
         \ ])<CR>
+
+	" for aider.vim
+  nnoremap <buffer><silent> <C-a>
+        \ <Cmd>call ddu#ui#do_action('itemAction', {'params': {'command': 'add'}})<CR>
+  nnoremap <buffer><silent> <C-r>
+        \ <Cmd>call ddu#ui#do_action('itemAction', {'params': {'command': 'readOnly'}})<CR>
 
 endfunction
 

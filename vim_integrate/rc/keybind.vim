@@ -105,6 +105,10 @@ vmap : :
 
 nnoremap <silent> <Leader>w :w!<CR>
 
+" Visual <, >で連続してインデントを操作
+xnoremap < <gv
+xnoremap > >gv
+
 " gfでいい感じに開く
 autocmd FileType html setlocal includeexpr=substitute(v:fname,'^\\/','','') | setlocal path+=;/
 
@@ -425,6 +429,12 @@ if g:IsMacGvim() || g:IsMacNeovim() || g:IsWsl()
 
 endif
 " }}}2
+
+" viwがやりやすいようにする
+onoremap i<space> iw
+xnoremap i<space> iw
+onoremap i<CR> iW
+xnoremap i<CR> iW
 
 if g:IsWindowsGvim()
 	set backupdir=$HOME/time_backup

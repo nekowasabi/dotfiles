@@ -1,5 +1,4 @@
-" " minimum setting {{{1
-" source ~/.config/nvim/rc/env.vim
+" " minimum setting {{{1 source ~/.config/nvim/rc/env.vim
 " if empty(g:GetAutoloadPath() . 'plug.vim')
 "   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 "     autocmd  VimEnter * PlugInstall | source $MYVIMRC
@@ -54,34 +53,13 @@ let g:denops#debug = 0
 nnoremap <silent> g<C-o> :Back<CR>
 nnoremap <silent> g<C-i> :Forward<CR>
 
-if g:IsWsl()
-  let g:prompt_toml = '/home/takets/.config/nvim/prompt.toml'
-endif
-if g:IsMacNeovimInWezterm()
-  let g:prompt_toml = '/Users/takets/.config/nvim/prompt.toml'
-endif
-if g:IsMacNeovimInWork()
-  let g:prompt_toml = '/Users/ttakeda/.config/nvim/prompt.toml'
-endif
-
 nnoremap <silent> <M-p> :normal! vip<CR>
 nnoremap <silent> <D-p> :normal! vip<CR>
 
 let &grepprg='rg --vimgrep'
 
-
-" viwがやりやすいようにする
-onoremap i<space> iw
-xnoremap i<space> iw
-onoremap i<CR> iW
-xnoremap i<CR> iW
-
-" Visual <, >で連続してインデントを操作
-xnoremap < <gv
-xnoremap > >gv
-
 " kulala
-nnoremap <silent> ,rr :lua require('kulala').run()<CR>
+nnoremap <silent> ,rr :lua require().run()<CR>
 
 " -----------------------------------------------------------
 " lua
