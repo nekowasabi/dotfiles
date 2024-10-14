@@ -97,6 +97,9 @@ augroup command_window
     autocmd CmdwinEnter * call ReInitCoc()
 augroup END
 
+autocmd BufNew,BufEnter *.json,*.vim,*.php,*.ts execute "silent! CocEnable"
+autocmd BufLeave *changelog,*.txt,*.md execute "silent! CocDisable"
+
 " for PHP
 " autocmd BufWritePre *.php call CocAction('format')
 " 

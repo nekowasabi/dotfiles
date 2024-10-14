@@ -72,6 +72,7 @@
   "coc.preferences.willSaveHandlerTimeout": 700,
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.preferences.currentFunctionSymbolDebounceTime": 1000,
+  "coc.source.file.ignoreHidden": false,
   "[blade]": {
     "coc.preferences.formatOnSave": false
   },
@@ -178,6 +179,9 @@
   "[php]": {
     "coc.preferences.formatOnSave": true
   },
+  "[typescript]": {
+    "coc.preferences.formatOnSave": true
+  },
   "languageserver": {
     "sql": {
       "command": "sqls",
@@ -186,8 +190,8 @@
       "shell": true
     }
   },
+  "deno.enable": true,
   "biome.enable": true,
-  "biome.bin": "/usr/local/bin/biome",
   "biome.trace.server": "verbose",
   "biome.requireConfiguration": true
 }

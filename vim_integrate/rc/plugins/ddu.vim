@@ -418,11 +418,11 @@ nnoremap <silent> <M-b>
 nnoremap <silent> <D-b>
       \ <Cmd>call ddu#start({'sources': [{'name': 'vim-bookmark'}]})<CR>
 
-nnoremap <silent> <CR>
-      \ <Cmd>call ddu#start({'sources': [{'name': 'rule_switch'}]})<CR>
-
 nnoremap <silent> <Leader><Leader>
       \ <Cmd>call ddu#start({'sources': [{'name': 'mr', 'params': {'kind': 'mrw'}}]})<CR>
+
+nnoremap <silent> <Leader>b
+      \ <Cmd>call ddu#start({'sources': [{'name': 'buffer'}]})<CR>
 
 vnoremap <silent> <C-c>a
       \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'AiderAsk', 'selected': @@}}]})<CR>
@@ -435,14 +435,8 @@ vnoremap <silent> <C-c>G
 
 nnoremap <silent> <Leader>ll
       \ <Cmd>call ddu#start({'sources': [{'name': 'line', 'params': {'matchers': 'matcher_matchfuzzy'}}]})<CR>
-nnoremap <silent> <Leader>F
-      \ <Cmd>call ddu#start({'sources': [{'name': 'file'}]})<CR>
 nnoremap <silent> <Leader>h
       \ <Cmd>call ddu#start({'sources': [{'name': 'command_history'}]})<CR>
-nnoremap <silent> <Leader>B
-      \ <Cmd>call ddu#start({'sources': [{'name': 'buffer'}]})<CR>
-nnoremap <silent> <Leader>J
-      \ <Cmd>call ddu#start({'sources': [{'name': 'jumplist'}]})<CR>
 nnoremap <silent> <Leader>H
       \ <Cmd>call ddu#start({'sources': [{'name': 'help'}]})<CR>
 nnoremap <silent> <Leader>gf

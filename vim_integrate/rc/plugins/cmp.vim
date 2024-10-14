@@ -7,6 +7,7 @@ lua << EOF
 local cmp = require'cmp'
 
 cmp.setup({
+filetypes = { "markdown" },
 snippet = {
   -- REQUIRED - you must specify a snippet engine
   expand = function(args)
@@ -30,8 +31,8 @@ sources = {
 },
 method = "getCompletionsCycling",
 matching = {
-	disallow_fuzzy_matching = true,
-	disallow_partial_fuzzy_matching = true,
+	disallow_fuzzy_matching = false,
+	disallow_partial_fuzzy_matching = false,
   disallow_partial_matching = true,
 	},
 })
@@ -50,8 +51,15 @@ cmp.setup.filetype('markdown', {
   sources = cmp.config.sources({
   { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
   }, {
-    { name = 'buffer' },
-  })
+    { name = 'buffer',
+      option = {
+        get_bufnrs = function()
+        return vim.api.nvim_list_bufs()
+        end
+      }
+
+      },
+    })
   })
 
 -- -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
