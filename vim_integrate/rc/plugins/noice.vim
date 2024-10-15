@@ -36,7 +36,7 @@ require("noice").setup({
     view = "mini",
   },
   messages = {
-    enabled = true,
+    enabled = false,
     view = "mini",
     view_error = "mini",
     view_warn = "mini",
