@@ -39,7 +39,7 @@
         "declare_parentheses": true,
         "declare_strict_types": true,
         "final_class": false,
-        "trailing_comma_in_multiline_array": true,
+        "trailing_comma_in_multiline": true,
         "global_namespace_import": {
             "import_classes": true,
             "import_constants": true,
