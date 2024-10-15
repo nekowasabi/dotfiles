@@ -253,6 +253,8 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'MeanderingProgrammer/render-markdown.nvim'
   Plug 'mistweaverco/kulala.nvim'
   Plug 'gbprod/yanky.nvim'
+  Plug 'folke/zen-mode.nvim'
+  Plug 'folke/twilight.nvim'
 
   call g:SetDdu()
 
