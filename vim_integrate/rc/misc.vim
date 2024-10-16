@@ -323,23 +323,10 @@ endfunction
 " -----------------------------------------------------------
 " test
 function! s:Test()
-  call feedkeys(":echomsg 'foo'\<CR>", 'nx')
-  echomsg 'bar'
+  execute 'silent! :SwitchFileByRule'
 endfunction
 command! Test call s:Test() 
 command! -range Test call s:Test() 
-
-function! HandleChoice(choice)
-    if a:choice == 1
-        echo "Option One Selected"
-    elseif a:choice == 2
-        echo "Option Two Selected"
-    elseif a:choice == 3
-        echo "Option Three Selected"
-    else
-        echo "Invalid Choice"
-    endif
-endfunction
 
 nnoremap <silent> <M-w> :Test<CR>
 nnoremap <silent> <F2> :Test<CR>

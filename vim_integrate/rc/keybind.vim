@@ -82,7 +82,8 @@ vmap ; <PageDown>
 vmap : <PageUp>
 vmap : :
 
-nnoremap <silent> <Leader>w :w!<CR>
+nnoremap <silent> <Leader>w :wall!<CR>
+nnoremap <silent> <Leader>e :e!<CR>
 " }}}1
 
 " Visual <, >で連続してインデントを操作 {{{1
@@ -194,11 +195,11 @@ onoremap a` 2i`
 " }}}1
 
 " Fast switching to the alternate file {{{
-inoremap <C-z> <Esc>:SwitchPreviousBuffer<CR>
-nnoremap <C-z> <Esc>:SwitchPreviousBuffer<CR>
+inoremap <silent> <C-z> <Esc>:SwitchPreviousBuffer<CR>
+nnoremap <silent> <C-z> <Esc>:SwitchPreviousBuffer<CR>
 
 function! s:SwitchPreviousBuffer()
-  buffer#
+  silent! buffer#
 endfunction
 command! SwitchPreviousBuffer call <SID>SwitchPreviousBuffer()
 " }}}1

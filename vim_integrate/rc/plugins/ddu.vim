@@ -679,7 +679,7 @@ function! DduFiler() abort
         \ },
         \ })
 endfunction
-nnoremap <silent> <Leader>e :<C-u>call DduFiler()<CR>
+nnoremap <silent> <Leader>F :<C-u>call DduFiler()<CR>
 
 function s:file_rec(args)
   let items = a:args->get('items')

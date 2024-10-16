@@ -1,4 +1,4 @@
-nnoremap <silent> ,rr :lua require().run()<CR>
+nnoremap <silent> ,rr :lua require('kulala').run()<CR>
 
 lua << EOF
 require("kulala").setup({
