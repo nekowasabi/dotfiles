@@ -115,6 +115,13 @@ require("avante").setup({
     edit = "<leader>ve",
     refresh = "<leader>vr",
     toggle = "<leader>vt",
+    behaviour = {
+      auto_suggestions = true, -- Experimental stage
+      auto_set_highlight_group = true,
+      auto_set_keymaps = true,
+      auto_apply_diff_after_generation = false,
+      support_paste_from_clipboard = false,
+    },
     --- @class AvanteConflictMappings
     diff = {
       ours = "co",
@@ -131,9 +138,21 @@ require("avante").setup({
       normal = "<CR>",
       insert = "<C-s>",
     },
+    suggestion = {
+      accept = "<M-l>",
+      next = "<M-]>",
+      prev = "<M-[>",
+      dismiss = "<C-]>",
+    },
     toggle = {
       debug = "<leader>vd",
       hint = "<leader>vh",
+    },
+    sidebar = {
+      apply_all = "A",
+      apply_cursor = "a",
+      switch_windows = "<Tab>",
+      reverse_switch_windows = "<S-Tab>",
     },
   },
   hints = { enabled = true },

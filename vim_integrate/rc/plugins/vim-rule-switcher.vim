@@ -13,5 +13,6 @@ function! s:SwitchRule()
 endfunction
 command! SwitchRule call s:SwitchRule() 
 
+nnoremap <silent> <leader>s <Esc>:SelectSwitchRule<CR>
 inoremap <silent> <C-s> <Esc>:SwitchRule<CR>
 nnoremap <silent> <C-s> <Esc>:SwitchRule<CR>
