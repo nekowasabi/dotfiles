@@ -8,7 +8,10 @@ if g:IsWsl()
   let g:switch_rule = "/home/takets/.config/nvim/rule_switch.json"
 endif
 
-nnoremap <leader>s :SelectSwitchRule<CR>
-inoremap <C-s> <Esc>:SwitchFileByRule<CR>
-nnoremap <C-s> :SwitchFileByRule<CR>
+function! s:SwitchRule()
+  execute 'silent! :SwitchFileByRule'
+endfunction
+command! SwitchRule call s:SwitchRule() 
 
+inoremap <silent> <C-s> <Esc>:SwitchRule<CR>
+nnoremap <silent> <C-s> <Esc>:SwitchRule<CR>
