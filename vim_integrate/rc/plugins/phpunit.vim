@@ -5,7 +5,7 @@ function! s:PHPUnitCurrentMethod()
   let l:filepath = matchstr(l:fullpath, l:pattern)
 
   if l:filename =~ ".*Test\.php"
-    if g:IsMacNeovimInWork()
+    if g:IsMacNeovimInWork() || g:IsWsl()
 			cd $BACKEND_LARAVEL_MAC_DIR
       execute "!./mac test --color --testdox --filter ".cfi#format("%s", ""). " ".l:filepath
       " execute "!docker exec -i $BACKEND_APP ./vendor/bin/phpunit --testdox --color --filter ".cfi#format("%s", ""). " ".l:filepath

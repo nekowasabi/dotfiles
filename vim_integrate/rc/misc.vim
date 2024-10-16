@@ -81,7 +81,7 @@ endfunction
 command! DuplicateLineFormat call <SID>DuplicateLineFormat()
 command! DuplicateLineFormatNormal call <SID>DuplicateLineFormatNormal()
 " }}}1
-if g:IsMacGvim() || g:IsMacNeovim()
+if g:IsMacGvim() || g:IsMacNeovim() || g:IsWsl()
   nnoremap <silent> <F4> :DuplicateLineFormatNormal<CR>
   inoremap <expr> <F4> <SID>DuplicateLineFormat()
   inoremap <expr> <C-o> <SID>DuplicateLineFormat()
