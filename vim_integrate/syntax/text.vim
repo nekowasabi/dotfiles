@@ -34,6 +34,7 @@ syn match	shdHeader1	"^- "
 syn match shdComment6 "--------------------------------------- .*$"
 syn match shdComment7 "----- .*$"
 syn match	changelogHeader	"^\*"
+syn match shdBrace1 "\[.\{-}\](.\{-})" conceal cchar=🔗
 
 hi def link shdComment1                        Comment
 hi def link shdComment2                        Comment

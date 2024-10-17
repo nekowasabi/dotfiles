@@ -318,14 +318,19 @@ function! GenerateRandomString(length)
 endfunction
 
 
-
-
-" -----------------------------------------------------------
-" test
 " テキスト用リンク生成 
 function! s:GenerateTextLinkTag()
 	let l:link_hash = GenerateRandomString(8)
-	let l:link = "[link](".l:link_hash.")"
+
+  let l:full_path = expand('%:p')
+  let l:home_dir = expand('~')
+  if l:full_path =~ '^' . l:home_dir
+    let l:current_path = '~' . strpart(l:full_path, len(l:home_dir))
+  else
+    let l:current_path = l:full_path
+  endif
+
+	let l:link = "[link](" . l:current_path . "#" . l:link_hash . ")"
 	let pos = getpos(".")
 	execute ":normal a" . l:link
 	call setpos('.', pos)
@@ -346,34 +351,48 @@ function! GenerateRandomString(length)
     return l:result
 endfunction
 
-
+" -----------------------------------------------------------
+" test
 
 function! s:Test()
 	
-	" カーソル行から、[xxx](abcdefg) 形式の文字列を取得
+	" カーソル行から、[link](/path/to/file#hash) 形式の文字列を取得
 	let l:line = getline('.')
 	let l:link = matchstr(l:line, '\[.*\](.*)')
 
+  " カーソル行から、[link](/path/to/file#hash) 形式の()内の文字列を取得
+  let l:location = matchstr(l:line, '\[.*\](\zs.*\ze)')
+  let l:location_list = split(l:location, '#')
+  let l:file_path = l:location_list[0]
+  let l:hash = l:location_list[1]
+
+  " l:file_pathを絶対パスに変換
+  let l:absolute_path = fnamemodify(l:file_path, ':p')
+
 	" l:linkの文字列で前方検索
 	if l:link != ''
-		" リンクからIDを抽出 (括弧内の文字列)
-		let l:id = matchstr(l:link, '(\zs.*\ze)')
-		
+    " if 現在のバッファのフルパスがl:file_pathと一致しない場合
+    if expand('%:p') != l:absolute_path
+      " l:file_pathのファイルを開いて、カーソルをl:hashの位置に移動
+      execute "e " . l:file_path
+      call cursor(1, 1)
+    endif
+
 		" 現在の位置を保存
 		let l:save_cursor = getpos(".")
 		
-		" 次の行に移動
-		call cursor(line('.') + 1, 1)
+		" 1つ↓に移動
+    normal! j
 		
-		" 前方検索を実行
-		let l:search_result = search('\[.*\](' . l:id . ')', 'W')
+		" l:hashで前方検索を実行
+    let l:search_result = search(l:hash, 'W')
 		
 		if l:search_result == 0
 			" 見つからなかった場合はファイルの先頭から現在位置まで検索
 			call cursor(1, 1)
-			let l:search_result = search('\[.*\](' . l:id . ')', 'W', l:save_cursor[1])
+      let l:search_result = search(l:hash, 'W', l:save_cursor[1])
+    else
 		endif
-		
 	else
 		let l:search_result = search(expand("<cword>"), 'W')
 	endif
