@@ -106,12 +106,12 @@ fpath=(/usr/local/share/zsh-completions ${fpath})
 
 # alias {{{1
 function wezterm_neovim() {
-  /usr/local/bin/nvim $1 ~/wezterm
+  /usr/local/bin/nvim $1 $2 ~/wezterm
 }
 alias n='wezterm_neovim'
 
 function wezterm_neovim_work() {
- /opt/homebrew/bin/nvim  $1 ~/work
+ /opt/homebrew/bin/nvim  $1 $2 ~/work
 }
 alias m='wezterm_neovim_work'
 
