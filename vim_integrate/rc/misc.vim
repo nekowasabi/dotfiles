@@ -351,40 +351,29 @@ function! GenerateRandomString(length)
     return l:result
 endfunction
 
-" -----------------------------------------------------------
-" test
-
-function! s:Test()
-	
-	" カーソル行から、[link](/path/to/file#hash) 形式の文字列を取得
+function! s:JumpHashLink()
 	let l:line = getline('.')
 	let l:link = matchstr(l:line, '\[.*\](.*)')
 
-  " カーソル行から、[link](/path/to/file#hash) 形式の()内の文字列を取得
-  let l:location = matchstr(l:line, '\[.*\](\zs.*\ze)')
-  let l:location_list = split(l:location, '#')
-  let l:file_path = l:location_list[0]
-  let l:hash = l:location_list[1]
+  if l:link != ''
+    " カーソル行から、[link](/path/to/file#hash) 形式の()内の文字列を取得
+    let l:location = matchstr(l:line, '\[.*\](\zs.*\ze)')
+    let l:location_list = split(l:location, '#')
 
-  " l:file_pathを絶対パスに変換
-  let l:absolute_path = fnamemodify(l:file_path, ':p')
+    let l:file_path = l:location_list[0]
+    let l:absolute_path = fnamemodify(l:file_path, ':p')
 
-	" l:linkの文字列で前方検索
-	if l:link != ''
-    " if 現在のバッファのフルパスがl:file_pathと一致しない場合
+    let l:hash = l:location_list[1]
+
     if expand('%:p') != l:absolute_path
-      " l:file_pathのファイルを開いて、カーソルをl:hashの位置に移動
       execute "e " . l:file_path
       call cursor(1, 1)
     endif
 
-		" 現在の位置を保存
 		let l:save_cursor = getpos(".")
 		
-		" 1つ↓に移動
     normal! j
 		
-		" l:hashで前方検索を実行
     let l:search_result = search(l:hash, 'W')
 		
 		if l:search_result == 0
@@ -394,8 +383,20 @@ function! s:Test()
     else
 		endif
 	else
-		let l:search_result = search(expand("<cword>"), 'W')
+		let l:cword = expand("<cword>")
+		call feedkeys("*", 'n')
 	endif
+endfunction
+command! JumpHashLink call s:JumpHashLink() 
+command! -range JumpHashLink call s:JumpHashLink() 
+
+nnoremap <silent> * :JumpHashLink<CR>
+
+
+" -----------------------------------------------------------
+" test
+
+function! s:Test()
 endfunction
 command! Test call s:Test() 
 command! -range Test call s:Test() 
