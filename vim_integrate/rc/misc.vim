@@ -323,7 +323,40 @@ endfunction
 " -----------------------------------------------------------
 " test
 function! s:Test()
-  execute 'silent! :SwitchFileByRule'
+	" カーソル行から、[xxx](abcdefg) 形式の文字列を取得
+	let l:line = getline('.')
+	let l:link = matchstr(l:line, '\[.*\](.*)')
+
+	" l:linkの文字列で前方検索
+	if l:link != ''
+		" リンクからIDを抽出 (括弧内の文字列)
+		let l:id = matchstr(l:link, '(\zs.*\ze)')
+		
+		" 現在の位置を保存
+		let l:save_cursor = getpos(".")
+		
+		" 次の行に移動
+		call cursor(line('.') + 1, 1)
+		
+		" 前方検索を実行
+		let l:search_result = search('\[.*\](' . l:id . ')', 'W')
+		
+		if l:search_result == 0
+			" 見つからなかった場合はファイルの先頭から現在位置まで検索
+			call cursor(1, 1)
+			let l:search_result = search('\[.*\](' . l:id . ')', 'W', l:save_cursor[1])
+		endif
+		
+		if l:search_result == 0
+			" 見つからなかった場合は元の位置に戻る
+			call setpos('.', l:save_cursor)
+			echo "Link target not found."
+		else
+			echo "Moved to link target."
+		endif
+	else
+		echo "No link found at cursor position."
+	endif
 endfunction
 command! Test call s:Test() 
 command! -range Test call s:Test() 
