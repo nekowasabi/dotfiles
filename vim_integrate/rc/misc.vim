@@ -387,9 +387,9 @@ function! s:JumpHashLink()
 		call feedkeys("*", 'n')
 	endif
 endfunction
+
 command! JumpHashLink call s:JumpHashLink() 
 command! -range JumpHashLink call s:JumpHashLink() 
-
 nnoremap <silent> * :JumpHashLink<CR>
 
 

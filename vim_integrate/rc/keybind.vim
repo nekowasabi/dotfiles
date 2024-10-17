@@ -366,7 +366,7 @@ if g:IsMacGvim() || g:IsMacNeovim() || g:IsWsl()
 	command! RemoveContextWord call s:RemoveContextWord() 
 	inoremap <silent> <expr> <C-w> <SID>RemoveContextWord()
 
-	nnoremap <ESC><ESC> :nohlsearch<CR><ESC>
+	nnoremap <silent> <ESC><ESC> :nohlsearch<CR><ESC>
 endif
 
 "}}}1
