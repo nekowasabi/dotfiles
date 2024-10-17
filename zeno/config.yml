@@ -58,6 +58,10 @@ snippets:
   - name: "deploy.sh"
     keyword: "dpl"
     snippet: "~/repos/private_dotfiles/mac/scripts/deploy_dotfiles.sh"
+  - name: "rg & fzf & nvim"
+    keyword: "rgv"
+    snippet: "rg --line-number {{word}} | fzf | awk -F ':' '{print $1 \":\" $2}' | xargs -I {} sh -c 'nvim +$(echo {} | cut -d\":\" -f2) $(echo {} | cut -d\":\" -f1)'"
+
 
     # auto expand condition
     # If not defined, it is only valid at the beginning of a line.
