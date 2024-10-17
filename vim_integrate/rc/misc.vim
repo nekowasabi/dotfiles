@@ -13,7 +13,7 @@ function! CloseQuickRunWindow()
     execute "normal \<c-c>\<c-w>\<C-w>ZZ"
 endfunction
 
-nnoremap <Leader>q :call CloseQuickRunWindow()<CR>
+nnoremap <silent> <Leader>q :call CloseQuickRunWindow()<CR>
 
 " 指定のウインドウを閉じる
 nnoremap <C-h> :<C-u>CloseSomeWindow
@@ -30,13 +30,12 @@ endfunction
 nnoremap <Leader>Q :call QuickExit()<CR>
 " }}}1
 
+" Change Ime off status {{{1
 if g:IsMacGvim()
-  " Change Ime off status {{{1
   function! s:ImeOff()
     let g:IMState = 0
   endfunction
   command! ImeOff call <SID>ImeOff()
-  " }}}1
   inoremap <silent><C-g> <C-o>:ImeOff<CR>
   nnoremap <silent> i :ImeOff<CR>i
   nnoremap <silent> a :ImeOff<CR>a
@@ -44,6 +43,7 @@ if g:IsMacGvim()
   nnoremap <silent> o :ImeOff<CR>o
   nnoremap <silent> O :ImeOff<CR>O
 endif
+" }}}1
 
 " ・や「」を文脈に応じて行複製する {{{1
 function! s:DuplicateLineFormat()
@@ -80,7 +80,6 @@ function! s:DuplicateLineFormatNormal()
 endfunction
 command! DuplicateLineFormat call <SID>DuplicateLineFormat()
 command! DuplicateLineFormatNormal call <SID>DuplicateLineFormatNormal()
-" }}}1
 if g:IsMacGvim() || g:IsMacNeovim() || g:IsWsl()
   nnoremap <silent> <F4> :DuplicateLineFormatNormal<CR>
   inoremap <expr> <F4> <SID>DuplicateLineFormat()
@@ -90,6 +89,7 @@ if g:IsWindowsGvim()
   nnoremap <silent> <F4> :DuplicateLineFormatNormal<CR>
   inoremap <expr> <C-o> <SID>DuplicateLineFormat()
 endif
+" }}}1
 
  "ビジュアルモードで選択中のテクストを取得する {{{
  function! s:get_visual_text()
@@ -115,7 +115,7 @@ endif
  endfunction
  " }}}
 
-" plantumlのマインドマップを開く
+ " plantumlのマインドマップを開く {{{1
 function! s:OpenMindMap()
   exe "WriteToFile ~/aaa.md"
   exe "e ~/aaa.md"
@@ -125,11 +125,9 @@ function! s:OpenMindMap()
   exe "PrevimOpen"
 	exe "bdelete!"
 endfunction
-
 command! -range -nargs=1 WriteToFile '<,'>write! <args>
-
 command! -range OpenMindMap call s:OpenMindMap() 
-
+" }}}1
 
 " hugo {{{1
 function! s:HugoGeneratePost()
@@ -182,7 +180,7 @@ command! HugoDeploy call s:HugoDeploy()
 nnoremap <silent> ,Hd :HugoDeploy<CR>
 " }}}1
 
-" changelogメモの項目を一番上に移動する
+" changelogメモの項目を一番上に移動する {{{1
 function! s:MoveChangelogItemToTop()
     execute "normal! zR"
 	let txt = MoveSectionToTop()
@@ -192,7 +190,6 @@ function! s:MoveChangelogItemToTop()
 endfunction
 command! -range MoveChangelogItemToTop call s:MoveChangelogItemToTop() 
 nnoremap ,C :MoveChangelogItemToTop<CR>
-"nnoremap <silent> ,C :MoveChangelogItemToTop<CR>
 
 function! MoveSectionToTop()
     let current_section = []
@@ -228,8 +225,9 @@ function! MoveSectionToTop()
 
 		return current_section
 endfunction
+" }}}1
 
-" Dropboxのwatchmemoをバッファに出力して、ファイル削除
+" Dropboxのwatchmemoをバッファに出力して、ファイル削除 {{{1
 function! s:PasteWatchMemo()
   if g:IsMacGvim() || g:IsMacNeovim()
     let g:dropbox_dir = '/Users/takets/Dropbox/files/'
@@ -243,12 +241,9 @@ function! s:PasteWatchMemo()
 	let content = ''
 
 	for file in files
-		" 以下の条件はユーザー定義の関数が存在することを前提としています。
 		if g:IsMacGvim() || g:IsMacNeovim()
 			let content = readfile(file)->join("\n") . "\n"  " Macの現代のテキストフォーマットに合わせてLFを使用
-			" let content = substitute(content, "\n", "\r", 'g')  " この行は不要であれば削除してください
 			execute "normal! i" . content
-			" silent execute "!rm " . file  " 実際にファイルを削除する場合はコメントを解除してください
 		endif
 		if g:IsWindowsGvim()
 			let content = readfile(file)->join("\r\n") . "\r\n"  " Windowsのテキストフォーマットに合わせてCRLFを使用
@@ -258,21 +253,18 @@ function! s:PasteWatchMemo()
 		endif
 	endfor
 endfunction
-
 command! -range PasteWatchMemo call s:PasteWatchMemo() 
+" }}}1
 
-
-" changelogをpull
+" changelogをpush, pullする {{{1
 function! s:PullChangelog()
   execute "cd ".g:GetChangelogDirectory()
   execute "silent Git checkout -f"
   execute "Git pull"
 	echo 'pull done.'
 endfunction
-
 command! -range PullChangelog call s:PullChangelog() 
 
-" changelogをgitに更新
 function! s:PushChangelog()
   execute "cd ".g:GetChangelogDirectory()
   execute "silent Git add ."
@@ -284,7 +276,9 @@ endfunction
 
 command! -range PushChangelog call s:PushChangelog() 
 nnoremap <silent> ,p :PushChangelog<CR>
+" }}}1
 
+" OpenByCursor {{{1
 function! s:OpenByCursor()
   let l:path = expand('%:p')
   let l:line = line('.')
@@ -292,33 +286,9 @@ function! s:OpenByCursor()
   silent! exe '!cursor --g '.l:path.':'.l:line
 endfunction
 command! -range Cursor call s:OpenByCursor()
+" }}}1
 
-" テキスト用リンク生成 
-function! s:GenerateTextLinkTag()
-	let l:link_hash = GenerateRandomString(8)
-	let l:link = "[link](".l:link_hash.")"
-	let pos = getpos(".")
-	execute ":normal i" . l:link
-	call setpos('.', pos)
-	" 構文ハイライトを更新
-	syntax sync fromstart
-	" 画面を再描画
-	redraw
-endfunction
-command! GenerateTextLinkTag call s:GenerateTextLinkTag() 
-command! -range GenerateTextLinkTag call s:GenerateTextLinkTag() 
-
-function! GenerateRandomString(length)
-    let l:chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-    let l:result = ''
-    for i in range(a:length)
-        let l:result .= l:chars[rand() % len(l:chars)]
-    endfor
-    return l:result
-endfunction
-
-
-" テキスト用リンク生成 
+" テキスト用リンクジャンプ {{{1
 function! s:GenerateTextLinkTag()
 	let l:link_hash = GenerateRandomString(8)
 
@@ -391,7 +361,7 @@ endfunction
 command! JumpHashLink call s:JumpHashLink() 
 command! -range JumpHashLink call s:JumpHashLink() 
 nnoremap <silent> * :JumpHashLink<CR>
-
+" }}}1
 
 " -----------------------------------------------------------
 " test
