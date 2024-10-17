@@ -322,7 +322,34 @@ endfunction
 
 " -----------------------------------------------------------
 " test
+" テキスト用リンク生成 
+function! s:GenerateTextLinkTag()
+	let l:link_hash = GenerateRandomString(8)
+	let l:link = "[link](".l:link_hash.")"
+	let pos = getpos(".")
+	execute ":normal a" . l:link
+	call setpos('.', pos)
+	" 構文ハイライトを更新
+	syntax sync fromstart
+	" 画面を再描画
+	redraw
+endfunction
+command! GenerateTextLinkTag call s:GenerateTextLinkTag() 
+command! -range GenerateTextLinkTag call s:GenerateTextLinkTag() 
+
+function! GenerateRandomString(length)
+    let l:chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+    let l:result = ''
+    for i in range(a:length)
+        let l:result .= l:chars[rand() % len(l:chars)]
+    endfor
+    return l:result
+endfunction
+
+
+
 function! s:Test()
+	
 	" カーソル行から、[xxx](abcdefg) 形式の文字列を取得
 	let l:line = getline('.')
 	let l:link = matchstr(l:line, '\[.*\](.*)')
@@ -347,15 +374,8 @@ function! s:Test()
 			let l:search_result = search('\[.*\](' . l:id . ')', 'W', l:save_cursor[1])
 		endif
 		
-		if l:search_result == 0
-			" 見つからなかった場合は元の位置に戻る
-			call setpos('.', l:save_cursor)
-			echo "Link target not found."
-		else
-			echo "Moved to link target."
-		endif
 	else
-		echo "No link found at cursor position."
+		let l:search_result = search(expand("<cword>"), 'W')
 	endif
 endfunction
 command! Test call s:Test() 
