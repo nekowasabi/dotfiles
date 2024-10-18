@@ -374,10 +374,11 @@ if g:IsMacNeovim() || g:IsWsl()
   elseif g:IsMacNeovimInWezterm()
 		"execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-lsp.vim'
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
-    execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
+    " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
+    execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cmp.vim'
     " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/completion-keybind.vim'
-    " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cmp.vim'
+    execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cmp.vim'
 		" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
   else
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'

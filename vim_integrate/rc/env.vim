@@ -73,7 +73,7 @@ function! g:IsVimR() abort
 endfunction
 
 function! g:IsMacNeovimInWezterm() abort
-  if g:IsMacNeovim() && index(v:argv, 'wezterm') >= 0
+  if g:IsMacNeovim() && index(v:argv, '/Users/takets/wezterm') >= 0
     return v:true
   else
     return v:false
