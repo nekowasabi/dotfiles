@@ -30,7 +30,7 @@ augroup END
 
 augroup allFileTypesConceal
   autocmd!
-  autocmd FileType * syntax match Link "\[.\{-}\](.\{-})" contains=LinkText,LinkURL conceal cchar=🔗
+  autocmd FileType * syntax match Link "\[link\](.\{-})" contains=LinkText,LinkURL conceal cchar=🔗
   autocmd FileType * setlocal conceallevel=2
   autocmd FileType * let &l:concealcursor = 'nc'
   autocmd FileType * highlight default link LinkURL Conceal
