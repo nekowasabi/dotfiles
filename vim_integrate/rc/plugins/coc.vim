@@ -22,6 +22,7 @@ let g:coc_global_extensions = [
   \, 'coc-yaml'
   \, 'coc-blade'
   \, 'coc-biome'
+  \, 'coc-lua'
   \, '@hexuhua/coc-copilot'
   \, 'coc-deno'
   \ ]

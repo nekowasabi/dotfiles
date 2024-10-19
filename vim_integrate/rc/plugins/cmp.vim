@@ -6,6 +6,30 @@ autocmd FileType sql,vim,php,typescript lua require('cmp').setup.buffer {
 lua << EOF
 local cmp = require'cmp'
 
+require'cmp'.setup {
+  sources = {
+    { name = 'emoji' }
+  }
+}
+
+require("cmp").setup {
+	sources = {
+		{ 
+			name = "cmp_yanky",
+      option = {
+        onlyCurrentFiletype = false,
+        minLength = 3,
+      }
+		},
+	},
+}
+
+require'cmp'.setup {
+  sources = {
+    { name = 'calc' }
+  }
+}
+
 cmp.setup({
  filetypes = { "markdown" },
  snippet = {
@@ -45,9 +69,10 @@ cmp.setup({
       fields = {'menu', 'abbr', 'kind'},
       format = function(entry, item)
           local menu_icon ={
-              buffer = '╬⌐',
-              path = '≡ƒû½',
-              cmdline = '≡ƒû½',
+              buffer = '💾',
+              path = '📂',
+              cmdline = '🔍',
+              cmd_yanky = '📋',
           }
           item.menu = menu_icon[entry.source.name]
           return item
@@ -65,6 +90,7 @@ cmp.setup.filetype('gitcommit', {
       { name = 'buffer' },
   })
 })
+
 cmp.setup.filetype('markdown', {
   sources = cmp.config.sources({
   { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
@@ -80,6 +106,30 @@ cmp.setup.filetype('markdown', {
   })
 })
 
+cmp.setup.filetype('changelog', {
+  sources = cmp.config.sources(
+  {
+      { name = 'calc' },
+      { name = 'emoji' },
+      { name = 'cmp_yanky', 
+        option = {
+          onlyCurrentFiletype = false,
+          minLength = 3,
+        }
+      },
+      {
+          name = 'buffer',
+          option = {
+            get_bufnrs = function()
+            return vim.api.nvim_list_bufs()
+            end
+          },
+      },
+  })
+})
+
+
+
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
   mapping = cmp.mapping.preset.cmdline({
@@ -92,67 +142,68 @@ cmp.setup.cmdline(':', {
   })
 })
 
--- -- cmp git
--- local format = require("cmp_git.format")
--- local sort = require("cmp_git.sort")
---
--- require("cmp_git").setup({
--- -- defaults
--- filetypes = { "gitcommit", "octo" },
--- remotes = { "upstream", "origin" }, -- in order of most to least prioritized
--- enableRemoteUrlRewrites = false, -- enable git url rewrites, see https://git-scm.com/docs/git-config#Documentation/git-config.txt-urlltbasegtinsteadOf
--- git = {
---   commits = {
---     limit = 100,
---     sort_by = sort.git.commits,
---     format = format.git.commits,
---   },
--- },
--- github = {
---   issues = {
---     fields = { "title", "number", "body", "updatedAt", "state" },
---     filter = "all", -- assigned, created, mentioned, subscribed, all, repos
---     limit = 100,
---     state = "open", -- open, closed, all
---     sort_by = sort.github.issues,
---     format = format.github.issues,
---   },
---   mentions = {
---     limit = 100,
---     sort_by = sort.github.mentions,
---     format = format.github.mentions,
---   },
---   pull_requests = {
---     fields = { "title", "number", "body", "updatedAt", "state" },
---     limit = 100,
---     state = "open", -- open, closed, merged, all
---     sort_by = sort.github.pull_requests,
---     format = format.github.pull_requests,
---   },
--- },
--- trigger_actions = {
---   {
---       debug_name = "git_commits",
---       trigger_character = ":",
---       action = function(sources, trigger_char, callback, params, git_info)
---       return sources.git:get_commits(callback, params, trigger_char)
---       end,
---   },
---   {
---       debug_name = "github_issues_and_pr",
---       trigger_character = "#",
---       action = function(sources, trigger_char, callback, params, git_info)
---       return sources.github:get_issues_and_prs(callback, git_info, trigger_char)
---       end,
---   },
---   {
---       debug_name = "github_mentions",
---       trigger_character = "@",
---       action = function(sources, trigger_char, callback, params, git_info)
---       return sources.github:get_mentions(callback, git_info, trigger_char)
---       end,
---   },
--- },
--- }
--- )
+-- cmp git
+local format = require("cmp_git.format")
+local sort = require("cmp_git.sort")
+
+require("cmp_git").setup({
+-- defaults
+filetypes = { "gitcommit", "octo" },
+remotes = { "upstream", "origin" }, -- in order of most to least prioritized
+enableRemoteUrlRewrites = false, -- enable git url rewrites, see https://git-scm.com/docs/git-config#Documentation/git-config.txt-urlltbasegtinsteadOf
+git = {
+  commits = {
+    limit = 100,
+    sort_by = sort.git.commits,
+    format = format.git.commits,
+  },
+},
+github = {
+  issues = {
+    fields = { "title", "number", "body", "updatedAt", "state" },
+    filter = "all", -- assigned, created, mentioned, subscribed, all, repos
+    limit = 100,
+    state = "open", -- open, closed, all
+    sort_by = sort.github.issues,
+    format = format.github.issues,
+  },
+  mentions = {
+    limit = 100,
+    sort_by = sort.github.mentions,
+    format = format.github.mentions,
+  },
+  pull_requests = {
+    fields = { "title", "number", "body", "updatedAt", "state" },
+    limit = 100,
+    state = "open", -- open, closed, merged, all
+    sort_by = sort.github.pull_requests,
+    format = format.github.pull_requests,
+  },
+},
+trigger_actions = {
+  {
+      debug_name = "git_commits",
+      trigger_character = ":",
+      action = function(sources, trigger_char, callback, params, git_info)
+      return sources.git:get_commits(callback, params, trigger_char)
+      end,
+  },
+  {
+      debug_name = "github_issues_and_pr",
+      trigger_character = "#",
+      action = function(sources, trigger_char, callback, params, git_info)
+      return sources.github:get_issues_and_prs(callback, git_info, trigger_char)
+      end,
+  },
+  {
+      debug_name = "github_mentions",
+      trigger_character = "@",
+      action = function(sources, trigger_char, callback, params, git_info)
+      return sources.github:get_mentions(callback, git_info, trigger_char)
+      end,
+  },
+},
+}
+
+)
 EOF

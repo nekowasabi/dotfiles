@@ -1,8 +1,9 @@
-" aider.vim
+
+o" aider.vim
 if g:IsMacNeovim() || g:IsWsl()
   " let g:aider_command = 'aider --no-auto-commits --stream --architect --model openai/gpt-4o --editor-model anthropic/claude-3-5-sonnet-20240620 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands'
   " vhs用
-  let g:aider_command = 'aider --no-auto-commits --stream --model openai/gpt-4o --editor-model anthropic/claude-3-5-sonnet-20240620 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands'
+  let g:aider_command = 'aider --no-auto-commits --stream --chat-mode code --model openai/gpt-4o --editor-model anthropic/claude-3-5-sonnet-20240620 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands'
   " let g:aider_command = 'aider --no-auto-commits --no-stream --architect --model  openai/o1-mini --editor-model anthropic/claude-3-5-sonnet-20240620 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands'
 else
   let g:aider_command = 'aider --no-auto-commits --no-stream --architect --model openai/o1-mini --editor-model anthropic/claude-3-5-sonnet-20240620 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands'
@@ -34,10 +35,10 @@ vmap <leader>av :AiderVisualTextWithPrompt<CR>
 nnoremap <leader>av :AiderVisualTextWithPrompt<CR>
 
 let g:aider_additional_prompt = [
-      \ "- // targetがある場合は、出力したコードで置換してください", 
-      \ "- 選択された範囲のコードだけを修正対象として、他のコードを変更することを禁じます。", 
-      \ "- 編集内容の説明は日本語で表示してください。",
-      \ "- コードはシンプルに保ってください。"
+      \ "- If there is a target, replace it with the output code.", 
+      \ "- Only the selected range of code is subject to modification, and changing other code is prohibited.", 
+      \ "- Display explanations of the edits in English.", 
+      \ "- Keep the code simple."
       \]
 
 augroup AiderOpenGroup
