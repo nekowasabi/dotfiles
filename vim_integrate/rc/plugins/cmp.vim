@@ -40,7 +40,18 @@ cmp.setup({
   sources = {
     { name = 'path' },
     { name = 'buffer', keyword_length = 4 },
-    { name = 'cmdline', keyword_length = 10 },
+  },
+  formatting = {
+      fields = {'menu', 'abbr', 'kind'},
+      format = function(entry, item)
+          local menu_icon ={
+              buffer = '╬⌐',
+              path = '≡ƒû½',
+              cmdline = '≡ƒû½',
+          }
+          item.menu = menu_icon[entry.source.name]
+          return item
+      end,
   },
 })
 
