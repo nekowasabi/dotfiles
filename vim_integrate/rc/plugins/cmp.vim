@@ -7,10 +7,6 @@ lua << EOF
 local cmp = require'cmp'
 
 cmp.setup({
-  completeion = {
-    keyword_length = 5,
-  },
-
  filetypes = { "markdown" },
  snippet = {
    -- REQUIRED - you must specify a snippet engine
@@ -41,50 +37,50 @@ cmp.setup({
    disallow_partial_fuzzy_matching = false,
    disallow_partial_matching = true,
  },
+  sources = {
+    { name = 'path' },
+    { name = 'buffer', keyword_length = 4 },
+    { name = 'cmdline', keyword_length = 10 },
+  },
 })
 
--- -- Set configuration for specific filetype.
--- cmp.setup.filetype('gitcommit', {
---   sources = cmp.config.sources(
---   {
---       { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
---   },
---   {
---       { name = 'buffer' },
---   })
--- })
--- cmp.setup.filetype('markdown', {
---   sources = cmp.config.sources({
---   { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
---   }, {
---     { name = 'buffer',
---       option = {
---         get_bufnrs = function()
---         return vim.api.nvim_list_bufs()
---         end
---       }
---
---       },
---     })
---   })
---
--- -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
--- cmp.setup.cmdline(':', {
---   mapping = cmp.mapping.preset.cmdline({
---     ["<CR>"] = cmp.mapping.confirm { select = true },
---   }),
---   completeion = {
---     keyword_length = 10,
---   },
---
---
---   sources = cmp.config.sources({
---     { name = 'path' }
---     }, {
---       { name = 'cmdline' }
---     })
---   })
---
+-- Set configuration for specific filetype.
+cmp.setup.filetype('gitcommit', {
+  sources = cmp.config.sources(
+  {
+      { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+  },
+  {
+      { name = 'buffer' },
+  })
+})
+cmp.setup.filetype('markdown', {
+  sources = cmp.config.sources({
+  { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+  },
+  {
+    { name = 'buffer',
+      option = {
+        get_bufnrs = function()
+        return vim.api.nvim_list_bufs()
+        end
+      },
+    },
+  })
+})
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline({
+    ["<CR>"] = cmp.mapping.confirm { select = true },
+  }),
+
+  sources = cmp.config.sources({
+    { name = 'path' },
+    { name = 'cmdline', keyword_length = 3 },
+  })
+})
+
 -- -- cmp git
 -- local format = require("cmp_git.format")
 -- local sort = require("cmp_git.sort")
@@ -148,4 +144,4 @@ cmp.setup({
 -- },
 -- }
 -- )
--- EOF
+EOF
