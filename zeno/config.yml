@@ -21,6 +21,9 @@ snippets:
   - name: git switch
     keyword: gc
     snippet: git switch {{branch}}
+  - name: git switch
+    keyword: gC
+    snippet: git switch $(git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)' | fzf)
   - name: git switch previous branch 
     keyword: gb
     snippet: git switch -
