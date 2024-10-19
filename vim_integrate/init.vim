@@ -53,6 +53,9 @@ let g:denops#debug = 0
 " yanky
 nnoremap <silent> <leader>y :Telescope yank_history<CR>
 
+autocmd BufRead,BufNewFile *.ks set filetype=tyranoscript
+autocmd Filetype tyranoscript setlocal commentstring=;\ %s
+
 " -----------------------------------------------------------
 " lua
 lua << EOF

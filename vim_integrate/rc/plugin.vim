@@ -280,6 +280,7 @@ if g:IsMacNeovim() || g:IsWsl()
     Plug 'hrsh7th/cmp-path'
     Plug 'hrsh7th/cmp-cmdline'
     Plug 'petertriho/cmp-git'
+    Plug 'nekowasabi/vim-syntax-tyranoscript'
     " Plug 'gelguy/wilder.nvim'
     " Plug 'Shougo/ddc-source-lsp'
     call g:SetCoc()
