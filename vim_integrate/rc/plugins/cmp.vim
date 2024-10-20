@@ -73,6 +73,7 @@ cmp.setup({
               path = '📂',
               cmdline = '🔍',
               cmd_yanky = '📋',
+              calc = '🔢',
           }
           item.menu = menu_icon[entry.source.name]
           return item
@@ -112,13 +113,15 @@ cmp.setup.filetype('changelog', {
       { name = 'calc' },
       { name = 'emoji' },
       { name = 'cmp_yanky', 
+        keyword_length = 4,
         option = {
           onlyCurrentFiletype = false,
           minLength = 3,
         }
       },
       {
-          name = 'buffer',
+					name = 'buffer',
+					keyword_length = 4,
           option = {
             get_bufnrs = function()
             return vim.api.nvim_list_bufs()
