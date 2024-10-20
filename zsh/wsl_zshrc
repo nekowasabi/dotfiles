@@ -113,6 +113,18 @@ fpath=(/usr/local/share/zsh-completions ${fpath})
 # }}}1
 
 # alias {{{1
+function wezterm_neovim() {
+  if [ -d "/home/ttakeda" ]; then
+    /opt/homebrew/bin/nvim  $1 $2 ~/work
+  elif [ -d "/home/takets" ]; then
+    /home/linuxbrew/.linuxbrew/bin/nvim $1 $2 ~/wezterm
+  else
+    /usr/local/bin/nvim $1 $2 ~/wezterm
+  fi
+}
+alias n='wezterm_neovim'
+
+
 alias ll='eza --long --header --git  --sort=type --classify --git'
 alias la='eza --long --header --git --grid --classify --sort=type --git'
 alias phpctags='/usr/local/bin/phpctags'

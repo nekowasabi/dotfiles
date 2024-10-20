@@ -61,6 +61,9 @@ snippets:
   - name: "rg & fzf & nvim"
     keyword: "rgv"
     snippet: rg --line-number {{word}} | fzf | awk -F ':' '{print $1 ":" $2}' | xargs -I {} zsh -c 'source ~/.zshrc && wezterm_neovim $(echo {} | cut -d":" -f1) +$(echo {} | cut -d":" -f2)'
+  - name: "rg & fzf & nvim for wsl"
+    keyword: "rgw"
+    snippet: rg --line-number {{word}} | fzf | awk -F ':' '{print $1 ":" $2}' | xargs -I {} zsh -c 'nvim $(echo {} | cut -d":" -f1) +$(echo {} | cut -d":" -f2)'
   - name: "deploy.sh"
     keyword: "dpl"
     snippet: "~/repos/private_dotfiles/mac/scripts/deploy_dotfiles.sh"
