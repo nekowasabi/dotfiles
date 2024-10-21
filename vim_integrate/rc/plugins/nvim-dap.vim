@@ -23,7 +23,7 @@ require("dap").configurations.typescript = {
     runtimeArgs = {
       "run",
       "--inspect-wait",
-      "--allow-all"
+      -- "--allow-all"
     },
     program = "${file}",
     cwd = "${workspaceFolder}",

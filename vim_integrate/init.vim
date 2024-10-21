@@ -118,6 +118,14 @@ require("avante").setup({
     edit = "<leader>ve",
     refresh = "<leader>vr",
     toggle = "<leader>vt",
+    focus = "<leader>vf",
+    toggle = {
+      default = "<leader>at",
+      debug = "<leader>ad",
+      hint = "<leader>ah",
+      suggestion = "<leader>as",
+      repo_map = "<leader>az",
+    },
     behaviour = {
       auto_suggestions = true, -- Experimental stage
       auto_set_highlight_group = true,
