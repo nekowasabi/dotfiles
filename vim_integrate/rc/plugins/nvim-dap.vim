@@ -120,5 +120,29 @@ local widgets = require('dap.ui.widgets')
 widgets.centered_float(widgets.scopes)
 end)
 
+local function watchExpression(expression)
+  dapui.elements.watches.add(expression)
+end
+
+vim.api.nvim_create_user_command('DapiUIAddToWatch', function (opts)
+  watchExpression(opts.args)
+end , {nargs = 1})
+
+local function watchExpression(expression)
+  dapui.elements.watches.add(expression)
+end
+
+-- カーソル位置の単語を取得してwatchExpressionに追加する関数
+local function addCurrentWordToWatch()
+  local word = vim.fn.expand("<cword>")
+  watchExpression(word)
+end
+
+vim.api.nvim_create_user_command('DapiUIAddToWatch', function (opts)
+  watchExpression(opts.args)
+end , {nargs = 1})
+
+-- カーソル位置の単語をwatchExpressionに追加するキーマッピング
+vim.keymap.set('n', '<Leader>dw', addCurrentWordToWatch, { noremap = true, silent = true })
 
 EOF
