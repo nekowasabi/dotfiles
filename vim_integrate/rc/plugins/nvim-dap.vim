@@ -46,10 +46,7 @@ require("dap").configurations.php = {
   pathMappings = {
     ['/opt/invase-backend'] = "${workspaceFolder}",
     ['/opt/invase-backend/app'] = "${workspaceFolder}/app",
-    ['/var/www/html'] = "${workspaceFolder}",
   },
-  serverSourceRoot = '/opt/invase-backend',
-  localSourceRoot = '${workspaceFolder}',
   hostname = 'localhost',  -- localhostに変更
   log = true,
   xdebugSettings = {
