@@ -256,6 +256,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'gbprod/yanky.nvim'
   Plug 'folke/zen-mode.nvim'
   Plug 'folke/twilight.nvim'
+	Plug 'SmiteshP/nvim-navic'
 
   call g:SetDdu()
 

@@ -86,7 +86,6 @@ endfunction
 " If you want to show the nearest function in your statusline automatically,
 " you can add the following line to your vimrc
 autocmd BufWritePost,VimEnter,InsertEnter,ModeChanged,InsertLeave,CmdwinLeave,CursorMoved * call NearestMethodOrFunction()
-" autocmd VimEnter,TextChanged,TextChangedI,CursorHold,CursorMoved,InsertEnter * call lightline#update()
 autocmd User CocStatusChange redraws
 
 function! File_size()
