@@ -131,6 +131,30 @@ cmp.setup.filetype('changelog', {
   })
 })
 
+cmp.setup.filetype('text', {
+  sources = cmp.config.sources(
+  {
+      { name = 'calc' },
+      { name = 'emoji' },
+      { name = 'cmp_yanky', 
+        keyword_length = 4,
+        option = {
+          onlyCurrentFiletype = false,
+          minLength = 3,
+        }
+      },
+      {
+					name = 'buffer',
+					keyword_length = 4,
+          option = {
+            get_bufnrs = function()
+            return vim.api.nvim_list_bufs()
+            end
+          },
+      },
+  })
+})
+
 
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
