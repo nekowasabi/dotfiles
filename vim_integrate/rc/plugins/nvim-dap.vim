@@ -11,6 +11,14 @@ if g:IsWsl()
   let g:php_dap_adapter = "/home/takets/repos/vscode-php-debug/out/phpDebug.js"
 endif
 
+function! s:CloseDebuggerUiAndDisconnect()
+  execute 'lua require("dapui").toggle()'
+  execute 'lua require("dapui").close()'
+  execute 'lua require("dap").disconnect()'
+endfunction
+command! CloseDebuggerUiAndDisconnect call s:CloseDebuggerUiAndDisconnect() 
+command! -range CloseDebuggerUiAndDisconnect call s:CloseDebuggerUiAndDisconnect() 
+
 
 lua << EOF
 
@@ -96,11 +104,10 @@ vim.keymap.set('n', '<Leader>B', function() require('dap').set_breakpoint() end)
 vim.keymap.set('n', '<Leader>lp', function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
 vim.keymap.set('n', '<Leader>dr', function() require('dap').repl.open() end)
 vim.keymap.set('n', '<Leader>dl', function() require('dap').run_last() end)
-vim.keymap.set({'n', 'v'}, '<Leader>dh', function()
 
-vim.api.nvim_set_keymap('n', '<leader>dt', ':lua require("dapui").toggle()<CR>', {})
-require('dap.ui.widgets').hover()
-end)
+-- vim.api.nvim_set_keymap('n', '<leader>dt', ':lua require("dapui").toggle(); lua require("dap").disconnect(); require("dap.repl").close()<CR>', {})
+-- require('dap.ui.widgets').hover()
+-- end)
 
 vim.keymap.set({'n', 'v'}, '<Leader>dp', function()
 require('dap.ui.widgets').preview()
