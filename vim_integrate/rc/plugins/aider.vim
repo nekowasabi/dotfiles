@@ -35,10 +35,10 @@ vmap <leader>av :AiderVisualTextWithPrompt<CR>
 nnoremap <leader>av :AiderVisualTextWithPrompt<CR>
 
 let g:aider_additional_prompt = [
-      \ "- If there is a target, replace it with the output code.", 
-      \ "- Only the selected range of code is subject to modification, and changing other code is prohibited.", 
-      \ "- Display explanations of the edits in English.", 
-      \ "- Keep the code simple."
+      \ "- quoteで囲まれたところに対象コードがある場合は、それを出力コードに置き換えます。",
+      \ "- 選択された範囲のコードのみが変更対象であり、その他のコードを変更することは禁止されています。",
+      \ "- 編集の説明を日本語で1つ1つステップごとに説明します。",
+      \ "- コードはシンプルに保ちます。"
       \]
 
 augroup AiderOpenGroup
