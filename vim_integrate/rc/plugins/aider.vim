@@ -1,5 +1,3 @@
-
-o" aider.vim
 if g:IsMacNeovim() || g:IsWsl()
   let g:aider_command = 'aider --no-auto-commits --stream --architect --model openai/gpt-4o --editor-model anthropic/claude-3-5-sonnet-20240620 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands'
   " vhs用
