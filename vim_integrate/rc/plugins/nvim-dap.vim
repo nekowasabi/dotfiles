@@ -4,7 +4,7 @@ if g:IsMacNeovim()
 endif
 if g:IsMacNeovimInWork()
   let g:js_dap_adapter = "/Users/ttakeda/.config/nvim/js-debug/src/dapDebugServer.js"
-  let g:php_dap_adapter = "~/repos/vscode-php-debug/out/phpDebug.js"
+  let g:php_dap_adapter = "/Users/ttakeda/repos/vscode-php-debug/out/phpDebug.js"
 endif
 if g:IsWsl()
   let g:js_dap_adapter = "/home/takets/.config/nvim/js-debug/src/dapDebugServer.js"
@@ -47,7 +47,7 @@ require("dap").configurations.php = {
     ['/opt/invase-backend'] = "${workspaceFolder}",
     ['/opt/invase-backend/app'] = "${workspaceFolder}/app",
   },
-  hostname = 'localhost',  -- localhostに変更
+  -- hostname = 'localhost',  -- wsl2の場合はコメントアウト
   log = true,
   xdebugSettings = {
     max_children = 100,
