@@ -29,7 +29,6 @@ function! s:PHPUnitCurrentMethodWithInitialize()
     endif
     return
   endif
-
 endfunction
 
 command! PHPUnitCurrentMethodWithInitialize call s:PHPUnitCurrentMethodWithInitialize()() 
