@@ -363,9 +363,24 @@ command! -range JumpHashLink call s:JumpHashLink()
 nnoremap <silent> * :JumpHashLink<CR>
 " }}}1
 
+" ヤンクした内容を、カーソルの単語に対してファイル全体で置換 {{{1
+function! ReplaceCurrentWordWithYank()
+    " ヤンクした内容をデフォルトのレジスタから取得
+    let l:yanked = @"
+
+    " 現在のカーソル下の単語を取得
+    let l:current_word = expand('<cword>')
+
+    " ファイル全体で置換
+    execute '%s/\V'.escape(l:current_word, '/\').'/'.escape(l:yanked, '/\').''
+endfunction
+
+nnoremap <silent> ,rw :call ReplaceCurrentWordWithYank()<CR>
+" }}}1
+
+
 " -----------------------------------------------------------
 " test
-
 function! s:Test()
 endfunction
 command! Test call s:Test() 

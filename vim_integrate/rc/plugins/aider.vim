@@ -21,10 +21,10 @@ if g:IsMacNeovimInWork()
 endif
 nnoremap <silent> <leader>ae :AiderRun<CR>
 nnoremap <silent> <leader>aR :AiderSilentRun<CR>
-nnoremap <silent> <leader>aa :AiderSilentAddCurrentFile<CR>
-nnoremap <silent> <leader>aA :AiderAddCurrentFile<CR>
-nnoremap <silent> <leader>al :AiderSilentAddCurrentFileReadOnly<CR>
-nnoremap <silent> <leader>aL :AiderAddCurrentFileReadOnly<CR>
+nnoremap <silent> <leader>aa :AiderAddIgnoreCurrentFile<CR>:AiderSilentAddCurrentFile<CR>
+nnoremap <silent> <leader>aA :AiderAddIgnoreCurrentFile<CR>:AiderAddCurrentFile<CR>
+nnoremap <silent> <leader>al :AiderAddIgnoreCurrentFile<CR>:AiderSilentAddCurrentFileReadOnly<CR>
+nnoremap <silent> <leader>aL :AiderAddIgnoreCurrentFile<CR>:AiderAddCurrentFileReadOnly<CR>
 nnoremap <silent> <leader>aw :AiderAddWeb<CR>
 nnoremap <silent> <leader>ap :AiderSendPromptWithInput<CR>
 nnoremap <silent> <leader>ax :AiderExit<CR>
