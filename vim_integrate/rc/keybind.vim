@@ -121,7 +121,7 @@ if !exists('*s:source_script')
 					\)
 	endfunction
 endif
-nnoremap <silent> <F10> :<C-u>call <SID>source_script('%')<CR>
+nnoremap <silent> ,rr :<C-u>call <SID>source_script('%')<CR>
 " }}}1
 
 " カレントファイルのフルパスをクリプボぅ! {{{
