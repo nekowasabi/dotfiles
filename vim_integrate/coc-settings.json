@@ -68,8 +68,8 @@
     "default": "\uf29c"
   },
   "coc.preferences.formatOnType": true,
-  "coc.preferences.formatOnSaveTimeout": 700,
-  "coc.preferences.willSaveHandlerTimeout": 700,
+  "coc.preferences.formatOnSaveTimeout": 400,
+  "coc.preferences.willSaveHandlerTimeout": 400,
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.preferences.currentFunctionSymbolDebounceTime": 1000,
   "coc.source.file.ignoreHidden": false,
