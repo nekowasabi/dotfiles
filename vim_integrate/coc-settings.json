@@ -192,7 +192,6 @@
   },
   "deno.lint": false,
   "biome.enable": true,
-  "biome.bin": "/usr/local/bin/biome",
   "biome.trace.server": "verbose",
   "biome.requireConfiguration": true
 }
