@@ -1,7 +1,6 @@
-autocmd FileType sql,vim,php,typescript lua require('cmp').setup.buffer {
+autocmd FileType sql,vim,php,typescript,ddu-ff lua require('cmp').setup.buffer {
 \   enabled = false
 \ }
-
 
 lua << EOF
 local cmp = require'cmp'
@@ -32,6 +31,9 @@ require'cmp'.setup {
 
 cmp.setup({
  filetypes = { "markdown" },
+enabled = function()
+  return vim.g.your_cmp_disable_enable_toggle
+end,
  snippet = {
    -- REQUIRED - you must specify a snippet engine
    expand = function(args)

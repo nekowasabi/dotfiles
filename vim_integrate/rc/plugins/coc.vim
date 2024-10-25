@@ -30,10 +30,10 @@ let g:coc_global_extensions = [
 
 
 
-let g:markdown_fenced_languages = [
-     \ 'vim',
-     \ 'help'
-     \]
+" let g:markdown_fenced_languages = [
+"      \ 'vim',
+"      \ 'help'
+"      \]
 
 let g:coc_fzf_opts = ['--layout=reverse']
 let g:fzf_layout = { 'up': '~40%' }
@@ -98,8 +98,9 @@ augroup command_window
     autocmd CmdwinEnter * call ReInitCoc()
 augroup END
 
-autocmd BufNew,BufEnter *.json,*.vim,*.php,*.ts execute "silent! CocEnable"
-autocmd BufLeave,BufNew,BufEnter *changelogmemo,*.txt,*.md execute "silent! CocDisable"
+autocmd BufEnter *.json,*.php,*.ts execute "silent! CocEnable" | let g:your_cmp_disable_enable_toggle = v:true
+autocmd BufLeave,BufNew,BufEnter *changelogmemo,*.txt,*.md execute "silent! CocDisable" | let g:your_cmp_disable_enable_toggle = v:false
+autocmd FileType noice,ddu-ff execute "silent! CocDisable" | let g:your_cmp_disable_enable_toggle = v:true
 
 " for PHP
 " autocmd BufWritePre *.php call CocAction('format')
