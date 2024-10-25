@@ -50,6 +50,7 @@ let g:denops#debug = 0
 "   let g:denops_server_addr = '127.0.0.1:32123'
 " endif
 
+
 " yanky
 nnoremap <silent> <leader>y :Telescope yank_history<CR>
 
@@ -115,13 +116,16 @@ require("avante").setup({
     endpoint = "https://api.anthropic.com",
     model = "claude-3-5-sonnet-20241022",
     temperature = 0,
-    max_tokens = 4096,
+    max_tokens = 8000,
   },
-  behaviour  =  {
-    auto_set_highlight_group  =  true, 
-    auto_apply_diff_after_generation  =  false, 
-    support_paste_from_clipboard  =  true, 
-  }, 
+  auto_suggestions_provider = "copilot",
+  behaviour = {
+    auto_suggestions = true, -- Experimental stage
+    auto_set_highlight_group = true,
+    auto_set_keymaps = true,
+    auto_apply_diff_after_generation = false,
+    support_paste_from_clipboard = false,
+  },
   mappings = {
     ask = "<leader>va",
     edit = "<leader>ve",
@@ -134,13 +138,6 @@ require("avante").setup({
       hint = "<leader>ah",
       suggestion = "<leader>as",
       repo_map = "<leader>az",
-    },
-    behaviour = {
-      auto_suggestions = true, -- Experimental stage
-      auto_set_highlight_group = true,
-      auto_set_keymaps = true,
-      auto_apply_diff_after_generation = false,
-      support_paste_from_clipboard = false,
     },
     --- @class AvanteConflictMappings
     diff = {
@@ -178,10 +175,15 @@ require("avante").setup({
   hints = { enabled = true },
   windows = {
     wrap = true, -- similar to vim.o.wrap
-    width = 30, -- default % based on available width
+    width = 50, -- default % based on available width
     sidebar_header = {
       align = "center", -- left, center, right for title
       rounded = true,
+    },
+    ask = {
+      floating = true,
+      start_insert = true,
+      border = "rounded"
     },
   },
   highlights = {
