@@ -218,7 +218,8 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'nvimtools/none-ls.nvim'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-  Plug 'ErichDonGubler/lsp_lines.nvim'
+  " Plug 'ErichDonGubler/lsp_lines.nvim'
+  Plug 'abzcoding/lsp_lines.nvim'
   Plug 'HiPhish/rainbow-delimiters.nvim'
   Plug 'shellRaining/hlchunk.nvim'
 	Plug 'vhyrro/luarocks.nvim'
@@ -257,6 +258,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'folke/zen-mode.nvim'
   Plug 'folke/twilight.nvim'
 	Plug 'SmiteshP/nvim-navic'
+	Plug 'Zeioth/markmap.nvim'
 
   call g:SetDdu()
 
