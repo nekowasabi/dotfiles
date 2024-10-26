@@ -120,11 +120,18 @@ augroup END
 
 function! ToggleCocByFileType()
   " 対象のファイルタイプをリストで定義
-  let target_filetypes = ['typescript', 'php', 'vim']  " 必要なファイルタイプを追加
+  let target_filetypes = ['typescript', 'php', 'vim', 'json', 'sh']  " 必要なファイルタイプを追加
+  let disable_filetypes = ['noice']  " Cocを無効化するファイルタイプ
   
   " 現在のバッファが有効で、Cocがロードされている場合のみ実行
   if &buftype == '' && exists('g:did_coc_loaded')
     let is_target_filetype = index(target_filetypes, &filetype) >= 0
+    let is_disable_filetype = index(disable_filetypes, &filetype) >= 0
+
+    " noiceファイルタイプの場合は強制的に無効化
+    if is_disable_filetype
+      let is_target_filetype = v:false
+    endif
 
     " 遅延実行する処理を定義
     if is_target_filetype
@@ -154,7 +161,6 @@ augroup CocToggleForFileTypes
   autocmd!
   autocmd BufEnter * call ToggleCocByFileType()
 augroup END
-
 
 
 " for PHP
