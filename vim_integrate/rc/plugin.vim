@@ -32,8 +32,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'kana/vim-gf-user'
 Plug 'kana/vim-repeat'
-Plug 'lambdalisue/gin.vim'
-Plug 'lambdalisue/gina.vim' " lightlineにブランチ名を表示に仕様
+" Plug 'lambdalisue/gin.vim'
+" Plug 'lambdalisue/gina.vim' " lightlineにブランチ名を表示に仕様
 Plug 'lambdalisue/glyph-palette.vim'
 Plug 'lambdalisue/nerdfont.vim'
 Plug 'lambdalisue/vital-ArgumentParser'
@@ -101,7 +101,8 @@ Plug 'osyo-manga/vim-textobj-multitextobj'
 Plug 'sgur/vim-textobj-parameter'
 Plug 'thalesmello/vim-textobj-methodcall'
 
-Plug 'wellle/targets.vim'
+ " Plug 'wellle/targets.vim'
+
 " ddc
 function! g:SetDdc() abort
 	Plug 'Shougo/ddc-source-mocword'
@@ -259,6 +260,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'folke/twilight.nvim'
 	Plug 'SmiteshP/nvim-navic'
 	Plug 'Zeioth/markmap.nvim'
+	Plug 'folke/which-key.nvim'
 
   call g:SetDdu()
 
@@ -324,12 +326,13 @@ execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-rtm.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/searchx.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-sandwich.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lexima.vim'
-execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gin.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/easymotion.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/edgemotion.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/surround.vim'
-execute 'source '.g:GetVimConfigRootPath().'rc/plugins/deepl.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/sayonara.vim'
+
+" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gin.vim'
+"execute 'source '.g:GetVimConfigRootPath().'rc/plugins/deepl.vim'
 " }}}1
 
 " setting Mac Neovim {{{1
