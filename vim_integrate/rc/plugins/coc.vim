@@ -98,9 +98,64 @@ augroup command_window
     autocmd CmdwinEnter * call ReInitCoc()
 augroup END
 
-autocmd BufEnter *.json,*.php,*.ts execute "silent! CocEnable" | let g:your_cmp_disable_enable_toggle = v:true
-autocmd BufLeave,BufNew,BufEnter *changelogmemo,*.txt,*.md execute "silent! CocDisable" | let g:your_cmp_disable_enable_toggle = v:false
-autocmd FileType noice,ddu-ff execute "silent! CocDisable" | let g:your_cmp_disable_enable_toggle = v:true
+" autocmd BufEnter *.json,*.php,*.ts,*.vim call EnableCoc()
+" " autocmd BufLeave *.json,*.php,*.ts,*.vim call DisableCoc()
+" autocmd BufEnter *changelogmemo,*.txt,*.md call DisableCoc()
+" let g:your_cmp_disable_enable_toggle = v:false
+" function! EnableCoc() abort
+"   if !exists('g:your_cmp_disable_enable_toggle') || g:your_cmp_disable_enable_toggle == v:false
+"     execute("CocStart")
+"     execute("CocEnable")
+"     let g:your_cmp_disable_enable_toggle = v:false
+"   endif
+" endfunction
+"
+" function! DisableCoc() abort
+"   if !exists('g:your_cmp_disable_enable_toggle') || g:your_cmp_disable_enable_toggle == v:false
+"     execute("CocStart")
+"     execute("CocDisable")
+"     let g:your_cmp_disable_enable_toggle = v:false
+"   endif
+" endfunction
+
+function! ToggleCocByFileType()
+  " 対象のファイルタイプをリストで定義
+  let target_filetypes = ['typescript', 'php', 'vim']  " 必要なファイルタイプを追加
+  
+  " 現在のバッファが有効で、Cocがロードされている場合のみ実行
+  if &buftype == '' && exists('g:did_coc_loaded')
+    let is_target_filetype = index(target_filetypes, &filetype) >= 0
+
+    " 遅延実行する処理を定義
+    if is_target_filetype
+      " 対象のファイルタイプの場合
+      let l:commands = [
+            \ 'execute "CocStart"',
+            \ 'execute "CocEnable"',
+            \ 'let g:your_cmp_disable_enable_toggle = v:false'
+            \]
+    else
+      " 対象外のファイルタイプの場合
+      let l:commands = [
+            \ 'execute "CocDisable"',
+            \ 'let g:your_cmp_disable_enable_toggle = v:true'
+            \]
+    endif
+
+    " デバッグ用メッセージ（必要に応じて）
+    " echo "Filetype: " . &filetype . " / Target: " . is_target_filetype
+
+    " 処理を実行
+    call timer_start(1000, {-> execute(join(l:commands, '|'))})
+  endif
+endfunction
+
+augroup CocToggleForFileTypes
+  autocmd!
+  autocmd BufEnter * call ToggleCocByFileType()
+augroup END
+
+
 
 " for PHP
 " autocmd BufWritePre *.php call CocAction('format')

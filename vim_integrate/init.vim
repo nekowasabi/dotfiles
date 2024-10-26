@@ -50,7 +50,6 @@ let g:denops#debug = 0
 "   let g:denops_server_addr = '127.0.0.1:32123'
 " endif
 
-
 " yanky
 nnoremap <silent> <leader>y :Telescope yank_history<CR>
 
@@ -120,7 +119,7 @@ require("avante").setup({
   },
   auto_suggestions_provider = "copilot",
   behaviour = {
-    auto_suggestions = true, -- Experimental stage
+    auto_suggestions = false, -- Experimental stage
     auto_set_highlight_group = true,
     auto_set_keymaps = true,
     auto_apply_diff_after_generation = false,

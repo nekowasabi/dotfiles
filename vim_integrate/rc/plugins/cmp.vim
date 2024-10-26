@@ -2,6 +2,8 @@ autocmd FileType sql,vim,php,typescript,ddu-ff lua require('cmp').setup.buffer {
 \   enabled = false
 \ }
 
+let g:your_cmp_disable_enable_toggle = v:false
+
 lua << EOF
 local cmp = require'cmp'
 
