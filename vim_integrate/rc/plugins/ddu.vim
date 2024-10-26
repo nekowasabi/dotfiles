@@ -430,6 +430,8 @@ nnoremap <silent> <D-b>
 
 nnoremap <silent> <Leader><Leader>
       \ <Cmd>call ddu#start({'sources': [{'name': 'mr', 'params': {'kind': 'mrw'}}]})<CR>
+nnoremap <silent> mm
+      \ <Cmd>call ddu#start({'sources': [{'name': 'mr', 'params': {'kind': 'mrw'}}]})<CR>
 
 nnoremap <silent> <BS>
       \ <Cmd>call ddu#start({'sources': [{'name': 'buffer'}]})<CR>

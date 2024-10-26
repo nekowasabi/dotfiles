@@ -3,7 +3,7 @@ local wk = require("which-key")
 
 -- Core which-key setup
 require("which-key").setup({
-  preset = "helix", 
+  preset = "modern", 
   notify = false,
   plugins = {
     marks = true,
@@ -76,7 +76,7 @@ require("which-key").setup({
 wk.register({
   ["<leader>a"] = { name = "+Aider/AI", icon = "🤖", group = "aider" },
   ["<leader>c"] = { name = "+Code/CoC", group = "coc" },
-  ["<leader>p"] = { name = "+Project/Search", group = "ddu project" },
+  -- ["<leader>p"] = { name = "+Project/Search", group = "ddu project" },
   ["<leader>v"] = { name = "+Avante", group = "avante" },
   ["<leader>u"] = { name = "+Test", group = "vim-test" },
   ["<leader>cl"] = { name = "+CoC List", group = "coc action" }
@@ -116,43 +116,44 @@ wk.register({
 
 -- AI/Chat features
 wk.register({
-  ["<C-c>"] = {
-    name = "ddu-ai-connectors",
-    mode = { "v" },
-    icon = "🤖",
-    G = { "ddu with GpRewrite", "GPT Rewrite" },
-    g = { "ddu with GpAppend>", "GPT Append" },
-    c = { "ddu with CopilotChat", "Copilot Chat" },
-    a = { "ddu with AiderAsk", "Aider Ask" },
-  },
+  -- ["<C-c>"] = {
+  --   name = "ddu-ai-connectors",
+  --   mode = { "v" },
+  --   icon = "🤖",
+  --   group = "ddu",
+  --   G = { "ddu with GpRewrite", "GPT Rewrite" },
+  --   g = { "ddu with GpAppend>", "GPT Append" },
+  --   c = { "ddu with CopilotChat", "Copilot Chat" },
+  --   a = { "ddu with AiderAsk", "Aider Ask" },
+  -- },
+  --
+  -- ["<leader>p"] = {
+  --   name = "ddu Project",
+  --   group = "ddu",
+  --   v = { "DduGrepConfig", "Grep Config" },
+  --   i = { "DduGrepForConstructorInjection", "Grep Constructor Injection" },
+  --   w = { "DduGrepProjectWord", "Grep Project Word" },
+  --   a = { "DduGrepProject", "Grep Project" },
+  --   m = { "DduGrepChangelogHeader", "Grep Changelog Header" },
+  --   c = { "DduGrepCurrentDirectory", "Grep Current Directory" }
+  -- },
 
-  ["<leader>"] = {
-    g = { 
-      f = { "ddu file_external", "File External" }
-    },
-    H = { "ddu help", "Help" },
-    h = { "ddu command_history", "Command History" },
-    l = {
-      l = { "ddu line", "Fuzzy Line" }
-    },
-    ["<Space>"] = { "ddu mr", "MRU" },
-    p = {
-      name = "ddu Project",
-      group = "ddu",
-      v = { "DduGrepConfig", "Grep Config" },
-      i = { "DduGrepForConstructorInjection", "Grep Constructor Injection" },
-      w = { "DduGrepProjectWord", "Grep Project Word" },
-      a = { "DduGrepProject", "Grep Project" },
-      m = { "DduGrepChangelogHeader", "Grep Changelog Header" },
-      c = { "DduGrepCurrentDirectory", "Grep Current Directory" }
-    },
-  },
-  ["<BS>"] = { "ddu buffer", "Buffer List", group = "ddu" },
-  ["<D-b>"] = { "ddu vim-bookmark", "Bookmarks (CMD)", group = "ddu" },
-  ["<M-b>"] = { "ddu vim-bookmark", "Bookmarks (Alt)", group = "ddu" },
-  ["<D-a>"] = { "ddu aider'", "Aider (CMD)", group = "aider" },
-  ["<M-a>"] = { "aider", "Aider (Alt)", group = "aider" },
-  ["<CR><CR>"] = { "vim-bookmark", "Bookmarks", group = "ddu" }
+
+  -- ["<leader>"] = {
+  --   g = { 
+  --     f = { "ddu file_external", "File External" }
+  --   },
+  --   H = { "ddu help", "Help" },
+  --   h = { "ddu command_history", "Command History" },
+  --   l = {
+  --     l = { "ddu line", "Fuzzy Line" }
+  --   },
+  -- ["<BS>"] = { "ddu buffer", "Buffer List", group = "ddu" },
+  -- ["<D-b>"] = { "ddu vim-bookmark", "Bookmarks (CMD)", group = "ddu" },
+  -- ["<M-b>"] = { "ddu vim-bookmark", "Bookmarks (Alt)", group = "ddu" },
+  -- ["<D-a>"] = { "ddu aider'", "Aider (CMD)", group = "aider" },
+  -- ["<M-a>"] = { "aider", "Aider (Alt)", group = "aider" },
+  -- ["<CR><CR>"] = { "vim-bookmark", "Bookmarks", group = "ddu" }
 })
 
 -- Core mappings
@@ -399,4 +400,5 @@ wk.register({
   ["i<CR>"] = { "iW", "Inner WORD" },
   ["sa"] = { "<Plug>(operator-sandwich-add)", "Add Surrounding" }
 }, { mode = "x" })
+
 EOF
