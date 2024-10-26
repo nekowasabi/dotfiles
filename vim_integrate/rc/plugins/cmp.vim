@@ -116,19 +116,12 @@ cmp.setup.filetype('changelog', {
   {
       { name = 'calc' },
       { name = 'emoji' },
-      { name = 'cmp_yanky', 
-        keyword_length = 4,
-        option = {
-          onlyCurrentFiletype = false,
-          minLength = 3,
-        }
-      },
       {
 					name = 'buffer',
-					keyword_length = 4,
+					keyword_length = 3,
           option = {
             get_bufnrs = function()
-            return vim.api.nvim_list_bufs()
+              return vim.api.nvim_list_bufs()
             end
           },
       },

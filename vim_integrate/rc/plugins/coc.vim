@@ -28,12 +28,10 @@ let g:coc_global_extensions = [
   \, 'coc-stylua'
   \ ]
 
-
-
-" let g:markdown_fenced_languages = [
-"      \ 'vim',
-"      \ 'help'
-"      \]
+let g:markdown_fenced_languages = [
+     \ 'vim',
+     \ 'help'
+     \]
 
 let g:coc_fzf_opts = ['--layout=reverse']
 let g:fzf_layout = { 'up': '~40%' }
@@ -89,79 +87,77 @@ function! s:show_documentation()
   endif
 endfunction
 
-augroup command_window
-    function! ReInitCoc()
-        execute("CocDisable")
-        execute("CocEnable")
-    endfunction
-    autocmd CmdwinEnter * startinsert
-    autocmd CmdwinEnter * call ReInitCoc()
-augroup END
+" Configuration
+let g:coc_supported_filetypes = [
+      \ 'typescript',
+      \ 'php',
+      \ 'vim',
+      \ 'json',
+      \ 'sh'
+      \ ]
+let g:coc_disabled_filetypes = ['noice']
+let g:coc_toggle_delay = 200
+let g:is_coc_enabled = v:true
 
-" autocmd BufEnter *.json,*.php,*.ts,*.vim call EnableCoc()
-" " autocmd BufLeave *.json,*.php,*.ts,*.vim call DisableCoc()
-" autocmd BufEnter *changelogmemo,*.txt,*.md call DisableCoc()
-" let g:your_cmp_disable_enable_toggle = v:false
-" function! EnableCoc() abort
-"   if !exists('g:your_cmp_disable_enable_toggle') || g:your_cmp_disable_enable_toggle == v:false
-"     execute("CocStart")
-"     execute("CocEnable")
-"     let g:your_cmp_disable_enable_toggle = v:false
-"   endif
-" endfunction
-"
-" function! DisableCoc() abort
-"   if !exists('g:your_cmp_disable_enable_toggle') || g:your_cmp_disable_enable_toggle == v:false
-"     execute("CocStart")
-"     execute("CocDisable")
-"     let g:your_cmp_disable_enable_toggle = v:false
-"   endif
-" endfunction
+" Check if current filetype should enable Coc
+function! s:ShouldEnableCoc() abort
+  if &buftype != '' || !exists('g:did_coc_loaded')
+    return v:false
+  endif
 
-function! ToggleCocByFileType()
-  " 対象のファイルタイプをリストで定義
-  let target_filetypes = ['typescript', 'php', 'vim', 'json', 'sh']  " 必要なファイルタイプを追加
-  let disable_filetypes = ['noice']  " Cocを無効化するファイルタイプ
-  
-  " 現在のバッファが有効で、Cocがロードされている場合のみ実行
-  if &buftype == '' && exists('g:did_coc_loaded')
-    let is_target_filetype = index(target_filetypes, &filetype) >= 0
-    let is_disable_filetype = index(disable_filetypes, &filetype) >= 0
+  let l:is_target = index(g:coc_supported_filetypes, &filetype) >= 0
+  let l:is_disabled = index(g:coc_disabled_filetypes, &filetype) >= 0
 
-    " noiceファイルタイプの場合は強制的に無効化
-    if is_disable_filetype
-      let is_target_filetype = v:false
-    endif
+  return l:is_target && !l:is_disabled
+endfunction
 
-    " 遅延実行する処理を定義
-    if is_target_filetype
-      " 対象のファイルタイプの場合
-      let l:commands = [
-            \ 'execute "CocStart"',
-            \ 'execute "CocEnable"',
-            \ 'let g:your_cmp_disable_enable_toggle = v:false'
-            \]
-    else
-      " 対象外のファイルタイプの場合
-      let l:commands = [
-            \ 'execute "CocDisable"',
-            \ 'let g:your_cmp_disable_enable_toggle = v:true'
-            \]
-    endif
+" Execute Coc commands with delay
+function! s:ExecuteCocCommands(commands) abort
+  call timer_start(g:coc_toggle_delay, {-> execute(join(a:commands, '|'))})
+endfunction
 
-    " デバッグ用メッセージ（必要に応じて）
-    " echo "Filetype: " . &filetype . " / Target: " . is_target_filetype
+" Toggle Coc based on filetype
+function! ToggleCocByFileType() abort
+  if s:ShouldEnableCoc()
+    let l:commands = [
+          \ 'execute "CocStart"',
+          \ 'execute "CocEnable"',
+          \ 'let g:your_cmp_disable_enable_toggle = v:false'
+          \ ]
+    let g:is_coc_enabled = v:true
+  else
+    let l:commands = [
+          \ 'execute "CocDisable"',
+          \ 'let g:your_cmp_disable_enable_toggle = v:true'
+          \ ]
+    let g:is_coc_enabled = v:false
+  endif
 
-    " 処理を実行
-    call timer_start(1000, {-> execute(join(l:commands, '|'))})
+  call s:ExecuteCocCommands(l:commands)
+endfunction
+
+" Restore previous Coc state
+function! RestoreCocByFileType() abort
+  if exists('g:is_coc_enabled')
+    execute g:is_coc_enabled ? "CocEnable" : "CocDisable"
   endif
 endfunction
 
+" Disable Coc for command line
+function! OpenCommandLineByCmp() abort
+  execute "CocDisable"
+  let g:your_cmp_disable_enable_toggle = v:true
+endfunction
+
+" Autocommands for Coc toggle
 augroup CocToggleForFileTypes
   autocmd!
   autocmd BufEnter * call ToggleCocByFileType()
+  autocmd CmdLineLeave * call RestoreCocByFileType()
 augroup END
 
+nnoremap <Leader>: :call OpenCommandLineByCmp()<CR>:
+" nnoremap <Leader>: :
 
 " for PHP
 " autocmd BufWritePre *.php call CocAction('format')
@@ -177,3 +173,4 @@ augroup END
 " PHPファイルを保存前にCustomPhpFormat関数を呼び出す
 " autocmd BufWritePre *.php call CustomPhpFormat()
 
+"END

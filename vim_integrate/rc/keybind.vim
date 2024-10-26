@@ -75,7 +75,6 @@ endfunction
 
 " leader {{{1
 nnoremap Â :
-nnoremap <Leader>: :
 nmap ; <PageDown>
 nmap : <PageUp>
 vmap ; <PageDown>
