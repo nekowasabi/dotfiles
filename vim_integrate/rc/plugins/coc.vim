@@ -87,7 +87,7 @@ function! s:show_documentation()
   endif
 endfunction
 
-" Configuration
+" Completion settings. {{{1
 let g:coc_supported_filetypes = [
       \ 'typescript',
       \ 'php',
@@ -155,9 +155,9 @@ augroup CocToggleForFileTypes
   autocmd BufEnter * call ToggleCocByFileType()
   autocmd CmdLineLeave * call RestoreCocByFileType()
 augroup END
+" }}}1
 
 nnoremap <Leader>: :call OpenCommandLineByCmp()<CR>:
-" nnoremap <Leader>: :
 
 " for PHP
 " autocmd BufWritePre *.php call CocAction('format')
