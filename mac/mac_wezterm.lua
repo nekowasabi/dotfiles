@@ -1,53 +1,55 @@
 local wezterm = require("wezterm")
+-- local environment = require('environment')
 
 local solarized = wezterm.get_builtin_color_schemes()["Solarized Dark - Patched"]
 solarized.cursor_bg = "red"
 
-local function is_vim(pane)
-	local is_vim_env = pane:get_user_vars().IS_NVIM == 'true'
-	if is_vim_env == true then return true end
-	-- This gsub is equivalent to POSIX basename(3)
-	-- Given "/foo/bar" returns "bar"
-	-- Given "c:\\foo\\bar" returns "bar"
-	local process_name = string.gsub(pane:get_foreground_process_name(), '(.*[/\\])(.*)', '%2')
-	return process_name == 'nvim' or process_name == 'vim'
+local all_characters = [[`1234567890-=qwertyuiop[]\asdfghjkl;'zxcvbnm,./]]
+local characters = {}
+
+for i = 1, #all_characters do
+  table.insert(characters, all_characters:sub(i, i))
 end
 
---- cmd+keys that we want to send to neovim.
-local super_vim_keys_map = {
-  s = utf8.char(0xAA),
-  x = utf8.char(0xAB),
-  b = utf8.char(0xAC),
-  ['.'] = utf8.char(0xAD),
-  c = utf8.char(0xAE),
-  d = utf8.char(0xAF),
-  a = utf8.char(0xB0),
-  g = utf8.char(0xB1),
-}
+local function mappings(maps)
+  local result = {}
+  local seen = {}
+  local mod_key
 
-local function bind_super_key_to_vim(key)
-	return {
-		key = key,
-		mods = 'CMD',
-		action = wezterm.action_callback(function(win, pane)
-			local char = super_vim_keys_map[key]
-			if char and is_vim(pane) then
-				-- pass the keys through to vim/nvim
-				win:perform_action({
-					SendKey = { key = char, mods = nil },
-				}, pane)
-			else
-				win:perform_action({
-					SendKey = {
-						key = key,
-						mods = 'CMD'
-					}
-				}, pane)
-			end
-		end)
-	}
+  -- Check if running on macOS using os.getenv
+  if os.getenv('HOME'):match('^/Users/') then
+    mod_key = 'CMD'
+  else
+    mod_key = 'ALT'
+  end
+
+  for _, mapping in ipairs(maps) do
+    mapping.mods = mapping.mods and mapping.mods:gsub('MOD', mod_key)
+    table.insert(result, mapping)
+
+    seen[mapping.mods .. " " .. mapping.key:lower()] = true
+  end
+
+  if mod_key == 'CMD' then
+    for _, key in ipairs(characters) do
+      for _, mods in ipairs({ 'CMD', 'CMD|SHIFT' }) do
+        local combo = mods .. ' ' .. key
+
+        if not seen[combo] then
+          seen[combo] = true
+
+          table.insert(result, {
+            key = key,
+            mods = mods,
+            action = wezterm.action.SendKey { key = key, mods = mods:gsub('CMD', 'ALT') },
+          })
+        end
+      end
+    end
+  end
+
+  return result
 end
-
 
 return {
 -- wsl_domains = wsl_domains,
@@ -72,10 +74,9 @@ return {
   enable_tab_bar = true,
 	disable_default_key_bindings = true,
   window_decorations = 'RESIZE',
-  keys = {
-    { key = 'v', mods = 'CMD', action=wezterm.action{PasteFrom="Clipboard"}},
-    bind_super_key_to_vim('s'),
-  },
+  keys = mappings({
+    { key = 'v', mods = 'MOD', action=wezterm.action{PasteFrom="Clipboard"}},
+  }),
 }
 
 
