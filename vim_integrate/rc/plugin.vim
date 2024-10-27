@@ -261,6 +261,7 @@ if g:IsMacNeovim() || g:IsWsl()
 	Plug 'SmiteshP/nvim-navic'
 	Plug 'Zeioth/markmap.nvim'
 	Plug 'folke/which-key.nvim'
+  Plug 'nekowasabi/nudge-two-hats.vim'
 
   call g:SetDdu()
 

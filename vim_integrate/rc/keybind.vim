@@ -81,7 +81,7 @@ vmap ; <PageDown>
 vmap : <PageUp>
 vmap : :
 
-nnoremap <silent> <Leader>w :w!<CR>
+nnoremap <Leader>w :w!<CR>
 nnoremap <silent> <Leader>e :e!<CR>
 " }}}1
 
