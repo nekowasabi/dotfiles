@@ -421,16 +421,14 @@ nnoremap <silent> <M-a>
 nnoremap <silent> <D-a>
       \ <Cmd>call ddu#start({'sources': [{'name': 'aider'}]})<CR>
 
-nnoremap <silent> <CR><CR>
+nnoremap <silent> <CR>b
       \ <Cmd>call ddu#start({'sources': [{'name': 'vim-bookmark'}]})<CR>
 nnoremap <silent> <M-b>
       \ <Cmd>call ddu#start({'sources': [{'name': 'vim-bookmark'}]})<CR>
 nnoremap <silent> <D-b>
       \ <Cmd>call ddu#start({'sources': [{'name': 'vim-bookmark'}]})<CR>
 
-nnoremap <silent> <Leader><Leader>
-      \ <Cmd>call ddu#start({'sources': [{'name': 'mr', 'params': {'kind': 'mrw'}}]})<CR>
-nnoremap <silent> mm
+nnoremap <silent> <CR><CR>
       \ <Cmd>call ddu#start({'sources': [{'name': 'mr', 'params': {'kind': 'mrw'}}]})<CR>
 
 nnoremap <silent> <BS>

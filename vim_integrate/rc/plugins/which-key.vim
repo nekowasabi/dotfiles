@@ -3,14 +3,14 @@ local wk = require("which-key")
 
 -- Core which-key setup
 require("which-key").setup({
-  preset = "modern", 
+  preset = "helix", 
   notify = false,
   plugins = {
     marks = true,
     registers = true,
     spelling = {
       enabled = true,
-      suggestions = 20,
+      suggestions = 30,
     },
     presets = {
       operators = true,
@@ -72,151 +72,86 @@ require("which-key").setup({
   },
 })
 
--- Leader key groups
-wk.register({
-  ["<leader>a"] = { name = "+Aider/AI", icon = "🤖", group = "aider" },
-  ["<leader>c"] = { name = "+Code/CoC", group = "coc" },
-  -- ["<leader>p"] = { name = "+Project/Search", group = "ddu project" },
-  ["<leader>v"] = { name = "+Avante", group = "avante" },
-  ["<leader>u"] = { name = "+Test", group = "vim-test" },
-  ["<leader>cl"] = { name = "+CoC List", group = "coc action" }
-})
-
 -- Navigation groups
-wk.register({
-  ["g"] = { 
-    name = "+Go",
-    group = "seeachx",
-    b = { name = "+Comment Block", c = "Toggle Current Block" },
-    c = {
-      name = "+Comment",
-      c = "Toggle Current Line",
-      o = "Insert Below", 
-      O = "Insert Above",
-      A = "Insert End of Line"
-    }
-  },
-  ["z"] = { name = "+Fold", group = "folding" },
-  ["]"] = { name = "+Next", group = "next" },
-  ["["] = { name = "+Prev", group = "prev" }
+wk.add({
+  { "gb",  desc = "+Comment Block" },
+  { "gbc", desc = "Toggle Current Block" },
+  { "gc",  desc = "+Comment" },
+  { "gcc", desc = "Toggle Current Line" },
+  { "gco", desc = "Insert Below" },
+  { "gcO", desc = "Insert Above" },
+  { "gcA", desc = "Insert End of Line" },
+  { "z",   desc = "+Fold" },
+  { "]",   desc = "+Next" },
+  { "[",   desc = "+Prev" }
 })
-
--- Text manipulation
-wk.register({
-  ["s"] = {
-    name = "sandwich",
-    group = "sandwich",
-    a = { "<Plug>(operator-sandwich-add)", "Add Surrounding" },
-    d = { "<Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)", "Delete Surrounding" },
-    db = { "<Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)", "Delete Block" },
-    r = { "<Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)", "Replace Surrounding" },
-    rb = { "<Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)", "Replace Block" }
-  }
-}, { mode = "x", "o" })
 
 -- AI/Chat features
-wk.register({
-  -- ["<C-c>"] = {
-  --   name = "ddu-ai-connectors",
-  --   mode = { "v" },
-  --   icon = "🤖",
-  --   group = "ddu",
-  --   G = { "ddu with GpRewrite", "GPT Rewrite" },
-  --   g = { "ddu with GpAppend>", "GPT Append" },
-  --   c = { "ddu with CopilotChat", "Copilot Chat" },
-  --   a = { "ddu with AiderAsk", "Aider Ask" },
-  -- },
-  --
-  -- ["<leader>p"] = {
-  --   name = "ddu Project",
-  --   group = "ddu",
-  --   v = { "DduGrepConfig", "Grep Config" },
-  --   i = { "DduGrepForConstructorInjection", "Grep Constructor Injection" },
-  --   w = { "DduGrepProjectWord", "Grep Project Word" },
-  --   a = { "DduGrepProject", "Grep Project" },
-  --   m = { "DduGrepChangelogHeader", "Grep Changelog Header" },
-  --   c = { "DduGrepCurrentDirectory", "Grep Current Directory" }
-  -- },
+wk.add({
+  { "<leader>gf", desc = "ddu File External" },
+  { "<leader>H", desc = "ddu Help" },
+  { "<leader>h", desc = "ddu Command History" },
+  { "<leader>ll", desc = "ddu Fuzzy Line" }
+})
+
+wk.add({
+  { mode = "n" },
+  { "<BS>", desc = "Buffer List" },
+  { "<D-b>", desc = "Bookmarks (CMD)" },
+  { "<M-b>", desc = "Bookmarks (Alt)" },
+  { "<D-a>", desc = "Aider (CMD)" },
+  { "<M-a>", desc = "Aider (Alt)" },
+  { "<CR><CR>", desc = "ddu mru" },
+  { "<CR>", desc = "ddu mru" },
+})
 
 
-  -- ["<leader>"] = {
-  --   g = { 
-  --     f = { "ddu file_external", "File External" }
-  --   },
-  --   H = { "ddu help", "Help" },
-  --   h = { "ddu command_history", "Command History" },
-  --   l = {
-  --     l = { "ddu line", "Fuzzy Line" }
-  --   },
-  -- ["<BS>"] = { "ddu buffer", "Buffer List", group = "ddu" },
-  -- ["<D-b>"] = { "ddu vim-bookmark", "Bookmarks (CMD)", group = "ddu" },
-  -- ["<M-b>"] = { "ddu vim-bookmark", "Bookmarks (Alt)", group = "ddu" },
-  -- ["<D-a>"] = { "ddu aider'", "Aider (CMD)", group = "aider" },
-  -- ["<M-a>"] = { "aider", "Aider (Alt)", group = "aider" },
-  -- ["<CR><CR>"] = { "vim-bookmark", "Bookmarks", group = "ddu" }
+wk.add({
+  { "<C-c>G", desc = "ddu with GpRewrite", mode = "v", icon = "🤖" },
+  { "<C-c>a", desc = "ddu with AiderAsk", mode = "v", icon = "🤖" },
+  { "<C-c>c", desc = "ddu with CopilotChat", mode = "v", icon = "🤖" },
+  { "<C-c>g", desc = "ddu with GpAppend", mode = "v", icon = "🤖" }
+})
+
+wk.add({
+  { "<leader>pa",  desc = "Grep Project", group = "ddu Project" },
+  { "<leader>pc",  desc = "Grep Current Directory", group = "ddu Project" },
+  { "<leader>pi",  desc = "Grep Constructor Injection", group = "ddu Project" },
+  { "<leader>pm",  desc = "Grep Changelog Header", group = "ddu Project" },
+  { "<leader>pv",  desc = "Grep Config", group = "ddu Project" },
+  { "<leader>pw",  desc = "Grep Project Word", group = "ddu Project" }
 })
 
 -- Core mappings
-wk.register({
-  -- Navigation
-  ["<M-Left>"] = { "<Plug>(backandforward-back)", "Navigate Back" },
-  ["<M-Right>"] = { "<Plug>(backandforward-forward)", "Navigate Forward" },
-  ["/"] = { "<Cmd>call searchx#start({ 'dir': 1 })<CR>", "Search Forward", group = "searchx" },
-  ["?"] = { "<Cmd>call searchx#start({ 'dir': 0 })<CR>", "Search Backward", group = "searchx" },
-  [":"] = { "<PageUp>", "Page Up" },
-  [";"] = { "<PageDown>", "Page Down" },
-  
-  -- Text manipulation
-  ["<C-Tab>"] = { "0i<Tab>", "Insert Tab at Start" },
-  ["<S-Tab>"] = { "0x", "Delete First Character" },
-  ["<F4>"] = { ":DuplicateLineFormatNormal<CR>", "Duplicate Line" },
-  ["-"] = { "<Plug>(Switch)", "Switch" },
-  ["."] = { "<Plug>(repeat-.)", "Repeat Last Command" },
-  
-  -- Window/Buffer management
-  ["<C-Z>"] = { "<Esc>:SwitchPreviousBuffer<CR>", "Switch Buffer" },
-  ["<D-z>"] = { ":ZoomOutliner<CR>", "Zoom Outliner" },
-  ["<D-f>"] = { "za", "Toggle Fold" },
-  
-  -- Macros and special commands
-  ["<C-S>"] = { "<Esc>:SwitchRule<CR>", "Switch Rule" },
-  ["<C-U>"] = { "<Plug>(dmacro-play-macro)", "Play Macro" },
-  
-  -- AI/Chat features  
-  ["<D-g>"] = { ":GpChatNew vsplit<CR>", "New GPT Chat", group = "gp.nvim" },
-  ["<M-g>"] = { ":GpChatNew vsplit<CR>", "New GPT Chat", group = "gp.nvim" },
-  
-  -- Selection
-  ["<D-p>"] = { ":normal! vip<CR>", "Select Paragraph" },
-  ["<M-p>"] = { ":normal! vip<CR>", "Select Paragraph" },
-}, {
-  mode = "n",
-  prefix = "",
-  buffer = nil,
-  silent = true,
-  noremap = true,
-  nowait = true
+wk.add({
+  { "<M-Left>",  desc = "Navigate Back", mode = "n" },
+  { "<M-Right>", desc = "Navigate Forward", mode = "n" },
+  { "/",         desc = "Search Forward", mode = "n" },
+  { "?",         desc = "Search Backward", mode = "n" },
+  { ":",         desc = "Page Up", mode = "n" },
+  { ";",         desc = "Page Down", mode = "n" },
+  { "<C-Tab>",   desc = "Insert Tab at Start", mode = "n" },
+  { "<S-Tab>",   desc = "Delete First Character", mode = "n" },
+  { "<F4>",      desc = "Duplicate Line", mode = "n" },
+  { "-",         desc = "Switch", mode = "n" },
+  { ".",         desc = "Repeat Last Command", mode = "n" },
+  { "<C-Z>",     desc = "Switch Buffer", mode = "n" },
+  { "<D-z>",     desc = "Zoom Outliner", mode = "n" },
+  { "<D-f>",     desc = "Toggle Fold", mode = "n" },
+  { "<C-S>",     desc = "Switch Rule", mode = "n" },
+  { "<C-U>",     desc = "Play Macro", mode = "n" },
+  { "<D-g>",     desc = "New GPT Chat", mode = "n" },
+  { "<M-g>",     desc = "New GPT Chat", mode = "n" },
+  { "<D-p>",     desc = "Select Paragraph", mode = "n" },
+  { "<M-p>",     desc = "Select Paragraph", mode = "n" },
 })
 
 -- Visual mode specific mappings
-wk.register({
-  [":"] = { ":", "Command Line" },
-  [";"] = { "<PageDown>", "Page Down" },
-  ["<"] = { "<gv", "Unindent and Reselect" },
-  [">"] = { ">gv", "Indent and Reselect" },
-}, { mode = "x" })
-
--- Sandwich mappings
-wk.register({
-  sa = { "<Plug>(operator-sandwich-g@)", "Add Sandwich", group = "sandwich" },
-}, {
-  mode = { "o", "x" },
-  prefix = "",
-  buffer = nil,
-  silent = true,
-  noremap = true,
-  nowait = true,
-  group = "sandwich"
+wk.add({
+  { ":", desc = "Command Line", mode = "x" },
+  { ";", desc = "Page Down", mode = "x" },
+  { "<", desc = "Unindent and Reselect", mode = "x" },
+  { ">", desc = "Indent and Reselect", mode = "x" }
 })
 
 -- Register comma mappings 
@@ -323,82 +258,67 @@ wk.register({
 
 
 -- Operator-pending mode mappings
-wk.register({
-  ["A"] = { "targets#e('o', 'A', 'A')", "Target A" },
-  ["B"] = { "<Plug>JaSegmentMoveOB", "Segment Move Back" },
-  ["E"] = { "<Plug>JaSegmentMoveOE", "Segment Move End" },
-  ["F"] = { "<Plug>(clever-f-F)", "Clever F Backward" },
-  ["I"] = { "targets#e('o', 'I', 'I')", "Target I" },
-  ["W"] = { "<Plug>JaSegmentMoveOW", "Segment Move Word" },
-  ["f"] = { "<Plug>(clever-f-f)", "Clever F Forward" },
-}, { mode = 'o' })
+wk.add({
+  { "A", "targets#e('o', 'A', 'A')", desc = "Target A", mode = "o" },
+  { "B", "<Plug>JaSegmentMoveOB", desc = "Segment Move Back", mode = "o" },
+  { "E", "<Plug>JaSegmentMoveOE", desc = "Segment Move End", mode = "o" },
+  { "F", "<Plug>(clever-f-F)", desc = "Clever F Backward", mode = "o" },
+  { "I", "targets#e('o', 'I', 'I')", desc = "Target I", mode = "o" },
+  { "W", "<Plug>JaSegmentMoveOW", desc = "Segment Move Word", mode = "o" },
+  { "f", "<Plug>(clever-f-f)", desc = "Clever F Forward", mode = "o" }
+})
 
 -- Visual mode mappings  
-wk.register({
-  ["A"] = { "<Plug>(EasyAlign)", "Easy Align" },
-  ["B"] = { "<Plug>JaSegmentMoveVB", "Segment Move Back" },
-  ["E"] = { "<Plug>JaSegmentMoveVE", "Segment Move End" },
-  ["F"] = { "<Plug>(clever-f-F)", "Clever F Backward" }, 
-  ["H"] = { "10h", "Move Left 10" },
-  ["I"] = { "targets#e('o', 'I', 'I')", "Target I" },
-  ["P"] = { "<Plug>(YankyPutBefore)", "Yank Put Before" },
-  ["W"] = { "<Plug>JaSegmentMoveVW", "Segment Move Word" },
-  ["X"] = { "\"_X", "Delete Back" },
-  ["f"] = { "<Plug>(clever-f-f)", "Clever F Forward" },
-}, { mode = 'x' })
+wk.add({
+  { "A", desc = "Easy Align", mode = "x" },
+  { "B", desc = "Segment Move Back", mode = "x" },
+  { "E", desc = "Segment Move End", mode = "x" },
+  { "F", desc = "Clever F Backward", mode = "x" },
+  { "H", desc = "Move Left 10", mode = "x" },
+  { "P", desc = "Yank Put Before", mode = "x" },
+  { "W", desc = "Segment Move Word", mode = "x" },
+  { "f", desc = "Clever F Forward", mode = "x" }
+})
 
 -- Text objects (shared between operator-pending and visual modes)
-wk.register({
-  ["a"] = {
-    name = "+around",
-    ["M"] = { "<Plug>(textobj-methodcall-chain-a)", "Method Chain" },
-    ["m"] = { "<Plug>(textobj-methodcall-a)", "Method" },
-    [","] = { "<Plug>(textobj-parameter-a)", "Parameter" },
-    ["sb"] = { "<Plug>(textobj-multiblock-a)", "Multi Block" },
-    ["f"] = { "<Plug>(textobj-functioncall-a)", "Function" },
-    ["e"] = { "<Plug>(textobj-equation-a)", "Equation" },
-    ["_"] = { "<Plug>(textobj-quoted-a)", "Quoted" },
-    ["z"] = { "<Plug>(textobj-fold-a)", "Fold" },
-    ["b"] = { "<Plug>(textobj-multitextobj-a)", "Multi Text Object" },
-    ["`"] = { "2i`", "Back Quote" },
-    ["'"] = { "2i'", "Single Quote" },
-    ["j"] = {
-      name = "+Japanese",
-      ["Y"] = { "<Plug>(textobj-jabraces-double-yama-kakko-a)", "Double Yama Kakko" },
-      ["k"] = { "<Plug>(textobj-jabraces-kakko-a)", "Kakko" },
-      ["K"] = { "<Plug>(textobj-jabraces-double-kakko-a)", "Double Kakko" },
-      ["]"] = { "<Plug>(textobj-jabraces-brackets-a)", "Brackets" },
-      ["["] = { "<Plug>(textobj-jabraces-brackets-a)", "Brackets" },
-      ["r"] = { "<Plug>(textobj-jabraces-brackets-a)", "Brackets" },
-      [">"] = { "<Plug>(textobj-jabraces-angles-a)", "Angles" },
-      ["<"] = { "<Plug>(textobj-jabraces-angles-a)", "Angles" },
-      ["a"] = { "<Plug>(textobj-jabraces-angles-a)", "Angles" },
-      ["A"] = { "<Plug>(textobj-jabraces-double-angles-a)", "Double Angles" },
-      ["t"] = { "<Plug>(textobj-jabraces-kikkou-kakko-a)", "Kikkou Kakko" },
-      ["s"] = { "<Plug>(textobj-jabraces-sumi-kakko-a)", "Sumi Kakko" },
-      ["y"] = { "<Plug>(textobj-jabraces-yama-kakko-a)", "Yama Kakko" },
-      [")"] = { "<Plug>(textobj-jabraces-parens-a)", "Parentheses" },
-      ["("] = { "<Plug>(textobj-jabraces-parens-a)", "Parentheses" },
-      ["b"] = { "<Plug>(textobj-jabraces-parens-a)", "Parentheses" },
-      ["}"] = { "<Plug>(textobj-jabraces-braces-a)", "Braces" },
-      ["{"] = { "<Plug>(textobj-jabraces-braces-a)", "Braces" },
-      ["B"] = { "<Plug>(textobj-jabraces-braces-a)", "Braces" },
-    }
-  }
-}, { mode = { "o", "x" } })
-
--- Operator mode mappings
-wk.register({
-  ["i<Space>"] = { "iw", "Inner Word" },
-  ["i<CR>"] = { "iW", "Outer WORD" },
-}, { mode = "o" })
-
--- Visual mode mappings
-wk.register({
-  ["<SNR>17_(command-line-enter)"] = { "q:", "Command Line History" },
-  ["gx"] = { "<Plug>(openbrowser-smart-search)", "Open Browser Search" },
-  ["i<CR>"] = { "iW", "Inner WORD" },
-  ["sa"] = { "<Plug>(operator-sandwich-add)", "Add Surrounding" }
-}, { mode = "x" })
+wk.add({
+  { "aM", desc = "Method Chain", mode = { "o", "x" } },
+  { "am", desc = "Method", mode = { "o", "x" } },
+  { "a,", desc = "Parameter", mode = { "o", "x" } },
+  { "asb", desc = "Multi Block", mode = { "o", "x" } },
+  { "af", desc = "Function", mode = { "o", "x" } },
+  { "ae", desc = "Equation", mode = { "o", "x" } },
+  { "a_", desc = "Quoted", mode = { "o", "x" } },
+  { "az", desc = "Fold", mode = { "o", "x" } },
+  { "ab", desc = "Multi Text Object", mode = { "o", "x" } },
+  { "a`", desc = "Back Quote", mode = { "o", "x" } },
+  { "a'", desc = "Single Quote", mode = { "o", "x" } },
+  -- Japanese text objects
+  { "ajY", desc = "Double Yama Kakko", mode = { "o", "x" } },
+  { "ajk", desc = "Kakko", mode = { "o", "x" } },
+  { "ajK", desc = "Double Kakko", mode = { "o", "x" } },
+  { "aj]", desc = "Brackets", mode = { "o", "x" } },
+  { "aj[", desc = "Brackets", mode = { "o", "x" } },
+  { "ajr", desc = "Brackets", mode = { "o", "x" } },
+  { "aj>", desc = "Angles", mode = { "o", "x" } },
+  { "aj<", desc = "Angles", mode = { "o", "x" } },
+  { "aja", desc = "Angles", mode = { "o", "x" } },
+  { "ajA", desc = "Double Angles", mode = { "o", "x" } },
+  { "ajt", desc = "Kikkou Kakko", mode = { "o", "x" } },
+  { "ajs", desc = "Sumi Kakko", mode = { "o", "x" } },
+  { "ajy", desc = "Yama Kakko", mode = { "o", "x" } },
+  { "aj)", desc = "Parentheses", mode = { "o", "x" } },
+  { "aj(", desc = "Parentheses", mode = { "o", "x" } },
+  { "ajb", desc = "Parentheses", mode = { "o", "x" } },
+  { "aj}", desc = "Braces", mode = { "o", "x" } },
+  { "aj{", desc = "Braces", mode = { "o", "x" } },
+  { "ajB", desc = "Braces", mode = { "o", "x" } },
+  -- Operator mode specific
+  { "i<Space>", desc = "Inner Word", mode = "o" },
+  { "i<CR>", desc = "Outer WORD", mode = "o" },
+  { "i<CR>", desc = "Inner WORD", mode = "x" },
+  { "gx", desc = "Open Browser Search", mode = "x" },
+  { "sa", desc = "Add Surrounding", mode = "x" }
+})
 
 EOF

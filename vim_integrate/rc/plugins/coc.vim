@@ -120,14 +120,14 @@ endfunction
 function! ToggleCocByFileType() abort
   if s:ShouldEnableCoc()
     let l:commands = [
-          \ 'execute "CocStart"',
-          \ 'execute "CocEnable"',
+          \ 'execute "silent! CocStart"',
+          \ 'execute "silent! CocEnable"',
           \ 'let g:your_cmp_disable_enable_toggle = v:false'
           \ ]
     let g:is_coc_enabled = v:true
   else
     let l:commands = [
-          \ 'execute "CocDisable"',
+          \ 'execute "silent! CocDisable"',
           \ 'let g:your_cmp_disable_enable_toggle = v:true'
           \ ]
     let g:is_coc_enabled = v:false
@@ -139,7 +139,7 @@ endfunction
 " Restore previous Coc state
 function! RestoreCocByFileType() abort
   if exists('g:is_coc_enabled')
-    execute g:is_coc_enabled ? "CocEnable" : "CocDisable"
+    execute g:is_coc_enabled ? "silent! CocEnable" : "silent! CocDisable"
   endif
 endfunction
 
