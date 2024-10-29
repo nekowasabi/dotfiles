@@ -32,8 +32,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'kana/vim-gf-user'
 Plug 'kana/vim-repeat'
-" Plug 'lambdalisue/gin.vim'
-" Plug 'lambdalisue/gina.vim' " lightlineにブランチ名を表示に仕様
+Plug 'lambdalisue/gin.vim'
+Plug 'lambdalisue/gina.vim' " lightlineで使っている——ブランチ名を表示に仕様
 Plug 'lambdalisue/glyph-palette.vim'
 Plug 'lambdalisue/nerdfont.vim'
 Plug 'lambdalisue/vital-ArgumentParser'
