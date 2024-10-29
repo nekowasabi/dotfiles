@@ -2,7 +2,7 @@ lua << EOF
 
 require("notify").setup({
   stages = "static",
-  timeout = 1000,
+  timeout = 2500,
 })
 
 local function ignoreNotice(event, pattern, kind)

@@ -48,9 +48,8 @@ indent = {
 line_num = {
   style = "#806d9c",
   exclude_filetypes = {
-    aerial = true,
-    changelog = true,
-    text = true,
+    "changelogmemo",
+    "*.txt",
   },
 },
 blank = {

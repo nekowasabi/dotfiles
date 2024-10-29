@@ -10,7 +10,8 @@ recentrepos:
 - /Users/ttakeda/.config/nvim/plugged/vim-rule-switcher
 startuppopupversion: 5
 lastversion: 0.41.0
-customcommandshistory: []
+customcommandshistory:
+- qa
 hidecommandlog: false
 ignorewhitespaceindiffview: false
 diffcontextsize: 3
