@@ -179,6 +179,7 @@
   "[php]": {
     "coc.preferences.formatOnSave": true
   },
+  "laravel.codeAction.enable": true,
   "[typescript]": {
     "coc.preferences.formatOnSave": true
   },
