@@ -128,7 +128,7 @@ local function watchExpression(expression)
   dapui.elements.watches.add(expression)
 end
 
-vim.api.nvim_create_user_command('DapiUIAddToWatch', function (opts)
+vim.api.nvim_create_user_command('DapUIAddToWatch', function (opts)
   watchExpression(opts.args)
 end , {nargs = 1})
 
@@ -142,7 +142,7 @@ local function addCurrentWordToWatch()
   watchExpression(word)
 end
 
-vim.api.nvim_create_user_command('DapiUIAddToWatch', function (opts)
+vim.api.nvim_create_user_command('DapUIAddToWatch', function (opts)
   watchExpression(opts.args)
 end , {nargs = 1})
 
