@@ -7,6 +7,9 @@ require"octo".setup({
   default_remote = {"upstream", "origin"}; -- order to try remotes
   ssh_aliases = {},                        -- SSH aliases. e.g. `ssh_aliases = {["github.com-work"] = "github.com"}`
   picker = "telescope",                    -- or "fzf-lua"
+  suppress_missing_scope = {
+    projects_v2 = true,
+  },
   picker_config = {
     use_emojis = false,                    -- only used by "fzf-lua" picker for now
     mappings = {                           -- mappings for the pickers
