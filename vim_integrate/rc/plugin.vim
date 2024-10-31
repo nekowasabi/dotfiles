@@ -263,6 +263,7 @@ if g:IsMacNeovim() || g:IsWsl()
 	Plug 'folke/which-key.nvim'
   Plug 'nekowasabi/nudge-two-hats.vim'
 	Plug 'Chaitanyabsprip/fastaction.nvim'
+	Plug 'mikavilpas/yazi.nvim'
 
   call g:SetDdu()
 
