@@ -67,8 +67,8 @@
     "typeParameter": "\uf728",
     "default": "\uf29c"
   },
-  "coc.preferences.formatOnType": true,
-  "coc.preferences.formatOnSaveTimeout": 500,
+  "coc.preferences.formatOnType": false,
+  "coc.preferences.formatOnSaveTimeout": 1000,
   "coc.preferences.willSaveHandlerTimeout": 500,
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.preferences.currentFunctionSymbolDebounceTime": 1000,
@@ -177,7 +177,7 @@
   "php-cs-fixer.activateTool": "pint",
   "php-cs-fixer.toolPath": "~/.config/coc/extensions/coc-php-cs-fixer-data/pint",
   "[php]": {
-    "coc.preferences.formatOnSave": false
+    "coc.preferences.formatOnSave": true
   },
   "laravel.codeAction.enable": true,
   "[typescript]": {
