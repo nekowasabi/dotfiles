@@ -307,3 +307,5 @@ function set_fast_theme() {
 # }}}
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+eval "$(zoxide init zsh)"
