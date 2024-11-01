@@ -22,7 +22,7 @@ let g:defx_icons_enable_syntax_highlight = 1
 let g:defx_icons_column_length = 3
 let g:defx#_python_version_check = 1
 
-nnoremap <silent> <Leader>f :Defx `expand('%:p:h')` -search=`expand('%:p')`<CR>
+" nnoremap <silent> <Leader>f :Defx `expand('%:p:h')` -search=`expand('%:p')`<CR>
 
 autocmd FileType defx call s:defx_my_settings()
 	function! s:defx_my_settings() abort

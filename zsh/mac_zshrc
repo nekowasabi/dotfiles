@@ -28,7 +28,8 @@ function wezterm_neovim() {
   if [ -d "/home/ttakeda" ]; then
     /opt/homebrew/bin/nvim  $1 $2 ~/work
   else
-    /usr/local/bin/nvim $1 $2 ~/wezterm
+    # /usr/local/bin/nvim $1 $2 ~/wezterm
+    /usr/local/bin/nvim $1 $2
   fi
 }
 alias n='wezterm_neovim'

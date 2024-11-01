@@ -50,6 +50,9 @@ let g:denops#debug = 0
 "   let g:denops_server_addr = '127.0.0.1:32123'
 " endif
 
+" yazi
+nnoremap <silent> <leader>f :Yazi<CR>
+
 " yanky
 nnoremap <silent> <leader>y :Telescope yank_history<CR>
 
