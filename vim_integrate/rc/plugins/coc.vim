@@ -160,7 +160,7 @@ augroup END
 nnoremap <Leader>: :call OpenCommandLineByCmp()<CR>:
 
 " for PHP
-" autocmd BufWritePre *.php call CocAction('format')
+autocmd BufWritePre *.php call CocAction('format')
  
 " function! CustomPhpFormat()
 "     " 現在のファイル名が '*.blade.php' で終わるかどうかをチェック

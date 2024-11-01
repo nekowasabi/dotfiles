@@ -69,7 +69,7 @@
   },
   "coc.preferences.formatOnType": false,
   "coc.preferences.formatOnSaveTimeout": 1000,
-  "coc.preferences.willSaveHandlerTimeout": 500,
+  "coc.preferences.willSaveHandlerTimeout": 1000,
   "coc.preferences.currentFunctionSymbolAutoUpdate": true,
   "coc.preferences.currentFunctionSymbolDebounceTime": 1000,
   "coc.source.file.ignoreHidden": false,
@@ -79,7 +79,7 @@
   "intelephense.files.associations": ["*.inc", "*.php", "*Test.php", "*.phtml"],
   "intelephense.environment.includePaths": ["_ide_helper.php", "_ide_helper_models.php", ".phpstorm.meta.php"],
   "intelephense.files.maxSize": 10000000000,
-  "intelephense.format.enable": false,
+  "intelephense.format.enable": true,
   "intelephense.diagnostics.typeErrors": true,
   "intelephense.completion.triggerParameterHints": true,
   "intelephense.compatibility.correctForBaseClassStaticUnionTypes": true,
@@ -177,7 +177,7 @@
   "php-cs-fixer.activateTool": "pint",
   "php-cs-fixer.toolPath": "~/.config/coc/extensions/coc-php-cs-fixer-data/pint",
   "[php]": {
-    "coc.preferences.formatOnSave": true
+    "coc.preferences.formatOnSave": false
   },
   "laravel.codeAction.enable": true,
   "[typescript]": {
