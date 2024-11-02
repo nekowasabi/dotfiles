@@ -211,12 +211,12 @@ if g:IsMacGvim() || g:IsMacNeovim() || g:IsWsl()
 		endif
 
 		if expand("%") != "tenTask.txt" && bufnr('tenTask.txt') == -1
-			execute ":e ~/repos/changelog/tenTask.txt"
+			execute ":silent! e ~/repos/changelog/tenTask.txt"
 		endif
 
 		if bufnr('tenTask.txt') != -1
-			execute ":buffer repos/changelog/tenTask.txt"
-			execute ":e %"
+			execute ":silent! buffer repos/changelog/tenTask.txt"
+			execute ":silent! e %"
 		endif
 
 		" 現在のバッファの総行数を取得
