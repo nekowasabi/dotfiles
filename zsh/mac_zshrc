@@ -49,6 +49,7 @@ alias gaa='git add --all && aicommits --generate 3'
 alias gps='git push'
 alias gp='git pull'
 alias lg='lazygit'
+alias g='gptme'
 
 # alias xargs='gxargs'
 # }}}1

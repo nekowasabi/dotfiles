@@ -229,7 +229,6 @@ if g:IsMacGvim() || g:IsMacNeovim() || g:IsWsl()
 		let l:lines = getline(l:start_line, '$')
 		" l:linesを文字列に連結
 		let l:lines = join(l:lines, " ")
-		echomsg l:lines
 
 		" 現在のタイムスタンプを取得
 		let current_timestamp = localtime()

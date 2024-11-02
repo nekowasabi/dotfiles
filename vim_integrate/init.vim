@@ -56,6 +56,10 @@ nnoremap <silent> <leader>f :Yazi<CR>
 " yanky
 nnoremap <silent> <leader>y :Telescope yank_history<CR>
 
+" gptme
+let g:gptme_no_mappings = 1
+
+" filetype
 autocmd BufRead,BufNewFile *.ks set filetype=tyranoscript
 autocmd Filetype tyranoscript setlocal commentstring=;\ %s
 

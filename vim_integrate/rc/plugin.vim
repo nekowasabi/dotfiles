@@ -264,6 +264,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'nekowasabi/nudge-two-hats.vim'
 	Plug 'Chaitanyabsprip/fastaction.nvim'
 	Plug 'mikavilpas/yazi.nvim'
+  Plug 'ErikBjare/gptme', { 'rtp': 'scripts/vim' }
 
   call g:SetDdu()
 
