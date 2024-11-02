@@ -434,14 +434,36 @@ nnoremap <silent> <CR><CR>
 nnoremap <silent> <BS>
       \ <Cmd>call ddu#start({'sources': [{'name': 'buffer'}]})<CR>
 
-vnoremap <silent> <C-c>a
-      \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'AiderAsk', 'selected': @@}}]})<CR>
-vnoremap <silent> <C-c>c
-      \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'CopilotChat', 'selected': @@}}]})<CR>
-vnoremap <silent> <C-c>g
-      \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'GpAppend', 'selected': @@}}]})<CR>
-vnoremap <silent> <C-c>G
-      \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'GpRewrite', 'selected': @@}}]})<CR>
+" vnoremap <silent> <C-c>a
+"       \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'AiderAsk', 'selected': @@}}]})<CR>
+
+
+function! DduAiConnectorByFiletype(command) abort
+  let s:filetye = &filetype
+
+  let s:type_text = ['text', 'markdown', 'help', 'changelog']
+
+  if index(s:type_text, s:filetye) != -1
+    let s:tag = 'text'
+  else
+    let s:tag = ''
+  endif
+
+  execute 'call ddu#start({''sources'': [{''name'': ''prompt'', ''params'': {''command'': ''' . a:command . ''', ''tag'': ''' . s:tag . ''', ''selected'': '' . @@ . ''}}]})'
+
+endfunction
+
+vnoremap <silent> <C-c>a y<Cmd>call DduAiConnectorByFiletype('AiderAsk')<CR>
+vnoremap <silent> <C-c>c y<Cmd>call DduAiConnectorByFiletype('CopilotChat')<CR>
+vnoremap <silent> <C-c>g y<Cmd>call DduAiConnectorByFiletype('GpAppend')<CR>
+vnoremap <silent> <C-c>r y<Cmd>call DduAiConnectorByFiletype('GpRewrite')<CR>
+
+" vnoremap <silent> <C-c>c
+"       \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'CopilotChat', 'selected': @@}}]})<CR>
+" vnoremap <silent> <C-c>g
+"       \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'GpAppend', 'selected': @@}}]})<CR>
+" vnoremap <silent> <C-c>G
+"       \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'GpRewrite', 'selected': @@}}]})<CR>
 
 nnoremap <silent> <Leader>ll
       \ <Cmd>call ddu#start({'sources': [{'name': 'line', 'params': {'matchers': 'matcher_matchfuzzy'}}]})<CR>
