@@ -152,6 +152,10 @@ zinit light mollifier/cd-bookmark
 autoload -Uz cd-bookmark
 alias b='cd-bookmark'
 
+zi ice has'zoxide' atinit'zmodload zsh/zprof' \
+  atload'zprof | head -n 20; zmodload -u zsh/zprof'
+zi light z-shell/zsh-zoxide
+
 export DENO_INSTALL="/home/linuxbrew/.linuxbrew"
 export PATH="$DENO_INSTALL/bin:$PATH:/home/takets/.local/bin"
 
@@ -204,7 +208,6 @@ fzf-z-search() {
         return 1
     fi
 }
-
 zle -N fzf-z-search
 bindkey '^Z' fzf-z-search
 
@@ -308,4 +311,5 @@ function set_fast_theme() {
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-eval "$(zoxide init zsh)"
+# eval "$(zoxide init zsh)"
+eval "$(zoxide init --cmd j zsh)"
