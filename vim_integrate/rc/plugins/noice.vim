@@ -68,11 +68,11 @@ require("noice").setup({
       },
   },
   notify = {
-    enabled = false,
+    enabled = true,
     view = "notify",
   },
   messages = {
-    enabled = false,
+    enabled = true,
     view = "notify",
     view_error = "notify",
     view_warn = "notify",
