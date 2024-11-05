@@ -344,7 +344,6 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/mark.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/neosnippet.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/defx.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/phpunit.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vimspector.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-bookmark.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/devicons.vim'
@@ -385,29 +384,27 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/which-key.vim'
 
   if g:IsMacNeovimInWork() || g:IsWsl()
-    " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cmp.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
-		"execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
   elseif g:IsMacNeovimInWezterm()
-		"execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-lsp.vim'
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
-    " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cmp.vim'
-    " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/completion-keybind.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cmp.vim'
-		" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
   else
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
-		" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-lsp.vim'
-		" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc-source-lsp.vim'
   endif
 
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/completion-keybind.vim'
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc-source-lsp.vim'
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/phpunit.vim'
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/rest.vim'
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-lsp.vim'
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
 endif
 " }}}1
 
