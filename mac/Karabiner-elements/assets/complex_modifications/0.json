@@ -78,6 +78,39 @@
         },
         {
           "type": "basic",
+          "description": "IME OFFして決定",
+          "conditions": [
+            {
+              "type": "input_source_if",
+              "input_sources": [
+                {
+                  "language": "ja"
+                }
+              ]
+            }
+          ],
+          "from": {
+            "key_code": "m",
+            "modifiers": {
+              "mandatory": [
+                "control"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "return_or_enter"
+            },
+            {
+              "key_code": "lang2"
+            },
+            {
+              "key_code": "lang2"
+            }
+          ]
+        },
+        {
+          "type": "basic",
           "conditions": [
             {
               "type": "input_source_if",
