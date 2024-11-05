@@ -67,6 +67,10 @@ autocmd Filetype tyranoscript setlocal commentstring=;\ %s
 " lua
 lua << EOF
 
+if vim.fn.executable("nvr") == 1 then
+  vim.env.GIT_EDITOR = "nvr --remote-tab-wait +'set bufhidden=delete'"
+end
+
 require("markmap").setup({
   cmd = { "MarkmapOpen", "MarkmapSave", "MarkmapWatch", "MarkmapWatchStop" },
   opts = {

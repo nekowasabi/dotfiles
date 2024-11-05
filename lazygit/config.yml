@@ -22,7 +22,7 @@ git:
     colorArg: always
     pager: delta --paging=never
 os:
-  editPreset: "nvim"
+  editPreset: "nvim-remote"
 
 customCommands:
   - key: 'C'

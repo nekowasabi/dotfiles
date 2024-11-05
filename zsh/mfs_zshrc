@@ -272,4 +272,4 @@ fzf_find_path() {
 zle -N fzf_find_path
 bindkey '^t' fzf_find_path
 
-eval "$(zoxide init zsh)"
+eval "$(zoxide init --cmd j zsh)"
