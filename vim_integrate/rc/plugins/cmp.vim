@@ -128,6 +128,25 @@ cmp.setup.filetype('changelog', {
   })
 })
 
+cmp.setup.filetype('AvanteInput', {
+  sources = cmp.config.sources(
+  {
+      { name = 'calc' },
+      { name = 'emoji' },
+      {
+					name = 'buffer',
+					keyword_length = 1,
+          option = {
+            get_bufnrs = function()
+              return vim.api.nvim_list_bufs()
+            end
+          },
+      },
+  })
+})
+
+
+
 cmp.setup.filetype('text', {
   sources = cmp.config.sources(
   {
