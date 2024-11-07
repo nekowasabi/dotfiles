@@ -20,6 +20,7 @@ augroup fileTypeIndent
   autocmd FileType markdown set tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent nospell conceallevel=0
   autocmd FileType http set tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab autoindent nospell conceallevel=0
   autocmd FileType vue syntax sync fromstart
+	autocmd FileType AvanteInput setlocal wrap
   
 	autocmd FileType php,blade let b:coc_root_patterns = ['.git', '.env', 'composer.json', 'artisan']
   autocmd BufNewFile,BufRead *.php setlocal tabstop=4 softtabstop=4 shiftwidth=4

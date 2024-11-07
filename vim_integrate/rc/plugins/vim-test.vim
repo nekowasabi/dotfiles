@@ -22,7 +22,7 @@ function! DockerTransformNearest(cmd) abort
 endfunction
 
 
-nnoremap <silent> ,uf :TestFile<CR>
+nnoremap <silent> ,uf :call RunTestFile()<CR>
 function! RunTestFile()
   let g:test#custom_transformations = {'docker': function('DockerTransformFile')}
   let g:test#transformation = 'docker'

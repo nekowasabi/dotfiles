@@ -196,7 +196,7 @@ require("avante").setup({
       rounded = true,
     },
     ask = {
-      floating = true,
+      floating = false,
       start_insert = true,
       border = "rounded"
     },

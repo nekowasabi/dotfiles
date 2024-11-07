@@ -240,7 +240,7 @@ wk.register({
     f = { ":Defx `expand('%:p:h')` -search=`expand('%:p')`<CR>", "File Explorer" },
     D = { ":Sayonara<CR>", "Close Buffer" },
     d = { ":Sayonara!<CR>", "Force Close Buffer" },
-    W = { "<Plug>(choosewin)", "Choose Window" },
+    w = { "<Plug>(choosewin)", "Choose Window" },
     -- Quit & Save
     Q = { ":call QuickExit()<CR>", "Quick Exit" },
     q = { ":call CloseQuickRunWindow()<CR>", "Close Quick Run" },

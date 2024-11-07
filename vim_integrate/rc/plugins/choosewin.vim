@@ -1,6 +1,6 @@
 " " -----------------------------------------------------------
 "" choosewin.vim
-nmap  <Leader>W  <Plug>(choosewin)
+nmap <silent> <Leader>w  <Plug>(choosewin)
 " オーバーレイ機能を有効にする。
 let g:choosewin_overlay_enable = 1
 
