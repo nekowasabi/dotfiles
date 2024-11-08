@@ -279,6 +279,7 @@ if g:IsMacNeovim() || g:IsWsl()
     Plug 'hrsh7th/cmp-emoji'
     Plug 'hrsh7th/cmp-calc'
     Plug 'chrisgrieser/cmp_yanky'
+    Plug 'notomo/cmp-neosnippet'
     " Plug 'Shougo/ddc-source-lsp'
     " Plug 'gelguy/wilder.nvim'
     call g:SetCoc()

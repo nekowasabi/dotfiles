@@ -7,6 +7,15 @@ let g:your_cmp_disable_enable_toggle = v:false
 lua << EOF
 local cmp = require'cmp'
 
+require("cmp").setup({
+  snippet = {
+    expand = function(_)
+      -- unused
+    end,
+  },
+  sources = {{name = "neosnippet"}},
+})
+
 require'cmp'.setup {
   sources = {
     { name = 'emoji' }
@@ -46,6 +55,8 @@ end,
    ['<C-d>'] = cmp.mapping.scroll_docs(4),
    ["<C-p>"] = cmp.mapping.select_prev_item(),
    ["<C-n>"] = cmp.mapping.select_next_item(),
+   ["<S-Tab>"] = cmp.mapping.select_prev_item(),
+   ["<Tab>"] = cmp.mapping.select_next_item(),
    ['<C-e>'] = cmp.mapping.abort(),
    -- insert, commandモードでの補完を有効にする
    -- cmp.mappingと{'i', 'c'}を指定することで、insert, commandモードでの補完を有効にする
@@ -108,6 +119,7 @@ cmp.setup.filetype('markdown', {
         end
       },
     },
+    { name = 'neosnippet' }
   })
 })
 
