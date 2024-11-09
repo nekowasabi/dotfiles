@@ -1,4 +1,4 @@
-autocmd FileType sql,vim,php,typescript,ddu-ff lua require('cmp').setup.buffer {
+autocmd FileType sql,vim,php,typescript,ddu-ff,markdown lua require('cmp').setup.buffer {
 \   enabled = false
 \ }
 
@@ -89,6 +89,7 @@ end,
               cmdline = '🔍',
               cmd_yanky = '📋',
               calc = '🔢',
+              neosnippet = '✂️',
           }
           item.menu = menu_icon[entry.source.name]
           return item
@@ -128,6 +129,7 @@ cmp.setup.filetype('changelog', {
   {
       { name = 'calc' },
       { name = 'emoji' },
+      { name = 'neosnippet' },
       {
 					name = 'buffer',
 					keyword_length = 3,
