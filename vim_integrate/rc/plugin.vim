@@ -178,6 +178,7 @@ function g:SetDdu()
   Plug 'nekowasabi/ddu-ai-prompt-connecter'
   Plug 'uga-rosa/ddu-source-lsp'
   Plug 'yuki-yano/ddu-filter-fzf'
+  Plug 'liquidz/ddu-source-custom-list'
 endfunction
 
 function g:SetCoc()

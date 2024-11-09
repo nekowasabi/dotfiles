@@ -298,5 +298,4 @@ bindkey '^t' fzf_find_path
 
 if [ -f "/Users/takets/.config/fabric/fabric-bootstrap.inc" ]; then . "/Users/takets/.config/fabric/fabric-bootstrap.inc"; fi
 
-eval "$(zoxide init bash)"
-
+eval "$(zoxide init --cmd j zsh)"
