@@ -298,6 +298,8 @@ if g:IsMacNeovim() || g:IsWsl()
     Plug 'hrsh7th/cmp-emoji'
     Plug 'hrsh7th/cmp-calc'
     Plug 'chrisgrieser/cmp_yanky'
+    Plug 'notomo/cmp-neosnippet'
+    Plug 'chrisgrieser/cmp_yanky'
     Plug 'nekowasabi/vim-syntax-tyranoscript'
     " Plug 'gelguy/wilder.nvim'
     " Plug 'Shougo/ddc-source-lsp'

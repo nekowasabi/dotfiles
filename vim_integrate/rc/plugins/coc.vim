@@ -93,7 +93,6 @@ let g:coc_supported_filetypes = [
       \ 'php',
       \ 'vim',
       \ 'json',
-      \ 'markdown',
       \ 'sh'
       \ ]
 let g:coc_disabled_filetypes = ['noice']

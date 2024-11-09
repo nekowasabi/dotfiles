@@ -382,31 +382,9 @@ nnoremap <silent> ,rw :call ReplaceCurrentWordWithYank()<CR>
 " -----------------------------------------------------------
 " test
 function! s:Test()
-    " 選択範囲のテキストを取得
-    let l:text = s:get_visual_text()
-    if empty(l:text)
-      let l:lines = [getline('.')]
-    else
-      let l:lines = []
-      for line in split(l:text, '\n')
-          call add(l:lines, "\t" . line)
-      endfor
-    endif
-
-    " l:linesの文字列から半角スペースと、行末の,を削除
-    let l:lines = map(l:lines, 'substitute(v:val, "[, ]*$", "", "g")')
-    " l:linesの文字列から半角スペースをtrim（'      aaaaa'）→'aaaaa'に変換
-    let l:lines = map(l:lines, 'substitute(v:val, "^[ ]*", "", "g")')
-
-		" 各行からファイルパスを抽出
-		for l:line in l:lines
-		  let l:path_pattern = '[~/]\?[a-zA-Z0-9_/.-]\+'
-		  let l:matched_path = matchstr(l:line, l:path_pattern)
-		  
-		  if !empty(l:matched_path)
-		    execute "AiderAddFile " . l:matched_path
-		  endif
-		endfor
+	" neosnippet#helpers#get_completion_snippets()の結果を表示
+	let l:snippets = neosnippet#helpers#get_completion_snippets()
+	echo l:snippets
 endfunction
 
 command! -range -nargs=0 Test call s:Test()

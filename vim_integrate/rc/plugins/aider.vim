@@ -39,6 +39,7 @@ nnoremap <silent> <leader>ax :AiderExit<CR>
 nnoremap <silent> <leader>ai :AiderAddIgnoreCurrentFile<CR>
 nnoremap <silent> <leader>aI :AiderOpenIgnore<CR>
 nnoremap <silent> <leader>ah :AiderHide<CR>
+vnoremap <silent> <leader>as :AiderAddSelected<CR>
 vmap <leader>av :AiderVisualTextWithPrompt<CR>
 nnoremap <leader>av :AiderVisualTextWithPrompt<CR>
 
@@ -61,4 +62,55 @@ function! s:AiderOpenHandler() abort
   nnoremap <C-x><C-x> :AiderHide<CR>
 endfunction
 
+
+ "ビジュアルモードで選択中のテクストを取得する {{{
+ function! s:get_visual_text()
+   try
+     " ビジュアルモードの選択開始/終了位置を取得
+     let pos = getpos('')
+     normal `<
+     let start_line = line('.')
+     let start_col = col('.')
+     normal `>
+     let end_line = line('.')
+     let end_col = col('.')
+     call setpos('.', pos)
+
+     let tmp = @@
+     silent normal gvy
+     let selected = @@
+     let @@ = tmp
+     return selected
+   catch
+     return ''
+   endtry
+ endfunction
+ " }}}
+function! s:AiderAddSelected()
+    " 選択範囲のテキストを取得
+    let l:text = s:get_visual_text()
+    if empty(l:text)
+      let l:lines = [getline('.')]
+    else
+      let l:lines = []
+      for line in split(l:text, '\n')
+          call add(l:lines, "\t" . line)
+      endfor
+    endif
+
+    let l:lines = map(l:lines, 'substitute(v:val, "[, ]*$", "", "g")')
+    let l:lines = map(l:lines, 'substitute(v:val, "^[ ]*", "", "g")')
+
+		" 各行からファイルパスを抽出
+		for l:line in l:lines
+		  let l:path_pattern = '[~/]\?[a-zA-Z0-9_/.-]\+'
+		  let l:matched_path = matchstr(l:line, l:path_pattern)
+		  
+		  if !empty(l:matched_path)
+		    execute "AiderAddFile " . l:matched_path
+		  endif
+		endfor
+endfunction
+
+command! -range -nargs=0 AiderAddSelected call s:AiderAddSelected()
 

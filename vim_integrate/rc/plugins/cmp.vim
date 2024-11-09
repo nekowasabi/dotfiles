@@ -1,4 +1,4 @@
-autocmd FileType sql,vim,php,typescript,ddu-ff,markdown lua require('cmp').setup.buffer {
+autocmd FileType sql,vim,php,typescript,ddu-ff lua require('cmp').setup.buffer {
 \   enabled = false
 \ }
 
@@ -7,94 +7,76 @@ let g:your_cmp_disable_enable_toggle = v:false
 lua << EOF
 local cmp = require'cmp'
 
-require("cmp").setup({
+cmp.setup({
+  filetypes = { "markdown", "changelog" },
+  enabled = function()
+    return vim.g.your_cmp_disable_enable_toggle
+  end,
   snippet = {
     expand = function(_)
-      -- unused
     end,
   },
-  sources = {{name = "neosnippet"}},
-})
-
-require'cmp'.setup {
+  mapping = cmp.mapping.preset.insert({
+    ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-d>'] = cmp.mapping.scroll_docs(4),
+    ["<C-p>"] = cmp.mapping.select_prev_item(),
+    ["<C-n>"] = cmp.mapping.select_next_item(),
+    ["<S-Tab>"] = cmp.mapping.select_prev_item(),
+    ["<Tab>"] = cmp.mapping.select_next_item(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<C-s>'] = function(fallback)
+          if cmp.visible() then
+            local confirm_opts = {
+              select = true,
+              behavior = cmp.ConfirmBehavior.Insert,
+            }
+            cmp.confirm(confirm_opts, function()
+              local key = vim.api.nvim_replace_termcodes("<Tab>", true, false, true)
+              vim.api.nvim_feedkeys(key, 't', true)
+            end)
+          else
+            fallback()
+          end
+        end,
+    -- insert, commandモードでの補完を有効にする
+    -- cmp.mappingと{'i', 'c'}を指定することで、insert, commandモードでの補完を有効にする
+    ["<CR>"] = cmp.mapping(cmp.mapping.confirm { select = true }, {'i', 'c'}),
+  }),
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
   sources = {
-    { name = 'emoji' }
-  }
-}
-
-require("cmp").setup {
-	sources = {
-		{ 
-			name = "cmp_yanky",
-      option = {
-        onlyCurrentFiletype = false,
-        minLength = 3,
-      }
-		},
-	},
-}
-
-require'cmp'.setup {
-  sources = {
-    { name = 'calc' }
-  }
-}
-
-cmp.setup({
- filetypes = { "markdown" },
-enabled = function()
-  return vim.g.your_cmp_disable_enable_toggle
-end,
- snippet = {
-   -- REQUIRED - you must specify a snippet engine
-   expand = function(args)
-   end,
- },
- mapping = cmp.mapping.preset.insert({
-   ['<C-u>'] = cmp.mapping.scroll_docs(-4),
-   ['<C-d>'] = cmp.mapping.scroll_docs(4),
-   ["<C-p>"] = cmp.mapping.select_prev_item(),
-   ["<C-n>"] = cmp.mapping.select_next_item(),
-   ["<S-Tab>"] = cmp.mapping.select_prev_item(),
-   ["<Tab>"] = cmp.mapping.select_next_item(),
-   ['<C-e>'] = cmp.mapping.abort(),
-   -- insert, commandモードでの補完を有効にする
-   -- cmp.mappingと{'i', 'c'}を指定することで、insert, commandモードでの補完を有効にする
-   ["<CR>"] = cmp.mapping(cmp.mapping.confirm { select = true }, {'i', 'c'}),
- }),
- window = {
-   completion = cmp.config.window.bordered(),
-   documentation = cmp.config.window.bordered(),
- },
- sources = {
-   { name = 'buffer' },
-   { name = 'path' },
- },
- method = "getCompletionsCycling",
- matching = {
-   disallow_fuzzy_matching = false,
-   disallow_partial_fuzzy_matching = false,
-   disallow_partial_matching = true,
- },
-  sources = {
+    { name = 'buffer' },
     { name = 'path' },
-    { name = 'buffer', keyword_length = 4 },
   },
-  formatting = {
-      fields = {'menu', 'abbr', 'kind'},
-      format = function(entry, item)
-          local menu_icon ={
-              buffer = '💾',
-              path = '📂',
-              cmdline = '🔍',
-              cmd_yanky = '📋',
-              calc = '🔢',
-              neosnippet = '✂️',
-          }
-          item.menu = menu_icon[entry.source.name]
-          return item
-      end,
+  method = "getCompletionsCycling",
+  matching = {
+    disallow_fuzzy_matching = false,
+    disallow_partial_fuzzy_matching = false,
+    disallow_partial_matching = true,
   },
+   sources = {
+     { name = 'path' },
+     { name = 'neosnippet' },
+     { name = 'buffer', keyword_length = 4 },
+     { name = "neosnippet", keyword_length = 3 },
+   },
+   formatting = {
+       fields = {'menu', 'abbr', 'kind'},
+       format = function(entry, item)
+           local menu_icon ={
+               buffer = '💾',
+               path = '📂',
+               cmdline = '🔍',
+               cmd_yanky = '📋',
+               calc = '🔢',
+               neosnippet = '✂️',
+           }
+           item.menu = menu_icon[entry.source.name]
+           return item
+       end,
+   },
 })
 
 -- Set configuration for specific filetype.
@@ -120,16 +102,20 @@ cmp.setup.filetype('markdown', {
         end
       },
     },
-    { name = 'neosnippet' }
+    { name = 'neosnippet', keyword_length = 3 },
   })
 })
 
 cmp.setup.filetype('changelog', {
+  snippet = {
+    expand = function(_)
+    end,
+  },
   sources = cmp.config.sources(
   {
       { name = 'calc' },
       { name = 'emoji' },
-      { name = 'neosnippet' },
+      { name = 'neosnippet', keyword_length = 3 },
       {
 					name = 'buffer',
 					keyword_length = 3,
