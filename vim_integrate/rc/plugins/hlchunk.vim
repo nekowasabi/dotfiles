@@ -3,7 +3,10 @@ require("hlchunk").setup({
 chunk = {
   enable = true,
   use_treesitter = true,
-  notify = true,
+  notify = false,
+  error_sign = true,
+  duration = 200,
+  delay = 0,
   chars = {
     horizontal_line = "━",
     vertical_line = "┃",
@@ -21,7 +24,7 @@ chunk = {
     "*.yml",
   },
   exclude_filetypes = {
-    "changelogmemo",
+    "changelog",
     "*.txt",
   },
 },
