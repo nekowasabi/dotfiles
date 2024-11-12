@@ -13,6 +13,12 @@ function! s:SwitchRule()
 endfunction
 command! SwitchRule call s:SwitchRule() 
 
+function! s:OpenSwitchRule()
+  execute 'silent! :e ' . g:switch_rule
+endfunction
+command! OpenSwitchRule call s:OpenSwitchRule()
+
+nnoremap <silent> ,s <Esc>:OpenSwitchRule<CR>
 nnoremap <silent> <leader>s <Esc>:SelectSwitchRule<CR>
 inoremap <silent> <C-s> <Esc>:SwitchRule<CR>
 nnoremap <silent> <C-s> <Esc>:SwitchRule<CR>
