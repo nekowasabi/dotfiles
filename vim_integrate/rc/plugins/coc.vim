@@ -11,7 +11,6 @@ let g:coc_global_extensions = [
   \, 'coc-github-users'
   \, '@yaegassy/coc-intelephense'
   \, '@yaegassy/coc-laravel'
-  \, '@yaegassy/coc-phpstan'
   \, '@yaegassy/coc-typescript-vue-plugin'
   \, 'coc-swagger'
   \, '@yaegassy/coc-volar-tools'
@@ -27,6 +26,9 @@ let g:coc_global_extensions = [
   \, '@hexuhua/coc-copilot'
   \, 'coc-stylua'
   \ ]
+
+
+  " \, '@yaegassy/coc-phpstan'
 
 let g:markdown_fenced_languages = [
      \ 'vim',
@@ -160,7 +162,7 @@ augroup END
 nnoremap <Leader>: :call OpenCommandLineByCmp()<CR>:
 
 " for PHP
-autocmd BufWritePre *.php call CocAction('format')
+autocmd BufWritePre *.php call CocActionAsync('format')
  
 " function! CustomPhpFormat()
 "     " 現在のファイル名が '*.blade.php' で終わるかどうかをチェック
