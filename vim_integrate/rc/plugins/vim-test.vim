@@ -57,3 +57,20 @@ let test#strategy = {
   \ 'suite':   'basic',
 \}
 
+" phpunitのコマンドを出力する
+function! s:OutputPhpUnitCommand()
+  let l:filename = fnamemodify(expand("%:p"), ":t")
+  let l:fullpath = expand("%:p")
+  let l:pattern = 'tests.*'
+  let l:filepath = matchstr(l:fullpath, l:pattern)
+
+  if l:filename =~ ".*Test\.php"
+    if g:IsMacNeovimInWork() || g:IsWsl()
+			cd $BACKEND_LARAVEL_MAC_DIR
+      return "docker exec -i $BACKEND_APP ./vendor/bin/phpunit --testdox --color ".l:filepath
+    endif
+    return
+  endif
+
+  return "docker exec -i $BACKEND_APP ./vendor/bin/phpunit --testdox --color ./tests"
+endfunction

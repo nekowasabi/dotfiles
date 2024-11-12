@@ -71,5 +71,4 @@ function! s:PHPUnitCurrentFileWithInitialize()
 endfunction
 command! PHPUnitCurrentFileWithInitialize call s:PHPUnitCurrentFileWithInitialize()() 
 
-function! s:OutputPhpUnitCommand()
-endfunction
+
