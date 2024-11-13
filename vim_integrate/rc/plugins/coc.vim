@@ -147,7 +147,7 @@ endfunction
 
 " Disable Coc for command line
 function! OpenCommandLineByCmp() abort
-  execute "CocDisable"
+  execute "silent! CocDisable"
   let g:your_cmp_disable_enable_toggle = v:true
 endfunction
 
