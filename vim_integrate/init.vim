@@ -63,6 +63,19 @@ let g:gptme_no_mappings = 1
 autocmd BufRead,BufNewFile *.ks set filetype=tyranoscript
 autocmd Filetype tyranoscript setlocal commentstring=;\ %s
 
+" clean command
+augroup histclean
+  autocmd!
+  autocmd ModeChanged c:* call s:HistClean()
+augroup END
+
+function! s:HistClean() abort
+  let cmd = histget(":", -1)
+  if cmd == "x" || cmd == "xa" || cmd =~# "^w\\?q\\?a\\?!\\?$"
+    call histdel(":", -1)
+  endif
+endfunction
+
 " -----------------------------------------------------------
 " lua
 lua << EOF

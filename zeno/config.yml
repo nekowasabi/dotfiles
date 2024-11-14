@@ -19,10 +19,10 @@ snippets:
     keyword: gpo
     snippet: git push --force-with-lease --force-if-includes origin 
   - name: git switch
-    keyword: gc
+    keyword: gC
     snippet: git switch {{branch}}
   - name: git switch
-    keyword: gC
+    keyword: gc
     snippet: git switch $(git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)' | fzf)
   - name: git switch previous branch 
     keyword: gb
