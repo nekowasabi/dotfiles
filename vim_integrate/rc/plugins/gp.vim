@@ -9,12 +9,28 @@ require("gp").setup({
 			endpoint = "https://api.anthropic.com/v1/messages",
 			secret = os.getenv("ANTHROPIC_API_KEY"),
 		},
+		copilot = {
+			endpoint = "https://api.githubcopilot.com/chat/completions",
+			secret = {
+				"bash",
+				"-c",
+				"cat ~/.config/github-copilot/hosts.json | sed -e 's/.*oauth_token...//;s/\".*//'",
+			},
+		},
 	},
   agents =
   {
     {
+      provider = "copilot",
+      name = "copilot-3-5-Sonnet",
+      chat = true,
+      command = false,
+      model = { model = "claude-3.5-sonnet", temperature = 0.8, top_p = 1 },
+      system_prompt = require("gp.defaults").chat_system_prompt,
+    },
+    {
       provider = "anthropic",
-      name = "ChatClaude-3-5-Sonnet",
+      name = "anthropic-3-5-Sonnet",
       chat = true,
       command = false,
       model = { model = "claude-3-5-sonnet-20241022", temperature = 0.8, top_p = 1 },

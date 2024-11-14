@@ -126,12 +126,22 @@ require("img-clip").setup({
 require('avante_lib').load()
 require("avante").setup({
   ---@alias Provider "openai" | "claude" | "azure"  | "copilot" | "cohere" | [string]
-  provider = "claude",
-  claude = {
-    endpoint = "https://api.anthropic.com",
-    model = "claude-3-5-sonnet-20241022",
+  -- provider = "claude",
+  -- claude = {
+  --   endpoint = "https://api.anthropic.com",
+  --   model = "claude-3-5-sonnet-20241022",
+  --   temperature = 0,
+  --   max_tokens = 8000,
+  -- },
+	provider = "copilot",
+  copilot = {
+    endpoint = "https://api.githubcopilot.com",
+		model = "claude-3.5-sonnet",
+    proxy = nil, -- [protocol://]host[:port] Use this proxy
+    allow_insecure = false, -- Allow insecure server connections
+    timeout = 30000, -- Timeout in milliseconds
     temperature = 0,
-    max_tokens = 8000,
+    max_tokens = 4096,
   },
   auto_suggestions_provider = "copilot",
   behaviour = {
