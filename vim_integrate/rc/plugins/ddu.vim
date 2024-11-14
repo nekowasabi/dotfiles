@@ -434,10 +434,6 @@ nnoremap <silent> <CR><CR>
 nnoremap <silent> <BS>
       \ <Cmd>call ddu#start({'sources': [{'name': 'buffer'}]})<CR>
 
-" vnoremap <silent> <C-c>a
-"       \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'AiderAsk', 'selected': @@}}]})<CR>
-
-
 function! DduAiConnectorByFiletype(command) abort
   let s:filetye = &filetype
 
@@ -458,13 +454,6 @@ vnoremap <silent> <C-c>c y<Cmd>call DduAiConnectorByFiletype('CopilotChat')<CR>
 vnoremap <silent> <C-c>g y<Cmd>call DduAiConnectorByFiletype('GpAppend')<CR>
 vnoremap <silent> <C-c>r y<Cmd>call DduAiConnectorByFiletype('GpRewrite')<CR>
 
-" vnoremap <silent> <C-c>c
-"       \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'CopilotChat', 'selected': @@}}]})<CR>
-" vnoremap <silent> <C-c>g
-"       \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'GpAppend', 'selected': @@}}]})<CR>
-" vnoremap <silent> <C-c>G
-"       \ y<Cmd>call ddu#start({'sources': [{'name': 'prompt', 'params': {'command': 'GpRewrite', 'selected': @@}}]})<CR>
-
 nnoremap <silent> <Leader>ll
       \ <Cmd>call ddu#start({'sources': [{'name': 'line', 'params': {'matchers': 'matcher_matchfuzzy'}}]})<CR>
 nnoremap <silent> <Leader>h
@@ -473,8 +462,8 @@ nnoremap <silent> <Leader>H
       \ <Cmd>call ddu#start({'sources': [{'name': 'help'}]})<CR>
 nnoremap <silent> <Leader>gf
       \ <Cmd>call ddu#start({'sources': [{'name': 'file_external'}]})<CR>
-nnoremap <silent> <Leader>gs
-      \ <Cmd>call ddu#start({'sources': [{'name': 'git_stash'}]})<CR>
+nnoremap <silent> <Leader>j
+      \ <Cmd>call ddu#start({'sources': [{'name': 'jumplist'}]})<CR>
 
 " }}}1
 
