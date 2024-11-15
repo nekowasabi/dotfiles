@@ -140,7 +140,7 @@ set cmdwinheight=20
 
 " カレントディレクトリ設定 {{{1
 command! -nargs=0 CdCurrent cd %:p:h
-nnoremap ,d :CdCurrent<CR>
+nnoremap <silent> ,d :CdCurrent<CR>
 " }}}1
 
 " vを二回で行末まで選択 {{{1
