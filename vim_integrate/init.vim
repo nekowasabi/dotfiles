@@ -158,11 +158,11 @@ require("avante").setup({
   },
   auto_suggestions_provider = "copilot",
   behaviour = {
-    auto_suggestions = false, -- Experimental stage
+    auto_suggestions = true, -- Experimental stage
     auto_set_highlight_group = true,
     auto_set_keymaps = true,
     auto_apply_diff_after_generation = false,
-    support_paste_from_clipboard = false,
+    support_paste_from_clipboard = true,
   },
   mappings = {
     ask = "<leader>va",
