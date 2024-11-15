@@ -145,12 +145,6 @@ function! RestoreCocByFileType() abort
   endif
 endfunction
 
-" Disable Coc for command line
-function! OpenCommandLineByCmp() abort
-  execute "silent! CocDisable"
-  let g:your_cmp_disable_enable_toggle = v:true
-endfunction
-
 " Autocommands for Coc toggle
 augroup CocToggleForFileTypes
   autocmd!
@@ -159,7 +153,13 @@ augroup CocToggleForFileTypes
 augroup END
 " }}}1
 
-nnoremap <Leader>: :call OpenCommandLineByCmp()<CR>:
+" Disable Coc for command line
+function! OpenCommandLineByCmp() abort
+  execute "silent! CocDisable"
+  let g:your_cmp_disable_enable_toggle = v:true
+endfunction
+
+nnoremap <Leader>: :silent call OpenCommandLineByCmp()<CR>:
 
 " for PHP
 " autocmd BufWritePre *.php call CocActionAsync('format')

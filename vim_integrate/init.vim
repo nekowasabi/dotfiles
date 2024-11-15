@@ -154,9 +154,9 @@ require("avante").setup({
     allow_insecure = false, -- Allow insecure server connections
     timeout = 30000, -- Timeout in milliseconds
     temperature = 0,
-    max_tokens = 4096,
+    max_tokens = 8192,
   },
-  auto_suggestions_provider = "copilot",
+  -- auto_suggestions_provider = "copilot",
   behaviour = {
     auto_suggestions = false, -- Experimental stage
     auto_set_highlight_group = true,
