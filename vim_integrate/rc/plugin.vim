@@ -267,6 +267,10 @@ if g:IsMacNeovim() || g:IsWsl()
 	Plug 'mikavilpas/yazi.nvim'
   Plug 'ErikBjare/gptme', { 'rtp': 'scripts/vim' }
   Plug 'mhartington/formatter.nvim'
+  Plug 'basyura/dsky.vim'
+  Plug 'gw31415/mstdn.vim'
+  Plug 'MeanderingProgrammer/markdown.nvim' " Recommended: Better visibility of hashtags and other links
+  Plug 'gw31415/mstdn-editor.vim'
 
   call g:SetDdu()
 

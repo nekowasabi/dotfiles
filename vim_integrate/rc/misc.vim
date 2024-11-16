@@ -382,9 +382,15 @@ nnoremap <silent> ,rw :call ReplaceCurrentWordWithYank()<CR>
 " -----------------------------------------------------------
 " test
 function! s:Test()
-	" neosnippet#helpers#get_completion_snippets()の結果を表示
-	let l:snippets = neosnippet#helpers#get_completion_snippets()
-	echo l:snippets
+  let l:word = input("post > ", "")
+  execute "DSkySay"
+	let pos = getpos(".")
+	execute ":normal a" . l:word
+	call setpos('.', pos)
+  call feedkeys("\<Esc>", 'n')  " normalモードに移行
+  execute "normal \<Plug>(dsky_say_post_buffer)"
+
+  call mstdn#request#post("takets@social.penguinability.net", #{status: l:word})
 endfunction
 
 command! -range -nargs=0 Test call s:Test()
