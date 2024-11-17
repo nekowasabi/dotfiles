@@ -81,6 +81,7 @@ function! NearestMethodOrFunction()
   return ' :No Function'
 endfunction
 
+
 " By default vista.vim never run if you don't call it explicitly.
 "
 " If you want to show the nearest function in your statusline automatically,

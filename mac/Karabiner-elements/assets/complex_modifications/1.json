@@ -908,6 +908,9 @@
 					},
 					"to": [
 						{
+							"key_code": "lang2"
+						},
+						{
 							"key_code": "j"
 						},
 						{
@@ -916,6 +919,58 @@
 						{
 							"key_code": "lang2"
 						},
+						{
+							"key_code": "q",
+							"modifiers": ["shift"]
+						},
+						{
+							"key_code": "j"
+						},
+						{
+							"key_code": "j"
+						},
+            {
+              "key_code": "return_or_enter"
+            }
+					],
+					"conditions": [
+						{
+							"type": "frontmost_application_if",
+							"bundle_identifiers": [
+								"^com\\.electron\\.taskchute-cloud",
+								"com\\.vivaldi\\.Vivaldi"
+							]
+						}
+					]
+        },
+				{
+					"type": "basic",
+          "description": "平均値に更新",
+					"from": {
+						"key_code": "a",
+						"modifiers": {
+							"mandatory": [
+								"control"
+							]
+						}
+					},
+					"to": [
+						{
+							"key_code": "lang2"
+						},
+						{
+							"key_code": "q",
+							"modifiers": ["shift"]
+						},
+						{
+							"key_code": "j"
+						},
+						{
+							"key_code": "j"
+						},
+            {
+              "key_code": "return_or_enter"
+            },
 						{
 							"key_code": "lang2"
 						}
