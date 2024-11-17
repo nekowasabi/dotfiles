@@ -74,7 +74,7 @@ require("gp").setup({
         .. "The user provided the additional info about how they would like you to respond:\n\n"
         .. "- If you're unsure don't guess and say you don't know instead.\n"
         .. "- Ask question if you need clarification to provide better answer.\n"
-        .. "- Think deeply and carefully from first principles step by step.\n"
+        .. "- Thin deeply and carefully from first principles step by step.\n"
         .. "- Zoom out first to see the big picture and then zoom in to details.\n"
         .. "- Use Socratic method to improve your thinking and coding skills.\n"
         .. "- Don't elide any code from your output if the answer requires coding.\n"
@@ -85,8 +85,25 @@ require("gp").setup({
     RewriteOMini = function(gp, params)
       local template = "Having following from {{filename}}:\n\n"
         .. "```{{filetype}}\n{{selection}}\n```\n\n"
-        .. "Please rewrite this according to the contained instructions."
-        .. "\n\nRespond exclusively with the snippet that should replace the selection above."
+        .. "Please rewrite this according to the contained instructions.\n\n"
+        .. ".以下のテキストに以下の処理を行ってください\n\n"
+        .. "# Do\n"
+        .. "- 誤字脱字の修正\n"
+        .. "- 英単語のスペルミスの修正\n"
+        .. "- 適切な句読点を追加\n"
+        .. "- テキストの意味を損なわないように、slackでのメッセージとして伝わるように変換する\n"
+        .. "- 必要に応じて段落分けも行う\n\n"
+        .. "# Not to do\n"
+        .. "- 行頭に・がある時は削除しないでください\n"
+        .. "- 語尾は変更しないでください\n"
+        .. "- 「余分な説明は不要です」\n"
+        .. "- 「挨拶や前置きは省略してください」\n"
+        .. "- 「追加の説明や例示は不要です」\n"
+        .. "- テキストを「」囲まないでください\n"
+        .. "- 以下のように修正しました。は不要です\n"
+        .. "- テキストの修正結果のみを返してください\n"
+        .. "- ダブルクオテーションで囲まないでください\n"
+
 
       local agent = gp.get_command_agent()
       gp.logger.info("Implementing selection with agent: " .. agent.name)
@@ -112,6 +129,15 @@ require("gp").setup({
   chat_shortcut_new = { modes = { "n", "i", "v", "x" }, shortcut = "<C-c>c" }
 })
 EOF
+
+function! s:RewriteLine() abort
+  " カーソルのある行を選択
+  normal! V
+
+  '<,'>GpRewriteOMini
+endfunction
+nnoremap <silent> <C-y> :call <SID>RewriteLine()<CR>
+
 
 " 選択範囲のテキストをechoするコマンド
 function! GpRewriteTidyToMarkdown()
