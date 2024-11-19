@@ -14684,13 +14684,13 @@
                                 ],
                                 "description": "IME OFFして決定",
                                 "from": {
-                                    "key_code": "n",
+                                    "key_code": "m",
                                     "modifiers": { "mandatory": ["control"] }
                                 },
                                 "to": [
+                                    { "key_code": "return_or_enter" },
                                     { "key_code": "lang2" },
-                                    { "key_code": "lang2" },
-                                    { "key_code": "return_or_enter" }
+                                    { "key_code": "lang2" }
                                 ],
                                 "type": "basic"
                             }

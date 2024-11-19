@@ -989,24 +989,24 @@
           "type": "basic",
           "description": "IME OFFして決定",
           "from": {
-            "key_code": "m",
+            "key_code": "n",
             "modifiers": {
               "mandatory": [
                 "control"
               ]
             }
           },
-          "to": [
+					"to": [
+						{
+							"key_code": "lang2"
+						},
+						{
+							"key_code": "lang2"
+						},
             {
               "key_code": "return_or_enter"
-            },
-            {
-              "key_code": "lang2"
-            },
-            {
-              "key_code": "lang2"
             }
-          ],
+					],
           "conditions": [
             {
               "type": "frontmost_application_if",
