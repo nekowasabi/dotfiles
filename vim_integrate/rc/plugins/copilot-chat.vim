@@ -4,6 +4,7 @@ copilot_chat.setup({
   debug = false,
   show_system_prompt = false,
 	model = "claude-3.5-sonnet",
+	chat_autocomplete = true,
   mappings = {
     complete = {
       detail = 'Use @<Tab> or /<Tab> for options.',
