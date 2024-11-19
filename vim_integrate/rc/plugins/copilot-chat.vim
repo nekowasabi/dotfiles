@@ -17,11 +17,12 @@ copilot_chat.setup({
       insert = '<C-c>'
     },
     submit_prompt = {
-      normal = 'gm',
-      insert = '<C-m>'
+      normal = '<CR>',
+      insert = '<C-s>'
     },
     accept_diff = {
       normal = 'ga',
+      insert = '<C-y>'
     },
     show_diff = {
       normal = 'gd'
@@ -33,13 +34,14 @@ copilot_chat.setup({
       normal = 'gs'
     },
   },
+  -- default window options
   window = {
-    layout = 'horizontal', -- 'vertical', 'horizontal', 'float'
+    layout = 'vertical', -- 'vertical', 'horizontal', 'float', 'replace'
+    width = 0.5, -- fractional width of parent, or absolute width in columns when > 1
+    height = 0.5, -- fractional height of parent, or absolute height in rows when > 1
     -- Options below only apply to floating windows
     relative = 'editor', -- 'editor', 'win', 'cursor', 'mouse'
-    border = 'double', -- 'none', single', 'double', 'rounded', 'solid', 'shadow'
-    width = 0.8, -- fractional width of parent
-    height = 0.6, -- fractional height of parent
+    border = 'single', -- 'none', single', 'double', 'rounded', 'solid', 'shadow'
     row = nil, -- row position of the window, default is centered
     col = nil, -- column position of the window, default is centered
     title = 'Copilot Chat', -- title of chat window
@@ -90,13 +92,13 @@ copilot_chat.setup({
 EOF
 
 " CopilotChat
-vnoremap <CR>cr :CopilotChatReview
-vnoremap <CR>ce :CopilotChatExplain
-vnoremap <CR>cc :CopilotChat 
+vnoremap <leader>cr :CopilotChatReview
+vnoremap <leader>ce :CopilotChatExplain
+vnoremap <leader>cc :CopilotChat 
 vnoremap <M-c> :CopilotChat 
 vnoremap <D-c> :CopilotChat 
-vnoremap <CR>cf :CopilotChatFix 
-vnoremap <CR>co :CopilotChatOptimize 
-nnoremap <CR>cc :CopilotChat<CR>
+vnoremap <leader>cf :CopilotChatFix 
+vnoremap <leader>co :CopilotChatOptimize 
+nnoremap <leader>cc :CopilotChat<CR>
 nnoremap <silent> <M-c> :CopilotChat<CR>
 nnoremap <silent> <D-c> :CopilotChat<CR>

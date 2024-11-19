@@ -1,5 +1,5 @@
 let mapleader = "\<Space>"
-
+ 
 " global keybind {{{1
 nnoremap <silent><C-j> }
 nnoremap <silent><C-k> {

@@ -476,7 +476,7 @@ function! s:ddu_uu_my_settings() abort
         \ <Cmd>call ddu#ui#do_action('itemAction')<CR>
   nnoremap <buffer><silent> o
         \ <Cmd>call ddu#ui#do_action('itemAction')<CR>
-  nnoremap <buffer><silent> ,
+  nnoremap <buffer><silent> :
         \ <Cmd>call ddu#ui#do_action('itemAction')<CR>
 
   call ddu#ui#ff#save_cmaps(['<C-j>', '<C-k>'])
@@ -575,8 +575,8 @@ function s:ddu_ff_filter_my_settings() abort
 
   cnoremap <C-c>
         \ <ESC><Cmd>call ddu#ui#do_action('itemAction')<CR>
-  cnoremap ,
-        \ <ESC><Cmd>call ddu#ui#do_action('itemAction')<CR>
+  " cnoremap ,
+  "       \ <ESC><Cmd>call ddu#ui#do_action('itemAction')<CR>
 endfunction
 autocmd User Ddu:ui:ff:closeFilterWindow
       \ call s:ddu_ff_filter_cleanup()

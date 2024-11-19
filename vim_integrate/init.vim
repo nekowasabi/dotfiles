@@ -102,6 +102,10 @@ nnoremap <leader>PP :call <SID>CrossPost()<CR>
 " lua
 lua << EOF
 
+require('render-markdown').setup({
+  file_types = { 'markdown', 'copilot-chat' },
+})
+
 if vim.fn.executable("nvr") == 1 then
   vim.env.GIT_EDITOR = "nvr --remote-tab-wait +'set bufhidden=delete'"
 end
@@ -144,8 +148,6 @@ vim.keymap.set({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
 require('Comment').setup()
 
 require("mason").setup()
-
-
 
 -- avante {{{1
 require("img-clip").setup({
