@@ -98,6 +98,9 @@ function! s:CrossPost()
 endfunction
 nnoremap <leader>PP :call <SID>CrossPost()<CR>
 
+" Previm
+let g:previm_open_cmd = 'open -a "Microsoft Edge"'
+
 " -----------------------------------------------------------
 " lua
 lua << EOF
