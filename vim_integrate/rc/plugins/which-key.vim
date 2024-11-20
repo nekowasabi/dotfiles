@@ -86,7 +86,14 @@ wk.add({
   { "[",   desc = "+Prev" }
 })
 
--- AI/Chat features
+-- edge-motion
+wk.add({
+  { "<C-x>j", desc = "<Plug>(edgemotion-j)" },
+  { "<C-x>k", desc = "<Plug>(edgemotion-k)" },
+})
+
+
+-- ddu
 wk.add({
   { "<leader>gf", desc = "ddu File External" },
   { "<leader>H", desc = "ddu Help" },
@@ -221,6 +228,17 @@ wk.register({
       m = { "<Plug>(git-messenger)", "Git Messenger" },
       P = { ":GpContext<CR>", "GPT Context" , group = "gp" },
       r = { ":GpRewrite<Space>", "GPT Rewrite", mode = "v", group = "gp" },
+      c = {
+        name = "+CopilotChat",
+        r = { ":CopilotChatReview", "Review", mode = "v" },
+        e = { ":CopilotChatExplain", "Explain", mode = "v" },
+        c = { 
+          { ":CopilotChat", "Chat", mode = "n" },
+          { ":CopilotChat", "Chat Selection", mode = "v" }
+        },
+        f = { ":CopilotChatFix", "Fix", mode = "v" },
+        o = { ":CopilotChatOptimize", "Optimize", mode = "v" },
+      },
     },
     -- Yanky & Utils
     y = { ":Telescope yank_history<CR>", "Yank History", group = "telescope" },
@@ -237,7 +255,7 @@ wk.register({
       u = { ":PHPUnitCurrentMethod<CR>", "Test Method" }
     },
     -- File & Window
-    f = { ":Defx `expand('%:p:h')` -search=`expand('%:p')`<CR>", "File Explorer" },
+    f = { ":Yazi", "File Explorer" },
     D = { ":Sayonara<CR>", "Close Buffer" },
     d = { ":Sayonara!<CR>", "Force Close Buffer" },
     w = { "<Plug>(choosewin)", "Choose Window" },
