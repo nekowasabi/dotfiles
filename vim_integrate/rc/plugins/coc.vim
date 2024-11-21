@@ -98,7 +98,7 @@ let g:coc_supported_filetypes = [
       \ 'sh'
       \ ]
 let g:coc_disabled_filetypes = ['noice']
-let g:coc_toggle_delay = 200
+let g:coc_toggle_delay = 50
 let g:is_coc_enabled = v:true
 
 " Check if current filetype should enable Coc
@@ -122,7 +122,6 @@ endfunction
 function! ToggleCocByFileType() abort
   if s:ShouldEnableCoc()
     let l:commands = [
-          \ 'execute "silent! CocStart"',
           \ 'execute "silent! CocEnable"',
           \ 'let g:your_cmp_disable_enable_toggle = v:false'
           \ ]
@@ -137,6 +136,9 @@ function! ToggleCocByFileType() abort
 
   call s:ExecuteCocCommands(l:commands)
 endfunction
+
+
+          " \ 'execute "silent! CocStart"',
 
 " Restore previous Coc state
 function! RestoreCocByFileType() abort
