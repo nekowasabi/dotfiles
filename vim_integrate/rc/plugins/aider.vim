@@ -2,10 +2,10 @@ if g:IsMacNeovim() || g:IsWsl()
 	" sonnet
   " let g:aider_command = 'aider --no-auto-commits --chat-language ja --no-stream --architect --model anthropic/claude-3-5-sonnet-20241022 --editor-model anthropic/claude-3-5-sonnet-20241022 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands'
   " haiku
-  let g:aider_command = 'aider --no-auto-commits --chat-language=ja --no-stream --architect --model anthropic/claude-3-5-sonnet-20241022 --editor-model anthropic/claude-3-5-haiku-20241022 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands'
+  " let g:aider_command = 'aider --no-auto-commits --chat-language=ja --no-stream --architect --model anthropic/claude-3-5-sonnet-20241022 --editor-model anthropic/claude-3-5-haiku-20241022 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands'
 
   " gpt-4o
-  " let g:aider_command = 'aider --no-auto-commits --chat-language ja --no-stream --architect --model  openai/gpt-4o --editor-model openai/gpt-4o --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands'
+  let g:aider_command = 'aider --no-auto-commits --chat-language ja --no-stream --architect --model  openai/gpt-4o --editor-model openai/gpt-4o --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands'
 
 
   " vhs用
