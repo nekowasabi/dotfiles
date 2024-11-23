@@ -181,7 +181,7 @@
   },
   "laravel.codeAction.enable": true,
   "[typescript]": {
-    "coc.preferences.formatOnSave": true
+    "coc.preferences.formatOnSave": false
   },
   "languageserver": {
     "sql": {
@@ -192,7 +192,7 @@
     }
   },
   "deno.lint": false,
-  "biome.enable": true,
+  "biome.enable": false,
   "biome.trace.server": "verbose",
   "biome.requireConfiguration": true
 }

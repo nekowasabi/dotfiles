@@ -86,7 +86,10 @@ nnoremap <leader>Pb :DSkySay<CR>
 nnoremap <leader>Pm <Plug>(mstdn-editor-open)
 
 function! s:CrossPost()
-  let l:word = input("post > ", "")
+  let l:word = input("post > ", "") . " #vimconf"
+  if l:word == " #vimconf"
+    return
+  endif
   execute "DSkySay"
 	let pos = getpos(".")
 	execute ":normal a" . l:word
@@ -95,8 +98,14 @@ function! s:CrossPost()
   execute "normal \<Plug>(dsky_say_post_buffer)"
 
   call mstdn#request#post("takets@social.penguinability.net", #{status: l:word})
+
+  " クリップボードにコピー
+  let @+ = l:word
+  let @* = l:word
 endfunction
 nnoremap <leader>PP :call <SID>CrossPost()<CR>
+nnoremap <M-p> :call <SID>CrossPost()<CR>
+nnoremap <D-p> :call <SID>CrossPost()<CR>
 
 " Previm
 let g:previm_open_cmd = 'open -a "Microsoft Edge"'

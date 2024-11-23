@@ -1,33 +1,41 @@
 let g:ale_completion_enabled = 0
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_enter = 1
+let g:ale_lint_on_text_changed = 1
 let g:ale_lint_on_save = 1
 let g:ale_lint_delay = 100
+let g:ale_fix_on_save = 1
 
 " neovimのvirtual textでlintのメッセージを表示
 let g:ale_virtualtext_cursor = 0
 
 let g:ale_linters = {
       \   'shd': ['textlint'],
-			\   'typescript': ['deno']
+			\   'typescript': ['biome'],
+			\   'javascript': ['biome'],
       \}
 let g:ale_fixers = {
-    \   'typescript': ['deno'],
+    \   'typescript': ['biome'],
+    \   'javascript': ['biome'],
     \}
 
-let g:ale_sign_error = ''
-let g:ale_sign_warning = ''
-let g:ale_sign_info = ''
+let g:ale_sign_error = '❌'
+let g:ale_sign_warning = '⚠️'
+let g:ale_sign_info = 'ℹ️'
 
 " エラー表示の列を常時表示
 let g:ale_sign_column_always = 0
 
-let g:ale_set_loclist = 0
+let g:ale_set_loclist = 1
 let g:ale_set_quickfix = 0
-let g:ale_open_list = 0
-let g:ale_keep_list_window_open = 0 
-let g:ale_disable_lsp = 1
+let g:ale_open_list = 1
+let g:ale_keep_list_window_open = 0
+let g:ale_disable_lsp = 0
 
+" biome
+let g:ale_biome_executable = '/usr/local/bin/biome'
+let g:ale_biome_use_global = 1
+
+" textlint
 call ale#linter#Define('shd', {
       \   'name': 'textlint',
       \   'executable': function('ale#handlers#textlint#GetExecutable'),

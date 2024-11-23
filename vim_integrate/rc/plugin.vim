@@ -66,6 +66,8 @@ Plug 'tyru/open-browser.vim'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'vim-jp/vital.vim'
 Plug 'yuki-yano/lexima-alter-command.vim'
+
+
 " AI
 
 if g:IsWindowsGvim()
@@ -100,6 +102,7 @@ Plug 'osyo-manga/vim-textobj-multiblock'
 Plug 'osyo-manga/vim-textobj-multitextobj'
 Plug 'sgur/vim-textobj-parameter'
 Plug 'thalesmello/vim-textobj-methodcall'
+Plug 'dense-analysis/ale'
 
  " Plug 'wellle/targets.vim'
 
