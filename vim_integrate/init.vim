@@ -86,8 +86,8 @@ nnoremap <leader>Pb :DSkySay<CR>
 nnoremap <leader>Pm <Plug>(mstdn-editor-open)
 
 function! s:CrossPost()
-  let l:word = input("post > ", "") . " #vimconf"
-  if l:word == " #vimconf"
+  let l:word = input("post > ", "")
+  if l:word == ""
     return
   endif
   execute "DSkySay"
@@ -109,6 +109,8 @@ nnoremap <D-p> :call <SID>CrossPost()<CR>
 
 " Previm
 let g:previm_open_cmd = 'open -a "Microsoft Edge"'
+
+" temp
 
 " -----------------------------------------------------------
 " lua
@@ -145,6 +147,7 @@ require("yanky").setup({
     sync_with_ring = true,
   }
 })
+
 
 vim.keymap.set({"n","x"}, "p", "<Plug>(YankyPutAfter)")
 vim.keymap.set({"n","x"}, "P", "<Plug>(YankyPutBefore)")

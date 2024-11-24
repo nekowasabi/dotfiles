@@ -232,10 +232,10 @@ EOF
 vnoremap <leader>cr :CopilotChatReview
 vnoremap <leader>ce :CopilotChatExplain
 vnoremap <leader>cc :CopilotChat 
+vnoremap <Tab> :CopilotChat 
 vnoremap <leader>cf :CopilotChatFix 
 vnoremap <leader>co :CopilotChatOptimize 
 nnoremap <leader>cc :CopilotChat<CR>
-vnoremap <M-c> :CopilotChat 
-vnoremap <D-c> :CopilotChat 
+vnoremap <M-c> :CopilotChat vnoremap <D-c> :CopilotChat 
 nnoremap <silent> <M-c> :CopilotChat<CR>
 nnoremap <silent> <D-c> :CopilotChat<CR>

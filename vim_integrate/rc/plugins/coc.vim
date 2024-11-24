@@ -3,7 +3,7 @@
 let g:coc_global_extensions = [
   \  'coc-json'
   \, 'coc-lists'
-  \, 'coc-eslint'
+	\, 'coc-eslint'
   \, 'coc-tsserver'
   \, 'coc-diagnostic'
   \, 'coc-vimlsp'

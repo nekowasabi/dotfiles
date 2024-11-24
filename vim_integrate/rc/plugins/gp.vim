@@ -131,13 +131,19 @@ require("gp").setup({
 EOF
 
 function! s:RewriteLine() abort
-  " カーソルのある行を選択
-  normal! V
-
-  '<,'>GpRewriteOMini
+  if mode() ==# 'n'
+    " normal modeの場合は現在行を選択
+    normal! V
+    '<,'>GpRewriteOMini
+  else
+    " visual modeの場合は選択範囲をそのまま使用
+    GpRewriteOMini
+  endif
 endfunction
-nnoremap <silent> <C-y> :call <SID>RewriteLine()<CR>
 
+" normal modeとvisual modeで同じキーマッピングを使用
+nnoremap <silent> <C-y> :call <SID>RewriteLine()<CR>
+vnoremap <silent> <C-y> :call <SID>RewriteLine()<CR>
 
 " 選択範囲のテキストをechoするコマンド
 function! GpRewriteTidyToMarkdown()

@@ -499,7 +499,7 @@ function! s:ddu_uu_my_settings() abort
         \ <Cmd>call ddu#ui#do_action('openFilterWindow')<CR>
   nnoremap <buffer><silent> c
         \ <Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>
-  nnoremap <buffer> r
+  nnoremap <buffer> f
         \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'quickfix' })<CR>
   nnoremap <buffer><silent> p
         \ <Cmd>call ddu#ui#do_action('preview')<CR>

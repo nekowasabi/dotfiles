@@ -184,6 +184,8 @@ onoremap i<CR> iW
 xnoremap i<CR> iW
 nnoremap <silent> <M-p> :normal! vip<CR>
 nnoremap <silent> <D-p> :normal! vip<CR>
+nnoremap <silent> <Space><CR> ciW
+nnoremap <silent> <CR><Space> ciw
 
 xnoremap a" 2i"
 xnoremap a' 2i'
