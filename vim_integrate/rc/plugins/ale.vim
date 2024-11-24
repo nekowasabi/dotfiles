@@ -25,14 +25,18 @@ let g:ale_sign_info = 'ℹ️'
 " エラー表示の列を常時表示
 let g:ale_sign_column_always = 0
 
-let g:ale_set_loclist = 1
+let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 0
-let g:ale_open_list = 1
+let g:ale_open_list = 0
 let g:ale_keep_list_window_open = 0
 let g:ale_disable_lsp = 0
 
 " biome
+if g:IsWsl()
+  let g:ale_biome_executable = '/home/linuxbrew/.linuxbrew/bin/biome'
+else
 let g:ale_biome_executable = '/usr/local/bin/biome'
+endif
 let g:ale_biome_use_global = 1
 
 " textlint

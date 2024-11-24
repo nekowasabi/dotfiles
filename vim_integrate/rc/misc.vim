@@ -382,15 +382,17 @@ nnoremap <silent> ,rw :call ReplaceCurrentWordWithYank()<CR>
 " -----------------------------------------------------------
 " test
 function! s:Test()
-  let l:word = input("post > ", "")
-  execute "DSkySay"
-	let pos = getpos(".")
-	execute ":normal a" . l:word
-	call setpos('.', pos)
-  call feedkeys("\<Esc>", 'n')  " normalモードに移行
-  execute "normal \<Plug>(dsky_say_post_buffer)"
+  " 現在のブランチ名を取得
+  let current_branch = trim(system('git rev-parse --abbrev-ref HEAD'))
 
-  call mstdn#request#post("takets@social.penguinability.net", #{status: l:word})
+  " 親ブランチ名を取得（通常はmainまたはmaster）
+  let parent_branch = trim(system('git show-branch | sed "s/].*//" | grep "\*" | grep -v "' . current_branch . '" | head -n1 | sed "s/^.*\[//"'))
+
+  " 差分を取得
+  let diff_result = system('git diff ' . parent_branch . '...' . current_branch)
+
+  " 結果を表示
+  echo diff_result
 endfunction
 
 command! -range -nargs=0 Test call s:Test()
