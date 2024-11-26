@@ -274,6 +274,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'gw31415/mstdn.vim'
   Plug 'MeanderingProgrammer/markdown.nvim' " Recommended: Better visibility of hashtags and other links
   Plug 'gw31415/mstdn-editor.vim'
+	Plug 'tochikuji/cr-remover.nvim'
 
   call g:SetDdu()
 

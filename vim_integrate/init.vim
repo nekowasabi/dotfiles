@@ -116,6 +116,13 @@ let g:previm_open_cmd = 'open -a "Microsoft Edge"'
 " lua
 lua << EOF
 
+require('cr-remover').setup{{
+  exclude_patterns = { "%.git/" },
+  auto_remove_on_save = true,
+  auto_remove_on_paste = true,
+  debug = true
+}}
+
 require('render-markdown').setup({
   file_types = { 'markdown', 'copilot-chat' },
 })
