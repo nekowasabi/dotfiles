@@ -1,6 +1,6 @@
 let g:ale_completion_enabled = 0
-let g:ale_lint_on_enter = 1
-let g:ale_lint_on_text_changed = 1
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_save = 1
 let g:ale_lint_delay = 100
 let g:ale_fix_on_save = 1
@@ -30,6 +30,12 @@ let g:ale_set_quickfix = 0
 let g:ale_open_list = 0
 let g:ale_keep_list_window_open = 0
 let g:ale_disable_lsp = 0
+let g:ale_hover_to_preview = 0
+let g:ale_hover_to_floating_preview = 0
+let g:ale_set_balloons = 0
+let g:ale_virtualtext_cursor = 0
+let g:ale_set_balloons_legacy_echo = 0
+let g:ale_echo_cursor = 0
 
 " biome
 if g:IsWsl()

@@ -161,7 +161,7 @@ function! OpenCommandLineByCmp() abort
   let g:your_cmp_disable_enable_toggle = v:true
 endfunction
 
-nnoremap <Leader>: :silent call OpenCommandLineByCmp()<CR>:
+nnoremap <expr> <Leader>: ":\<C-u>silent call OpenCommandLineByCmp()\<CR>:"
 
 " for PHP
 " autocmd BufWritePre *.php call CocActionAsync('format')
