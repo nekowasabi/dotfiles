@@ -249,7 +249,6 @@ if g:IsMacNeovim() || g:IsWsl()
 	Plug 'sigmaSd/deno-nvim'
   Plug 'mfussenegger/nvim-dap'
   Plug 'rcarriga/nvim-dap-ui'
-  Plug 'nvim-neotest/nvim-nio'
   Plug 'theHamsta/nvim-dap-virtual-text'
 	Plug 'nvim-telescope/telescope-dap.nvim'
   Plug 'numToStr/Comment.nvim'
@@ -275,6 +274,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'MeanderingProgrammer/markdown.nvim' " Recommended: Better visibility of hashtags and other links
   Plug 'gw31415/mstdn-editor.vim'
 	Plug 'tochikuji/cr-remover.nvim'
+  Plug 'nvim-neotest/nvim-nio'
 
   call g:SetDdu()
 

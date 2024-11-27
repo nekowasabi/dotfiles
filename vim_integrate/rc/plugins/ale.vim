@@ -25,17 +25,19 @@ let g:ale_sign_info = 'ℹ️'
 " エラー表示の列を常時表示
 let g:ale_sign_column_always = 0
 
+let g:ale_disable_lsp = 1
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 0
 let g:ale_open_list = 0
 let g:ale_keep_list_window_open = 0
-let g:ale_disable_lsp = 0
 let g:ale_hover_to_preview = 0
 let g:ale_hover_to_floating_preview = 0
 let g:ale_set_balloons = 0
 let g:ale_virtualtext_cursor = 0
 let g:ale_set_balloons_legacy_echo = 0
 let g:ale_echo_cursor = 0
+let g:ale_echo_delay = 5000
+let g:ale_lsp_suggestions = 0
 
 " biome
 if g:IsWsl()
