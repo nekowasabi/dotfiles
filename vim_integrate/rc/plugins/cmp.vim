@@ -103,8 +103,28 @@ cmp.setup.filetype('markdown', {
       },
     },
     { name = 'neosnippet', keyword_length = 3 },
+    { name = 'context_nvim' }
   })
 })
+
+cmp.setup.filetype('copilot-chat', {
+  sources = cmp.config.sources({
+  { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+  },
+  {
+    { name = 'buffer',
+      option = {
+        get_bufnrs = function()
+        return vim.api.nvim_list_bufs()
+        end
+      },
+    },
+    { name = 'neosnippet', keyword_length = 3 },
+    { name = 'context_nvim' }
+  })
+})
+
+
 
 cmp.setup.filetype('changelog', {
   snippet = {
@@ -144,8 +164,6 @@ cmp.setup.filetype('AvanteInput', {
       },
   })
 })
-
-
 
 cmp.setup.filetype('text', {
   sources = cmp.config.sources(

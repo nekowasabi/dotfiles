@@ -20,7 +20,7 @@ endif
 if g:IsMacNeovim()
   let s:FilerHeight = 60
   let s:Width = round(&columns)
-  let s:Height = round(&lines * 0.3)
+  let s:Height = round(&lines * 0.9)
   let s:WinRow = 2
   let s:WinCol = 2
   let s:previewWidth = round(&columns) 
@@ -74,8 +74,8 @@ call ddu#custom#patch_global(#{
     \         floatingTitle: 'ddu',
     \         floatingTitlePos: 'left',
     \         split: 'floating',
-    \         autoAction: #{name: "preview", sync: v:true},
-    \         startAutoAction: v:true,
+    \         autoAction: #{name: "preview", sync: v:false},
+    \         startAutoAction: v:false,
     \         previewSplit: s:previewSplit,
     \         previewFloatingBorder: s:previewFloatingBorder,
     \         previewWidth: s:previewWidth,
@@ -499,10 +499,10 @@ function! s:ddu_uu_my_settings() abort
         \ <Cmd>call ddu#ui#do_action('openFilterWindow')<CR>
   nnoremap <buffer><silent> c
         \ <Cmd>call ddu#ui#do_action('closeFilterWindow')<CR>
+  nnoremap <buffer><silent> p
+        \ <Cmd>call ddu#ui#do_action('togglePreview')<CR>
   nnoremap <buffer> f
         \ <Cmd>call ddu#ui#do_action('itemAction', #{ name: 'quickfix' })<CR>
-  nnoremap <buffer><silent> p
-        \ <Cmd>call ddu#ui#do_action('preview')<CR>
   nnoremap <buffer><silent> e
         \ <Cmd>call ddu#ui#do_action('expandItem', {'mode': 'toggle'})<CR>
   nnoremap <buffer><silent> q

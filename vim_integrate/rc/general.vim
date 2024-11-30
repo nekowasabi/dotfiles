@@ -90,8 +90,8 @@ set splitbelow            " 新しく開くときに下に開く
 set splitright            " 新しく開くときに右に開く
 set formatoptions=q
 set fileformats=unix,dos,mac
-set signcolumn=auto
 set autoread
+set signcolumn=yes
 
 let &grepprg='rg --vimgrep'
 
