@@ -33,24 +33,21 @@ let g:ale_linters = {
       \   'shd': ['textlint'],
 			\   'typescript': ['biome'],
 			\   'javascript': ['biome'],
-		  \   'php': ['php-cs', 'pint', 'intelephense'],
+		  \   'php': ['pint', 'intelephense', 'phpstan'],
       \}
 let g:ale_fixers = {
     \   'typescript': ['biome'],
     \   'javascript': ['biome'],
-		\   'php': ['php_cs_fixer', 'pint'],
+		\   'php': ['pint'],
     \}
 
 " php
 if g:IsMacNeovimInWork()
   let g:ale_php_pint_executable = $BACKEND_LARAVEL_MAC_DIR.'/vendor/bin/pint'
-  let g:ale_php_cs_fixer_executable = $BACKEND_LARAVEL_MAC_DIR.'/tools/php-cs-fixer/vendor/bin/php-cs-fixer'
 elseif g:IsWsl()
-  let g:ale_php_pint_executable = '/home/linuxbrew/.linuxbrew/bin/pint'
-  let g:ale_php_cs_fixer_executable = '/home/linuxbrew/.linuxbrew/bin/php-cs-fixer'
+  let g:ale_php_pint_executable = '/home/takets/.config/coc/extensions/coc-php-cs-fixer-data/pint'
 else
-  let g:ale_php_pint_executable = '~/repos/laravel/vendor/bin/pint'
-  let g:ale_php_cs_fixer_executable = '~/repos/laravel/tools/php-cs-fixer/vendor/bin/php-cs-fixer'
+  let g:ale_php_pint_executable = '~/.config/coc/extensions/coc-php-cs-fixer-data/pint'
 endif
 let g:ale_php_langserver_use_global = 1
 

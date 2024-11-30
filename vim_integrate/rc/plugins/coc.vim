@@ -97,7 +97,7 @@ let g:coc_supported_filetypes = [
       \ 'json',
       \ 'sh'
       \ ]
-let g:coc_disabled_filetypes = ['noice']
+let g:coc_disabled_filetypes = ['noice', 'markdown']
 let g:coc_toggle_delay = 50
 let g:is_coc_enabled = v:true
 
@@ -162,8 +162,8 @@ function! OpenCommandLineByCmp() abort
 endfunction
 
 nnoremap <Leader>: :
-" nnoremap <expr> <Leader>: ":\<C-u>silent call OpenCommandLineByCmp()\<CR>:"
 autocmd CmdlineEnter * silent call OpenCommandLineByCmp()
+" autocmd CmdlineLeave * silent call OpenCommandLineByCmp()
 
 " for PHP
 " autocmd BufWritePre *.php call CocActionAsync('format')

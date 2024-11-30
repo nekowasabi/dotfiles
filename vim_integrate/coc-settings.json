@@ -79,7 +79,7 @@
   "intelephense.files.associations": ["*.inc", "*.php", "*Test.php", "*.phtml"],
   "intelephense.environment.includePaths": ["_ide_helper.php", "_ide_helper_models.php", ".phpstorm.meta.php"],
   "intelephense.files.maxSize": 10000000000,
-  "intelephense.format.enable": false,
+  "intelephense.format.enable": true,
   "intelephense.diagnostics.typeErrors": true,
   "intelephense.completion.triggerParameterHints": true,
   "intelephense.compatibility.correctForBaseClassStaticUnionTypes": true,
