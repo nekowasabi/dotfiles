@@ -382,17 +382,24 @@ nnoremap <silent> ,rw :call ReplaceCurrentWordWithYank()<CR>
 " -----------------------------------------------------------
 " test
 function! s:Test()
-  " 現在のブランチ名を取得
-  let current_branch = trim(system('git rev-parse --abbrev-ref HEAD'))
-
-  " 親ブランチ名を取得（通常はmainまたはmaster）
-  let parent_branch = trim(system('git show-branch | sed "s/].*//" | grep "\*" | grep -v "' . current_branch . '" | head -n1 | sed "s/^.*\[//"'))
-
-  " 差分を取得
-  let diff_result = system('git diff ' . parent_branch . '...' . current_branch)
-
+  " g:switch_ruleからファイルを読み込む
+  let l:rule = g:switch_rule
+  let l:file = readfile(l:rule)
+  
+  " JSONデータを文字列として結合
+  let l:json_str = join(l:file, "\n") 
+  
+  " JSONをデコード
+  let l:data = json_decode(l:json_str)
+  
+  " nameの配列を作成
+  let l:names = []
+  for condition in l:data.conditions
+    call add(l:names, condition.name)
+  endfor
+  
   " 結果を表示
-  echo diff_result
+  echo l:names
 endfunction
 
 command! -range -nargs=0 Test call s:Test()
