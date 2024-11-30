@@ -15,7 +15,6 @@ let g:coc_global_extensions = [
   \, 'coc-swagger'
   \, '@yaegassy/coc-volar-tools'
   \, '@yaegassy/coc-volar'
-  \, 'coc-php-cs-fixer'
   \, 'coc-fzf-preview'
   \, 'coc-sh'
   \, 'coc-yaml'
@@ -28,6 +27,7 @@ let g:coc_global_extensions = [
   \ ]
 
 
+  " \, 'coc-php-cs-fixer'
   " \, '@yaegassy/coc-phpstan'
 
 let g:markdown_fenced_languages = [
@@ -166,15 +166,15 @@ nnoremap <expr> <Leader>: ":\<C-u>silent call OpenCommandLineByCmp()\<CR>:"
 " for PHP
 " autocmd BufWritePre *.php call CocActionAsync('format')
  
-function! CustomPhpFormat()
-    " 現在のファイル名が '*.blade.php' で終わるかどうかをチェック
-    if expand('%:t') !~ '\.blade\.php$'
-        " '*.blade.php' で終わらない場合はフォーマットを実行
-        call CocActionAsync('format')
-    endif
-endfunction
-
-" PHPファイルを保存前にCustomPhpFormat関数を呼び出す
-autocmd BufWritePre *.php call CustomPhpFormat()
+" function! CustomPhpFormat()
+"     " 現在のファイル名が '*.blade.php' で終わるかどうかをチェック
+"     if expand('%:t') !~ '\.blade\.php$'
+"         " '*.blade.php' で終わらない場合はフォーマットを実行
+"         call CocActionAsync('format')
+"     endif
+" endfunction
+"
+" " PHPファイルを保存前にCustomPhpFormat関数を呼び出す
+" autocmd BufWritePre *.php call CustomPhpFormat()
 
 "END

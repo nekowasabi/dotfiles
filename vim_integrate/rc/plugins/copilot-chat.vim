@@ -1,6 +1,11 @@
 lua << EOF
 local copilot_chat = require("CopilotChat")
 
+-- config.mappings.show_user_selection is deprecated, use config.mappings.show_context instead.
+-- Feature will be removed in CopilotChat.nvim 3.0.X
+-- config.mappings.show_system_prompt is deprecated, use config.mappings.show_info instead.
+-- Feature will be removed in CopilotChat.nvim 3.0.X
+
 copilot_chat.setup({
   utils = {
     get_default_branch = function()
@@ -98,7 +103,7 @@ copilot_chat.setup({
     end,
   },
   debug = false,
-  show_system_prompt = false,
+  show_info = false,
 	model = "claude-3.5-sonnet",
 	chat_autocomplete = true,
   mappings = {
@@ -124,10 +129,10 @@ copilot_chat.setup({
     show_diff = {
       normal = 'gd'
     },
-    show_system_prompt = {
+    show_info = {
       normal = 'gp'
     },
-    show_user_selection = {
+    show_context = {
       normal = 'gs'
     },
   },

@@ -1,7 +1,7 @@
 {
   "tsserver.enable": false,
   "diagnostic.enable": true,
-  "inlayHint.enable": true,
+  "inlayHint.enable": false,
   "suggest.virtualText": true,
   "suggest.noselect": true,
   "suggest.removeDuplicateItems": true,
@@ -79,7 +79,7 @@
   "intelephense.files.associations": ["*.inc", "*.php", "*Test.php", "*.phtml"],
   "intelephense.environment.includePaths": ["_ide_helper.php", "_ide_helper_models.php", ".phpstorm.meta.php"],
   "intelephense.files.maxSize": 10000000000,
-  "intelephense.format.enable": true,
+  "intelephense.format.enable": false,
   "intelephense.diagnostics.typeErrors": true,
   "intelephense.completion.triggerParameterHints": true,
   "intelephense.compatibility.correctForBaseClassStaticUnionTypes": true,
@@ -169,17 +169,7 @@
     "vim": "vint",
     "sh": "shellcheck",
     "javascript": "eslint",
-    "php": ["phpcs", "phpstan"]
   },
-  "php-cs-fixer.pint.config": "pint.json",
-  "php-cs-fixer.enable": true,
-  "php-cs-fixer.pint.preset": "laravel",
-  "php-cs-fixer.activateTool": "pint",
-  "php-cs-fixer.toolPath": "~/.config/coc/extensions/coc-php-cs-fixer-data/pint",
-  "[php]": {
-    "coc.preferences.formatOnSave": false
-  },
-  "laravel.codeAction.enable": true,
   "[typescript]": {
     "coc.preferences.formatOnSave": false
   },
