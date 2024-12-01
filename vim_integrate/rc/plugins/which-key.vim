@@ -204,7 +204,16 @@ wk.register({
     t = { ":OpenTentask<CR>GA", "Edit Tentask" },
     d = { ":CdCurrent<CR>", "CD Current" },
     cp = { ":CopyCurrentFilepath<CR>:echo \"Copied: \" . expand(\"%:p\")<CR>", "Copy Filepath" },
-    rr = { ":<C-U>call <SNR>17_source_script('%')<CR>", "Source Script" }
+    rr = { ":<C-U>call <SNR>17_source_script('%')<CR>", "Source Script" },
+    -- context
+    cc = {
+      name = "+ContextNvim",
+      f = { "ContextNvim add_current_file",     "add current",          mode = "n" },
+      l = { "ContextNvim add_line_lsp_daig",    "add lsp diag",         mode = "n" },
+      h = { "ContextNvim find_context_history", "find context history", mode = "n" },
+      m = { ":ContextNvim find_context_manual", "find manual context",  mode = "n" },
+      c = { "ContextNvim add_current",          "add selected",         mode = "x" },
+    },
   }
 }, {
   mode = "n",

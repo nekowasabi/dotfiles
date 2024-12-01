@@ -34,6 +34,7 @@ let g:ale_linters = {
 			\   'typescript': ['biome'],
 			\   'javascript': ['biome'],
 		  \   'php': ['pint', 'intelephense', 'phpstan'],
+		  \   'vim': ['vimls'],
       \}
 let g:ale_fixers = {
     \   'typescript': ['biome'],

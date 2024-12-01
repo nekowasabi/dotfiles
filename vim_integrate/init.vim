@@ -1,4 +1,5 @@
 " " minimum setting {{{1 source ~/.config/nvim/rc/env.vim
+"
 " if empty(g:GetAutoloadPath() . 'plug.vim')
 "   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 "     autocmd  VimEnter * PlugInstall | source $MYVIMRC
@@ -100,8 +101,13 @@ function! s:CrossPost()
   call mstdn#request#post("takets@social.penguinability.net", #{status: l:word})
 
   " クリップボードにコピー
-  let @+ = l:word
-  let @* = l:word
+  if g:IsWsl()
+    call setreg('+', l:word)
+    call setreg('*', l:word)
+  else
+    let @+ = l:word
+    let @* = l:word
+  endif
 endfunction
 nnoremap <leader>PP :call <SID>CrossPost()<CR>
 nnoremap <M-p> :call <SID>CrossPost()<CR>
@@ -117,6 +123,11 @@ nnoremap <silent> ,cch :ContextNvim find_context_history<CR>
 nnoremap <silent> ,ccm :ContextNvim find_context_manual<CR>
 vnoremap <silent> ,ccc :ContextNvim add_current<CR>
 
+function! s:ClearContext()
+  execute "ContextNvim clear_manual"
+  execute "ContextNvim clear_history"
+endfunction
+nnoremap <silent> ,ccc :call <SID>ClearContext()<CR>
 
 " temp
 
