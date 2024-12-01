@@ -1,0 +1,3 @@
+let l:bm_file_version = 1
+let l:bm_sessions = {'default': {'/Users/takets/.config/nvim/rc/plugins/which-key.vim': [{'sign_idx': 9500, 'line_nr': 136, 'content': '  { "-",         desc = "Switch", mode = "n" },'},],'/Users/takets/wezterm': [{'sign_idx': 9500, 'line_nr': 1, 'content': ''},],}}
+let l:bm_current_session = 'default'

@@ -186,8 +186,8 @@ endfunction
 
 function g:SetCoc()
   Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'yarn install --frozen-lockfile'}
-  Plug 'neoclide/coc-neco'
-  Plug 'antoinemadec/coc-fzf'
+  " Plug 'neoclide/coc-neco'
+  " Plug 'antoinemadec/coc-fzf'
 endfunction
 
 " }}}1
@@ -405,9 +405,9 @@ if g:IsMacNeovim() || g:IsWsl()
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cmp.vim'
-    execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cmp.vim'
   else
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
+    execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cmp.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
   endif

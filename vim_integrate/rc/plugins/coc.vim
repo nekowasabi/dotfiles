@@ -38,6 +38,7 @@ let g:markdown_fenced_languages = [
 let g:coc_fzf_opts = ['--layout=reverse']
 let g:fzf_layout = { 'up': '~40%' }
 let g:fzf_layout = { 'window': { 'width': 0.7, 'height': 0.6,} }
+let g:coc_disable_startup_warning = 1
 
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm()
       \: "\<C-g>u" . lexima#expand('<LT>CR>', 'i')
@@ -179,4 +180,4 @@ autocmd CmdlineEnter * silent call OpenCommandLineByCmp()
 " " PHPファイルを保存前にCustomPhpFormat関数を呼び出す
 " autocmd BufWritePre *.php call CustomPhpFormat()
 
-"END
+" "END
