@@ -110,6 +110,14 @@ nnoremap <D-p> :call <SID>CrossPost()<CR>
 " Previm
 let g:previm_open_cmd = 'open -a "Microsoft Edge"'
 
+" context.nvim
+nnoremap <silent> ,ccf :ContextNvim add_current_file<CR>
+nnoremap <silent> ,ccl :ContextNvim add_line_lsp_daig<CR>
+nnoremap <silent> ,cch :ContextNvim find_context_history<CR>
+nnoremap <silent> ,ccm :ContextNvim find_context_manual<CR>
+vnoremap <silent> ,ccc :ContextNvim add_current<CR>
+
+
 " temp
 
 " -----------------------------------------------------------

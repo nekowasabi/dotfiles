@@ -23,10 +23,10 @@ if g:IsMacNeovim()
   let s:Height = round(&lines * 0.9)
   let s:WinRow = 2
   let s:WinCol = 2
-  let s:previewWidth = round(&columns) 
-  let s:previewHeight = round(&lines * 0.50)
+  let s:previewWidth = round(&columns * 0.7) 
+  let s:previewHeight = round(&lines * 0.90)
   let s:previewRow =  round(&lines * 0.3)+3
-  let s:previewCol = 2
+  let s:previewCol = 50
 	let s:previewSplit = 'vertical'
   let s:previewFloatingBorder = 'double'
   let s:cursorLine = 'String'
