@@ -114,26 +114,26 @@ endfunction
 
 command! -range -nargs=0 AiderAddSelected call s:AiderAddSelected()
 
-function! s:GetGitDiff()
-  " 現在のブランチ名を取得
-  " let current_branch = trim(system('git rev-parse --abbrev-ref HEAD'))
-
-  " 親ブランチ名を取得（通常はmainまたはmaster）
-  " let parent_branch = trim(system('git show-branch | sed "s/].*//" | grep "\*" | grep -v "' . current_branch . '" | head -n1 | sed "s/^.*\[//"'))
-
+function! s:AiderGitDiff(...)
   " 差分を取得
-  " let diff_result = system('git diff ' . parent_branch . '...' . current_branch)
-  let diff_result = system('git diff')
-  if parent_branch != ""
+  let diff_result = ""
+  if a:0 > 0
+    " 引数が指定された場合は、その親ブランチとの差分を取得
+    let parent_branch = a:1
+    let current_branch = trim(system('git rev-parse --abbrev-ref HEAD'))
     let diff_result = system('git diff ' . parent_branch . '...' . current_branch)
+  else
+    " 引数がない場合は通常のgit diffを実行
+    let diff_result = system('git diff')
   endif
 
-  " g:aider_additional_promptを連結したモノを追加
+  " g:aider_diff_promptを連結したモノを追加
   let diff_result = join(g:aider_diff_prompt, "\n") . "\n\n" . diff_result
   
   execute "AiderSendPromptByCommandline " . shellescape(diff_result)
 endfunction
-nnoremap <silent> <leader>aD :call <SID>GetGitDiff()<CR>
+nnoremap <leader>aD :AiderGitDiff 
+command! -range -nargs=? AiderGitDiff call s:AiderGitDiff(<f-args>)
 
 let g:aider_diff_prompt = [
       \ "与えられたコードのdiffをレビューし、特に読みやすさと保守性に焦点を当ててください。",

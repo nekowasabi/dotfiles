@@ -31,7 +31,6 @@ export PATH=$PATH:/usr/local/bin:/bin:/usr/bin:$GOROOT/bin:$GOPATH/bin:/home/tak
 export EDITOR=vim
 export GOROOT=/usr/local/opt/go/libexec
 export GOPATH=$HOME/go
-export ZPLUG_HOME=~/.zplug
 export PYENV_ROOT=$HOME/.pyenv
 export NEXTWORD_DATA_PATH=~/tmp/nextword-data-large
 export NVIM_NODE_LOG_LEVEL=info
