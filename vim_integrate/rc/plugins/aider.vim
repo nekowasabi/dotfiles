@@ -39,7 +39,7 @@ nnoremap <silent> <leader>ax :AiderExit<CR>
 nnoremap <silent> <leader>ai :AiderAddIgnoreCurrentFile<CR>
 nnoremap <silent> <leader>aI :AiderOpenIgnore<CR>
 nnoremap <silent> <leader>ah :AiderHide<CR>
-vnoremap <silent> <leader>as :AiderAddSelected<CR>
+vnoremap <silent> <leader>as :AiderAddFileVisualSelected<CR>
 vmap <leader>av :AiderVisualTextWithPrompt<CR>
 nnoremap <leader>av :AiderVisualTextWithPrompt<CR>
 
@@ -86,7 +86,7 @@ endfunction
    endtry
  endfunction
  " }}}
-function! s:AiderAddSelected()
+function! s:AiderAddFileVisualSelected()
     " 選択範囲のテキストを取得
     let l:text = s:get_visual_text()
     if empty(l:text)
@@ -112,7 +112,7 @@ function! s:AiderAddSelected()
 		endfor
 endfunction
 
-command! -range -nargs=0 AiderAddSelected call s:AiderAddSelected()
+command! -range -nargs=0 AiderAddFileVisualSelected call s:AiderAddFileVisualSelected()
 
 function! s:AiderGitDiff(...)
   " 差分を取得

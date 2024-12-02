@@ -22,11 +22,11 @@ let g:ale_open_list = 0
 let g:ale_keep_list_window_open = 0
 let g:ale_hover_to_preview = 0
 let g:ale_hover_to_floating_preview = 0
-let g:ale_set_balloons = 0
+let g:ale_set_balloons = 1
 let g:ale_virtualtext_cursor = 0
-let g:ale_set_balloons_legacy_echo = 0
+let g:ale_set_balloons_legacy_echo = 1
 let g:ale_echo_cursor = 0
-let g:ale_echo_delay = 5000
+let g:ale_echo_delay = 0
 let g:ale_lsp_suggestions = 0
 
 let g:ale_linters = {
@@ -44,9 +44,10 @@ let g:ale_fixers = {
 
 " php
 if g:IsMacNeovimInWork()
-  let g:ale_php_pint_executable = $BACKEND_LARAVEL_MAC_DIR.'/vendor/bin/pint'
+  let g:ale_php_pint_executable = $HOME.'/.config/coc/extensions/coc-php-cs-fixer-data/pint'
+  let g:ale_php_phpstan_executable = $BACKEND_LARAVEL_DIR.'/vendor/bin/phpstan'
 elseif g:IsWsl()
-  let g:ale_php_pint_executable = '/home/takets/.config/coc/extensions/coc-php-cs-fixer-data/pint'
+  let g:ale_php_pint_executable = $HOME.'/.config/coc/extensions/coc-php-cs-fixer-data/pint'
 else
   let g:ale_php_pint_executable = '~/.config/coc/extensions/coc-php-cs-fixer-data/pint'
 endif
