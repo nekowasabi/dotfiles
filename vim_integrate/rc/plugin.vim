@@ -52,7 +52,7 @@ Plug 'rhysd/clever-f.vim'
 Plug 'rhysd/git-messenger.vim'
 Plug 'rickhowe/wrapwidth'
 Plug 'ryanoasis/vim-devicons'
-Plug 't915m/vim-choosewin'
+Plug 't9md/vim-choosewin'
 Plug 'termoshtt/curl.vim'
 Plug 'thinca/vim-partedit'
 Plug 'thinca/vim-prettyprint' " PPでいい感じに変数の内容を出力

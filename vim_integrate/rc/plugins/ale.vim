@@ -2,7 +2,7 @@ let g:ale_completion_enabled = 0
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_save = 1
-let g:ale_lint_delay = 100
+let g:ale_lint_delay = 1500
 let g:ale_fix_on_save = 1
 
 " neovimのvirtual textでlintのメッセージを表示
@@ -33,7 +33,7 @@ let g:ale_linters = {
       \   'shd': ['textlint'],
 			\   'typescript': ['biome'],
 			\   'javascript': ['biome'],
-		  \   'php': ['pint', 'intelephense', 'phpstan'],
+		  \   'php': ['pint', 'intelephense'],
 		  \   'vim': ['vimls'],
       \}
 let g:ale_fixers = {
