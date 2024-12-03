@@ -47,3 +47,5 @@ vmap <expr> in textobj#from_regexp#mapexpr('\d\+')
 omap <expr> iD textobj#from_regexp#mapexpr('\d\d\d\d-\d\d-\d\d')
 vmap <expr> iD textobj#from_regexp#mapexpr('\d\d\d\d-\d\d-\d\d')
 
+" 最長パターンでのマッチ
+onoremap m( ])

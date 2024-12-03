@@ -103,6 +103,7 @@ Plug 'osyo-manga/vim-textobj-multitextobj'
 Plug 'sgur/vim-textobj-parameter'
 Plug 'thalesmello/vim-textobj-methodcall'
 Plug 'dense-analysis/ale'
+Plug 'pocke/vim-textobj-markdown'
 
  " Plug 'wellle/targets.vim'
 
