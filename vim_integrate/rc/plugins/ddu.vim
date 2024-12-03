@@ -141,7 +141,7 @@ call ddu#custom#patch_global(#{
 " }}}1
 
 " source options {{{1
-call ddu#custom#alias('column', 'icon_filename_for_ff', 'icon_filename')
+call ddu#custom#alias('default', 'column', 'icon_filename_for_ff', 'icon_filename')
 call ddu#custom#patch_global(#{
   \   sourceOptions: #{
   \     file: #{
