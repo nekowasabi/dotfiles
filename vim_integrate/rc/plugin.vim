@@ -220,7 +220,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'rcarriga/nvim-notify' " 通知（おしゃれだけれどバギー）
   Plug 'folke/trouble.nvim' " diagnoticを一覧表示する
   Plug 'dhruvasagar/vim-table-mode'
-  Plug 'nvimtools/none-ls.nvim'
+  " Plug 'nvimtools/none-ls.nvim'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'nvim-treesitter/nvim-treesitter-textobjects'
   " Plug 'ErichDonGubler/lsp_lines.nvim'
@@ -233,7 +233,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'neovim/nvim-lspconfig'
   Plug 'vinnymeller/swagger-preview.nvim'
 	Plug 'xiyaowong/telescope-emoji.nvim'
-	Plug 'CopilotC-Nvim/CopilotChat.nvim', {'branch': 'canary'}
+	Plug 'CopilotC-Nvim/CopilotChat.nvim'
   Plug 'nvim-tree/nvim-web-devicons'
 	Plug 'tani/dmacro.nvim'
   Plug 'nekowasabi/vim-rule-switcher'
