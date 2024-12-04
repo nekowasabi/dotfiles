@@ -28,6 +28,7 @@ let g:ale_set_balloons_legacy_echo = 1
 let g:ale_echo_cursor = 0
 let g:ale_echo_delay = 0
 let g:ale_lsp_suggestions = 0
+let g:ale_set_highlights = 0
 
 let g:ale_linters = {
       \   'shd': ['textlint'],
