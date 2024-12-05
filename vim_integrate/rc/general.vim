@@ -92,6 +92,8 @@ set formatoptions=q
 set fileformats=unix,dos,mac
 set autoread
 set signcolumn=yes
+set re=0
+set rdt=0
 
 let &grepprg='rg --vimgrep'
 

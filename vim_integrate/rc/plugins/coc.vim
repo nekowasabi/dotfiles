@@ -15,7 +15,6 @@ let g:coc_global_extensions = [
   \, 'coc-swagger'
   \, '@yaegassy/coc-volar-tools'
   \, '@yaegassy/coc-volar'
-  \, 'coc-fzf-preview'
   \, 'coc-sh'
   \, 'coc-yaml'
   \, 'coc-blade'
@@ -27,6 +26,7 @@ let g:coc_global_extensions = [
   \ ]
 
 
+  " \, 'coc-fzf-preview'
   " \, 'coc-php-cs-fixer'
   " \, '@yaegassy/coc-phpstan'
 

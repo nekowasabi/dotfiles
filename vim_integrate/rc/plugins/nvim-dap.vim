@@ -67,17 +67,17 @@ require("dap").configurations.php = {
   }
 }
 
-require("deno-nvim").setup {
-  dap = {
-    adapter = {
-      executable = {
-        args = {
-          '~/repos/vscode-php-debug/out/phpDebug.js'
-        }
-        }
-      }
-    }
-  }
+-- require("deno-nvim").setup {
+--   dap = {
+--     adapter = {
+--       executable = {
+--         args = {
+--           '~/repos/vscode-php-debug/out/phpDebug.js'
+--         }
+--         }
+--       }
+--     }
+--   }
 
 require("dapui").setup()
 

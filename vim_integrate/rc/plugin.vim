@@ -58,7 +58,7 @@ Plug 'thinca/vim-partedit'
 Plug 'thinca/vim-prettyprint' " PPでいい感じに変数の内容を出力
 Plug 'thinca/vim-qfreplace'
 " Plug 'thinca/vim-quickrun'
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 Plug 'tyru/capture.vim' " コマンドラインの結果をバッファに出力
 Plug 'tyru/columnskip.vim' 
 Plug 'tyru/current-func-info.vim'
@@ -216,7 +216,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'overcache/NeoSolarized'
   Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
   Plug 'rhysd/conflict-marker.vim'
-  Plug 'folke/lsp-colors.nvim' " lspの色を変更する
+  " Plug 'folke/lsp-colors.nvim' " lspの色を変更する
   Plug 'MunifTanjim/nui.nvim' " おしゃれなコマンドライン変更
   Plug 'rcarriga/nvim-notify' " 通知（おしゃれだけれどバギー）
   Plug 'folke/trouble.nvim' " diagnoticを一覧表示する
@@ -230,8 +230,8 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'shellRaining/hlchunk.nvim'
 	Plug 'vhyrro/luarocks.nvim'
   Plug 'atusy/treemonkey.nvim'
-  Plug 'uga-rosa/ddc-source-lsp-setup'
-  Plug 'neovim/nvim-lspconfig'
+  " Plug 'uga-rosa/ddc-source-lsp-setup'
+  " Plug 'neovim/nvim-lspconfig'
   Plug 'vinnymeller/swagger-preview.nvim'
 	Plug 'xiyaowong/telescope-emoji.nvim'
 	Plug 'CopilotC-Nvim/CopilotChat.nvim'
@@ -244,10 +244,10 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'Al0den/notion.nvim'
   Plug 'williamboman/mason.nvim'
   Plug 'Wansmer/treesj'
-  Plug 'stevearc/oil.nvim'
+  " Plug 'stevearc/oil.nvim'
   Plug 'vim-test/vim-test'
   Plug 'skywind3000/asyncrun.vim'
-	Plug 'sigmaSd/deno-nvim'
+	" Plug 'sigmaSd/deno-nvim'
   Plug 'mfussenegger/nvim-dap'
   Plug 'rcarriga/nvim-dap-ui'
   Plug 'theHamsta/nvim-dap-virtual-text'
@@ -366,7 +366,7 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/denops-gh.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-vue.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gitsign.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lsp-color.vim'
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lsp-color.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddu.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lightline.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ale.vim'
@@ -385,7 +385,7 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/dmacro.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/notion.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesj.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/oil.vim'
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/oil.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/table-mode.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/blame.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gitlinker.vim'
