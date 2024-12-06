@@ -6,25 +6,24 @@ let g:coc_global_extensions = [
 	\, 'coc-eslint'
   \, 'coc-tsserver'
   \, 'coc-diagnostic'
-  \, 'coc-vimlsp'
   \, 'coc-git'
   \, 'coc-github-users'
   \, '@yaegassy/coc-intelephense'
   \, '@yaegassy/coc-laravel'
   \, '@yaegassy/coc-typescript-vue-plugin'
-  \, 'coc-swagger'
   \, '@yaegassy/coc-volar-tools'
   \, '@yaegassy/coc-volar'
+  \, 'coc-swagger'
   \, 'coc-sh'
   \, 'coc-yaml'
   \, 'coc-blade'
   \, 'coc-biome'
   \, 'coc-lua'
   \, 'coc-deno'
+  \, 'coc-vimlsp'
   \, '@hexuhua/coc-copilot'
   \, 'coc-stylua'
   \ ]
-
 
   " \, 'coc-fzf-preview'
   " \, 'coc-php-cs-fixer'
@@ -99,7 +98,7 @@ let g:coc_supported_filetypes = [
       \ 'sh'
       \ ]
 let g:coc_disabled_filetypes = ['noice', 'markdown']
-let g:coc_toggle_delay = 50
+let g:coc_toggle_delay = 1000
 let g:is_coc_enabled = v:true
 
 " Check if current filetype should enable Coc
@@ -164,20 +163,3 @@ endfunction
 
 nnoremap <Leader>: :
 autocmd CmdlineEnter * silent call OpenCommandLineByCmp()
-" autocmd CmdlineLeave * silent call OpenCommandLineByCmp()
-
-" for PHP
-" autocmd BufWritePre *.php call CocActionAsync('format')
- 
-" function! CustomPhpFormat()
-"     " 現在のファイル名が '*.blade.php' で終わるかどうかをチェック
-"     if expand('%:t') !~ '\.blade\.php$'
-"         " '*.blade.php' で終わらない場合はフォーマットを実行
-"         call CocActionAsync('format')
-"     endif
-" endfunction
-"
-" " PHPファイルを保存前にCustomPhpFormat関数を呼び出す
-" autocmd BufWritePre *.php call CustomPhpFormat()
-
-" "END

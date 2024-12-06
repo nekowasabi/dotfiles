@@ -259,21 +259,20 @@ command! -range PasteWatchMemo call s:PasteWatchMemo()
 " changelogをpush, pullする {{{1
 function! s:PullChangelog()
   execute "cd ".g:GetChangelogDirectory()
-  execute "silent Git checkout -f"
-  execute "Git pull"
-	echo 'pull done.'
+  call system("git checkout -f")
+  call system("git pull")
+  echo 'pull done.'
 endfunction
-command! -range PullChangelog call s:PullChangelog() 
+command! -range PullChangelog call s:PullChangelog()
 
 function! s:PushChangelog()
   execute "cd ".g:GetChangelogDirectory()
-  execute "silent Git add ."
-  execute "silent Git commit -m 'update.'"
-  execute "Git push"
+  call system("git add .")
+  call system("git commit -m 'update.'")
+  call system("git push")
   execute "silent :e %"
   echo 'push done'
 endfunction
-
 command! -range PushChangelog call s:PushChangelog() 
 nnoremap <silent> ,p :PushChangelog<CR>
 " }}}1

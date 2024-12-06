@@ -4,6 +4,7 @@ let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_save = 1
 let g:ale_lint_delay = 1500
 let g:ale_fix_on_save = 1
+let g:ale_lint_on_insert_leave = 0
 
 " neovimのvirtual textでlintのメッセージを表示
 let g:ale_virtualtext_cursor = 0
@@ -35,12 +36,11 @@ let g:ale_linters = {
 			\   'typescript': ['biome'],
 			\   'javascript': ['biome'],
 		  \   'php': ['pint', 'intelephense'],
-		  \   'vim': ['vimls'],
       \}
 let g:ale_fixers = {
     \   'typescript': ['biome'],
     \   'javascript': ['biome'],
-		\   'php': ['pint'],
+		  \   'php': ['pint'],
     \}
 
 " php

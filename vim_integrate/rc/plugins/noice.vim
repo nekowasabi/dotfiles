@@ -77,7 +77,7 @@ require("noice").setup({
     view_error = "notify",
     view_warn = "notify",
     view_history = "messages",
-    view_search = "virtualtext",
+    -- view_search = "disable",
   },
   routes = {
     ignoreNotify("No information available"),
