@@ -23,13 +23,14 @@ let g:ale_open_list = 0
 let g:ale_keep_list_window_open = 0
 let g:ale_hover_to_preview = 0
 let g:ale_hover_to_floating_preview = 0
-let g:ale_set_balloons = 1
+let g:ale_set_balloons = 0
 let g:ale_virtualtext_cursor = 0
-let g:ale_set_balloons_legacy_echo = 1
+let g:ale_set_balloons_legacy_echo = 0
 let g:ale_echo_cursor = 0
 let g:ale_echo_delay = 0
 let g:ale_lsp_suggestions = 0
 let g:ale_set_highlights = 0
+let g:ale_hover_cursor = 0
 
 let g:ale_linters = {
       \   'shd': ['textlint'],

@@ -15,12 +15,12 @@ call plug#begin(g:GetVimConfigRootPath() . 'plugged')
 Plug 'AmaiSaeta/closesomewindow.vim'
 Plug 'AndrewRadev/switch.vim'
 Plug 'Bakudankun/BackAndForward.vim'
-Plug 'LeafCage/yankround.vim'
+" Plug 'LeafCage/yankround.vim'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neosnippet.vim'
 Plug 'Shougo/vimproc.vim'
 Plug 'airblade/vim-rooter'
-Plug 'cocopon/inspecthi.vim' " colorscheme inspector
+" Plug 'cocopon/inspecthi.vim' " colorscheme inspector
 Plug 'cohama/lexima.vim'
 Plug 'deton/jasegment.vim'
 Plug 'haya14busa/vim-asterisk'
@@ -32,7 +32,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'kana/vim-gf-user'
 Plug 'kana/vim-repeat'
-Plug 'lambdalisue/gin.vim'
+" Plug 'lambdalisue/gin.vim'
 Plug 'lambdalisue/gina.vim' " lightlineで使っている——ブランチ名を表示に仕様
 Plug 'lambdalisue/glyph-palette.vim'
 Plug 'lambdalisue/nerdfont.vim'
@@ -65,8 +65,8 @@ Plug 'tyru/current-func-info.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'vim-jp/vital.vim'
-Plug 'yuki-yano/lexima-alter-command.vim'
-
+" Plug 'yuki-yano/lexima-alter-command.vim'
+Plug 'dense-analysis/ale'
 
 " AI
 
@@ -102,7 +102,6 @@ Plug 'osyo-manga/vim-textobj-multiblock'
 Plug 'osyo-manga/vim-textobj-multitextobj'
 Plug 'sgur/vim-textobj-parameter'
 Plug 'thalesmello/vim-textobj-methodcall'
-Plug 'dense-analysis/ale'
 Plug 'pocke/vim-textobj-markdown'
 
  " Plug 'wellle/targets.vim'
@@ -205,21 +204,21 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'nvim-lua/plenary.nvim' " luaのライブラリ
   Plug 'nvim-telescope/telescope.nvim' " 普段は使わないけれど、プラグイン連携でたまに使う
   Plug 'elzr/vim-json'
-  Plug 'Shougo/context_filetype.vim'
-  Plug 'Shougo/defx.nvim'
-  Plug 'kristijanhusak/defx-git'
-  Plug 'kristijanhusak/defx-icons'
-  Plug 'MattesGroeger/vim-bookmarks' " fzf-previewと連携して使う（単体でも一応使える）
+  " Plug 'Shougo/context_filetype.vim'
+  " Plug 'Shougo/defx.nvim'
+  " Plug 'kristijanhusak/defx-git'
+  " Plug 'kristijanhusak/defx-icons'
+  Plug 'MattesGroeger/vim-bookmarks'
   Plug 'tpope/vim-dadbod'  " DBクライアント
   Plug 'kristijanhusak/vim-dadbod-ui'
   Plug 'lewis6991/gitsigns.nvim'
   Plug 'overcache/NeoSolarized'
-  Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
+  " Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
   Plug 'rhysd/conflict-marker.vim'
   " Plug 'folke/lsp-colors.nvim' " lspの色を変更する
   Plug 'MunifTanjim/nui.nvim' " おしゃれなコマンドライン変更
-  Plug 'rcarriga/nvim-notify' " 通知（おしゃれだけれどバギー）
-  Plug 'folke/trouble.nvim' " diagnoticを一覧表示する
+  Plug 'rcarriga/nvim-notify' " 通知
+  " Plug 'folke/trouble.nvim' " diagnoticを一覧表示する
   Plug 'dhruvasagar/vim-table-mode'
   " Plug 'nvimtools/none-ls.nvim'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -262,58 +261,41 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'gbprod/yanky.nvim'
   Plug 'folke/zen-mode.nvim'
   Plug 'folke/twilight.nvim'
-	Plug 'SmiteshP/nvim-navic'
-	Plug 'Zeioth/markmap.nvim'
+	" Plug 'SmiteshP/nvim-navic'
+	" Plug 'Zeioth/markmap.nvim'
 	Plug 'folke/which-key.nvim'
   Plug 'nekowasabi/nudge-two-hats.vim'
-	Plug 'Chaitanyabsprip/fastaction.nvim'
+	" Plug 'Chaitanyabsprip/fastaction.nvim'
 	Plug 'mikavilpas/yazi.nvim'
-  Plug 'ErikBjare/gptme', { 'rtp': 'scripts/vim' }
-  Plug 'mhartington/formatter.nvim'
+  " Plug 'ErikBjare/gptme', { 'rtp': 'scripts/vim' }
+  " Plug 'mhartington/formatter.nvim'
   Plug 'basyura/dsky.vim'
   Plug 'gw31415/mstdn.vim'
-  Plug 'MeanderingProgrammer/markdown.nvim' " Recommended: Better visibility of hashtags and other links
+  Plug 'MeanderingProgrammer/markdown.nvim'
   Plug 'gw31415/mstdn-editor.vim'
 	Plug 'tochikuji/cr-remover.nvim'
   Plug 'nvim-neotest/nvim-nio'
   Plug 'napisani/context-nvim'
+  Plug 'folke/noice.nvim'
+  Plug 'hrsh7th/nvim-cmp'
+  Plug 'hrsh7th/cmp-buffer'
+  Plug 'hrsh7th/cmp-path'
+  Plug 'hrsh7th/cmp-cmdline'
+  Plug 'petertriho/cmp-git'
+  Plug 'hrsh7th/cmp-emoji'
+  Plug 'hrsh7th/cmp-calc'
+  Plug 'chrisgrieser/cmp_yanky'
+  Plug 'notomo/cmp-neosnippet'
 
   call g:SetDdu()
 
   if g:IsMacNeovimInWork() || g:IsWsl()
-    Plug 'folke/noice.nvim'
-    Plug 'MunifTanjim/nui.nvim'
-    Plug 'hrsh7th/nvim-cmp'
-    Plug 'hrsh7th/cmp-buffer'
-    Plug 'hrsh7th/cmp-path'
-    Plug 'hrsh7th/cmp-cmdline'
-    Plug 'petertriho/cmp-git'
-    Plug 'hrsh7th/cmp-emoji'
-    Plug 'hrsh7th/cmp-calc'
-    Plug 'chrisgrieser/cmp_yanky'
-    Plug 'notomo/cmp-neosnippet'
-    " Plug 'Shougo/ddc-source-lsp'
-    " Plug 'gelguy/wilder.nvim'
     call g:SetCoc()
   elseif g:IsWsl()
-    Plug 'gelguy/wilder.nvim'
     Plug 'Shougo/ddc-source-lsp'
     call g:SetCoc()
   elseif g:IsMacNeovimInWezterm()
-    Plug 'folke/noice.nvim'
-    Plug 'hrsh7th/nvim-cmp'
-    Plug 'hrsh7th/cmp-buffer'
-    Plug 'hrsh7th/cmp-path'
-    Plug 'hrsh7th/cmp-cmdline'
-    Plug 'petertriho/cmp-git'
-    Plug 'hrsh7th/cmp-emoji'
-    Plug 'hrsh7th/cmp-calc'
-    Plug 'chrisgrieser/cmp_yanky'
-    Plug 'notomo/cmp-neosnippet'
-    Plug 'chrisgrieser/cmp_yanky'
     Plug 'nekowasabi/vim-syntax-tyranoscript'
-    " Plug 'gelguy/wilder.nvim'
-    " Plug 'Shougo/ddc-source-lsp'
     call g:SetCoc()
   else
     Plug 'gelguy/wilder.nvim'
@@ -358,7 +340,7 @@ execute 'source '.g:GetVimConfigRootPath().'rc/plugins/sayonara.vim'
 if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/mark.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/neosnippet.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/defx.vim'
+  "execute 'source '.g:GetVimConfigRootPath().'rc/plugins/defx.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vimspector.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-bookmark.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/devicons.vim'

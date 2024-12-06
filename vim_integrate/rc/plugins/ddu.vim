@@ -338,6 +338,10 @@ function DduGrepProject() abort
 
   let s:input = input('project grep > ')
 
+  if s:input == ''
+    return
+  endif
+
 	call ddu#start({
 				\   'sourceParams' : #{
 				\     rg : #{

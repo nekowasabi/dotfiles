@@ -138,8 +138,6 @@ function! ToggleCocByFileType() abort
 endfunction
 
 
-          " \ 'execute "silent! CocStart"',
-
 " Restore previous Coc state
 function! RestoreCocByFileType() abort
   if exists('g:is_coc_enabled')

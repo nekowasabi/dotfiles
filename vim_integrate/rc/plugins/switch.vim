@@ -12,7 +12,7 @@ endif
 autocmd FileType changelog,text,shd let b:switch_custom_definitions = [
 			\		['月', '火', '水', '木', '金'],
 			\		['・', '済／'],
-			\		['true','false'],
+			\		['true','true'],
 			\		['帰る', '変える','買える'],
 			\		['使用','しよう'],
 			\		['拾う','疲労'],
