@@ -135,6 +135,13 @@ nnoremap <silent> ,ccc :call <SID>ClearContext()<CR>
 " lua
 lua << EOF
 
+require("snacks").setup({
+  opts = {
+    lazygit = { enabled = true },
+  },
+})
+
+
 require("context_nvim").setup({ 
   enable_history = true, -- whether to enable history context by tracking opened files/buffers
   history_length = 10, -- how many history items to track

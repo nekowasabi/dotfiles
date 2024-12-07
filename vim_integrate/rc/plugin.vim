@@ -52,6 +52,7 @@ Plug 'rhysd/clever-f.vim'
 Plug 'rhysd/git-messenger.vim'
 Plug 'rickhowe/wrapwidth'
 Plug 'ryanoasis/vim-devicons'
+Plug 'nvim-tree/nvim-web-devicons'
 Plug 't9md/vim-choosewin'
 Plug 'termoshtt/curl.vim'
 Plug 'thinca/vim-partedit'
@@ -195,7 +196,7 @@ endfunction
 " Mac Neovim {{{1
 if g:IsMacNeovim() || g:IsWsl()
   " Plug 'puremourning/vimspector' 
-  Plug 'kdheepak/lazygit.nvim'
+  " Plug 'kdheepak/lazygit.nvim'
   Plug 'itchyny/lightline.vim'
   Plug 'mengelbrecht/lightline-bufferline'
   Plug 'maximbaz/lightline-ale'
@@ -286,6 +287,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'hrsh7th/cmp-calc'
   Plug 'chrisgrieser/cmp_yanky'
   Plug 'notomo/cmp-neosnippet'
+  Plug 'folke/snacks.nvim'
 
   call g:SetDdu()
 
