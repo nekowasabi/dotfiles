@@ -1,23 +1,6 @@
-if g:IsMacNeovim() || g:IsWsl()
-	" sonnet
-  let g:aider_command = 'aider --no-auto-commits --chat-language ja --no-stream --architect --model anthropic/claude-3-5-sonnet-20241022 --editor-model anthropic/claude-3-5-sonnet-20241022 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands'
-  " haiku
-  " let g:aider_command = 'aider --no-auto-commits --chat-language=ja --no-stream --architect --model anthropic/claude-3-5-sonnet-20241022 --editor-model anthropic/claude-3-5-haiku-20241022 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands'
-
-  " gpt-4o
-  " let g:aider_command = 'aider --no-auto-commits --chat-language ja --no-stream --architect --model  openai/gpt-4o --editor-model openai/gpt-4o --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands'
-
-
-  " vhs用
-  " let g:aider_command = 'aider --no-auto-commits --chat-language --stream --chat-mode code --model openai/gpt-4o --editor-model anthropic/claude-3-5-sonnet-20241022 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands'
-  " let g:aider_command = 'aider --no-auto-commits --chat-language --no-stream --architect --model  openai/o1-mini --editor-model anthropic/claude-3-5-sonnet-20241022 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands'
-else
-  let g:aider_command = 'aider --no-auto-commits --no-stream --chat-language --architect --model openai/o1-mini --editor-model anthropic/claude-3-5-sonnet-20241022 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands'
-endif
 let g:aider_floatwin_width = 100
 let g:aider_floatwin_height = 50
 let g:aider_buffer_open_type = 'floating'
-" let g:aider_buffer_open_type = 'split'
 if g:IsMacNeovimInWezterm()
  let g:convension_path = "~/.config/nvim/plugged/aider.vim/CONVENTION.md"
 endif
@@ -27,14 +10,14 @@ endif
 if g:IsMacNeovimInWork()
  let g:convension_path = $BACKEND_LARAVEL_MAC_DIR . "/laravel/CONVENTION.md"
 endif
-nnoremap <silent> <leader>ae :AiderRun<CR>
-nnoremap <silent> <leader>aR :AiderSilentRun<CR>
-nnoremap <silent> <leader>aa :AiderAddIgnoreCurrentFile<CR>:AiderSilentAddCurrentFile<CR>
+nnoremap <silent> <leader>as :AiderSwitch<CR>
+nnoremap <silent> <leader>aS :AiderSwitch watch<CR>
+nnoremap <silent> <leader>aa :AiderSilentAddCurrentFile<CR>
+" nnoremap <silent> <leader>aa :AiderAddIgnoreCurrentFile<CR>:AiderSilentAddCurrentFile<CR>
 nnoremap <silent> <leader>aA :AiderAddIgnoreCurrentFile<CR>:AiderAddCurrentFile<CR>
 nnoremap <silent> <leader>al :AiderAddIgnoreCurrentFile<CR>:AiderSilentAddCurrentFileReadOnly<CR>
 nnoremap <silent> <leader>aL :AiderAddIgnoreCurrentFile<CR>:AiderAddCurrentFileReadOnly<CR>
 nnoremap <silent> <leader>aw :AiderAddWeb<CR>
-nnoremap <silent> <leader>ap :AiderSendPromptWithInput<CR>
 nnoremap <silent> <leader>ax :AiderExit<CR>
 nnoremap <silent> <leader>ai :AiderAddIgnoreCurrentFile<CR>
 nnoremap <silent> <leader>aI :AiderOpenIgnore<CR>
@@ -62,8 +45,41 @@ function! s:AiderOpenHandler() abort
   nnoremap <C-x><C-x> :AiderHide<CR>
 endfunction
 
+let s:aider_settings = {
+      \ 'architect': 'aider --no-auto-commits --chat-language ja --no-stream --architect --model anthropic/claude-3-5-sonnet-20241022 --editor-model anthropic/claude-3-5-sonnet-20241022 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands',
+      \ 'watch': 'aider --no-auto-commits --watch-files --chat-language ja --no-stream --model anthropic/claude-3-5-sonnet-20241022 --editor-model anthropic/claude-3-5-sonnet-20241022 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands',
+      \ 'gpt': 'aider --no-auto-commits --chat-language ja --no-stream --architect --model  openai/gpt-4o --editor-model openai/gpt-4o --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands',
+      \ 'vhs': 'aider --no-auto-commits --chat-language --stream --chat-mode code --model anthropic/claude-3-5-sonnet-20241022 --editor-model anthropic/claude-3-5-sonnet-20241022 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands'
+      \ }
 
- "ビジュアルモードで選択中のテクストを取得する {{{
+let g:aider_command = s:aider_settings['architect']
+
+function! s:switch_aider_setting(setting_name) abort
+  let l:setting_name = empty(a:setting_name) ? 'architect' : a:setting_name
+  if has_key(s:aider_settings, l:setting_name)
+    let g:aider_command = s:aider_settings[l:setting_name]
+  else
+    let g:aider_command = s:aider_settings['architect']
+  endif
+
+  if l:setting_name ==# 'watch'
+    let g:aider_buffer_open_type = 'split'
+  else
+    let g:aider_buffer_open_type = 'floating'
+  endif
+
+  " execute 'AiderExit'
+  execute 'AiderRun'
+
+  echo 'Switched to ' . a:setting_name . ' setting'
+endfunction
+command! -nargs=? -complete=customlist,<SID>aider_setting_complete AiderSwitch call s:switch_aider_setting(<q-args>)
+
+function! s:aider_setting_complete(ArgLead, CmdLine, CursorPos) abort
+  return filter(keys(s:aider_settings), 'v:val =~ "^" . a:ArgLead')
+endfunction
+
+" 選択範囲からパスを抽出してaiderに追加 {{{1
  function! s:get_visual_text()
    try
      " ビジュアルモードの選択開始/終了位置を取得
@@ -113,7 +129,9 @@ function! s:AiderAddFileVisualSelected()
 endfunction
 
 command! -range -nargs=0 AiderAddFileVisualSelected call s:AiderAddFileVisualSelected()
+" }}}1
 
+" diffを取得してレビューコマンドをaiderに送信する {{{1
 function! s:AiderGitDiff(...)
   " 差分を取得
   let diff_result = ""
@@ -177,3 +195,4 @@ let g:aider_diff_prompt = [
       \ "- その他の提案: suggestion:",
       \ "diff code",
       \]
+" }}}1

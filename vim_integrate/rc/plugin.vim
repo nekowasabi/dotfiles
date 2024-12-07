@@ -196,7 +196,7 @@ endfunction
 " Mac Neovim {{{1
 if g:IsMacNeovim() || g:IsWsl()
   " Plug 'puremourning/vimspector' 
-  " Plug 'kdheepak/lazygit.nvim'
+  Plug 'kdheepak/lazygit.nvim'
   Plug 'itchyny/lightline.vim'
   Plug 'mengelbrecht/lightline-bufferline'
   Plug 'maximbaz/lightline-ale'

@@ -112,6 +112,8 @@ call setcellwidths([
   \ [ 0x2606, 0x2606, 2 ],
   \ ])
 
+
+
 if g:IsMacGvim()
   set backupdir=$HOME/Dropbox/files/time_backup
 	" IME 制御（gvim用）

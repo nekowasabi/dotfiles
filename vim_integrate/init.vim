@@ -258,7 +258,7 @@ require("avante").setup({
   behaviour = {
     auto_suggestions = false, -- Experimental stage
     auto_set_highlight_group = true,
-    auto_set_keymaps = true,
+    auto_set_keymaps = false,
     auto_apply_diff_after_generation = false,
     support_paste_from_clipboard = true,
   },
@@ -267,7 +267,7 @@ require("avante").setup({
     edit = "<leader>ve",
     refresh = "<leader>vr",
     toggle = "<leader>vt",
-    focus = "<leader>vf",
+    frocus = "<leader>vf",
     toggle = {
       default = "<leader>vt",
       debug = "<leader>vd",
