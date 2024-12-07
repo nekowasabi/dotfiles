@@ -131,6 +131,22 @@ nnoremap <silent> ,ccc :call <SID>ClearContext()<CR>
 
 " temp
 
+function! s:LazyGit()
+  call setcellwidths([])
+  lua require("snacks").lazygit()
+endfunction
+command! LazyGit call <SID>LazyGit()
+nnoremap <silent> <leader>gg :LazyGit<CR>
+
+function! s:Terminal()
+  call setcellwidths([])
+  lua require("snacks").terminal()
+endfunction
+command! Terminal call <SID>Terminal()
+nnoremap <silent> <leader>gt :Terminal<CR>
+
+
+
 " -----------------------------------------------------------
 " lua
 lua << EOF
@@ -138,6 +154,10 @@ lua << EOF
 require("snacks").setup({
   opts = {
     lazygit = { enabled = true },
+    bufdelete = { enabled = true },
+    notify = { enabled = true },
+    scratch = { enabled = true },
+    terminal = { enabled = true },
   },
 })
 

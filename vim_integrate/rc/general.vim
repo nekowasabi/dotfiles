@@ -97,20 +97,27 @@ set rdt=0
 
 let &grepprg='rg --vimgrep'
 
-call setcellwidths([
-  \ [ 0x2500, 0x257f, 1 ],
-  \ [ 0x2100, 0x214d, 2 ],
-  \ [ 0x26A0, 0x26A0, 2 ],
-  \ [ 0x2014, 0x2014, 2 ],
-  \ [ 0x2191, 0x2191, 1 ],
-  \ [ 0x2026, 0x2026, 2 ],
-  \ [ 0x2192, 0x2192, 2 ],
-  \ [ 0x2713, 0x2713, 1 ],
-  \ [ 0x203B, 0x203B, 2 ],
-  \ [ 0x2935, 0x2935, 2 ],
-  \ [ 0x2459, 0x2469, 2 ],
-  \ [ 0x2606, 0x2606, 2 ],
-  \ ])
+function! SetCustomCellWidths()
+  call setcellwidths([
+    \ [ 0x2500, 0x257f, 1 ],
+    \ [ 0x2100, 0x214d, 2 ],
+    \ [ 0x26A0, 0x26A0, 2 ],
+    \ [ 0x2014, 0x2014, 2 ],
+    \ [ 0x2191, 0x2191, 1 ],
+    \ [ 0x2026, 0x2026, 2 ],
+    \ [ 0x2192, 0x2192, 2 ],
+    \ [ 0x2713, 0x2713, 1 ],
+    \ [ 0x203B, 0x203B, 2 ],
+    \ [ 0x2935, 0x2935, 2 ],
+    \ [ 0x2459, 0x2469, 2 ],
+    \ [ 0x2606, 0x2606, 2 ],
+    \ ])
+endfunction
+
+augroup CustomCellWidths
+  autocmd!
+  autocmd BufLeave changelog,markdown,text call SetCustomCellWidths()
+augroup END
 
 
 
