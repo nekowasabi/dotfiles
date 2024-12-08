@@ -46,13 +46,14 @@ function! s:AiderOpenHandler() abort
 endfunction
 
 let s:aider_settings = {
+      \ 'default': 'aider --no-auto-commits --chat-language ja --no-stream --model anthropic/claude-3-5-sonnet-20241022 --editor-model anthropic/claude-3-5-sonnet-20241022 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands',
       \ 'architect': 'aider --no-auto-commits --chat-language ja --no-stream --architect --model anthropic/claude-3-5-sonnet-20241022 --editor-model anthropic/claude-3-5-sonnet-20241022 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands',
       \ 'watch': 'aider --no-auto-commits --watch-files --chat-language ja --no-stream --model anthropic/claude-3-5-sonnet-20241022 --editor-model anthropic/claude-3-5-sonnet-20241022 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands',
       \ 'gpt': 'aider --no-auto-commits --chat-language ja --no-stream --architect --model  openai/gpt-4o --editor-model openai/gpt-4o --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands',
       \ 'vhs': 'aider --no-auto-commits --chat-language --stream --chat-mode code --model anthropic/claude-3-5-sonnet-20241022 --editor-model anthropic/claude-3-5-sonnet-20241022 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands'
       \ }
 
-let g:aider_command = s:aider_settings['architect']
+let g:aider_command = s:aider_settings['default']
 
 function! s:switch_aider_setting(setting_name) abort
   let l:setting_name = empty(a:setting_name) ? 'architect' : a:setting_name

@@ -87,6 +87,18 @@ require("noice").setup({
     ignoreMessage("lines yanked"),
     ignoreMessage("fewer lines"),
     ignoreMessage("!rg --vimgrep --hidden"),
+    {
+      filter = {
+        find = "Already",
+      },
+      opts = { skip = true },
+    },
+    {
+        filter = {
+        find = "cwd",
+      },
+      opts = { skip = true },
+    },
   },
 })
 EOF

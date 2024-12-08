@@ -76,6 +76,7 @@ else
   Plug 'github/copilot.vim'
 	Plug 'nekowasabi/aider.vim'
   Plug 'Robitx/gp.nvim'
+  Plug 'ErikBjare/gptme.vim'
 endif
 
 " denops
