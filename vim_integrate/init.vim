@@ -136,7 +136,7 @@ function! s:LazyGit()
   lua require("snacks").lazygit()
 endfunction
 command! LazyGit call <SID>LazyGit()
-nnoremap <silent> <leader>gg :LazyGit<CR>
+nnoremap <silent> <leader>lg :LazyGit<CR>
 
 function! s:Terminal()
   call setcellwidths([])
