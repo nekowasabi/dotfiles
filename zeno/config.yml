@@ -19,7 +19,7 @@ snippets:
     keyword: gpo
     snippet: git push --force-with-lease --force-if-includes origin 
   - name: git switch
-    keyword: gsa
+    keyword: gc
     snippet: git switch {{branch}}
   - name: git switch
     keyword: gsr

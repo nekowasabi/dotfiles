@@ -197,7 +197,7 @@ endfunction
 " Mac Neovim {{{1
 if g:IsMacNeovim() || g:IsWsl()
   " Plug 'puremourning/vimspector' 
-  Plug 'kdheepak/lazygit.nvim'
+  "Plug 'kdheepak/lazygit.nvim'
   Plug 'itchyny/lightline.vim'
   Plug 'mengelbrecht/lightline-bufferline'
   Plug 'maximbaz/lightline-ale'
@@ -366,7 +366,7 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/swagger-preview.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/null-ls.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/aider.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lazygit.vim'
+  "execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lazygit.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/dmacro.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/notion.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesj.vim'
