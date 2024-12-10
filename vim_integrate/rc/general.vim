@@ -132,7 +132,7 @@ endfunction
 
 augroup CustomCellWidths
   autocmd!
-  autocmd BufEnter changelog,markdown,text call SetCustomCellWidths()
+  autocmd BufEnter,BufWinEnter vim,changelog,markdown,text call SetCustomCellWidths()
 augroup END
 
 
