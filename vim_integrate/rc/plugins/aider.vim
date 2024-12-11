@@ -12,8 +12,8 @@ if g:IsMacNeovimInWork()
 endif
 nnoremap <silent> <leader>as :AiderSwitch<CR>
 nnoremap <silent> <leader>aS :AiderSwitch watch<CR>
-nnoremap <silent> <leader>aa :AiderSilentAddCurrentFile<CR>
-" nnoremap <silent> <leader>aa :AiderAddIgnoreCurrentFile<CR>:AiderSilentAddCurrentFile<CR>
+" nnoremap <silent> <leader>aa :AiderSilentAddCurrentFile<CR>
+nnoremap <silent> <leader>aa :AiderAddIgnoreCurrentFile<CR>:AiderSilentAddCurrentFile<CR>
 nnoremap <silent> <leader>aA :AiderAddIgnoreCurrentFile<CR>:AiderAddCurrentFile<CR>
 nnoremap <silent> <leader>al :AiderAddIgnoreCurrentFile<CR>:AiderSilentAddCurrentFileReadOnly<CR>
 nnoremap <silent> <leader>aL :AiderAddIgnoreCurrentFile<CR>:AiderAddCurrentFileReadOnly<CR>
@@ -53,7 +53,7 @@ let s:aider_settings = {
       \ 'vhs': 'aider --no-auto-commits --chat-language --stream --chat-mode code --model anthropic/claude-3-5-sonnet-20241022 --editor-model anthropic/claude-3-5-sonnet-20241022 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands'
       \ }
 
-let g:aider_command = s:aider_settings['default']
+let g:aider_command = s:aider_settings['architect']
 
 function! s:switch_aider_setting(setting_name) abort
   let l:setting_name = empty(a:setting_name) ? 'architect' : a:setting_name
