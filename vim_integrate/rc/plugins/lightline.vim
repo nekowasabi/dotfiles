@@ -17,8 +17,10 @@ let g:lightline = {
       \     'linter_ok': 'right',
       \ },
       \ 'tabline': {
-      \   'left': [ ['gitbranch', 'gitstatus'], ['file_size'], ['char_num'], ['nearestmethodorfunction']],
-      \   'right': [ ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok'] ]
+      \   'left': [ ['gitbranch', 'gitstatus'],  ['nearestmethodorfunction']],
+      \   'right': [ ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok'] ],
+      \   'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
+      \   'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
       \ },
       \ 'component_function': {
       \   'gitstatus': 'gina#component#status#preset',
@@ -26,6 +28,8 @@ let g:lightline = {
       \   'gitroot': 'gina#component#repo#name',
       \   'file_size': 'File_size',
       \   'char_num': 'CountCharInBuffer',
+      \   'filetype': 'MyFiletype',
+      \   'fileformat': 'MyFileformat',
       \   'nearestmethodorfunction': 'NearestMethodOrFunction',
       \ },
       \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
@@ -47,11 +51,15 @@ let g:lightline.active = {
       \     ['filename'],
       \   ],
       \   'right': [
-      \     ['percent'],
+      \     ['file_size', 'char_num', 'lineinfo'],
       \     ['fileformat', 'fileencoding', 'filetype'],
-      \     ['readonly'],
       \   ]
       \ }
+
+let g:lightline.component = {
+    \ 'lineinfo': '%3l[%L]'
+    \ }
+
 let g:lightline#bufferline#enable_devicons = 1
 
 let g:lightline#ale#indicator_checking = ""
@@ -66,6 +74,8 @@ let g:lightline#ale#indicator_ok = "OK: "
 
 let s:p = g:lightline#colorscheme#wombat#palette
 
+let s:p.normal.left = [ ['#444444', '#8ac6f2', 21, 231, 'bold' ], [ '#d0d0d0', '#585858', 231, 21 ], ['#000000',  '#ffffff', 231, 21, 'bold' ] ]
+let s:p.normal.right = [ ['#444444', '#8ac6f2', 21, 231, 'bold' ], [ '#d0d0d0', '#585858', 231, 21 ], ['#000000',  '#ffffff', 231, 21, 'bold' ] ]
 let s:p.tabline.left = [ ['#444444', '#8ac6f2', 21, 231, 'bold' ], [ '#d0d0d0', '#585858', 231, 21 ], ['#000000',  '#ffffff', 231, 21, 'bold' ] ]
 let s:p.tabline.right = [ ['#444444', '#8ac6f2', 21, 231, 'bold' ], [ '#d0d0d0', '#585858', 231, 21 ], ['#000000',  '#ffffff', 231, 21, 'bold' ] ]
 
@@ -82,6 +92,14 @@ function! NearestMethodOrFunction()
   return ' :No Function'
 endfunction
 
+function! MyFiletype()
+  " return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+  return winwidth(0) > 70 ? (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction
+
+function! MyFileformat()
+  return winwidth(0) > 70 ? (WebDevIconsGetFileFormatSymbol()) : ''
+endfunction
 
 " By default vista.vim never run if you don't call it explicitly.
 "

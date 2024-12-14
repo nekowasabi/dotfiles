@@ -145,8 +145,6 @@ endfunction
 command! Terminal call <SID>Terminal()
 nnoremap <silent> <leader>gt :Terminal<CR>
 
-
-
 " -----------------------------------------------------------
 " lua
 lua << EOF
