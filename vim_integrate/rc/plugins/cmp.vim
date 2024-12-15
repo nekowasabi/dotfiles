@@ -201,7 +201,7 @@ cmp.setup.cmdline(':', {
     { name = 'path' },
     { 
 				name = 'cmdline',
-				keyword_length = 3,
+				keyword_length = 4,
 				option = {
 					ignore_cmds = { 'Man', '!', 'w', 'wa', 'wqa', 'wq', 'qall', 'bd', 'bd!' }
 				}

@@ -12,9 +12,8 @@ if g:IsMacNeovimInWork()
 endif
 nnoremap <silent> <leader>as :AiderSwitch<CR>
 nnoremap <silent> <leader>aS :AiderSwitch watch<CR>
-" nnoremap <silent> <leader>aa :AiderSilentAddCurrentFile<CR>
+nnoremap <silent> <leader>aA :AiderSilentAddCurrentFile<CR>
 nnoremap <silent> <leader>aa :AiderAddIgnoreCurrentFile<CR>:AiderSilentAddCurrentFile<CR>
-nnoremap <silent> <leader>aA :AiderAddIgnoreCurrentFile<CR>:AiderAddCurrentFile<CR>
 nnoremap <silent> <leader>al :AiderAddIgnoreCurrentFile<CR>:AiderSilentAddCurrentFileReadOnly<CR>
 nnoremap <silent> <leader>aL :AiderAddIgnoreCurrentFile<CR>:AiderAddCurrentFileReadOnly<CR>
 nnoremap <silent> <leader>aw :AiderAddWeb<CR>
@@ -45,6 +44,12 @@ function! s:AiderOpenHandler() abort
   nnoremap <C-x><C-x> :AiderHide<CR>
 endfunction
 
+" Aider settings presets
+" default: 基本的なClaude-3 Sonnetモデルを使用したモード
+" architect: Claude-3 Sonnetモデルを使用し、アーキテクチャ設計に特化したモード
+" watch: ファイル監視モードで、変更を自動で検知して対話
+" gpt: GPT-4モデルを使用したモード
+" vhs: ビデオ録画用の設定で、コードのみのストリーミングモード
 let s:aider_settings = {
       \ 'default': 'aider --no-auto-commits --chat-language ja --no-stream --model anthropic/claude-3-5-sonnet-20241022 --editor-model anthropic/claude-3-5-sonnet-20241022 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands',
       \ 'architect': 'aider --no-auto-commits --chat-language ja --no-stream --architect --model anthropic/claude-3-5-sonnet-20241022 --editor-model anthropic/claude-3-5-sonnet-20241022 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands',
@@ -55,6 +60,12 @@ let s:aider_settings = {
 
 let g:aider_command = s:aider_settings['architect']
 
+" 異なるAider設定を切り替える
+"
+" @param {string} setting_name - 切り替える設定の名前
+"                               利用可能な設定: default, architect, watch, gpt, vhs
+"                               空の場合は'architect'がデフォルト値として使用される
+" @return void - なし
 function! s:switch_aider_setting(setting_name) abort
   let l:setting_name = empty(a:setting_name) ? 'architect' : a:setting_name
   if has_key(s:aider_settings, l:setting_name)
