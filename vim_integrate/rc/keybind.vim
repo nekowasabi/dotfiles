@@ -310,10 +310,8 @@ if g:IsMacGvim() || g:IsMacNeovim() || g:IsWsl()
 		endif
 	endfunction
 	command! OpenChangelog call <SID>OpenChangelog()
-	nnoremap <silent> ,c <ESC>:OpenChangelog<CR>:set showtabline=2<CR>
-	nnoremap <silent> ,l <ESC>:OpenChangelog<CR><C-home>o<CR>i<C-r>=neosnippet#expand('cpw')<CR>
-	nnoremap <silent> ,L :buffer changelogmemo<CR><C-home>o<CR>a<C-r>=neosnippet#expand('cpwd')<CR>
-	nnoremap <silent> ,Cp <ESC>:OpenChangelog<CR><C-home>o<CR>i<C-r>=neosnippet#expand('cpp')<CR>
+	nnoremap <silent> ,l <ESC>:OpenChangelog<CR>:set showtabline=2<CR>
+	nnoremap <silent> ,L <ESC>:OpenChangelog<CR><C-home>o<CR>i<C-r>=neosnippet#expand('cpw')<CR>
 
 	cnoremap <C-b> <Left>
 	cnoremap <C-f> <Right>

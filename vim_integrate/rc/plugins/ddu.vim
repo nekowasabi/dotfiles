@@ -309,7 +309,7 @@ function DduGrepCurrentDirectory() abort
 				\ })
 endfunction
 
-nnoremap <Space>pm  :<C-u>call DduGrepChangelogHeader()<CR>
+nnoremap <silent> <Space>pm  :<C-u>call DduGrepChangelogHeader()<CR>
 function DduGrepChangelogHeader() abort
   if g:IsMacGvim() || g:IsMacNeovim() || g:IsMacNeovimInWork()
     cd ~/repos/changelog
@@ -330,7 +330,7 @@ function DduGrepChangelogHeader() abort
 				\ })
 endfunction
 
-nnoremap <Space>pa  :<C-u>call DduGrepProject()<CR>
+nnoremap <silent> <Space>pa  :<C-u>call DduGrepProject()<CR>
 function DduGrepProject() abort
   let git_root = system('git rev-parse --show-toplevel')
   let git_root = substitute(git_root, '\n', '', 'g') " 改行を削除
