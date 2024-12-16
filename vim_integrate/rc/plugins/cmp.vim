@@ -1,4 +1,4 @@
-autocmd FileType sql,vim,php,typescript,ddu-ff lua require('cmp').setup.buffer {
+autocmd FileType sql,vim,php,typescript,ddu-ff,json lua require('cmp').setup.buffer {
 \   enabled = false
 \ }
 
@@ -123,8 +123,6 @@ cmp.setup.filetype('copilot-chat', {
     { name = 'context_nvim' }
   })
 })
-
-
 
 cmp.setup.filetype('changelog', {
   snippet = {

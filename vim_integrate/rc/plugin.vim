@@ -276,7 +276,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'gw31415/mstdn.vim'
   Plug 'MeanderingProgrammer/markdown.nvim'
   Plug 'gw31415/mstdn-editor.vim'
-	Plug 'tochikuji/cr-remover.nvim'
+	" Plug 'tochikuji/cr-remover.nvim'
   Plug 'nvim-neotest/nvim-nio'
   Plug 'napisani/context-nvim'
   Plug 'folke/noice.nvim'

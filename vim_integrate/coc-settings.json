@@ -1,4 +1,5 @@
 {
+  "vimlsp.indexes.gap": 500,
   "tsserver.enable": false,
   "diagnostic.enable": true,
   "inlayHint.enable": false,

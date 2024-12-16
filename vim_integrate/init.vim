@@ -212,12 +212,12 @@ require("context_nvim").setup({
     }
 })
 
-require('cr-remover').setup{{
-  exclude_patterns = { "%.git/" },
-  auto_remove_on_save = true,
-  auto_remove_on_paste = true,
-  debug = true
-}}
+-- require('cr-remover').setup{{
+--   exclude_patterns = { "%.git/" },
+--   -- auto_remove_on_save = true,
+--   auto_remove_on_paste = true,
+--   debug = false
+-- }}
 
 require('render-markdown').setup({
   file_types = { 'markdown', 'copilot-chat' },

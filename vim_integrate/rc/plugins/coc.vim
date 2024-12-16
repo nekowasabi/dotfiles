@@ -77,7 +77,6 @@ nmap <silent> ,caa <Plug>(coc-codeaction-cursor)
 
 autocmd FileType php,typescript,python,markdown,javascript,vim nnoremap <silent> ,co  :<C-u>CocFzfList outline<CR>
 
-
 " Use K to show documentation in preview window
 nnoremap <silent> ,ck :call <SID>show_documentation()<CR>
 
@@ -141,7 +140,12 @@ endfunction
 " Restore previous Coc state
 function! RestoreCocByFileType() abort
   if exists('g:is_coc_enabled')
-    execute g:is_coc_enabled ? "silent! CocEnable" : "silent! CocDisable"
+		if g:is_coc_enabled
+			execute "silent! CocEnable"
+		else
+			let g:your_cmp_disable_enable_toggle = v:true
+			execute "silent! CocDisable"
+		endif
   endif
 endfunction
 
@@ -161,3 +165,4 @@ endfunction
 
 nnoremap <Leader>: :
 autocmd CmdlineEnter * silent call OpenCommandLineByCmp()
+
