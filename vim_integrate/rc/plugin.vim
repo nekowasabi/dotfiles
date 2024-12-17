@@ -67,7 +67,7 @@ Plug 'tyru/open-browser.vim'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'vim-jp/vital.vim'
 " Plug 'yuki-yano/lexima-alter-command.vim'
-Plug 'dense-analysis/ale'
+" Plug 'dense-analysis/ale'
 Plug 'vimpostor/vim-tpipeline'
 
 " AI

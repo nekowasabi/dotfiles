@@ -41,7 +41,7 @@ let g:ale_linters = {
 let g:ale_fixers = {
     \   'typescript': ['biome'],
     \   'javascript': ['biome'],
-		  \   'php': ['pint'],
+		\   'php': ['pint'],
     \}
 
 " php
