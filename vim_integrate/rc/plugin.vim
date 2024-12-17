@@ -52,6 +52,7 @@ Plug 'rhysd/clever-f.vim'
 Plug 'rhysd/git-messenger.vim'
 " Plug 'rickhowe/wrapwidth'
 Plug 'ryanoasis/vim-devicons'
+Plug 'adelarsq/vim-devicons-emoji'
 Plug 't9md/vim-choosewin'
 Plug 'termoshtt/curl.vim'
 " Plug 'thinca/vim-partedit'
@@ -186,7 +187,7 @@ endfunction
 
 function g:SetCoc()
   Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': 'yarn install --frozen-lockfile'}
-   Plug 'antoinemadec/coc-fzf'
+  Plug 'antoinemadec/coc-fzf'
 endfunction
 
 " }}}1

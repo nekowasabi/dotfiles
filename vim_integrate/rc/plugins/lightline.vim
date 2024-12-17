@@ -30,6 +30,7 @@ let g:lightline = {
       \   'char_num': 'CountCharInBuffer',
       \   'filetype': 'MyFiletype',
       \   'fileformat': 'MyFileformat',
+      \   'fileencoding': 'MyFileEncoding',
       \   'nearestmethodorfunction': 'NearestMethodOrFunction',
       \ },
       \ 'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
@@ -93,12 +94,15 @@ function! NearestMethodOrFunction()
 endfunction
 
 function! MyFiletype()
-  " return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
-  return winwidth(0) > 70 ? (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+  return winwidth(0) > 1 ? (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction
+
+function! MyFileEncoding()
+    return winwidth(0) > 1 ? (&encoding ==# 'utf-8' ? '🇺' : '🇸') : ''
 endfunction
 
 function! MyFileformat()
-  return winwidth(0) > 70 ? (WebDevIconsGetFileFormatSymbol()) : ''
+  return winwidth(0) > 1 ? (WebDevIconsGetFileFormatSymbol()) : ''
 endfunction
 
 " By default vista.vim never run if you don't call it explicitly.

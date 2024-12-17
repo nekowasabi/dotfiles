@@ -1,5 +1,3 @@
-" coc.nvim
-
 let g:coc_global_extensions = [
   \  'coc-json'
   \, 'coc-lists'
@@ -96,7 +94,7 @@ let g:coc_supported_filetypes = [
       \ 'json',
       \ 'sh'
       \ ]
-let g:coc_disabled_filetypes = ['noice', 'markdown']
+let g:coc_disabled_filetypes = ['noice', 'markdown', 'changelog', 'text']
 let g:coc_toggle_delay = 1000
 let g:is_coc_enabled = v:true
 
@@ -154,6 +152,7 @@ augroup CocToggleForFileTypes
   autocmd!
   autocmd BufEnter * call ToggleCocByFileType()
   autocmd CmdLineLeave * call RestoreCocByFileType()
+  autocmd CmdlineEnter * silent call OpenCommandLineByCmp()
 augroup END
 " }}}1
 
@@ -164,5 +163,3 @@ function! OpenCommandLineByCmp() abort
 endfunction
 
 nnoremap <Leader>: :
-autocmd CmdlineEnter * silent call OpenCommandLineByCmp()
-
