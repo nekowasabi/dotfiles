@@ -105,7 +105,7 @@ endfunction
 "
 " If you want to show the nearest function in your statusline automatically,
 " you can add the following line to your vimrc
-autocmd VimEnter,InsertEnter,InsertLeave,CmdwinLeave * call NearestMethodOrFunction()
+autocmd InsertEnter,InsertLeave,CursorHold * call NearestMethodOrFunction()
 autocmd User CocStatusChange redraws
 
 function! File_size()
