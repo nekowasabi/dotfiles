@@ -90,11 +90,10 @@ endfunction
 let g:coc_supported_filetypes = [
       \ 'typescript',
       \ 'php',
-      \ 'vim',
       \ 'json',
       \ 'sh'
       \ ]
-let g:coc_disabled_filetypes = ['noice', 'markdown', 'changelog', 'text']
+let g:coc_disabled_filetypes = ['noice', 'markdown', 'changelog', 'text', 'vim']
 let g:coc_toggle_delay = 1000
 let g:is_coc_enabled = v:true
 

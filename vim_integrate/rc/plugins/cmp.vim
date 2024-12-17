@@ -1,4 +1,4 @@
-autocmd FileType sql,vim,php,typescript,ddu-ff,json lua require('cmp').setup.buffer {
+autocmd FileType sql,php,typescript,ddu-ff,json lua require('cmp').setup.buffer {
 \   enabled = false
 \ }
 
