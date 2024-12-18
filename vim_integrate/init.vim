@@ -138,6 +138,7 @@ endfunction
 nnoremap <silent> ,ccc :call <SID>ClearContext()<CR>
 
 " temp
+nmap <leader>r .
 
 function! s:LazyGit()
   call setcellwidths([])
