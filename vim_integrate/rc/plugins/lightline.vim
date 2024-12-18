@@ -58,7 +58,7 @@ let g:lightline.active = {
       \ }
 
 let g:lightline.component = {
-    \ 'lineinfo': '%3l[%L]'
+    \ 'lineinfo': 'L:%2l/%L'
     \ }
 
 let g:lightline#bufferline#enable_devicons = 1
@@ -75,12 +75,31 @@ let g:lightline#ale#indicator_ok = "OK: "
 
 let s:p = g:lightline#colorscheme#wombat#palette
 
-let s:p.normal.left = [ ['#444444', '#8ac6f2', 21, 231, 'bold' ], [ '#d0d0d0', '#585858', 231, 21 ], ['#000000',  '#ffffff', 231, 21, 'bold' ] ]
-let s:p.tabline.left = [ ['#444444', '#8ac6f2', 21, 231, 'bold' ], [ '#d0d0d0', '#585858', 231, 21 ], ['#000000',  '#ffffff', 231, 21, 'bold' ] ]
-let s:p.normal.right = [ ['#444444', '#8ac6f2', 21, 231, 'bold' ], [ '#d0d0d0', '#585858', 231, 21 ], ['#000000',  '#ffffff', 231, 21, 'bold' ] ]
-let s:p.tabline.right = [ ['#444444', '#8ac6f2', 21, 231, 'bold' ], [ '#d0d0d0', '#585858', 231, 21 ], ['#000000',  '#ffffff', 231, 21, 'bold' ] ]
+let s:p.normal.left = [
+    \ ['#b3b0a1', '#1f8176', 247, 32, 'bold'],
+    \ ['#b3b0a1', '#586e75', 247, 235],
+    \ ['#93a1a1', '#073642', 244, 234]
+\]
 
-" endif
+let s:p.normal.right = [
+    \ ['#b3b0a1', '#1f8176', 247, 32, 'bold'],
+    \ ['#b3b0a1', '#586e75', 247, 235],
+    \ ['#93a1a1', '#073642', 244, 234]
+\]
+
+let s:p.tabline.left = [
+    \ ['#b3b0a1', '#1f8176', 247, 32, 'bold'],
+    \ ['#b3b0a1', '#586e75', 247, 235],
+    \ ['#93a1a1', '#073642', 244, 234]
+\]
+
+let s:p.tabline.right = [
+    \ ['#b3b0a1', '#1f8176', 247, 32, 'bold'],
+    \ ['#b3b0a1', '#586e75', 247, 235],
+    \ ['#93a1a1', '#073642', 244, 234]
+\]
+
+
 
 function! NearestMethodOrFunction()
   if g:IsWindowsGvim()
@@ -141,7 +160,7 @@ function CountCharInBuffer() abort
     return 1
   endif
 
-  return wordcount().chars - 1 - l:num_newline . '文字'
+  return  'WC:'.(wordcount().chars - 1 - l:num_newline)
 endfunction
 command! -range CountChar call s:count_char() 
 
