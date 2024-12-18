@@ -76,8 +76,8 @@ let g:lightline#ale#indicator_ok = "OK: "
 let s:p = g:lightline#colorscheme#wombat#palette
 
 let s:p.normal.left = [ ['#444444', '#8ac6f2', 21, 231, 'bold' ], [ '#d0d0d0', '#585858', 231, 21 ], ['#000000',  '#ffffff', 231, 21, 'bold' ] ]
-let s:p.normal.right = [ ['#444444', '#8ac6f2', 21, 231, 'bold' ], [ '#d0d0d0', '#585858', 231, 21 ], ['#000000',  '#ffffff', 231, 21, 'bold' ] ]
 let s:p.tabline.left = [ ['#444444', '#8ac6f2', 21, 231, 'bold' ], [ '#d0d0d0', '#585858', 231, 21 ], ['#000000',  '#ffffff', 231, 21, 'bold' ] ]
+let s:p.normal.right = [ ['#444444', '#8ac6f2', 21, 231, 'bold' ], [ '#d0d0d0', '#585858', 231, 21 ], ['#000000',  '#ffffff', 231, 21, 'bold' ] ]
 let s:p.tabline.right = [ ['#444444', '#8ac6f2', 21, 231, 'bold' ], [ '#d0d0d0', '#585858', 231, 21 ], ['#000000',  '#ffffff', 231, 21, 'bold' ] ]
 
 " endif
