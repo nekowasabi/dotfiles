@@ -381,24 +381,8 @@ nnoremap <silent> ,rw :call ReplaceCurrentWordWithYank()<CR>
 " -----------------------------------------------------------
 " test
 function! s:Test()
-  " g:switch_ruleからファイルを読み込む
-  let l:rule = g:switch_rule
-  let l:file = readfile(l:rule)
-  
-  " JSONデータを文字列として結合
-  let l:json_str = join(l:file, "\n") 
-  
-  " JSONをデコード
-  let l:data = json_decode(l:json_str)
-  
-  " nameの配列を作成
-  let l:names = []
-  for condition in l:data.conditions
-    call add(l:names, condition.name)
-  endfor
-  
-  " 結果を表示
-  echo l:names
+  let a = execute('lua print(require("nvim-web-devicons").get_icon("init.lua", "lua", { default = true }))')
+  echo a
 endfunction
 
 command! -range -nargs=0 Test call s:Test()

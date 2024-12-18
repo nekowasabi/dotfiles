@@ -18,7 +18,7 @@ let g:lightline = {
       \ },
       \ 'tabline': {
       \   'left': [ ['gitbranch', 'gitstatus'],  ['nearestmethodorfunction']],
-      \   'right': [ ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok'] ],
+      \   'right': [ ['file_size'], ['char_num'], ['lineinfo'] ],
       \   'separator': { 'left': "\ue0b0", 'right': "\ue0b2" },
       \   'subseparator': { 'left': "\ue0b1", 'right': "\ue0b3" }
       \ },
@@ -52,7 +52,7 @@ let g:lightline.active = {
       \     ['filename'],
       \   ],
       \   'right': [
-      \     ['file_size', 'char_num', 'lineinfo'],
+      \     ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok'],
       \     ['fileformat', 'fileencoding', 'filetype'],
       \   ]
       \ }
