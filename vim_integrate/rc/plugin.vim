@@ -290,6 +290,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'notomo/cmp-neosnippet'
   Plug 'onsails/lspkind.nvim'
   Plug 'folke/snacks.nvim'
+  Plug 'SmiteshP/nvim-navic'
 
   call g:SetDdu()
 

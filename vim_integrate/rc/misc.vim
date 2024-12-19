@@ -381,9 +381,8 @@ nnoremap <silent> ,rw :call ReplaceCurrentWordWithYank()<CR>
 " -----------------------------------------------------------
 " test
 function! s:Test()
-  let a = execute('lua print(require("nvim-web-devicons").get_icon("init.lua", "lua", { default = true }))')
+  let a = execute('lua print(require"nvim-navic".get_location())')
   echo a
-
 endfunction
 
 command! -range -nargs=0 Test call s:Test()

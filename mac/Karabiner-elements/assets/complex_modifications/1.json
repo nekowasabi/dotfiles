@@ -947,7 +947,7 @@
 					"type": "basic",
           "description": "平均値に更新",
 					"from": {
-						"key_code": "a",
+						"key_code": "q",
 						"modifiers": {
 							"mandatory": [
 								"control"

@@ -27,6 +27,7 @@ let g:lightline = {
       \   'gitbranch': 'gina#component#repo#branch',
       \   'gitroot': 'gina#component#repo#name',
       \   'file_size': 'File_size',
+      \   'mode': 'MyMode',
       \   'char_num': 'CountCharInBuffer',
       \   'filetype': 'MyFiletype',
       \   'fileformat': 'MyFileformat',
@@ -48,8 +49,7 @@ let g:lightline.component_expand = {
 
 let g:lightline.active = {
       \   'left': [
-      \     ['mode', 'paste'],
-      \     ['filename'],
+      \     ['mode', 'paste'], ['filename'],
       \   ],
       \   'right': [
       \     ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok'],
@@ -107,12 +107,29 @@ function! NearestMethodOrFunction()
   endif
 
   if &filetype == 'vim' || &filetype == 'php' || &filetype == 'typescript' || &filetype == 'javascript'
-    return ''.get(b:,'coc_current_function','')
+    return strpart(execute('lua print(require"nvim-navic".get_location())'), 1)
   endif
   return ' :No Function'
 endfunction
 
+function! MyMode()
+  if mode() == 'n'
+    return ''
+  elseif mode() == 'v'
+    return ''
+  elseif mode() == 'i'
+    return ''
+  elseif mode() == 'R'
+    return '󰑇'
+  elseif mode() == 'c'
+    return '󰘳'
+  endif
+endfunction
+
 function! MyFiletype()
+  if &filetype == 'octo'
+    return ''
+  endif
   return winwidth(0) > 1 ? (strlen(&filetype) ? WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
 endfunction
 
@@ -128,7 +145,7 @@ endfunction
 "
 " If you want to show the nearest function in your statusline automatically,
 " you can add the following line to your vimrc
-autocmd InsertEnter,InsertLeave,CursorHold * call NearestMethodOrFunction()
+autocmd InsertEnter,InsertLeave,CursorMoved,CursorMovedI * call NearestMethodOrFunction()
 autocmd User CocStatusChange redraws
 
 function! File_size()
