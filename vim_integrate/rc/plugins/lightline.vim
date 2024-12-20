@@ -78,15 +78,16 @@ let g:lightline#ale#indicator_ok = "OK: "
 let s:p = g:lightline#colorscheme#wombat#palette
 
 let s:p.normal.left = [
-    \ ['#b3b0a1', '#1f8176', 247, 32, 'bold'],
+    \ ['#99FF99', '#1f8176', 247, 32, 'bold'],
     \ ['#b3b0a1', '#586e75', 247, 235],
     \ ['#93a1a1', '#073642', 244, 234]
 \]
 
 let s:p.normal.right = [
     \ ['#b3b0a1', '#1f8176', 247, 32, 'bold'],
-    \ ['#b3b0a1', '#586e75', 247, 235],
-    \ ['#93a1a1', '#073642', 244, 234]
+    \ ['#FF8000', '#586e75', 247, 235],
+    \ ['#93a1a1', '#073642', 244, 234],
+    \ ['#80FF00', '#202020', 244, 234]
 \]
 
 let s:p.tabline.left = [
