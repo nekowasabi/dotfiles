@@ -135,9 +135,8 @@ endif
 " コメント中の特定の単語を強調表示する
 augroup HilightsForce
   autocmd!
-  autocmd WinEnter,BufRead,BufNew,Syntax * :silent! call matchadd('Todo', '\(\MEMO\|TODO\|NOTE\|INFO\|XXX\|TEMP\):')
+  autocmd WinEnter,BufRead,BufNew,Syntax * :silent! call matchadd('Todo', '\(\MEMO\|TODO\|NOTE\|INFO\|XXX\|TEMP\):')
 augroup END
-
 
 " vim-json
 let g:vim_json_syntax_conceal = 0

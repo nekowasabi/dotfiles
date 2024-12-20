@@ -45,7 +45,7 @@ setglobal infercase
 set hlsearch
 filetype plugin indent on
 set hidden
-au CursorHold * checktime  
+" au CursorHold * checktime  
 syntax on
 set history=5000
 set ignorecase

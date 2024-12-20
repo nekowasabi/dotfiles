@@ -53,7 +53,9 @@ let g:lightline.active = {
       \   ],
       \   'right': [
       \     ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok'],
-      \     ['fileformat', 'fileencoding', 'filetype'],
+      \     ['fileformat'],
+      \     ['fileencoding'],
+      \     ['filetype'],
       \   ]
       \ }
 
@@ -99,8 +101,6 @@ let s:p.tabline.right = [
     \ ['#93a1a1', '#073642', 244, 234]
 \]
 
-
-
 function! NearestMethodOrFunction()
   if g:IsWindowsGvim()
     return ''
@@ -145,7 +145,8 @@ endfunction
 "
 " If you want to show the nearest function in your statusline automatically,
 " you can add the following line to your vimrc
-autocmd InsertEnter,InsertLeave,CursorMoved,CursorMovedI * call NearestMethodOrFunction()
+autocmd CursorHold * call lightline#update()
+autocmd InsertEnter,InsertLeave,CursorMoved,CursorHold * call lightline#enable()
 autocmd User CocStatusChange redraws
 
 function! File_size()
@@ -188,3 +189,9 @@ function s:count_newline()
 
   return line('$') - 1
 endfunction
+
+augroup my-glyph-palette
+  autocmd! *
+  " autocmd FileType php,vim,typescript call glyph_palette#apply()
+  autocmd VimEnter,WinEnter,BufEnter * call glyph_palette#apply()
+augroup END

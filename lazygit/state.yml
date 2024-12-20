@@ -13,7 +13,7 @@ startuppopupversion: 5
 lastversion: 0.41.0
 customcommandshistory:
 - qa
-hidecommandlog: false
+hidecommandlog: true
 ignorewhitespaceindiffview: true
 diffcontextsize: 3
 localbranchsortorder: recency
