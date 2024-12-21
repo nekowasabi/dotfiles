@@ -188,7 +188,9 @@ require("lspconfig").intelephense.setup {
     on_attach = on_attach
 }
 
-
+require("lspconfig").denols.setup {
+    on_attach = on_attach
+}
 
 require'nvim-web-devicons'.setup {
  -- your personnal icons can go here (to override)
@@ -309,12 +311,12 @@ require("context_nvim").setup({
     }
 })
 
--- require('cr-remover').setup{{
---   exclude_patterns = { "%.git/" },
---   -- auto_remove_on_save = true,
---   auto_remove_on_paste = true,
---   debug = false
--- }}
+require('cr-remover').setup{{
+  exclude_patterns = { "%.git/" },
+  -- auto_remove_on_save = true,
+  auto_remove_on_paste = true,
+  debug = false
+}}
 
 require('render-markdown').setup({
   file_types = { 'markdown', 'copilot-chat' },
@@ -368,23 +370,30 @@ require("img-clip").setup({
 require('avante_lib').load()
 require("avante").setup({
   ---@alias Provider "openai" | "claude" | "azure"  | "copilot" | "cohere" | [string]
-  -- provider = "claude",
-  -- claude = {
-  --   endpoint = "https://api.anthropic.com",
-  --   model = "claude-3-5-sonnet-20241022",
-  --   temperature = 0,
-  --   max_tokens = 8000,
-  -- },
-	provider = "copilot",
+  provider = "copilot",
+  claude = {
+    endpoint = "https://api.anthropic.com",
+    model = "claude-3-5-sonnet-20241022",
+    temperature = 0,
+    max_tokens = 8000,
+  },
   copilot = {
     endpoint = "https://api.githubcopilot.com",
-		model = "claude-3.5-sonnet",
+    model = "gpt-4o-2024-08-06",
     proxy = nil, -- [protocol://]host[:port] Use this proxy
     allow_insecure = false, -- Allow insecure server connections
     timeout = 30000, -- Timeout in milliseconds
     temperature = 0,
-    max_tokens = 8192,
+    max_tokens = 4096,
   },
+  dual_boost = {
+    enabled = false,
+    first_provider = "claude",
+    second_provider = "copilot",
+    prompt = "Based on the two reference outputs below, generate a response that incorporates elements from both but reflects your own judgment and unique perspective. Do not provide any explanation, just give the response directly. Reference Output 1: [{{provider1_output}}], Reference Output 2: [{{provider2_output}}]",
+    timeout = 60000, -- Timeout in milliseconds
+  },
+	-- provider = "copilot",
   -- auto_suggestions_provider = "copilot",
   behaviour = {
     auto_suggestions = false, -- Experimental stage

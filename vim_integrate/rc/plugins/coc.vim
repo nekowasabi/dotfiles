@@ -11,18 +11,18 @@ let g:coc_global_extensions = [
   \, '@yaegassy/coc-typescript-vue-plugin'
   \, '@yaegassy/coc-volar-tools'
   \, '@yaegassy/coc-volar'
-  \, 'coc-swagger'
   \, 'coc-sh'
   \, 'coc-yaml'
   \, 'coc-blade'
-  \, 'coc-biome'
   \, 'coc-lua'
   \, 'coc-deno'
-  \, 'coc-vimlsp'
   \, '@hexuhua/coc-copilot'
   \, 'coc-stylua'
   \ ]
 
+  " \, 'coc-swagger'
+  " \, 'coc-vimlsp'
+  " \, 'coc-biome'
   " \, 'coc-fzf-preview'
   " \, 'coc-php-cs-fixer'
   " \, '@yaegassy/coc-phpstan'
@@ -40,10 +40,10 @@ let g:coc_disable_startup_warning = 1
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm()
       \: "\<C-g>u" . lexima#expand('<LT>CR>', 'i')
 
-inoremap <silent><expr> <C-n> coc#pum#visible() ? coc#pum#next(1) : "\<C-n>"
-inoremap <silent><expr> <C-p> coc#pum#visible() ? coc#pum#prev(1) : "\<C-p>"
-inoremap <silent><expr> <down> coc#pum#visible() ? coc#pum#next(0) : "\<down>"
-inoremap <silent><expr> <up> coc#pum#visible() ? coc#pum#prev(0) : "\<up>"
+inoremap <silent><expr> <C-n> coc#pum#visible() ? coc#pum#next(1):  "\<C-n>"
+inoremap <silent><expr> <C-p> coc#pum#visible() ? coc#pum#prev(1):  "\<C-p>"
+inoremap <silent><expr> <down> coc#pum#visible() ? coc#pum#next(0): "\<down>"
+inoremap <silent><expr> <up> coc#pum#visible() ? coc#pum#prev(0):   "\<up>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1

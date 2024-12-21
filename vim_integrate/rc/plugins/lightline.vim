@@ -65,15 +65,15 @@ let g:lightline.component = {
 
 let g:lightline#bufferline#enable_devicons = 1
 
-let g:lightline#ale#indicator_checking = ""
+let g:lightline#ale#indicator_checking = "🔧"
 
-let g:lightline#ale#indicator_infos = " :"
+let g:lightline#ale#indicator_infos = "ℹ️ :"
 
-let g:lightline#ale#indicator_warnings = ": "
+let g:lightline#ale#indicator_warnings = "⚠️ :"
 
-let g:lightline#ale#indicator_errors = ": "
+let g:lightline#ale#indicator_errors = "❌ :"
 
-let g:lightline#ale#indicator_ok = "OK: "
+let g:lightline#ale#indicator_ok = "✅ "
 
 let s:p = g:lightline#colorscheme#wombat#palette
 
@@ -86,7 +86,7 @@ let s:p.normal.left = [
 let s:p.normal.right = [
     \ ['#b3b0a1', '#1f8176', 247, 32, 'bold'],
     \ ['#FF8000', '#586e75', 247, 235],
-    \ ['#93a1a1', '#073642', 244, 234],
+    \ ['#00FFFF', '#073642', 244, 234],
     \ ['#80FF00', '#202020', 244, 234]
 \]
 
@@ -135,7 +135,7 @@ function! MyFiletype()
 endfunction
 
 function! MyFileEncoding()
-    return winwidth(0) > 1 ? (&encoding ==# 'utf-8' ? '🇺' : '🇸') : ''
+    return winwidth(0) > 1 ? (&encoding ==# 'utf-8' ? '󰬂' : '󱎤') : ''
 endfunction
 
 function! MyFileformat()
@@ -150,6 +150,8 @@ autocmd CursorHold * call lightline#update()
 autocmd InsertEnter,InsertLeave,CursorMoved,CursorHold * call lightline#enable()
 autocmd User CocStatusChange redraws
 
+" ファイルサイズを計算して返す関数
+" @return {string} ファイルサイズを表す文字列
 function! File_size()
   let l:size = getfsize(expand(@%))
   if l:size == 0 || l:size == -1 || l:size == -2
@@ -166,6 +168,9 @@ function! File_size()
   endif
 endfunction
 
+" バッファ内の文字数をカウントする関数
+" 特定のファイルタイプの場合は空文字列を返す
+" @return {string} 文字数を表す文字列
 function CountCharInBuffer() abort
   if &filetype == 'changelog' || &filetype == 'text' || &filetype == 'ddu-ff-filter' || &filetype == 'ddu-filer' || &filetype == 'vim-plug' || &filetype == ''
     return ''

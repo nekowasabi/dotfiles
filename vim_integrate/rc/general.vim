@@ -110,6 +110,7 @@ call setcellwidths([
   \ [ 0x2935, 0x2935, 2 ],
   \ [ 0x2459, 0x2469, 2 ],
   \ [ 0x2606, 0x2606, 2 ],
+  \ [ 0x2705, 0x2705, 2 ],
   \ ])
 
 
@@ -127,6 +128,7 @@ function! SetCustomCellWidths()
     \ [ 0x2935, 0x2935, 2 ],
     \ [ 0x2459, 0x2469, 2 ],
     \ [ 0x2606, 0x2606, 2 ],
+    \ [ 0x2705, 0x2705, 2 ],
     \ ])
 endfunction
 
@@ -180,18 +182,18 @@ if g:IsWsl()
   set backupdir=$HOME/time_backup
   set clipboard&
   set clipboard^=unnamedplus
-  let g:clipboard = {
-       \   'name': 'myClipboard',
-       \   'copy': {
-       \      '+': 'win32yank.exe -i',
-       \      '*': 'win32yank.exe -i',
-       \    },
-       \   'paste': {
-       \      '+': 'win32yank.exe -o',
-       \      '*': 'win32yank.exe -o',
-       \   },
-       \   'cache_enabled': 1,
-       \ }
+  " let g:clipboard = {
+  "      \   'name': 'myClipboard',
+  "      \   'copy': {
+  "      \      '+': 'win32yank.exe -i',
+  "      \      '*': 'win32yank.exe -i',
+  "      \    },
+  "      \   'paste': {
+  "      \      '+': 'win32yank.exe -o',
+  "      \      '*': 'win32yank.exe -o',
+  "      \   },
+  "      \   'cache_enabled': 1,
+  "      \ }
 endif
 
 " time backup {{{1

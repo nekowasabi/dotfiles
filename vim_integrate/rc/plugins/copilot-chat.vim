@@ -104,7 +104,8 @@ copilot_chat.setup({
   },
   debug = false,
   show_info = false,
-	model = "claude-3.5-sonnet",
+	model = "o1",
+	-- model = "claude-3.5-sonnet",
 	chat_autocomplete = true,
   mappings = {
     complete = {
@@ -234,13 +235,31 @@ diffの出力には、変更された行やその位置を示す情報が含ま�
 EOF
 
 " CopilotChat
+" 行選択モードで <leader>cr を押すと CopilotChatReview を実行
 vnoremap <leader>cr :CopilotChatReview
+
+" 行選択モードで <leader>ce を押すと CopilotChatExplain を実行
 vnoremap <leader>ce :CopilotChatExplain
-vnoremap <leader>cc :CopilotChat 
-vnoremap <Tab> :CopilotChat 
-vnoremap <leader>cf :CopilotChatFix 
-vnoremap <leader>co :CopilotChatOptimize 
+
+" 行選択モードで <leader>cc を押すと CopilotChat を実行
+vnoremap <leader>cc :CopilotChat
+
+" 行選択モードで <Tab> を押すと CopilotChat を実行
+vnoremap <Tab> :CopilotChat
+
+" 行選択モードで <leader>cf を押すと CopilotChatFix を実行
+vnoremap <leader>cf :CopilotChatFix
+
+" 行選択モードで <leader>co を押すと CopilotChatOptimize を実行
+vnoremap <leader>co :CopilotChatOptimize
+
+" 通常モードで <leader>cc を押すと CopilotChat を実行
 nnoremap <leader>cc :CopilotChat<CR>
-vnoremap <M-c> :CopilotChat vnoremap <D-c> :CopilotChat 
+
+" 行選択モードで <M-c> と <D-c> を押すと CopilotChat を実行
+vnoremap <M-c> :CopilotChat
+vnoremap <D-c> :CopilotChat
+
+" 通常モードで <M-c> と <D-c> を押すと CopilotChat を実行
 nnoremap <silent> <M-c> :CopilotChat<CR>
 nnoremap <silent> <D-c> :CopilotChat<CR>
