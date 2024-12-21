@@ -62,9 +62,8 @@ set cursorline
 set norelativenumber
 set breakindentopt=shift:0
 set helplang=ja,en
-set synmaxcol=1500
+set synmaxcol=-3000
 syntax sync minlines=1500
-set synmaxcol=256
 set concealcursor=nc
 set conceallevel=2
 set diffopt=vertical,internal,filler,algorithm:histogram,indent-heuristic

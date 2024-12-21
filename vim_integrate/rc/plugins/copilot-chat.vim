@@ -104,7 +104,7 @@ copilot_chat.setup({
   },
   debug = false,
   show_info = false,
-	model = "o1",
+	model = "o1-mini",
 	-- model = "claude-3.5-sonnet",
 	chat_autocomplete = true,
   mappings = {
@@ -236,22 +236,19 @@ EOF
 
 " CopilotChat
 " 行選択モードで <leader>cr を押すと CopilotChatReview を実行
-vnoremap <leader>cr :CopilotChatReview
+vnoremap <leader>cr :CopilotChatReview<CR>
 
 " 行選択モードで <leader>ce を押すと CopilotChatExplain を実行
-vnoremap <leader>ce :CopilotChatExplain
-
-" 行選択モードで <leader>cc を押すと CopilotChat を実行
-vnoremap <leader>cc :CopilotChat
+vnoremap <leader>ce :CopilotChatExplain<CR>
 
 " 行選択モードで <Tab> を押すと CopilotChat を実行
 vnoremap <Tab> :CopilotChat
 
 " 行選択モードで <leader>cf を押すと CopilotChatFix を実行
-vnoremap <leader>cf :CopilotChatFix
+vnoremap <leader>cf :CopilotChatFix<CR>
 
 " 行選択モードで <leader>co を押すと CopilotChatOptimize を実行
-vnoremap <leader>co :CopilotChatOptimize
+vnoremap <leader>co :CopilotChatOptimize<CR>
 
 " 通常モードで <leader>cc を押すと CopilotChat を実行
 nnoremap <leader>cc :CopilotChat<CR>

@@ -59,7 +59,7 @@ syn match changelogText /CL\C:/ conceal cchar=📝
 syn match changelogText /CLO\C:/ conceal cchar=📚
 
 " normal
-syn match changelogBrace "[『「].\{-}.[』」]"
+" syn match changelogBrace "[『「].\{-}.[』」]"
 syntax match changelogBrace /『[^』]*』/
 syntax match changelogBrace /「[^」]*」/
 
