@@ -60,6 +60,8 @@ syn match changelogText /CLO\C:/ conceal cchar=📚
 
 " normal
 syn match changelogBrace "[『「].\{-}.[』」]"
+syntax match changelogBrace /『[^』]*』/
+syntax match changelogBrace /「[^」]*」/
 
 if version < 600
 "  syn region	changelogFiles	start="^\s\+[+*]\s" end=":\s" end="^$" contains=changelogBullet,changelogColon,changelogError keepend
