@@ -42,24 +42,21 @@ syn match       changelogHeader "○"
 syn match       changelogHeaderCompleted "済／.*$"
 syn match	changelogText   "△"
 syn match	changelogText   "→"
-" syn match	changelogMarkdownHeader	"^#\+"
-" syn region changelogMarkdownBody matchgroup=changelogMarkdownHeader start="^#\+" end="$"
 
 hi def link changelogDelimiter     Delimiter
-syn region      changelogText matchgroup=changelogDelimiter start="\[" end="\]"
-
+syn region changelogText matchgroup=changelogDelimiter start="\[" end="\]"
+syn match changelogMarkdownHeader "^# .*$"
+syn match changelogMarkdownHeader "^## .*$"
+syn match changelogMarkdownHeader "^### .*$"
+syn match changelogMarkdownHeader "^#### .*$"
 
 syn match changelogFold1 "\zs{{{[1-9]" conceal cchar=👎
-syn match changelogMarkdownHeader	"^#\+"
-syn region changelogMarkdownBody matchgroup=changelogMarkdownHeader start="^#\+\s\+" end="\s\|$"
 syn match changelogFold2 /}}}[0-9]/ conceal cchar=🖕
-
 
 syn match changelogText /CL\C:/ conceal cchar=📝
 syn match changelogText /CLO\C:/ conceal cchar=📚
 
 " normal
-" syn match changelogBrace "[『「].\{-}.[』」]"
 syntax match changelogBrace /『[^』]*』/
 syntax match changelogBrace /「[^」]*」/
 

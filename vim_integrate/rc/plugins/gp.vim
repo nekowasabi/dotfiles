@@ -20,6 +20,14 @@ require("gp").setup({
 	},
   agents =
   {
+    -- {
+    --   provider = "copilot",
+    --   name = "copilot-o1",
+    --   chat = true,
+    --   command = false,
+    --   model = { model = "o1", temperature = 0.8, top_p = 1 },
+    --   system_prompt = require("gp.defaults").chat_system_prompt,
+    -- },
     {
       provider = "copilot",
       name = "copilot-3-5-Sonnet",

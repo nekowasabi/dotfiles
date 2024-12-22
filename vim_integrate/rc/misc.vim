@@ -381,8 +381,10 @@ nnoremap <silent> ,rw :call ReplaceCurrentWordWithYank()<CR>
 " -----------------------------------------------------------
 " test
 function! s:Test()
-  let a = execute('lua print(require"nvim-navic".get_location())')
-  echo a
+	" Use gptme to summarize the diff
+	let l:summary = system('git diff HEAD "HEAD@{1 day ago}"')
+  echo l:summary
+
 endfunction
 
 command! -range -nargs=0 Test call s:Test()
