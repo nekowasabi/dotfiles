@@ -37,3 +37,11 @@ augroup allFileTypesConceal
   autocmd FileType * highlight default link LinkURL Conceal
 augroup END
 
+
+lua << EOF
+-- 外部からファイルを変更されたら反映する
+vim.api.nvim_create_autocmd({ "WinEnter", "FocusGained", "BufEnter" }, {
+  pattern = "*",
+  command = "checktime",
+})
+EOF
