@@ -6,9 +6,6 @@ snippets:
   - name: docker up
     keyword: dur
     snippet: RAILS_ENV=test docker-compose up -d app
-  - name: git status
-    keyword: gs
-    snippet: git status --short --branch
   - name: git pull
     keyword: gp
     snippet: git pull
@@ -22,7 +19,7 @@ snippets:
     keyword: gc
     snippet: git switch {{branch}}
   - name: git switch
-    keyword: gsr
+    keyword: gs
     snippet: git switch $(git for-each-ref --sort=-committerdate refs/heads/ --format='%(refname:short)' | fzf)
   - name: git switch previous branch 
     keyword: gb
