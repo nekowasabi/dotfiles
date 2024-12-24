@@ -81,7 +81,7 @@ cmp.setup({
   matching = {
     disallow_fuzzy_matching = false,
     disallow_partial_fuzzy_matching = false,
-    disallow_partial_matching = true,
+    disallow_partial_matching = false,
   },
    sources = {
      { name = 'path' },

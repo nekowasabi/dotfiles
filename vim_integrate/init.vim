@@ -158,6 +158,50 @@ nnoremap <silent> <leader>gt :Terminal<CR>
 " lua
 lua << EOF
 
+require("codecompanion").setup({
+  opts = {
+    language = "Japanese",
+  },
+  display = {
+    chat = {
+      render_headers = false,
+    },
+  },
+  strategies = {
+    chat = {
+      adapter = "copilot",
+      slash_commands = {
+        ["file"] = {
+          opts = {
+            -- ref: https://github.com/olimorris/codecompanion.nvim/discussions/276
+            provider = "telescope",
+          },
+        },
+      },
+    },
+    inline = {
+      adapter = "copilot",
+    },
+    agent = {
+      adapter = "copilot",
+    },
+  },
+
+  adapters = {
+    copilot = function()
+      return require("codecompanion.adapters").extend("copilot", {
+        schema = {
+          model = {
+            default = "claude-3.5-sonnet",
+          },
+        },
+      })
+    end,
+  },
+})
+
+require("mason").setup()
+
 local navic = require("nvim-navic")
 local on_attach = function(client, bufnr)
   if client.server_capabilities.documentSymbolProvider then
@@ -354,130 +398,129 @@ vim.keymap.set({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
 
 require('Comment').setup()
 
-require("mason").setup()
 
--- avante {{{1
-require("img-clip").setup({
-  default = {
-    embed_image_as_base64 = false,
-    prompt_for_file_name = false,
-    drag_and_drop = {
-      insert_mode = true,
-    },
-  },
-})
-
-require('avante_lib').load()
-require("avante").setup({
-  ---@alias Provider "openai" | "claude" | "azure"  | "copilot" | "cohere" | [string]
-  provider = "copilot",
-  claude = {
-    endpoint = "https://api.anthropic.com",
-    model = "claude-3-5-sonnet-20241022",
-    temperature = 0,
-    max_tokens = 8000,
-  },
-  copilot = {
-    endpoint = "https://api.githubcopilot.com",
-    model = "gpt-4o-2024-08-06",
-    proxy = nil, -- [protocol://]host[:port] Use this proxy
-    allow_insecure = false, -- Allow insecure server connections
-    timeout = 30000, -- Timeout in milliseconds
-    temperature = 0,
-    max_tokens = 4096,
-  },
-  dual_boost = {
-    enabled = false,
-    first_provider = "claude",
-    second_provider = "copilot",
-    prompt = "Based on the two reference outputs below, generate a response that incorporates elements from both but reflects your own judgment and unique perspective. Do not provide any explanation, just give the response directly. Reference Output 1: [{{provider1_output}}], Reference Output 2: [{{provider2_output}}]",
-    timeout = 60000, -- Timeout in milliseconds
-  },
-	-- provider = "copilot",
-  -- auto_suggestions_provider = "copilot",
-  behaviour = {
-    auto_suggestions = false, -- Experimental stage
-    auto_set_highlight_group = true,
-    auto_set_keymaps = false,
-    auto_apply_diff_after_generation = false,
-    support_paste_from_clipboard = true,
-  },
-  mappings = {
-    ask = "<leader>va",
-    edit = "<leader>ve",
-    refresh = "<leader>vr",
-    toggle = "<leader>vt",
-    frocus = "<leader>vf",
-    toggle = {
-      default = "<leader>vt",
-      debug = "<leader>vd",
-      hint = "<leader>vh",
-      suggestion = "<leader>vs",
-      repo_map = "<leader>vz",
-    },
-    --- @class AvanteConflictMappings
-    diff = {
-      ours = "co",
-      theirs = "ct",
-      both = "cb",
-      next = "]x",
-      prev = "[x",
-    },
-    jump = {
-      next = "]]",
-      prev = "[[",
-    },
-    submit = {
-      normal = "<CR>",
-      insert = "<C-s>",
-    },
-    suggestion = {
-      accept = "<M-l>",
-      next = "<M-]>",
-      prev = "<M-[>",
-      dismiss = "<C-]>",
-    },
-    toggle = {
-      debug = "<leader>vd",
-      hint = "<leader>vh",
-    },
-    sidebar = {
-      apply_all = "A",
-      apply_cursor = "a",
-      switch_windows = "<Tab>",
-      reverse_switch_windows = "<S-Tab>",
-    },
-  },
-  hints = { enabled = true },
-  windows = {
-    wrap = true, -- similar to vim.o.wrap
-    width = 50, -- default % based on available width
-    sidebar_header = {
-      align = "center", -- left, center, right for title
-      rounded = true,
-    },
-    ask = {
-      floating = false,
-      start_insert = true,
-      border = "rounded"
-    },
-  },
-  highlights = {
-    ---@type AvanteConflictHighlights
-    diff = {
-      current = "DiffText",
-      incoming = "DiffAdd",
-    },
-  },
-  --- @class AvanteConflictUserConfig
-  diff = {
-    debug = false,
-    autojump = true,
-    ---@type string | fun(): any
-    list_opener = "copen",
-  },
-})
--- }}}1
+-- -- avante {{{1
+-- require("img-clip").setup({
+--   default = {
+--     embed_image_as_base64 = false,
+--     prompt_for_file_name = false,
+--     drag_and_drop = {
+--       insert_mode = true,
+--     },
+--   },
+-- })
+--
+-- require('avante_lib').load()
+-- require("avante").setup({
+--   ---@alias Provider "openai" | "claude" | "azure"  | "copilot" | "cohere" | [string]
+--   provider = "copilot",
+--   claude = {
+--     endpoint = "https://api.anthropic.com",
+--     model = "claude-3-5-sonnet-20241022",
+--     temperature = 0,
+--     max_tokens = 8000,
+--   },
+--   copilot = {
+--     endpoint = "https://api.githubcopilot.com",
+--     model = "gpt-4o-2024-08-06",
+--     proxy = nil, -- [protocol://]host[:port] Use this proxy
+--     allow_insecure = false, -- Allow insecure server connections
+--     timeout = 30000, -- Timeout in milliseconds
+--     temperature = 0,
+--     max_tokens = 4096,
+--   },
+--   dual_boost = {
+--     enabled = false,
+--     first_provider = "claude",
+--     second_provider = "copilot",
+--     prompt = "Based on the two reference outputs below, generate a response that incorporates elements from both but reflects your own judgment and unique perspective. Do not provide any explanation, just give the response directly. Reference Output 1: [{{provider1_output}}], Reference Output 2: [{{provider2_output}}]",
+--     timeout = 60000, -- Timeout in milliseconds
+--   },
+-- 	-- provider = "copilot",
+--   -- auto_suggestions_provider = "copilot",
+--   behaviour = {
+--     auto_suggestions = false, -- Experimental stage
+--     auto_set_highlight_group = true,
+--     auto_set_keymaps = false,
+--     auto_apply_diff_after_generation = false,
+--     support_paste_from_clipboard = true,
+--   },
+--   mappings = {
+--     ask = "<leader>va",
+--     edit = "<leader>ve",
+--     refresh = "<leader>vr",
+--     toggle = "<leader>vt",
+--     frocus = "<leader>vf",
+--     toggle = {
+--       default = "<leader>vt",
+--       debug = "<leader>vd",
+--       hint = "<leader>vh",
+--       suggestion = "<leader>vs",
+--       repo_map = "<leader>vz",
+--     },
+--     --- @class AvanteConflictMappings
+--     diff = {
+--       ours = "co",
+--       theirs = "ct",
+--       both = "cb",
+--       next = "]x",
+--       prev = "[x",
+--     },
+--     jump = {
+--       next = "]]",
+--       prev = "[[",
+--     },
+--     submit = {
+--       normal = "<CR>",
+--       insert = "<C-s>",
+--     },
+--     suggestion = {
+--       accept = "<M-l>",
+--       next = "<M-]>",
+--       prev = "<M-[>",
+--       dismiss = "<C-]>",
+--     },
+--     toggle = {
+--       debug = "<leader>vd",
+--       hint = "<leader>vh",
+--     },
+--     sidebar = {
+--       apply_all = "A",
+--       apply_cursor = "a",
+--       switch_windows = "<Tab>",
+--       reverse_switch_windows = "<S-Tab>",
+--     },
+--   },
+--   hints = { enabled = true },
+--   windows = {
+--     wrap = true, -- similar to vim.o.wrap
+--     width = 50, -- default % based on available width
+--     sidebar_header = {
+--       align = "center", -- left, center, right for title
+--       rounded = true,
+--     },
+--     ask = {
+--       floating = false,
+--       start_insert = true,
+--       border = "rounded"
+--     },
+--   },
+--   highlights = {
+--     ---@type AvanteConflictHighlights
+--     diff = {
+--       current = "DiffText",
+--       incoming = "DiffAdd",
+--     },
+--   },
+--   --- @class AvanteConflictUserConfig
+--   diff = {
+--     debug = false,
+--     autojump = true,
+--     ---@type string | fun(): any
+--     list_opener = "copen",
+--   },
+-- })
+-- -- }}}1
 
 EOF
 
