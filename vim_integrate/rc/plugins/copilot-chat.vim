@@ -116,8 +116,8 @@ copilot_chat.setup({
       normal = 'q',
     },
     reset = {
-      normal ='<C-c>',
-      insert = '<C-c>'
+      normal ='<C-c>c',
+      insert = '<C-c>c'
     },
     submit_prompt = {
       normal = '<CR>',
