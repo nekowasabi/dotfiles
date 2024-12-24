@@ -171,8 +171,19 @@ require("codecompanion").setup({
   },
   display = {
     chat = {
-      render_headers = false,
+      render_headers = true,
     },
+  },
+  diff = {
+    enabled = true,
+    close_chat_at = 240, -- Close an open chat buffer if the total columns of your display are less than...
+    layout = "vertical", -- vertical|horizontal split for default provider
+    opts = { "internal", "filler", "closeoff", "algorithm:patience", "followwrap", "linematch:120" },
+    provider = "default", -- default|mini_diff
+  },
+  inline = {
+    -- If the inline prompt creates a new buffer, how should we display this?
+    layout = "vertical", -- vertical|horizontal|buffer
   },
   strategies = {
     chat = {
