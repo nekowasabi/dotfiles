@@ -113,13 +113,20 @@ nnoremap <leader>PP :call <SID>CrossPost()<CR>
 nnoremap <M-p> :call <SID>CrossPost()<CR>
 nnoremap <D-p> :call <SID>CrossPost()<CR>
 
-" Avante
-nmap <silent> <Leader>va <Plug>(AvanteAsk)
-nmap <silent> <Leader>ve <Plug>(AvanteEdit)
-nmap <silent> <Leader>vr <Plug>(AvanteRefresh)
-vmap <silent> <Leader>va <Plug>(AvanteAsk)
-vmap <silent> <Leader>ve <Plug>(AvanteEdit)
-vmap <silent> <Leader>vr <Plug>(AvanteRefresh)
+" " Avante
+" nmap <silent> <Leader>va <Plug>(AvanteAsk)
+" nmap <silent> <Leader>ve <Plug>(AvanteEdit)
+" nmap <silent> <Leader>vr <Plug>(AvanteRefresh)
+" vmap <silent> <Leader>va <Plug>(AvanteAsk)
+" vmap <silent> <Leader>ve <Plug>(AvanteEdit)
+" vmap <silent> <Leader>vr <Plug>(AvanteRefresh)
+
+" codecompanion
+nnoremap <C-a> :CodeCompanionActions<CR>
+vnoremap <C-a> :CodeCompanionActions<CR>
+nnoremap <Leader>ca :CodeCompanionChat Toggle<CR>
+vnoremap <Leader>ca :CodeCompanionChat Toggle<CR>
+vnoremap ga :CodeCompanionChat Add<CR>
 
 " Previm
 let g:previm_open_cmd = 'open -a "Microsoft Edge"'
