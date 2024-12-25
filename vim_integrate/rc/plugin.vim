@@ -15,29 +15,21 @@ call plug#begin(g:GetVimConfigRootPath() . 'plugged')
 Plug 'AmaiSaeta/closesomewindow.vim'
 Plug 'AndrewRadev/switch.vim'
 Plug 'Bakudankun/BackAndForward.vim'
-" Plug 'LeafCage/yankround.vim'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neosnippet.vim'
-" Plug 'Shougo/vimproc.vim'
 Plug 'airblade/vim-rooter'
-" Plug 'cocopon/inspecthi.vim' " colorscheme inspector
 Plug 'cohama/lexima.vim'
 Plug 'deton/jasegment.vim'
 Plug 'haya14busa/vim-asterisk'
 Plug 'haya14busa/vim-edgemotion'
-" Plug 'itchyny/vim-gitbranch' " lightlineにブランチ名を表示
 Plug 'itchyny/vim-parenmatch'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-" Plug 'junegunn/fzf.vim' 
 Plug 'junegunn/vim-easy-align'
 Plug 'kana/vim-gf-user'
 Plug 'kana/vim-repeat'
-" Plug 'lambdalisue/gin.vim'
 Plug 'lambdalisue/gina.vim' " lightlineで使っている——ブランチ名を表示に仕様
 Plug 'lambdalisue/glyph-palette.vim'
 Plug 'lambdalisue/nerdfont.vim'
-" Plug 'lambdalisue/vital-ArgumentParser'
-" Plug 'lambdalisue/vital-Whisky'
 Plug 'machakann/vim-highlightedyank'
 Plug 'machakann/vim-sandwich'
 Plug 'machakann/vim-swap'
@@ -50,46 +42,30 @@ Plug 'nekowasabi/vim-sayonara'
 Plug 'previm/previm'
 Plug 'rhysd/clever-f.vim'
 Plug 'rhysd/git-messenger.vim'
-" Plug 'rickhowe/wrapwidth'
 Plug 'ryanoasis/vim-devicons'
-" Plug 'adelarsq/vim-devicons-emoji'
 Plug 't9md/vim-choosewin'
 Plug 'termoshtt/curl.vim'
-" Plug 'thinca/vim-partedit'
 Plug 'thinca/vim-prettyprint' " PPでいい感じに変数の内容を出力
 Plug 'thinca/vim-qfreplace'
-" Plug 'thinca/vim-quickrun'
-" Plug 'tpope/vim-fugitive'
 Plug 'tyru/capture.vim' " コマンドラインの結果をバッファに出力
-" Plug 'tyru/columnskip.vim' 
 Plug 'tyru/current-func-info.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'vim-jp/vimdoc-ja'
-" Plug 'vim-jp/vital.vim'
-" Plug 'yuki-yano/lexima-alter-command.vim'
-" Plug 'dense-analysis/ale'
 Plug 'vimpostor/vim-tpipeline'
 
 " AI
-
-if g:IsWindowsGvim()
-else
-  Plug 'github/copilot.vim'
-	Plug 'nekowasabi/aider.vim'
-  Plug 'Robitx/gp.nvim'
-  " Plug 'ErikBjare/gptme.vim'
-endif
+Plug 'github/copilot.vim'
+Plug 'nekowasabi/aider.vim'
+Plug 'Robitx/gp.nvim'
 
 " denops
 Plug 'hrsh7th/vim-searchx'
 Plug 'lambdalisue/kensaku.vim'
 Plug 'lambdalisue/mr.vim'
-" Plug 'lambdalisue/vim-kensaku-command'
-" Plug 'lambdalisue/vim-kensaku-search'
 Plug 'nekowasabi/rtm_deno'
+Plug 'vim-denops/denops.vim'
 " Plug 'vim-denops/denops-helloworld.vim'
 " Plug 'vim-denops/denops-shared-server.vim'
-Plug 'vim-denops/denops.vim'
 
 " textobj
 Plug 'kana/vim-operator-user'
@@ -158,13 +134,10 @@ function g:SetDdu()
 	Plug 'matsui54/ddu-source-file_external'
 	Plug 'nabezokodaikon/ddu-source-file_fd'
 	Plug 'nekowasabi/ddu-source-vim-bookmark'
-	" Plug 'peacock0803sz/ddu-source-git_stash'
 	Plug 'ryota2357/ddu-column-icon_filename'
 	Plug 'shun/ddu-source-buffer'
 	Plug 'shun/ddu-source-rg'
 	Plug 'tamago3keran/ddu-column-devicon_filename'
-	" Plug 'uga-rosa/ddu-filter-converter_devicon'
-  " Plug '4513ECHO/ddu-source-emoji'
   Plug 'Shougo/ddu-filter-matcher_ignores'
   Plug 'Shougo/ddu-filter-matcher_substring'
   Plug 'Shougo/ddu-kind-file'
@@ -176,12 +149,8 @@ function g:SetDdu()
   Plug 'Shougo/ddu.vim'
   Plug 'kamecha/ddu-filter-converter_file_icon'
   Plug 'kamecha/ddu-filter-converter_file_info'
-  " Plug 'kamecha/ddu-source-jumplist'
   Plug 'matsui54/ddu-source-help'
-  " Plug 'mikanIchinose/ddu-source-markdown'
   Plug 'nekowasabi/ddu-ai-prompt-connecter'
-  " Plug 'uga-rosa/ddu-source-lsp'
-  " Plug 'yuki-yano/ddu-filter-fzf'
   Plug 'liquidz/ddu-source-custom-list'
 endfunction
 
@@ -194,8 +163,6 @@ endfunction
 
 " Mac Neovim {{{1
 if g:IsMacNeovim() || g:IsWsl()
-  " Plug 'puremourning/vimspector' 
-  "Plug 'kdheepak/lazygit.nvim'
   Plug 'itchyny/lightline.vim'
   Plug 'mengelbrecht/lightline-bufferline'
   Plug 'maximbaz/lightline-ale'
@@ -204,50 +171,30 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'nvim-lua/plenary.nvim' " luaのライブラリ
   Plug 'nvim-telescope/telescope.nvim' " 普段は使わないけれど、プラグイン連携でたまに使う
   Plug 'elzr/vim-json'
-  " Plug 'Shougo/context_filetype.vim'
-  " Plug 'Shougo/defx.nvim'
-  " Plug 'kristijanhusak/defx-git'
-  " Plug 'kristijanhusak/defx-icons'
   Plug 'MattesGroeger/vim-bookmarks'
   Plug 'tpope/vim-dadbod'  " DBクライアント
   Plug 'kristijanhusak/vim-dadbod-ui'
   Plug 'lewis6991/gitsigns.nvim'
   Plug 'overcache/NeoSolarized'
-  " Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
   Plug 'rhysd/conflict-marker.vim'
-  " Plug 'folke/lsp-colors.nvim' " lspの色を変更する
   Plug 'MunifTanjim/nui.nvim' " おしゃれなコマンドライン変更
   Plug 'rcarriga/nvim-notify' " 通知
-  " Plug 'folke/trouble.nvim' " diagnoticを一覧表示する
-  " Plug 'dhruvasagar/vim-table-mode'
-  " Plug 'nvimtools/none-ls.nvim'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'nvim-treesitter/nvim-treesitter-textobjects'
   Plug 'nvim-tree/nvim-web-devicons'
   Plug 'abzcoding/lsp_lines.nvim'
   Plug 'HiPhish/rainbow-delimiters.nvim'
   Plug 'shellRaining/hlchunk.nvim'
-	" Plug 'vhyrro/luarocks.nvim'
   Plug 'atusy/treemonkey.nvim'
-  " Plug 'uga-rosa/ddc-source-lsp-setup'
-  " Plug 'neovim/nvim-lspconfig'
-  " Plug 'vinnymeller/swagger-preview.nvim'
-	" Plug 'xiyaowong/telescope-emoji.nvim'
 	Plug 'CopilotC-Nvim/CopilotChat.nvim'
 	Plug 'tani/dmacro.nvim'
   Plug 'nekowasabi/vim-rule-switcher'
-  " Plug 'Shougo/cmdline.vim'
-  " Plug 'FabijanZulj/blame.nvim'
-  " Plug 'linrongbin16/gitlinker.nvim'
-  " Plug 'Al0den/notion.nvim'
   Plug 'williamboman/mason.nvim'
   Plug 'williamboman/mason-lspconfig.nvim'
   Plug 'neovim/nvim-lspconfig'
   Plug 'Wansmer/treesj'
-  " Plug 'stevearc/oil.nvim'
   Plug 'vim-test/vim-test'
   Plug 'skywind3000/asyncrun.vim'
-	" Plug 'sigmaSd/deno-nvim'
   Plug 'mfussenegger/nvim-dap'
   Plug 'rcarriga/nvim-dap-ui'
   Plug 'theHamsta/nvim-dap-virtual-text'
@@ -255,23 +202,16 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'numToStr/Comment.nvim'
   Plug 'monaqa/dial.nvim'
   Plug 'stevearc/dressing.nvim'
-  " Plug 'yetone/avante.nvim'
   Plug 'olimorris/codecompanion.nvim'
   Plug 'HakonHarnes/img-clip.nvim'
   Plug 'MeanderingProgrammer/render-markdown.nvim'
-  " Plug 'MeanderingProgrammer/markdown.nvim'
   Plug 'mistweaverco/kulala.nvim'
   Plug 'gbprod/yanky.nvim'
   Plug 'folke/zen-mode.nvim'
   Plug 'folke/twilight.nvim'
-	" Plug 'SmiteshP/nvim-navic'
-	" Plug 'Zeioth/markmap.nvim'
 	Plug 'folke/which-key.nvim'
   Plug 'nekowasabi/nudge-two-hats.vim'
-	" Plug 'Chaitanyabsprip/fastaction.nvim'
 	Plug 'mikavilpas/yazi.nvim'
-  " Plug 'ErikBjare/gptme', { 'rtp': 'scripts/vim' }
-  " Plug 'mhartington/formatter.nvim'
   Plug 'basyura/dsky.vim'
   Plug 'gw31415/mstdn.vim'
   Plug 'gw31415/mstdn-editor.vim'
@@ -327,7 +267,6 @@ execute 'source '.g:GetVimConfigRootPath().'rc/plugins/clever-f.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/switch.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/openbrowser.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/choosewin.vim'
-" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/quickrun.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/easyalign.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-rtm.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/searchx.vim'
@@ -337,24 +276,18 @@ execute 'source '.g:GetVimConfigRootPath().'rc/plugins/easymotion.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/edgemotion.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/surround.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/sayonara.vim'
-
-" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gin.vim'
-"execute 'source '.g:GetVimConfigRootPath().'rc/plugins/deepl.vim'
 " }}}1
 
 " setting Mac Neovim {{{1
 if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/mark.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/neosnippet.vim'
-  "execute 'source '.g:GetVimConfigRootPath().'rc/plugins/defx.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vimspector.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-bookmark.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/devicons.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-dadbod.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/denops-gh.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-vue.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gitsign.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lsp-color.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddu.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lightline.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ale.vim'
@@ -366,17 +299,9 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/telescope.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/hlchunk.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treemonkey.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/swagger-preview.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/null-ls.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/aider.vim'
-  "execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lazygit.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/dmacro.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/notion.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesj.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/oil.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/table-mode.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/blame.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gitlinker.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/nvim-dap.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-rule-switcher.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-test.vim'
@@ -385,6 +310,14 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/BackAndForward.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/noice.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/which-key.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/yazi.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/yanky.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/sns.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/snacks.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/context.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cr-remover.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/render-markdown.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/previm.vim'
 
   if g:IsMacNeovimInWork() || g:IsWsl()
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
@@ -400,336 +333,10 @@ if g:IsMacNeovim() || g:IsWsl()
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
     execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
   endif
-
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/completion-keybind.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc-source-lsp.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/phpunit.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/rest.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-lsp.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
 endif
 " }}}1
 
-" vimproc 
-" let g:vimproc#download_windows_dll = 1
-
 " highlightyank
 let g:highlightedyank_highlight_duration = 100
-
-" 2024/12/31 までに使用しなければ削除 {{{1
-" setting Wsl
-" if g:IsWsl()
-"   execute 'source '.g:GetVimConfigRootPath().'rc/mark.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/neosnippet.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fzf-preview.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/defx.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/phpunit.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vimspector.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-bookmark.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/devicons.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-dadbod.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fern.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/denops-gh.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-vue.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-print-debug.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gitsign.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lsp-color.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddu.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lightline.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ale.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-ambiwidth.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vista.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesitter.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/caw.vim'
-" 
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/git-conflict.vim'
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fzf-preview.vim'
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lualine.vim'
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/noice.vim'
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/aerial.vim'
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesitter.vim'
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/nvim-context-vt.vim'
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cmp.vim'
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vsnip.vim'
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lsp.vim'
-" endif
-
-" if g:IsWsl()
-"   " Plug 'puremourning/vimspector' 
-"   Plug 'itchyny/lightline.vim'
-"   Plug 'mengelbrecht/lightline-bufferline'
-"   Plug 'maximbaz/lightline-ale'
-"   Plug 'dense-analysis/ale' " textlint
-"   Plug 'pwntester/octo.nvim' " github操作
-"   Plug 'nvim-lua/plenary.nvim' " luaのライブラリ
-"   Plug 'nvim-tree/nvim-web-devicons'
-"   Plug 'nvim-telescope/telescope.nvim' " 普段は使わないけれど、プラグイン連携でたまに使う
-"   Plug 'elzr/vim-json'
-"   Plug 'andymass/vim-matchup'
-"   Plug 'Shougo/context_filetype.vim'
-"   Plug 'Shougo/defx.nvim'
-"   Plug 'kristijanhusak/defx-git'
-"   Plug 'kristijanhusak/defx-icons'
-"   Plug 'MattesGroeger/vim-bookmarks' " fzf-previewと連携して使う（単体でも一応使える）
-"   Plug 'tpope/vim-dadbod'  " DBクライアント
-"   Plug 'kristijanhusak/vim-dadbod-ui' 
-"   Plug 'lewis6991/gitsigns.nvim'
-"   Plug 'overcache/NeoSolarized'
-"   Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
-"   Plug 'akinsho/git-conflict.nvim'
-"   Plug 'folke/lsp-colors.nvim' " lspの色を変更する
-"   Plug 'MunifTanjim/nui.nvim' " おしゃれなコマンドライン変更
-"   Plug 'rcarriga/nvim-notify' " 通知（おしゃれだけれどバギー）
-"   Plug 'nvim-tree/nvim-web-devicons'
-"   Plug 'folke/trouble.nvim' " diagnoticを一覧表示する
-"   " Plug 'adoy/vim-php-refactoring-toolbox'
-"   Plug 'dhruvasagar/vim-table-mode'
-"   Plug 'nvimtools/none-ls.nvim'
-"   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-"   Plug 'kdheepak/lazygit.nvim'
-"   Plug 'williamboman/mason.nvim'
-"   Plug 'williamboman/mason-lspconfig.nvim'
-"   Plug 'ErichDonGubler/lsp_lines.nvim'
-"   Plug 'lukas-reineke/indent-blankline.nvim'
-"   Plug 'rest-nvim/rest.nvim'
-"   Plug 'HiPhish/rainbow-delimiters.nvim'
-"   Plug 'gelguy/wilder.nvim'
-"   Plug 'atusy/treemonkey.nvim'
-"   Plug 'linrongbin16/gitlinker.nvim'
-"
-"   call g:SetCoc()
-"   call g:SetDdu()
-"
-" endif
-
-
-" }}}1
-
-" ほとんど使ってないのでここに移動 {{{1
-" if g:IsLinux()  && !g:IsWsl()
-"   Plug 'pwntester/octo.nvim'
-"   Plug 'nvim-lua/plenary.nvim'
-"   Plug 'nvim-tree/nvim-web-devicons'
-"   Plug 'nvim-telescope/telescope.nvim'
-"   Plug 'elzr/vim-json'
-"   Plug 'andymass/vim-matchup'
-"   Plug 'Shougo/context_filetype.vim'
-"   Plug 'majutsushi/tagbar'
-"   Plug 'Shougo/defx.nvim'
-"   Plug 'kristijanhusak/defx-git'
-"   Plug 'kristijanhusak/defx-icons'
-"   Plug 'MattesGroeger/vim-bookmarks'
-"   Plug 'tpope/vim-dadbod' 
-"   Plug 'kristijanhusak/vim-dadbod-ui' 
-"   Plug 'github/copilot.vim'
-"   Plug 'liuchengxu/vista.vim'
-"   Plug 'lewis6991/gitsigns.nvim'
-"   Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
-"   Plug 'shaunsingh/solarized.nvim'
-"   Plug 'overcache/NeoSolarized'
-"   Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/remote', 'do': ':UpdateRemotePlugins' }
-"   Plug 'akinsho/git-conflict.nvim'
-"   Plug 'folke/lsp-colors.nvim'
-"   Plug 'stevearc/aerial.nvim'
-"   Plug 'MunifTanjim/nui.nvim'
-"   Plug 'rcarriga/nvim-notify'
-"   Plug 'nvim-tree/nvim-web-devicons'
-"   Plug 'folke/trouble.nvim'
-"   Plug 'EthanJWright/toolwindow.nvim'
-"   Plug 'akinsho/nvim-toggleterm.lua'
-"   Plug 'nvim-lualine/lualine.nvim'
-"   Plug 'puremourning/vimspector' 
-"   Plug 'dhruvasagar/vim-table-mode'
-"   Plug 'gelguy/wilder.nvim'
-" 	Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
-"   Plug 'tyru/caw.vim' 
-"   Plug 'yuki-yano/ai-review.vim'
-"   Plug 'lambdalisue/gin.vim'
-"   Plug 'Shougo/neosnippet.vim'
-"   Plug 'Shougo/neosnippet-snippets'
-"
-"   " coc
-"   Plug 'lifepillar/vim-solarized8' " colorscheme
-"   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"   Plug 'neoclide/coc-neco'
-"   Plug 'wellle/tmux-complete.vim'
-"   Plug 'antoinemadec/coc-fzf'
-"   Plug 'josa42/vim-lightline-coc'
-"   Plug 'lighttiger2505/sqls.vim'
-"   Plug 'prabirshrestha/async.vim'
-"   Plug '2072/PHP-Indenting-for-VIm'
-"   Plug 'captbaritone/better-indent-support-for-php-with-html'
-"   Plug 'yaegassy/coc-marksman', {'do': 'yarn install --frozen-lockfile'}
-"
-"   call g:SetDdu()
-" endif
-"
-" if g:IsMacGvim()
-"   Plug 'itchyny/lightline.vim'
-"   Plug 'mengelbrecht/lightline-bufferline'
-"   Plug 'maximbaz/lightline-ale'
-"   Plug 'roxma/nvim-yarp'
-"   Plug 'roxma/vim-hug-neovim-rpc'
-"   Plug 'elzr/vim-json'
-"   Plug 'andymass/vim-matchup'
-"   Plug 'lifepillar/vim-solarized8' " colorscheme
-"   Plug 'vim-voom/VOoM' " outline
-"   Plug 'dense-analysis/ale' " textlint
-"   Plug 'Shougo/context_filetype.vim'
-"   Plug 'majutsushi/tagbar'
-"   Plug 'Shougo/defx.nvim'
-"   Plug 'kristijanhusak/defx-git'
-"   Plug 'nvim-tree/nvim-web-devicons'
-"   Plug 'kristijanhusak/defx-icons'
-"   Plug 'MattesGroeger/vim-bookmarks'
-"   Plug 'kyoh86/vim-ripgrep'
-"   Plug 'Shougo/neosnippet.vim'
-"   Plug 'Shougo/neosnippet-snippets'
-"   Plug 'github/copilot.vim'
-"  
-"   call g:SetDcc()
-"   call g:SetDdu()
-"
-"   " Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"   " Plug 'neoclide/coc-neco'
-"   " Plug 'wellle/tmux-complete.vim'
-"   " Plug 'antoinemadec/coc-fzf'
-"   " Plug 'josa42/vim-lightline-coc'
-"   " Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
-" endif
-"
-" if g:IsWindowsNeovim()
-" endif
-
-" if g:IsWindowsGvim()
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lightline.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/mark.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/voom.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/defx.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ale.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fern.vim'
-" 	execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/user-gf.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddu.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-lsp.vim'
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/codeium.vim'
-" 	execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-ai.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/leaderf.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gvim-gitsign.vim'
-"
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-ambiwidth.vim'
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/syntax.vim'
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vimfiler.vim'
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/echodoc.vim'
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/calendar.vim'
-" endif
-"
-" if g:IsWindowsNeovim()
-" endif
-"
-" if g:IsLinux() && !g:IsWsl()
-"   execute 'source '.g:GetVimConfigRootPath().'rc/mark.vim'
-"
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/neosnippet.vim'
-"
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fzf-preview.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/defx.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/phpunit.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vimspector.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-bookmark.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/devicons.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-dadbod.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fern.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-vue.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-print-debug.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gitsign.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/git-conflict.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lsp-color.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/trouble.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lualine.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddu.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
-"
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/denops-gh.vim'
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/noice.vim'
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/aerial.vim'
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesitter.vim'
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/nvim-context-vt.vim'
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cmp.vim'
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vsnip.vim'
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lsp.vim'
-" endif
-
-" if g:IsMacGvim()
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lightline.vim'
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/mark.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/voom.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/defx.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ale.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fern.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/user-gf.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/neosnippet.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddc.vim'
-"   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddu.vim'
-" 	execute 'source '.g:GetVimConfigRootPath().'rc/plugins/caw.vim'
-"
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/leaderf.vim'
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fzf-preview.vim'
-"   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
-" endif
-
-" if g:IsWindowsGvim()
-"   Plug 'hail2u/vim-solarized-g'
-"   Plug 'itchyny/lightline.vim'
-"   Plug 'mengelbrecht/lightline-bufferline'
-"   Plug 'roxma/nvim-yarp'
-"   Plug 'roxma/vim-hug-neovim-rpc'
-"   Plug 'elzr/vim-json'
-"   Plug 'andymass/vim-matchup'
-"   Plug 'lifepillar/vim-solarized8' " colorscheme
-"   Plug 'vim-voom/VOoM' " outline
-"   Plug 'dense-analysis/ale' " textlint
-"   Plug 'maximbaz/lightline-ale'
-"   Plug 'Shougo/context_filetype.vim'
-"   Plug 'majutsushi/tagbar'
-"   Plug 'Shougo/defx.nvim'
-"   Plug 'kristijanhusak/defx-git'
-"   Plug 'nvim-tree/nvim-web-devicons'
-"   Plug 'kristijanhusak/defx-icons'
-"   Plug 'MattesGroeger/vim-bookmarks'
-"   Plug 'dense-analysis/ale'
-"   Plug 'kyoh86/vim-ripgrep'
-"   Plug 'gelguy/wilder.nvim'
-"   Plug 'Shougo/neosnippet.vim'
-"   Plug 'Shougo/neosnippet-snippets'
-" 	Plug 'kana/vim-gf-user'
-"   Plug 'liuchengxu/vista.vim'
-" 	Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
-"   Plug 'tyru/caw.vim' 
-" 	Plug 'tennashi/gitsign.vim'
-"   Plug 'monaqa/dps-dial.vim'
-"
-" 	call g:SetDdc()
-" 	call g:SetDdu()
-" endif
-
-
-" }}}1
 
 " END

@@ -65,6 +65,14 @@ syntax match changelogBrace /『[^』]*』/
 syntax match changelogBrace /「[^」]*」/
 syntax match changelogBrace /`[^`]*`/
 
+syn region markdownCode matchgroup=markdownCodeDelimiter start="^\s*```.*$" end="^\s*```\ze\s*$" keepend contains=@markdownHighlight
+syn region markdownCodeInline matchgroup=markdownCodeDelimiter start="`" end="`" keepend contains=@markdownHighlight
+syn cluster markdownHighlight add=markdownCode,markdownCodeInline
+
+hi link markdownCodeDelimiter Delimiter
+hi link markdownCode String
+hi link markdownCodeInline String
+
 if version < 600
 "  syn region	changelogFiles	start="^\s\+[+*]\s" end=":\s" end="^$" contains=changelogBullet,changelogColon,changelogError keepend
 "  syn region	changelogFiles	start="^\s\+[([]" end=":\s" end="^$" contains=changelogBullet,changelogColon,changelogError keepend
@@ -81,6 +89,22 @@ syn match	changelogMail	contained "<[A-Za-z0-9\._:+-]\+@[A-Za-z0-9\._-]\+>"
 syn keyword	changelogMonth	contained jan feb mar apr may jun jul aug sep oct nov dec
 syn keyword	changelogDay	contained mon tue wed thu fri sat sun
 syn match	changelogNumber	contained "[.-]*[0-9]\+"
+
+" 言語シンタックスの読み込み
+syntax include @markdownPhp syntax/php.vim
+syntax include @markdownVim syntax/vim.vim
+syntax include @markdownTs syntax/typescript.vim
+
+" コードブロックの定義
+syntax region changelogCode
+      \ start="^```\(php\|vim\|typescript\|js\)\?\s*$"
+      \ end="^```\s*$"
+      \ keepend
+      \ contains=@NoSpell
+      \ containedin=changelogText
+
+" ハイライトの設定
+hi def link changelogCode String
 
 " Define the default highlighting.
 " For version 5.7 and earlier: only when not done already

@@ -195,6 +195,26 @@ if g:IsWsl()
   "      \ }
 endif
 
+augroup histclean
+  autocmd!
+  autocmd ModeChanged c:* call s:HistClean()
+augroup END
+
+function! s:HistClean() abort
+  let cmd = histget(":", -1)
+  if cmd == "x" || cmd == "xa" || cmd =~# "^w\\?q\\?a\\?!\\?$"
+    call histdel(":", -1)
+  endif
+endfunction
+
+lua << EOF
+if vim.fn.executable("nvr") == 1 then
+  vim.env.GIT_EDITOR = "nvr --remote-tab-wait +'set bufhidden=delete'"
+end
+EOF
+
+
+
 " time backup {{{1
 set backupskip=/tmp/*,/private/tmp/*
 augroup time_backup

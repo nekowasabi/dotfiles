@@ -1,6 +1,6 @@
 lua << EOF
 local mason = require('mason')
-local mason_lspconfig = require('mason-lspconfig')
+local mason_lckspconfigspconfig = require('mason-lspconfig')
 local nvim_lsp = require('lspconfig')
 
 mason.setup()
