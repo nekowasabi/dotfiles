@@ -12,6 +12,10 @@ elseif exists("b:current_syntax")
   finish
 endif
 
+if !exists('main_syntax')
+  let main_syntax = 'changelog'
+endif
+
 syn case ignore
 
 if exists('b:changelog_spacing_errors')

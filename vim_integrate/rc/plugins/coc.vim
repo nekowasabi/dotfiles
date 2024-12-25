@@ -29,6 +29,9 @@ let g:coc_global_extensions = [
 
 let g:markdown_fenced_languages = [
      \ 'vim',
+     \ 'php=php',
+     \ 'javascript',
+     \ 'typescript',
      \ 'help'
      \]
 

@@ -38,7 +38,7 @@
         "unary_operator_spaces": false,
         "date_time_immutable": true,
         "declare_parentheses": true,
-        "declare_strict_types": true,
+        "declare_strict_types": false,
         "final_class": false,
         "trailing_comma_in_multiline": true,
         "global_namespace_import": {

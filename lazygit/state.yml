@@ -2,10 +2,11 @@ lastupdatecheck: 0
 recentrepos:
 - /Users/ttakeda/repos/private_dotfiles
 - /Users/ttakeda/repos/dotfiles
+- /Users/ttakeda/repos/surfingkeys
+- /Users/ttakeda/repos/changelog
+- /Users/ttakeda/works/invase-backend
 - /Users/ttakeda/works/invase-api-schema
 - /Users/ttakeda/.config/nvim/plugged/aider.vim
-- /Users/ttakeda/works/invase-backend
-- /Users/ttakeda/repos/changelog
 - /Users/ttakeda/.config/nvim/plugged/vim-rule-switcher
 - /Users/ttakeda/works/invase-frontend
 - /Users/ttakeda/.config/nvim/plugged/ddu-ai-prompt-connecter
