@@ -292,6 +292,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'onsails/lspkind.nvim'
   Plug 'folke/snacks.nvim'
   Plug 'SmiteshP/nvim-navic'
+  Plug 'nekowasabi/vim-syntax-tyranoscript'
 
   call g:SetDdu()
 
@@ -301,7 +302,6 @@ if g:IsMacNeovim() || g:IsWsl()
     Plug 'Shougo/ddc-source-lsp'
     call g:SetCoc()
   elseif g:IsMacNeovimInWezterm()
-    Plug 'nekowasabi/vim-syntax-tyranoscript'
     call g:SetCoc()
   else
     Plug 'gelguy/wilder.nvim'
