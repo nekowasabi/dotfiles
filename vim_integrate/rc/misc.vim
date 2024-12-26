@@ -141,8 +141,8 @@ function! s:HugoGeneratePost()
     cd g:/dropbox/files/blog/
 	endif
   if g:IsWsl()
-    let s:path = '/mnt/g/dropbox/files/blog/'
-    cd /mnt/g/dropbox/files/blog/
+    let s:path = '/home/takets/words/blog/'
+    cd /home/takets/words/blog/
   endif
   let s:markdown = input("file name > ", strftime("%Y%m%d%H%M")."_ss.md")
   redraw
@@ -164,8 +164,8 @@ function! s:HugoRunServer()
 		cd g:/dropbox/files/blog
 	endif
   if g:IsWsl()
-    let s:path = '/mnt/g/dropbox/files/blog/'
-    cd /mnt/g/dropbox/files/blog/
+    let s:path = '/home/takets/words/blog'
+    cd /home/takets/words/blog/
   endif
 
   execute "OpenBrowser localhost:1313"
@@ -184,7 +184,7 @@ function! s:HugoDeploy()
 		cd g:/dropbox/files/blog
 	endif
   if g:IsWsl()
-		let cmd = '/mnt/g/dropbox/files/blog/deploy.sh'
+		let cmd = '/home/takets/words/blog/deploy.sh'
     execute "terminal ".cmd
   endif
 endfunction

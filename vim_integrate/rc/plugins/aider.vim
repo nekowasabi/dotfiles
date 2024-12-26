@@ -1,3 +1,4 @@
+let s:aider_base_command = 'aider '
 let g:aider_floatwin_width = 100
 let g:aider_floatwin_height = 50
 let g:aider_buffer_open_type = 'floating'
@@ -44,22 +45,109 @@ function! s:AiderOpenHandler() abort
   nnoremap <C-x><C-x> :AiderHide<CR>
 endfunction
 
-" Aider settings presets
-" default: 基本的なClaude-3 Sonnetモデルを使用したモード
-" architect: Claude-3 Sonnetモデルを使用し、アーキテクチャ設計に特化したモード
-" watch: ファイル監視モードで、変更を自動で検知して対話
-" gpt: GPT-4モデルを使用したモード
-" vhs: ビデオ録画用の設定で、コードのみのストリーミングモード
-let s:aider_settings = {
-      \ 'default': 'aider --no-auto-commits --chat-language ja --no-stream --model anthropic/claude-3-5-sonnet-20241022 --editor-model anthropic/claude-3-5-sonnet-20241022 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands',
-      \ 'architect_claude': 'aider --no-auto-commits --chat-language ja --no-stream --architect --model anthropic/claude-3-5-sonnet-20241022 --editor-model anthropic/claude-3-5-sonnet-20241022 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands',
-      \ 'architect_gemini': 'aider --no-auto-commits --no-show-model-warnings --chat-language ja --no-stream --architect --model gemini/gemini-2.0-flash-thinking-exp-1219 --editor-model gemini/gemini-2.0-flash-exp --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands',
-      \ 'watch': 'aider --no-auto-commits --watch-files --chat-language ja --no-stream --model anthropic/claude-3-5-sonnet-20241022 --editor-model anthropic/claude-3-5-sonnet-20241022 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands',
-      \ 'gpt': 'aider --no-auto-commits --chat-language ja --no-stream --architect --model  openai/gpt-4o --editor-model openai/gpt-4o --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands',
-      \ 'vhs': 'aider --no-auto-commits --chat-language --stream --chat-mode code --model anthropic/claude-3-5-sonnet-20241022 --editor-model anthropic/claude-3-5-sonnet-20241022 --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands'
-      \ }
+let s:aider_common_options = ' --no-auto-commits --no-show-model-warnings --chat-language ja --no-stream --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands '
+let s:aider_model_claude = ' --model anthropic/claude-3-5-sonnet-20241022 --editor-model anthropic/claude-3-5-sonnet-20241022 '
+let s:aider_model_gpt = ' --model  openai/gpt-4o --editor-model openai/gpt-4o '
 
-let g:aider_command = s:aider_settings['architect_gemini']
+if g:IsMacNeovimInWork()
+  " Aider settings presets
+  " default: 基本的なClaude-3 Sonnetモデルを使用したモード
+  " architect: Claude-3 Sonnetモデルを使用し、アーキテクチャ設計に特化したモード
+  " watch: ファイル監視モードで、変更を自動で検知して対話
+  " gpt: GPT-4モデルを使用したモード
+  " vhs: ビデオ録画用の設定で、コードのみのストリーミングモード
+  let s:aider_settings = {
+        \ 'architect_claude': s:aider_base_command
+        \ . s:aider_common_options
+        \ . ' --architect '
+        \ . s:aider_model_claude
+        \ ,
+        \ 'architect_deepseek': s:aider_base_command
+        \ . s:aider_common_options
+        \ . ' --architect '
+        \ . s:aider_model_deepseek,
+        \ 'architect_gemini': s:aider_base_command
+        \ . s:aider_common_options
+        \ . ' --architect '
+        \ . s:aider_model_gemini
+        \ ,
+        \ 'default': s:aider_base_command
+        \ . s:aider_common_options
+        \ . s:aider_model_claude
+        \,
+        \ 'gpt': s:aider_base_command
+        \ . s:aider_common_options
+        \ . ' --architect '
+        \ . s:aider_model_gpt,
+        \ 'watch': s:aider_base_command
+        \ . s:aider_model_claude
+        \ . ' --watch-files',
+        \ 'vhs': s:aider_base_command
+        \ . s:aider_model_claude
+        \ . s:aider_common_options
+        \ . ' --chat-mode code '
+        \ ,
+        \ 'watch_deepseek': s:aider_base_command
+        \ . s:aider_common_options
+        \ . s:aider_model_deepseek
+        \ . ' --watch-files'
+        \ ,
+        \ }
+
+  let g:aider_command = s:aider_settings['architect_claude']
+else
+  let s:aider_model_gemini = '--model gemini/gemini-2.0-flash-thinking-exp-1219 --editor-model gemini/gemini-2.0-flash-exp'
+  let s:aider_model_deepseek = '--model openrouter/deepseek/deepseek-chat --editor-model openrouter/deepseek/deepseek-chat'
+
+  " Aider settings presets
+  " default: 基本的なClaude-3 Sonnetモデルを使用したモード
+  " architect: Claude-3 Sonnetモデルを使用し、アーキテクチャ設計に特化したモード
+  " watch: ファイル監視モードで、変更を自動で検知して対話
+  " gpt: GPT-4モデルを使用したモード
+  " vhs: ビデオ録画用の設定で、コードのみのストリーミングモード
+  let s:aider_settings = {
+        \ 'default': s:aider_base_command
+        \ . s:aider_common_options
+        \ . s:aider_model_claude
+        \,
+        \ 'architect_claude': s:aider_base_command
+        \ . s:aider_common_options
+        \ . s:aider_model_claude
+        \ . ' --architect '
+        \ ,
+        \ 'architect_gemini': s:aider_base_command
+        \ . s:aider_common_options
+        \ . s:aider_model_gemini
+        \ . ' --architect '
+        \ ,
+        \ 'architect_deepseek': s:aider_base_command
+        \ . s:aider_common_options
+        \ . s:aider_model_deepseek
+        \ . ' --architect '
+        \ ,
+        \ 'gpt': s:aider_base_command
+        \ . s:aider_common_options
+        \ . s:aider_model_gpt
+        \ . ' --architect '
+        \ ,
+        \ 'vhs': s:aider_base_command
+        \ . s:aider_common_options
+        \ . s:aider_model_claude
+        \ . ' --chat-mode code'
+        \ ,
+        \ 'watch_claude': s:aider_base_command
+        \ . s:aider_common_options
+        \ . s:aider_model_claude
+        \ . ' --watch-files'
+        \ ,
+        \ 'watch': s:aider_base_command
+        \ . s:aider_common_options
+        \ . s:aider_model_deepseek
+        \ . ' --watch-files'
+        \ }
+
+  let g:aider_command = s:aider_settings['architect_deepseek']
+endif
 
 " 異なるAider設定を切り替える
 "
@@ -72,7 +160,7 @@ function! s:switch_aider_setting(setting_name) abort
   if has_key(s:aider_settings, l:setting_name)
     let g:aider_command = s:aider_settings[l:setting_name]
   else
-    let g:aider_command = s:aider_settings['architect']
+    let g:aider_command = s:aider_settings['architect_claude']
   endif
 
   if l:setting_name ==# 'watch'
