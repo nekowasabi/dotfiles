@@ -140,6 +140,10 @@ function! s:HugoGeneratePost()
     let s:path = 'g:/dropbox/files/blog/'
     cd g:/dropbox/files/blog/
 	endif
+  if g:IsWsl()
+    let s:path = '/mnt/g/dropbox/files/blog/'
+    cd /mnt/g/dropbox/files/blog/
+  endif
   let s:markdown = input("file name > ", strftime("%Y%m%d%H%M")."_ss.md")
   redraw
   if s:markdown == ''
@@ -159,6 +163,11 @@ function! s:HugoRunServer()
 	if g:IsWindowsGvim()
 		cd g:/dropbox/files/blog
 	endif
+  if g:IsWsl()
+    let s:path = '/mnt/g/dropbox/files/blog/'
+    cd /mnt/g/dropbox/files/blog/
+  endif
+
   execute "OpenBrowser localhost:1313"
   execute "!hugo server --buildDrafts --watch"
 endfunction
@@ -174,6 +183,10 @@ function! s:HugoDeploy()
 	if g:IsWindowsGvim()
 		cd g:/dropbox/files/blog
 	endif
+  if g:IsWsl()
+		let cmd = '/mnt/g/dropbox/files/blog/deploy.sh'
+    execute "terminal ".cmd
+  endif
 endfunction
 
 command! HugoDeploy call s:HugoDeploy() 
