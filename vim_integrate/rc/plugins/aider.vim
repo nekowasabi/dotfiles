@@ -146,7 +146,7 @@ else
         \ . ' --watch-files'
         \ }
 
-  let g:aider_command = s:aider_settings['architect_deepseek']
+  let g:aider_command = s:aider_settings['architect_gemini']
 endif
 
 " 異なるAider設定を切り替える
@@ -159,8 +159,8 @@ function! s:switch_aider_setting(setting_name) abort
   let l:setting_name = empty(a:setting_name) ? 'architect' : a:setting_name
   if has_key(s:aider_settings, l:setting_name)
     let g:aider_command = s:aider_settings[l:setting_name]
-  else
-    let g:aider_command = s:aider_settings['architect_claude']
+  " else
+  "   let g:aider_command = s:aider_settings['architect_claude']
   endif
 
   if l:setting_name ==# 'watch'
