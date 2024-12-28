@@ -394,10 +394,8 @@ nnoremap <silent> ,rw :call ReplaceCurrentWordWithYank()<CR>
 " -----------------------------------------------------------
 " test
 function! s:Test()
-	" Use gptme to summarize the diff
-	let l:summary = system('git diff HEAD "HEAD@{1 day ago}"')
-  echo l:summary
-
+  let tmp = tempname()
+  echo tmp
 endfunction
 
 command! -range -nargs=0 Test call s:Test()
