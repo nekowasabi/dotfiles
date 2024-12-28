@@ -22,7 +22,6 @@ syn match	shdOutline "^[\t]*・"
 syn match	shdOutline "^[+-] "
 syn match	shdText	"^[\t\s]*[+-] "
 syn match shdFold1 "\zs{{{[1-9]" conceal cchar=👎
-syn match	shdMarkdownHeader	"^#\+"
 syn region shdMarkdownBody matchgroup=shdMarkdownHeader start="^#\+\s\+" end="\s\|$"
 syn match shdFold2 /}}}[0-9]/ conceal cchar=🖕
 syn match	shdHeader2	"^\t・"
@@ -35,6 +34,10 @@ syn match shdComment6 "--------------------------------------- .*$"
 syn match shdComment7 "----- .*$"
 syn match	changelogHeader	"^\*"
 syn match shdBrace1 "\[.\{-}\](.\{-})" conceal cchar=🔗
+syn match shdMarkdownHeader "^# .*$"
+syn match shdMarkdownHeader "^## .*$"
+syn match shdMarkdownHeader "^### .*$"
+syn match shdMarkdownHeader "^#### .*$"
 
 hi def link shdComment1                        Comment
 hi def link shdComment2                        Comment
