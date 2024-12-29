@@ -38,11 +38,11 @@ require("codecompanion").setup({
           },
         },
       },
+      agent = {
+        adapter = "copilot",
+      },
     },
     inline = {
-      adapter = "copilot",
-    },
-    agent = {
       adapter = "copilot",
     },
   },
