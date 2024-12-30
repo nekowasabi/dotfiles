@@ -13,13 +13,25 @@ endif
 if g:IsWsl()
   " nnoremap <silent> g? :MigemoSearghxBackrward<CR>
   " nnoremap <silent> g/ :MigemoSearchxForward<CR>
-  nnoremap <silent> ? <Cmd>call searchx#start({ 'dir': 0 })<CR>
-  nnoremap <silent> / <Cmd>call searchx#start({ 'dir': 1 })<CR>
+  " nnoremap <silent> ? <Cmd>call searchx#start({ 'dir': 0 })<CR>
+  " nnoremap <silent> / <Cmd>call searchx#start({ 'dir': 1 })<CR>
+  " nnoremap <silent> r/ :RegexSearchxForward<CR>
+  " nnoremap <silent> r? :RegexSearchxBackrward<CR>
+  "
+  " xnoremap <silent> g? <Cmd>call searchx#start({ 'dir': 0 })<CR>
+  " xnoremap <silent> g/ <Cmd>call searchx#start({ 'dir': 1 })<CR>
+  nnoremap <silent> ? :MigemoSearchxBackrward<CR>
+  nnoremap <silent> / :MigemoSearchxForward<CR>
   nnoremap <silent> r/ :RegexSearchxForward<CR>
   nnoremap <silent> r? :RegexSearchxBackrward<CR>
+  nnoremap <silent> g? <Cmd>call searchx#start({ 'dir': 0 })<CR>
+  nnoremap <silent> g/ <Cmd>call searchx#start({ 'dir': 1 })<CR>
 
+  xnoremap <silent> ? :MigemoSearchxBackrward<CR>
+  xnoremap <silent> / :MigemoSearchxForward<CR>
   xnoremap <silent> g? <Cmd>call searchx#start({ 'dir': 0 })<CR>
   xnoremap <silent> g/ <Cmd>call searchx#start({ 'dir': 1 })<CR>
+
 else
   nnoremap <silent> ? :MigemoSearchxBackrward<CR>
   nnoremap <silent> / :MigemoSearchxForward<CR>
@@ -109,11 +121,11 @@ endfunction
 function! g:searchx.migemo(input) abort
   let l:input = ''
 	if len(a:input) >= g:migemo_length
-    if g:IsLinux()
-      let l:input = system('/usr/bin/cmigemo -v -w "'.a:input.'" -d "'.g:migemodict.'"')
-    else
+    " if g:IsLinux()
+    "   let l:input = system('/usr/bin/cmigemo -v -w "'.a:input.'" -d "'.g:migemodict.'"')
+    " else
       let l:input = system('cmigemo -v -w "'.a:input.'" -d "'.g:migemodict.'"')
-    endif
+    " endif
   else
     let l:input = a:input
 	endif
@@ -130,11 +142,11 @@ endfunction
 function! g:searchx.convert(input) abort
   let l:input = ''
 	if len(a:input) >= g:migemo_length && g:is_migemo
-    if g:IsLinux()
-      let l:input = system('/usr/bin/cmigemo -v -w "'.a:input.'" -d "'.g:migemodict.'"')
-    else
+    " if g:IsLinux()
+    "   let l:input = system('/usr/bin/cmigemo -v -w "'.a:input.'" -d "'.g:migemodict.'"')
+    " else
       let l:input = system('cmigemo -v -w "'.a:input.'" -d "'.g:migemodict.'"')
-    endif
+    " endif
   else
     let l:input = a:input
 	endif

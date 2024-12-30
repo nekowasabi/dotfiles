@@ -418,6 +418,32 @@ endfunction
 " }}}1
 
 " commands {{{1
+
+ "ビジュアルモードで選択中のテクストを取得する {{{
+ function! s:get_visual_text()
+   try
+     " ビジュアルモードの選択開始/終了位置を取得
+     let pos = getpos('')
+     normal `<
+     let start_line = line('.')
+     let start_col = col('.')
+     normal `>
+     let end_line = line('.')
+     let end_col = col('.')
+     call setpos('.', pos)
+
+     let tmp = @@
+     silent normal gvy
+     let selected = @@
+     let @@ = tmp
+     return selected
+   catch
+     return ''
+   endtry
+ endfunction
+ " }}}
+
+
 nnoremap <silent> <Leader>ad
       \ <Cmd>call ddu#start({'sources': [{'name': 'aider'}]})<CR>
 nnoremap <silent> <M-a>
@@ -449,11 +475,13 @@ function! DduAiConnectorByFiletype(command) abort
     let s:tag = ''
   endif
 
-  execute 'call ddu#start({''sources'': [{''name'': ''prompt'', ''params'': {''command'': ''' . a:command . ''', ''tag'': ''' . s:tag . ''', ''selected'': '' . @@ . ''}}]})'
+  execute 'call ddu#start({''sources'': [{''name'': ''prompt'', ''params'': {''command'': ''' . a:command . ''', ''tag'': ''' . s:tag . ''', ''selected'': ''' . s:get_visual_text() . '''}}]})'
 
 endfunction
 
-vnoremap <silent> <C-c>a y<Cmd>call DduAiConnectorByFiletype('AiderAsk')<CR>
+
+
+vnoremap <silent> <C-c>a y<Cmd>call DduAiConnectorByFiletype('AiderSendPromptByCommandline')<CR>
 vnoremap <silent> <C-c>c y<Cmd>call DduAiConnectorByFiletype('CopilotChat')<CR>
 vnoremap <silent> <C-c>g y<Cmd>call DduAiConnectorByFiletype('GpAppend')<CR>
 vnoremap <silent> <C-c>r y<Cmd>call DduAiConnectorByFiletype('GpRewrite')<CR>

@@ -394,8 +394,8 @@ nnoremap <silent> ,rw :call ReplaceCurrentWordWithYank()<CR>
 " -----------------------------------------------------------
 " test
 function! s:Test()
-  let tmp = tempname()
-  echo tmp
+  let s = s:get_visual_text()
+  echo s
 endfunction
 
 command! -range -nargs=0 Test call s:Test()
