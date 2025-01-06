@@ -48,6 +48,8 @@ endfunction
 let s:aider_common_options = ' --no-auto-commits --no-show-model-warnings --chat-language ja --no-stream --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands '
 let s:aider_model_claude = ' --model anthropic/claude-3-5-sonnet-20241022 --editor-model anthropic/claude-3-5-sonnet-20241022 '
 let s:aider_model_gpt = ' --model  openai/gpt-4o --editor-model openai/gpt-4o '
+let s:aider_model_gemini = '--model gemini/gemini-2.0-flash-thinking-exp-1219 --editor-model gemini/gemini-2.0-flash-exp'
+let s:aider_model_deepseek = '--model openrouter/deepseek/deepseek-chat --editor-model openrouter/deepseek/deepseek-chat'
 
 if g:IsMacNeovimInWork()
   " Aider settings presets
@@ -96,9 +98,6 @@ if g:IsMacNeovimInWork()
 
   let g:aider_command = s:aider_settings['architect_claude']
 else
-  let s:aider_model_gemini = '--model gemini/gemini-2.0-flash-thinking-exp-1219 --editor-model gemini/gemini-2.0-flash-exp'
-  let s:aider_model_deepseek = '--model openrouter/deepseek/deepseek-chat --editor-model openrouter/deepseek/deepseek-chat'
-
   " Aider settings presets
   " default: 基本的なClaude-3 Sonnetモデルを使用したモード
   " architect: Claude-3 Sonnetモデルを使用し、アーキテクチャ設計に特化したモード
