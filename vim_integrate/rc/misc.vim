@@ -300,6 +300,18 @@ endfunction
 command! -range Cursor call s:OpenByCursor()
 " }}}1
 
+" OpenByVscode {{{1
+function! s:OpenByVscode()
+  let l:path = expand('%:p')
+  let l:line = line('.')
+  " コマンド実行結果を表示することなく実行
+  silent! exe '!code --g '.l:path.':'.l:line
+endfunction
+command! -range VSCode call s:OpenByVscode()
+" }}}1
+
+
+
 " テキスト用リンクジャンプ {{{1
 function! s:GenerateTextLinkTag()
 	let l:link_hash = GenerateRandomString(8)
