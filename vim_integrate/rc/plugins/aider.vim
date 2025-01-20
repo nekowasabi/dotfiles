@@ -46,11 +46,11 @@ function! s:AiderOpenHandler() abort
 endfunction
 
 let s:aider_common_options = ' --no-auto-commits --no-show-model-warnings --chat-language ja --no-stream --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands '
-" let s:aider_model_claude = ' --model anthropic/claude-3-5-sonnet-20241022 --editor-model anthropic/claude-3-5-sonnet-20241022 '
-let s:aider_model_claude = ' --model openrouter/anthropic/claude-3.5-sonnet:beta --editor-model openrouter/anthropic/claude-3.5-sonnet:beta '
-let s:aider_model_gpt = ' --model  openai/gpt-4o --editor-model openai/gpt-4o '
-let s:aider_model_gemini = '--model gemini/gemini-2.0-flash-thinking-exp-1219 --editor-model gemini/gemini-2.0-flash-exp'
-let s:aider_model_deepseek = '--model openrouter/deepseek/deepseek-chat --editor-model openrouter/deepseek/deepseek-chat'
+" let s:aider_model_claude = ' --no-auto-commits  --model anthropic/claude-3-5-sonnet-20241022 --editor-model anthropic/claude-3-5-sonnet-20241022 '
+let s:aider_model_claude = ' --no-auto-commits  --model openrouter/anthropic/claude-3.5-sonnet:beta --editor-model openrouter/anthropic/claude-3.5-sonnet:beta '
+let s:aider_model_gpt = ' --no-auto-commits  --model  openai/gpt-4o --editor-model openai/gpt-4o '
+let s:aider_model_gemini = ' --no-auto-commits --model gemini/gemini-2.0-flash-thinking-exp-1219 --editor-model gemini/gemini-2.0-flash-exp'
+let s:aider_model_deepseek = ' --no-auto-commits --model openrouter/deepseek/deepseek-chat --editor-model openrouter/deepseek/deepseek-chat'
 
 if g:IsMacNeovimInWork()
   " Aider settings presets
