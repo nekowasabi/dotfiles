@@ -23,6 +23,15 @@
                 "throws"
             ]
         },
+        "ordered_imports" : {
+            "sort_algorithm" : "alpha",
+            "imports_order" : [
+                "class", "function", "const"
+            ]
+        },
+        "braces_position": {
+            "allow_single_line_empty_anonymous_classes": true
+        },
         "no_unused_imports": false,
         "phpdoc_separation": false,
         "phpdoc_trim": false,
