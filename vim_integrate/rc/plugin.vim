@@ -52,6 +52,7 @@ Plug 'tyru/current-func-info.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'vim-jp/vimdoc-ja'
 Plug 'vimpostor/vim-tpipeline'
+Plug 'itchyny/vim-highlighturl'
 
 " AI
 Plug 'github/copilot.vim'

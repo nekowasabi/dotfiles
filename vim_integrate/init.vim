@@ -51,6 +51,9 @@ let g:denops#debug = 0
 " temp
 nmap <leader>r .
 
+" url-highlight
+let g:highlighturl_guifg = '#4aa3ff'
+
 " -----------------------------------------------------------
 " lua
 lua << EOF
