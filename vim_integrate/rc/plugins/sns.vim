@@ -31,6 +31,4 @@ function! s:CrossPost()
   endif
 endfunction
 nnoremap <leader>PP :call <SID>CrossPost()<CR>
-nnoremap <M-p> :call <SID>CrossPost()<CR>
-nnoremap <D-p> :call <SID>CrossPost()<CR>
 
