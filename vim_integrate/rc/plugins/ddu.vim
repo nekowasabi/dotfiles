@@ -310,6 +310,8 @@ function DduGrepCurrentDirectory() abort
 endfunction
 
 nnoremap <silent> <Space>pm  :<C-u>call DduGrepChangelogHeader()<CR>
+nnoremap <silent> <M-p>  :<C-u>call DduGrepChangelogHeader()<CR>
+nnoremap <silent> <D-p>  :<C-u>call DduGrepChangelogHeader()<CR>
 function DduGrepChangelogHeader() abort
   if g:IsMacGvim() || g:IsMacNeovim() || g:IsMacNeovimInWork()
     cd ~/repos/changelog

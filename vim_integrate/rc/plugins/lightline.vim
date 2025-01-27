@@ -172,7 +172,8 @@ endfunction
 " 特定のファイルタイプの場合は空文字列を返す
 " @return {string} 文字数を表す文字列
 function CountCharInBuffer() abort
-  if &filetype == 'changelog' || &filetype == 'text' || &filetype == 'ddu-ff-filter' || &filetype == 'ddu-filer' || &filetype == 'vim-plug' || &filetype == ''
+  let l:file_name = expand('%:t')
+  if &filetype == 'changelog' || l:file_name == 'tenTask.txt' || &filetype == 'ddu-ff-filter' || &filetype == 'ddu-filer' || &filetype == 'vim-plug' || &filetype == ''
     return ''
   endif
 

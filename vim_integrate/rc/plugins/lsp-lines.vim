@@ -1,7 +1,7 @@
 lua << EOF
-require("lsp_lines").setup()
 vim.diagnostic.config({
 		virtual_text = false,
+    virtual_lines = true,
 		text = {
 			[vim.diagnostic.severity.ERROR] = 'Z',
 			[vim.diagnostic.severity.WARN] = '',
