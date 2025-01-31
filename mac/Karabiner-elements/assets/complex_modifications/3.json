@@ -22125,6 +22125,51 @@
               "type": "input_source_if"
             }
           ],
+          "description": "じゅんび",
+          "from": {
+            "simultaneous": [
+              {
+                "key_code": "j"
+              },
+              {
+                "key_code": "b"
+              }
+            ]
+          },
+          "to": [
+            {
+              "key_code": "j"
+            },
+            {
+              "key_code": "y"
+            },
+            {
+              "key_code": "u"
+            },
+            {
+              "key_code": "n"
+            },
+            {
+              "key_code": "b"
+            },
+            {
+              "key_code": "i",
+              "repeat": false
+            }
+          ],
+          "type": "basic"
+        },
+        {
+          "conditions": [
+            {
+              "input_sources": [
+                {
+                  "language": "ja"
+                }
+              ],
+              "type": "input_source_if"
+            }
+          ],
           "description": "ひさしぶり",
           "from": {
             "simultaneous": [
