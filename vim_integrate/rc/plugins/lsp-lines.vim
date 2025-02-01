@@ -1,3 +1,9 @@
+if g:IsMacNeovim()
+lua << EOF
+  -- require("lsp_lines").setup()
+EOF
+endif
+
 lua << EOF
 vim.diagnostic.config({
 		virtual_text = false,

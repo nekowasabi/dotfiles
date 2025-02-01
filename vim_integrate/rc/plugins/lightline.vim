@@ -52,10 +52,10 @@ let g:lightline.active = {
       \     ['mode', 'paste'], ['filename'],
       \   ],
       \   'right': [
-      \     ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok'],
       \     ['fileformat'],
       \     ['fileencoding'],
       \     ['filetype'],
+      \     ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok'],
       \   ]
       \ }
 

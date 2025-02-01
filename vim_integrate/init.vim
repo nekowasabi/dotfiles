@@ -17,6 +17,8 @@
 set runtimepath+=/usr/local/opt/fzf
 source ~/.config/nvim/rc/env.vim
 source ~/.config/nvim/rc/plugin.vim
+
+exe "MasonUpdate"
 " }}}1
 
 " Easy autocmd {{{1

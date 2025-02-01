@@ -184,7 +184,6 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'nvim-treesitter/nvim-treesitter-textobjects'
   Plug 'nvim-tree/nvim-web-devicons'
-  " Plug 'abzcoding/lsp_lines.nvim'
   Plug 'HiPhish/rainbow-delimiters.nvim'
   Plug 'shellRaining/hlchunk.nvim'
   Plug 'atusy/treemonkey.nvim'
@@ -241,6 +240,9 @@ if g:IsMacNeovim() || g:IsWsl()
 
   if g:IsMacNeovimInWork() || g:IsWsl()
     call g:SetCoc()
+  elseif g:IsMacNeovim()
+    call g:SetCoc()
+    " Plug 'abzcoding/lsp_lines.nvim'
   elseif g:IsWsl()
     Plug 'Shougo/ddc-source-lsp'
     call g:SetCoc()

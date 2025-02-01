@@ -4,7 +4,7 @@ ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 source "${ZINIT_HOME}/zinit.zsh"
 
 # setting path {{{1
-export PATH=$PATH:/usr/local/bin:/bin:/usr/bin:$GOROOT/bin:$GOPATH/bin:/Users/takets/.nodebrew/current/bin:/Users/takets/go/bin:/Users/takets/.cargo/bin:/usr/local/Cellar/python@3.13/3.13.0_1/bin::$DENO_INSTALL/bin:$PATH:/Users/takets/.deno/bin:/Users/takets/.local/bin:/Users/takets/bin
+export PATH=$PATH:/usr/local/bin:/bin:/usr/bin:$GOROOT/bin:$GOPATH/bin:/Users/takets/.nodebrew/current/bin:/Users/takets/go/bin:/Users/takets/.cargo/bin:/usr/local/Cellar/python@3.13/3.13.0_1/bin::$DENO_INSTALL/bin:$PATH:/Users/takets/.deno/bin:/Users/takets/.local/bin:/Users/takets/bin:/Users/takets/tmp/nvim-macos-x86_64/bin:/Users/takets/tmp/nvim-macos-x86_64
 
 export EDITOR=vim
 export GOROOT=/usr/local/opt/go/libexec
@@ -27,6 +27,8 @@ export MOCWORD_DATA='/Users/takets/.config/mocword/mocword.sqlite'
 function wezterm_neovim() {
   if [ -d "/home/ttakeda" ]; then
     /opt/homebrew/bin/nvim  $1 $2 ~/work
+  elif [ -d "/Users/takets" ]; then
+    ~/.local/nvim/bin/nvim
   else
     # /usr/local/bin/nvim $1 $2 ~/wezterm
     /usr/local/bin/nvim $1 $2
@@ -123,7 +125,7 @@ zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'c
 fpath=(/usr/local/share/zsh-completions ${fpath})
 # }}}1
 
-
+  
 
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
