@@ -104,7 +104,7 @@ copilot_chat.setup({
   },
   debug = false,
   show_info = false,
-	model = "o1-mini",
+	model = "o3-mini-paygo",
 	-- model = "claude-3.5-sonnet",
 	chat_autocomplete = true,
   mappings = {
@@ -249,9 +249,6 @@ vnoremap <leader>cf :CopilotChatFix<CR>
 
 " 行選択モードで <leader>co を押すと CopilotChatOptimize を実行
 vnoremap <leader>co :CopilotChatOptimize<CR>
-
-" 通常モードで <leader>cc を押すと CopilotChat を実行
-nnoremap <leader>cc :CopilotChat<CR>
 
 " 行選択モードで <M-c> と <D-c> を押すと CopilotChat を実行
 vnoremap <M-c> :CopilotChat

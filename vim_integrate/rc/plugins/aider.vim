@@ -45,12 +45,12 @@ function! s:AiderOpenHandler() abort
   nnoremap <C-x><C-x> :AiderHide<CR>
 endfunction
 
-let s:aider_common_options = ' --no-auto-commits --no-show-model-warnings --chat-language ja --no-stream --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands '
+let s:aider_common_options = ' --no-auto-commits --no-show-model-warnings --chat-language ja --no-stream --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands --map-refresh auto '
 " let s:aider_model_claude = ' --no-auto-commits  --model anthropic/claude-3-5-sonnet-20241022 --editor-model anthropic/claude-3-5-sonnet-20241022 '
 let s:aider_model_claude = ' --no-auto-commits  --model openrouter/anthropic/claude-3.5-sonnet:beta --editor-model openrouter/anthropic/claude-3.5-sonnet:beta '
-let s:aider_model_gpt = ' --no-auto-commits  --model  openai/gpt-4o --editor-model openai/gpt-4o '
-let s:aider_model_gemini = ' --no-auto-commits --model gemini/gemini-2.0-flash-thinking-exp --editor-model gemini/gemini-2.0-flash-exp'
-let s:aider_model_deepseek = ' --no-auto-commits --model openrouter/deepseek/deepseek-chat --editor-model openrouter/deepseek/deepseek-chat'
+let s:aider_model_gpt = ' --reasoning-effort medium --weak-model openrouter/anthropic/claude-3-5-haiku --model  openai/o3-mini --editor-model openrouter/anthropic/claude-3.5-sonnet:beta '
+let s:aider_model_gemini = ' --no-auto-commits --model gemini/gemini-2.0-flash-thinking-exp --editor-model gemini/gemini-2.0-flash-exp '
+let s:aider_model_deepseek = ' --no-auto-commits --model openrouter/deepseek/deepseek-chat --editor-model openrouter/deepseek/deepseek-chat '
 
 if g:IsMacNeovimInWork()
   " Aider settings presets
@@ -97,7 +97,7 @@ if g:IsMacNeovimInWork()
         \ ,
         \ }
 
-  let g:aider_command = s:aider_settings['architect_claude']
+  let g:aider_command = s:aider_settings['gpt']
 else
   " Aider settings presets
   " default: 基本的なClaude-3 Sonnetモデルを使用したモード
