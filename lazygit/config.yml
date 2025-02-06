@@ -26,7 +26,7 @@ os:
 
 customCommands:
   - key: 'C'
-    command: "aicommit2 --locale 'ja' --type 'conventional' -y --generate 3"
+    command: "aicommit2 --locale 'ja' --type 'conventional' -y --generate 3 -p 'Must: コミットメッセージは必ず日本語にしてください。Must: コミットメッセージは必ず日本語にしてください。Must: コミットメッセージは必ず日本語にしてください。'"
     context: 'files'
     subprocess: true
     description: 'commit changes using git editor(Custom Command)'

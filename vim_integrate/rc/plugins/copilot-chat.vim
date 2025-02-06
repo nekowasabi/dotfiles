@@ -242,7 +242,7 @@ vnoremap <leader>cr :CopilotChatReview<CR>
 vnoremap <leader>ce :CopilotChatExplain<CR>
 
 " 行選択モードで <Tab> を押すと CopilotChat を実行
-vnoremap <Tab> :CopilotChat
+vnoremap <Tab> :CopilotChat 
 
 " 行選択モードで <leader>cf を押すと CopilotChatFix を実行
 vnoremap <leader>cf :CopilotChatFix<CR>
