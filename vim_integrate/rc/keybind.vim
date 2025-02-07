@@ -17,7 +17,6 @@ nnoremap gF gf
 vnoremap <silent>H 10h
 vnoremap <silent>J 5gj
 vnoremap <silent>K 5gk
-vmap <silent>K 5gk
 vnoremap <silent>L 10l
 
 inoremap <M-f> ／
