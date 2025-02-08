@@ -212,7 +212,6 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'folke/twilight.nvim'
 	Plug 'folke/which-key.nvim'
   Plug 'nekowasabi/nudge-two-hats.vim'
-	" Plug 'mikavilpas/yazi.nvim'
   Plug 'PaysanCorrezien/yazi.nvim'
   Plug 'basyura/dsky.vim'
   Plug 'gw31415/mstdn.vim'
