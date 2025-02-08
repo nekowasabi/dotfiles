@@ -241,7 +241,7 @@ if g:IsMacNeovim() || g:IsWsl()
     call g:SetCoc()
   elseif g:IsMacNeovim()
     call g:SetCoc()
-    " Plug 'abzcoding/lsp_lines.nvim'
+    Plug 'abzcoding/lsp_lines.nvim'
   elseif g:IsWsl()
     Plug 'Shougo/ddc-source-lsp'
     call g:SetCoc()
