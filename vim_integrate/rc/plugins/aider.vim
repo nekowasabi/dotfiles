@@ -4,12 +4,14 @@ let g:aider_floatwin_height = 50
 let g:aider_buffer_open_type = 'floating'
 if g:IsMacNeovimInWezterm()
  let g:convension_path = "~/.config/nvim/plugged/aider.vim/CONVENTION.md"
+ let g:init_load_command = "~/.config/nvim/plugged/aider.vim/init.md"
 endif
 if g:IsWsl()
  let g:convension_path = "~/.config/nvim/plugged/aider.vim/CONVENTION.md"
 endif
 if g:IsMacNeovimInWork()
  let g:convension_path = $BACKEND_LARAVEL_MAC_DIR . "/laravel/CONVENTION.md"
+ let g:init_load_command = $BACKEND_LARAVEL_MAC_DIR . "/laravel/init.md"
 endif
 nnoremap <silent> <leader>as :AiderSwitch<CR>
 nnoremap <silent> <leader>aS :AiderSwitch watch<CR>
@@ -45,7 +47,7 @@ function! s:AiderOpenHandler() abort
   nnoremap <C-x><C-x> :AiderHide<CR>
 endfunction
 
-let s:aider_common_options = ' --no-auto-commits --no-show-model-warnings --chat-language ja --no-stream --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands --map-refresh auto '
+let s:aider_common_options = ' --no-auto-commits --no-show-model-warnings --chat-language ja --no-stream --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands --map-refresh auto --load ' . g:init_load_command
 " let s:aider_model_claude = ' --no-auto-commits  --model anthropic/claude-3-5-sonnet-20241022 --editor-model anthropic/claude-3-5-sonnet-20241022 '
 let s:aider_model_claude = ' --no-auto-commits  --model openrouter/anthropic/claude-3.5-sonnet:beta --editor-model openrouter/anthropic/claude-3.5-sonnet:beta '
 let s:aider_model_gpt = ' --reasoning-effort medium --weak-model openrouter/anthropic/claude-3-5-haiku --model  openai/o3-mini --editor-model openrouter/anthropic/claude-3.5-sonnet:beta '

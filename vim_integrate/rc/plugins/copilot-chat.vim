@@ -104,7 +104,7 @@ copilot_chat.setup({
   },
   debug = false,
   show_info = false,
-	model = "o3-mini-paygo",
+	model = "o3-mini",
 	-- model = "claude-3.5-sonnet",
 	chat_autocomplete = true,
   mappings = {

@@ -35,4 +35,7 @@ augroup my_vimrc
 
   autocmd FileType vue,javascript iabbrev <buffer> dg debugger;<C-R>=Eatchar('\s')<CR>
   autocmd FileType vue,javascript iabbrev <buffer> cn console.log('Canary');<C-R>=Eatchar('\s')<CR>
+
+  autocmd FileType markdown iabbrev <buffer> cb -[ ]<BS><C-R>=Eatchar('\s')<CR>
+
 augroup END

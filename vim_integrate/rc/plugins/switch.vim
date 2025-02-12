@@ -57,4 +57,9 @@ autocmd FileType php,javascript let b:switch_custom_definitions = [
 			\		['public', 'protected', 'private'],
 			\ ]
 
+autocmd FileType markdown let b:switch_custom_definitions = [
+			\		['- ','- [  ] '],
+			\		['public', 'protected', 'private'],
+			\ ]
+
 
