@@ -10,8 +10,8 @@ if g:IsWsl()
  let g:convension_path = "~/.config/nvim/plugged/aider.vim/CONVENTION.md"
 endif
 if g:IsMacNeovimInWork()
- let g:convension_path = $BACKEND_LARAVEL_MAC_DIR . "/laravel/CONVENTION.md"
- let g:init_load_command = $BACKEND_LARAVEL_MAC_DIR . "/laravel/init.md"
+ let g:convension_path = $BACKEND_LARAVEL_DIR . "/laravel/CONVENTION.md"
+ let g:init_load_command = $BACKEND_LARAVEL_DIR . "/laravel/init.md"
 endif
 nnoremap <silent> <leader>as :AiderSwitch<CR>
 nnoremap <silent> <leader>aS :AiderSwitch watch<CR>
@@ -80,7 +80,7 @@ if g:IsMacNeovimInWork()
         \ . s:aider_common_options
         \ . s:aider_model_claude
         \,
-        \ 'gpt': s:aider_base_command
+        \ 'architect_gpt': s:aider_base_command
         \ . s:aider_common_options
         \ . ' --architect '
         \ . s:aider_model_gpt,
@@ -99,7 +99,7 @@ if g:IsMacNeovimInWork()
         \ ,
         \ }
 
-  let g:aider_command = s:aider_settings['gpt']
+  let g:aider_command = s:aider_settings['architect_gpt']
 else
   " Aider settings presets
   " default: 基本的なClaude-3 Sonnetモデルを使用したモード
