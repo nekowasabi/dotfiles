@@ -8,6 +8,7 @@ if g:IsMacNeovimInWezterm()
 endif
 if g:IsWsl()
  let g:convension_path = "~/.config/nvim/plugged/aider.vim/CONVENTION.md"
+ let g:init_load_command = "~/.config/nvim/plugged/aider.vim/init.md"
 endif
 if g:IsMacNeovimInWork()
  let g:convension_path = $BACKEND_LARAVEL_DIR . "/laravel/CONVENTION.md"
@@ -50,7 +51,7 @@ endfunction
 let s:aider_common_options = ' --no-auto-commits --no-show-model-warnings --chat-language ja --no-stream --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands --map-refresh auto --load ' . g:init_load_command
 " let s:aider_model_claude = ' --no-auto-commits  --model anthropic/claude-3-5-sonnet-20241022 --editor-model anthropic/claude-3-5-sonnet-20241022 '
 let s:aider_model_claude = ' --no-auto-commits  --model openrouter/anthropic/claude-3.5-sonnet:beta --editor-model openrouter/anthropic/claude-3.5-sonnet:beta '
-let s:aider_model_gpt = ' --reasoning-effort medium --weak-model openrouter/anthropic/claude-3-5-haiku --model  openai/o3-mini --editor-model openrouter/anthropic/claude-3.5-sonnet:beta '
+let s:aider_model_gpt = ' --reasoning-effort high --weak-model openrouter/anthropic/claude-3-5-haiku --model  openai/o3-mini --editor-model openrouter/anthropic/claude-3.5-sonnet:beta '
 let s:aider_model_gemini = ' --no-auto-commits --model gemini/gemini-2.0-flash-thinking-exp --editor-model gemini/gemini-2.0-flash-exp '
 let s:aider_model_deepseek = ' --no-auto-commits --model openrouter/deepseek/deepseek-chat --editor-model openrouter/deepseek/deepseek-chat '
 
