@@ -39,7 +39,6 @@ vmap ab <Plug>(textobj-multitextobj-a)
 vmap ib <Plug>(textobj-multitextobj-i)
 
 
-
 " textobj（数字のみ取得）
 omap <expr> in textobj#from_regexp#mapexpr('\d\+')
 vmap <expr> in textobj#from_regexp#mapexpr('\d\+')

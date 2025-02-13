@@ -9,15 +9,19 @@ function! CloseQuickRunWindow()
     if bufname(buf) =~ '^term://'
       execute 'bdelete! ' . buf
     endif
+    if bufname(buf) =~ '^kulala://ui'
+      execute 'bdelete! ' . buf
+    endif
   endfor
-    execute "normal \<c-c>\<c-w>\<C-w>ZZ"
+	" execute "normal \<c-c>\<c-w>\<C-w>ZZ"
+
 endfunction
 
 nnoremap <silent> <Leader>q :call CloseQuickRunWindow()<CR>
 
 " 指定のウインドウを閉じる
 nnoremap <C-h> :<C-u>CloseSomeWindow
-\	(index(['qf','unite','dbout'], getwinvar(v:val,'&filetype')) != -1)
+\	(index(['qf','unite','dbout', 'ui'], getwinvar(v:val,'&filetype')) != -1)
 \		\|\| (getwinvar(v:val, '&filetype') ==# 'help'
 \		\|\| (getwinvar(v:val, '&filetype') ==# 'httpRequest'
 \		\|\| (getwinvar(v:val, '&filetype') ==# 'dbout'
