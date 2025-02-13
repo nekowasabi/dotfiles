@@ -7,10 +7,10 @@ function! CloseQuickRunWindow()
   " term://で始まるバッファを削除
   for buf in buffers
     if bufname(buf) =~ '^term://'
-      execute 'bdelete! ' . buf
+      silent! execute 'bdelete! ' . buf
     endif
     if bufname(buf) =~ '^kulala://ui'
-      execute 'bdelete! ' . buf
+      silent! execute 'bdelete! ' . buf
     endif
   endfor
 	" execute "normal \<c-c>\<c-w>\<C-w>ZZ"

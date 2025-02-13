@@ -1,10 +1,10 @@
 lastupdatecheck: 0
 recentrepos:
 - /Users/ttakeda/works/invase-backend
-- /Users/ttakeda/.config/nvim/plugged/aider.vim
 - /Users/ttakeda/repos/private_dotfiles
-- /Users/ttakeda/repos/changelog
 - /Users/ttakeda/repos/dotfiles
+- /Users/ttakeda/.config/nvim/plugged/aider.vim
+- /Users/ttakeda/repos/changelog
 - /Users/ttakeda/repos/surfingkeys
 - /Users/ttakeda/works/invase-api-schema
 - /Users/ttakeda/repos/zenn
