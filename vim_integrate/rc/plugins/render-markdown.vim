@@ -88,7 +88,7 @@ require('render-markdown').setup({
       -- Additional modes to render headings
       render_modes = false,
       -- Turn on / off any sign column related rendering
-      sign = true,
+      sign = false,
       -- Replaces '#+' of 'atx_h._marker'
       -- The number of '#' in the heading determines the 'level'
       -- The 'level' is used to index into the list using a cycle
@@ -171,7 +171,7 @@ require('render-markdown').setup({
       -- Turn on / off code block & inline code rendering
       enabled = true,
       -- Additional modes to render code blocks
-      render_modes = false,
+      render_modes = true,
       -- Turn on / off any sign column related rendering
       sign = true,
       -- Determines how code blocks & inline code are rendered:
@@ -179,7 +179,7 @@ require('render-markdown').setup({
       --  normal:   adds highlight group to code blocks & inline code, adds padding to code blocks
       --  language: adds language icon to sign column if enabled and icon + name above code blocks
       --  full:     normal + language
-      style = 'full',
+      style = 'normal',
       -- Determines where language icon is rendered:
       --  right: right side of code block
       --  left:  left side of code block
