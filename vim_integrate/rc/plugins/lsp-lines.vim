@@ -7,7 +7,7 @@ endif
 lua << EOF
 vim.diagnostic.config({
 		virtual_text = false,
-    virtual_lines = false,
+    virtual_lines = true,
 		text = {
 			[vim.diagnostic.severity.ERROR] = 'Z',
 			[vim.diagnostic.severity.WARN] = '',
