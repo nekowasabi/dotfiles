@@ -54,6 +54,7 @@ let s:aider_model_claude = ' --no-auto-commits  --model openrouter/anthropic/cla
 let s:aider_model_gpt = ' --reasoning-effort high --weak-model openrouter/anthropic/claude-3-5-haiku --model  openai/o3-mini --editor-model openrouter/anthropic/claude-3.5-sonnet:beta '
 let s:aider_model_gemini = ' --no-auto-commits --model gemini/gemini-2.0-flash-thinking-exp --editor-model gemini/gemini-2.0-flash-exp '
 let s:aider_model_deepseek = ' --no-auto-commits --model openrouter/deepseek/deepseek-chat --editor-model openrouter/deepseek/deepseek-chat '
+let s:aider_model_copilot = ' --reasoning-effort high --weak-model openrouter/anthropic/claude-3-5-haiku --model proxy-o3-mini --editor-model proxy-claude-3-5-sonnet '
 
 if g:IsMacNeovimInWork()
   " Aider settings presets
@@ -63,6 +64,11 @@ if g:IsMacNeovimInWork()
   " gpt: GPT-4モデルを使用したモード
   " vhs: ビデオ録画用の設定で、コードのみのストリーミングモード
   let s:aider_settings = {
+        \ 'architect_copilot': s:aider_base_command
+        \ . s:aider_common_options
+        \ . ' --architect '
+        \ . s:aider_model_copilot
+        \ ,
         \ 'architect_claude': s:aider_base_command
         \ . s:aider_common_options
         \ . ' --architect '
@@ -113,6 +119,11 @@ else
         \ . s:aider_common_options
         \ . s:aider_model_claude
         \,
+        \ 'architect_copilot': s:aider_base_command
+        \ . s:aider_common_options
+        \ . ' --architect '
+        \ . s:aider_model_copilot
+        \ ,
         \ 'architect_claude': s:aider_base_command
         \ . s:aider_common_options
         \ . s:aider_model_claude
@@ -149,7 +160,7 @@ else
         \ . ' --watch-files'
         \ }
 
-  let g:aider_command = s:aider_settings['architect_gemini']
+  let g:aider_command = s:aider_settings['architect_copilot']
 endif
 
 " 異なるAider設定を切り替える
