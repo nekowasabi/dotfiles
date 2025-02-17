@@ -147,8 +147,8 @@ function g:SetDdu()
   Plug 'Shougo/ddu-source-action'
   Plug 'Shougo/ddu-source-file'
   Plug 'Shougo/ddu-source-file_rec'
-  Plug 'Shougo/ddu-ui-ff'
-  Plug 'Shougo/ddu.vim'
+  Plug 'Shougo/ddu-ui-ff', { 'tag': '37b76f4023a2952462181c0f3f7f412745ceb7ee' }
+  Plug 'Shougo/ddu.vim',  { 'tag': '8f9479f4ab5de85511a648450b594d51dfe8d1cb' }
   Plug 'kamecha/ddu-filter-converter_file_icon'
   Plug 'kamecha/ddu-filter-converter_file_info'
   Plug 'matsui54/ddu-source-help'
