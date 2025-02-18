@@ -125,6 +125,7 @@ function wezterm_neovim_work() {
  /opt/homebrew/bin/nvim  $1 $2 ~/work
 }
 alias m='wezterm_neovim_work'
+# }}}1
 
 alias ll='eza --long --header --git  --sort=type --classify --git'
 alias la='eza --long --header --git --grid --classify --sort=type --git'
@@ -272,6 +273,12 @@ fzf_find_path() {
 # Ctrl+t のキーバインドを設定
 zle -N fzf_find_path
 bindkey '^t' fzf_find_path
+
+# notify
+function nn() {
+    # osascript -e 'display notification "done!" with title "notification"'
+    osascript -e 'display dialog "てす と" buttons {"OK"} with title "テスト"'
+}
 
 eval "$(zoxide init --cmd j zsh)"
 export PATH="/opt/homebrew/opt/php@8.3/bin:$PATH"
