@@ -1,16 +1,3 @@
-" " minimum setting {{{1 source ~/.config/nvim/rc/env.vim
-"
-" if empty(g:GetAutoloadPath() . 'plug.vim')
-"   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-     autocmd  VimEnter * PlugInstall | source $MYVIMRC
-" endif
-"
-" call plug#begin(g:GetVimConfigRootPath() . 'plugged')
-" Plug 'kdheepak/lazygit.nvim'
-" call plug#end()
-"
-" " }}}1
-
 " init setting {{{1
 
 " 環境ごとの設定ディレクトリパスを取得
