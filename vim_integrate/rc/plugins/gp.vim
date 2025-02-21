@@ -150,8 +150,8 @@ function! s:RewriteLine() abort
 endfunction
 
 " normal modeとvisual modeで同じキーマッピングを使用
-nnoremap <silent> <C-y> :call <SID>RewriteLine()<CR>
-vnoremap <silent> <C-y> :call <SID>RewriteLine()<CR>
+nnoremap <silent> <C-c><C-y> :call <SID>RewriteLine()<CR>
+vnoremap <silent> <C-c><C-y> :call <SID>RewriteLine()<CR>
 
 " 選択範囲のテキストをechoするコマンド
 function! GpRewriteTidyToMarkdown()
