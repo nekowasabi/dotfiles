@@ -513,7 +513,7 @@ function! s:ddu_uu_my_settings() abort
   " nnoremap <buffer><silent> :
   "       \ <Cmd>call ddu#ui#do_action('itemAction')<CR>
 
-  call ddu#ui#ff#save_cmaps(['<C-j>', '<C-k>'])
+  call ddu#ui#save_cmaps(['<C-j>', '<C-k>'])
 
   cnoremap <C-j>
         \ <Cmd>call ddu#ui#do_action('cursorNext')<CR>
@@ -549,11 +549,23 @@ function! s:ddu_uu_my_settings() abort
         \   [
         \      'redraw', #{ method: 'refreshItems' },
         \   ],
+        \   [
+        \      'openFilterWindow',
+        \   ],
+        \   [
+        \      'redraw', #{ method: 'refreshItems' },
+        \   ],
         \ ])<CR>
   nnoremap <buffer> mf
         \ <Cmd>call ddu#ui#multi_actions([
         \   [
         \      'updateOptions', g:source_options_fuzzy
+        \   ],
+        \   [
+        \      'redraw', #{ method: 'refreshItems' },
+        \   ],
+        \   [
+        \      'openFilterWindow',
         \   ],
         \   [
         \      'redraw', #{ method: 'refreshItems' },
@@ -571,13 +583,13 @@ endfunction
 let g:source_options_substring = #{
       \ sourceOptions: #{
       \   mr: #{
-      \     matchers: ['matcher_substring'],
+      \     matchers: ['matcher_kensaku'],
       \   },
       \   rg: #{
-      \     matchers: ['matcher_substring'],
+      \     matchers: ['matcher_kensaku'],
       \   },
       \   line: #{
-      \     matchers: ['matcher_substring'],
+      \     matchers: ['matcher_kensaku'],
       \   },
       \ },
       \ }
@@ -585,15 +597,15 @@ let g:source_options_substring = #{
 let g:source_options_fuzzy = #{
       \ sourceOptions: #{
       \   mr: #{
-      \     matchers: ['matcher_matchfuzzy', 'matcher_kensaku'],
+      \     matchers: ['matcher_matchfuzzy'],
       \     ignoreCase: v:true,
       \   },
       \   rg: #{
-      \     matchers: ['matcher_matchfuzzy', 'matcher_kensaku'],
+      \     matchers: ['matcher_matchfuzzy'],
       \     ignoreCase: v:true,
       \   },
       \   line: #{
-      \     matchers: ['matcher_matchfuzzy', 'matcher_kensaku'],
+      \     matchers: ['matcher_matchfuzzy'],
       \     ignoreCase: v:true,
       \   },
       \ },
