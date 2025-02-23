@@ -43,8 +43,8 @@ alias python='/usr/local/Cellar/python@3.13/3.13.0_1/bin/python3'
 alias pip3='/usr/local/Cellar/python@3.13/3.13.0_1/bin/pip3.12'
 alias pip= '/usr/local/Cellar/python@3.13/3.13.0_1/bin/pip3.12'
 alias phpctags='/usr/local/bin/phpctags'
-alias ...='cd ../../'
-alias ....='cd ../../../'
+alias ...='j ../../'
+alias ....='j ../../../'
 alias emacs='TERM=screen.putty-256color /usr/bin/emacs'
 alias v='/usr/local/bin/nvim'
 alias deno='~/.deno/bin/deno'
@@ -53,6 +53,7 @@ alias gps='git push'
 alias gp='git pull'
 alias lg='lazygit'
 alias g='gptme'
+alias cd='j'
 
 # alias xargs='gxargs'
 # }}}1
@@ -148,11 +149,6 @@ zinit load junegunn/fzf-bin
 
 zinit ice lucid depth"1" blockf
 zinit light yuki-yano/zeno.zsh
-
-zinit light mollifier/cd-bookmark
-
-autoload -Uz cd-bookmark
-alias b='cd-bookmark'
 
 export ZENO_GIT_TREE="eza --tree"
 
