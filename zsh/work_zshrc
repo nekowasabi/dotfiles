@@ -140,6 +140,7 @@ alias emacs='TERM=screen.putty-256color /usr/bin/emacs'
 alias v='/opt/homebrew/bin/nvim'
 alias deno='~/.deno/bin/deno'
 alias grealpath='/opt/homebrew/bin/grealpath'
+alias cd='j'
 # }}}0
 
 zinit light zdharma-continuum/fast-syntax-highlighting
