@@ -181,8 +181,8 @@ vnoremap <leader>cr :CopilotChatReview<CR>
 " 行選択モードで <leader>ce を押すと CopilotChatExplain を実行
 vnoremap <leader>ce :CopilotChatExplain<CR>
 
-" 行選択モードで <Tab> を押すと CopilotChat を実行
-vnoremap <Tab> :CopilotChat 
+" " 行選択モードで <Tab> を押すと CopilotChat を実行
+" vnoremap <Tab> :CopilotChat 
 
 " 行選択モードで <leader>cf を押すと CopilotChatFix を実行
 vnoremap <leader>cf :CopilotChatFix<CR>

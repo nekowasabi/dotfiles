@@ -322,8 +322,8 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cr-remover.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/render-markdown.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/previm.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot-chat.vim'
   " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/codecompanion.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot-chat.vim'
 
   if g:IsMacNeovimInWork() || g:IsWsl()
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'

@@ -102,6 +102,7 @@ require("avante").setup({
     ask = "<tab>", -- ask
     edit = "<leader>ve", -- edit
     refresh = "<leader>vv", -- refresh
+    focus = "<leader>vt", -- toggle
   },
 	windows = {
 		position = "right",
