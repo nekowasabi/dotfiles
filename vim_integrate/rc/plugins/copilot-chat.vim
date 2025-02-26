@@ -140,8 +140,8 @@ copilot_chat.setup({
       normal = 'gr',
     },
     accept_diff = {
-      normal = 'ga',
-      insert = '<C-y>',
+      normal = 'cc',
+      insert = 'cc',
     },
     jump_to_diff = {
       normal = 'gj',
