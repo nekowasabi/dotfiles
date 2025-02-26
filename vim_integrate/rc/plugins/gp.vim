@@ -30,24 +30,25 @@ require("gp").setup({
     -- },
     {
       provider = "copilot",
-      name = "copilot-3-5-Sonnet",
+      name = "copilot-3-7-Sonnet",
       chat = true,
-      command = false,
-      model = { model = "claude-3.5-sonnet", temperature = 0.8, top_p = 1 },
+      command = true,
+      model = { model = "claude-3.7-sonnet", temperature = 0.8, top_p = 1 },
       system_prompt = require("gp.defaults").chat_system_prompt,
     },
     {
-      provider = "anthropic",
-      name = "anthropic-3-5-Sonnet",
+      provider = "copilot",
+      name = "copilot-3-5-Sonnet",
       chat = true,
-      command = false,
-      model = { model = "claude-3-5-sonnet-20241022", temperature = 0.8, top_p = 1 },
+      command = true,
+      model = { model = "claude-3.5-sonnet", temperature = 0.8, top_p = 1 },
       system_prompt = require("gp.defaults").chat_system_prompt,
     },
     { 
         name = "ChatGPT4o", 
         chat = true, 
         command = true, 
+        disable = true,
         -- string with model name or table with model name and parameters 
         model = { model = "gpt-4o-2024-08-06", temperature = 1.1, top_p =
         1 }, 
