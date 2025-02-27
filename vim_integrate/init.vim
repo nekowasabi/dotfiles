@@ -92,7 +92,7 @@ require("avante").setup({
 	behaviour = {
 		auto_suggestions = false, -- 試験的機能につき無効化を推奨
 		auto_set_highlight_group = true,
-		auto_set_keymaps = true,
+		auto_set_keymaps = false,
 		auto_apply_diff_after_generation = false,
 		support_paste_from_clipboard = true,
 		minimize_diff = true,
@@ -103,6 +103,7 @@ require("avante").setup({
     edit = "<leader>ve", -- edit
     refresh = "<leader>vv", -- refresh
     focus = "<leader>vt", -- toggle
+    suggestion = "<leader>vs", -- suggestion
   },
 	windows = {
 		position = "right",
