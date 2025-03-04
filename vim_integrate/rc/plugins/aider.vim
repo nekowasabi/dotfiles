@@ -50,8 +50,8 @@ endfunction
 
 let s:aider_common_options = ' --no-auto-commits --no-show-model-warnings --chat-language ja --no-stream --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands --map-refresh auto --load ' . g:init_load_command
 " let s:aider_model_claude = ' --no-auto-commits  --model anthropic/claude-3-5-sonnet-20241022 --editor-model anthropic/claude-3-5-sonnet-20241022 '
-" let s:aider_model_claude = ' --no-auto-commits  --model openrouter/anthropic/claude-3.7-sonnet --editor-model editor/anthropic/claude-3-7-sonnet-20250219 '
-let s:aider_model_claude = ' --no-auto-commits  --model openrouter/anthropic/claude-3.5-sonnet:beta --editor-model openrouter/anthropic/claude-3.5-sonnet:beta '
+let s:aider_model_claude = ' --no-auto-commits  --model openrouter/anthropic/claude-3.7-sonnet --editor-model editor/anthropic/claude-3-7-sonnet-20250219 '
+" let s:aider_model_claude = ' --no-auto-commits  --model openrouter/anthropic/claude-3.5-sonnet:beta --editor-model openrouter/anthropic/claude-3.5-sonnet:beta '
 let s:aider_model_gpt = ' --reasoning-effort medium --weak-model openai/gpt-4o-mini --model  openai/o3-mini --editor-model openai/gpt-4o '
 " let s:aider_model_gpt = ' --reasoning-effort high --weak-model anthropic/claude-3-5-haiku --model  openai/o3-mini --editor-model anthropic/claude-3-5-sonnet-20241022 '
 " let s:aider_model_gpt = ' --reasoning-effort high --weak-model openrouter/anthropic/claude-3-5-haiku --model  openai/o3-mini --editor-model openrouter/anthropic/claude-3.5-sonnet:beta '
@@ -172,7 +172,7 @@ else
         \ . ' --watch-files'
         \ }
 
-  let g:aider_command = s:aider_settings['architect_experimental']
+  let g:aider_command = s:aider_settings['architect_claude']
 endif
 
 " 異なるAider設定を切り替える
