@@ -75,6 +75,7 @@ cmp.setup({
   },
   sources = {
     { name = 'buffer' },
+    { name = 'buffer-lines' },
     { name = 'path' },
   },
   method = "getCompletionsCycling",
@@ -160,6 +161,7 @@ cmp.setup.filetype('markdown', {
       },
     },
     { name = 'neosnippet', keyword_length = 3 },
+    { name = 'buffer-lines', keyword_length = 3},
     { name = 'context_nvim' }
   })
 })

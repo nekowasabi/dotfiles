@@ -490,6 +490,8 @@ vnoremap <silent> <C-c>r y<Cmd>call DduAiConnectorByFiletype('GpRewrite')<CR>
 
 nnoremap <silent> <Leader>ll
       \ <Cmd>call ddu#start({'sources': [{'name': 'line', 'params': {'matchers': 'matcher_matchfuzzy'}}]})<CR>
+nnoremap <silent> <C-l>
+      \ <Cmd>call ddu#start({'sources': [{'name': 'line', 'params': {'matchers': 'matcher_matchfuzzy'}}]})<CR>
 nnoremap <silent> <Leader>h
       \ <Cmd>call ddu#start({'sources': [{'name': 'command_history'}]})<CR>
 nnoremap <silent> <Leader>H

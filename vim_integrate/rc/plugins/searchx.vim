@@ -51,9 +51,6 @@ nnoremap <silent> n <Cmd>call searchx#next_dir()<CR>
 xnoremap <silent> N <Cmd>call searchx#prev_dir()<CR>
 xnoremap <silent> n <Cmd>call searchx#next_dir()<CR>
 
-" Clear highlights
-nnoremap <C-l> <Cmd>call searchx#clear()<CR>
-
 let g:searchx = {}
 
 " To enable auto nohlsearch after cursor is moved
