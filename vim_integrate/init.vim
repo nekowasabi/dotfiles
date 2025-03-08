@@ -47,6 +47,27 @@ let g:highlighturl_guifg = '#4aa3ff'
 " lua
 lua << EOF
 
+vim.keymap.set("n", "W", function()
+    local pos = require("budouxify.motion").find_forward({
+        row = vim.api.nvim_win_get_cursor(0)[1],
+        col = vim.api.nvim_win_get_cursor(0)[2],
+        head = true,
+    })
+    if pos then
+        vim.api.nvim_win_set_cursor(0, { pos.row, pos.col })
+    end
+end)
+vim.keymap.set("n", "E", function()
+    local pos = require("budouxify.motion").find_forward({
+        row = vim.api.nvim_win_get_cursor(0)[1],
+        col = vim.api.nvim_win_get_cursor(0)[2],
+        head = false,
+    })
+    if pos then
+        vim.api.nvim_win_set_cursor(0, { pos.row, pos.col })
+    end
+end)
+
 -- nvim-navic {{{1
 local navic = require("nvim-navic")
 local on_attach = function(client, bufnr)
