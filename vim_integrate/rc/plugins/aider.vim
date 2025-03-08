@@ -48,7 +48,7 @@ function! s:AiderOpenHandler() abort
   nnoremap <C-x><C-x> :AiderHide<CR>
 endfunction
 
-let s:aider_common_options = ' --no-auto-commits --no-show-model-warnings --chat-language ja --no-stream --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands --map-refresh auto --load ' . g:init_load_command
+let s:aider_common_options = ' --notifications --no-auto-commits --no-show-model-warnings --chat-language ja --no-stream --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands --map-refresh auto --load ' . g:init_load_command
 " let s:aider_model_claude = ' --no-auto-commits  --model anthropic/claude-3-5-sonnet-20241022 --editor-model anthropic/claude-3-5-sonnet-20241022 '
 let s:aider_model_claude = ' --no-auto-commits  --model openrouter/anthropic/claude-3.7-sonnet --editor-model editor/anthropic/claude-3-7-sonnet-20250219 '
 " let s:aider_model_claude = ' --no-auto-commits  --model openrouter/anthropic/claude-3.5-sonnet:beta --editor-model openrouter/anthropic/claude-3.5-sonnet:beta '
@@ -56,7 +56,8 @@ let s:aider_model_gpt = ' --reasoning-effort medium --weak-model openai/gpt-4o-m
 " let s:aider_model_gpt = ' --reasoning-effort high --weak-model anthropic/claude-3-5-haiku --model  openai/o3-mini --editor-model anthropic/claude-3-5-sonnet-20241022 '
 " let s:aider_model_gpt = ' --reasoning-effort high --weak-model openrouter/anthropic/claude-3-5-haiku --model  openai/o3-mini --editor-model openrouter/anthropic/claude-3.5-sonnet:beta '
 let s:aider_model_gemini = ' --no-auto-commits --model gemini/gemini-2.0-flash-thinking-exp --editor-model gemini/gemini-2.0-flash-exp '
-let s:aider_model_deepseek = ' --no-auto-commits --model openrouter/deepseek/deepseek-chat --editor-model openrouter/deepseek/deepseek-chat '
+" let s:aider_model_deepseek = ' --no-auto-commits --model openrouter/deepseek/deepseek-chat --editor-model openrouter/deepseek/deepseek-chat '
+let s:aider_model_deepseek = ' --no-auto-commits --model my-openrouter/deepseek/deepseek-r1 --editor-model my-openrouter/deepseek/deepseek-chat '
 let s:aider_model_copilot = ' --reasoning-effort high --weak-model openrouter/anthropic/claude-3-5-haiku --model proxy-claude-3-5-sonnet --editor-model proxy-claude-3-5-sonnet '
 " let s:aider_model_copilot = ' --reasoning-effort high --weak-model openrouter/anthropic/claude-3-5-haiku --model proxy-o3-mini --editor-model proxy-claude-3-5-sonnet '
 let s:aider_model_experimental = ' --no-auto-commits  --model openrouter/anthropic/claude-3.7-sonnet --editor-model proxy-claude-3-5-sonnet '
@@ -172,7 +173,7 @@ else
         \ . ' --watch-files'
         \ }
 
-  let g:aider_command = s:aider_settings['architect_claude']
+  let g:aider_command = s:aider_settings['architect_deepseek']
 endif
 
 " 異なるAider設定を切り替える
