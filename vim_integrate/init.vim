@@ -37,9 +37,6 @@ set t_8b=^[[48;2;%lu;%lu;%lum
 " denopsテスト用コメント
 let g:denops#debug = 0
 
-" temp
-nmap <leader>r .
-
 " url-highlight
 let g:highlighturl_guifg = '#4aa3ff'
 

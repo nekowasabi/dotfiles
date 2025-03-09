@@ -225,9 +225,6 @@ call ddu#custom#patch_global(#{
     \     rg: #{
     \       matchers: ['matcher_kensaku', 'matcher_matchfuzzy'],
     \     },
-    \     line: #{
-    \       matchers: ['matcher_kensaku'],
-    \     },
     \     vim-bookmark: #{
     \       matchers: ['matcher_kensaku'],
     \     },
@@ -246,7 +243,8 @@ call ddu#custom#patch_global(#{
 		\       converters: [ #{ name: "converter_hl_dir" } ]
 		\     },
 		\     line: #{
-    \       matchers: ['matcher_kensaku'],
+    \       matchers: ['matcher_matchfuzzy'],
+    \       ignoreCase: v:true,
 		\       converters: [ #{ name: "converter_hl_dir" } ]
 		\     },
 		\     rg: #{
@@ -489,9 +487,9 @@ vnoremap <silent> <C-c>g y<Cmd>call DduAiConnectorByFiletype('GpAppend')<CR>
 vnoremap <silent> <C-c>r y<Cmd>call DduAiConnectorByFiletype('GpRewrite')<CR>
 
 nnoremap <silent> <Leader>ll
-      \ <Cmd>call ddu#start({'sources': [{'name': 'line', 'params': {'matchers': 'matcher_matchfuzzy'}}]})<CR>
+      \ <Cmd>call ddu#start({'sources': [{'name': 'line'}]})<CR>
 nnoremap <silent> <C-l>
-      \ <Cmd>call ddu#start({'sources': [{'name': 'line', 'params': {'matchers': 'matcher_matchfuzzy'}}]})<CR>
+      \ <Cmd>call ddu#start({'sources': [{'name': 'line'}]})<CR>
 nnoremap <silent> <Leader>h
       \ <Cmd>call ddu#start({'sources': [{'name': 'command_history'}]})<CR>
 nnoremap <silent> <Leader>H
