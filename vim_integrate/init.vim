@@ -40,6 +40,14 @@ let g:denops#debug = 0
 " url-highlight
 let g:highlighturl_guifg = '#4aa3ff'
 
+" nnoremap <silent> <leader>va :<Cmd>AvanteAsk<CR>
+" vnoremap <silent> <leader>va :<Cmd>AvanteAsk<CR>
+" nnoremap <silent> <leader>ve :<Cmd>AvanteEdit<CR>
+" vnoremap <silent> <leader>ve :<Cmd>AvanteEdit<CR>
+" nnoremap <silent> <leader>vr :<Cmd>AvanteRefresh<CR>
+" nnoremap <silent> <leader>vt :<Cmd>AvanteToggle<CR>
+
+
 " -----------------------------------------------------------
 " lua
 lua << EOF
@@ -95,57 +103,50 @@ require("lspconfig").denols.setup {
 
 require('Comment').setup()
 
-require("avante_lib").load()
-
-require("avante").setup({
-	provider = "copilot",
-	copilot = {
-		model = "claude-3.7-sonnet",
-    max_tokens = 16000,
-	},
-	auto_suggestions_provider = "copilot", -- 一応設定しておく
-	file_selector = {
-		provider = "telescope",
-	},
-	behaviour = {
-		auto_suggestions = false, -- 試験的機能につき無効化を推奨
-		auto_set_highlight_group = true,
-		auto_set_keymaps = false,
-		auto_apply_diff_after_generation = false,
-		support_paste_from_clipboard = true,
-		minimize_diff = true,
-    enable_cursor_planning_mode = false,
-	},
-  mappings = {
-    ask = "<tab>", -- ask
-    edit = "<leader>ve", -- edit
-    refresh = "<leader>vv", -- refresh
-    focus = "<leader>vt", -- toggle
-    suggestion = "<leader>vs", -- suggestion
-  },
-	windows = {
-		position = "right",
-		wrap = true,
-		width = 40,
-		sidebar_header = {
-			enabled = true,
-			align = "right",
-			rounded = false,
-		},
-		input = {
-			height = 5,
-		},
-		edit = {
-			border = "single",
-			start_insert = true,
-		},
-		ask = {
-			floating = true,
-			start_insert = true,
-			border = "single",
-		},
-	},
-})
+-- require("avante_lib").load()
+--
+-- require("avante").setup({
+-- 	provider = "copilot",
+-- 	copilot = {
+-- 		model = "claude-3.7-sonnet",
+--     max_tokens = 16000,
+-- 	},
+-- 	auto_suggestions_provider = "copilot", -- 一応設定しておく
+-- 	file_selector = {
+-- 		provider = "telescope",
+-- 	},
+-- 	behaviour = {
+-- 		auto_suggestions = false,
+-- 		auto_set_highlight_group = true,
+-- 		auto_set_keymaps = false,
+-- 		auto_apply_diff_after_generation = true,
+-- 		support_paste_from_clipboard = true,
+-- 		minimize_diff = true,
+--     enable_cursor_planning_mode = true,
+-- 	},
+-- 	windows = {
+-- 		position = "right",
+-- 		wrap = true,
+-- 		width = 40,
+-- 		sidebar_header = {
+-- 			enabled = true,
+-- 			align = "right",
+-- 			rounded = false,
+-- 		},
+-- 		input = {
+-- 			height = 10,
+-- 		},
+-- 		edit = {
+-- 			border = "single",
+-- 			start_insert = true,
+-- 		},
+-- 		ask = {
+-- 			floating = true,
+-- 			start_insert = true,
+-- 			border = "single",
+-- 		},
+-- 	},
+-- })
 
 EOF
 

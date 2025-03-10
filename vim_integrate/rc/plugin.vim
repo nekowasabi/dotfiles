@@ -205,7 +205,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'numToStr/Comment.nvim'
   Plug 'monaqa/dial.nvim'
   Plug 'stevearc/dressing.nvim'
-  " Plug 'olimorris/codecompanion.nvim'
+  Plug 'olimorris/codecompanion.nvim'
   Plug 'HakonHarnes/img-clip.nvim'
   Plug 'MeanderingProgrammer/render-markdown.nvim'
   Plug 'mistweaverco/kulala.nvim'
@@ -237,7 +237,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'folke/snacks.nvim'
   Plug 'SmiteshP/nvim-navic'
   Plug 'nekowasabi/vim-syntax-tyranoscript'
-  Plug 'yetone/avante.nvim', { 'branch': 'main', 'do': 'make' }
+  " Plug 'yetone/avante.nvim', { 'branch': 'main', 'do': 'make' }
 
   call g:SetDdu()
 
@@ -326,7 +326,7 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/render-markdown.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/previm.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot-chat.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/codecompanion.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/codecompanion.vim'
 
   if g:IsMacNeovimInWork() || g:IsWsl()
 		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
