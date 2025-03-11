@@ -1,7 +1,7 @@
 nnoremap <leader>cc :CodeCompanionActions<CR>
-vnoremap <leader>cc :CodeCompanionActions<CR>
-nnoremap <Leader>ca :CodeCompanionChat Toggle<CR>
-vnoremap <Leader>ca :CodeCompanionChat Toggle<CR>
+vnoremap <leader>cc :CodeCompanionChat 
+nnoremap <Leader>ct :CodeCompanionChat Toggle<CR>
+vnoremap <Leader>ci :CodeCompanion 
 vnoremap ga :CodeCompanionChat Add<CR>
 
 lua << EOF
