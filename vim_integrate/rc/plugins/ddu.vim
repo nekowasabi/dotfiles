@@ -490,6 +490,24 @@ nnoremap <silent> <Leader>ll
       \ <Cmd>call ddu#start({'sources': [{'name': 'line'}]})<CR>
 nnoremap <silent> <C-l>
       \ <Cmd>call ddu#start({'sources': [{'name': 'line'}]})<CR>
+
+nnoremap <Space>lw  :<C-u>call DduLineWord()<CR>
+function DduLineWord() abort
+  let search_word = expand("<cword>")
+	call ddu#start({
+				\   'sourceParams' : #{
+				\     rg : #{
+				\       args: ['--json'],
+				\     },
+				\   },
+				\   'sources':[
+				\     {'name': 'line', 'params': {'input': search_word}},
+				\   ],
+				\ })
+endfunction
+
+
+
 nnoremap <silent> <Leader>h
       \ <Cmd>call ddu#start({'sources': [{'name': 'command_history'}]})<CR>
 nnoremap <silent> <Leader>H
