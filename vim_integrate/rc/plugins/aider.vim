@@ -50,16 +50,22 @@ endfunction
 
 let s:aider_common_options = ' --notifications --no-auto-commits --no-show-model-warnings --chat-language ja --no-stream --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands --map-refresh auto --load ' . g:init_load_command
 " let s:aider_model_claude = ' --no-auto-commits  --model anthropic/claude-3-5-sonnet-20241022 --editor-model anthropic/claude-3-5-sonnet-20241022 '
+"
 let s:aider_model_claude = ' --no-auto-commits  --model architect/anthropic/claude-3-7-sonnet-20250219 --editor-model editor/anthropic/claude-3-7-sonnet-20250219 '
 " let s:aider_model_claude = ' --no-auto-commits  --model openrouter/anthropic/claude-3.5-sonnet:beta --editor-model openrouter/anthropic/claude-3.5-sonnet:beta '
+"
 let s:aider_model_gpt = ' --reasoning-effort medium --weak-model openai/gpt-4o-mini --model  openai/o3-mini --editor-model openai/gpt-4o '
+
 let s:aider_model_gemini = ' --no-auto-commits --model gemini/gemini-2.0-flash-thinking-exp --editor-model gemini/gemini-2.0-flash-exp '
-" let s:aider_model_deepseek = ' --no-auto-commits --model openrouter/deepseek/deepseek-chat --editor-model openrouter/deepseek/deepseek-chat '
+
+let s:aider_model_deepseek = ' --no-auto-commits --model my-openrouter/deepseek/deepseek-chat --editor-model my-o3-mini-effort-low '
 " let s:aider_model_deepseek = ' --no-auto-commits --model my-openrouter/deepseek/deepseek-r1 --editor-model my-openrouter/deepseek/deepseek-r1 '
-let s:aider_model_deepseek = ' --no-auto-commits --model my-openrouter/deepseek/deepseek-r1 --editor-model openrouter/openai/o3-mini '
+" let s:aider_model_deepseek = ' --no-auto-commits --model my-openrouter/deepseek/deepseek-r1 --editor-model openrouter/openai/o3-mini '
 " let s:aider_model_deepseek = ' --no-auto-commits --model my-openrouter/deepseek/deepseek-r1 --editor-model my-openrouter/deepseek/deepseek-r1 '
+"
 let s:aider_model_copilot = ' --reasoning-effort high --weak-model openrouter/anthropic/claude-3-5-haiku --model proxy-claude-3-5-sonnet --editor-model proxy-claude-3-5-sonnet '
 " let s:aider_model_copilot = ' --reasoning-effort high --weak-model openrouter/anthropic/claude-3-5-haiku --model proxy-o3-mini --editor-model proxy-claude-3-5-sonnet '
+"
 let s:aider_model_experimental = ' --no-auto-commits  --model openrouter/anthropic/claude-3.7-sonnet --editor-model proxy-claude-3-5-sonnet '
 
 if g:IsMacNeovimInWork()
