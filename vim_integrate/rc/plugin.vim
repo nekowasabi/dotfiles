@@ -55,6 +55,7 @@ Plug 'vimpostor/vim-tpipeline'
 Plug 'itchyny/vim-highlighturl'
 Plug 'atusy/budouxify.nvim'
 Plug 'atusy/budoux.lua'
+Plug 'dnlhc/glance.nvim'
 
 " AI
 Plug 'github/copilot.vim'
