@@ -6,9 +6,6 @@ function! CloseQuickRunWindow()
 
   " term://で始まるバッファを削除
   for buf in buffers
-    if bufname(buf) =~ '^term://'
-      silent! execute 'bdelete! ' . buf
-    endif
     if bufname(buf) =~ '^kulala://ui'
       silent! execute 'bdelete! ' . buf
     endif
