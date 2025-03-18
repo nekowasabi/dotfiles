@@ -118,7 +118,7 @@ if g:IsMacNeovimInWork()
         \ ,
         \ }
 
-  let g:aider_command = s:aider_settings['architect_deepseek']
+  let g:aider_command = s:aider_settings['architect_claude']
   " let g:test_cmd = ' --auto-test --test-cmd "/Users/ttakeda/works/invase-backend/docker/mac/mac test tests/Feature/EndUser/Authenticated/RequiredDocumentSubmission/"'
   " let g:aider_command = g:aider_command . g:test_cmd
 else
