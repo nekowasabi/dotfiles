@@ -311,8 +311,6 @@ endfunction
 command! -range VSCode call s:OpenByVscode()
 " }}}1
 
-
-
 " テキスト用リンクジャンプ {{{1
 function! s:GenerateTextLinkTag()
 	let l:link_hash = GenerateRandomString(8)
@@ -418,7 +416,7 @@ function! s:Test()
       let paths = project[0].rules[0]['path']
       " 結果を出力する
       for path in paths
-        execute "AiderSendPromptByCommandline /add " . path
+        execute "AiderSendPromptByCommandline /read-only " . path
         endfor
   else
       echo "指定されたnameのプロジェクトが見つかりません。"
