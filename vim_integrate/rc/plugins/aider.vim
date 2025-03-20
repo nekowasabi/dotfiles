@@ -1,19 +1,22 @@
+" 基本設定 {{{1
 let s:aider_base_command = 'aider '
 let g:aider_floatwin_width = 100
 let g:aider_floatwin_height = 50
 let g:aider_buffer_open_type = 'floating'
 if g:IsMacNeovimInWezterm()
- let g:convension_path = "~/.config/nvim/plugged/aider.vim/CONVENTION.md"
- let g:init_load_command = "~/.config/nvim/plugged/aider.vim/init.md"
+  let g:convension_path = "~/.config/nvim/plugged/aider.vim/CONVENTION.md"
+  let g:init_load_command = "~/.config/nvim/plugged/aider.vim/init.md"
 endif
 if g:IsWsl()
- let g:convension_path = "~/.config/nvim/plugged/aider.vim/CONVENTION.md"
- let g:init_load_command = "~/.config/nvim/plugged/aider.vim/init.md"
+  let g:convension_path = "~/.config/nvim/plugged/aider.vim/CONVENTION.md"
+  let g:init_load_command = "~/.config/nvim/plugged/aider.vim/init.md"
 endif
 if g:IsMacNeovimInWork()
- let g:convension_path = $BACKEND_LARAVEL_DIR . "/laravel/CONVENTION.md"
- let g:init_load_command = $BACKEND_LARAVEL_DIR . "/laravel/init.md"
+  let g:convension_path = $BACKEND_LARAVEL_DIR . "/laravel/CONVENTION.md"
+  let g:init_load_command = $BACKEND_LARAVEL_DIR . "/laravel/init.md"
 endif
+
+" vimのキーバインドに説明コメントを追加 AI!
 nnoremap <silent> <leader>as :AiderSwitch<CR>
 nnoremap <silent> <leader>aS :AiderSwitch watch<CR>
 nnoremap <silent> <leader>aA :AiderSilentAddCurrentFile<CR>
@@ -47,142 +50,50 @@ function! s:AiderOpenHandler() abort
   tnoremap <C-x><C-c> <Esc> <C-\><C-n><C-w>w
   nnoremap <C-x><C-x> :AiderHide<CR>
 endfunction
+" }}}1
 
 let s:aider_common_options = ' --no-auto-accept-architect --notifications --no-auto-commits --no-show-model-warnings --chat-language ja --no-stream --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands --map-refresh auto --load ' . g:init_load_command
-" let s:aider_model_claude = ' --no-auto-commits  --model anthropic/claude-3-5-sonnet-20241022 --editor-model anthropic/claude-3-5-sonnet-20241022 '
-"
+
 let s:aider_model_claude = ' --no-auto-commits  --model architect/anthropic/claude-3-7-sonnet-20250219 --editor-model editor/anthropic/claude-3-7-sonnet-20250219 '
-" let s:aider_model_claude = ' --no-auto-commits  --model openrouter/anthropic/claude-3.5-sonnet:beta --editor-model openrouter/anthropic/claude-3.5-sonnet:beta '
-"
+
 let s:aider_model_gpt = ' --reasoning-effort medium --weak-model openai/gpt-4o-mini --model  openai/o3-mini --editor-model openai/gpt-4o '
 
 let s:aider_model_gemini = ' --no-auto-commits --model gemini/gemini-2.0-flash-thinking-exp --editor-model gemini/gemini-2.0-flash-exp '
 
-let s:aider_model_deepseek = ' --no-auto-commits --model my-openrouter/deepseek/deepseek-chat --editor-model my-o3-mini-effort-low '
-" let s:aider_model_deepseek = ' --no-auto-commits --model my-openrouter/deepseek/deepseek-r1 --editor-model my-openrouter/deepseek/deepseek-r1 '
-" let s:aider_model_deepseek = ' --no-auto-commits --model my-openrouter/deepseek/deepseek-r1 --editor-model openrouter/openai/o3-mini '
-" let s:aider_model_deepseek = ' --no-auto-commits --model my-openrouter/deepseek/deepseek-r1 --editor-model my-openrouter/deepseek/deepseek-r1 '
-"
+let s:aider_model_deepseek = ' --no-auto-commits --model my-openrouter/deepseek/deepseek-r1 --editor-model my-o3-mini-effort-low '
+
 let s:aider_model_copilot = ' --reasoning-effort high --weak-model openrouter/anthropic/claude-3-5-haiku --model proxy-claude-3-5-sonnet --editor-model proxy-claude-3-5-sonnet '
-" let s:aider_model_copilot = ' --reasoning-effort high --weak-model openrouter/anthropic/claude-3-5-haiku --model proxy-o3-mini --editor-model proxy-claude-3-5-sonnet '
-"
-let s:aider_model_experimental = ' --no-auto-commits  --model openrouter/anthropic/claude-3.7-sonnet --editor-model proxy-claude-3-5-sonnet '
+
+let s:aider_model_experimental = ' --no-auto-commits  --model my-openrouter/deepseek/deepseek-r1 --editor-model proxy-claude-3-5-sonnet '
+
+" 共通のAider設定プリセット
+let s:common_aider_settings = {
+      \ 'architect_copilot': s:aider_base_command . s:aider_common_options . ' --architect ' . s:aider_model_copilot,
+      \ 'architect_claude': s:aider_base_command . s:aider_common_options . ' --architect ' . s:aider_model_claude,
+      \ 'architect_deepseek': s:aider_base_command . s:aider_common_options . s:aider_model_deepseek,
+      \ 'architect_gemini': s:aider_base_command . s:aider_common_options . s:aider_model_gemini,
+      \ 'default': s:aider_base_command . s:aider_common_options . s:aider_model_claude,
+      \ 'architect_gpt': s:aider_base_command . s:aider_common_options . s:aider_model_gpt,
+      \ 'vhs': s:aider_base_command . s:aider_model_claude . s:aider_common_options . ' --chat-mode code ',
+      \ 'watch_deepseek': s:aider_base_command . s:aider_common_options . s:aider_model_deepseek . ' --watch-files'
+      \ }
+let s:common_aider_settings['watch'] = s:aider_base_command . s:aider_common_options . s:aider_model_deepseek . ' --watch-files'
+let s:common_aider_settings['watch_claude'] = s:aider_base_command . s:aider_common_options . s:aider_model_claude . ' --watch-files'
 
 if g:IsMacNeovimInWork()
-  " Aider settings presets
-  " default: 基本的なClaude-3 Sonnetモデルを使用したモード
-  " architect: Claude-3 Sonnetモデルを使用し、アーキテクチャ設計に特化したモード
-  " watch: ファイル監視モードで、変更を自動で検知して対話
-  " gpt: GPT-4モデルを使用したモード
-  " vhs: ビデオ録画用の設定で、コードのみのストリーミングモード
-  let s:aider_settings = {
-        \ 'architect_copilot': s:aider_base_command
-        \ . s:aider_common_options
-        \ . ' --architect '
-        \ . s:aider_model_copilot
-        \ ,
-        \ 'architect_claude': s:aider_base_command
-        \ . s:aider_common_options
-        \ . ' --architect '
-        \ . s:aider_model_claude
-        \ ,
-        \ 'architect_deepseek': s:aider_base_command
-        \ . s:aider_common_options
-        \ . ' --architect '
-        \ . s:aider_model_deepseek,
-        \ 'architect_gemini': s:aider_base_command
-        \ . s:aider_common_options
-        \ . ' --architect '
-        \ . s:aider_model_gemini
-        \ ,
-        \ 'default': s:aider_base_command
-        \ . s:aider_common_options
-        \ . s:aider_model_claude
-        \,
-        \ 'architect_gpt': s:aider_base_command
-        \ . s:aider_common_options
-        \ . ' --architect '
-        \ . s:aider_model_gpt,
-        \ 'watch': s:aider_base_command
-        \ . s:aider_model_claude
-        \ . ' --watch-files',
-        \ 'vhs': s:aider_base_command
-        \ . s:aider_model_claude
-        \ . s:aider_common_options
-        \ . ' --chat-mode code '
-        \ ,
-        \ 'watch_deepseek': s:aider_base_command
-        \ . s:aider_common_options
-        \ . s:aider_model_deepseek
-        \ . ' --watch-files'
-        \ ,
-        \ }
-
-  let g:aider_command = s:aider_settings['architect_claude']
-  " let g:test_cmd = ' --auto-test --test-cmd "/Users/ttakeda/works/invase-backend/docker/mac/mac test tests/Feature/EndUser/Authenticated/RequiredDocumentSubmission/"'
-  " let g:aider_command = g:aider_command . g:test_cmd
-else
-  " Aider settings presets
-  " default: 基本的なClaude-3 Sonnetモデルを使用したモード
-  " architect: Claude-3 Sonnetモデルを使用し、アーキテクチャ設計に特化したモード
-  " watch: ファイル監視モードで、変更を自動で検知して対話
-  " gpt: GPT-4モデルを使用したモード
-  " vhs: ビデオ録画用の設定で、コードのみのストリーミングモード
-  let s:aider_settings = {
-        \ 'architect_experimental': s:aider_base_command
-        \ . s:aider_common_options
-        \ . ' --architect '
-        \ . s:aider_model_experimental
-        \ ,
-        \ 'default': s:aider_base_command
-        \ . s:aider_common_options
-        \ . s:aider_model_claude
-        \,
-        \ 'architect_copilot': s:aider_base_command
-        \ . s:aider_common_options
-        \ . ' --architect '
-        \ . s:aider_model_copilot
-        \ ,
-        \ 'architect_claude': s:aider_base_command
-        \ . s:aider_common_options
-        \ . s:aider_model_claude
-        \ . ' --architect '
-        \ ,
-        \ 'architect_gemini': s:aider_base_command
-        \ . s:aider_common_options
-        \ . s:aider_model_gemini
-        \ . ' --architect '
-        \ ,
-        \ 'architect_deepseek': s:aider_base_command
-        \ . s:aider_common_options
-        \ . s:aider_model_deepseek
-        \ . ' --architect '
-        \ ,
-        \ 'gpt': s:aider_base_command
-        \ . s:aider_common_options
-        \ . s:aider_model_gpt
-        \ . ' --architect '
-        \ ,
-        \ 'vhs': s:aider_base_command
-        \ . s:aider_common_options
-        \ . s:aider_model_claude
-        \ . ' --chat-mode code'
-        \ ,
-        \ 'watch_claude': s:aider_base_command
-        \ . s:aider_common_options
-        \ . s:aider_model_claude
-        \ . ' --watch-files'
-        \ ,
-        \ 'watch': s:aider_base_command
-        \ . s:aider_common_options
-        \ . s:aider_model_deepseek
-        \ . ' --watch-files'
-        \ }
-
+  let s:aider_settings = copy(s:common_aider_settings)
+  let s:aider_settings['watch'] = s:aider_base_command . s:aider_model_claude . ' --watch-files'
+  " koko
   let g:aider_command = s:aider_settings['architect_deepseek']
+else
+  let s:aider_settings = extend(copy(s:common_aider_settings), {
+        \ 'architect_experimental': s:aider_base_command . s:aider_common_options . ' --architect ' . s:aider_model_experimental,
+        \ 'gpt': s:aider_base_command . s:aider_common_options . s:aider_model_gpt . ' --architect '
+        \ })
+  let g:aider_command = s:aider_settings['architect_experimental']
 endif
 
-" 異なるAider設定を切り替える
+" 異なるAider設定を切り替える {{{1
 "
 " @param {string} setting_name - 切り替える設定の名前
 "                               利用可能な設定: default, architect, watch, gpt, vhs
@@ -192,8 +103,6 @@ function! s:switch_aider_setting(setting_name) abort
   let l:setting_name = empty(a:setting_name) ? 'architect' : a:setting_name
   if has_key(s:aider_settings, l:setting_name)
     let g:aider_command = s:aider_settings[l:setting_name]
-  " else
-  "   let g:aider_command = s:aider_settings['architect_claude']
   endif
 
   if l:setting_name ==# 'watch'
@@ -212,30 +121,31 @@ command! -nargs=? -complete=customlist,<SID>aider_setting_complete AiderSwitch c
 function! s:aider_setting_complete(ArgLead, CmdLine, CursorPos) abort
   return filter(keys(s:aider_settings), 'v:val =~ "^" . a:ArgLead')
 endfunction
+" }}}1
 
 " 選択範囲からパスを抽出してaiderに追加 {{{1
- function! s:get_visual_text()
-   try
-     " ビジュアルモードの選択開始/終了位置を取得
-     let pos = getpos('')
-     normal `<
-     let start_line = line('.')
-     let start_col = col('.')
-     normal `>
-     let end_line = line('.')
-     let end_col = col('.')
-     call setpos('.', pos)
+function! s:get_visual_text()
+  try
+    " ビジュアルモードの選択開始/終了位置を取得
+    let pos = getpos('')
+    normal `<
+    let start_line = line('.')
+    let start_col = col('.')
+    normal `>
+    let end_line = line('.')
+    let end_col = col('.')
+    call setpos('.', pos)
 
-     let tmp = @@
-     silent normal gvy
-     let selected = @@
-     let @@ = tmp
-     return selected
-   catch
-     return ''
-   endtry
- endfunction
- " }}}
+    let tmp = @@
+    silent normal gvy
+    let selected = @@
+    let @@ = tmp
+    return selected
+  catch
+    return ''
+  endtry
+endfunction
+" }}}
 function! s:AiderAddFileVisualSelected()
     " 選択範囲のテキストを取得
     let l:text = s:get_visual_text()
@@ -251,15 +161,15 @@ function! s:AiderAddFileVisualSelected()
     let l:lines = map(l:lines, 'substitute(v:val, "[, ]*$", "", "g")')
     let l:lines = map(l:lines, 'substitute(v:val, "^[ ]*", "", "g")')
 
-		" 各行からファイルパスを抽出
-		for l:line in l:lines
-		  let l:path_pattern = '[~/]\?[a-zA-Z0-9_/.-]\+'
-		  let l:matched_path = matchstr(l:line, l:path_pattern)
-		  
-		  if !empty(l:matched_path)
-		    execute "AiderAddFile " . l:matched_path
-		  endif
-		endfor
+    " 各行からファイルパスを抽出
+    for l:line in l:lines
+      let l:path_pattern = '[~/]\?[a-zA-Z0-9_/.-]\+'
+      let l:matched_path = matchstr(l:line, l:path_pattern)
+      
+      if !empty(l:matched_path)
+        execute "AiderAddFile " . l:matched_path
+      endif
+    endfor
 endfunction
 
 command! -range -nargs=0 AiderAddFileVisualSelected call s:AiderAddFileVisualSelected()
@@ -313,12 +223,6 @@ let g:aider_diff_prompt = [
       \ "同じ行に複数の問題がある場合は、それぞれの問題を同じフィードバック内でセミコロンで区切って記載してください。",
       \ "指摘が複数にわたる場合は、一行にまとめるように文字列を整形してください。",
       \ "",
-      \ "フィードバック例：",
-      \ "line=3: 変数名「x」が不明瞭です。変数宣言の横にあるコメントは不要です。",
-      \ "line=8: 式が複雑すぎます。式をより簡単な要素に分解してください。",
-      \ "line=10: この部分でのキャメルケースの使用はLuaの慣例に反します。スネークケースを使用してください。",
-      \ "line=11-15: ネストが過剰で、コードの追跡が困難です。\nネストレベルを減らすためにリファクタリングを検討してください。",
-      \ "",
       \ "コードスニペットに読みやすさの問題がない場合、その旨を簡潔に記し、コードが明確で十分に書かれていることを確認してください。",
       \ "",
       \ "diffの出力には、変更された行やその位置を示す情報が含まれています。この情報を用いて、**変更後のコードの正確な行番号**を特定し、その行番号に基づいて指摘を行ってください。",
@@ -330,4 +234,38 @@ let g:aider_diff_prompt = [
       \ "- その他の提案: suggestion:",
       \ "diff code",
       \]
+" }}}1
+
+" vim-rule-switcher.vimのプロジェクトルールのパスをaiderで開く {{{1
+function! s:aider_toggle_context_for_vim_rule_switcher(...) abort
+  if a:0 < 1 || a:0 > 2
+    echo "Error: 引数は1つ（プロジェクト名）または2つ（プロジェクト名とモード）を指定してください"
+    return
+  endif
+
+  let l:project = a:1
+  echo l:project
+  let l:mode = a:0 == 2 ? a:2 : 'read-only'
+
+  let json_content = readfile(expand(g:switch_rule))
+  let json_data = json_decode(join(json_content, "\n"))
+  echo json_data.projects
+
+  let project = filter(json_data.projects, 'v:val.name ==# l:project')
+  echo project
+  if len(project) > 0
+      let paths = map(copy(project[0].rules), 'v:val.path')
+      let paths = flatten(paths)
+      let paths = map(paths, 'expand(v:val)')
+      
+      let command = l:mode ==# 'add' ? '/add' : '/read-only'
+      
+      for path in paths
+        execute "AiderSendPromptByCommandline " . command . " " . path
+      endfor
+  else
+      echo "指定されたプロジェクト「" . l:project . "」が見つかりません。"
+  endif
+endfunction
+command! -nargs=* AiderProjectFiles call s:aider_toggle_context_for_vim_rule_switcher(<f-args>)
 " }}}1
