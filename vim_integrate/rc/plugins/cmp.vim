@@ -182,7 +182,7 @@ cmp.setup.filetype('vim', {
     },
     { name = 'neosnippet', keyword_length = 3 },
     { name = 'context_nvim' }
-  })
+  }),
 })
 
 cmp.setup.filetype('copilot-chat', {
@@ -221,7 +221,7 @@ cmp.setup.filetype('changelog', {
             end
           },
       },
-  })
+  }),
 })
 
 cmp.setup.filetype('AvanteInput', {

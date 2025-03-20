@@ -61,7 +61,7 @@ Plug 'dnlhc/glance.nvim'
 Plug 'github/copilot.vim'
 Plug 'nekowasabi/aider.vim'
 Plug 'Robitx/gp.nvim'
-
+Plug 'milanglacier/minuet-ai.nvim'
 " denops
 Plug 'hrsh7th/vim-searchx'
 Plug 'lambdalisue/kensaku.vim'

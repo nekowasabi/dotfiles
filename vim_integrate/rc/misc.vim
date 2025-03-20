@@ -405,22 +405,7 @@ nnoremap <silent> ,rw :call ReplaceCurrentWordWithYank()<CR>
 " -----------------------------------------------------------
 " test: 指定のJSONファイルからnameに一致するrulesを取得する {{{1
 function! s:Test()
-  " JSONファイルを読み込む
-  let json_content = readfile(expand('~/.config/nvim/test_switch.json'))
-  " JSONをパースする
-  let json_data = json_decode(join(json_content, "\n"))
-  " 指定されたnameのrulesを取得する
-  let name = 'add-upload-api-response-only' " ここに指定したいnameを入力
-  let project = filter(json_data.projects, 'v:val.name ==# name')
-  if len(project) > 0
-      let paths = project[0].rules[0]['path']
-      " 結果を出力する
-      for path in paths
-        execute "AiderSendPromptByCommandline /read-only " . path
-        endfor
-  else
-      echo "指定されたnameのプロジェクトが見つかりません。"
-  endif
+  execute "AiderSendPromptByCommandline /chat-mdoe code"
 endfunction
 
 command! -range -nargs=0 Test call s:Test()

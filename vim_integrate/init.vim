@@ -53,9 +53,11 @@ nnoremap gD <CMD>Glance definitions<CR>
 nnoremap gY <CMD>Glance type_definitions<CR>
 nnoremap gI <CMD>Glance implementations<CR>
 
+
 " -----------------------------------------------------------
 " lua
 lua << EOF
+
 
 -- Lua configuration
 local glance = require('glance')
@@ -203,6 +205,8 @@ require("lspconfig").denols.setup {
 
 require('Comment').setup()
 
+-- trash
+-- avante.nvim {{{1
 -- require("avante_lib").load()
 --
 -- require("avante").setup({
@@ -247,7 +251,101 @@ require('Comment').setup()
 -- 		},
 -- 	},
 -- })
+-- }}}1
+-- minuet {{{1
+-- local system_template =  [[
+-- You are the backend of an AI-powered text completion engine. Your task is to
+-- provide text suggestions based on the user's input. The user's text will be
+-- enclosed in markers:
+--
+-- - `<contextAfterCursor>`: Text context after the cursor
+-- - `<cursorPosition>`: Current cursor location
+-- - `<contextBeforeCursor>`: Text context before the cursor
+-- ]]
+--
+-- local chat_input_template =
+--     '{{{language}}}\n{{{tab}}}\n<contextBeforeCursor>\n{{{context_before_cursor}}}<cursorPosition>\n<contextAfterCursor>\n{{{context_after_cursor}}}'
+--
+-- local default_few_shots = {
+--     {
+--         role = 'user',
+--         content = [[
+--     <contextBeforeCursor>
+--     <cursorPosition>
+--     <contextAfterCursor>
+--     ]],
+--     },
+--     {
+--         role = 'assistant',
+--         content = [[
+-- <endCompletion>
+-- ]],
+--     },
+-- }
 
+-- require('minuet').setup {
+--     cmp = {
+--         enable_auto_complete = true,
+--     },
+--     provider = 'openai_compatible',
+--     n_completions = 1, -- recommend for local model for resource saving
+--     -- I recommend beginning with a small context window size and incrementally
+--     -- expanding it, depending on your local computing power. A context window
+--     -- of 512, serves as an good starting point to estimate your computing
+--     -- power. Once you have a reliable estimate of your local computing power,
+--     -- you should adjust the context window to a larger value.
+--     context_window = 1000,
+--     provider_options = {
+--         openai_compatible = {
+--           guidelines = "カジュアルな口調で、一般の読者が理解しやすいように書いてください。",
+--           system = {
+--             template = "あなたは日本語で文章を作成するアシスタントです。日本語の文法や表現に精通しています。",
+--           },
+--           few_shots = {
+--             {
+--               role = "user",
+--               content = "量子コンピュータの基本原理とは",
+--             },
+--             {
+--               role = "assistant",
+--               content = "量子コンピュータとは、量子力学の原理を利用して従来のコンピュータでは難しい計算を高速に行う装置です。...",
+--             },
+--           },
+--             api_key = 'OPENROUTER_API_KEY',
+--             end_point = 'https://openrouter.ai/api/v1/chat/completions',
+--             model = 'meta-llama/llama-3.3-70b-instruct',
+--             name = 'Openrouter',
+--             optional = {
+--                 max_tokens = 128,
+--                 top_p = 0.9,
+--                 provider = {
+--                      -- Prioritize throughput for faster completion
+--                     sort = 'throughput',
+--                 },
+--             },
+--         },
+--     },
+--     virtualtext = {
+--         auto_trigger_ft = {
+--           'changelog',
+--           },
+--         keymap = {
+--             -- accept whole completion
+--             accept = '<C-l>',
+--             -- accept one line
+--             accept_line = '<A-a>',
+--             -- accept n lines (prompts for number)
+--             -- e.g. "A-z 2 CR" will accept 2 lines
+--             accept_n_lines = '<A-z>',
+--             -- Cycle to prev completion item, or manually invoke completion
+--             prev = '<C-y>',
+--             -- Cycle to next completion item, or manually invoke completion
+--             next = '<A-p>',
+--             dismiss = '<A-e>',
+--         },
+--     },
+-- }
+-- }}}1
 EOF
 
 " END

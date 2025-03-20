@@ -33,9 +33,10 @@ vmap <leader>av :AiderVisualTextWithPrompt<CR>
 nnoremap <leader>av :AiderVisualTextWithPrompt<CR>
 
 let g:aider_additional_prompt = [
+      \ "- THINKINGの内容は必ず必ず必ず日本語に翻訳してください。",
+      \ "- THINKINGの内容を1つ1つ説明してください。",
       \ "- quoteで囲まれたところに対象コードがある場合は、それを出力コードに置き換えます。",
       \ "- 選択された範囲のコードのみが変更対象であり、その他のコードを変更することは禁止されています。",
-      \ "- 編集の説明を日本語で1つ1つステップごとに説明します。",
       \ "- コードはシンプルに保ちます。"
       \]
 
@@ -66,13 +67,16 @@ let s:aider_model_copilot = ' --reasoning-effort high --weak-model openrouter/an
 
 let s:aider_model_experimental = ' --no-auto-commits  --model my-openrouter/deepseek/deepseek-r1 --editor-model proxy-claude-3-5-sonnet '
 
+let s:aider_model_testing = ' --no-auto-commits  --model my-openai/deepseek-ai/deepseek-r1 --editor-model my-openai/openai/Qwen/Qwen2.5-Coder-14B-Instruct '
+
 " 共通のAider設定プリセット
 let s:common_aider_settings = {
       \ 'architect_copilot': s:aider_base_command . s:aider_common_options . ' --architect ' . s:aider_model_copilot,
       \ 'architect_claude': s:aider_base_command . s:aider_common_options . ' --architect ' . s:aider_model_claude,
-      \ 'architect_deepseek': s:aider_base_command . s:aider_common_options . s:aider_model_deepseek,
-      \ 'architect_gemini': s:aider_base_command . s:aider_common_options . s:aider_model_gemini,
-      \ 'default': s:aider_base_command . s:aider_common_options . s:aider_model_claude,
+      \ 'architect_deepseek': s:aider_base_command . s:aider_common_options . ' --architect '  . s:aider_model_deepseek,
+      \ 'architect_gemini': s:aider_base_command . s:aider_common_options . ' --architect '  . s:aider_model_gemini,
+      \ 'architect_testing': s:aider_base_command . s:aider_common_options . ' --architect '  . s:aider_model_testing,
+      \ 'default': s:aider_base_command . s:aider_common_options . ' --architect '  . s:aider_model_claude,
       \ 'architect_gpt': s:aider_base_command . s:aider_common_options . s:aider_model_gpt,
       \ 'vhs': s:aider_base_command . s:aider_model_claude . s:aider_common_options . ' --chat-mode code ',
       \ 'watch_deepseek': s:aider_base_command . s:aider_common_options . s:aider_model_deepseek . ' --watch-files'
@@ -90,7 +94,7 @@ else
         \ 'architect_experimental': s:aider_base_command . s:aider_common_options . ' --architect ' . s:aider_model_experimental,
         \ 'gpt': s:aider_base_command . s:aider_common_options . s:aider_model_gpt . ' --architect '
         \ })
-  let g:aider_command = s:aider_settings['architect_experimental']
+  let g:aider_command = s:aider_settings['architect_deepseek']
 endif
 
 " 異なるAider設定を切り替える {{{1
