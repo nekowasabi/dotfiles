@@ -32,6 +32,9 @@
         "braces_position": {
             "allow_single_line_empty_anonymous_classes": true
         },
+        "concat_space": {
+            "spacing": "one"
+        },
         "no_unused_imports": false,
         "phpdoc_separation": false,
         "phpdoc_trim": false,

@@ -88,7 +88,7 @@ if g:IsMacNeovimInWork()
   let s:aider_settings = copy(s:common_aider_settings)
   let s:aider_settings['watch'] = s:aider_base_command . s:aider_model_claude . ' --watch-files'
   " koko
-  let g:aider_command = s:aider_settings['architect_deepseek']
+  let g:aider_command = s:aider_settings['architect_claude']
 else
   let s:aider_settings = extend(copy(s:common_aider_settings), {
         \ 'architect_experimental': s:aider_base_command . s:aider_common_options . ' --architect ' . s:aider_model_experimental,
