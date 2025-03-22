@@ -1,4 +1,7 @@
 " 基本設定 {{{1
+" ==========================================================
+" グローバル変数と基本オプションの定義
+" ==========================================================
 let s:aider_base_command = 'aider '
 let g:aider_floatwin_width = 100
 let g:aider_floatwin_height = 50
@@ -16,26 +19,34 @@ if g:IsMacNeovimInWork()
   let g:init_load_command = $BACKEND_LARAVEL_DIR . "/laravel/init.md"
 endif
 
-" vimのキーバインドに説明コメントを追加 AI!
-nnoremap <silent> <leader>as :AiderSwitch<CR>
-nnoremap <silent> <leader>aS :AiderSwitch watch<CR>
-nnoremap <silent> <leader>aA :AiderSilentAddCurrentFile<CR>
-nnoremap <silent> <leader>aa :AiderAddIgnoreCurrentFile<CR>:AiderSilentAddCurrentFile<CR>
-nnoremap <silent> <leader>al :AiderAddIgnoreCurrentFile<CR>:AiderSilentAddCurrentFileReadOnly<CR>
-nnoremap <silent> <leader>aL :AiderAddIgnoreCurrentFile<CR>:AiderAddCurrentFileReadOnly<CR>
-nnoremap <silent> <leader>aw :AiderAddWeb<CR>
-nnoremap <silent> <leader>ax :AiderExit<CR>
-nnoremap <silent> <leader>ai :AiderAddIgnoreCurrentFile<CR>
-nnoremap <silent> <leader>aI :AiderOpenIgnore<CR>
-nnoremap <silent> <leader>ah :AiderHide<CR>
-vnoremap <silent> <leader>as :AiderAddFileVisualSelected<CR>
-vmap <leader>av :AiderVisualTextWithPrompt<CR>
-nnoremap <leader>av :AiderVisualTextWithPrompt<CR>
+" キーマッピング設定 {{{2
+" ---------------------------------------------------------
+" <leader>a プレフィックスを使った一貫したキーバインド
+" ---------------------------------------------------------
+let s:keymaps = [
+  \ ['n', '<leader>as',  ':AiderSwitch<CR>',          'モード切替'],
+  \ ['n', '<leader>aS',  ':AiderSwitch watch<CR>',    '監視モード切替'],
+  \ ['n', '<leader>aA',  ':AiderSilentAddCurrentFile<CR>', '現在のファイルを追加'],
+  \ ['n', '<leader>aa',  ':AiderAddIgnoreCurrentFile<CR>:AiderSilentAddCurrentFile<CR>', 'ファイルを無視リスト追加後追加'],
+  \ ['n', '<leader>al',  ':AiderAddIgnoreCurrentFile<CR>:AiderSilentAddCurrentFileReadOnly<CR>', '読み取り専用で追加'],
+  \ ['n', '<leader>aL',  ':AiderAddIgnoreCurrentFile<CR>:AiderAddCurrentFileReadOnly<CR>', '対話的に読み取り専用追加'],
+  \ ['n', '<leader>aw',  ':AiderAddWeb<CR>',          'Webコンテンツを追加'],
+  \ ['n', '<leader>ax',  ':AiderExit<CR>',            '終了'],
+  \ ['n', '<leader>ai',  ':AiderAddIgnoreCurrentFile<CR>', '現在のファイルを無視リストに追加'],
+  \ ['n', '<leader>aI',  ':AiderOpenIgnore<CR>',      '無視リストを開く'],
+  \ ['n', '<leader>ah',  ':AiderHide<CR>',            '非表示'],
+  \ ['v', '<leader>as',  ':AiderAddFileVisualSelected<CR>', '選択範囲からファイル追加'],
+  \ ['v', '<leader>av',  ':AiderVisualTextWithPrompt<CR>', '選択テキストでプロンプト'],
+  \ ['n', '<leader>av',  ':AiderVisualTextWithPrompt<CR>', 'ビジュアル選択でプロンプト']
+  \ ]
+
+for [mode, lhs, rhs, desc] in s:keymaps
+  execute printf('%snoremap <silent> %s %s " %s', mode, lhs, rhs, desc)
+endfor
 
 let g:aider_additional_prompt = [
       \ "- THINKINGの内容は必ず必ず必ず日本語に翻訳してください。",
-      \ "- THINKINGの内容を1つ1つ説明してください。",
-      \ "- quoteで囲まれたところに対象コードがある場合は、それを出力コードに置き換えます。",
+      \ "- quoteで囲まれたところに対象コードがある場合は、対象コードを出力コードに置き換えることのみを行ってください。",
       \ "- 選択された範囲のコードのみが変更対象であり、その他のコードを変更することは禁止されています。",
       \ "- コードはシンプルに保ちます。"
       \]
@@ -53,49 +64,61 @@ function! s:AiderOpenHandler() abort
 endfunction
 " }}}1
 
-let s:aider_common_options = ' --no-auto-accept-architect --notifications --no-auto-commits --no-show-model-warnings --chat-language ja --no-stream --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands --map-refresh auto --load ' . g:init_load_command
+let s:aider_common_options = ' --no-detect-urls --no-auto-accept-architect --notifications --no-auto-commits --no-show-model-warnings --chat-language ja --no-stream --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands --map-refresh auto --load ' . g:init_load_command
 
-let s:aider_model_claude = ' --no-auto-commits  --model architect/anthropic/claude-3-7-sonnet-20250219 --editor-model editor/anthropic/claude-3-7-sonnet-20250219 '
-
-let s:aider_model_gpt = ' --reasoning-effort medium --weak-model openai/gpt-4o-mini --model  openai/o3-mini --editor-model openai/gpt-4o '
-
-let s:aider_model_gemini = ' --no-auto-commits --model gemini/gemini-2.0-flash-thinking-exp --editor-model gemini/gemini-2.0-flash-exp '
-
-let s:aider_model_deepseek = ' --no-auto-commits --model my-openrouter/deepseek/deepseek-r1 --editor-model my-o3-mini-effort-low '
-
-let s:aider_model_copilot = ' --reasoning-effort high --weak-model openrouter/anthropic/claude-3-5-haiku --model proxy-claude-3-5-sonnet --editor-model proxy-claude-3-5-sonnet '
-
-let s:aider_model_experimental = ' --no-auto-commits  --model my-openrouter/deepseek/deepseek-r1 --editor-model proxy-claude-3-5-sonnet '
-
-let s:aider_model_testing = ' --no-auto-commits  --model my-openai/deepseek-ai/deepseek-r1 --editor-model my-openai/openai/Qwen/Qwen2.5-Coder-14B-Instruct '
+" モデル設定 {{{2
+" ---------------------------------------------------------
+" 各AIモデルのコマンドラインオプション定義
+" ---------------------------------------------------------
+let s:models = {
+  \ 'claude':    ' --no-auto-commits --model architect/anthropic/claude-3-7-sonnet-20250219 --editor-model editor/anthropic/claude-3-7-sonnet-20250219',
+  \ 'gpt':       ' --reasoning-effort medium --weak-model openai/gpt-4o-mini --model openai/o3-mini --editor-model openai/gpt-4o',
+  \ 'gemini':    ' --no-auto-commits --model gemini/gemini-2.0-flash-thinking-exp --editor-model gemini/gemini-2.0-flash-exp',
+  \ 'deepseek':  ' --no-auto-commits --model my-openrouter/deepseek/deepseek-r1 --editor-model my-o3-mini-effort-low',
+  \ 'copilot':   ' --reasoning-effort high --weak-model openrouter/anthropic/claude-3-5-haiku --model proxy-claude-3-5-sonnet --editor-model proxy-claude-3-5-sonnet',
+  \ 'experimental': ' --no-auto-commits --model my-openrouter/deepseek/deepseek-r1 --editor-model proxy-claude-3-5-sonnet',
+  \ 'testing':   ' --no-auto-commits --model my-openai/firework/deepseek-r1-fast --editor-model my-openai/firework/deepseek-v3'
+  \ }
 
 " 共通のAider設定プリセット
-let s:common_aider_settings = {
-      \ 'architect_copilot': s:aider_base_command . s:aider_common_options . ' --architect ' . s:aider_model_copilot,
-      \ 'architect_claude': s:aider_base_command . s:aider_common_options . ' --architect ' . s:aider_model_claude,
-      \ 'architect_deepseek': s:aider_base_command . s:aider_common_options . ' --architect '  . s:aider_model_deepseek,
-      \ 'architect_gemini': s:aider_base_command . s:aider_common_options . ' --architect '  . s:aider_model_gemini,
-      \ 'architect_testing': s:aider_base_command . s:aider_common_options . ' --architect '  . s:aider_model_testing,
-      \ 'default': s:aider_base_command . s:aider_common_options . ' --architect '  . s:aider_model_claude,
-      \ 'architect_gpt': s:aider_base_command . s:aider_common_options . s:aider_model_gpt,
-      \ 'vhs': s:aider_base_command . s:aider_model_claude . s:aider_common_options . ' --chat-mode code ',
-      \ 'watch_deepseek': s:aider_base_command . s:aider_common_options . s:aider_model_deepseek . ' --watch-files'
-      \ }
-let s:common_aider_settings['watch'] = s:aider_base_command . s:aider_common_options . s:aider_model_deepseek . ' --watch-files'
-let s:common_aider_settings['watch_claude'] = s:aider_base_command . s:aider_common_options . s:aider_model_claude . ' --watch-files'
+" コマンドオプション構築ヘルパー {{{2
+function! s:build_options(base, model, watch_files) abort
+  let options = a:base . s:aider_common_options
+  let options .= ' --architect ' . s:models[a:model]
+  return a:watch_files ? options . ' --watch-files' : options
+endfunction
 
-if g:IsMacNeovimInWork()
-  let s:aider_settings = copy(s:common_aider_settings)
-  let s:aider_settings['watch'] = s:aider_base_command . s:aider_model_claude . ' --watch-files'
-  " koko
-  let g:aider_command = s:aider_settings['architect_claude']
-else
-  let s:aider_settings = extend(copy(s:common_aider_settings), {
-        \ 'architect_experimental': s:aider_base_command . s:aider_common_options . ' --architect ' . s:aider_model_experimental,
-        \ 'gpt': s:aider_base_command . s:aider_common_options . s:aider_model_gpt . ' --architect '
-        \ })
-  let g:aider_command = s:aider_settings['architect_deepseek']
-endif
+" 共通設定定義 {{{2
+let s:common_aider_settings = {
+      \ 'architect_copilot':  s:build_options(s:aider_base_command, 'copilot', 0),
+      \ 'architect_claude':   s:build_options(s:aider_base_command, 'claude', 0),
+      \ 'architect_deepseek': s:build_options(s:aider_base_command, 'deepseek', 0),
+      \ 'architect_gemini':   s:build_options(s:aider_base_command, 'gemini', 0),
+      \ 'architect_testing':  s:build_options(s:aider_base_command, 'testing', 0),
+      \ 'default':            s:build_options(s:aider_base_command, 'claude', 0),
+      \ 'architect_gpt':      s:build_options(s:aider_base_command, 'gpt', 0),
+      \ 'vhs':                s:aider_base_command . s:models.claude . s:aider_common_options . ' --chat-mode code ',
+      \ 'watch_deepseek':     s:build_options(s:aider_base_command, 'deepseek', 1),
+      \ 'watch':              s:build_options(s:aider_base_command, 'deepseek', 1),
+      \ 'watch_claude':       s:build_options(s:aider_base_command, 'claude', 1)
+      \ }
+
+" 環境別設定 {{{2
+function! s:setup_environment() abort
+  if g:IsMacNeovimInWork()
+    let s:aider_settings = copy(s:common_aider_settings)
+    let s:aider_settings['watch'] = s:aider_base_command . s:models.claude . ' --watch-files'
+    let g:aider_command = s:aider_settings['architect_claude']
+  else
+    let s:aider_settings = extend(copy(s:common_aider_settings), {
+          \ 'architect_experimental': s:build_options(s:aider_base_command, 'experimental', 0),
+          \ 'gpt': s:build_options(s:aider_base_command, 'gpt', 0)
+          \ })
+    let g:aider_command = s:aider_settings['architect_testing']
+  endif
+endfunction
+
+call s:setup_environment()
 
 " 異なるAider設定を切り替える {{{1
 "

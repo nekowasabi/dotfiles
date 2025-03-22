@@ -211,7 +211,6 @@ call ddu#custom#patch_global(#{
     \   sourceOptions: #{
     \     _: #{
     \       matchers: ['matcher_matchfuzzy'],
-    \       ignoreCase: v:true,
     \     },
     \     help: #{
     \       matchers: ['matcher_substring'],
@@ -255,7 +254,7 @@ call ddu#custom#patch_global(#{
 		\   filterParams: #{
 		\     converter_hl_dir: #{
 		\       hlGroup: "myOriginalHlGroup",
-		\     }
+		\     },
 		\   }
 		\ })
 

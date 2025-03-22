@@ -61,16 +61,16 @@ Plug 'dnlhc/glance.nvim'
 Plug 'github/copilot.vim'
 Plug 'nekowasabi/aider.vim'
 Plug 'Robitx/gp.nvim'
-Plug 'milanglacier/minuet-ai.nvim'
 " denops
 Plug 'hrsh7th/vim-searchx'
 Plug 'lambdalisue/kensaku.vim'
 Plug 'lambdalisue/mr.vim'
+Plug 'lambdalisue/vim-mr'
 Plug 'nekowasabi/rtm_deno'
 Plug 'nekowasabi/nudge-two-hats.vim'
 Plug 'vim-denops/denops.vim'
 " Plug 'vim-denops/denops-helloworld.vim'
-" Plug 'vim-denops/denops-shared-server.vim'
+Plug 'vim-denops/denops-shared-server.vim'
 
 " textobj
 Plug 'kana/vim-operator-user'
@@ -157,6 +157,7 @@ function g:SetDdu()
   Plug 'matsui54/ddu-source-help'
   Plug 'nekowasabi/ddu-ai-prompt-connecter'
   Plug 'liquidz/ddu-source-custom-list'
+  Plug 'kuuote/ddu-filter-fuse'
 endfunction
 
 function g:SetCoc()
@@ -247,6 +248,7 @@ if g:IsMacNeovim() || g:IsWsl()
   elseif g:IsMacNeovim()
     call g:SetCoc()
     Plug 'abzcoding/lsp_lines.nvim'
+    Plug 'augmentcode/augment.vim'
   elseif g:IsWsl()
     Plug 'Shougo/ddc-source-lsp'
     call g:SetCoc()

@@ -20,7 +20,7 @@ endif
 
 let g:neosnippet#enable_completed_snippet = 1
 
-" imap <C-s>     <Plug>(neosnippet_expand_or_jump)
+imap <C-s>     <Plug>(neosnippet_expand_or_jump)
 " smap <C-s>     <Plug>(neosnippet_expand_or_jump)
 " xmap <C-s>     <Plug>(neosnippet_expand_target)
 
