@@ -91,12 +91,13 @@ endfunction
 
 " Completion settings. {{{1
 let g:coc_supported_filetypes = [
+      \ 'vim',
       \ 'typescript',
       \ 'php',
       \ 'json',
       \ 'sh'
       \ ]
-let g:coc_disabled_filetypes = ['noice', 'markdown', 'changelog', 'text', 'vim']
+let g:coc_disabled_filetypes = ['noice', 'markdown', 'changelog', 'text']
 let g:coc_toggle_delay = 1000
 let g:is_coc_enabled = v:true
 
@@ -126,6 +127,9 @@ function! ToggleCocByFileType() abort
           \ ]
     let g:is_coc_enabled = v:true
   else
+    if &filetype == 'vim'
+      return
+    endif
     let l:commands = [
           \ 'execute "silent! CocDisable"',
           \ 'let g:your_cmp_disable_enable_toggle = v:true'

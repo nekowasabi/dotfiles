@@ -19,6 +19,9 @@ if g:IsMacNeovimInWork()
   let g:init_load_command = $BACKEND_LARAVEL_DIR . "/laravel/init.md"
 endif
 
+let g:aider_process_number = ''
+let g:aider_switch_rule = 'aider-vim-exec-process'
+
 " キーマッピング設定 {{{2
 " ---------------------------------------------------------
 " <leader>a プレフィックスを使った一貫したキーバインド
@@ -276,7 +279,6 @@ function! s:aider_toggle_context_for_vim_rule_switcher(...) abort
 
   let json_content = readfile(expand(g:switch_rule))
   let json_data = json_decode(join(json_content, "\n"))
-  echo json_data.projects
 
   let project = filter(json_data.projects, 'v:val.name ==# l:project')
   echo project
@@ -295,4 +297,101 @@ function! s:aider_toggle_context_for_vim_rule_switcher(...) abort
   endif
 endfunction
 command! -nargs=* AiderProjectFiles call s:aider_toggle_context_for_vim_rule_switcher(<f-args>)
+
+function! s:get_dev_plan_path(switch_rule) abort
+  let json_content = readfile(expand(g:switch_rule))
+  let json_data = json_decode(join(json_content, "\n"))
+
+  let l:project = a:switch_rule
+  let project = filter(json_data.projects, 'v:val.name ==# l:project')
+
+  if len(project) > 0
+      let paths = map(copy(project[0].rules), 'v:val.path')
+      let paths = flatten(paths)
+      let paths = map(paths, 'expand(v:val)')
+      let dev_plan_paths = filter(paths, 'v:val =~# "dev_plan.md"')  " dev_plan.mdを含むパスをフィルタリング
+      return dev_plan_paths[0]  " パス文字列を返す
+  else
+      echo "指定されたプロジェクト「" . l:project . "」が見つかりません。"
+      return []
+  endif
+endfunction
+" }}}1
+
+" プロセス実行 {{{1
+function! s:run_process_dev_plan() abort
+  let template =<< trim END
+{process
+以下の処理を、リストの先頭から順番に実行してください。
+処理ごとに実施した内容をログとして具体的にどのような編集をした内容も出力してください
+
+1. 確認のため、dev_plan.mdの%sの作業内容すべてを、表示してください
+2. dev_plan.mdの%sを、チェックリストの上から順番に実施してください
+3. すでに実装済みだった場合は、『なにもしなかった』ことを教えてください
+4. 3.を実施後に、##### goalに定義されたタスクが、実装されたコードのどこで実現されているかを1つずつ説明してください
+
+process}
+  END
+
+  let process_num = empty(g:aider_process_number) ? input('Process number: ') : input('Process number: ', g:aider_process_number)
+  let g:aider_process_number = process_num
+  let input = printf(join(template, "\n"), process_num, process_num)
+  execute "AiderSendPromptByCommandline " . shellescape(input)
+endfunction
+command! AiderRunProcessDevPlan call s:run_process_dev_plan()
+
+function! s:run_process_dev_plan_single_file() abort
+  let template =<< trim END
+{process
+以下の処理を、リストの先頭から順番に実行してください。
+処理ごとに実施した内容をログとして具体的にどのような編集をした内容も出力してください
+
+1. 確認のため、dev_plan.mdの%sの作業内容すべてを、表示してください
+2. dev_plan.mdの%sを、チェックリストの上から順番に実施してください
+3. すでに実装済みだった場合は、『なにもしなかった』ことを教えてください
+4. 3.を実施後に、##### goalに定義されたタスクが、実装されたコードのどこで実現されているかを1つずつ説明してください
+
+process}
+  END
+
+  execute "AiderSendPromptByCommandline /drop "
+  execute "AiderProjectFiles ".g:aider_switch_rule
+  execute "AiderSendPromptByCommandline /add " . expand('%:p')
+
+  let process_num = empty(g:aider_process_number) ? input('Process number: ') : input('Process number: ', g:aider_process_number)
+  let g:aider_process_number = process_num
+  let input = printf(join(template, "\n"), process_num, process_num)
+  execute "AiderSendPromptByCommandline " . shellescape(input)
+endfunction
+command! AiderRunProcessDevPlanSingleFile call s:run_process_dev_plan_single_file()
+
+
+function! s:run_process_check_list_update() abort
+  let template =<< trim END
+/code {process
+@target: dev_plan.md
+以下の処理を、チェックリストの先頭から順番に実行してください。
+処理ごとに実施した内容をログとして具体的にどのような編集をした内容も出力してください
+
+1. dev_plan.mdの%sにおいて、実装が完了しているものは、チェックリストをONにすることだけを実行してください。
+チェックをONにする根拠を教えてください。
+dev_plan.mdの更新だけをしてください。他のファイルの編集を禁止します。
+
+process}
+
+  END
+
+  " dev_plan.md以外を/read-onlyで開く
+  execute "AiderSendPromptByCommandline /drop "
+  execute "AiderProjectFiles ".g:aider_switch_rule
+  let l:dev_plan = s:get_dev_plan_path(g:aider_switch_rule)
+  execute "AiderSendPromptByCommandline /add " . l:dev_plan
+
+  " プロセス実行
+  let process_num = empty(g:aider_process_number) ? input('Process number: ') : input('Process number: ', g:aider_process_number)
+  let g:aider_process_number = process_num
+  let input = printf(join(template, "\n"), process_num)
+  execute "AiderSendPromptByCommandline " . shellescape(input)
+endfunction
+command! AiderRunProcessCheckListUpdate call s:run_process_check_list_update()
 " }}}1
