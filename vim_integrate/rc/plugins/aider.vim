@@ -20,7 +20,20 @@ if g:IsMacNeovimInWork()
 endif
 
 let g:aider_process_number = ''
-let g:aider_switch_rule = 'gemini-translator'
+function! s:get_rule_name()
+    try
+        let rule_path = expand('~/.config/nvim/rule')
+        let content = readfile(rule_path)
+        let g:aider_switch_rule = join(content, "\n")
+        return g:aider_switch_rule
+    catch
+        let g:aider_switch_rule = ''
+        echo 'Error: ルールファイルが見つかりません。'
+        return ''
+    endtry
+endfunction
+let g:aider_switch_rule = s:get_rule_name()
+
 
 " キーマッピング設定 {{{2
 " ---------------------------------------------------------
