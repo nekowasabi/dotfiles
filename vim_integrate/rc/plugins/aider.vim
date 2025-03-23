@@ -20,7 +20,7 @@ if g:IsMacNeovimInWork()
 endif
 
 let g:aider_process_number = ''
-let g:aider_switch_rule = 'aider-vim-exec-process'
+let g:aider_switch_rule = 'aider.vim'
 
 " キーマッピング設定 {{{2
 " ---------------------------------------------------------
@@ -318,8 +318,8 @@ function! s:get_dev_plan_path(switch_rule) abort
 endfunction
 " }}}1
 
-" プロセス実行 {{{1
-function! s:run_process_dev_plan() abort
+" 計画プロセス実行 {{{1
+function! s:run_process_helper(pre_commands) abort
   let template =<< trim END
 {process
 以下の処理を、リストの先頭から順番に実行してください。
@@ -336,32 +336,26 @@ process}
   let process_num = empty(g:aider_process_number) ? input('Process number: ') : input('Process number: ', g:aider_process_number)
   let g:aider_process_number = process_num
   let input = printf(join(template, "\n"), process_num, process_num)
+  
+  for cmd in a:pre_commands
+    execute cmd
+  endfor
+  
   execute "AiderSendPromptByCommandline " . shellescape(input)
+endfunction
+
+function! s:run_process_dev_plan() abort
+  call s:run_process_helper([])
 endfunction
 command! AiderRunProcessDevPlan call s:run_process_dev_plan()
 
 function! s:run_process_dev_plan_single_file() abort
-  let template =<< trim END
-{process
-以下の処理を、リストの先頭から順番に実行してください。
-処理ごとに実施した内容をログとして具体的にどのような編集をした内容も出力してください
-
-1. 確認のため、dev_plan.mdの%sの作業内容すべてを、表示してください
-2. dev_plan.mdの%sを、チェックリストの上から順番に実施してください
-3. すでに実装済みだった場合は、『なにもしなかった』ことを教えてください
-4. 3.を実施後に、##### goalに定義されたタスクが、実装されたコードのどこで実現されているかを1つずつ説明してください
-
-process}
-  END
-
-  execute "AiderSendPromptByCommandline /drop "
-  execute "AiderProjectFiles ".g:aider_switch_rule
-  execute "AiderSendPromptByCommandline /add " . expand('%:p')
-
-  let process_num = empty(g:aider_process_number) ? input('Process number: ') : input('Process number: ', g:aider_process_number)
-  let g:aider_process_number = process_num
-  let input = printf(join(template, "\n"), process_num, process_num)
-  execute "AiderSendPromptByCommandline " . shellescape(input)
+  let pre_commands = [
+    \ 'AiderSendPromptByCommandline /drop ',
+    \ 'AiderProjectFiles ' . g:aider_switch_rule,
+    \ 'AiderSendPromptByCommandline /add ' . expand('%:p')
+    \ ]
+  call s:run_process_helper(pre_commands)
 endfunction
 command! AiderRunProcessDevPlanSingleFile call s:run_process_dev_plan_single_file()
 
