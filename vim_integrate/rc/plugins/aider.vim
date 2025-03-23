@@ -20,7 +20,7 @@ if g:IsMacNeovimInWork()
 endif
 
 let g:aider_process_number = ''
-let g:aider_switch_rule = 'aider.vim'
+let g:aider_switch_rule = 'gemini-translator'
 
 " キーマッピング設定 {{{2
 " ---------------------------------------------------------
@@ -343,6 +343,7 @@ process}
   endfor
   
   execute "AiderSendPromptByCommandline " . shellescape(input)
+  execute "AiderCopyContextToFile"
 endfunction
 
 function! s:run_process_dev_plan() abort
@@ -393,8 +394,17 @@ command! AiderRunProcessCheckListUpdate call s:run_process_check_list_update()
 
 " /copy-contextを実行し、context.mdに保存する
 function! s:copy_context_to_file() abort
-  execute "AiderSendPromptByCommandline /copy-context"
+  execute "AiderSendPromptByCommandline /copy"
   let l:context = getreg('*')
+  let l:context_file = s:find_file_path_by_project_name(g:aider_switch_rule, 'context.md')
+
+  " save context to file
+  call writefile(split(l:context, '\n'), l:context_file)
+
+  " /read-onlyで開く
+  execute "AiderSendPromptByCommandline /drop "
+  execute "AiderSendPromptByCommandline /read-only " . l:context_file
 endfunction
+command! AiderCopyContextToFile call s:copy_context_to_file()
 
 " }}}1
