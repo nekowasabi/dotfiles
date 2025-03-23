@@ -48,7 +48,8 @@ for [mode, lhs, rhs, desc] in s:keymaps
 endfor
 
 let g:aider_additional_prompt = [
-      \ "- THINKINGの内容は必ず必ず必ず日本語に翻訳してください。",
+      \ "- ► THINKINGの内容を日本語に翻訳してください。",
+      \ "- 翻訳したTHINKINGの内容を表示してください。",
       \ "- quoteで囲まれたところに対象コードがある場合は、対象コードを出力コードに置き換えることのみを行ってください。",
       \ "- 選択された範囲のコードのみが変更対象であり、その他のコードを変更することは禁止されています。",
       \ "- コードはシンプルに保ちます。"
@@ -298,7 +299,7 @@ function! s:aider_toggle_context_for_vim_rule_switcher(...) abort
 endfunction
 command! -nargs=* AiderProjectFiles call s:aider_toggle_context_for_vim_rule_switcher(<f-args>)
 
-function! s:get_dev_plan_path(switch_rule) abort
+function! s:find_file_path_by_project_name(switch_rule, file_name) abort
   let json_content = readfile(expand(g:switch_rule))
   let json_data = json_decode(join(json_content, "\n"))
 
@@ -309,11 +310,11 @@ function! s:get_dev_plan_path(switch_rule) abort
       let paths = map(copy(project[0].rules), 'v:val.path')
       let paths = flatten(paths)
       let paths = map(paths, 'expand(v:val)')
-      let dev_plan_paths = filter(paths, 'v:val =~# "dev_plan.md"')  " dev_plan.mdを含むパスをフィルタリング
-      return dev_plan_paths[0]  " パス文字列を返す
+      let target_paths = filter(paths, 'v:val =~# a:file_name')
+      return !empty(target_paths) ? target_paths[0] : ''
   else
       echo "指定されたプロジェクト「" . l:project . "」が見つかりません。"
-      return []
+      return ''
   endif
 endfunction
 " }}}1
@@ -378,7 +379,7 @@ process}
   " dev_plan.md以外を/read-onlyで開く
   execute "AiderSendPromptByCommandline /drop "
   execute "AiderProjectFiles ".g:aider_switch_rule
-  let l:dev_plan = s:get_dev_plan_path(g:aider_switch_rule)
+  let l:dev_plan = s:find_file_path_by_project_name(g:aider_switch_rule, 'dev_plan.md')
   execute "AiderSendPromptByCommandline /add " . l:dev_plan
 
   " プロセス実行
@@ -388,4 +389,12 @@ process}
   execute "AiderSendPromptByCommandline " . shellescape(input)
 endfunction
 command! AiderRunProcessCheckListUpdate call s:run_process_check_list_update()
+
+
+" /copy-contextを実行し、context.mdに保存する
+function! s:copy_context_to_file() abort
+  execute "AiderSendPromptByCommandline /copy-context"
+  let l:context = getreg('*')
+endfunction
+
 " }}}1
