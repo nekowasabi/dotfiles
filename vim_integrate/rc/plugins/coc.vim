@@ -18,10 +18,10 @@ let g:coc_global_extensions = [
   \, 'coc-deno'
   \, '@hexuhua/coc-copilot'
   \, 'coc-stylua'
+  \, 'coc-vimlsp'
   \ ]
 
   " \, 'coc-swagger'
-  " \, 'coc-vimlsp'
   " \, 'coc-biome'
   " \, 'coc-fzf-preview'
   " \, 'coc-php-cs-fixer'

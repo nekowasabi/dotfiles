@@ -295,7 +295,6 @@ function! s:aider_toggle_context_for_vim_rule_switcher(...) abort
   let json_data = json_decode(join(json_content, "\n"))
 
   let project = filter(json_data.projects, 'v:val.name ==# l:project')
-  echo project
   if len(project) > 0
       let paths = map(copy(project[0].rules), 'v:val.path')
       let paths = flatten(paths)
@@ -356,7 +355,6 @@ process}
   endfor
   
   execute "AiderSendPromptByCommandline " . shellescape(input)
-  execute "AiderCopyContextToFile"
 endfunction
 
 function! s:run_process_dev_plan() abort
