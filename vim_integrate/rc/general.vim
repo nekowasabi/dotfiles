@@ -62,7 +62,7 @@ set cursorline
 set norelativenumber
 set breakindentopt=shift:0
 set helplang=ja,en
-set synmaxcol=-3000
+set synmaxcol=3000
 syntax sync minlines=1500
 set concealcursor=nc
 set conceallevel=2

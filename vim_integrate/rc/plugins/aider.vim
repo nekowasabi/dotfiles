@@ -34,7 +34,6 @@ function! s:get_rule_name()
 endfunction
 let g:aider_switch_rule = s:get_rule_name()
 
-
 " キーマッピング設定 {{{2
 " ---------------------------------------------------------
 " <leader>a プレフィックスを使った一貫したキーバインド
@@ -392,7 +391,7 @@ process}
   execute "AiderSendPromptByCommandline /drop "
   execute "AiderProjectFiles ".g:aider_switch_rule
   let l:dev_plan = s:find_file_path_by_project_name(g:aider_switch_rule, 'dev_plan.md')
-  execute "AiderSendPromptByCommandline /add " . l:dev_plan
+  execute "AiderSendPromptByCommandline /load dev_plan"
 
   " プロセス実行
   let process_num = empty(g:aider_process_number) ? input('Process number: ') : input('Process number: ', g:aider_process_number)
