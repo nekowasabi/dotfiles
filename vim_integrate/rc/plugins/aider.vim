@@ -40,20 +40,20 @@ let g:aider_switch_rule = s:get_rule_name()
 " <leader>a プレフィックスを使った一貫したキーバインド
 " ---------------------------------------------------------
 let s:keymaps = [
-  \ ['n', '<leader>as',  ':AiderSwitch<CR>',          'モード切替'],
-  \ ['n', '<leader>aS',  ':AiderSwitch watch<CR>',    '監視モード切替'],
+  \ ['n', '<leader>as',  ':AiderSwitch<CR>',               'モード切替'],
+  \ ['n', '<leader>aS',  ':AiderSwitch watch<CR>',         '監視モード切替'],
   \ ['n', '<leader>aA',  ':AiderSilentAddCurrentFile<CR>', '現在のファイルを追加'],
   \ ['n', '<leader>aa',  ':AiderAddIgnoreCurrentFile<CR>:AiderSilentAddCurrentFile<CR>', 'ファイルを無視リスト追加後追加'],
   \ ['n', '<leader>al',  ':AiderAddIgnoreCurrentFile<CR>:AiderSilentAddCurrentFileReadOnly<CR>', '読み取り専用で追加'],
   \ ['n', '<leader>aL',  ':AiderAddIgnoreCurrentFile<CR>:AiderAddCurrentFileReadOnly<CR>', '対話的に読み取り専用追加'],
-  \ ['n', '<leader>aw',  ':AiderAddWeb<CR>',          'Webコンテンツを追加'],
-  \ ['n', '<leader>ax',  ':AiderExit<CR>',            '終了'],
-  \ ['n', '<leader>ai',  ':AiderAddIgnoreCurrentFile<CR>', '現在のファイルを無視リストに追加'],
-  \ ['n', '<leader>aI',  ':AiderOpenIgnore<CR>',      '無視リストを開く'],
-  \ ['n', '<leader>ah',  ':AiderHide<CR>',            '非表示'],
+  \ ['n', '<leader>aw',  ':AiderAddWeb<CR>',                'Webコンテンツを追加'],
+  \ ['n', '<leader>ax',  ':AiderExit<CR>',                  '終了'],
+  \ ['n', '<leader>ai',  ':AiderAddIgnoreCurrentFile<CR>',  '現在のファイルを無視リストに追加'],
+  \ ['n', '<leader>aI',  ':AiderOpenIgnore<CR>',            '無視リストを開く'],
+  \ ['n', '<leader>ah',  ':AiderHide<CR>',                  '非表示'],
   \ ['v', '<leader>as',  ':AiderAddFileVisualSelected<CR>', '選択範囲からファイル追加'],
-  \ ['v', '<leader>av',  ':AiderVisualTextWithPrompt<CR>', '選択テキストでプロンプト'],
-  \ ['n', '<leader>av',  ':AiderVisualTextWithPrompt<CR>', 'ビジュアル選択でプロンプト']
+  \ ['v', '<leader>av',  ':AiderVisualTextWithPrompt<CR>',  '選択テキストでプロンプト'],
+  \ ['n', '<leader>av',  ':AiderVisualTextWithPrompt<CR>',  'ビジュアル選択でプロンプト']
   \ ]
 
 for [mode, lhs, rhs, desc] in s:keymaps
@@ -81,7 +81,12 @@ function! s:AiderOpenHandler() abort
 endfunction
 " }}}1
 
-let s:aider_common_options = ' --no-detect-urls --no-auto-accept-architect --notifications --no-auto-commits --no-show-model-warnings --chat-language ja --no-stream --cache-prompts --cache-keepalive-pings 6 --suggest-shell-commands --map-refresh auto --load ' . g:init_load_command
+let s:aider_common_options = ' --no-detect-urls --no-auto-accept-architect --notifications'
+      \ . ' --no-auto-commits --no-show-model-warnings'
+      \ . ' --chat-language ja --no-stream'
+      \ . ' --cache-prompts --cache-keepalive-pings 6'
+      \ . ' --suggest-shell-commands --map-refresh auto'
+      \ . ' --load ' . g:init_load_command
 
 " モデル設定 {{{2
 " ---------------------------------------------------------
