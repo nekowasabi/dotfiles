@@ -17,6 +17,7 @@ endif
 if g:IsMacNeovimInWork()
   let g:convension_path = $BACKEND_LARAVEL_DIR . "/laravel/CONVENTION.md"
   let g:init_load_command = $BACKEND_LARAVEL_DIR . "/laravel/init.md"
+  let g:dev_plan_path = $BACKEND_LARAVEL_DIR . "/aidoc/dev_plan.aider"
 endif
 
 let g:aider_process_number = ''
@@ -124,7 +125,7 @@ function! s:setup_environment() abort
   if g:IsMacNeovimInWork()
     let s:aider_settings = copy(s:common_aider_settings)
     let s:aider_settings['watch'] = s:aider_base_command . s:models.claude . ' --watch-files'
-    let g:aider_command = s:aider_settings['architect_claude']
+    let g:aider_command = s:aider_settings['architect_testing']
   else
     let s:aider_settings = extend(copy(s:common_aider_settings), {
           \ 'architect_experimental': s:build_options(s:aider_base_command, 'experimental', 0),
@@ -389,9 +390,8 @@ process}
 
   " dev_plan.md以外を/read-onlyで開く
   execute "AiderSendPromptByCommandline /drop "
-  execute "AiderProjectFiles ".g:aider_switch_rule
-  let l:dev_plan = s:find_file_path_by_project_name(g:aider_switch_rule, 'dev_plan.md')
-  execute "AiderSendPromptByCommandline /load dev_plan"
+  execute "AiderProjectFiles ". g:aider_switch_rule
+  execute "AiderSendPromptByCommandline /load ". g:dev_plan_path
 
   " プロセス実行
   let process_num = empty(g:aider_process_number) ? input('Process number: ') : input('Process number: ', g:aider_process_number)

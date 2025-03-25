@@ -52,7 +52,7 @@ set runtimepath+=/usr/local/opt/fzf
 source ~/.config/nvim/rc/env.vim
 source ~/.config/nvim/rc/plugin.vim
 
-exe "MasonUpdate"
+"exe "MasonUpdate"
 " }}}1
 
 " Easy autocmd {{{1
@@ -110,6 +110,17 @@ let g:augment_workspace_folders = ['~/.config/nvim/plugged/aider.vim/', '~/repos
 " lua
 lua << EOF
 
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+require("mason").setup()
+require("mason-lspconfig").setup()
+require("mason-lspconfig").setup_handlers {
+  function (server_name) -- default handler (optional)
+    require("lspconfig")[server_name].setup {
+      on_attach = on_attach, --keyバインドなどの設定を登録
+      capabilities = capabilities, --cmpを連携
+    }
+  end,
+}
 
 -- Lua configuration
 local glance = require('glance')
