@@ -130,7 +130,7 @@ function! s:setup_environment() abort
   if g:IsMacNeovimInWork()
     let s:aider_settings = copy(s:common_aider_settings)
     let s:aider_settings['watch'] = s:aider_base_command . s:models.claude . ' --watch-files'
-    let g:aider_command = s:aider_settings['architect_testing']
+    let g:aider_command = s:aider_settings['architect_claude']
   else
     let s:aider_settings = extend(copy(s:common_aider_settings), {
           \ 'architect_experimental': s:build_options(s:aider_base_command, 'experimental', 0),
