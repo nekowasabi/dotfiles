@@ -107,7 +107,8 @@ fpath=(/usr/local/share/zsh-completions ${fpath})
 # alias {{{1
 function wezterm_neovim() {
   if [ -d "/Users/ttakeda" ]; then
-    /opt/homebrew/bin/nvim  $1 $2 ~/work
+    # /opt/homebrew/bin/nvim  $1 $2 ~/work
+    /Users/ttakeda/.local/nvim/bin/nvim  $1 $2 ~/work
   elif [ -d "/Users/takets" ]; then
     /usr/local/bin/nvim $1 $2 ~/wezterm
   else
