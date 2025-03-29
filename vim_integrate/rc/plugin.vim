@@ -169,6 +169,8 @@ endfunction
 
 " Mac Neovim {{{1
 if g:IsMacNeovim() || g:IsWsl()
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
   Plug 'itchyny/lightline.vim'
   Plug 'mengelbrecht/lightline-bufferline'
   Plug 'maximbaz/lightline-ale'
@@ -185,8 +187,6 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'rhysd/conflict-marker.vim'
   Plug 'MunifTanjim/nui.nvim' " おしゃれなコマンドライン変更
   Plug 'rcarriga/nvim-notify' " 通知
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  Plug 'nvim-treesitter/nvim-treesitter-textobjects'
   Plug 'nvim-tree/nvim-web-devicons'
   Plug 'HiPhish/rainbow-delimiters.nvim'
   Plug 'shellRaining/hlchunk.nvim'
@@ -239,7 +239,6 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'folke/snacks.nvim'
   Plug 'SmiteshP/nvim-navic'
   Plug 'nekowasabi/vim-syntax-tyranoscript'
-  " Plug 'yetone/avante.nvim', { 'branch': 'main', 'do': 'make' }
 
   call g:SetDdu()
 
@@ -247,7 +246,7 @@ if g:IsMacNeovim() || g:IsWsl()
     call g:SetCoc()
   elseif g:IsMacNeovim()
     call g:SetCoc()
-    " Plug 'abzcoding/lsp_lines.nvim'
+    Plug 'abzcoding/lsp_lines.nvim'
     Plug 'augmentcode/augment.vim'
   elseif g:IsWsl()
     Plug 'Shougo/ddc-source-lsp'
@@ -292,6 +291,8 @@ execute 'source '.g:GetVimConfigRootPath().'rc/plugins/sayonara.vim'
 " setting Mac Neovim {{{1
 if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/mark.vim'
+   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesitter.vim'
+
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/neosnippet.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-bookmark.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/devicons.vim'
@@ -302,7 +303,6 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddu.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lightline.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ale.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesitter.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lsp-lines.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gp.vim'
@@ -330,21 +330,9 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/previm.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot-chat.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/codecompanion.vim'
-
-  if g:IsMacNeovimInWork() || g:IsWsl()
-		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
-    execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cmp.vim'
-    execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
-  elseif g:IsMacNeovimInWezterm()
-		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
-    execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
-    execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cmp.vim'
-  else
-		execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
-    execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cmp.vim'
-    execute 'source '.g:GetVimConfigRootPath().'rc/plugins/wilder.vim'
-    execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
-  endif
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cmp.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
 endif
 " }}}1
 
