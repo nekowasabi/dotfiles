@@ -127,7 +127,7 @@ let s:common_aider_settings = {
       \ 'watch_claude':       s:build_options(s:aider_base_command, 'claude', 1)
       \ }
 
-" 環境別設定 {{{2
+" 環境別設定 imakoko {{{2
 function! s:setup_environment() abort
   if g:IsMacNeovimInWork()
     let s:aider_settings = copy(s:common_aider_settings)
@@ -138,7 +138,7 @@ function! s:setup_environment() abort
           \ 'architect_experimental': s:build_options(s:aider_base_command, 'experimental', 0),
           \ 'gpt': s:build_options(s:aider_base_command, 'gpt', 0)
           \ })
-    let g:aider_command = s:aider_settings['architect_experimental']
+    let g:aider_command = s:aider_settings['architect_testing']
   endif
 endfunction
 
