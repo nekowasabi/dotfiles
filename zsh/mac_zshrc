@@ -28,8 +28,8 @@ function wezterm_neovim() {
   if [ -d "/home/ttakeda" ]; then
     /opt/homebrew/bin/nvim $1 $2 ~/work
   elif [ -d "/Users/takets" ]; then
-    # ~/.local/nvim/bin/nvim $1 $2 
-    /usr/local/bin/nvim $1 $2
+    ~/.local/nvim/bin/nvim $1 $2 
+    # /usr/local/bin/nvim $1 $2
   else
     # /usr/local/bin/nvim $1 $2 ~/wezterm
     /usr/local/bin/nvim $1 $2

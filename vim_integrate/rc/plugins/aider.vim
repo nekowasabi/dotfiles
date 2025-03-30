@@ -6,6 +6,8 @@ let s:aider_base_command = 'aider '
 let g:aider_floatwin_width = 100
 let g:aider_floatwin_height = 50
 let g:aider_buffer_open_type = 'floating'
+let g:aider_floatwin_border = 'double'
+let g:aider_floatwin_style = 'minimal'
 if g:IsMacNeovimInWezterm()
   let g:convension_path = "~/.config/nvim/plugged/aider.vim/CONVENTION.md"
   let g:init_load_command = "~/.config/nvim/plugged/aider.vim/init.md"
@@ -98,7 +100,7 @@ let s:models = {
   \ 'gemini':    ' --no-auto-commits --model gemini/gemini-2.0-flash-thinking-exp --editor-model gemini/gemini-2.0-flash-exp',
   \ 'deepseek':  ' --no-auto-commits --model my-openrouter/deepseek/deepseek-r1 --editor-model my-o3-mini-effort-low',
   \ 'copilot':   ' --reasoning-effort high --weak-model openrouter/anthropic/claude-3-5-haiku --model proxy-claude-3-5-sonnet --editor-model proxy-claude-3-5-sonnet',
-  \ 'experimental': ' --no-auto-commits --model my-openrouter/deepseek/deepseek-r1 --editor-model proxy-claude-3-5-sonnet',
+  \ 'experimental': ' --no-auto-commits --model openrouter/google/gemini-2.5-pro-exp-03-25:free --editor-model my-openai/firework/deepseek-v3',
   \ 'testing':   ' --no-auto-commits --model my-openai/firework/deepseek-r1-fast --editor-model my-openai/firework/deepseek-v3'
   \ }
 
@@ -136,7 +138,7 @@ function! s:setup_environment() abort
           \ 'architect_experimental': s:build_options(s:aider_base_command, 'experimental', 0),
           \ 'gpt': s:build_options(s:aider_base_command, 'gpt', 0)
           \ })
-    let g:aider_command = s:aider_settings['architect_testing']
+    let g:aider_command = s:aider_settings['architect_experimental']
   endif
 endfunction
 

@@ -40,7 +40,7 @@ let g:ale_linters = {
   		\   'http': ['kulala_fmt'],
       \}
 let g:ale_fixers = {
-    \   'typescript': ['biome'],
+    \   'typescript': ['deno'],
     \   'javascript': ['biome'],
 		\   'php': ['pint'],
     \}
