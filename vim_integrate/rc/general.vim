@@ -80,6 +80,7 @@ set iminsert=0
 set imsearch=-1
 set showcmd               " show command on statusline
 " set lazyredraw "マクロなどの途中経過を描写しない
+set redrawtime=1000
 set report=0              " report any changes
 set display=lastline      " display last line in a window AMAP
 set wildoptions+=pum

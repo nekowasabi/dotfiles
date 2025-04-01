@@ -113,6 +113,8 @@ let g:_ts_force_sync_parsing = v:true
 
 lua << EOF
 
+require('Comment').setup()
+
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 require("mason").setup()
 require("mason-lspconfig").setup()

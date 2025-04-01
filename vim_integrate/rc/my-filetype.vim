@@ -23,7 +23,7 @@ augroup fileTypeIndent
 	autocmd FileType AvanteInput setlocal wrap
   
 	autocmd FileType php,blade let b:coc_root_patterns = ['.git', '.env', 'composer.json', 'artisan']
-  autocmd BufNewFile,BufRead *.php setlocal tabstop=4 softtabstop=4 shiftwidth=4
+  autocmd BufNewFile,BufRead *.php setlocal tabstop=4 softtabstop=4 shiftwidth=4 commentstring=//\ %s
   autocmd BufNewFile,BufRead *.blade.php setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
   autocmd BufRead,BufNewFile *.ks set filetype=tyranoscript
