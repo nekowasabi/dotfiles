@@ -113,6 +113,8 @@ let g:_ts_force_sync_parsing = v:true
 
 lua << EOF
 
+vim.lsp.enable({'intelephense', 'vim-ls'}, false)
+
 require('Comment').setup()
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
