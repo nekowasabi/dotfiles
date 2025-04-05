@@ -138,7 +138,7 @@ function! s:setup_environment() abort
           \ 'architect_experimental': s:build_options(s:aider_base_command, 'experimental', 0),
           \ 'gpt': s:build_options(s:aider_base_command, 'gpt', 0)
           \ })
-    let g:aider_command = s:aider_settings['architect_testing']
+    let g:aider_command = s:aider_settings['architect_experimental']
   endif
 endfunction
 
