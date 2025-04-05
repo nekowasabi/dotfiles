@@ -98,10 +98,10 @@ let s:models = {
   \ 'claude':    ' --no-auto-commits --model architect/anthropic/claude-3-7-sonnet-20250219 --editor-model editor/anthropic/claude-3-7-sonnet-20250219',
   \ 'gpt':       ' --reasoning-effort medium --weak-model openai/gpt-4o-mini --model openai/o3-mini --editor-model openai/gpt-4o',
   \ 'gemini':    ' --no-auto-commits --model gemini/gemini-2.0-flash-thinking-exp --editor-model gemini/gemini-2.0-flash-exp',
-  \ 'deepseek':  ' --no-auto-commits --model my-openrouter/deepseek/deepseek-r1 --editor-model my-o3-mini-effort-low',
+  \ 'deepseek':  ' --no-auto-commits --model my-openai/firework/deepseek-r1-fast --editor-model my-openai/firework/deepseek-v3',
   \ 'copilot':   ' --reasoning-effort high --weak-model openrouter/anthropic/claude-3-5-haiku --model proxy-claude-3-5-sonnet --editor-model proxy-claude-3-5-sonnet',
   \ 'experimental': ' --no-auto-commits --model openrouter/google/gemini-2.5-pro-exp-03-25:free --editor-model my-openai/firework/deepseek-v3',
-  \ 'testing':   ' --no-auto-commits --model my-openai/firework/deepseek-r1-fast --editor-model my-openai/firework/deepseek-v3'
+  \ 'testing':   ' --no-auto-commits --model openrouter/openrouter/quasar-alpha --editor-model my-openai/firework/deepseek-v3'
   \ }
 
 " 共通のAider設定プリセット
