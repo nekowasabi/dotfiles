@@ -61,6 +61,9 @@ Plug 'dnlhc/glance.nvim'
 Plug 'github/copilot.vim'
 Plug 'nekowasabi/aider.vim'
 Plug 'Robitx/gp.nvim'
+Plug 'ravitemer/mcphub.nvim', {'do': 'npm install -g mcp-hub@latest'}
+" Plug 'frankroeder/parrot.nvim'
+
 " denops
 Plug 'hrsh7th/vim-searchx'
 Plug 'lambdalisue/kensaku.vim'

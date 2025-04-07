@@ -29,6 +29,15 @@ require("codecompanion").setup({
   },
   strategies = {
     chat = {
+      tools = {
+          ["mcp"] = {
+              -- Prevent mcphub from loading before needed
+              callback = function() 
+                  return require("mcphub.extensions.codecompanion") 
+              end,
+              description = "Call tools and resources from the MCP Servers"
+          }
+      },
       adapter = "copilot",
       slash_commands = {
         ["file"] = {
