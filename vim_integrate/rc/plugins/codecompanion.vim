@@ -35,6 +35,9 @@ require("codecompanion").setup({
               callback = function() 
                   return require("mcphub.extensions.codecompanion") 
               end,
+              opts = {
+								auto_submit_success = true,
+							},
               description = "Call tools and resources from the MCP Servers"
           }
       },

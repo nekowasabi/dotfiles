@@ -56,6 +56,7 @@ Plug 'itchyny/vim-highlighturl'
 Plug 'atusy/budouxify.nvim'
 Plug 'atusy/budoux.lua'
 Plug 'dnlhc/glance.nvim'
+Plug 'yuki-yano/smart-i.nvim'
 
 " AI
 Plug 'github/copilot.vim'
