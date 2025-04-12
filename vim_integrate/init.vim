@@ -89,13 +89,6 @@ let g:denops_server_addr = '127.0.0.1:32129'
 " url-highlight
 let g:highlighturl_guifg = '#4aa3ff'
 
-" nnoremap <silent> <leader>va :<Cmd>AvanteAsk<CR>
-" vnoremap <silent> <leader>va :<Cmd>AvanteAsk<CR>
-" nnoremap <silent> <leader>ve :<Cmd>AvanteEdit<CR>
-" vnoremap <silent> <leader>ve :<Cmd>AvanteEdit<CR>
-" nnoremap <silent> <leader>vr :<Cmd>AvanteRefresh<CR>
-" nnoremap <silent> <leader>vt :<Cmd>AvanteToggle<CR>
-
 " glance
 nnoremap gR <CMD>Glance references<CR>
 nnoremap gD <CMD>Glance definitions<CR>
@@ -106,7 +99,8 @@ nnoremap gI <CMD>Glance implementations<CR>
 " Augment
 let g:augment_workspace_folders = ['~/.config/nvim/plugged/aider.vim/', '~/repos/laravel/']
 
-let g:_ts_force_sync_parsing = v:true
+" keybind
+nnoremap <silent> b<CR> :OpenChangelog<CR>
 
 " -----------------------------------------------------------
 " lua

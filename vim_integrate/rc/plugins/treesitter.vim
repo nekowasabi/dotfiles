@@ -1,3 +1,5 @@
+let g:_ts_force_sync_parsing = v:true
+
 lua << EOF
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the four listed parsers should always be installed)

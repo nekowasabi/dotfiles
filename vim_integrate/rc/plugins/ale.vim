@@ -34,14 +34,14 @@ let g:ale_hover_cursor = 0
 
 let g:ale_linters = {
       \   'shd': ['textlint'],
-			\   'typescript': ['biome'],
-			\   'javascript': ['biome'],
+			\   'typescript': ['deno'],
+			\   'javascript': ['eslint'],
 		  \   'php': ['pint', 'intelephense'],
   		\   'http': ['kulala_fmt'],
       \}
 let g:ale_fixers = {
     \   'typescript': ['deno'],
-    \   'javascript': ['biome'],
+    \   'javascript': ['eslint'],
 		\   'php': ['pint'],
     \}
 

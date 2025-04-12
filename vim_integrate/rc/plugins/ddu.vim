@@ -489,6 +489,14 @@ nnoremap <silent> <Leader>ll
       \ <Cmd>call ddu#start({'sources': [{'name': 'line'}]})<CR>
 nnoremap <silent> <C-l>
       \ <Cmd>call ddu#start({'sources': [{'name': 'line'}]})<CR>
+nnoremap l<CR> :<C-u>call DduLineFiltering()<CR>
+function DduLineFiltering() abort
+	call ddu#start({'sources': [{'name': 'line'}]})
+	sleep 300m
+	call feedkeys('i', 'i')
+endfunction
+
+
 
 nnoremap <Space>lw  :<C-u>call DduLineWord()<CR>
 function DduLineWord() abort
