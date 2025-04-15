@@ -179,7 +179,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'mengelbrecht/lightline-bufferline'
   Plug 'maximbaz/lightline-ale'
   Plug 'dense-analysis/ale' " textlint
-  Plug 'pwntester/octo.nvim' " github操作
+	Plug 'pwntester/octo.nvim', {'commit': '9ccdfccb4ae5f2d5e6c8df01f0298a4bdfb4999e'} " github操作
   Plug 'nvim-lua/plenary.nvim' " luaのライブラリ
   Plug 'nvim-telescope/telescope.nvim' " 普段は使わないけれど、プラグイン連携でたまに使う
   Plug 'elzr/vim-json'
