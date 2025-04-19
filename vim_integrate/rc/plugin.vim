@@ -245,6 +245,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'folke/snacks.nvim'
   Plug 'SmiteshP/nvim-navic'
   Plug 'nekowasabi/vim-syntax-tyranoscript'
+  Plug 'nekowasabi/cross-channel.nvim'
 
   call g:SetDdu()
 
