@@ -64,6 +64,8 @@ Plug 'nekowasabi/aider.vim'
 Plug 'Robitx/gp.nvim'
 Plug 'ravitemer/mcphub.nvim', {'do': 'npm install -g mcp-hub@latest'}
 Plug 'azorng/goose.nvim'
+Plug 'nekowasabi/cross-channel.nvim'
+Plug 'augmentcode/augment.vim'
 " Plug 'frankroeder/parrot.nvim'
 
 " denops
@@ -245,7 +247,6 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'folke/snacks.nvim'
   Plug 'SmiteshP/nvim-navic'
   Plug 'nekowasabi/vim-syntax-tyranoscript'
-  Plug 'nekowasabi/cross-channel.nvim'
 
   call g:SetDdu()
 

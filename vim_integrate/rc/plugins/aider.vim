@@ -97,7 +97,7 @@ let s:aider_common_options = ' --no-detect-urls --no-auto-accept-architect --not
 let s:models = {
   \ 'claude':    ' --no-auto-commits --model architect/anthropic/claude-3-7-sonnet-20250219 --editor-model editor/anthropic/claude-3-7-sonnet-20250219',
   \ 'gpt':       ' --reasoning-effort medium --weak-model openai/gpt-4.1-nano --model openai/o3-mini --editor-model openai/gpt-4o',
-  \ 'gemini':    ' --no-auto-commits --model gemini/gemini-2.0-flash-thinking-exp --editor-model gemini/gemini-2.0-flash-exp',
+  \ 'gemini':    ' --no-auto-commits --model openrouter/google/gemini-2.5-pro-preview-03-25 --editor-model openrouter/openai/gpt-4.1',
   \ 'deepseek':  ' --no-auto-commits --model my-openai/firework/deepseek-r1-fast --editor-model my-openai/firework/deepseek-v3',
   \ 'copilot':   ' --reasoning-effort high --weak-model openrouter/anthropic/claude-3-5-haiku --model proxy-claude-3-5-sonnet --editor-model proxy-claude-3-5-sonnet',
   \ 'experimental': ' --no-auto-commits --model openrouter/google/gemini-2.5-pro-exp-03-25:free --editor-model my-openai/firework/deepseek-v3 --weak-model openrouter/gpt-4.1-nano',
@@ -133,7 +133,7 @@ function! s:setup_environment() abort
   if g:IsMacNeovimInWork()
     let s:aider_settings = copy(s:common_aider_settings)
     let s:aider_settings['watch'] = s:aider_base_command . s:models.claude . ' --watch-files'
-    let g:aider_command = s:aider_settings['architect_claude']
+    let g:aider_command = s:aider_settings['architect_gemini']
   else
     let s:aider_settings = extend(copy(s:common_aider_settings), {
           \ 'architect_experimental': s:build_options(s:aider_base_command, 'experimental', 0),
