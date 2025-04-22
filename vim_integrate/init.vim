@@ -101,6 +101,7 @@ let g:augment_workspace_folders = ['~/.config/nvim/plugged/aider.vim/', '~/repos
 
 " keybind
 nnoremap <silent> b<CR> :OpenChangelog<CR>
+noremap M %
 
 " testing
 let g:crosschannel_bluesky_id = 'takets.bsky.social'
