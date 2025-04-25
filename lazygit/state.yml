@@ -1,9 +1,9 @@
 lastupdatecheck: 0
 recentrepos:
-- /Users/ttakeda/works/invase-backend
-- /Users/ttakeda/repos/dotfiles
-- /Users/ttakeda/repos/private_dotfiles
 - /Users/ttakeda/repos/changelog
+- /Users/ttakeda/repos/private_dotfiles
+- /Users/ttakeda/repos/dotfiles
+- /Users/ttakeda/works/invase-backend
 - /Users/ttakeda/.config/nvim/plugged/cross-channel.nvim
 - /Users/ttakeda/works/invase-api-schema
 - /Users/ttakeda/works/invase-frontend

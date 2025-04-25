@@ -125,6 +125,8 @@ let g:crosschannel_x_bearer_token = $X_BEARER_TOKEN
 
 lua << EOF
 
+require("atusy/aibou.nvim").setup()
+
 require('goose').setup({
   keymap = {
     global = {

@@ -66,6 +66,8 @@ Plug 'ravitemer/mcphub.nvim', {'do': 'npm install -g mcp-hub@latest'}
 Plug 'azorng/goose.nvim'
 Plug 'nekowasabi/cross-channel.nvim'
 Plug 'augmentcode/augment.vim'
+Plug 'atusy/aibou.nvim'
+Plug 'olimorris/codecompanion.nvim'
 " Plug 'frankroeder/parrot.nvim'
 
 " denops
@@ -215,7 +217,6 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'numToStr/Comment.nvim'
   Plug 'monaqa/dial.nvim'
   Plug 'stevearc/dressing.nvim'
-  Plug 'olimorris/codecompanion.nvim'
   Plug 'HakonHarnes/img-clip.nvim'
   Plug 'MeanderingProgrammer/render-markdown.nvim'
   Plug 'mistweaverco/kulala.nvim'
