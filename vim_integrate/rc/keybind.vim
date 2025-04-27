@@ -44,20 +44,6 @@ else
 	cnoremap <A-l> <S-Right>
 endif
 
-" delete word
-nnoremap <silent> D :<C-U>call jasegment#select_function_wrapper(g:jasegment#model, 'jasegment#select_i','o', v:count1)<CR>xh
-function! s:DeleteJapaneseWords()
-	let l:moji =  s:prev_cursor_char(0)
-	if l:moji =~  "[。、？！]"
-		return 1
-	endif
-
-	let l:moji =  s:prev_cursor_char(1)
-	if l:moji =~  "[。、！？]"
-		return 1
-	endif
-endfunction
-
 au Filetype vim inoremap <silent> <buffer> <C-w> <C-w>
 au Filetype shd,changelog,txt, inoremap <silent> <expr> <C-w> <SID>DeleteJapaneseWords() ? "\<BS>\<C-w>\<C-w>" : "\<C-w>\<C-w>" 
 

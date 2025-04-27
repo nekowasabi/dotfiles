@@ -54,8 +54,12 @@ syn match changelogMarkdownHeader "^## .*$"
 syn match changelogMarkdownHeader "^### .*$"
 syn match changelogMarkdownHeader "^#### .*$"
 
-syn match changelogFold1 "\zs{{{[1-9]" conceal cchar=👎
-syn match changelogFold2 /}}}[0-9]/ conceal cchar=🖕
+syn match changelogFold1 "\zs{{{[1]" conceal cchar=👎
+syn match changelogFold2 /}}}[1]/ conceal cchar=🖕
+syn match changelogFold1 "\zs{{{[2]" conceal cchar=🐶
+syn match changelogFold2 /}}}[2]/ conceal cchar=🐶
+syn match changelogFold1 "\zs{{{[3]" conceal cchar=🐱
+syn match changelogFold2 /}}}[3]/ conceal cchar=🐱
 
 syn match changelogText /CL\C:/ conceal cchar=📝
 syn match changelogText /CLO\C:/ conceal cchar=📚
