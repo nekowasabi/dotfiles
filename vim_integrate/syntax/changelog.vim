@@ -49,17 +49,17 @@ syn match	changelogText   "→"
 
 hi def link changelogDelimiter     Delimiter
 syn region changelogText matchgroup=changelogDelimiter start="\[" end="\]"
-syn match changelogMarkdownHeader "^# .*$"
-syn match changelogMarkdownHeader "^## .*$"
-syn match changelogMarkdownHeader "^### .*$"
-syn match changelogMarkdownHeader "^#### .*$"
+syn match changelogMarkdownHeader "^# .*$" contains=changelogFoldStart1
+syn match changelogMarkdownHeader "^## .*$" contains=changelogFoldStart2
+syn match changelogMarkdownHeader "^### .*$" contains=changelogFoldStart3
+syn match changelogMarkdownHeader "^#### .*$" contains=changelogFoldStart4
 
-syn match changelogFold1 "\zs{{{[1]" conceal cchar=👎
-syn match changelogFold2 /}}}[1]/ conceal cchar=🖕
-syn match changelogFold1 "\zs{{{[2]" conceal cchar=🐶
-syn match changelogFold2 /}}}[2]/ conceal cchar=🐶
-syn match changelogFold1 "\zs{{{[3]" conceal cchar=🐱
-syn match changelogFold2 /}}}[3]/ conceal cchar=🐱
+syn match changelogFoldStart1 "\zs{{{[1]" conceal cchar=👎
+syn match changelogFoldClose1 /}}}[1]/ conceal cchar=🖕
+syn match changelogFoldStart2 "\zs{{{[2]" conceal cchar=🐶
+syn match changelogFoldClose2 /}}}[2]/ conceal cchar=🐶
+syn match changelogFoldStart3 "\zs{{{[3]" conceal cchar=🐱
+syn match changelogFoldClose3 /}}}[3]/ conceal cchar=🐱
 
 syn match changelogText /CL\C:/ conceal cchar=📝
 syn match changelogText /CLO\C:/ conceal cchar=📚
@@ -138,8 +138,12 @@ if version >= 508 || !exists("did_changelog_syntax_inits")
   HiLink changelogMonth		Number
   HiLink changelogDay		Number
   HiLink changelogError		Folded
-  HiLink changelogFold1		FoldType
-  HiLink changelogFold2		FoldType
+  HiLink changelogFoldStart1		FoldType
+  HiLink changelogFoldStart2		FoldType
+  HiLink changelogFoldStart3		FoldType
+  HiLink changelogFoldClose1	FoldType
+  HiLink changelogFoldClose2		FoldType
+  HiLink changelogFoldClose3		FoldType
   HiLink changelogMarker	FoldTColumn
   HiLink changelogHeaderCompleted WarningMsg
 
