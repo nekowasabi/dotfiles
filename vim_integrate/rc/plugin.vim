@@ -195,7 +195,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'lewis6991/gitsigns.nvim'
   Plug 'overcache/NeoSolarized'
   Plug 'rhysd/conflict-marker.vim'
-  Plug 'MunifTanjim/nui.nvim', {'commit': 'aa29efe58f2e5734ff49b44c3d7d0cd4b9266e9a'} " おしゃれなコマンドライン変更
+  Plug 'MunifTanjim/nui.nvim'
   Plug 'rcarriga/nvim-notify' " 通知
   Plug 'nvim-tree/nvim-web-devicons'
   Plug 'HiPhish/rainbow-delimiters.nvim'
