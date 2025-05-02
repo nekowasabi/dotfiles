@@ -1,8 +1,8 @@
 autocmd FileType sql,typescript,php,ddu-ff,json,vim lua require('cmp').setup.buffer {
-\   enabled = false
+\   enabled = true
 \ }
 
-let g:your_cmp_disable_enable_toggle = v:false
+" let g:your_cmp_disable_enable_toggle = v:false
 
 lua << EOF
 
@@ -23,10 +23,10 @@ local lspkind = require('lspkind')
 local cmp = require'cmp'
 
 cmp.setup({
-  filetypes = { "markdown", "changelog" },
-  enabled = function()
-    return vim.g.your_cmp_disable_enable_toggle
-  end,
+  filetypes = { "markdown", "changelog", "vim" },
+  -- enabled = function()
+  --   return vim.g.your_cmp_disable_enable_toggle
+  -- end,
   snippet = {
     expand = function(_)
     end,
@@ -154,24 +154,45 @@ cmp.setup.filetype('markdown', {
   })
 })
 
--- cmp.setup.filetype('vim', {
---   sources = cmp.config.sources({
---     { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
---   },
---   {
---     { name = "nvim_lsp" },
---     { name = 'path' },
---     { name = 'buffer',
---       option = {
---         get_bufnrs = function()
---         return vim.api.nvim_list_bufs()
---         end
---       },
---     },
---     { name = 'neosnippet', keyword_length = 3 },
---     { name = 'context_nvim' }
---   }),
--- })
+cmp.setup.filetype('vim', {
+  sources = cmp.config.sources({
+    { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+  },
+  {
+    { name = "nvim_lsp" },
+    { name = 'path' },
+    { name = 'buffer',
+      option = {
+        get_bufnrs = function()
+        return vim.api.nvim_list_bufs()
+        end
+      },
+    },
+    { name = 'neosnippet', keyword_length = 3 },
+    { name = 'context_nvim' }
+  }),
+})
+
+cmp.setup.filetype('typescript', {
+  sources = cmp.config.sources({
+    { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+  },
+  {
+    { name = "nvim_lsp" },
+    { name = 'path' },
+    { name = 'buffer',
+      option = {
+        get_bufnrs = function()
+        return vim.api.nvim_list_bufs()
+        end
+      },
+    },
+    { name = 'neosnippet', keyword_length = 3 },
+    { name = 'context_nvim' }
+  }),
+})
+
+
 
 cmp.setup.filetype('copilot-chat', {
   sources = cmp.config.sources({

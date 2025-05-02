@@ -255,7 +255,7 @@ if g:IsMacNeovim() || g:IsWsl()
   if g:IsMacNeovimInWork() || g:IsWsl()
     call g:SetCoc()
   elseif g:IsMacNeovim()
-    call g:SetCoc()
+    " call g:SetCoc()
     Plug 'abzcoding/lsp_lines.nvim'
     Plug 'augmentcode/augment.vim'
   elseif g:IsWsl()
@@ -303,6 +303,8 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/mark.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesitter.vim'
 
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lsp.vim'
+
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/neosnippet.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-bookmark.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/devicons.vim'
@@ -340,7 +342,7 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/previm.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot-chat.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/codecompanion.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cmp.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
 endif

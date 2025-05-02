@@ -95,7 +95,6 @@ nnoremap gD <CMD>Glance definitions<CR>
 nnoremap gY <CMD>Glance type_definitions<CR>
 nnoremap gI <CMD>Glance implementations<CR>
 
-
 " Augment
 let g:augment_workspace_folders = ['~/.config/nvim/plugged/aider.vim/', '~/repos/laravel/']
 
@@ -118,6 +117,8 @@ let g:crosschannel_x_access_token = $X_ACCESS_TOKEN
 let g:crosschannel_x_access_token_secret = $X_ACCESS_TOKEN_SECRET
 let g:crosschannel_x_bearer_token = $X_BEARER_TOKEN
 
+
+nnoremap <Leader>: :
 
 " -----------------------------------------------------------
 " lua
@@ -221,21 +222,9 @@ require("mcphub").setup({
     }
 })
 
-vim.lsp.enable({'intelephense', 'vim-ls'}, false)
-
 require('Comment').setup()
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-require("mason").setup()
-require("mason-lspconfig").setup()
-require("mason-lspconfig").setup_handlers {
-  function (server_name) -- default handler (optional)
-    require("lspconfig")[server_name].setup {
-      on_attach = on_attach, --keyバインドなどの設定を登録
-      capabilities = capabilities, --cmpを連携
-    }
-  end,
-}
 
 EOF
 
