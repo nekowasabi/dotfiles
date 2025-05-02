@@ -1,8 +1,8 @@
 lua << EOF
 require('render-markdown').setup({
   file_types = { 'markdown', 'copilot-chat' },
-  -- -- Whether Markdown should be rendered by default or not
-  -- enabled = true,
+  -- Whether Markdown should be rendered by default or not
+  enabled = true,
   -- -- Vim modes that will show a rendered view of the markdown file, :h mode(), for
   -- -- all enabled components. Individual components can be enabled for other modes.
   -- -- Remaining modes will be unaffected by this plugin.
@@ -43,7 +43,7 @@ require('render-markdown').setup({
   -- },
   anti_conceal = {
       -- This enables hiding any added text on the line the cursor is on
-      enabled = true,
+      enabled = false,
       -- Which elements to always show, ignoring anti conceal behavior. Values can either be booleans
       -- to fix the behavior or string lists representing modes where anti conceal behavior will be
       -- ignored. Possible keys are:
@@ -315,22 +315,22 @@ require('render-markdown').setup({
   --         todo = { raw = '[-]', rendered = '󰥔 ', highlight = 'RenderMarkdownTodo', scope_highlight = nil },
   --     },
   -- },
-  -- quote = {
-  --     -- Turn on / off block quote & callout rendering
-  --     enabled = true,
-  --     -- Additional modes to render quotes
-  --     render_modes = false,
-  --     -- Replaces '>' of 'block_quote'
-  --     icon = '▋',
-  --     -- Whether to repeat icon on wrapped lines. Requires neovim >= 0.10. This will obscure text if
-  --     -- not configured correctly with :h 'showbreak', :h 'breakindent' and :h 'breakindentopt'. A
-  --     -- combination of these that is likely to work is showbreak = '  ' (2 spaces), breakindent = true,
-  --     -- breakindentopt = '' (empty string). These values are not validated by this plugin. If you want
-  --     -- to avoid adding these to your main configuration then set them in win_options for this plugin.
-  --     repeat_linebreak = false,
-  --     -- Highlight for the quote icon
-  --     highlight = 'RenderMarkdownQuote',
-  -- },
+  quote = {
+      -- Turn on / off block quote & callout rendering
+      enabled = false,
+      -- Additional modes to render quotes
+      render_modes = false,
+      -- Replaces '>' of 'block_quote'
+      icon = '▋',
+      -- Whether to repeat icon on wrapped lines. Requires neovim >= 0.10. This will obscure text if
+      -- not configured correctly with :h 'showbreak', :h 'breakindent' and :h 'breakindentopt'. A
+      -- combination of these that is likely to work is showbreak = '  ' (2 spaces), breakindent = true,
+      -- breakindentopt = '' (empty string). These values are not validated by this plugin. If you want
+      -- to avoid adding these to your main configuration then set them in win_options for this plugin.
+      repeat_linebreak = true,
+      -- Highlight for the quote icon
+      highlight = 'RenderMarkdownQuote',
+  },
   -- pipe_table = {
   --     -- Turn on / off pipe table rendering
   --     enabled = true,
@@ -420,7 +420,7 @@ require('render-markdown').setup({
       -- How to handle footnote links, start with a '^'
       footnote = {
           -- Replace value with superscript equivalent
-          superscript = true,
+          superscript = false,
           -- Added before link content when converting to superscript
           prefix = '',
           -- Added after link content when converting to superscript

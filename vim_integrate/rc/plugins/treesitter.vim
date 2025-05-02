@@ -3,14 +3,14 @@ let g:_ts_force_sync_parsing = v:true
 lua << EOF
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the four listed parsers should always be installed)
-  ensure_installed = { "php", "lua", "vim", "javascript", "sql", "yaml", "markdown", "json", "jsdoc", "html", "gitignore", "gitcommit", "css", "bash" },
+  ensure_installed = { "php", "lua", "vim", "javascript", "sql", "yaml", "json", "jsdoc", "html", "gitignore", "gitcommit", "css", "bash"},
 
   -- Install parsers synchronously ()
   sync_install = false,
 
   -- Automatically install missing parsers when entering buffer
   -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-  auto_install = true,
+  auto_install = false,
 
   -- List of parsers to ignore installing (for "all")
   ignore_install = {},
@@ -27,10 +27,10 @@ require'nvim-treesitter.configs'.setup {
     -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
     -- the name of the parser)
     -- list of language that will be disabled
-    disable = { "c", "rust" },
+    disable = { "c", "rust", "blade" },
     -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
     disable = function(lang, buf)
-    local max_filesize = 500 * 1024 -- 100 KB
+    local max_filesize = 512 * 1024 -- 100 KB
     local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
     if ok and stats and stats.size > max_filesize then
       return true
@@ -41,22 +41,27 @@ require'nvim-treesitter.configs'.setup {
       -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
       -- Using this option may slow down your editor, and you may see some duplicate highlights.
       -- Instead of true it can also be a list of languages
-      additional_vim_regex_highlighting = false,
+      additional_vim_regex_highlighting = true,
   },
 }
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 parser_config.blade = {
-  install_info = {
-    url = "https://github.com/EmranMR/tree-sitter-blade",
-    files = {"src/parser.c"},
-    branch = "main",
-  },
-  filetype = "blade"
+    install_info = {
+        url = "https://github.com/EmranMR/tree-sitter-blade",
+        files = { "src/parser.c" },
+        branch = "main",
+    },
+    filetype = "blade",
 }
+vim.filetype.add({
+    pattern = {
+        [".*%.blade%.php"] = "blade",
+    },
+})
 EOF
 
 " Set the *.blade.php file to be filetype of blade 
-augroup BladeFiltypeRelated
-  " au BufNewFile,BufRead *.blade.php set ft=blade
-  au BufNewFile,BufRead *.blade.php set ft=blade tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
-augroup END
+" augroup BladeFiltypeRelated
+"   au BufNewFile,BufRead *.blade.php set ft=blade
+"   au BufNewFile,BufRead *.blade.php set ft=blade tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
+" augroup END

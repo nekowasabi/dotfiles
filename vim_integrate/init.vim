@@ -100,7 +100,6 @@ nnoremap gI <CMD>Glance implementations<CR>
 let g:augment_workspace_folders = ['~/.config/nvim/plugged/aider.vim/', '~/repos/laravel/']
 
 " keybind
-nnoremap <silent> b<CR> :OpenChangelog<CR>
 noremap M %
 
 " testing

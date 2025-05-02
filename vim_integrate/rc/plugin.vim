@@ -218,6 +218,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'monaqa/dial.nvim'
   Plug 'stevearc/dressing.nvim'
   Plug 'HakonHarnes/img-clip.nvim'
+  " Plug 'MeanderingProgrammer/render-markdown.nvim', {'commit': 'a2c2493c21cf61e5554ee8bc83da75bd695921da'}
   Plug 'MeanderingProgrammer/render-markdown.nvim'
   Plug 'mistweaverco/kulala.nvim'
   Plug 'gbprod/yanky.nvim'
@@ -300,7 +301,7 @@ execute 'source '.g:GetVimConfigRootPath().'rc/plugins/sayonara.vim'
 " setting Mac Neovim {{{1
 if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/mark.vim'
-   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesitter.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesitter.vim'
 
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/neosnippet.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-bookmark.vim'
