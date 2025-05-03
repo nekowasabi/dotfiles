@@ -16,8 +16,6 @@ endif
 
 lua << EOF
 
--- vim.keymap.set('n', ',gd', vim.lsp.buf.definition, { desc = 'Go to definition' })
-
 local lspconfig = require('lspconfig')
 local util = require('lspconfig.util')
 
@@ -38,7 +36,12 @@ lspconfig.denols.setup{
 }
 
 require("mason").setup()
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
+local capabilities = vim.tbl_deep_extend("force",
+  vim.lsp.protocol.make_client_capabilities(),
+  require('cmp_nvim_lsp').default_capabilities()
+)
+capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+
 require("mason-lspconfig").setup_handlers({
 	function(server_name)
     capabilities = capabilities
@@ -89,6 +92,8 @@ require('lspsaga').setup({
     click_support = false,
   },
 })
+
+require("lspconfig").pyright.setup({})
 
 local function fetch_deno_content(bufnr, uri)
   local client = vim.lsp.get_clients({ name = 'denols' })[1]

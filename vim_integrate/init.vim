@@ -97,7 +97,8 @@ nnoremap gI <CMD>Glance implementations<CR>
 
 
 " keybind
-noremap M %
+nnoremap M %
+
 
 " testing
 let g:crosschannel_bluesky_id = 'takets.bsky.social'
@@ -222,8 +223,6 @@ require("mcphub").setup({
 })
 
 require('Comment').setup()
-
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 EOF
 
