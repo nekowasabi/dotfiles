@@ -46,6 +46,17 @@ endif
 
 au Filetype vim inoremap <silent> <buffer> <C-w> <C-w>
 au Filetype shd,changelog,txt, inoremap <silent> <expr> <C-w> <SID>DeleteJapaneseWords() ? "\<BS>\<C-w>\<C-w>" : "\<C-w>\<C-w>" 
+function! s:DeleteJapaneseWords()
+	let l:moji =  s:prev_cursor_char(0)
+	if l:moji =~  "[。、？！]"
+		return 1
+	endif
+
+	let l:moji =  s:prev_cursor_char(1)
+	if l:moji =~  "[。、！？]"
+		return 1
+	endif
+endfunction
 
 function! s:prev_cursor_char(n)
 	let chars = split(getline('.')[0 : col('.')-1], '\zs')

@@ -38,12 +38,23 @@ let g:ale_linters = {
 			\   'javascript': ['eslint'],
 		  \   'php': ['pint', 'intelephense'],
   		\   'http': ['kulala_fmt'],
+      \   'python': ['flake8'],
       \}
 let g:ale_fixers = {
     \   'typescript': ['deno'],
     \   'javascript': ['eslint'],
 		\   'php': ['pint'],
+    \   'python': ['autopep8', 'black', 'isort'],
     \}
+
+let g:ale_python_flake8_executable = 'python3'
+let g:ale_python_flake8_options = '-m flake8'
+let g:ale_python_autopep8_executable = 'python3'
+let g:ale_python_autopep8_options = '-m autopep8'
+let g:ale_python_isort_executable = 'python3'
+let g:ale_python_isort_options = '-m isort'
+let g:ale_python_black_executable = 'python3'
+let g:ale_python_black_options = '-m black'
 
 " php
 if g:IsMacNeovimInWork()

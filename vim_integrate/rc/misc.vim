@@ -398,9 +398,9 @@ function! ReplaceCurrentWordWithYank()
     execute '%s/\V'.escape(l:current_word, '/\').'/'.escape(l:yanked, '/\').''
 endfunction
 
+
 nnoremap <silent> ,rw :call ReplaceCurrentWordWithYank()<CR>
 " }}}1
-
 
 " -----------------------------------------------------------
 " test: 指定のJSONファイルからnameに一致するrulesを取得する {{{1

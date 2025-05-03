@@ -55,28 +55,28 @@ endfunction
 
 let g:coc_snippet_next = '<tab>'
 
-" nmap <silent> ,cd <Plug>(coc-definition)
-" nmap <silent> ,cy <Plug>(coc-type-definition)
-" nmap <silent> ,ci <Plug>(coc-implementation)
-" nmap <silent> ,cr <Plug>(coc-references)
-" nmap <silent> ,cn <Plug>(coc-rename)
-" nmap <silent> ,cf <Plug>(coc-format)
-" vmap <silent> ,cf <Plug>(coc-format)
-" nmap <silent> ,cR  <Plug>(coc-refactor)
-"
-" nnoremap <silent> ,cla  :<C-u>CocFzfList diagnostics<CR>
-" nnoremap <silent> ,clb  :<C-u>CocFzfList diagnostics --current-buf<CR>
-" nnoremap <silent> ,clc  :<C-u>CocFzfList commands<CR>
-" nnoremap <silent> ,cle  :<C-u>CocFzfList extensions<CR>
-" nnoremap <silent> ,cls  :<C-u>CocFzfList symbols<CR>
-" nnoremap <silent> ,clS  :<C-u>CocFzfList services<CR>
-" nnoremap <silent> ,clp  :<C-u>CocFzfListResume<CR>
-" nmap <silent> ,caA <Plug>(coc-codeaction)
-" nmap <silent> ,cal <Plug>(coc-codeaction-line)
-" xmap <silent> ,cas <Plug>(coc-codeaction-selected)
-" nmap <silent> ,caa <Plug>(coc-codeaction-cursor)
-"
-" autocmd FileType php,typescript,python,markdown,javascript,vim nnoremap <silent> ,co  :<C-u>CocFzfList outline<CR>
+nmap <silent> ,cd <Plug>(coc-definition)
+nmap <silent> ,cy <Plug>(coc-type-definition)
+nmap <silent> ,ci <Plug>(coc-implementation)
+nmap <silent> ,cr <Plug>(coc-references)
+nmap <silent> ,cn <Plug>(coc-rename)
+nmap <silent> ,cf <Plug>(coc-format)
+vmap <silent> ,cf <Plug>(coc-format)
+nmap <silent> ,cR  <Plug>(coc-refactor)
+
+nnoremap <silent> ,cla  :<C-u>CocFzfList diagnostics<CR>
+nnoremap <silent> ,clb  :<C-u>CocFzfList diagnostics --current-buf<CR>
+nnoremap <silent> ,clc  :<C-u>CocFzfList commands<CR>
+nnoremap <silent> ,cle  :<C-u>CocFzfList extensions<CR>
+nnoremap <silent> ,cls  :<C-u>CocFzfList symbols<CR>
+nnoremap <silent> ,clS  :<C-u>CocFzfList services<CR>
+nnoremap <silent> ,clp  :<C-u>CocFzfListResume<CR>
+nmap <silent> ,caA <Plug>(coc-codeaction)
+nmap <silent> ,cal <Plug>(coc-codeaction-line)
+xmap <silent> ,cas <Plug>(coc-codeaction-selected)
+nmap <silent> ,caa <Plug>(coc-codeaction-cursor)
+
+autocmd FileType php,typescript,python,markdown,javascript,vim nnoremap <silent> ,co  :<C-u>CocFzfList outline<CR>
 
 " Use K to show documentation in preview window
 nnoremap <silent> ,ck :call <SID>show_documentation()<CR>

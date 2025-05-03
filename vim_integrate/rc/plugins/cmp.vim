@@ -1,10 +1,15 @@
-autocmd FileType sql,typescript,php,ddu-ff,json,vim lua require('cmp').setup.buffer {
-\   enabled = true
-\ }
+if g:IsMacNeovimInWork()
+  autocmd FileType sql,typescript,php,ddu-ff,json,vim lua require('cmp').setup.buffer {
+  \   enabled = true
+  \ }
+  let g:your_cmp_disable_enable_toggle = v:false
+else
+  let g:your_cmp_disable_enable_toggle = v:true
+endif
 
-" let g:your_cmp_disable_enable_toggle = v:false
 
 lua << EOF
+
 
 local on_attach = function(client, bufnr)
   local bufopts = { noremap=true, silent=true, buffer=bufnr }
@@ -24,9 +29,9 @@ local cmp = require'cmp'
 
 cmp.setup({
   filetypes = { "markdown", "changelog", "vim" },
-  -- enabled = function()
-  --   return vim.g.your_cmp_disable_enable_toggle
-  -- end,
+  enabled = function()
+    return vim.g.your_cmp_disable_enable_toggle
+  end,
   snippet = {
     expand = function(_)
     end,
@@ -61,11 +66,6 @@ cmp.setup({
     completion = cmp.config.window.bordered(),
     documentation = cmp.config.window.bordered(),
   },
-  sources = {
-    { name = 'buffer' },
-    { name = 'buffer-lines' },
-    { name = 'path' },
-  },
   method = "getCompletionsCycling",
   matching = {
     disallow_fuzzy_matching = false,
@@ -83,7 +83,7 @@ cmp.setup({
      fields = {'menu', 'abbr', 'kind'},
      format = function(entry, item)
          local menu_icon ={
-             buffer = '💾',
+             buffer = '🦋',
              path = '📂',
              cmdline = '🔍',
              cmd_yanky = '📋',
@@ -192,6 +192,47 @@ cmp.setup.filetype('typescript', {
   }),
 })
 
+cmp.setup.filetype('python', {
+  sources = cmp.config.sources({
+    { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+  },
+  {
+    { name = "nvim_lsp" },
+    { name = 'path' },
+    { name = 'buffer',
+      option = {
+        get_bufnrs = function()
+        return vim.api.nvim_list_bufs()
+        end
+      },
+    },
+    { name = 'neosnippet', keyword_length = 3 },
+    { name = 'context_nvim' }
+  }),
+})
+
+
+
+cmp.setup.filetype('php', {
+  sources = cmp.config.sources({
+    { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+  },
+  {
+    { name = "nvim_lsp" },
+    { name = 'path' },
+    { name = 'buffer',
+      option = {
+        get_bufnrs = function()
+        return vim.api.nvim_list_bufs()
+        end
+      },
+    },
+    { name = 'neosnippet', keyword_length = 3 },
+    { name = 'context_nvim' }
+  }),
+})
+
+
 
 
 cmp.setup.filetype('copilot-chat', {
@@ -223,7 +264,7 @@ cmp.setup.filetype('changelog', {
       { name = 'neosnippet', keyword_length = 3 },
       {
 					name = 'buffer',
-					keyword_length = 3,
+					keyword_length = 2,
           option = {
             get_bufnrs = function()
               return vim.api.nvim_list_bufs()
@@ -286,7 +327,7 @@ cmp.setup.cmdline(':', {
     { name = 'path' },
     { 
 				name = 'cmdline',
-				keyword_length = 1,
+				keyword_length = 3,
 				option = {
 					ignore_cmds = { 'Man', '!', 'w', 'wa', 'wqa', 'wq', 'qall', 'bd', 'bd!' }
 				}

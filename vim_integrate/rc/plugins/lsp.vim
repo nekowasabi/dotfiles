@@ -1,53 +1,137 @@
 " lsp_saga
-function! s:nvim_lsp_show_documentation() abort
-  if index(['vim', 'help'], &filetype) >= 0
-    execute 'h ' . expand('<cword>')
-  else
-    lua require('lspsaga.hover').render_hover_doc()
-  endif
-endfunction
+if !g:IsMacNeovimInWork()
+  nnoremap <silent> ,ck <cmd>Lspsaga hover_doc<CR>
+  nnoremap <silent> ,cf <cmd>Lspsaga code_action<CR>
+  nnoremap <silent> ,cr <cmd>Lspsaga rename<CR>
+  nnoremap <silent> ,cd <cmd>Lspsaga goto_definition<CR>
+  nnoremap <silent> ,co <cmd>Telescope lsp_document_symbols<CR>
+  nnoremap <silent> ,cO <cmd>Lspsaga outline<CR>
+  nnoremap <silent> ,ca <cmd>Lspsaga code_action<CR>
+endif
 
-" nnoremap <silent> <leader>ck <cmd>call <SID>nvim_lsp_show_documentation()<CR>
-" nnoremap <silent> <leader>cf <cmd>Lspsaga code_action<CR>
-" nnoremap <silent> <leader>cr <cmd>Lspsaga rename<CR>
+
+" マッピングの定義 (例: Normalモードで gd)
+" 必要であれば、ファイルタイプに基づいてマッピングを有効化してください
+" 例: autocmd FileType typescript,javascript nnoremap <buffer> <silent> gd :DenolsJump<CR>
 
 lua << EOF
 
-require("mason").setup()
--- require("mason-lspconfig").setup()
--- require("mason-lspconfig").setup_handlers {
---   function (server_name) -- default handler (optional)
---     require("lspconfig")[server_name].setup {
---       on_attach = on_attach, --keyバインドなどの設定を登録
---       capabilities = capabilities, --cmpを連携
---     }
---   end,
--- }
+-- vim.keymap.set('n', ',gd', vim.lsp.buf.definition, { desc = 'Go to definition' })
 
+local lspconfig = require('lspconfig')
+local util = require('lspconfig.util')
+
+-- Denoプロジェクト判定
+local deno_root_files = {
+  'deno.json',
+  'deno.jsonc',
+}
+
+-- Deno用LSP
+lspconfig.denols.setup{
+  root_dir = util.root_pattern(unpack(deno_root_files)),
+  init_options = {
+    enable = true,
+    lint = true,
+    unstable = true,
+  }
+}
+
+require("mason").setup()
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 require("mason-lspconfig").setup_handlers({
 	function(server_name)
-		-- require("lspconfig")[server_name].setup({})
-		vim.lsp.enable({server_name})
-	end,
+    capabilities = capabilities
+    vim.lsp.enable(server_name)
+  end,
 })
 
--- require('lspsaga').setup({
--- error_sign = " ",
--- warn_sign  = " ",
--- hint_sign  = " ",
--- infor_sign = " ",
--- })
+vim.lsp.set_log_level("trace")
 
--- keyboard shortcut
-vim.keymap.set('n', ',cf', '<cmd>lua vim.lsp.buf.formatting()<CR>')
-vim.keymap.set('n', ',cr', '<cmd>lua vim.lsp.buf.references()<CR>')
-vim.keymap.set('n', ',cd', '<cmd>lua vim.lsp.buf.definition()<CR>')
-vim.keymap.set('n', ',cD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
-vim.keymap.set('n', ',ci', '<cmd>lua vim.lsp.buf.implementation()<CR>')
-vim.keymap.set('n', ',ct', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-vim.keymap.set('n', ',cn', '<cmd>lua vim.lsp.buf.rename()<CR>')
-vim.keymap.set('n', ',ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-vim.keymap.set('n', ',ce', '<cmd>lua vim.diagnostic.open_float()<CR>')
-vim.keymap.set('n', ',c]', '<cmd>lua vim.diagnostic.goto_next()<CR>')
-vim.keymap.set('n', ',c[', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
+require('lspconfig').denols.setup {
+  settings = {
+    deno = {
+      enable = true,
+      suggest = {
+        imports = {
+          hosts = {
+            ["https://deno.land"] = true
+          }
+        }
+      },
+      inlayHints = {
+        parameterNames = true,
+        parameterTypes = true,
+        variableTypes = true,
+        functionReturnTypes = true,
+        enumMemberValues = true,
+        propertyDeclarationTypes = true,
+        parameterNamesSuppressWhenArgumentMatchesName = true,
+      },
+      unstable = true,
+      codeLens = {
+        implementations = true,
+        references = true,
+      },
+      cache = true,
+      import_map = true,
+    },
+  },
+  root_dir = require('lspconfig').util.root_pattern("deno.json", "deno.jsonc", "import_map.json"),
+}
+
+require('lspsaga').setup({
+  symbol_in_winbar = {
+    enable = false,
+    separator = " > ",
+    show_file = true,
+    folder_level = 2,
+    click_support = false,
+  },
+})
+
+local function fetch_deno_content(bufnr, uri)
+  local client = vim.lsp.get_clients({ name = 'denols' })[1]
+  if not client then
+    vim.notify('denols client not found', vim.log.levels.ERROR)
+    return false
+  end
+
+  local response = client.request_sync('deno/virtualTextDocument', {
+    textDocument = { uri = uri },
+  }, 2000, 0)
+
+  if not response or type(response.result) ~= 'string' then
+    vim.notify('Failed to fetch content', vim.log.levels.ERROR)
+    return false
+  end
+
+  vim.api.nvim_set_option_value('modifiable', true, { buf = bufnr })
+  local lines = vim.split(response.result, '\n')
+  vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, lines)
+  vim.api.nvim_set_option_value('modifiable', false, { buf = bufnr })
+  return true
+end
+
+vim.api.nvim_create_autocmd({ 'BufReadCmd' }, {
+  pattern = { 'deno:/*' },
+  callback = function(params)
+    local bufnr = params.buf
+    local uri = params.match
+
+    if fetch_deno_content(bufnr, uri) then
+      vim.api.nvim_buf_set_name(bufnr, uri)
+      vim.api.nvim_set_option_value('readonly', true, { buf = bufnr })
+      vim.api.nvim_set_option_value('modified', false, { buf = bufnr })
+      vim.api.nvim_set_option_value('modifiable', false, { buf = bufnr })
+      vim.api.nvim_set_option_value('filetype', 'typescript', { buf = bufnr })
+
+      local client = vim.lsp.get_clients({ name = 'denols' })[1]
+      if client then
+        vim.lsp.buf_attach_client(bufnr, client.id)
+      end
+    end
+  end,
+})
+
 EOF

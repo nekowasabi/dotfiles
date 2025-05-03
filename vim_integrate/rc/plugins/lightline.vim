@@ -108,7 +108,16 @@ function! NearestMethodOrFunction()
   endif
 
   if &filetype == 'vim' || &filetype == 'php' || &filetype == 'typescript' || &filetype == 'javascript'
-    return strpart(execute('lua print(require"nvim-navic".get_location())'), 1)
+    let l:raw_location = strpart(execute("lua print(require('lspsaga.symbol.winbar').get_bar())"), 1)
+    " %#...# と %*% パターン、および単独の * を削除
+    let l:cleaned_location = substitute(l:raw_location, '%#[^#]*#', '', 'g')
+    let l:cleaned_location = substitute(l:cleaned_location, '%*%', '', 'g')
+    let l:cleaned_location = substitute(l:cleaned_location, '\*', '', 'g')
+    " 残った区切り文字やアイコン周りのスペースを整形
+    let l:cleaned_location = substitute(l:cleaned_location, '\s*>\s*', ' > ', 'g') " 区切り文字 > の前後にスペースを1つ確保
+    let l:cleaned_location = substitute(l:cleaned_location, '^\s*\|\s*$', '', 'g') " 先頭と末尾のスペースを削除
+    let l:cleaned_location = substitute(l:cleaned_location, '\s\+', ' ', 'g') " 連続するスペースを1つに
+    return l:cleaned_location
   endif
   return ' :No Function'
 endfunction
@@ -148,7 +157,9 @@ endfunction
 " you can add the following line to your vimrc
 autocmd CursorHold * call lightline#update()
 autocmd InsertEnter,InsertLeave,CursorMoved,CursorHold * call lightline#enable()
-autocmd User CocStatusChange redraws
+autocmd InsertEnter,InsertLeave,CursorMoved,CursorHold * call lightline#update()
+autocmd InsertEnter,InsertLeave,CursorMoved,CursorHold * redraw
+" autocmd User CocStatusChange redraws
 
 " ファイルサイズを計算して返す関数
 " @return {string} ファイルサイズを表す文字列
@@ -198,7 +209,7 @@ function s:count_newline()
 endfunction
 
 augroup my-glyph-palette
-  autocmd! *
+  autocmd!
   " autocmd FileType php,vim,typescript call glyph_palette#apply()
   autocmd VimEnter,WinEnter,BufEnter * call glyph_palette#apply()
 augroup END

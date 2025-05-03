@@ -95,8 +95,6 @@ nnoremap gD <CMD>Glance definitions<CR>
 nnoremap gY <CMD>Glance type_definitions<CR>
 nnoremap gI <CMD>Glance implementations<CR>
 
-" Augment
-let g:augment_workspace_folders = ['~/.config/nvim/plugged/aider.vim/', '~/repos/laravel/']
 
 " keybind
 noremap M %
@@ -124,6 +122,7 @@ nnoremap <Leader>: :
 " lua
 
 lua << EOF
+
 
 require('goose').setup({
   keymap = {

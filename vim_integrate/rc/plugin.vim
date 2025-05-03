@@ -65,7 +65,7 @@ Plug 'Robitx/gp.nvim'
 Plug 'ravitemer/mcphub.nvim', {'do': 'npm install -g mcp-hub@latest'}
 Plug 'azorng/goose.nvim'
 Plug 'nekowasabi/cross-channel.nvim'
-Plug 'augmentcode/augment.vim'
+" Plug 'augmentcode/augment.vim'
 Plug 'atusy/aibou.nvim'
 Plug 'olimorris/codecompanion.nvim'
 " Plug 'frankroeder/parrot.nvim'
@@ -249,6 +249,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'folke/snacks.nvim'
   Plug 'SmiteshP/nvim-navic'
   Plug 'nekowasabi/vim-syntax-tyranoscript'
+  Plug 'nvimdev/lspsaga.nvim'
 
   call g:SetDdu()
 
@@ -257,7 +258,6 @@ if g:IsMacNeovim() || g:IsWsl()
   elseif g:IsMacNeovim()
     " call g:SetCoc()
     Plug 'abzcoding/lsp_lines.nvim'
-    Plug 'augmentcode/augment.vim'
   elseif g:IsWsl()
     Plug 'Shougo/ddc-source-lsp'
     call g:SetCoc()
@@ -342,9 +342,13 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/previm.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot-chat.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/codecompanion.vim'
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cmp.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
+endif
+
+
+if g:IsMacNeovimInWork()
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
 endif
 " }}}1
 
