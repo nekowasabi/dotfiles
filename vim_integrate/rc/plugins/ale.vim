@@ -47,20 +47,10 @@ let g:ale_fixers = {
     \   'python': ['autopep8', 'black', 'isort'],
     \}
 
-" let g:ale_python_autopep8_executable = '/home/linuxbrew/.linuxbrew/bin/python3'
-" let g:ale_python_autopep8_options = '-m autopep8'
+" pip install -U flake8 flake8-import-order autopep8 black isortのインストールが必要
 let g:ale_python_autopep8_use_global = 1
-
-" let g:ale_python_isort_executable = '/home/linuxbrew/.linuxbrew/bin/python3'
-" let g:ale_python_isort_options = '-m isort'
 let g:ale_python_isort_use_global = 1
-
-" let g:ale_python_black_executable = '/home/linuxbrew/.linuxbrew/bin/python3'
 let g:ale_python_black_use_global = 1
-" let g:ale_python_black_options = '-m black'
-
-" let g:ale_python_flake8_executable = '/home/linuxbrew/.linuxbrew/bin/python3'
-" let g:ale_python_flake8_options = '-m flake8'
 let g:ale_python_flake8_use_global = 1
 
 " php
