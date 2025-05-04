@@ -32,6 +32,11 @@ cmp.setup({
   enabled = function()
     return vim.g.your_cmp_disable_enable_toggle
   end,
+  performance = {
+    debounce = 100,
+    throttle = 100,
+    fetching_timeout = 1,
+  },
   snippet = {
     expand = function(_)
     end,
