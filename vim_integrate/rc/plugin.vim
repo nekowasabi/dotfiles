@@ -254,7 +254,7 @@ if g:IsMacNeovim() || g:IsWsl()
 
   call g:SetDdu()
 
-  if g:IsMacNeovimInWork() || g:IsWsl()
+  if g:IsMacNeovimInWork()
     call g:SetCoc()
   elseif g:IsMacNeovim()
     " call g:SetCoc()
