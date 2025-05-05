@@ -10,21 +10,6 @@ endif
 
 lua << EOF
 
-
-local on_attach = function(client, bufnr)
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', ',ck', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', ',cd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', ',ci', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', ',cr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', ',cr', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', ',cD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', ',ci', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', ',ct', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', ',ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', ',ce', vim.diagnostic.open_float, bufopts)
-end
-local lspkind = require('lspkind')
 local cmp = require'cmp'
 
 local function get_buffer_source_bufnrs()
@@ -80,7 +65,7 @@ cmp.setup({
   }),
   window = {
     completion = cmp.config.window.bordered(),
-    -- documentation = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
   },
   view = {
     entries = {
@@ -99,7 +84,6 @@ cmp.setup({
      { name = 'buffer', keyword_length = 4 },
      { name = "neosnippet", keyword_length = 3 },
      { name = "git" },
-     { name = 'nvim_lsp_signature_help' },
    },
    formatting = {
      fields = {'menu', 'abbr', 'kind'},
@@ -192,7 +176,6 @@ cmp.setup.filetype({'vim', 'typescript', 'python'}, {
     },
     { name = 'neosnippet', keyword_length = 3 },
     { name = 'context_nvim' },
-    { name = 'nvim_lsp_signature_help' },
   }),
   window = {
     completion = cmp.config.window.bordered(),

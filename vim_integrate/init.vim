@@ -84,7 +84,7 @@ set t_8b=^[[48;2;%lu;%lu;%lum
 " denopsテスト用コメント
 let g:denops#debug = 0
 
-let g:denops_server_addr = '127.0.0.1:32129'
+" let g:denops_server_addr = '127.0.0.1:32129'
 
 " url-highlight
 let g:highlighturl_guifg = '#4aa3ff'
