@@ -27,6 +27,17 @@ end
 local lspkind = require('lspkind')
 local cmp = require'cmp'
 
+local function get_buffer_source_bufnrs()
+  local buf = vim.api.nvim_get_current_buf()
+  local byte_size = vim.api.nvim_buf_get_offset(buf, vim.api.nvim_buf_line_count(buf))
+  if byte_size > 1024 * 1024 then
+  -- 現在のバッファのみを返す
+    return { buf }
+  end
+  -- 1MB を超える場合は全バッファを返す
+    return vim.api.nvim_list_bufs()
+end
+
 cmp.setup({
   filetypes = { "markdown", "changelog", "vim" },
   enabled = function()
@@ -46,8 +57,8 @@ cmp.setup({
     ['<C-d>'] = cmp.mapping.scroll_docs(4),
     ["<C-p>"] = cmp.mapping.select_prev_item(),
     ["<C-n>"] = cmp.mapping.select_next_item(),
-    -- ["<S-Tab>"] = cmp.mapping.select_prev_item(),
-    -- ["<Tab>"] = cmp.mapping.select_next_item(),
+    ["<S-Tab>"] = cmp.mapping.select_prev_item(),
+    ["<Tab>"] = cmp.mapping.select_next_item(),
     ['<C-e>'] = cmp.mapping.abort(),
     -- ['<C-s>'] = function(fallback)
     --       if cmp.visible() then
@@ -209,9 +220,8 @@ cmp.setup.filetype('changelog', {
 					name = 'buffer',
 					keyword_length = 2,
           option = {
-            get_bufnrs = function()
-              return vim.api.nvim_list_bufs()
-            end
+            get_bufnrs = get_buffer_source_bufnrs,
+            indexing_interval = 1000,
           },
       },
   }),
@@ -275,7 +285,24 @@ cmp.setup.cmdline(':', {
 					ignore_cmds = { 'Man', '!', 'w', 'wa', 'wqa', 'wq', 'qall', 'bd', 'bd!' }
 				}
 		},
+    { name = "cmdline_history" },
+    buffer_source,
   })
+})
+
+cmp.setup.cmdline("/", {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+  buffer_source,
+  }, {
+  }),
+})
+cmp.setup.cmdline("?", {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+  buffer_source,
+  }, {
+  }),
 })
 
 -- cmp git

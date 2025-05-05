@@ -219,7 +219,6 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'monaqa/dial.nvim'
   Plug 'stevearc/dressing.nvim'
   Plug 'HakonHarnes/img-clip.nvim'
-  " Plug 'MeanderingProgrammer/render-markdown.nvim', {'commit': 'a2c2493c21cf61e5554ee8bc83da75bd695921da'}
   Plug 'MeanderingProgrammer/render-markdown.nvim'
   Plug 'mistweaverco/kulala.nvim'
   Plug 'gbprod/yanky.nvim'
@@ -239,6 +238,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'hrsh7th/cmp-buffer'
   Plug 'hrsh7th/cmp-path'
   Plug 'hrsh7th/cmp-cmdline'
+  Plug 'dmitmel/cmp-cmdline-history'
   Plug 'petertriho/cmp-git'
   Plug 'hrsh7th/cmp-emoji'
   Plug 'hrsh7th/cmp-calc'
@@ -261,7 +261,6 @@ if g:IsMacNeovim() || g:IsWsl()
     Plug 'abzcoding/lsp_lines.nvim'
   elseif g:IsWsl()
     Plug 'Shougo/ddc-source-lsp'
-    call g:SetCoc()
   elseif g:IsMacNeovimInWezterm()
     call g:SetCoc()
   else
