@@ -285,24 +285,7 @@ cmp.setup.cmdline(':', {
 					ignore_cmds = { 'Man', '!', 'w', 'wa', 'wqa', 'wq', 'qall', 'bd', 'bd!' }
 				}
 		},
-    { name = "cmdline_history" },
-    buffer_source,
   })
-})
-
-cmp.setup.cmdline("/", {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources({
-  buffer_source,
-  }, {
-  }),
-})
-cmp.setup.cmdline("?", {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources({
-  buffer_source,
-  }, {
-  }),
 })
 
 -- cmp git
