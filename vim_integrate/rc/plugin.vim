@@ -246,6 +246,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'amarz45/nvim-cmp-buffer-lines'
   Plug 'chrisgrieser/cmp_yanky'
   Plug 'notomo/cmp-neosnippet'
+  Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
   Plug 'onsails/lspkind.nvim'
   Plug 'folke/snacks.nvim'
   Plug 'SmiteshP/nvim-navic'

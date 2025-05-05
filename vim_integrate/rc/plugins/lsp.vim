@@ -139,4 +139,6 @@ vim.api.nvim_create_autocmd({ 'BufReadCmd' }, {
   end,
 })
 
+vim.lsp.diagnostics_trigger_update = true
+
 EOF

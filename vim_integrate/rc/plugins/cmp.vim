@@ -80,7 +80,12 @@ cmp.setup({
   }),
   window = {
     completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
+    -- documentation = cmp.config.window.bordered(),
+  },
+  view = {
+    entries = {
+      follow_cursor = true,
+    }
   },
   method = "getCompletionsCycling",
   matching = {
@@ -94,6 +99,7 @@ cmp.setup({
      { name = 'buffer', keyword_length = 4 },
      { name = "neosnippet", keyword_length = 3 },
      { name = "git" },
+     { name = 'nvim_lsp_signature_help' },
    },
    formatting = {
      fields = {'menu', 'abbr', 'kind'},
@@ -185,8 +191,19 @@ cmp.setup.filetype({'vim', 'typescript', 'python'}, {
       },
     },
     { name = 'neosnippet', keyword_length = 3 },
-    { name = 'context_nvim' }
+    { name = 'context_nvim' },
+    { name = 'nvim_lsp_signature_help' },
   }),
+  window = {
+    completion = cmp.config.window.bordered(),
+    -- documentation = cmp.config.window.bordered(),
+  },
+  view = {
+    entries = {
+      follow_cursor = true,
+    }
+  },
+
 })
 
 cmp.setup.filetype('copilot-chat', {
