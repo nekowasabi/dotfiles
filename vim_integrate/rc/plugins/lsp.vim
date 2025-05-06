@@ -9,7 +9,6 @@ if !g:IsMacNeovimInWork()
   nnoremap <silent> ,ca <cmd>Lspsaga code_action<CR>
 endif
 
-
 " マッピングの定義 (例: Normalモードで gd)
 " 必要であれば、ファイルタイプに基づいてマッピングを有効化してください
 " 例: autocmd FileType typescript,javascript nnoremap <buffer> <silent> gd :DenolsJump<CR>
@@ -42,12 +41,9 @@ local capabilities = vim.tbl_deep_extend("force",
 )
 capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
 
-require("mason-lspconfig").setup_handlers({
-	function(server_name)
-    capabilities = capabilities
-    vim.lsp.enable(server_name)
-  end,
-})
+require("mason-lspconfig").setup {
+    automatic_enable = true
+}
 
 vim.lsp.set_log_level("trace")
 
