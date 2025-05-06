@@ -11,6 +11,7 @@ let g:aider_floatwin_style = 'minimal'
 if g:IsMacNeovimInWezterm()
   let g:convension_path = "~/.config/nvim/plugged/aider.vim/CONVENTION.md"
   let g:init_load_command = "~/.config/nvim/plugged/aider.vim/init.md"
+  let g:dev_plan_path = "~/.config/nvim/plugged/aider.vim/aidoc/dev_plan.md"
 endif
 if g:IsWsl()
   let g:convension_path = "~/.config/nvim/plugged/aider.vim/CONVENTION.md"
@@ -19,7 +20,7 @@ endif
 if g:IsMacNeovimInWork()
   let g:convension_path = $BACKEND_LARAVEL_DIR . "/laravel/CONVENTION.md"
   let g:init_load_command = $BACKEND_LARAVEL_DIR . "/laravel/init.md"
-  let g:dev_plan_path = $BACKEND_LARAVEL_DIR . "/aidoc/dev_plan.aider"
+  let g:dev_plan_path = $BACKEND_LARAVEL_DIR . "/aidoc/dev_plan.md"
 endif
 
 let g:aider_process_number = ''
