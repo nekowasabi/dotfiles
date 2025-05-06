@@ -398,7 +398,9 @@ process}
   " dev_plan.md以外を/read-onlyで開く
   execute "AiderSendPromptByCommandline /drop "
   execute "AiderProjectFiles ". g:aider_switch_rule
-  execute "AiderSendPromptByCommandline /load ". g:dev_plan_path
+  call system("git add ". g:dev_plan_path)
+  execute "AiderSendPromptByCommandline /add aidoc/dev_plan.md"
+
 
   " プロセス実行
   let process_num = empty(g:aider_process_number) ? input('Process number: ') : input('Process number: ', g:aider_process_number)
