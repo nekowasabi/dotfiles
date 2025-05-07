@@ -123,6 +123,32 @@ nnoremap <Leader>: :
 
 lua << EOF
 
+function get_git_diff()
+  local repo_path = vim.fn.expand("~/repos/changelog")
+  local command = string.format("git -C %s log -p -5", repo_path)
+  local diff_output = vim.fn.system(command)
+
+  if vim.v.shell_error == 0 and diff_output and diff_output ~= "" then
+    local lines_to_insert = vim.split(diff_output, "\n")
+    local cursor_pos = vim.api.nvim_win_get_cursor(0)
+    vim.api.nvim_buf_set_lines(0, cursor_pos[1] - 1, cursor_pos[1] - 1, false, lines_to_insert)
+    print("Git diff inserted at cursor.")
+  else
+    local error_message = "Failed to get git diff from " .. repo_path .. "."
+    if vim.v.shell_error ~= 0 then
+      error_message = error_message .. " Shell error code: " .. vim.v.shell_error
+    end
+    if diff_output and diff_output ~= "" then
+       error_message = error_message .. "\nOutput:\n" .. diff_output
+    elseif not diff_output or diff_output == "" then
+       error_message = error_message .. " No output from git command."
+    end
+    local error_lines = vim.split(error_message, "\n")
+    local cursor_pos = vim.api.nvim_win_get_cursor(0)
+    vim.api.nvim_buf_set_lines(0, cursor_pos[1] - 1, cursor_pos[1] - 1, false, error_lines)
+    print("Error message inserted at cursor.")
+  end
+end
 
 require('goose').setup({
   keymap = {
@@ -224,6 +250,9 @@ require("mcphub").setup({
 require('Comment').setup()
 
 EOF
+
+" Lua関数get_git_diffをVimコマンドとして呼び出せるようにする
+command! GetGitDiff lua get_git_diff()
 
 " END
 " i
