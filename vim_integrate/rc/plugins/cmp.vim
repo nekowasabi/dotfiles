@@ -160,7 +160,7 @@ cmp.setup.filetype('markdown', {
   })
 })
 
-cmp.setup.filetype({'vim', 'typescript', 'python'}, {
+cmp.setup.filetype({'vim', 'typescript', 'python', 'lua'}, {
   sources = cmp.config.sources({
     { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
   },

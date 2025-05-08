@@ -123,6 +123,37 @@ nnoremap <Leader>: :
 
 lua << EOF
 
+require("nudge-two-hats").setup({
+  -- Prompt configuration
+  system_prompt = "Give advice about this code change, focusing on which hat (refactoring or feature) the programmer is wearing.",
+
+  -- File type specific prompts
+  filetype_prompts = {
+    -- Text/writing related filetypes
+    markdown = "Give advice about this writing, focusing on clarity and structure.",
+    text = "Give advice about this writing, focusing on clarity and structure.",
+
+    -- Programming languages (examples)
+    lua = "Give advice about this Lua code change, focusing on which hat (refactoring or feature) the programmer is wearing.",
+    python = "Give advice about this Python code change, focusing on which hat (refactoring or feature) the programmer is wearing.",
+  },
+
+  -- Message length configuration
+  message_length = 200, -- Default length of the advice message
+  length_type = "characters", -- Can be "characters" (for Japanese) or "words" (for English)
+
+  -- language configuration
+  output_language = "ja", -- Can be "auto", "en" (English), or "ja" (Japanese)
+  translate_messages = true, -- Whether to translate messages to the specified language
+
+  -- Timing configuration
+  execution_delay = 60000, -- Delay in milliseconds (1 minute)
+  min_interval = 60, -- Minimum interval between API calls in seconds
+
+  -- Debug configuration
+  debug_mode = true, -- When true, prints nudge text to Vim's 
+})
+
 function get_git_diff()
   local repo_path = vim.fn.expand("~/repos/changelog")
   local command = string.format("git -C %s log -p -5", repo_path)
