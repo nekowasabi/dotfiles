@@ -115,8 +115,10 @@ let g:crosschannel_x_access_token = $X_ACCESS_TOKEN
 let g:crosschannel_x_access_token_secret = $X_ACCESS_TOKEN_SECRET
 let g:crosschannel_x_bearer_token = $X_BEARER_TOKEN
 
-
 nnoremap <Leader>: :
+
+let g:autosave_enabled = v:true
+let g:autosave_disable_inside_paths = [] " A list of paths inside which autosave should be disabled. 
 
 " -----------------------------------------------------------
 " lua
@@ -130,8 +132,27 @@ require("nudge-two-hats").setup({
   -- File type specific prompts
   filetype_prompts = {
     -- Text/writing related filetypes
-    markdown = "Give advice about this writing, focusing on clarity and structure.",
-    text = "Give advice about this writing, focusing on clarity and structure.",
+    markdown = {
+      prompt = "Give advice about this writing, focusing on clarity and structure.",
+      role = "Cognitive behavioral therapy specialist",
+      direction = "Guide towards clearer and more structured writing",
+      emotion = "Empathetic and understanding",
+      tone = "Supportive and encouraging but direct",
+    },
+    text = {
+      purpose = "集中が途切れないように、ナッジによってさりげなく現在の行動を促す",
+			hats = {
+				"law",
+				"chaos",
+				"neutral",
+				"trickster",
+				},
+      prompt = "テキスト内容を題材として、アドバイスしてください。前置きなしで、端的にメッセージのみを出力してください。",
+      role = "トリックスターであり、常に民衆の意表を突く発言のみを行う",
+      direction = "意味深なアドバイスを行う",
+      emotion = "Empathetic and understanding",
+      tone = "前置きなしで、直接的に",
+    },
 
     -- Programming languages (examples)
     lua = "Give advice about this Lua code change, focusing on which hat (refactoring or feature) the programmer is wearing.",
@@ -139,7 +160,7 @@ require("nudge-two-hats").setup({
   },
 
   -- Message length configuration
-  message_length = 200, -- Default length of the advice message
+  message_length = 100, -- Default length of the advice message
   length_type = "characters", -- Can be "characters" (for Japanese) or "words" (for English)
 
   -- language configuration
@@ -147,11 +168,18 @@ require("nudge-two-hats").setup({
   translate_messages = true, -- Whether to translate messages to the specified language
 
   -- Timing configuration
-  execution_delay = 60000, -- Delay in milliseconds (1 minute)
-  min_interval = 60, -- Minimum interval between API calls in seconds
+  execution_delay = 600000, -- Delay in milliseconds (1 minute)
+  min_interval= 3, -- Minimum interval between API calls in seconds
+
+	virtual_text = {
+		idle_time = 1, -- Time in minutes before showing virtual text
+    cursor_idle_delay = 1, -- Time in minutes before setting timers after cursor stops
+		text_color = "#000000", -- Text color in hex format
+		background_color = "#FFFFFF", -- Background color in hex format
+  },
 
   -- Debug configuration
-  debug_mode = true, -- When true, prints nudge text to Vim's 
+  debug_mode = false, -- When true, prints nudge text to Vim's 
 })
 
 function get_git_diff()

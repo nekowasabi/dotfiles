@@ -57,6 +57,7 @@ Plug 'atusy/budouxify.nvim'
 Plug 'atusy/budoux.lua'
 Plug 'dnlhc/glance.nvim'
 Plug 'yuki-yano/smart-i.nvim'
+Plug 'brianhuster/autosave.nvim'
 
 " AI
 Plug 'github/copilot.vim'
