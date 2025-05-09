@@ -98,7 +98,6 @@ nnoremap gI <CMD>Glance implementations<CR>
 " keybind
 nnoremap M %
 
-
 " testing
 let g:crosschannel_bluesky_id = 'takets.bsky.social'
 let g:crosschannel_bluesky_password = $DSKY_PASSWORD
@@ -119,6 +118,13 @@ nnoremap <Leader>: :
 
 let g:autosave_enabled = v:true
 let g:autosave_disable_inside_paths = [] " A list of paths inside which autosave should be disabled. 
+
+" " 特定のファイルを開いたときにコマンドを実行
+" augroup MyFileOpenHooks
+"   autocmd!
+"   autocmd BufWinEnter ++once /Users/takets/repos/changelog/tenTask.txt NudgeTwoHatsStart /Users/takets/repos/changelog/tenTask.txt
+"   autocmd BufWinEnter ++once /Users/takets/repos/changelog/tenTask.txt NudgeTwoHatsStart /Users/takets/repos/changelog/tenTask.txt
+" augroup END
 
 " -----------------------------------------------------------
 " lua
@@ -314,4 +320,5 @@ EOF
 command! GetGitDiff lua get_git_diff()
 
 " END
-" i
+
+
