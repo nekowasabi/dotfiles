@@ -26,7 +26,7 @@ end
 cmp.setup({
   filetypes = { "markdown", "changelog", "vim" },
   enabled = function()
-    return vim.g.your_cmp_disable_enable_toggle
+    return vim.b.your_cmp_disable_enable_toggle ~= false
   end,
   performance = {
     debounce = 100,

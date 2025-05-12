@@ -123,7 +123,7 @@ function! ToggleCocByFileType() abort
   if s:ShouldEnableCoc()
     let l:commands = [
           \ 'execute "silent! CocEnable"',
-          \ 'let g:your_cmp_disable_enable_toggle = v:false'
+          \ 'let b:your_cmp_disable_enable_toggle = v:false'
           \ ]
     let g:is_coc_enabled = v:true
   else
@@ -132,7 +132,7 @@ function! ToggleCocByFileType() abort
     endif
     let l:commands = [
           \ 'execute "silent! CocDisable"',
-          \ 'let g:your_cmp_disable_enable_toggle = v:true'
+          \ 'let b:your_cmp_disable_enable_toggle = v:true'
           \ ]
     let g:is_coc_enabled = v:false
   endif
