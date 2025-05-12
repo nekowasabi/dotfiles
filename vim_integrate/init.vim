@@ -116,15 +116,15 @@ let g:crosschannel_x_bearer_token = $X_BEARER_TOKEN
 
 nnoremap <Leader>: :
 
-let g:autosave_enabled = v:true
+let g:autosave_enabled = v:false
 let g:autosave_disable_inside_paths = [] " A list of paths inside which autosave should be disabled. 
 
-" " 特定のファイルを開いたときにコマンドを実行
-" augroup MyFileOpenHooks
-"   autocmd!
-"   autocmd BufWinEnter ++once /Users/takets/repos/changelog/tenTask.txt NudgeTwoHatsStart /Users/takets/repos/changelog/tenTask.txt
-"   autocmd BufWinEnter ++once /Users/takets/repos/changelog/tenTask.txt NudgeTwoHatsStart /Users/takets/repos/changelog/tenTask.txt
-" augroup END
+" 特定のファイルを開いたときにコマンドを実行
+augroup MyFileOpenHooks
+  autocmd!
+  autocmd BufWinEnter /Users/takets/repos/changelog/tenTask.txt NudgeTwoHatsStart /Users/takets/repos/changelog/tenTask.txt
+  autocmd BufWinEnter /Users/takets/repos/changelog/tenTask.txt NudgeTwoHatsStart /Users/takets/repos/changelog/tenTask.txt
+augroup END
 
 " -----------------------------------------------------------
 " lua
@@ -173,15 +173,15 @@ require("nudge-two-hats").setup({
   output_language = "ja", -- Can be "auto", "en" (English), or "ja" (Japanese)
   translate_messages = true, -- Whether to translate messages to the specified language
 
-  -- Timing configuration
-  execution_delay = 600000, -- Delay in milliseconds (1 minute)
-  min_interval= 3, -- Minimum interval between API calls in seconds
 
-	virtual_text = {
-		idle_time = 1, -- Time in minutes before showing virtual text
-    cursor_idle_delay = 1, -- Time in minutes before setting timers after cursor stops
-		text_color = "#000000", -- Text color in hex format
-		background_color = "#FFFFFF", -- Background color in hex format
+  -- Timing configuration
+  min_interval = 30, -- APIコール間の最小間隔（秒）
+
+  virtual_text = {
+    idle_time = 0.5, -- virtual text表示までの時間（分）
+    cursor_idle_delay = 0.1, -- カーソル停止後のタイマー設定までの時間（分）
+    text_color = "#000000",
+    background_color = "#FFFFFF",
   },
 
   -- Debug configuration
