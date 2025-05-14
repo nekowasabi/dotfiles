@@ -99,6 +99,9 @@ nnoremap gI <CMD>Glance implementations<CR>
 nnoremap M %
 
 " testing
+nnoremap <silent> z<CR> :ZenMode<CR>
+
+
 let g:crosschannel_bluesky_id = 'takets.bsky.social'
 let g:crosschannel_bluesky_password = $DSKY_PASSWORD
 
