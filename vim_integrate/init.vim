@@ -52,7 +52,6 @@ set runtimepath+=/usr/local/opt/fzf
 source ~/.config/nvim/rc/env.vim
 source ~/.config/nvim/rc/plugin.vim
 
-"exe "MasonUpdate"
 " }}}1
 
 " Easy autocmd {{{1
@@ -61,6 +60,8 @@ augroup MyVimrc
 augroup END
 
 command! -nargs=* AutoCmd autocmd MyVimrc <args>
+
+AutoCmd VimEnter * MasonUpdate
 " }}}1
 
 " colorscheme {{{1
@@ -90,10 +91,12 @@ let g:denops#debug = 0
 let g:highlighturl_guifg = '#4aa3ff'
 
 " glance
-nnoremap gR <CMD>Glance references<CR>
-nnoremap gD <CMD>Glance definitions<CR>
-nnoremap gY <CMD>Glance type_definitions<CR>
-nnoremap gI <CMD>Glance implementations<CR>
+if exists(':Glance')
+  nnoremap gR <CMD>Glance references<CR>
+  nnoremap gD <CMD>Glance definitions<CR>
+  nnoremap gY <CMD>Glance type_definitions<CR>
+  nnoremap gI <CMD>Glance implementations<CR>
+endif
 
 " keybind
 nnoremap M %
@@ -123,11 +126,17 @@ let g:autosave_enabled = v:false
 let g:autosave_disable_inside_paths = [] " A list of paths inside which autosave should be disabled. 
 
 " 特定のファイルを開いたときにコマンドを実行
-augroup MyFileOpenHooks
-  autocmd!
-  autocmd BufWinEnter /Users/takets/repos/changelog/tenTask.txt NudgeTwoHatsStart /Users/takets/repos/changelog/tenTask.txt
-  autocmd BufWinEnter /Users/takets/repos/changelog/tenTask.txt NudgeTwoHatsStart /Users/takets/repos/changelog/tenTask.txt
-augroup END
+function! s:StartNudgeForChangelogFiles() abort
+  if g:IsMacNeovimInWork()
+    execute 'NudgeTwoHatsStart /Users/ttakeda/repos/changelog/tenTask.txt'
+    execute 'NudgeTwoHatsStart /Users/ttakeda/repos/changelog/changelogmemo'
+  else
+    execute 'NudgeTwoHatsStart /Users/takets/repos/changelog/tenTask.txt'
+    execute 'NudgeTwoHatsStart /Users/takets/repos/changelog/changelogmemo'
+  endif
+endfunction
+
+command! StartChangelogNudge call s:StartNudgeForChangelogFiles()
 
 " -----------------------------------------------------------
 " lua
@@ -182,7 +191,7 @@ require("nudge-two-hats").setup({
 
   virtual_text = {
     idle_time = 0.5, -- virtual text表示までの時間（分）
-    cursor_idle_delay = 0.1, -- カーソル停止後のタイマー設定までの時間（分）
+    cursor_idle_delay = 5, -- カーソル停止後のタイマー設定までの時間（分）
     text_color = "#000000",
     background_color = "#FFFFFF",
   },
