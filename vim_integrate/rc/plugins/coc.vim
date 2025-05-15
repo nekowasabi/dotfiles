@@ -165,7 +165,7 @@ augroup END
 " Disable Coc for command line
 function! OpenCommandLineByCmp() abort
   execute "silent! CocDisable"
-  let g:your_cmp_disable_enable_toggle = v:true
+  let b:your_cmp_disable_enable_toggle = v:true
 endfunction
 
 nnoremap <Leader>: :

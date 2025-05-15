@@ -1,5 +1,5 @@
 if g:IsMacNeovimInWork()
-  autocmd FileType sql,typescript,php,ddu-ff,json,vim lua require('cmp').setup.buffer {
+  autocmd FileType sql,typescript,php,ddu-ff,json lua require('cmp').setup.buffer {
   \   enabled = false
   \ }
   let g:your_cmp_disable_enable_toggle = v:false
