@@ -270,22 +270,48 @@ cmp.setup.filetype('text', {
 
 
 
--- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+-- Command line setup for ':' and '/' commands
+-- For ':' commands (Ex commands)
 cmp.setup.cmdline(':', {
   mapping = cmp.mapping.preset.cmdline({
-    ["<CR>"] = cmp.mapping.confirm { select = true },
+    ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item(), {'i', 'c'}),
+    ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item(), {'i', 'c'}),
+    ['<C-y>'] = cmp.mapping(cmp.mapping.confirm({ select = true }), {'i', 'c'}),
+    ['<C-e>'] = cmp.mapping(cmp.mapping.abort(), {'i', 'c'}),
+    ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), {'i', 'c'}),
+    ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), {'i', 'c'}),
+    ['<CR>'] = cmp.mapping(cmp.mapping.confirm({ select = true }), {'i', 'c'}),
   }),
-
   sources = cmp.config.sources({
     { name = 'path' },
     { 
 				name = 'cmdline',
-				keyword_length = 3,
+				keyword_length = 2,
 				option = {
 					ignore_cmds = { 'Man', '!', 'w', 'wa', 'wqa', 'wq', 'qall', 'bd', 'bd!' }
 				}
 		},
-  })
+  }),
+  window = {
+    completion = cmp.config.window.bordered(),
+  },
+})
+
+-- For '/' commands (search commands)
+cmp.setup.cmdline({ '/', '?' }, {
+  mapping = cmp.mapping.preset.cmdline({
+    ['<C-n>'] = cmp.mapping(cmp.mapping.select_next_item(), {'i', 'c'}),
+    ['<C-p>'] = cmp.mapping(cmp.mapping.select_prev_item(), {'i', 'c'}),
+    ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), {'i', 'c'}),
+    ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), {'i', 'c'}),
+    ['<CR>'] = cmp.mapping(cmp.mapping.confirm({ select = true }), {'i', 'c'}),
+  }),
+  sources = cmp.config.sources({
+    { name = 'buffer' }
+  }),
+  window = {
+    completion = cmp.config.window.bordered(),
+  },
 })
 
 -- cmp git

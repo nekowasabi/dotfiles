@@ -144,6 +144,19 @@ command! StartChangelogNudge call s:StartNudgeForChangelogFiles()
 
 lua << EOF
 
+local map_combo = require('mini.keymap').map_combo
+
+map_combo({ 'n', 'x' }, 'ww', '}')
+map_combo({ 'n', 'x' }, 'bb', '{')
+
+map_combo({ 'n', 'x' }, 'kl', '<space>:echo "ok"')
+
+map_combo({ 'i', 'c' }, 'jk', '<bs><bs><esc>')
+map_combo({ 'i', 'c' }, 'kj', '<bs><bs><esc>')
+-- Escape into Normal mode from Terminal mode
+map_combo('t', 'jk', '<BS><BS><C-\\><C-n>')
+map_combo('t', 'kj', '<BS><BS><C-\\><C-n>')
+
 require("nudge-two-hats").setup({
   -- Prompt configuration
   system_prompt = "Give advice about this code change, focusing on which hat (refactoring or feature) the programmer is wearing.",

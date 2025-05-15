@@ -253,6 +253,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'SmiteshP/nvim-navic'
   Plug 'nekowasabi/vim-syntax-tyranoscript'
   Plug 'nvimdev/lspsaga.nvim'
+	Plug 'echasnovski/mini.nvim'
 
   call g:SetDdu()
 
