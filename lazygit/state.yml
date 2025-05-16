@@ -1,9 +1,9 @@
 lastupdatecheck: 0
 recentrepos:
 - /Users/ttakeda/works/invase-backend
+- /Users/ttakeda/repos/changelog
 - /Users/ttakeda/repos/private_dotfiles
 - /Users/ttakeda/repos/dotfiles
-- /Users/ttakeda/repos/changelog
 - /Users/ttakeda/repos/feynman-technique
 - /Users/ttakeda/.config/nvim/plugged/cross-channel.nvim
 - /Users/ttakeda/works/invase-api-schema
@@ -18,7 +18,7 @@ lastversion: 0.41.0
 customcommandshistory:
 - qa
 hidecommandlog: false
-ignorewhitespaceindiffview: true
+ignorewhitespaceindiffview: false
 diffcontextsize: 3
 localbranchsortorder: recency
 remotebranchsortorder: alphabetical

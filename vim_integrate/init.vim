@@ -157,6 +157,11 @@ map_combo({ 'i', 'c' }, 'kj', '<bs><bs><esc>')
 map_combo('t', 'jk', '<BS><BS><C-\\><C-n>')
 map_combo('t', 'kj', '<BS><BS><C-\\><C-n>')
 
+map_combo({ 'i', 'c' }, 'dp', '<bs><bs><esc>dip')
+map_combo({ 'i', 'c' }, 'pd', '<bs><bs><esc>dip')
+map_combo({ 'n', 'x' }, 'dp', 'dip')
+map_combo({ 'n', 'x' }, 'pd', 'dip')
+
 require("nudge-two-hats").setup({
   -- Prompt configuration
   system_prompt = "Give advice about this code change, focusing on which hat (refactoring or feature) the programmer is wearing.",

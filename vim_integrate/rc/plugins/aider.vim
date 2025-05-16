@@ -18,8 +18,8 @@ if g:IsWsl()
   let g:init_load_command = "~/.config/nvim/plugged/aider.vim/init.md"
 endif
 if g:IsMacNeovimInWork()
-  let g:convension_path = $BACKEND_LARAVEL_DIR . "/laravel/CONVENTION.md"
-  let g:init_load_command = $BACKEND_LARAVEL_DIR . "/laravel/init.md"
+  let g:convension_path = $BACKEND_LARAVEL_DIR . "/aidoc/CONVENTION.md"
+  let g:init_load_command = $BACKEND_LARAVEL_DIR . "/aidoc/init.md"
   let g:dev_plan_path = $BACKEND_LARAVEL_DIR . "/aidoc/dev_plan.md"
 endif
 
@@ -96,6 +96,7 @@ let s:aider_common_options = ' --no-detect-urls --no-auto-accept-architect --not
 " 各AIモデルのコマンドラインオプション定義
 " ---------------------------------------------------------
 let s:models = {
+  \ 'default':    ' --no-auto-commits --model architect/anthropic/claude-3-7-sonnet-20250219 --editor-model openrouter/openai/gpt-4.1',
   \ 'claude':    ' --no-auto-commits --model architect/anthropic/claude-3-7-sonnet-20250219 --editor-model editor/anthropic/claude-3-7-sonnet-20250219',
   \ 'gpt':       ' --reasoning-effort medium --weak-model openai/gpt-4.1-nano --model openai/o3-mini --editor-model openai/gpt-4o',
   \ 'gemini':    ' --no-auto-commits --model my-openrouter/google/gemini-2.5-pro-preview --editor-model openrouter/openai/gpt-4.1',
@@ -121,7 +122,7 @@ let s:common_aider_settings = {
       \ 'architect_gemini':   s:build_options(s:aider_base_command, 'gemini',            0),
       \ 'architect_testing':  s:build_options(s:aider_base_command, 'testing',           0),
       \ 'architect_experimental':  s:build_options(s:aider_base_command, 'experimental', 0),
-      \ 'default':            s:build_options(s:aider_base_command, 'claude',            0),
+      \ 'architect_default':            s:build_options(s:aider_base_command, 'default',            0),
       \ 'architect_gpt':      s:build_options(s:aider_base_command, 'gpt',               0),
       \ 'vhs':                s:aider_base_command . s:models.claude . s:aider_common_options . ' --chat-mode code ',
       \ 'watch_deepseek':     s:build_options(s:aider_base_command, 'deepseek',          1),
@@ -129,12 +130,12 @@ let s:common_aider_settings = {
       \ 'watch_claude':       s:build_options(s:aider_base_command, 'claude',            1)
       \ }
 
-" 環境別設定 imakoko {{{2
 function! s:setup_environment() abort
+  " imakoko
   if g:IsMacNeovimInWork()
     let s:aider_settings = copy(s:common_aider_settings)
     let s:aider_settings['watch'] = s:aider_base_command . s:models.claude . ' --watch-files'
-    let g:aider_command = s:aider_settings['architect_gemini']
+    let g:aider_command = s:aider_settings['architect_default']
   else
     let s:aider_settings = extend(copy(s:common_aider_settings), {
           \ 'architect_experimental': s:build_options(s:aider_base_command, 'experimental', 0),
@@ -145,6 +146,7 @@ function! s:setup_environment() abort
 endfunction
 
 call s:setup_environment()
+" }}}2
 
 " 異なるAider設定を切り替える {{{1
 "
