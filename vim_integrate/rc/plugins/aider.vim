@@ -99,7 +99,7 @@ let s:models = {
   \ 'default':    ' --no-auto-commits --model architect/anthropic/claude-3-7-sonnet-20250219 --editor-model openrouter/openai/gpt-4.1',
   \ 'claude':    ' --no-auto-commits --model architect/anthropic/claude-3-7-sonnet-20250219 --editor-model editor/anthropic/claude-3-7-sonnet-20250219',
   \ 'gpt':       ' --reasoning-effort medium --weak-model openai/gpt-4.1-nano --model openai/o3-mini --editor-model openai/gpt-4o',
-  \ 'gpt_41':    ' --weak-model openai/gpt-4.1-nano --model openai/gpt-4.1-mini  --editor-model openai/gpt-4.1-nano',
+  \ 'gpt_41':    ' --weak-model openrouter/openai/gpt-4.1-mini --model openrouter/google/gemini-2.5-flash-preview --editor-model openrouter/google/gemini-2.5-flash-preview',
   \ 'gemini':    ' --no-auto-commits --model my-openrouter/google/gemini-2.5-pro-preview --editor-model openrouter/openai/gpt-4.1',
   \ 'deepseek':  ' --no-auto-commits --model my-openai/firework/deepseek-r1-fast --editor-model my-openai/firework/deepseek-v3',
   \ 'copilot':   ' --reasoning-effort high --weak-model openrouter/anthropic/claude-3-5-haiku --model proxy-claude-3-5-sonnet --editor-model proxy-claude-3-5-sonnet',
