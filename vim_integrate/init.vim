@@ -161,6 +161,7 @@ map_combo({ 'i', 'c' }, 'dp', '<bs><bs><esc>dip')
 map_combo({ 'i', 'c' }, 'pd', '<bs><bs><esc>dip')
 map_combo({ 'n', 'x' }, 'dp', 'dip')
 map_combo({ 'n', 'x' }, 'pd', 'dip')
+map_combo({ 'n', 'x' }, 'pp', 'uudip')
 
 require("nudge-two-hats").setup({
   -- Prompt configuration
