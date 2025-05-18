@@ -405,8 +405,7 @@ nnoremap <silent> ,rw :call ReplaceCurrentWordWithYank()<CR>
 " -----------------------------------------------------------
 " test: 指定のJSONファイルからnameに一致するrulesを取得する {{{1
 function! s:Test()
-  call system("git add aidoc/dev_plan.md")
-  execute "AiderSendPromptByCommandline /add aidoc/dev_plan.md"
+  " target
 endfunction
 
 command! -range -nargs=0 Test call s:Test()

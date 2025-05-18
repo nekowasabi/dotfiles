@@ -99,8 +99,11 @@ let s:models = {
   \ 'default':    ' --no-auto-commits --model architect/anthropic/claude-3-7-sonnet-20250219 --editor-model openrouter/openai/gpt-4.1',
   \ 'claude':    ' --no-auto-commits --model architect/anthropic/claude-3-7-sonnet-20250219 --editor-model editor/anthropic/claude-3-7-sonnet-20250219',
   \ 'gpt':       ' --reasoning-effort medium --weak-model openai/gpt-4.1-nano --model openai/o3-mini --editor-model openai/gpt-4o',
-  \ 'gpt_41':    ' --weak-model openrouter/openai/gpt-4.1-mini --model openrouter/google/gemini-2.5-flash-preview --editor-model openrouter/google/gemini-2.5-flash-preview',
+  \ 'gpt_41_mini':    ' --weak-model openrouter/openai/gpt-4.1-mini --model openrouter/openai/gpt-4.1-mini --editor-model openrouter/openai/gpt-4.1-mini',
+  \ 'gpt_41_nano':    ' --weak-model openrouter/openai/gpt-4.1-nano --model openrouter/openai/gpt-4.1-nano --editor-model openrouter/openai/gpt-4.1-nano',
   \ 'gemini':    ' --no-auto-commits --model my-openrouter/google/gemini-2.5-pro-preview --editor-model openrouter/openai/gpt-4.1',
+  \ 'gemini_not_thinking':    ' --no-auto-commits --model my-openrouter/google/gemini-2.5-preview --editor-model my-openrouter/google/gemini-2.5-preview ',
+  \ 'gemini_flash_not_thinking': ' --no-auto-commits --model my-openrouter/google/gemini-2.5-flash-preview --editor-model my-openrouter/google/gemini-2.5-flash-preview ',
   \ 'deepseek':  ' --no-auto-commits --model my-openai/firework/deepseek-r1-fast --editor-model my-openai/firework/deepseek-v3',
   \ 'copilot':   ' --reasoning-effort high --weak-model openrouter/anthropic/claude-3-5-haiku --model proxy-claude-3-5-sonnet --editor-model proxy-claude-3-5-sonnet',
   \ 'experimental': ' --no-auto-commits --model openrouter/google/gemini-2.5-pro-exp-03-25:free --editor-model my-openai/firework/deepseek-v3 --weak-model openrouter/gpt-4.1-nano',
@@ -125,7 +128,7 @@ let s:common_aider_settings = {
       \ 'architect_experimental':  s:build_options(s:aider_base_command, 'experimental', 0),
       \ 'architect_default':            s:build_options(s:aider_base_command, 'default',            0),
       \ 'architect_gpt':      s:build_options(s:aider_base_command, 'gpt',               0),
-      \ 'doc':                s:aider_base_command . s:models.gpt_41 . s:aider_common_options . ' --chat-mode code ',
+      \ 'doc':                s:aider_base_command . s:models.gemini_flash_not_thinking . s:aider_common_options . ' --chat-mode ask',
       \ 'vhs':                s:aider_base_command . s:models.claude . s:aider_common_options . ' --chat-mode code ',
       \ 'watch_deepseek':     s:build_options(s:aider_base_command, 'deepseek',          1),
       \ 'watch':              s:build_options(s:aider_base_command, 'deepseek',          1),
@@ -143,7 +146,7 @@ function! s:setup_environment() abort
           \ 'architect_experimental': s:build_options(s:aider_base_command, 'experimental', 0),
           \ 'gpt': s:build_options(s:aider_base_command, 'gpt', 0)
           \ })
-    let g:aider_command = s:aider_settings['doc']
+    let g:aider_command = s:aider_settings['architect_default']
   endif
 endfunction
 

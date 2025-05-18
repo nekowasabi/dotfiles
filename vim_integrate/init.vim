@@ -126,18 +126,11 @@ nnoremap <Leader>: :
 let g:autosave_enabled = v:false
 let g:autosave_disable_inside_paths = [] " A list of paths inside which autosave should be disabled. 
 
-" 特定のファイルを開いたときにコマンドを実行
-function! s:StartNudgeForChangelogFiles() abort
-  if g:IsMacNeovimInWork()
-    execute 'NudgeTwoHatsStart /Users/ttakeda/repos/changelog/tenTask.txt'
-    execute 'NudgeTwoHatsStart /Users/ttakeda/repos/changelog/changelogmemo'
-  else
-    execute 'NudgeTwoHatsStart /Users/takets/repos/changelog/tenTask.txt'
-    execute 'NudgeTwoHatsStart /Users/takets/repos/changelog/changelogmemo'
-  endif
-endfunction
-
-command! StartChangelogNudge call s:StartNudgeForChangelogFiles()
+ augroup filetype_echo                                                                              
+   autocmd!                                                                                         
+   autocmd BufReadPost changelogmemo,tenTask.txt NudgeTwoHatsStart
+ augroup END                                                                                        
+ 
 
 " -----------------------------------------------------------
 " lua
@@ -207,11 +200,11 @@ require("nudge-two-hats").setup({
 
 
   -- Timing configuration
-  min_interval = 30, -- APIコール間の最小間隔（秒）
+  min_interval = 6, -- APIコール間の最小間隔（秒）
 
   virtual_text = {
-    idle_time = 0.5, -- virtual text表示までの時間（分）
-    cursor_idle_delay = 5, -- カーソル停止後のタイマー設定までの時間（分）
+    idle_time = 0.1, -- virtual text表示までの時間（分）
+    cursor_idle_delay = 0.1, -- カーソル停止後のタイマー設定までの時間（分）
     text_color = "#000000",
     background_color = "#FFFFFF",
   },

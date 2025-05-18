@@ -196,8 +196,6 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'lewis6991/gitsigns.nvim'
   Plug 'overcache/NeoSolarized'
   Plug 'rhysd/conflict-marker.vim'
-  Plug 'MunifTanjim/nui.nvim'
-  " Plug 'MunifTanjim/nui.nvim', { 'commit': '8d3bce9764e627b62b07424e0df77f680d47ffdb' }
   Plug 'rcarriga/nvim-notify' " 通知
   Plug 'nvim-tree/nvim-web-devicons'
   Plug 'HiPhish/rainbow-delimiters.nvim'
@@ -256,6 +254,13 @@ if g:IsMacNeovim() || g:IsWsl()
 	Plug 'echasnovski/mini.nvim'
 
   call g:SetDdu()
+
+
+  if g:IsWsl()
+    Plug 'MunifTanjim/nui.nvim', { 'commit': '8d3bce9764e627b62b07424e0df77f680d47ffdb' }
+  else
+    Plug 'MunifTanjim/nui.nvim'
+  endif
 
   if g:IsMacNeovimInWork()
     call g:SetCoc()
