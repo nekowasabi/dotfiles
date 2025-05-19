@@ -153,8 +153,10 @@ map_combo('t', 'kj', '<BS><BS><C-\\><C-n>')
 map_combo({ 'i', 'c' }, 'dp', '<bs><bs><esc>dip')
 map_combo({ 'i', 'c' }, 'pd', '<bs><bs><esc>dip')
 map_combo({ 'n', 'x' }, 'dp', 'dip')
-map_combo({ 'n', 'x' }, 'pd', 'dip')
-map_combo({ 'n', 'x' }, 'pp', 'uudip')
+map_combo({ 'n', 'x' }, 'pd', 'duudip')
+-- map_combo({ 'n', 'x' }, 'op', <esc>'<bs><bs><esc>dip')
+-- map_combo({ 'n', 'x' }, 'po', '<esc>uudip')
+
 
 require("nudge-two-hats").setup({
   -- Prompt configuration
@@ -204,9 +206,9 @@ require("nudge-two-hats").setup({
 
   virtual_text = {
     idle_time = 0.1, -- virtual text表示までの時間（分）
-    cursor_idle_delay = 0.1, -- カーソル停止後のタイマー設定までの時間（分）
-    text_color = "#000000",
-    background_color = "#FFFFFF",
+    cursor_idle_delay = 0.5, -- カーソル停止後のタイマー設定までの時間（分）
+    text_color = "#eee8d5",
+    background_color = "#073642",
   },
 
   -- Debug configuration
