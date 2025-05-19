@@ -150,6 +150,7 @@ map_combo({ 'i', 'c' }, 'kj', '<bs><bs><esc>')
 map_combo('t', 'jk', '<BS><BS><C-\\><C-n>')
 map_combo('t', 'kj', '<BS><BS><C-\\><C-n>')
 
+-- dip
 map_combo({ 'i', 'c' }, 'dp', '<bs><bs><esc>dip')
 map_combo({ 'i', 'c' }, 'pd', '<bs><bs><esc>dip')
 map_combo({ 'n', 'x' }, 'dp', 'dip')
