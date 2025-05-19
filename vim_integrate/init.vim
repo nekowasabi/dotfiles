@@ -85,7 +85,6 @@ set t_8b=^[[48;2;%lu;%lu;%lum
 " denopsテスト用コメント
 let g:denops#debug = 0
 
-
 " let g:denops_server_addr = '127.0.0.1:32129'
 
 " url-highlight
@@ -136,6 +135,84 @@ let g:autosave_disable_inside_paths = [] " A list of paths inside which autosave
 " lua
 
 lua << EOF
+
+require('copilot').setup({
+  panel = {
+    enabled = true,
+    auto_refresh = false,
+    keymap = {
+      jump_prev = "[[",
+      jump_next = "]]",
+      accept = "<CR>",
+      refresh = "gr",
+      open = "<M-CR>"
+    },
+    layout = {
+      position = "bottom", -- | top | left | right | horizontal | vertical
+      ratio = 0.4
+    },
+  },
+  suggestion = {
+    enabled = true,
+    auto_trigger = true,
+    hide_during_completion = true,
+    debounce = 75,
+    trigger_on_accept = true,
+    keymap = {
+      accept = "<C-l>",
+      accept_word = false,
+      accept_line = false,
+      next = "<M-]>",
+      prev = "<M-[>",
+      dismiss = "<C-]>",
+    },
+  },
+  filetypes = {
+    markdown = true,
+    vim = true,
+    php = true,
+    typescript = true,
+    python = true,
+    yaml = true,
+    help = false,
+    gitcommit = true,
+    gitrebase = false,
+    ["."] = false,
+  },
+  auth_provider_url = nil, -- URL to authentication provider, if not "https://github.com/"
+  logger = {
+    file = "~/.config/github-copilot/copilot.log",
+    file_log_level = vim.log.levels.OFF,
+    print_log_level = vim.log.levels.WARN,
+    trace_lsp = "off", -- "off" | "messages" | "verbose"
+    trace_lsp_progress = false,
+    log_lsp_messages = false,
+  },
+  copilot_node_command = 'node', -- Node.js version must be > 20
+  workspace_folders = {},
+  copilot_model = "",
+  root_dir = function()
+    return vim.fs.dirname(vim.fs.find(".git", { upward = true })[1])
+  end,
+  should_attach = function(_, _)
+    if not vim.bo.buflisted then
+      logger.debug("not attaching, buffer is not 'buflisted'")
+      return false
+    end
+
+    if vim.bo.buftype ~= "" then
+      logger.debug("not attaching, buffer 'buftype' is " .. vim.bo.buftype)
+      return false
+    end
+
+    return true
+  end,
+  server = {
+    type = "nodejs", -- "nodejs" | "binary"
+    custom_server_filepath = nil,
+  },
+  server_opts_overrides = {},
+})
 
 local map_combo = require('mini.keymap').map_combo
 
@@ -203,7 +280,7 @@ require("nudge-two-hats").setup({
 
 
   -- Timing configuration
-  min_interval = 6, -- APIコール間の最小間隔（秒）
+  min_interval = 180, -- APIコール間の最小間隔（秒）
 
   virtual_text = {
     idle_time = 0.1, -- virtual text表示までの時間（分）

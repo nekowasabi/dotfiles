@@ -59,7 +59,8 @@ Plug 'yuki-yano/smart-i.nvim'
 " Plug 'brianhuster/autosave.nvim'
 
 " AI
-Plug 'github/copilot.vim'
+" Plug 'github/copilot.vim'
+Plug 'zbirenbaum/copilot.lua'
 Plug 'nekowasabi/aider.vim'
 Plug 'Robitx/gp.nvim'
 Plug 'ravitemer/mcphub.nvim', {'do': 'npm install -g mcp-hub@latest'}
@@ -323,7 +324,6 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ddu.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lightline.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/ale.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lsp-lines.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/gp.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/telescope.vim'
@@ -352,6 +352,7 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/codecompanion.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cmp.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
 endif
 
 
