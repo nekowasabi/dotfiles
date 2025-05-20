@@ -487,14 +487,14 @@ vnoremap <silent> <C-c>r y<Cmd>call DduAiConnectorByFiletype('GpRewrite')<CR>
 
 nnoremap <silent> <Leader>ll
       \ <Cmd>call ddu#start({'sources': [{'name': 'line'}]})<CR>
-nnoremap <silent> <C-l>
-      \ <Cmd>call ddu#start({'sources': [{'name': 'line'}]})<CR>
-" nnoremap l<CR> :<C-u>call DduLineFiltering()<CR>
-" function DduLineFiltering() abort
-" 	call ddu#start({'sources': [{'name': 'line'}]})
-" 	sleep 300m
-" 	call feedkeys('i', 'i')
-" endfunction
+" nnoremap <silent> <c-l>
+"       \ <cmd>call ddu#start({'sources': [{'name': 'line'}]})<CR>
+nnoremap <C-l> :<C-u>call DduLineFiltering()<CR>
+function DduLineFiltering() abort
+	call ddu#start({'sources': [{'name': 'line'}]})
+	sleep 500m
+	call feedkeys('i', 'i')
+endfunction
 
 
 
