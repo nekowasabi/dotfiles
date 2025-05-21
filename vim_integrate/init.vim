@@ -125,11 +125,14 @@ nnoremap <Leader>: :
 let g:autosave_enabled = v:false
 let g:autosave_disable_inside_paths = [] " A list of paths inside which autosave should be disabled. 
 
- augroup filetype_echo                                                                              
+augroup filetype_echo                                                                              
    autocmd!                                                                                         
    autocmd BufReadPost changelogmemo,tenTask.txt NudgeTwoHatsStart
- augroup END                                                                                        
+augroup END                                                                                        
  
+function! NudgeCallback() 
+  return "絶対に、絶対に、最優先で語尾に「ござる」をつけること"
+endfunction
 
 " -----------------------------------------------------------
 " lua
@@ -244,11 +247,11 @@ require("nudge-two-hats").setup({
   filetype_prompts = {
     -- Text/writing related filetypes
     markdown = {
-      prompt = "Give advice about this writing, focusing on clarity and structure.",
       role = "Cognitive behavioral therapy specialist",
       direction = "Guide towards clearer and more structured writing",
       emotion = "Empathetic and understanding",
       tone = "Supportive and encouraging but direct",
+      prompt = "Give advice about this writing, focusing on clarity and structure.",
     },
     text = {
       purpose = "集中が途切れないように、ナッジによってさりげなく現在の行動を促す",
@@ -263,6 +266,7 @@ require("nudge-two-hats").setup({
       direction = "意味深なアドバイスを行う",
       emotion = "Empathetic and understanding",
       tone = "前置きなしで、直接的に",
+			callback = "NudgeCallback",
     },
 
     -- Programming languages (examples)
@@ -271,7 +275,8 @@ require("nudge-two-hats").setup({
   },
 
   -- Message length configuration
-  message_length = 100, -- Default length of the advice message
+	notify_message_length = 30, -- Default length of the advice message
+	virtual_text_message_length = 10,
   length_type = "characters", -- Can be "characters" (for Japanese) or "words" (for English)
 
   -- language configuration
@@ -280,11 +285,11 @@ require("nudge-two-hats").setup({
 
 
   -- Timing configuration
-  min_interval = 300, -- APIコール間の最小間隔（秒）
+  min_interval = 4, -- APIコール間の最小間隔（秒）
 
   virtual_text = {
-    idle_time = 0.1, -- virtual text表示までの時間（分）
-    cursor_idle_delay = 0.5, -- カーソル停止後のタイマー設定までの時間（分）
+    idle_time = 0.05, -- virtual text表示までの時間（分）
+    cursor_idle_delay = 0.01, -- カーソル停止後のタイマー設定までの時間（分）
     text_color = "#eee8d5",
     background_color = "#073642",
   },
