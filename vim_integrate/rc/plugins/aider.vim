@@ -435,3 +435,8 @@ endfunction
 command! AiderCopyContextToFile call s:copy_context_to_file()
 
 " }}}1
+
+function! s:open_by_copilot() abort
+  execute 'terminal ~/copilot_aider.sh'
+endfunction
+command! AiderOpenByCopilot call s:open_by_copilot()
