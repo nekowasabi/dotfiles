@@ -60,7 +60,7 @@ Plug 'yuki-yano/smart-i.nvim'
 
 " AI
  Plug 'github/copilot.vim'
-"Plug 'zbirenbaum/copilot.lua'
+" Plug 'zbirenbaum/copilot.lua'
 Plug 'nekowasabi/aider.vim'
 Plug 'Robitx/gp.nvim'
 Plug 'ravitemer/mcphub.nvim', {'do': 'npm install -g mcp-hub@latest'}

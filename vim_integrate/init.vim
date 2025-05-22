@@ -104,7 +104,6 @@ nnoremap M %
 " testing
 nnoremap <silent> z<CR> :ZenMode<CR>
 
-
 let g:crosschannel_bluesky_id = 'takets.bsky.social'
 let g:crosschannel_bluesky_password = $DSKY_PASSWORD
 
@@ -138,6 +137,7 @@ endfunction
 " lua
 
 lua << EOF
+
 
 -- require('copilot').setup({
 --   panel = {
@@ -217,12 +217,8 @@ lua << EOF
 --   server_opts_overrides = {},
 -- })
 
+
 local map_combo = require('mini.keymap').map_combo
-
-map_combo({ 'n', 'x' }, 'ww', '}')
-map_combo({ 'n', 'x' }, 'bb', '{')
-
-map_combo({ 'n', 'x' }, 'kl', '<space>:echo "ok"')
 
 map_combo({ 'i', 'c' }, 'jk', '<bs><bs><esc>')
 map_combo({ 'i', 'c' }, 'kj', '<bs><bs><esc>')
@@ -235,9 +231,6 @@ map_combo({ 'i', 'c' }, 'dp', '<bs><bs><esc>dip')
 map_combo({ 'i', 'c' }, 'pd', '<bs><bs><esc>dip')
 map_combo({ 'n', 'x' }, 'dp', 'dip')
 map_combo({ 'n', 'x' }, 'pd', 'duudip')
--- map_combo({ 'n', 'x' }, 'op', <esc>'<bs><bs><esc>dip')
--- map_combo({ 'n', 'x' }, 'po', '<esc>uudip')
-
 
 require("nudge-two-hats").setup({
   -- Prompt configuration
@@ -275,8 +268,8 @@ require("nudge-two-hats").setup({
   },
 
   -- Message length configuration
-	notify_message_length = 30, -- Default length of the advice message
-	virtual_text_message_length = 10,
+	notify_message_length = 3, -- Default length of the advice message
+	virtual_text_message_length = 1,
   length_type = "characters", -- Can be "characters" (for Japanese) or "words" (for English)
 
   -- language configuration
@@ -285,7 +278,8 @@ require("nudge-two-hats").setup({
 
 
   -- Timing configuration
-  min_interval = 4, -- APIコール間の最小間隔（秒）
+  notify_min_interval_seconds = 3,
+  notify_interval_correction = 6, 
 
   virtual_text = {
     idle_time = 0.05, -- virtual text表示までの時間（分）
