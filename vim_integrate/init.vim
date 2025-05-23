@@ -133,6 +133,10 @@ function! NudgeCallback()
   return "絶対に、絶対に、最優先で語尾に「ござる」をつけること"
 endfunction
 
+function! NudgeCallback2() 
+  return "絶対に、絶対に、最優先で語尾に「ニャン」をつけること"
+endfunction
+
 " -----------------------------------------------------------
 " lua
 
@@ -233,64 +237,253 @@ map_combo({ 'n', 'x' }, 'dp', 'dip')
 map_combo({ 'n', 'x' }, 'pd', 'duudip')
 
 require("nudge-two-hats").setup({
-  -- Prompt configuration
-  system_prompt = "Give advice about this code change, focusing on which hat (refactoring or feature) the programmer is wearing.",
+  -- -- Prompt configuration
+  -- system_prompt = "Give advice about this code change, focusing on which hat (refactoring or feature) the programmer is wearing.",
+  --
+  -- -- File type specific prompts
+  -- filetype_prompts = {
+  --   -- Text/writing related filetypes
+  --   markdown = {
+  --     role = "Cognitive behavioral therapy specialist",
+  --     direction = "Guide towards clearer and more structured writing",
+  --     emotion = "Empathetic and understanding",
+  --     tone = "Supportive and encouraging but direct",
+  --     prompt = "Give advice about this writing, focusing on clarity and structure.",
+  --   },
+  --   text = {
+  --     purpose = "集中が途切れないように、ナッジによってさりげなく現在の行動を促す",
+		-- 	hats = {
+		-- 		"law",
+		-- 		"chaos",
+		-- 		"neutral",
+		-- 		"trickster",
+		-- 		},
+  --     prompt = "テキスト内容を題材として、アドバイスしてください。前置きなしで、端的にメッセージのみを出力してください。",
+  --     role = "トリックスターであり、常に民衆の意表を突く発言のみを行う",
+  --     direction = "意味深なアドバイスを行う",
+  --     emotion = "Empathetic and understanding",
+  --     tone = "前置きなしで、直接的に",
+		-- 	callback = "NudgeCallback",
+  --   },
+  --
+  --   -- Programming languages (examples)
+  --   lua = "Give advice about this Lua code change, focusing on which hat (refactoring or feature) the programmer is wearing.",
+  --   python = "Give advice about this Python code change, focusing on which hat (refactoring or feature) the programmer is wearing.",
+  -- },
 
-  -- File type specific prompts
-  filetype_prompts = {
-    -- Text/writing related filetypes
-    markdown = {
+
+  notify = {
+    system_prompt = "Analyze this code change and provide varied, specific advice based on the actual diff content. Consider whether the programmer is focusing on refactoring, adding new features, fixing bugs, or improving tests. Your advice should be tailored to the specific changes you see in the diff and should vary in content and style each time.",
+    purpose = "", -- Work purpose or objective
+    default_cbt = {
       role = "Cognitive behavioral therapy specialist",
-      direction = "Guide towards clearer and more structured writing",
+      direction = "Guide towards healthier thought patterns and behaviors",
       emotion = "Empathetic and understanding",
       tone = "Supportive and encouraging but direct",
-      prompt = "Give advice about this writing, focusing on clarity and structure.",
+      hats = {"Therapist", "Coach", "Mentor", "Advisor", "Counselor"},
     },
-    text = {
-      purpose = "集中が途切れないように、ナッジによってさりげなく現在の行動を促す",
-			hats = {
-				"law",
-				"chaos",
-				"neutral",
-				"trickster",
-				},
-      prompt = "テキスト内容を題材として、アドバイスしてください。前置きなしで、端的にメッセージのみを出力してください。",
-      role = "トリックスターであり、常に民衆の意表を突く発言のみを行う",
-      direction = "意味深なアドバイスを行う",
-      emotion = "Empathetic and understanding",
-      tone = "前置きなしで、直接的に",
-			callback = "NudgeCallback",
+    filetype_prompts = {
+      markdown = {
+        prompt = "Give advice about this writing, focusing on clarity and structure.",
+        role = "Cognitive behavioral therapy specialist",
+        direction = "Guide towards clearer and more structured writing",
+        emotion = "Empathetic and understanding",
+        tone = "Supportive and encouraging but direct",
+        hats = {"Writing Coach", "Editor", "Reviewer", "Content Specialist", "Clarity Expert"},
+        callback = "",
+      },
+      text = {
+        prompt = "Give advice about this writing, focusing on clarity and structure.",
+        role = "Cognitive behavioral therapy specialist",
+        direction = "Guide towards clearer and more structured writing",
+        emotion = "Empathetic and understanding",
+        tone = "Supportive and encouraging but direct",
+        hats = {"Writing Coach", "Editor", "Reviewer", "Content Specialist", "Clarity Expert"},
+        callback = "NudgeCallback",
+      },
+      tex = {
+        prompt = "Give advice about this LaTeX document, focusing on structure and formatting.",
+        role = "Cognitive behavioral therapy specialist",
+        direction = "Guide towards well-formatted and structured document",
+        emotion = "Empathetic and understanding",
+        tone = "Supportive and encouraging but direct",
+        hats = {"LaTeX Expert", "Document Formatter", "Structure Specialist", "Academic Advisor", "Technical Writer"},
+        callback = "",
+      },
+      rst = {
+        prompt = "Give advice about this reStructuredText document, focusing on clarity and organization.",
+        role = "Cognitive behavioral therapy specialist",
+        direction = "Guide towards clearer and more organized documentation",
+        emotion = "Empathetic and understanding",
+        tone = "Supportive and encouraging but direct",
+        hats = {"Documentation Expert", "Structure Advisor", "Clarity Coach", "Technical Writer", "Information Architect"},
+        callback = "",
+      },
+      org = {
+        prompt = "Give advice about this Org document, focusing on organization and structure.",
+        role = "Cognitive behavioral therapy specialist",
+        direction = "Guide towards better organized and structured document",
+        emotion = "Empathetic and understanding",
+        tone = "Supportive and encouraging but direct",
+        hats = {"Organization Expert", "Structure Advisor", "Productivity Coach", "Planning Specialist", "Task Manager"},
+        callback = "",
+      },
+      lua = {
+        prompt = "Give advice about this Lua code change, focusing on which hat (refactoring or feature) the programmer is wearing.",
+        role = "Cognitive behavioral therapy specialist",
+        direction = "Guide towards clearer and more maintainable code",
+        emotion = "Empathetic and understanding",
+        tone = "Supportive and encouraging but direct",
+        hats = {"Code Reviewer", "Refactoring Expert", "Clean Code Advocate", "Performance Optimizer", "Maintainability Advisor"},
+        callback = "",
+      },
+      python = {
+        prompt = "Give advice about this Python code change, focusing on which hat (refactoring or feature) the programmer is wearing.",
+        role = "Cognitive behavioral therapy specialist",
+        direction = "Guide towards clearer and more maintainable code",
+        emotion = "Empathetic and understanding",
+        tone = "Supportive and encouraging but direct",
+        hats = {"Python Expert", "Code Reviewer", "Clean Code Advocate", "Performance Optimizer", "Pythonic Style Guide"},
+        callback = "",
+      },
+      javascript = {
+        prompt = "Give advice about this JavaScript code change, focusing on which hat (refactoring or feature) the programmer is wearing.",
+        role = "Cognitive behavioral therapy specialist",
+        direction = "Guide towards clearer and more maintainable code",
+        emotion = "Empathetic and understanding",
+        tone = "Supportive and encouraging but direct",
+        hats = {"JavaScript Expert", "Frontend Advisor", "Code Quality Advocate", "Performance Guru", "Best Practices Guide"},
+        callback = "",
+      },
     },
-
-    -- Programming languages (examples)
-    lua = "Give advice about this Lua code change, focusing on which hat (refactoring or feature) the programmer is wearing.",
-    python = "Give advice about this Python code change, focusing on which hat (refactoring or feature) the programmer is wearing.",
+    notify_message_length = 10, -- Default message length for notifications in this context
+    virtual_text_message_length = 10, -- Default message length for virtual text in this context (less likely to be used but here for structural parallelism)
   },
 
-  -- Message length configuration
-	notify_message_length = 3, -- Default length of the advice message
-	virtual_text_message_length = 1,
-  length_type = "characters", -- Can be "characters" (for Japanese) or "words" (for English)
-
-  -- language configuration
-  output_language = "ja", -- Can be "auto", "en" (English), or "ja" (Japanese)
-  translate_messages = true, -- Whether to translate messages to the specified language
-
-
-  -- Timing configuration
-  notify_min_interval_seconds = 3,
-  notify_interval_correction = 6, 
-
+  -- Context-specific settings for virtual text
   virtual_text = {
+    system_prompt = "Analyze this code change and provide varied, specific advice based on the actual diff content. Consider whether the programmer is focusing on refactoring, adding new features, fixing bugs, or improving tests. Your advice should be tailored to the specific changes you see in the diff and should vary in content and style each time.",
+    purpose = "", -- Work purpose or objective
+    default_cbt = {
+      role = "Cognitive behavioral therapy specialist",
+      direction = "Guide towards healthier thought patterns and behaviors",
+      emotion = "Empathetic and understanding",
+      tone = "Supportive and encouraging but direct",
+      hats = {"Therapist", "Coach", "Mentor", "Advisor", "Counselor"},
+    },
+    filetype_prompts = {
+      markdown = {
+        prompt = "Give advice about this writing, focusing on clarity and structure.",
+        role = "Cognitive behavioral therapy specialist",
+        direction = "Guide towards clearer and more structured writing",
+        emotion = "Empathetic and understanding",
+        tone = "Supportive and encouraging but direct",
+        hats = {"Writing Coach", "Editor", "Reviewer", "Content Specialist", "Clarity Expert"},
+        callback = "",
+      },
+      text = {
+        prompt = "テキスト内容を題材として、アドバイスしてください。前置きなしで、端的にメッセージのみを出力してください。", -- Specific prompt from issue for text/virtual_text
+        role = "トリックスターであり、常に民衆の意表を突く発言のみを行う", -- Specific role from issue
+        direction = "意味深なアドバイスを行う", -- Specific direction from issue
+        emotion = "Empathetic and understanding", -- Kept from original, can be overridden
+        tone = "前置きなしで、直接的に", -- Specific tone from issue
+        hats = { -- Specific hats from issue
+          "law",
+          "chaos",
+          "neutral",
+          "trickster",
+        },
+        purpose = "集中が途切れないように、ナッジによってさりげなく現在の行動を促す", -- Specific purpose from issue
+        callback = "NudgeCallback2", -- Specific callback from issue
+      },
+      tex = {
+        prompt = "Give advice about this LaTeX document, focusing on structure and formatting.",
+        role = "Cognitive behavioral therapy specialist",
+        direction = "Guide towards well-formatted and structured document",
+        emotion = "Empathetic and understanding",
+        tone = "Supportive and encouraging but direct",
+        hats = {"LaTeX Expert", "Document Formatter", "Structure Specialist", "Academic Advisor", "Technical Writer"},
+        callback = "",
+      },
+      rst = {
+        prompt = "Give advice about this reStructuredText document, focusing on clarity and organization.",
+        role = "Cognitive behavioral therapy specialist",
+        direction = "Guide towards clearer and more organized documentation",
+        emotion = "Empathetic and understanding",
+        tone = "Supportive and encouraging but direct",
+        hats = {"Documentation Expert", "Structure Advisor", "Clarity Coach", "Technical Writer", "Information Architect"},
+        callback = "",
+      },
+      org = {
+        prompt = "Give advice about this Org document, focusing on organization and structure.",
+        role = "Cognitive behavioral therapy specialist",
+        direction = "Guide towards better organized and structured document",
+        emotion = "Empathetic and understanding",
+        tone = "Supportive and encouraging but direct",
+        hats = {"Organization Expert", "Structure Advisor", "Productivity Coach", "Planning Specialist", "Task Manager"},
+        callback = "",
+      },
+      lua = {
+        prompt = "Give advice about this Lua code change, focusing on which hat (refactoring or feature) the programmer is wearing.",
+        role = "Cognitive behavioral therapy specialist",
+        direction = "Guide towards clearer and more maintainable code",
+        emotion = "Empathetic and understanding",
+        tone = "Supportive and encouraging but direct",
+        hats = {"Code Reviewer", "Refactoring Expert", "Clean Code Advocate", "Performance Optimizer", "Maintainability Advisor"},
+        callback = "",
+      },
+      python = {
+        prompt = "Give advice about this Python code change, focusing on which hat (refactoring or feature) the programmer is wearing.",
+        role = "Cognitive behavioral therapy specialist",
+        direction = "Guide towards clearer and more maintainable code",
+        emotion = "Empathetic and understanding",
+        tone = "Supportive and encouraging but direct",
+        hats = {"Python Expert", "Code Reviewer", "Clean Code Advocate", "Performance Optimizer", "Pythonic Style Guide"},
+        callback = "",
+      },
+      javascript = {
+        prompt = "Give advice about this JavaScript code change, focusing on which hat (refactoring or feature) the programmer is wearing.",
+        role = "Cognitive behavioral therapy specialist",
+        direction = "Guide towards clearer and more maintainable code",
+        emotion = "Empathetic and understanding",
+        tone = "Supportive and encouraging but direct",
+        hats = {"JavaScript Expert", "Frontend Advisor", "Code Quality Advocate", "Performance Guru", "Best Practices Guide"},
+        callback = "",
+      },
+    },
     idle_time = 0.05, -- virtual text表示までの時間（分）
     cursor_idle_delay = 0.01, -- カーソル停止後のタイマー設定までの時間（分）
     text_color = "#eee8d5",
     background_color = "#073642",
   },
 
+  -- Message length configuration
+	notify_message_length = 30, -- Default length of the advice message
+	virtual_text_message_length = 15,
+  length_type = "characters", -- Can be "characters" (for Japanese) or "words" (for English)
+
+  -- language configuration
+  output_language = "ja", -- Can be "auto", "en" (English), or "ja" (Japanese)
+  translate_messages = true, -- Whether to translate messages to the specified language
+
+  -- Timing configuration
+  notify_interval_correction = 1, 
+  notify_interval_seconds = 10, -- Minimum interval between API calls in seconds
+  virtual_text_interval_seconds = 5, -- Time in seconds before showing virtual text
+  -- min_interval = 5, -- Minimum interval between API calls in seconds
+
+  -- virtual_text = {
+  --   idle_time = 0.05, -- virtual text表示までの時間（分）
+  --   cursor_idle_delay = 0.01, -- カーソル停止後のタイマー設定までの時間（分）
+  --   text_color = "#eee8d5",
+  --   background_color = "#073642",
+  -- },
+
   -- Debug configuration
   debug_mode = false, -- When true, prints nudge text to Vim's 
 })
+
+
 
 function get_git_diff()
   local repo_path = vim.fn.expand("~/repos/changelog")
