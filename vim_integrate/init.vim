@@ -142,136 +142,45 @@ endfunction
 
 lua << EOF
 
-
--- require('copilot').setup({
---   panel = {
---     enabled = true,
---     auto_refresh = false,
---     keymap = {
---       jump_prev = "[[",
---       jump_next = "]]",
---       accept = "<CR>",
---       refresh = "gr",
---       open = "<M-CR>"
---     },
---     layout = {
---       position = "bottom", -- | top | left | right | horizontal | vertical
---       ratio = 0.4
---     },
---   },
---   suggestion = {
---     enabled = true,
---     auto_trigger = true,
---     hide_during_completion = true,
---     debounce = 75,
---     trigger_on_accept = true,
---     keymap = {
---       accept = "<C-l>",
---       accept_word = false,
---       accept_line = false,
---       next = "<M-]>",
---       prev = "<M-[>",
---       dismiss = "<C-]>",
---     },
---   },
---   filetypes = {
---     markdown = true,
---     vim = true,
---     php = true,
---     typescript = true,
---     python = true,
---     yaml = true,
---     help = false,
---     gitcommit = true,
---     gitrebase = false,
---     ["."] = false,
---   },
---   auth_provider_url = nil, -- URL to authentication provider, if not "https://github.com/"
---   -- logger = {
---   --   file = "~/.config/github-copilot/copilot.log",
---   --   file_log_level = vim.log.levels.OFF,
---   --   print_log_level = vim.log.levels.WARN,
---   --   trace_lsp = "off", -- "off" | "messages" | "verbose"
---   --   trace_lsp_progress = false,
---   --   log_lsp_messages = false,
---   -- },
---   copilot_node_command = 'node', -- Node.js version must be > 20
---   workspace_folders = {},
---   copilot_model = "",
---   root_dir = function()
---     return vim.fs.dirname(vim.fs.find(".git", { upward = true })[1])
---   end,
---   should_attach = function(_, _)
---     if not vim.bo.buflisted then
---       logger.debug("not attaching, buffer is not 'buflisted'")
---       return false
---     end
---
---     if vim.bo.buftype ~= "" then
---       logger.debug("not attaching, buffer 'buftype' is " .. vim.bo.buftype)
---       return false
---     end
---
---     return true
---   end,
---   server = {
---     type = "nodejs", -- "nodejs" | "binary"
---     custom_server_filepath = nil,
---   },
---   server_opts_overrides = {},
--- })
-
-
 local map_combo = require('mini.keymap').map_combo
 
-map_combo({ 'i', 'c' }, 'jk', '<bs><bs><esc>')
-map_combo({ 'i', 'c' }, 'kj', '<bs><bs><esc>')
--- Escape into Normal mode from Terminal mode
-map_combo('t', 'jk', '<BS><BS><C-\\><C-n>')
-map_combo('t', 'kj', '<BS><BS><C-\\><C-n>')
+-- diw
+map_combo({ 'i', 'c' }, 'ww', '<bs><bs><esc>diw')
+map_combo({ 'n', 'x' }, 'ww', 'bbdiw')
+
+-- diW
+map_combo({ 'i', 'c' }, 'we', '<bs><bs><esc>diW')
+map_combo({ 'i', 'c' }, 'ew', '<bs><bs><esc>diW')
+map_combo({ 'n', 'x' }, 'we', 'bbdiW')
+map_combo({ 'n', 'x' }, 'ew', 'bbdiW')
 
 -- dip
-map_combo({ 'i', 'c' }, 'dp', '<bs><bs><esc>dip')
-map_combo({ 'i', 'c' }, 'pd', '<bs><bs><esc>dip')
-map_combo({ 'n', 'x' }, 'dp', 'dip')
-map_combo({ 'n', 'x' }, 'pd', 'duudip')
+map_combo({ 'i', 'c' }, 'PP', '<bs><bs><esc>dipdd')
+map_combo({ 'n', 'x' }, 'PP', 'uudipdd')
+
+-- di"
+map_combo({ 'i', 'c' }, '""', '<esc>Xxdi"')
+map_combo({ 'n', 'x' }, '""', '<esc><esc>di"')
+
+-- da"
+map_combo({ 'i', 'c' }, 'kl', '<bs><bs><esc>da"')
+map_combo({ 'i', 'c' }, 'lk', '<bs><bs><esc>da"')
+map_combo({ 'n', 'x' }, 'kl', '')
+map_combo({ 'n', 'x' }, 'lk', 'jhda"')
+
+-- di'
+map_combo({ 'i', 'c' }, 'jk', '<bs><bs><esc>di\'')
+map_combo({ 'i', 'c' }, 'kj', '<bs><bs><esc>di\'')
+map_combo({ 'n', 'x' }, 'jk', '<esc>di\'')
+map_combo({ '', 'x' }, 'kj', '<esc>di\'')
+
+-- da'
+map_combo({ 'i', 'c' }, 'hj', '<bs><bs><esc>da\'')
+map_combo({ 'i', 'c' }, 'jh', '<bs><bs><esc>da\'')
+map_combo({ 'n', 'x' }, 'hj', 'lkda\'')
+map_combo({ 'n', 'x' }, 'jh', 'lkda\'')
 
 require("nudge-two-hats").setup({
-  -- -- Prompt configuration
-  -- system_prompt = "Give advice about this code change, focusing on which hat (refactoring or feature) the programmer is wearing.",
-  --
-  -- -- File type specific prompts
-  -- filetype_prompts = {
-  --   -- Text/writing related filetypes
-  --   markdown = {
-  --     role = "Cognitive behavioral therapy specialist",
-  --     direction = "Guide towards clearer and more structured writing",
-  --     emotion = "Empathetic and understanding",
-  --     tone = "Supportive and encouraging but direct",
-  --     prompt = "Give advice about this writing, focusing on clarity and structure.",
-  --   },
-  --   text = {
-  --     purpose = "集中が途切れないように、ナッジによってさりげなく現在の行動を促す",
-		-- 	hats = {
-		-- 		"law",
-		-- 		"chaos",
-		-- 		"neutral",
-		-- 		"trickster",
-		-- 		},
-  --     prompt = "テキスト内容を題材として、アドバイスしてください。前置きなしで、端的にメッセージのみを出力してください。",
-  --     role = "トリックスターであり、常に民衆の意表を突く発言のみを行う",
-  --     direction = "意味深なアドバイスを行う",
-  --     emotion = "Empathetic and understanding",
-  --     tone = "前置きなしで、直接的に",
-		-- 	callback = "NudgeCallback",
-  --   },
-  --
-  --   -- Programming languages (examples)
-  --   lua = "Give advice about this Lua code change, focusing on which hat (refactoring or feature) the programmer is wearing.",
-  --   python = "Give advice about this Python code change, focusing on which hat (refactoring or feature) the programmer is wearing.",
-  -- },
-
-
   notify = {
     system_prompt = "Analyze this code change and provide varied, specific advice based on the actual diff content. Consider whether the programmer is focusing on refactoring, adding new features, fixing bugs, or improving tests. Your advice should be tailored to the specific changes you see in the diff and should vary in content and style each time.",
     purpose = "", -- Work purpose or objective
