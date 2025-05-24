@@ -91,7 +91,7 @@ let g:denops#debug = 0
 let g:highlighturl_guifg = '#4aa3ff'
 
 " glance
-if exists(':Glance')
+if exists('')
   nnoremap gR <CMD>Glance references<CR>
   nnoremap gD <CMD>Glance definitions<CR>
   nnoremap gY <CMD>Glance type_definitions<CR>

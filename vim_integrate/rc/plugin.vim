@@ -352,7 +352,7 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/codecompanion.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cmp.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
-   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
 endif
 
 
