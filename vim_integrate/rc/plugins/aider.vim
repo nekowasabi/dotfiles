@@ -96,8 +96,9 @@ let s:aider_common_options = ' --no-detect-urls --no-auto-accept-architect --not
 " 各AIモデルのコマンドラインオプション定義
 " ---------------------------------------------------------
 let s:models = {
-  \ 'default':    ' --no-auto-commits --model architect/anthropic/claude-3-7-sonnet-20250219 --editor-model openrouter/openai/gpt-4.1',
-  \ 'claude':    ' --no-auto-commits --model architect/anthropic/claude-3-7-sonnet-20250219 --editor-model editor/anthropic/claude-3-7-sonnet-20250219',
+  \ 'default':    ' --no-auto-commits --model openrouter/anthropic/claude-sonnet-4 --editor-model openrouter/google/gemini-2.5-flash-preview-05-20',
+  \ '':    ' --no-auto-commits --model architect/anthropic/claude-3-7-sonnet-20250219 --editor-model editor/anthropic/claude-3-7-sonnet-20250219',
+  \ 'claude':    ' --no-auto-commits --model architect/anthropic/claude-4 --editor-model editor/anthropic/claude-4',
   \ 'gpt':       ' --reasoning-effort medium --weak-model openai/gpt-4.1-nano --model openai/o3-mini --editor-model openai/gpt-4o',
   \ 'gpt_41_mini':    ' --weak-model openrouter/openai/gpt-4.1-mini --model openrouter/openai/gpt-4.1-mini --editor-model openrouter/openai/gpt-4.1-mini',
   \ 'gpt_41_nano':    ' --weak-model openrouter/openai/gpt-4.1-nano --model openrouter/openai/gpt-4.1-nano --editor-model openrouter/openai/gpt-4.1-nano',
@@ -107,7 +108,7 @@ let s:models = {
   \ 'deepseek':  ' --no-auto-commits --model my-openai/firework/deepseek-r1-fast --editor-model my-openai/firework/deepseek-v3',
   \ 'copilot':   ' --reasoning-effort high --weak-model openrouter/anthropic/claude-3-5-haiku --model proxy-claude-3-5-sonnet --editor-model proxy-claude-3-5-sonnet',
   \ 'experimental': ' --no-auto-commits --model openrouter/google/gemini-2.5-pro-exp-03-25:free --editor-model my-openai/firework/deepseek-v3 --weak-model openrouter/gpt-4.1-nano',
-  \ 'testing':   ' --no-auto-commits --model openrouter/openrouter/quasar-alpha --editor-model my-openai/firework/deepseek-v3'
+  \ 'testing':   ''
   \ }
 
 " 共通のAider設定プリセット
