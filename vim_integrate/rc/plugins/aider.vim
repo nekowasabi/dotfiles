@@ -127,7 +127,7 @@ let s:common_aider_settings = {
       \ 'architect_gemini':   s:build_options(s:aider_base_command, 'gemini',            0),
       \ 'architect_testing':  s:build_options(s:aider_base_command, 'testing',           0),
       \ 'architect_experimental':  s:build_options(s:aider_base_command, 'experimental', 0),
-      \ 'architect_default':            s:build_options(s:aider_base_command, 'default',            0),
+      \ 'architect_default':  s:build_options(s:aider_base_command, 'default',            0),
       \ 'architect_gpt':      s:build_options(s:aider_base_command, 'gpt',               0),
       \ 'doc':                s:aider_base_command . s:models.gemini_flash_not_thinking . s:aider_common_options . ' --chat-mode ask',
       \ 'vhs':                s:aider_base_command . s:models.claude . s:aider_common_options . ' --chat-mode code ',
@@ -456,6 +456,16 @@ function! s:switch_aider_with_copilot() abort
   execute 'AiderRun'
 endfunction
 command! -nargs=0 AiderWithCopilot call s:switch_aider_with_copilot()
+
+function! s:doc_aider_with_copilot() abort
+  let g:aider_command = '~/.config/nvim/plugged/aider.vim/copilot.sh ' . s:models['copilot'] . s:aider_common_options
+
+  execute 'AiderRun'
+  execute "AiderSendPromptByCommandline /run deno run --allow-read /Users/takets/repos/changelog/extract.ts /Users/takets/repos/changelog/changelogmemo -- tips idea knowledge memo"
+endfunction
+command! -nargs=0 AiderDocWithCopilot call s:doc_aider_with_copilot()
+
+
 
 " }}}1
 

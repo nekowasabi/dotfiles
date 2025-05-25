@@ -2,7 +2,7 @@
 " vim-plug.vim
 
 
-let g:enable_coc = v:false
+let g:enable_coc = v:true
 
 " init {{{1
 if empty(g:GetAutoloadPath() . 'plug.vim')
