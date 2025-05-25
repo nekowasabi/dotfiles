@@ -474,7 +474,16 @@ function! DduAiConnectorByFiletype(command) abort
     let s:tag = ''
   endif
 
-  execute 'call ddu#start({''sources'': [{''name'': ''prompt'', ''params'': {''command'': ''' . a:command . ''', ''tag'': ''' . s:tag . ''', ''selected'': ''' . s:get_visual_text() . '''}}]})'
+  call ddu#start({
+        \ 'sources': [{
+        \   'name': 'prompt',
+        \   'params': {
+        \     'command': a:command,
+        \     'tag': s:tag,
+        \     'selected': s:get_visual_text()
+        \   }
+        \ }]
+        \ })
 
 endfunction
 
