@@ -1,6 +1,9 @@
 " -----------------------------------------------------------
 " vim-plug.vim
 
+
+let g:enable_coc = v:false
+
 " init {{{1
 if empty(g:GetAutoloadPath() . 'plug.vim')
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -10,6 +13,7 @@ endif
 " }}}1
 
 call plug#begin(g:GetVimConfigRootPath() . 'plugged')
+
 
 " ----- common {{{1
 Plug 'AmaiSaeta/closesomewindow.vim'
@@ -66,10 +70,8 @@ Plug 'Robitx/gp.nvim'
 Plug 'ravitemer/mcphub.nvim', {'do': 'npm install -g mcp-hub@latest'}
 Plug 'azorng/goose.nvim'
 Plug 'nekowasabi/cross-channel.nvim'
-" Plug 'augmentcode/augment.vim'
 Plug 'atusy/aibou.nvim'
 Plug 'olimorris/codecompanion.nvim'
-" Plug 'frankroeder/parrot.nvim'
 
 " denops
 Plug 'hrsh7th/vim-searchx'
@@ -265,7 +267,6 @@ if g:IsMacNeovim() || g:IsWsl()
   if g:IsMacNeovimInWork()
     call g:SetCoc()
   elseif g:IsMacNeovim()
-    " call g:SetCoc()
     Plug 'abzcoding/lsp_lines.nvim'
   elseif g:IsWsl()
     Plug 'Shougo/ddc-source-lsp'
@@ -276,6 +277,10 @@ if g:IsMacNeovim() || g:IsWsl()
     Plug 'Shougo/ddc-source-lsp'
     call g:SetCoc()
   endif
+
+	if g:enable_coc
+		call g:SetCoc()
+	endif
 endif
 
 " }}}1
@@ -354,6 +359,9 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
 endif
 
+if g:enable_coc
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
+endif
 
 if g:IsMacNeovimInWork()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'

@@ -16,7 +16,7 @@ endfunction
 
 nnoremap <silent> <Leader>q :call CloseQuickRunWindow()<CR>
 
-" 指定のウインドウを閉じる
+" 指定のウインドウを閉じる
 nnoremap <C-h> :<C-u>CloseSomeWindow
 \	(index(['qf','unite','dbout', 'ui'], getwinvar(v:val,'&filetype')) != -1)
 \		\|\| (getwinvar(v:val, '&filetype') ==# 'help'
@@ -405,7 +405,49 @@ nnoremap <silent> ,rw :call ReplaceCurrentWordWithYank()<CR>
 " -----------------------------------------------------------
 " test: 指定のJSONファイルからnameに一致するrulesを取得する {{{1
 function! s:Test()
-  " target
+  " 選択範囲のテキストを取得
+  let selected_text = s:get_visual_text()
+  
+  if empty(selected_text)
+    echo "テキストが選択されていません"
+    return
+  endif
+  
+  " 先頭10文字を取得（改行を除去）
+  let first_line = split(selected_text, '\n')[0]
+
+  let prefix = strcharpart(first_line, 0, 10)
+
+  " 現在の日時を取得
+  let datetime = strftime("%Y-%m-%d %H:%M")
+
+  " 改行を除去したテキストを配列として取得
+  let text_lines = split(selected_text, '\n')
+
+  " フォーマットしたテキストをヘッダーとして作成
+  let header_text = "* " . prefix . " " . datetime . " [idea]:"
+
+  " ファイルパス
+  let filepath = "/Users/takets/repos/changelog/changelogmemo"
+
+  " ファイルを開く
+  execute 'edit ' . filepath
+
+  " 2行目にヘッダー挿入
+  call append(1, '')
+  call append(2, header_text)
+
+  " 配列をループして、3行目以降に挿入する
+  let line_num = 3
+  for text_line in text_lines
+    call append(line_num, text_line)
+    let line_num += 1
+  endfor
+
+  " ファイルを保存
+  write
+
+  echo "changelogmemoに追加しました"
 endfunction
 
 command! -range -nargs=0 Test call s:Test()

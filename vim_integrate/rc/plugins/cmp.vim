@@ -1,4 +1,4 @@
-if g:IsMacNeovimInWork()
+if g:IsMacNeovimInWork() || g:enable_coc == v:true
   autocmd FileType sql,typescript,php,ddu-ff,json lua require('cmp').setup.buffer {
   \   enabled = false
   \ }
