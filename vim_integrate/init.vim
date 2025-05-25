@@ -145,40 +145,58 @@ lua << EOF
 local map_combo = require('mini.keymap').map_combo
 
 -- diw
-map_combo({ 'i', 'c' }, 'ww', '<bs><bs><esc>diw')
-map_combo({ 'n', 'x' }, 'ww', 'bbdiw')
+map_combo({ 'i', 'c' }, 'ww', '<bs><bs><esc>diw', {delay = 200})
+map_combo({ 'n', 'x' }, 'ww', 'bbdiw', {delay = 200})
+
+-- yiw
+map_combo({ 'i', 'c' }, 'hw', '<bs><bs><esc>yiw', {delay = 200})
+map_combo({ 'i', 'c' }, 'wh', '<bs><bs><esc>yiw', {delay = 200})
+map_combo({ 'n', 'x' }, 'hw', 'blyiw', {delay = 200})
+map_combo({ 'n', 'x' }, 'wh', 'blyiw', {delay = 200})
 
 -- diW
-map_combo({ 'i', 'c' }, 'we', '<bs><bs><esc>diW')
-map_combo({ 'i', 'c' }, 'ew', '<bs><bs><esc>diW')
-map_combo({ 'n', 'x' }, 'we', 'bbdiW')
-map_combo({ 'n', 'x' }, 'ew', 'bbdiW')
+map_combo({ 'i', 'c' }, 'we', '<bs><bs><esc>diW', {delay = 200})
+map_combo({ 'i', 'c' }, 'ew', '<bs><bs><esc>diW', {delay = 200})
+map_combo({ 'n', 'x' }, 'we', 'bbdiW', {delay = 200})
+map_combo({ 'n', 'x' }, 'ew', 'bbdiW', {delay = 200})
+
+-- yiW
+map_combo({ 'i', 'c' }, 'kw', '<bs><bs><esc>yiW', {delay = 200})
+map_combo({ 'i', 'c' }, 'wk', '<bs><bs><esc>yiW', {delay = 200})
+map_combo({ 'n', 'x' }, 'kw', 'bjyiW', {delay = 200})
+map_combo({ 'n', 'x' }, 'wk', 'bjyiW', {delay = 200})
 
 -- dip
-map_combo({ 'i', 'c' }, 'PP', '<bs><bs><esc>dipdd')
-map_combo({ 'n', 'x' }, 'PP', 'uudipdd')
+map_combo({ 'i', 'c' }, 'PP', '<bs><bs><esc>dipdd', {delay = 200})
+map_combo({ 'n', 'x' }, 'PP', 'uudipdd', {delay = 200})
 
 -- di"
-map_combo({ 'i', 'c' }, '""', '<esc>Xxdi"')
-map_combo({ 'n', 'x' }, '""', '<esc><esc>di"')
+map_combo({ 'i', 'c' }, '""', '<esc>Xxdi"', {delay = 200})
+map_combo({ 'n', 'x' }, '""', '<esc><esc>di"', {delay = 200})
 
 -- da"
-map_combo({ 'i', 'c' }, 'kl', '<bs><bs><esc>da"')
-map_combo({ 'i', 'c' }, 'lk', '<bs><bs><esc>da"')
-map_combo({ 'n', 'x' }, 'kl', '')
-map_combo({ 'n', 'x' }, 'lk', 'jhda"')
+map_combo({ 'i', 'c' }, 'kl', '<bs><bs><esc>da"', {delay = 200})
+map_combo({ 'i', 'c' }, 'lk', '<bs><bs><esc>da"', {delay = 200})
+map_combo({ 'n', 'x' }, 'kl', 'jhda"', {delay = 200})
+map_combo({ 'n', 'x' }, 'lk', 'jhda"', {delay = 200})
 
 -- di'
-map_combo({ 'i', 'c' }, 'jk', '<bs><bs><esc>di\'')
-map_combo({ 'i', 'c' }, 'kj', '<bs><bs><esc>di\'')
-map_combo({ 'n', 'x' }, 'jk', '<esc>di\'')
-map_combo({ '', 'x' }, 'kj', '<esc>di\'')
+map_combo({ 'i', 'c' }, 'jk', '<bs><bs><esc>di\'', {delay = 200})
+map_combo({ 'i', 'c' }, 'kj', '<bs><bs><esc>di\'', {delay = 200})
+map_combo({ 'n', 'x' }, 'jk', '<esc>di\'', {delay = 200})
+map_combo({ 'n', 'x' }, 'kj', '<esc>di\'', {delay = 200})
+
+-- yi'
+map_combo({ 'i', 'c' }, 'hk', '<bs><bs><esc>yi\'', {delay = 200})
+map_combo({ 'i', 'c' }, 'kh', '<bs><bs><esc>yi\'', {delay = 200})
+map_combo({ 'n', 'x' }, 'hk', 'jlyi\'', {delay = 200})
+map_combo({ 'n', 'x' }, 'kh', 'jlyi\'', {delay = 200})
 
 -- da'
-map_combo({ 'i', 'c' }, 'hj', '<bs><bs><esc>da\'')
-map_combo({ 'i', 'c' }, 'jh', '<bs><bs><esc>da\'')
-map_combo({ 'n', 'x' }, 'hj', 'lkda\'')
-map_combo({ 'n', 'x' }, 'jh', 'lkda\'')
+map_combo({ 'i', 'c' }, 'hj', '<bs><bs><esc>da\'', {delay = 200})
+map_combo({ 'i', 'c' }, 'jh', '<bs><bs><esc>da\'', {delay = 200})
+map_combo({ 'n', 'x' }, 'hj', 'lkda\'', {delay = 200})
+map_combo({ 'n', 'x' }, 'jh', 'lkda\'', {delay = 200})
 
 require("nudge-two-hats").setup({
   notify = {

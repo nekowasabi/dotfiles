@@ -1,3 +1,5 @@
+nnoremap <silent> <leader>n :NoiceAll<CR>
+
 lua << EOF
 
 require("notify").setup({
