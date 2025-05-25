@@ -106,7 +106,7 @@ let s:models = {
   \ 'gemini_not_thinking':    ' --no-auto-commits --model my-openrouter/google/gemini-2.5-preview --editor-model my-openrouter/google/gemini-2.5-preview ',
   \ 'gemini_flash_not_thinking': ' --no-auto-commits --model my-openrouter/google/gemini-2.5-flash-preview --editor-model my-openrouter/google/gemini-2.5-flash-preview ',
   \ 'deepseek':  ' --no-auto-commits --model my-openai/firework/deepseek-r1-fast --editor-model my-openai/firework/deepseek-v3',
-  \ 'copilot':   ' --reasoning-effort high --weak-model openrouter/anthropic/claude-3-5-haiku --model proxy-claude-3-5-sonnet --editor-model proxy-claude-3-5-sonnet',
+  \ 'copilot':   ' --weak-model copilot/gpt-4.1-mini --model openai/gemini-2.5-pro --editor-model copilot/gpt-4.1-mini',
   \ 'experimental': ' --no-auto-commits --model openrouter/google/gemini-2.5-pro-exp-03-25:free --editor-model my-openai/firework/deepseek-v3 --weak-model openrouter/gpt-4.1-nano',
   \ 'testing':   ''
   \ }
@@ -183,6 +183,8 @@ function! s:aider_setting_complete(ArgLead, CmdLine, CursorPos) abort
   return filter(keys(s:aider_settings), 'v:val =~ "^" . a:ArgLead')
 endfunction
 " }}}1
+
+
 
 " 選択範囲からパスを抽出してaiderに追加 {{{1
 function! s:get_visual_text()
@@ -441,3 +443,20 @@ function! s:open_by_copilot() abort
   execute 'terminal ~/copilot_aider.sh'
 endfunction
 command! AiderOpenByCopilot call s:open_by_copilot()
+
+" Aiderをcopilot設定で切り替える {{{1
+"
+" @param {string} setting_name - 切り替える設定の名前
+"                               利用可能な設定: default, architect, watch, gpt, vhs
+"                               空の場合は'architect'がデフォルト値として使用される
+" @return void - なし
+function! s:switch_aider_with_copilot() abort
+  let g:aider_command = '~/.config/nvim/plugged/aider.vim/copilot.sh ' . s:models['copilot'] . s:aider_common_options
+
+  execute 'AiderRun'
+endfunction
+command! -nargs=0 AiderWithCopilot call s:switch_aider_with_copilot()
+
+" }}}1
+
+
