@@ -461,7 +461,8 @@ function! s:doc_aider_with_copilot() abort
   let g:aider_command = '~/.config/nvim/plugged/aider.vim/copilot.sh ' . s:models['copilot'] . s:aider_common_options
 
   execute 'AiderRun'
-  execute "AiderSendPromptByCommandline /run deno run --allow-read /Users/takets/repos/changelog/extract.ts /Users/takets/repos/changelog/changelogmemo -- tips idea knowledge memo"
+	execute "5sleep"
+  execute "AiderSendPromptByCommandline /run deno run --allow-read ~/repos/changelog/extract.ts ~/repos/changelog/changelogmemo -- tips idea knowledge memo"
 endfunction
 command! -nargs=0 AiderDocWithCopilot call s:doc_aider_with_copilot()
 

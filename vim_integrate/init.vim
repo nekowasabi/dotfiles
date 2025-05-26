@@ -174,11 +174,11 @@ map_combo({ 'n', 'x' }, 'PP', 'uudipdd', {delay = 200})
 map_combo({ 'i', 'c' }, '""', '<esc>Xxdi"', {delay = 200})
 map_combo({ 'n', 'x' }, '""', '<esc><esc>di"', {delay = 200})
 
--- da"
-map_combo({ 'i', 'c' }, 'kl', '<bs><bs><esc>da"', {delay = 200})
-map_combo({ 'i', 'c' }, 'lk', '<bs><bs><esc>da"', {delay = 200})
-map_combo({ 'n', 'x' }, 'kl', 'jhda"', {delay = 200})
-map_combo({ 'n', 'x' }, 'lk', 'jhda"', {delay = 200})
+-- yi"
+map_combo({ 'i', 'c' }, 'jl', '<bs><bs><esc>yi"', {delay = 200})
+map_combo({ 'i', 'c' }, 'lj', '<bs><bs><esc>yi"', {delay = 200})
+map_combo({ 'n', 'x' }, 'jl', 'khyi"', {delay = 200})
+map_combo({ 'n', 'x' }, 'lj', 'hkyi"', {delay = 200})
 
 -- di'
 map_combo({ 'i', 'c' }, 'jk', '<bs><bs><esc>di\'', {delay = 200})
@@ -197,6 +197,12 @@ map_combo({ 'i', 'c' }, 'hj', '<bs><bs><esc>da\'', {delay = 200})
 map_combo({ 'i', 'c' }, 'jh', '<bs><bs><esc>da\'', {delay = 200})
 map_combo({ 'n', 'x' }, 'hj', 'lkda\'', {delay = 200})
 map_combo({ 'n', 'x' }, 'jh', 'lkda\'', {delay = 200})
+
+-- da"
+map_combo({ 'i', 'c' }, 'kl', '<bs><bs><esc><esc>da\"', {delay = 200}) -- dduで絞り込みするとおかしくなるのでコメントアウト
+map_combo({ 'i', 'c' }, 'lk', '<bs><bs><esc><esc>da\"', {delay = 200}) -- dduで絞り込みするとおかしくなるのでコメントアウト
+map_combo({ 'n', 'x' }, 'kl', 'jhda\"', {delay = 200})
+map_combo({ 'n', 'x' }, 'lk', 'jhda\"', {delay = 200})
 
 require("nudge-two-hats").setup({
   notify = {

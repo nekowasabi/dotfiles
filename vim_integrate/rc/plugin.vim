@@ -219,7 +219,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'numToStr/Comment.nvim'
   Plug 'monaqa/dial.nvim'
   Plug 'stevearc/dressing.nvim'
-  Plug 'HakonHarnes/img-clip.nvim'
+  " Plug 'HakonHarnes/img-clip.nvim'
   Plug 'MeanderingProgrammer/render-markdown.nvim'
   Plug 'mistweaverco/kulala.nvim'
   Plug 'gbprod/yanky.nvim'
