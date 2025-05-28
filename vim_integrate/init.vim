@@ -100,6 +100,17 @@ endif
 
 " keybind
 nnoremap M %
+nnoremap dp dip
+nnoremap d<C-w> diw
+nnoremap dW daW
+nnoremap d" di"
+nnoremap D" da"
+nnoremap d' di'
+nnoremap D' da'
+nnoremap d( di()
+nnoremap D( da()
+nnoremap y" yi"
+nnoremap y' yi'
 
 " testing
 nnoremap <silent> z<CR> :ZenMode<CR>
