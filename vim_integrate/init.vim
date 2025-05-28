@@ -142,8 +142,8 @@ endfunction
 
 lua << EOF
 
-local map_combo = require('mini.keymap').map_combo
-
+-- local map_combo = require('mini.keymap').map_combo
+--
 -- -- diw
 -- map_combo({ 'i', 'c' }, 'ww', '<bs><bs><esc>diw', {delay = 200})
 -- map_combo({ 'n', 'x' }, 'ww', 'bbdiw', {delay = 200})
