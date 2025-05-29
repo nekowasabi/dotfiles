@@ -102,7 +102,9 @@ endif
 nnoremap M %
 nnoremap dp dip
 nnoremap d<C-w> diw
-nnoremap dW daW
+nnoremap c<C-w> ciw
+nnoremap cW ciW
+nnoremap dW viwd
 nnoremap d" di"
 nnoremap D" da"
 nnoremap d' di'
