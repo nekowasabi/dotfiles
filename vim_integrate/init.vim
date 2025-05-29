@@ -111,6 +111,8 @@ nnoremap d( di()
 nnoremap D( da()
 nnoremap y" yi"
 nnoremap y' yi'
+nnoremap yw yiw
+nnoremap yW yiW
 
 nnoremap <silent> z<CR> :ZenMode<CR>
 
