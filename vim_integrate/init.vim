@@ -1,22 +1,20 @@
 " " minimal settings {{{1
 " if empty('~/.config/nvim/autoload/' . 'plug.vim')
-"  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-"        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-"  autocmd VimEnter * PlugInstall | source $MYVIMRC
-" endif
-"
-"
+"  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim autocmd VimEnter * PlugInstall | source $MYVIMRC endif
+" 
+" 
 " call plug#begin('~/.config/nvim/autoload/' . 'plugged')
-"
+" 
 " Plug 'vim-denops/denops.vim'
 " Plug 'Shougo/ddu.vim'
 " Plug 'Shougo/ddu-ui-ff'
+" Plug 'Shougo/ddu-kind-file'
 " Plug 'kuuote/ddu-source-mr'
 " Plug 'Bakudankun/ddu-filter-matchfuzzy'
 " Plug 'lambdalisue/vim-mr'
-"
+" 
 " call plug#end()
-"
+" 
 " call ddu#custom#patch_global(#{
 "    \   kindOptions: #{
 "    \     _: #{
@@ -24,11 +22,11 @@
 "    \     },
 "    \   }
 "    \ })
-"
+" 
 " call ddu#custom#patch_global(#{
 "      \   ui: 'ff',
 "      \ })
-"
+" 
 " call ddu#custom#patch_global(#{
 "    \   sourceOptions: #{
 "    \     _: #{
@@ -36,13 +34,13 @@
 "    \     },
 "    \   }
 "    \ })
-"
+" 
 " autocmd FileType ddu-ff call s:ddu_uu_my_settings()
 " function! s:ddu_uu_my_settings() abort
-"   nnoremap <buffer><silent> i
-"         \ <Cmd>call ddu#ui#do_action('openFilterWindow')<CR>
+"   nnoremap <buffer><silent> <CR>
+"         \ <Cmd>call ddu#ui#do_action('itemAction')<CR>
 " endfunction
-"
+" 
 " " }}}1
 
 " init setting {{{1
@@ -502,5 +500,3 @@ EOF
 command! GetGitDiff lua get_git_diff()
 
 " END
-
-
