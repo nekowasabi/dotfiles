@@ -131,6 +131,9 @@ let g:crosschannel_x_access_token = $X_ACCESS_TOKEN
 let g:crosschannel_x_access_token_secret = $X_ACCESS_TOKEN_SECRET
 let g:crosschannel_x_bearer_token = $X_BEARER_TOKEN
 
+let g:hashtag = ''
+nnoremap <silent> c<CR> :CrossChannelPost<CR>
+
 nnoremap <Leader>: :
 
 let g:autosave_enabled = v:false

@@ -1,8 +1,11 @@
 " -----------------------------------------------------------
 " vim-plug.vim
 
-
-let g:enable_coc = v:true
+if g:IsMacNeovimInWork()
+  let g:enable_coc = v:true
+else
+  let g:enable_coc = v:false
+endif
 
 " init {{{1
 if empty(g:GetAutoloadPath() . 'plug.vim')
@@ -164,8 +167,8 @@ function g:SetDdu()
   Plug 'Shougo/ddu-kind-file'
   Plug 'Shougo/ddu-source-file'
   Plug 'Shougo/ddu-source-file_rec'
-  " Plug 'Shougo/ddu-ui-ff'
-  Plug 'Shougo/ddu-ui-ff', { 'commit': 'adf9ab0df52ad7c638cd67f9cff709c19cf768ba' }
+  Plug 'Shougo/ddu-ui-ff'
+  " Plug 'Shougo/ddu-ui-ff', { 'commit': 'adf9ab0df52ad7c638cd67f9cff709c19cf768ba' }
   Plug 'Shougo/ddu.vim'
   Plug 'kamecha/ddu-filter-converter_file_icon'
   Plug 'kamecha/ddu-filter-converter_file_info'
