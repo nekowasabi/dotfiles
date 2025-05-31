@@ -97,7 +97,6 @@ let s:aider_common_options = ' --no-detect-urls --no-auto-accept-architect --not
 " ---------------------------------------------------------
 let s:models = {
   \ 'default':    ' --no-auto-commits --model openrouter/anthropic/claude-sonnet-4 --editor-model openrouter/google/gemini-2.5-flash-preview-05-20',
-  \ '':    ' --no-auto-commits --model architect/anthropic/claude-3-7-sonnet-20250219 --editor-model editor/anthropic/claude-3-7-sonnet-20250219',
   \ 'claude':    ' --no-auto-commits --model architect/anthropic/claude-4 --editor-model editor/anthropic/claude-4',
   \ 'gpt':       ' --reasoning-effort medium --weak-model openai/gpt-4.1-nano --model openai/o3-mini --editor-model openai/gpt-4o',
   \ 'gpt_41_mini':    ' --weak-model openrouter/openai/gpt-4.1-mini --model openrouter/openai/gpt-4.1-mini --editor-model openrouter/openai/gpt-4.1-mini',
@@ -106,7 +105,7 @@ let s:models = {
   \ 'gemini_not_thinking':    ' --no-auto-commits --model my-openrouter/google/gemini-2.5-preview --editor-model my-openrouter/google/gemini-2.5-preview ',
   \ 'gemini_flash_not_thinking': ' --no-auto-commits --model my-openrouter/google/gemini-2.5-flash-preview --editor-model my-openrouter/google/gemini-2.5-flash-preview ',
   \ 'deepseek':  ' --no-auto-commits --model my-openai/firework/deepseek-r1-fast --editor-model my-openai/firework/deepseek-v3',
-  \ 'copilot':   ' --weak-model copilot/gpt-4.1-mini --model openai/gemini-2.5-pro --editor-model copilot/gpt-4.1-mini',
+  \ 'copilot':   ' --weak-model openrouter/google/gemini-2.5-flash-preview-05-20 --model openai/gemini-2.5-pro --editor-model copilot/gpt-4.1',
   \ 'experimental': ' --no-auto-commits --model openrouter/google/gemini-2.5-pro-exp-03-25:free --editor-model my-openai/firework/deepseek-v3 --weak-model openrouter/gpt-4.1-nano',
   \ 'testing':   ''
   \ }
@@ -451,7 +450,7 @@ command! AiderOpenByCopilot call s:open_by_copilot()
 "                               空の場合は'architect'がデフォルト値として使用される
 " @return void - なし
 function! s:switch_aider_with_copilot() abort
-  let g:aider_command = '~/.config/nvim/plugged/aider.vim/copilot.sh ' . s:models['copilot'] . s:aider_common_options
+  let g:aider_command = '~/.config/nvim/plugged/aider.vim/copilot.sh ' . s:models['copilot'] . s:build_options(s:aider_base_command, 'copilot', 0)
 
   execute 'AiderRun'
 endfunction
