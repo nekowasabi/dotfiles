@@ -98,8 +98,10 @@ endif
 
 " keybind
 nnoremap M %
+nnoremap <silent> <C-d> dd
 nnoremap dp dip
 nnoremap d<C-w> diw
+nnoremap dW daw
 nnoremap c<C-w> ciw
 nnoremap cW ciW
 nnoremap dW viwd

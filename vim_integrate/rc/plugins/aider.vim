@@ -101,24 +101,23 @@ let s:models = {
   \ 'gpt':       ' --reasoning-effort medium --weak-model openai/gpt-4.1-nano --model openai/o3-mini --editor-model openai/gpt-4o',
   \ 'gpt_41_mini':    ' --weak-model openrouter/openai/gpt-4.1-mini --model openrouter/openai/gpt-4.1-mini --editor-model openrouter/openai/gpt-4.1-mini',
   \ 'gpt_41_nano':    ' --weak-model openrouter/openai/gpt-4.1-nano --model openrouter/openai/gpt-4.1-nano --editor-model openrouter/openai/gpt-4.1-nano',
-  \ 'gemini':    ' --no-auto-commits --model my-openrouter/google/gemini-2.5-pro-preview --editor-model openrouter/openai/gpt-4.1',
+  \ 'gemini':    ' --no-auto-commits --model openrouter/google/gemini-2.5-pro-preview --editor-model openrouter/google/gemini-2.5-flash-preview-05-20',
   \ 'gemini_not_thinking':    ' --no-auto-commits --model my-openrouter/google/gemini-2.5-preview --editor-model my-openrouter/google/gemini-2.5-preview ',
   \ 'gemini_flash_not_thinking': ' --no-auto-commits --model my-openrouter/google/gemini-2.5-flash-preview --editor-model my-openrouter/google/gemini-2.5-flash-preview ',
   \ 'deepseek':  ' --no-auto-commits --model my-openai/firework/deepseek-r1-fast --editor-model my-openai/firework/deepseek-v3',
   \ 'copilot':   ' --weak-model openrouter/google/gemini-2.5-flash-preview-05-20 --model openai/gemini-2.5-pro --editor-model copilot/gpt-4.1',
+  \ 'copilot_claude': ' --weak-model openrouter/openai/gpt-4.1-nano --model copilot/claude-sonnet-4 --editor-model copilot/gpt-4.1',
   \ 'experimental': ' --no-auto-commits --model openrouter/google/gemini-2.5-pro-exp-03-25:free --editor-model my-openai/firework/deepseek-v3 --weak-model openrouter/gpt-4.1-nano',
   \ 'testing':   ''
   \ }
 
 " 共通のAider設定プリセット
-" コマンドオプション構築ヘルパー {{{2
 function! s:build_options(base, model, watch_files) abort
   let options = a:base . s:aider_common_options
   let options .= ' --architect ' . s:models[a:model]
   return a:watch_files ? options . ' --watch-files' : options
 endfunction
 
-" 共通設定定義 {{{2
 let s:common_aider_settings = {
       \ 'architect_copilot':  s:build_options(s:aider_base_command, 'copilot',           0),
       \ 'architect_claude':   s:build_options(s:aider_base_command, 'claude',            0),
@@ -146,7 +145,7 @@ function! s:setup_environment() abort
           \ 'architect_experimental': s:build_options(s:aider_base_command, 'experimental', 0),
           \ 'gpt': s:build_options(s:aider_base_command, 'gpt', 0)
           \ })
-    let g:aider_command = s:aider_settings['architect_default']
+    let g:aider_command = s:aider_settings['architect_gemini']
   endif
 endfunction
 
@@ -221,7 +220,7 @@ function! s:AiderAddFileVisualSelected()
     endif
 
     let l:lines = map(l:lines, 'substitute(v:val, "[, ]*$", "", "g")')
-    let l:lines = map(l:lines, 'substitute(v:val, "^[ ]*", "", "g")')
+    let l:lines = map(l:lines, "^[ ]*", "", "g")')
 
     " 各行からファイルパスを抽出
     for l:line in l:lines
@@ -300,32 +299,48 @@ let g:aider_diff_prompt = [
 
 " vim-rule-switcher.vimのプロジェクトルールのパスをaiderで開く {{{1
 function! s:aider_toggle_context_for_vim_rule_switcher(...) abort
-  if a:0 < 1 || a:0 > 2
-    echo "Error: 引数は1つ（プロジェクト名）または2つ（プロジェクト名とモード）を指定してください"
-    return
-  endif
-
-  let l:project = a:1
-  echo l:project
-  let l:mode = a:0 == 2 ? a:2 : 'read-only'
-
   let json_content = readfile(expand(g:switch_rule))
   let json_data = json_decode(join(json_content, "\n"))
 
-  let project = filter(json_data.projects, 'v:val.name ==# l:project')
-  if len(project) > 0
-      let paths = map(copy(project[0].rules), 'v:val.path')
-      let paths = flatten(paths)
-      let paths = map(paths, 'expand(v:val)')
-      
-      let command = l:mode ==# 'add' ? '/add' : '/read-only'
-      
-      for path in paths
-        execute "AiderSendPromptByCommandline " . command . " " . path
-      endfor
-  else
-      echo "指定されたプロジェクト「" . l:project . "」が見つかりません。"
+  if !exists('json_data.projects') || empty(json_data.projects)
+    echo "エラー: プロジェクトがルールファイルに見つからないか、ルールファイルが正しくありません。"
+    return
   endif
+
+  let l:project_data_to_use = {}
+  let l:mode = 'read-only' " デフォルトモード
+  let l:project_name_for_message = ''
+
+  if a:0 == 0
+    " 引数なしの場合: 最初のプロジェクトを使用
+    let l:project_data_to_use = json_data.projects[0]
+    let l:project_name_for_message = l:project_data_to_use.name
+    " l:mode は 'read-only' のまま
+  else
+    " 引数ありの場合
+    let l:project_name_arg = a:1
+    let filtered_projects = filter(copy(json_data.projects), 'v:val.name ==# l:project_name_arg')
+    if empty(filtered_projects)
+      echo "指定されたプロジェクト「" . l:project_name_arg . "」が見つかりません。"
+      return
+    endif
+    let l:project_data_to_use = filtered_projects[0]
+    let l:project_name_for_message = l:project_data_to_use.name
+    if a:0 == 2
+      let l:mode = a:2 " モードが指定されていれば上書き
+    endif
+  endif
+
+  let paths = map(copy(l:project_data_to_use.rules), 'v:val.path')
+  let paths = flatten(paths)
+  let paths = map(paths, 'expand(v:val)')
+  
+  let command_action = l:mode ==# 'add' ? '/add' : '/read-only'
+  
+  for path in paths
+    execute "AiderSendPromptByCommandline " . command_action . " " . path
+  endfor
+  echo "プロジェクト「" . l:project_name_for_message . "」のファイルを " . l:mode . " モードでAiderに追加しました。"
 endfunction
 command! -nargs=* AiderProjectFiles call s:aider_toggle_context_for_vim_rule_switcher(<f-args>)
 
@@ -450,7 +465,7 @@ command! AiderOpenByCopilot call s:open_by_copilot()
 "                               空の場合は'architect'がデフォルト値として使用される
 " @return void - なし
 function! s:switch_aider_with_copilot() abort
-  let g:aider_command = '~/.config/nvim/plugged/aider.vim/copilot.sh ' . s:models['copilot'] . s:build_options(s:aider_base_command, 'copilot', 0)
+  let g:aider_command = '~/.config/nvim/plugged/aider.vim/copilot.sh ' . s:models['copilot_claude'] . s:build_options(s:aider_base_command, 'copilot_claude', 0)
 
   execute 'AiderRun'
 endfunction
@@ -468,5 +483,3 @@ command! -nargs=0 AiderDocWithCopilot call s:doc_aider_with_copilot()
 
 
 " }}}1
-
-
