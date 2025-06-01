@@ -182,8 +182,6 @@ function! s:aider_setting_complete(ArgLead, CmdLine, CursorPos) abort
 endfunction
 " }}}1
 
-
-
 " 選択範囲からパスを抽出してaiderに追加 {{{1
 function! s:get_visual_text()
   try
