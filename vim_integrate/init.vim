@@ -115,6 +115,8 @@ nnoremap y" yi"
 nnoremap y' yi'
 nnoremap yw yiw
 nnoremap yW yiW
+nmap dk dib
+nmap dK dab
 
 nnoremap <silent> z<CR> :ZenMode<CR>
 
