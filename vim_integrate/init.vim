@@ -88,6 +88,7 @@ let g:denops#debug = 0
 " url-highlight
 let g:highlighturl_guifg = '#4aa3ff'
 
+
 " glance
 if exists('')
   nnoremap gR <CMD>Glance references<CR>
@@ -140,8 +141,7 @@ nnoremap <silent> c<CR> :CrossChannelPost<CR>
 
 nnoremap <Leader>: :
 
-let g:autosave_enabled = v:false
-let g:autosave_disable_inside_paths = [] " A list of paths inside which autosave should be disabled. 
+map R <Plug>(operator-replace)
 
 augroup filetype_echo                                                                              
    autocmd!                                                                                         

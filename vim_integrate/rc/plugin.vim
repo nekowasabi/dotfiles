@@ -90,6 +90,8 @@ Plug 'vim-denops/denops-shared-server.vim'
 
 " textobj
 Plug 'kana/vim-operator-user'
+" Plug 'kana/vim-operator-replace'
+Plug 'yuki-yano/vim-operator-replace'
 Plug 'kana/vim-textobj-fold'
 Plug 'kana/vim-textobj-jabraces'
 Plug 'kana/vim-textobj-underscore'
