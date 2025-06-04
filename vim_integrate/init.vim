@@ -161,6 +161,27 @@ endfunction
 
 lua << EOF
 
+vim.api.nvim_create_autocmd("TextYankPost", {
+  group = vim.api.nvim_create_augroup("ContextfulMark", { clear = true }),
+  callback = function(ctx)
+    local op = string.upper(vim.v.event.operator)
+    print("ContextfulMark: operator = " .. op)
+    if not op then
+      return
+    end
+
+    local win = vim.api.nvim_get_current_win()
+    vim.schedule(function()
+      -- Do lazily to avoid occasional failure on setting the mark.
+      -- The issue typically occurs with `dd`.
+      if vim.api.nvim_win_get_buf(win) == ctx.buf then
+        local cursor = vim.api.nvim_win_get_cursor(win)
+        vim.api.nvim_buf_set_mark(ctx.buf, op, cursor[1], cursor[2], {})
+      end
+    end)
+  end,
+})
+
 require("nudge-two-hats").setup({
   notify = {
     system_prompt = "Analyze this code change and provide varied, specific advice based on the actual diff content. Consider whether the programmer is focusing on refactoring, adding new features, fixing bugs, or improving tests. Your advice should be tailored to the specific changes you see in the diff and should vary in content and style each time.",
