@@ -106,7 +106,7 @@ let s:models = {
   \ 'gemini_flash_not_thinking': ' --no-auto-commits --model my-openrouter/google/gemini-2.5-flash-preview --editor-model my-openrouter/google/gemini-2.5-flash-preview ',
   \ 'deepseek':  ' --no-auto-commits --model my-openai/firework/deepseek-r1-fast --editor-model my-openai/firework/deepseek-v3',
   \ 'copilot':   ' --weak-model openrouter/google/gemini-2.5-flash-preview-05-20 --model openai/gemini-2.5-pro --editor-model copilot/gpt-4.1',
-  \ 'copilot_claude': ' --weak-model openrouter/openai/gpt-4.1-nano --model copilot/claude-sonnet-4 --editor-model copilot/gpt-4.1',
+  \ 'copilot_claude': ' --weak-model openrouter/openai/gpt-4.1-nano --model copilot/claude-sonnet-4 --editor-model openrouter/google/gemini-2.5-flash-preview-05-20',
   \ 'experimental': ' --no-auto-commits --model openrouter/google/gemini-2.5-pro-exp-03-25:free --editor-model my-openai/firework/deepseek-v3 --weak-model openrouter/gpt-4.1-nano',
   \ 'testing':   ''
   \ }
