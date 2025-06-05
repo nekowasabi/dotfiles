@@ -478,6 +478,77 @@ function! s:doc_aider_with_copilot() abort
 endfunction
 command! -nargs=0 AiderDocWithCopilot call s:doc_aider_with_copilot()
 
+" }}}1
 
+" GitHub Copilot Token更新 {{{1
+function! s:RefreshCopilotToken()
+  try
+    let l:config_path = expand('~/.config/github-copilot/apps.json')
 
+    if !filereadable(l:config_path)
+      echohl ErrorMsg
+      echo "Could not find " . l:config_path . ". Please check the path and try again."
+      echohl None
+      return
+    endif
+
+    let l:json_content = readfile(l:config_path)->join("\n")
+    let l:config_data = json_decode(l:json_content)
+
+    if empty(l:config_data) || type(l:config_data) != v:t_dict
+      echohl ErrorMsg
+      echo "Invalid JSON format in " . l:config_path
+      echohl None
+      return
+    endif
+
+    let l:first_key = get(keys(l:config_data), 0, '')
+    if empty(l:first_key) || !has_key(l:config_data[l:first_key], 'oauth_token')
+      echohl ErrorMsg
+      echo "No oauth_token found in the first entry of " . l:config_path
+      echohl None
+      return
+    endif
+    let l:oauth_token = l:config_data[l:first_key].oauth_token
+
+    if empty(l:oauth_token) || l:oauth_token ==# 'null'
+      echohl ErrorMsg
+      echo "No oauth_token found in the first entry of " . l:config_path
+      echohl None
+      return
+    endif
+
+    let l:api_url = "https://api.github.com/copilot_internal/v2/token"
+    let l:auth_header = "Authorization: Bearer " . l:oauth_token
+    let l:curl_command = printf('curl -s -H %s %s', shellescape(l:auth_header), shellescape(l:api_url))
+
+    let l:api_response = system(l:curl_command)
+    if v:shell_error
+        echohl ErrorMsg
+        echo "curl command failed."
+        echohl None
+        return
+    endif
+
+    let l:response_data = json_decode(l:api_response)
+
+    if empty(l:response_data) || !has_key(l:response_data, 'token') || empty(l:response_data.token) || l:response_data.token ==# 'null'
+      echohl ErrorMsg
+      echo "No 'token' field found in the API response."
+      echohl None
+      return
+    endif
+
+    let l:copilot_token = l:response_data.token
+
+    let $OPENAI_API_KEY = l:copilot_token
+    let $GITHUB_COPILOT_TOKEN = l:copilot_token
+  catch
+    echohl ErrorMsg
+    echo "An error occurred: " . v:exception
+    echohl None
+  endtry
+endfunction
+
+command! RefreshCopilotToken call s:RefreshCopilotToken()
 " }}}1

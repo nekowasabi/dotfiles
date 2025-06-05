@@ -329,7 +329,6 @@ function! s:GenerateTextLinkTag()
 	call setpos('.', pos)
 	" 構文ハイライトを更新
 	syntax sync fromstart
-	" 画面を再描画
 	redraw
 endfunction
 command! GenerateTextLinkTag call s:GenerateTextLinkTag() 
