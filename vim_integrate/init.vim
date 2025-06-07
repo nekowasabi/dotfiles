@@ -213,7 +213,7 @@ require("nudge-two-hats").setup({
 			## 6. Constraints (Placeholder)
 			Specific constraints, such as message length, will also be provided by the `prompt.lua` module.
 		]],
-    purpose = "", -- Work purpose or objective
+    purpose = "宇宙征服をすることが目的であり、通知やvirtualt textは目的に従ったメッセージにすること", -- Work purpose or objective
     default_cbt = {
       role = "Cognitive behavioral therapy specialist",
       direction = "Guide towards healthier thought patterns and behaviors",
