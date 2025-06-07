@@ -107,6 +107,7 @@ let s:models = {
   \ 'deepseek':  ' --no-auto-commits --model my-openai/firework/deepseek-r1-fast --editor-model my-openai/firework/deepseek-v3',
   \ 'copilot':   ' --weak-model openrouter/google/gemini-2.5-flash-preview-05-20 --model openai/gemini-2.5-pro --editor-model copilot/gpt-4.1',
   \ 'copilot_claude': ' --weak-model openrouter/openai/gpt-4.1-nano --model copilot/claude-sonnet-4 --editor-model openrouter/google/gemini-2.5-flash-preview-05-20',
+  \ 'copilot_gemini': ' --weak-model openrouter/openai/gpt-4.1-nano --model copilot/openai/gemini-2.5-pro --editor-model openrouter/google/gemini-2.5-flash-preview-05-20',
   \ 'experimental': ' --no-auto-commits --model openrouter/google/gemini-2.5-pro-exp-03-25:free --editor-model my-openai/firework/deepseek-v3 --weak-model openrouter/gpt-4.1-nano',
   \ 'testing':   ''
   \ }
@@ -463,7 +464,7 @@ command! AiderOpenByCopilot call s:open_by_copilot()
 "                               空の場合は'architect'がデフォルト値として使用される
 " @return void - なし
 function! s:switch_aider_with_copilot() abort
-  let g:aider_command = '~/.config/nvim/plugged/aider.vim/copilot.sh ' . s:models['copilot_claude'] . s:build_options(s:aider_base_command, 'copilot_claude', 0)
+  let g:aider_command = '~/.config/nvim/plugged/aider.vim/copilot.sh ' . s:models['copilot_gemini'] . s:build_options(s:aider_base_command, 'copilot_gemini', 0)
 
   execute 'AiderRun'
 endfunction
@@ -482,6 +483,14 @@ command! -nargs=0 AiderDocWithCopilot call s:doc_aider_with_copilot()
 
 " GitHub Copilot Token更新 {{{1
 function! s:RefreshCopilotToken()
+  if !executable('curl')
+    return
+  endif
+
+  if &buftype !=# 'terminal'
+    return
+  endif
+
   try
     let l:config_path = expand('~/.config/github-copilot/apps.json')
 
@@ -548,7 +557,14 @@ function! s:RefreshCopilotToken()
     echo "An error occurred: " . v:exception
     echohl None
   endtry
+  echo 'refreshed copilot token successfully.'
 endfunction
 
 command! RefreshCopilotToken call s:RefreshCopilotToken()
+
+augroup CopilotTokenRefresh
+  autocmd!
+  autocmd BufEnter * call s:RefreshCopilotToken()
+augroup END
+
 " }}}1
