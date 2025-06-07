@@ -420,32 +420,6 @@ function get_git_diff()
   end
 end
 
-require('goose').setup({
-  keymap = {
-    global = {
-      toggle = '<leader>gg',                 -- Open goose. Close if opened 
-      open_input = '<leader>gi',             -- Opens and focuses on input window on insert mode
-      open_input_new_session = '<leader>gI', -- Opens and focuses on input window on insert mode. Creates a new session
-      open_output = '<leader>go',            -- Opens and focuses on output window 
-      close = '<leader>gq',                  -- Close UI windows
-      toggle_fullscreen = '<leader>gR',      -- Toggle between normal and fullscreen mode
-      select_session = '<leader>gT',         -- Select and load a goose session
-    },
-    window = {
-      submit = '<cr>',                     -- Submit prompt
-      close = '<esc>',                     -- Close UI windows
-      stop = '<C-c>',                      -- Stop a running job
-      next_message = ']]',                 -- Navigate to next message in the conversation
-      prev_message = '[[',                 -- Navigate to previous message in the conversation
-      mention_file = '@'                   -- Pick a file and add to context. See File Mentions section
-    }
-    },
-  ui = {
-    window_width = 0.35,                   -- Width as percentage of editor width
-    input_height = 0.15,                   -- Input height as percentage of window height
-    fullscreen = false                     -- Start in fullscreen mode (default: false)
-  }
-})
 
 require("smart-i").setup({
   -- Global settings (defaults)

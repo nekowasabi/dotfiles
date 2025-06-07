@@ -71,7 +71,6 @@ Plug 'yuki-yano/smart-i.nvim'
 Plug 'nekowasabi/aider.vim'
 Plug 'Robitx/gp.nvim'
 Plug 'ravitemer/mcphub.nvim', {'do': 'npm install -g mcp-hub@latest'}
-Plug 'azorng/goose.nvim'
 Plug 'nekowasabi/cross-channel.nvim'
 Plug 'atusy/aibou.nvim'
 Plug 'olimorris/codecompanion.nvim'
