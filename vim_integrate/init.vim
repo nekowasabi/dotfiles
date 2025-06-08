@@ -213,7 +213,6 @@ require("nudge-two-hats").setup({
 			## 6. Constraints (Placeholder)
 			Specific constraints, such as message length, will also be provided by the `prompt.lua` module.
 		]],
-    purpose = "宇宙征服をすることが目的であり、通知やvirtualt textは目的に従ったメッセージにすること", -- Work purpose or objective
     default_cbt = {
       role = "Cognitive behavioral therapy specialist",
       direction = "Guide towards healthier thought patterns and behaviors",
@@ -232,6 +231,7 @@ require("nudge-two-hats").setup({
         callback = "",
       },
 			changelog = {
+        purpose = "次に書くべき内容にフォーカスした助言をする。",
 				-- 要件1: role / direction / emotion / tone / hats で構成されるペルソナを明示
 				-- 要件2〜6: OODA 特化の分析官像 + 冷静・客観トーン
 				-- 要件4: 「優勢な状況は存在しない」という信念を明示
@@ -248,6 +248,7 @@ require("nudge-two-hats").setup({
 				callback = "",
 			},
 			text = {
+				purpose = "メンタルヘルスの観点から、ネガティブな思考を共感的かつ寄り添う姿勢で、ポジティブに変換するための助言をする",
 				-- 要件1: role / direction / emotion / tone / hats で構成されるペルソナを明示
 				-- 要件2〜6: OODA 特化の分析官像 + 冷静・客観トーン
 				-- 要件4: 「優勢な状況は存在しない」という信念を明示
@@ -320,6 +321,7 @@ require("nudge-two-hats").setup({
     },
     filetype_prompts = {
 			changelog = {
+        purpose = "次に書くべき内容にフォーカスした助言をする。",
 				-- CBT エキスパートとして共感的かつ寄り添う姿勢で助言する
 				prompt = [[
 				As a Cognitive Behavioral Therapy (CBT) Expert wearing three hats — Friend-like Advisor, Professional Expert, and Growth Supporter — provide compassionate advice grounded in CBT principles.  
@@ -334,6 +336,7 @@ require("nudge-two-hats").setup({
 				callback = "",
 			},
 			text = {
+				purpose = "メンタルヘルスの観点から、ネガティブな思考を共感的かつ寄り添う姿勢で、ポジティブに変換するための助言をする",
 				-- CBT エキスパートとして共感的かつ寄り添う姿勢で助言する
 				prompt = [[
 				As a Cognitive Behavioral Therapy (CBT) Expert wearing three hats — Friend-like Advisor, Professional Expert, and Growth Supporter — provide compassionate advice grounded in CBT principles.  
@@ -375,7 +378,7 @@ require("nudge-two-hats").setup({
   notify_interval_correction = 1, 
   notify_interval_seconds = 10, -- Minimum interval between API calls in seconds
   virtual_text_interval_seconds = 5, -- Time in seconds before showing virtual text
-  -- min_interval = 5, -- Minimum interval between API calls in seconds
+	cursor_idle_threshold_seconds = 30, -- Time in seconds before cursor idle triggers virtual text
 
   -- Debug configuration
   debug_mode = false, -- When true, prints nudge text to Vim's 
