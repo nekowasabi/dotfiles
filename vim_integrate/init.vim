@@ -102,21 +102,26 @@ nnoremap M %
 nnoremap <silent> <C-d> dd
 nnoremap dp dip
 nnoremap d<C-w> diw
+nnoremap c<C-w> ciw
 nnoremap dW daw
 nnoremap c<C-w> ciw
 nnoremap cW ciW
 nnoremap dW viwd
 nnoremap d" di"
+nnoremap c" ci"
 nnoremap D" da"
 nnoremap d' di'
+nnoremap c' ci'
 nnoremap D' da'
 nnoremap d( di()
+nnoremap c( ci(
 nnoremap D( da()
 nnoremap y" yi"
 nnoremap y' yi'
 nnoremap yw yiw
 nnoremap yW yiW
 nmap dk dib
+nmap ck cib
 nmap dK dab
 
 nnoremap <silent> z<CR> :ZenMode<CR>
