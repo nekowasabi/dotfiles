@@ -142,7 +142,7 @@ let g:crosschannel_x_access_token_secret = $X_ACCESS_TOKEN_SECRET
 let g:crosschannel_x_bearer_token = $X_BEARER_TOKEN
 
 let g:hashtag = ''
-nnoremap <silent> c<CR> :CrossChannelPost<CR>
+nnoremap <silent> c<CR> :CrossChannelPostSelect mastodon bluesky<CR>
 
 nnoremap <Leader>: :
 

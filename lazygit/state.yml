@@ -1,12 +1,12 @@
 lastupdatecheck: 0
 recentrepos:
+- /Users/ttakeda/works/invase-backend
 - /Users/ttakeda/repos/private_dotfiles
 - /Users/ttakeda/repos/dotfiles
+- /Users/ttakeda/repos/feynman-technique
 - /Users/ttakeda/repos/changelog
-- /Users/ttakeda/works/invase-backend
 - /Users/ttakeda/.config/nvim/plugged/aider.vim
 - /Users/ttakeda/works/invase-api-schema
-- /Users/ttakeda/repos/feynman-technique
 - /Users/ttakeda/works/invase-frontend
 - /Users/ttakeda/.config/nvim/plugged/nudge-two-hats.vim
 - /Users/ttakeda/.config/nvim/plugged/cross-channel.nvim
