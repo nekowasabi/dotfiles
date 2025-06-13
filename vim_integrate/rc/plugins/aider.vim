@@ -314,7 +314,6 @@ function! s:aider_toggle_context_for_vim_rule_switcher(...) abort
     " 引数なしの場合: 最初のプロジェクトを使用
     let l:project_data_to_use = json_data.projects[0]
     let l:project_name_for_message = l:project_data_to_use.name
-    " l:mode は 'read-only' のまま
   else
     " 引数ありの場合
     let l:project_name_arg = a:1
