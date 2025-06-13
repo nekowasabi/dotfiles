@@ -97,57 +97,9 @@ if exists('')
   nnoremap gI <CMD>Glance implementations<CR>
 endif
 
-" keybind
-nnoremap M %
-nnoremap <silent> <C-d> dd
-nnoremap dp dip
-nnoremap d<C-w> diw
-nnoremap c<C-w> ciw
-nnoremap dW daw
-nnoremap c<C-w> ciw
-nnoremap cW ciW
-nnoremap dW viwd
-nnoremap d" di"
-nnoremap c" ci"
-nnoremap D" da"
-nnoremap d' di'
-nnoremap c' ci'
-nnoremap D' da'
-nnoremap d( di()
-nnoremap c( ci(
-nnoremap D( da()
-nnoremap y" yi"
-nnoremap y' yi'
-nnoremap yw yiw
-nnoremap yW yiW
-nnoremap v<C-w> viw
-nnoremap vW viW
-nnoremap v" vi"
-nnoremap v' vi'
-nnoremap v( vi(
-nmap dk dib
-nmap ck cib
-nmap dK dab
 
 nnoremap <silent> z<CR> :ZenMode<CR>
 
-let g:crosschannel_bluesky_id = 'takets.bsky.social'
-let g:crosschannel_bluesky_password = $DSKY_PASSWORD
-
-let g:crosschannel_mastodon_host = $MASTODON_HOST
-let g:crosschannel_mastodon_client_name = 'crosschannel-nvim'
-let g:crosschannel_mastodon_token = $MASTODON_TOKEN
-let g:crosschannel_mastodon_username = $MASTODON_USERNAME
-let g:crosschannel_mastodon_password = $MASTODON_PASSWORD
-
-let g:crosschannel_x_consumer_key = $X_CONSUMER_KEY
-let g:crosschannel_x_consumer_secret = $X_CONSUMER_SECRET
-let g:crosschannel_x_access_token = $X_ACCESS_TOKEN
-let g:crosschannel_x_access_token_secret = $X_ACCESS_TOKEN_SECRET
-let g:crosschannel_x_bearer_token = $X_BEARER_TOKEN
-
-let g:hashtag = ''
-nnoremap <silent> c<CR> :CrossChannelPostSelect mastodon bluesky<CR>
 
 nnoremap <Leader>: :
 
@@ -170,6 +122,58 @@ endfunction
 " lua
 
 lua << EOF
+
+require("claude-code").setup({
+  -- Terminal window settings
+  window = {
+    split_ratio = 0.3,      -- Percentage of screen for the terminal window (height for horizontal, width for vertical splits)
+    position = "botright",  -- Position of the window: "botright", "topleft", "vertical", "rightbelow vsplit", etc.
+    enter_insert = true,    -- Whether to enter insert mode when opening Claude Code
+    hide_numbers = true,    -- Hide line numbers in the terminal window
+    hide_signcolumn = true, -- Hide the sign column in the terminal window
+  },
+  -- File refresh settings
+  refresh = {
+    enable = true,           -- Enable file change detection
+    updatetime = 100,        -- updatetime when Claude Code is active (milliseconds)
+    timer_interval = 1000,   -- How often to check for file changes (milliseconds)
+    show_notifications = true, -- Show notification when files are reloaded
+  },
+  -- Git project settings
+  git = {
+    use_git_root = true,     -- Set CWD to git root when opening Claude Code (if in git project)
+  },
+  -- Shell-specific settings
+  shell = {
+    separator = '&&',        -- Command separator used in shell commands
+    pushd_cmd = 'pushd',     -- Command to push directory onto stack (e.g., 'pushd' for bash/zsh, 'enter' for nushell)
+    popd_cmd = 'popd',       -- Command to pop directory from stack (e.g., 'popd' for bash/zsh, 'exit' for nushell)
+  },
+  -- Command settings
+  command = "claude",        -- Command used to launch Claude Code
+  -- Command variants
+  command_variants = {
+    -- Conversation management
+    continue = "--continue", -- Resume the most recent conversation
+    resume = "--resume",     -- Display an interactive conversation picker
+
+    -- Output options
+    verbose = "--verbose",   -- Enable verbose logging with full turn-by-turn output
+  },
+  -- Keymaps
+  keymaps = {
+    toggle = {
+      normal = "<C-,>",       -- Normal mode keymap for toggling Claude Code, false to disable
+      terminal = "<C-,>",     -- Terminal mode keymap for toggling Claude Code, false to disable
+      variants = {
+        continue = "<leader>cC", -- Normal mode keymap for Claude Code with continue flag
+        verbose = "<leader>cV",  -- Normal mode keymap for Claude Code with verbose flag
+      },
+    },
+    window_navigation = true, -- Enable window navigation keymaps (<C-h/j/k/l>)
+    scrolling = true,         -- Enable scrolling keymaps (<C-f/b>) for page up/down
+  }
+})
 
 vim.api.nvim_create_autocmd("TextYankPost", {
   group = vim.api.nvim_create_augroup("ContextfulMark", { clear = true }),
@@ -246,7 +250,57 @@ require("nudge-two-hats").setup({
 				-- 要件2〜6: OODA 特化の分析官像 + 冷静・客観トーン
 				-- 要件4: 「優勢な状況は存在しない」という信念を明示
 				prompt = [[
-				As an OODA-focused Situation Analysis Specialist wearing three hats — Observation Analyst, Direction Analyst, and Action Analyst — give advice on this writing, focusing on clarity and structure.  
+	require("claude-code").setup({
+  -- Terminal window settings
+  window = {
+    split_ratio = 0.3,      -- Percentage of screen for the terminal window (height for horizontal, width for vertical splits)
+    position = "botright",  -- Position of the window: "botright", "topleft", "vertical", "rightbelow vsplit", etc.
+    enter_insert = true,    -- Whether to enter insert mode when opening Claude Code
+    hide_numbers = true,    -- Hide line numbers in the terminal window
+    hide_signcolumn = true, -- Hide the sign column in the terminal window
+  },
+  -- File refresh settings
+  refresh = {
+    enable = true,           -- Enable file change detection
+    updatetime = 100,        -- updatetime when Claude Code is active (milliseconds)
+    timer_interval = 1000,   -- How often to check for file changes (milliseconds)
+    show_notifications = true, -- Show notification when files are reloaded
+  },
+  -- Git project settings
+  git = {
+    use_git_root = true,     -- Set CWD to git root when opening Claude Code (if in git project)
+  },
+  -- Shell-specific settings
+  shell = {
+    separator = '&&',        -- Command separator used in shell commands
+    pushd_cmd = 'pushd',     -- Command to push directory onto stack (e.g., 'pushd' for bash/zsh, 'enter' for nushell)
+    popd_cmd = 'popd',       -- Command to pop directory from stack (e.g., 'popd' for bash/zsh, 'exit' for nushell)
+  },
+  -- Command settings
+  command = "claude",        -- Command used to launch Claude Code
+  -- Command variants
+  command_variants = {
+    -- Conversation management
+    continue = "--continue", -- Resume the most recent conversation
+    resume = "--resume",     -- Display an interactive conversation picker
+
+    -- Output options
+    verbose = "--verbose",   -- Enable verbose logging with full turn-by-turn output
+  },
+  -- Keymaps
+  keymaps = {
+    toggle = {
+      normal = "<C-,>",       -- Normal mode keymap for toggling Claude Code, false to disable
+      terminal = "<C-,>",     -- Terminal mode keymap for toggling Claude Code, false to disable
+      variants = {
+        continue = "<leader>cC", -- Normal mode keymap for Claude Code with continue flag
+        verbose = "<leader>cV",  -- Normal mode keymap for Claude Code with verbose flag
+      },
+    },
+    window_navigation = true, -- Enable window navigation keymaps (<C-h/j/k/l>)
+    scrolling = true,         -- Enable scrolling keymaps (<C-f/b>) for page up/down
+  }
+})			As an OODA-focused Situation Analysis Specialist wearing three hats — Observation Analyst, Direction Analyst, and Action Analyst — give advice on this writing, focusing on clarity and structure.  
 				Firmly believe that no situation is inherently advantageous; therefore, observe the situation from a flat, neutral perspective and propose possible directions only.  
 				Maintain a calm, objective tone unswayed by emotion.
 				]],

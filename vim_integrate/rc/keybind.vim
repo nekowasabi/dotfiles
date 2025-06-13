@@ -452,3 +452,37 @@ endif
 "
 " endif
 " }}}1
+
+" init.vimから移動されたキーバインド設定 {{{1
+" 基本的な編集操作
+nnoremap M %
+nnoremap <silent> <C-d> dd
+nnoremap dp dip
+nnoremap d<C-w> diw
+nnoremap c<C-w> ciw
+nnoremap dW daw
+nnoremap c<C-w> ciw
+nnoremap cW ciW
+nnoremap dW viwd
+nnoremap d" di"
+nnoremap c" ci"
+nnoremap D" da"
+nnoremap d' di'
+nnoremap c' ci'
+nnoremap D' da'
+nnoremap d( di()
+nnoremap c( ci(
+nnoremap D( da()
+nnoremap y" yi"
+nnoremap y' yi'
+nnoremap yw yiw
+nnoremap yW yiW
+nnoremap v<C-w> viw
+nnoremap vW viW
+nnoremap v" vi"
+nnoremap v' vi'
+nnoremap v( vi(
+nmap dk dib
+nmap ck cib
+nmap dK dab
+" }}}1
