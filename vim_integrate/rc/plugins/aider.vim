@@ -464,14 +464,14 @@ command! AiderOpenByCopilot call s:open_by_copilot()
 "                               空の場合は'architect'がデフォルト値として使用される
 " @return void - なし
 function! s:switch_aider_with_copilot() abort
-  let g:aider_command = '~/.config/nvim/plugged/aider.vim/copilot.sh ' . s:models['copilot_gemini'] . s:build_options(s:aider_base_command, 'copilot_gemini', 0)
+  let g:aider_command = '~/.config/nvim/plugged/aider.vim/copilot.sh ' . s:models['copilot_claude'] . s:build_options(s:aider_base_command, 'copilot_gemini', 0)
 
   execute 'AiderRun'
 endfunction
 command! -nargs=0 AiderWithCopilot call s:switch_aider_with_copilot()
 
 function! s:doc_aider_with_copilot() abort
-  let g:aider_command = '~/.config/nvim/plugged/aider.vim/copilot.sh ' . s:models['copilot'] . s:aider_common_options
+  let g:aider_command = '~/.config/nvim/plugged/aider.vim/copilot.sh ' . s:models['copilot_claude'] . s:aider_common_options
 
   execute 'AiderRun'
 	execute "5sleep"

@@ -120,6 +120,11 @@ nnoremap y" yi"
 nnoremap y' yi'
 nnoremap yw yiw
 nnoremap yW yiW
+nnoremap v<C-w> viw
+nnoremap vW viW
+nnoremap v" vi"
+nnoremap v' vi'
+nnoremap v( vi(
 nmap dk dib
 nmap ck cib
 nmap dK dab
