@@ -194,6 +194,27 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 require("nudge-two-hats").setup({
+  idle_time = 0.05, -- virtual text表示までの時間（分）
+  cursor_idle_delay = 0.2, -- カーソル停止後のタイマー設定までの時間（分）
+  text_color = "#eee8d5",
+  background_color = "#073642",
+  virtual_text_message_length = 50,
+  -- Message length configuration
+  length_type = "characters", -- Can be "characters" (for Japanese) or "words" (for English)
+
+  -- language configuration
+  output_language = "ja", -- Can be "auto", "en" (English), or "ja" (Japanese)
+  translate_messages = true, -- Whether to translate messages to the specified language
+
+  -- Timing configuration
+  notify_interval_correction = 1, 
+  notify_interval_seconds = 10, -- Minimum interval between API calls in seconds
+  virtual_text_interval_seconds = 15, -- Time in seconds before showing virtual text
+	cursor_idle_threshold_seconds = 30, -- Time in seconds before cursor idle triggers virtual text
+
+  -- Debug configuration
+  debug_mode = false, -- When true, prints nudge text to Vim's 
+
   notification = {
     system_prompt = [[
 			# AI Agent Instructions - Base Configuration
@@ -424,28 +445,8 @@ require("nudge-two-hats").setup({
         callback = "",
       },
     },
-    idle_time = 0.05, -- virtual text表示までの時間（分）
-    cursor_idle_delay = 0.01, -- カーソル停止後のタイマー設定までの時間（分）
-    text_color = "#eee8d5",
-    background_color = "#073642",
-		virtual_text_message_length = 50,
   },
 
-  -- Message length configuration
-  length_type = "characters", -- Can be "characters" (for Japanese) or "words" (for English)
-
-  -- language configuration
-  output_language = "ja", -- Can be "auto", "en" (English), or "ja" (Japanese)
-  translate_messages = true, -- Whether to translate messages to the specified language
-
-  -- Timing configuration
-  notify_interval_correction = 1, 
-  notify_interval_seconds = 10, -- Minimum interval between API calls in seconds
-  virtual_text_interval_seconds = 5, -- Time in seconds before showing virtual text
-	cursor_idle_threshold_seconds = 30, -- Time in seconds before cursor idle triggers virtual text
-
-  -- Debug configuration
-  debug_mode = false, -- When true, prints nudge text to Vim's 
 })
 
 
