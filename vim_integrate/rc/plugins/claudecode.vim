@@ -14,15 +14,16 @@ let g:claude_floatwin_style = 'minimal'
 " <leader>c プレフィックスを使った一貫したキーバインド
 " ---------------------------------------------------------
 let s:keymaps = [
-  \ ['n', '<leader>cs',  ':ClaudeRun<CR>',               'モード切替'],
-  \ ['n', '<leader>ca',  ':ClaudeSilentAddCurrentFile<CR>', 'ファイルを無視リスト追加後追加'],
-  \ ['n', '<leader>cl',  ':ClaudeSilentAddCurrentFileReadOnly<CR>', '読み取り専用で追加'],
-  \ ['n', '<leader>cx',  ':ClaudeExit<CR>',                  '終了'],
-  \ ['n', '<leader>ch',  ':ClaudeHide<CR>',                  '非表示'],
-  \ ['v', '<leader>cs',  ':ClaudeAddFileVisualSelected<CR>', '選択範囲からファイル追加'],
-  \ ['v', '<leader>cv',  ':ClaudeVisualTextWithPrompt<CR>',  '選択テキストでプロンプト'],
-  \ ['n', '<leader>cv',  ':ClaudeVisualTextWithPrompt<CR>',  'ビジュアル選択でプロンプト']
+  \ ['n', '<leader>cs', ':ClaudeRun<CR>',               'モード切替'],
+  \ ['n', '<leader>ca', ':ClaudeSilentAddCurrentFile<CR>', 'ファイルを無視リスト追加後追加'],
+  \ ['n', '<leader>cl', ':ClaudeSilentAddCurrentFileReadOnly<CR>', '読み取り専用で追加'],
+  \ ['n', '<leader>cx', ':ClaudeExit<CR>',                  '終了'],
+  \ ['n', '<leader>ch', ':ClaudeHide<CR>',                  '非表示'],
+  \ ['v', '<leader>cs', ':ClaudeAddFileVisualSelected<CR>', '選択範囲からファイル追加'],
+  \ ['v', '<leader>cv', ':ClaudeVisualTextWithPrompt<CR>',  '選択テキストでプロンプト'],
+  \ ['n', '<leader>cv', ':ClaudeVisualTextWithPrompt<CR>',  'ビジュアル選択でプロンプト']
   \ ]
+nnoremap <leader>cc :ClaudeSendPromptByCommandline 
 
 for [mode, lhs, rhs, desc] in s:keymaps
   execute printf('%snoremap <silent> %s %s " %s', mode, lhs, rhs, desc)

@@ -1,5 +1,5 @@
-nnoremap <leader>cc :CodeCompanionActions<CR>
-vnoremap <leader>cc :CodeCompanionChat 
+nnoremap <leader>cC :CodeCompanionActions<CR>
+vnoremap <leader>cC :CodeCompanionChat 
 nnoremap <Leader>ct :CodeCompanionChat Toggle<CR>
 vnoremap <Leader>ci :CodeCompanion 
 vnoremap ga :CodeCompanionChat Add<CR>
