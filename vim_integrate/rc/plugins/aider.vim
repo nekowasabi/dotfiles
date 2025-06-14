@@ -168,7 +168,7 @@ function! s:switch_aider_setting(setting_name) abort
   if l:setting_name ==# 'watch'
     let g:aider_buffer_open_type = 'split'
   else
-    let g:aider_buffer_open_type = 'floating'
+    " let g:aider_buffer_open_type = 'floating'
   endif
 
   " execute 'AiderExit'

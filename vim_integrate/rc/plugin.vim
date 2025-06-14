@@ -74,7 +74,7 @@ Plug 'ravitemer/mcphub.nvim', {'do': 'npm install -g mcp-hub@latest'}
 Plug 'nekowasabi/cross-channel.nvim'
 Plug 'atusy/aibou.nvim'
 Plug 'olimorris/codecompanion.nvim'
-Plug 'greggh/claude-code.nvim'
+Plug 'nekowasabi/claudecode.vim'
 
 " denops
 Plug 'hrsh7th/vim-searchx'
@@ -365,6 +365,7 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cross-channel.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/claudecode.vim'
 endif
 
 if g:enable_coc
