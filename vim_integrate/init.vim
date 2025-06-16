@@ -140,9 +140,9 @@ require("nudge-two-hats").setup({
 
   -- Timing configuration
   notify_interval_correction = 1, 
-  notify_interval_seconds = 10, -- Minimum interval between API calls in seconds
-  virtual_text_interval_seconds = 15, -- Time in seconds before showing virtual text
-	cursor_idle_threshold_seconds = 30, -- Time in seconds before cursor idle triggers virtual text
+  notify_interval_seconds = 120, -- Minimum interval between API calls in seconds
+  virtual_text_interval_seconds = 10, -- Time in seconds before showing virtual text
+	cursor_idle_threshold_seconds = 5, -- Time in seconds before cursor idle triggers virtual text
 
   -- Debug configuration
   debug_mode = false, -- When true, prints nudge text to Vim's 
