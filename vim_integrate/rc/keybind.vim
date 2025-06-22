@@ -460,9 +460,8 @@ nnoremap <silent> <C-d> dd
 nnoremap dp dip
 nnoremap d<C-w> diw
 nnoremap c<C-w> ciw
-nnoremap dW daw
 nnoremap cW ciW
-nnoremap dW viwd
+nnoremap dW viWd
 nnoremap d" di"
 nnoremap c" ci"
 nnoremap D" da"
