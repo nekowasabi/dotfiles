@@ -7,6 +7,37 @@ else
   let g:enable_coc = v:true
 endif
 
+" Completion system filetype configuration
+" CoCのみ使用するfiletype（現在は空）
+let g:coc_only_filetypes = [
+      \ 'vim',
+      \ 'typescript',
+      \ 'php',
+      \ 'json',
+      \ 'go',
+      \ 'lua',
+      \ 'sh',
+      \ 'python',
+      \ 'javascript'
+      \ ]
+
+" CMPのみ使用するfiletype
+let g:cmp_only_filetypes = [
+      \ 'markdown',
+      \ 'noice',
+      \ 'changelog',
+      \ 'text',
+      \ 'gitcommit',
+      \ 'copilot-chat',
+      \ 'AvanteInput'
+      \ ]
+
+" 両方とも無効化するfiletype
+let g:completion_disabled_filetypes = [
+      \ 'ddu-ff',
+      \ 'sql'
+      \ ]
+
 " init {{{1
 if empty(g:GetAutoloadPath() . 'plug.vim')
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs

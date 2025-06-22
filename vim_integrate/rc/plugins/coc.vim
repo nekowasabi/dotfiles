@@ -90,16 +90,7 @@ function! s:show_documentation()
 endfunction
 
 " Completion settings. {{{1
-let g:coc_supported_filetypes = [
-      \ 'vim',
-      \ 'typescript',
-      \ 'php',
-      \ 'json',
-      \ 'go',
-      \ 'lua',
-      \ 'sh'
-      \ ]
-let g:coc_disabled_filetypes = ['noice', 'markdown', 'changelog', 'text']
+" 統一設定を使用（plugin.vimで定義済み）
 let g:coc_toggle_delay = 1000
 let g:is_coc_enabled = v:true
 
@@ -109,10 +100,23 @@ function! s:ShouldEnableCoc() abort
     return v:false
   endif
 
-  let l:is_target = index(g:coc_supported_filetypes, &filetype) >= 0
-  let l:is_disabled = index(g:coc_disabled_filetypes, &filetype) >= 0
-
-  return l:is_target && !l:is_disabled
+  " 無効化filetypeの場合は無効
+  if index(g:completion_disabled_filetypes, &filetype) >= 0
+    return v:false
+  endif
+  
+  " 両方サポートfiletype（現在はg:coc_only_filetypes）の場合はCoC設定により判定
+  if index(g:coc_only_filetypes, &filetype) >= 0
+    return g:enable_coc == v:true
+  endif
+  
+  " CMPのみfiletypeの場合は無効
+  if index(g:cmp_only_filetypes, &filetype) >= 0
+    return v:false
+  endif
+  
+  " デフォルトは無効
+  return v:false
 endfunction
 
 " Execute Coc commands with delay

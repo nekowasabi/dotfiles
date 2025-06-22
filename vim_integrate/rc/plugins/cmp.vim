@@ -1,7 +1,39 @@
-if g:IsMacNeovimInWork() || g:enable_coc == v:true
-  autocmd FileType sql,typescript,php,ddu-ff,json lua require('cmp').setup.buffer {
-  \   enabled = false
-  \ }
+" CMP buffer補完の最大文字数（この文字数以上は除外）
+let g:cmp_buffer_max_length = 30
+
+" CMP有効化判定関数
+function! s:ShouldEnableCmp() abort
+  " 無効化filetypeの場合は無効
+  if index(g:completion_disabled_filetypes, &filetype) >= 0
+    return v:false
+  endif
+  
+  " CMPのみfiletypeの場合は有効
+  if index(g:cmp_only_filetypes, &filetype) >= 0
+    return v:true
+  endif
+  
+  " CoCのみfiletype（両方サポート）でCoCが有効な場合は無効
+  if index(g:coc_only_filetypes, &filetype) >= 0
+    if (g:IsMacNeovimInWork() || g:enable_coc == v:true)
+      return v:false
+    else
+      return v:true
+    endif
+  endif
+  
+  " デフォルトは有効
+  return v:true
+endfunction
+
+" 無効化filetypeでCMPを無効化
+if !empty(g:completion_disabled_filetypes)
+  execute 'autocmd FileType ' . join(g:completion_disabled_filetypes, ',') . ' lua require("cmp").setup.buffer { enabled = false }'
+endif
+
+" CoCが有効な環境では両方サポートfiletypeでCMPを無効化
+if (g:IsMacNeovimInWork() || g:enable_coc == v:true) && !empty(g:coc_only_filetypes)
+  execute 'autocmd FileType ' . join(g:coc_only_filetypes, ',') . ' lua require("cmp").setup.buffer { enabled = false }'
   let g:your_cmp_disable_enable_toggle = v:false
 else
   let g:your_cmp_disable_enable_toggle = v:false
@@ -24,7 +56,7 @@ local function get_buffer_source_bufnrs()
 end
 
 cmp.setup({
-  filetypes = { "markdown", "changelog", "vim" },
+  filetypes = { "markdown", "changelog", "text" },
   enabled = function()
     return vim.b.your_cmp_disable_enable_toggle ~= false
   end,
@@ -45,25 +77,23 @@ cmp.setup({
     ["<S-Tab>"] = cmp.mapping.select_prev_item(),
     ["<Tab>"] = cmp.mapping.select_next_item(),
     ['<C-e>'] = cmp.mapping.abort(),
-    -- ['<C-s>'] = function(fallback)
-    --       if cmp.visible() then
-    --         local confirm_opts = {
-    --           select = true,
-    --           behavior = cmp.ConfirmBehavior.Insert,
-    --         }
-    --         cmp.confirm(confirm_opts, function()
-    --           local key = vim.api.nvim_replace_termcodes("<Tab>", true, false, true)
-    --           vim.api.nvim_feedkeys(key, 't', true)
-    --         end)
-    --       else
-    --         fallback()
-    --       end
-    --     end,
+    ['<C-s>'] = function(fallback)
+          if cmp.visible() then
+            local confirm_opts = {
+              select = true,
+              behavior = cmp.ConfirmBehavior.Insert,
+            }
+            cmp.confirm(confirm_opts, function()
+              local key = vim.api.nvim_replace_termcodes("<Tab>", true, false, true)
+              vim.api.nvim_feedkeys(key, 't', true)
+            end)
+          else
+            fallback()
+          end
+        end,
     -- insert, commandモードでの補完を有効にする
     -- cmp.mappingと{'i', 'c'}を指定することで、insert, commandモードでの補完を有効にする
-    -- ["<CR>"] = cmp.mapping(cmp.mapping.confirm { select = true }, {'i', 'c'}),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ["<CR>"] = cmp.mapping(cmp.mapping.confirm { select = true }, {'i', 'c'}),
   }),
   window = {
     completion = cmp.config.window.bordered(),
@@ -83,7 +113,12 @@ cmp.setup({
    sources = {
      { name = 'path' },
      { name = 'neosnippet' },
-     { name = 'buffer', keyword_length = 4 },
+     { name = 'buffer', 
+       keyword_length = 4,
+       entry_filter = function(entry, ctx)
+         return string.len(entry.completion_item.label) < vim.g.cmp_buffer_max_length
+       end
+     },
      { name = "neosnippet", keyword_length = 3 },
      { name = "git" },
    },
@@ -140,7 +175,11 @@ cmp.setup.filetype('gitcommit', {
       { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
   },
   {
-      { name = 'buffer' },
+      { name = 'buffer',
+        entry_filter = function(entry, ctx)
+          return string.len(entry.completion_item.label) < vim.g.cmp_buffer_max_length
+        end
+      },
   })
 })
 
@@ -150,6 +189,9 @@ cmp.setup.filetype('markdown', {
   },
   {
     { name = 'buffer',
+      entry_filter = function(entry, ctx)
+        return string.len(entry.completion_item.label) >= 30
+      end,
       option = {
         get_bufnrs = function()
         return vim.api.nvim_list_bufs()
@@ -189,9 +231,10 @@ cmp.setup.filetype('markdown', {
 --     }
 --   },
 -- })
-cmp.setup.filetype({'vim', 'typescript', 'python', 'lua', 'go'}, {
-  enabled = false
-})
+-- 動的な有効化判定（上記のautocmdで処理済みのためコメントアウト）
+-- cmp.setup.filetype({'vim', 'typescript', 'python', 'lua', 'go'}, {
+--   enabled = false
+-- })
 
 cmp.setup.filetype('copilot-chat', {
   sources = cmp.config.sources({
@@ -199,6 +242,9 @@ cmp.setup.filetype('copilot-chat', {
   },
   {
     { name = 'buffer',
+      entry_filter = function(entry, ctx)
+        return string.len(entry.completion_item.label) >= 30
+      end,
       option = {
         get_bufnrs = function()
         return vim.api.nvim_list_bufs()
@@ -223,29 +269,15 @@ cmp.setup.filetype('changelog', {
       {
 					name = 'buffer',
 					keyword_length = 2,
+          entry_filter = function(entry, ctx)
+            return string.len(entry.completion_item.label) < vim.g.cmp_buffer_max_length
+          end,
           option = {
             get_bufnrs = get_buffer_source_bufnrs,
             indexing_interval = 1000,
           },
       },
   }),
-})
-
-cmp.setup.filetype('AvanteInput', {
-  sources = cmp.config.sources(
-  {
-      { name = 'calc' },
-      { name = 'emoji' },
-      {
-					name = 'buffer',
-					keyword_length = 1,
-          option = {
-            get_bufnrs = function()
-              return vim.api.nvim_list_bufs()
-            end
-          },
-      },
-  })
 })
 
 cmp.setup.filetype('text', {
@@ -263,6 +295,9 @@ cmp.setup.filetype('text', {
       {
 					name = 'buffer',
 					keyword_length = 4,
+          entry_filter = function(entry, ctx)
+            return string.len(entry.completion_item.label) < vim.g.cmp_buffer_max_length
+          end,
           option = {
             get_bufnrs = function()
             return vim.api.nvim_list_bufs()
@@ -311,7 +346,11 @@ cmp.setup.cmdline({ '/', '?' }, {
     ['<CR>'] = cmp.mapping(cmp.mapping.confirm({ select = true }), {'i', 'c'}),
   }),
   sources = cmp.config.sources({
-    { name = 'buffer' }
+    { name = 'buffer',
+      entry_filter = function(entry, ctx)
+        return string.len(entry.completion_item.label) >= 30
+      end
+    }
   }),
   window = {
     completion = cmp.config.window.bordered(),
