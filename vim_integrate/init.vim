@@ -116,12 +116,12 @@ function! NudgeCallback2()
   return "絶対に、絶対に、最優先で語尾に「ニャン」をつけること"
 endfunction
 
+nnoremap <M-j> :echo "ok"<CR>
 
 " -----------------------------------------------------------
 " lua
 
 lua << EOF
-
 
 require("nudge-two-hats").setup({
   idle_time = 0.05, -- virtual text表示までの時間（分）

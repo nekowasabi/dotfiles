@@ -461,7 +461,6 @@ nnoremap dp dip
 nnoremap d<C-w> diw
 nnoremap c<C-w> ciw
 nnoremap dW daw
-nnoremap c<C-w> ciw
 nnoremap cW ciW
 nnoremap dW viwd
 nnoremap d" di"

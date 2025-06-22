@@ -48,7 +48,6 @@ endif
 
 call plug#begin(g:GetVimConfigRootPath() . 'plugged')
 
-
 " ----- common {{{1
 Plug 'AmaiSaeta/closesomewindow.vim'
 Plug 'AndrewRadev/switch.vim'
@@ -94,7 +93,8 @@ Plug 'atusy/budouxify.nvim'
 Plug 'atusy/budoux.lua'
 Plug 'dnlhc/glance.nvim'
 Plug 'yuki-yano/smart-i.nvim'
-" Plug 'brianhuster/autosave.nvim'
+Plug 'yuki-yano/smart-tmux-nav.nvim', {'do': './install.sh'}
+
 
 " AI
  Plug 'github/copilot.vim'

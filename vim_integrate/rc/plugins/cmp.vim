@@ -1,6 +1,3 @@
-" CMP buffer補完の最大文字数（この文字数以上は除外）
-let g:cmp_buffer_max_length = 30
-
 " CMP有効化判定関数
 function! s:ShouldEnableCmp() abort
   " 無効化filetypeの場合は無効
@@ -116,7 +113,7 @@ cmp.setup({
      { name = 'buffer', 
        keyword_length = 4,
        entry_filter = function(entry, ctx)
-         return string.len(entry.completion_item.label) < vim.g.cmp_buffer_max_length
+         return string.len(entry.completion_item.label) < 30
        end
      },
      { name = "neosnippet", keyword_length = 3 },
@@ -177,7 +174,7 @@ cmp.setup.filetype('gitcommit', {
   {
       { name = 'buffer',
         entry_filter = function(entry, ctx)
-          return string.len(entry.completion_item.label) < vim.g.cmp_buffer_max_length
+          return string.len(entry.completion_item.label) < 30
         end
       },
   })
@@ -270,7 +267,7 @@ cmp.setup.filetype('changelog', {
 					name = 'buffer',
 					keyword_length = 2,
           entry_filter = function(entry, ctx)
-            return string.len(entry.completion_item.label) < vim.g.cmp_buffer_max_length
+            return string.len(entry.completion_item.label) < 30
           end,
           option = {
             get_bufnrs = get_buffer_source_bufnrs,
@@ -296,7 +293,7 @@ cmp.setup.filetype('text', {
 					name = 'buffer',
 					keyword_length = 4,
           entry_filter = function(entry, ctx)
-            return string.len(entry.completion_item.label) < vim.g.cmp_buffer_max_length
+            return string.len(entry.completion_item.label) < 30
           end,
           option = {
             get_bufnrs = function()
