@@ -95,6 +95,8 @@ let g:coc_supported_filetypes = [
       \ 'typescript',
       \ 'php',
       \ 'json',
+      \ 'go',
+      \ 'lua',
       \ 'sh'
       \ ]
 let g:coc_disabled_filetypes = ['noice', 'markdown', 'changelog', 'text']

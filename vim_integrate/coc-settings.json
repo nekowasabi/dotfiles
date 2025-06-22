@@ -187,5 +187,6 @@
   "biome.requireConfiguration": true,
   "vimlsp.trace.server": "off",
   "vimlsp.indexes.count": 1,
-  "vimlsp.indexes.gap": 1000
+  "vimlsp.indexes.gap": 1000,
+  "lua.enable": true
 }

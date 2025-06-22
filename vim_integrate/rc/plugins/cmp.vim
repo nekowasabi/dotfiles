@@ -4,7 +4,7 @@ if g:IsMacNeovimInWork() || g:enable_coc == v:true
   \ }
   let g:your_cmp_disable_enable_toggle = v:false
 else
-  let g:your_cmp_disable_enable_toggle = v:true
+  let g:your_cmp_disable_enable_toggle = v:false
 endif
 
 
@@ -61,7 +61,9 @@ cmp.setup({
     --     end,
     -- insert, commandモードでの補完を有効にする
     -- cmp.mappingと{'i', 'c'}を指定することで、insert, commandモードでの補完を有効にする
-    ["<CR>"] = cmp.mapping(cmp.mapping.confirm { select = true }, {'i', 'c'}),
+    -- ["<CR>"] = cmp.mapping(cmp.mapping.confirm { select = true }, {'i', 'c'}),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
   }),
   window = {
     completion = cmp.config.window.bordered(),
@@ -160,33 +162,35 @@ cmp.setup.filetype('markdown', {
   })
 })
 
-cmp.setup.filetype({'vim', 'typescript', 'python', 'lua'}, {
-  sources = cmp.config.sources({
-    { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
-  },
-  {
-    { name = "nvim_lsp", keyword_length = 3 },
-    { name = 'path' },
-    { name = 'buffer',
-      option = {
-        get_bufnrs = function()
-        return vim.api.nvim_list_bufs()
-        end
-      },
-    },
-    { name = 'neosnippet', keyword_length = 3 },
-    { name = 'context_nvim' },
-  }),
-  window = {
-    completion = cmp.config.window.bordered(),
-    -- documentation = cmp.config.window.bordered(),
-  },
-  view = {
-    entries = {
-      follow_cursor = true,
-    }
-  },
-
+-- cmp.setup.filetype({'vim', 'typescript', 'python', 'lua'}, {
+--   sources = cmp.config.sources({
+--     { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+--   },
+--   {
+--     { name = "nvim_lsp", keyword_length = 3 },
+--     { name = 'path' },
+--     { name = 'buffer',
+--       option = {
+--         get_bufnrs = function()
+--         return vim.api.nvim_list_bufs()
+--         end
+--       },
+--     },
+--     { name = 'neosnippet', keyword_length = 3 },
+--     { name = 'context_nvim' },
+--   }),
+--   window = {
+--     completion = cmp.config.window.bordered(),
+--     -- documentation = cmp.config.window.bordered(),
+--   },
+--   view = {
+--     entries = {
+--       follow_cursor = true,
+--     }
+--   },
+-- })
+cmp.setup.filetype({'vim', 'typescript', 'python', 'lua', 'go'}, {
+  enabled = false
 })
 
 cmp.setup.filetype('copilot-chat', {

@@ -4,7 +4,7 @@
 if g:IsMacNeovimInWork()
   let g:enable_coc = v:true
 else
-  let g:enable_coc = v:false
+  let g:enable_coc = v:true
 endif
 
 " init {{{1

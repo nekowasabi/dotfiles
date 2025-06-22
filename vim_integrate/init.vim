@@ -88,7 +88,6 @@ let g:denops#debug = 0
 " url-highlight
 let g:highlighturl_guifg = '#4aa3ff'
 
-
 " glance
 if exists('')
   nnoremap gR <CMD>Glance references<CR>
@@ -97,9 +96,7 @@ if exists('')
   nnoremap gI <CMD>Glance implementations<CR>
 endif
 
-
 nnoremap <silent> z<CR> :ZenMode<CR>
-
 
 nnoremap <Leader>: :
 
@@ -124,6 +121,7 @@ endfunction
 " lua
 
 lua << EOF
+
 
 require("nudge-two-hats").setup({
   idle_time = 0.05, -- virtual text表示までの時間（分）
@@ -482,6 +480,7 @@ require("mcphub").setup({
 })
 
 require('Comment').setup()
+
 
 EOF
 
