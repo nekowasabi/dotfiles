@@ -93,7 +93,6 @@ Plug 'atusy/budouxify.nvim'
 Plug 'atusy/budoux.lua'
 Plug 'dnlhc/glance.nvim'
 Plug 'yuki-yano/smart-i.nvim'
-Plug 'yuki-yano/smart-tmux-nav.nvim', {'do': './install.sh'}
 
 
 " AI

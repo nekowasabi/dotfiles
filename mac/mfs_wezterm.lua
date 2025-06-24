@@ -13,6 +13,26 @@ local function is_vim(pane)
 	return process_name == 'nvim' or process_name == 'vim'
 end
 
+local function is_claude(pane)
+  local process = pane:get_foreground_process_info()
+  if not process or not process.argv then
+    return false
+  end
+  -- 引数に"claude"が含まれているかチェック
+  for _, arg in ipairs(process.argv) do
+    if arg:find("claude") then
+      return true
+    end
+  end
+  return false
+end
+
+wezterm.on("bell", function(window, pane)
+  if is_claude(pane) then
+    window:toast_notification("Claude Code", "Task completed", nil, 4000)
+  end
+end)
+
 --- cmd+keys that we want to send to neovim.
 local super_vim_keys_map = {
   s = utf8.char(0xAA),
@@ -75,9 +95,15 @@ return {
   window_decorations = 'RESIZE',
   keys = {
     { key = 'v', mods = 'CMD', action=wezterm.action{PasteFrom="Clipboard"}},
+    {
+      key = 'Enter',
+      mods = 'SHIFT',
+      action = wezterm.action.SendString('\n')
+    },
     bind_super_key_to_vim('s'),
   },
 }
+
 
 
 -- --- in your wezterm keys config, use it like:
