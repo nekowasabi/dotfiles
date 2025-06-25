@@ -241,30 +241,23 @@ function! MoveSectionToTop()
 endfunction
 " }}}1
 
-" Dropboxのwatchmemoをバッファに出力して、ファイル削除 {{{1
+" iPhoneショートカットでメモした内容をchangelogに貼り付け {{{1
 function! s:PasteWatchMemo()
-  if g:IsMacGvim() || g:IsMacNeovim()
-    let g:dropbox_dir = '/Users/takets/Dropbox/files/'
-  endif
-  if g:IsWindowsGvim()
-    let g:dropbox_dir = 'g:/dropbox/files/'
+  if g:IsMacNeovimInWork()
+    let g:shortcuts_dir = '/Users/ttakeda/repos/changelog/'
+	else
+    let g:shortcuts_dir = '/Users/takets/repos/changelog/'
   endif
 
-	let files = glob(g:dropbox_dir . "/watchmemo/*.doc", 0, 1)
+	let files = glob(g:shortcuts_dir . "shortcuts/*.md", 0, 1)
 
 	let content = ''
 
 	for file in files
-		if g:IsMacGvim() || g:IsMacNeovim()
-			let content = readfile(file)->join("\n") . "\n"  " Macの現代のテキストフォーマットに合わせてLFを使用
-			execute "normal! i" . content
-		endif
-		if g:IsWindowsGvim()
-			let content = readfile(file)->join("\r\n") . "\r\n"  " Windowsのテキストフォーマットに合わせてCRLFを使用
-			let content = substitute(content, "\r\n\r\n", "\r\n", 'g')
-			execute "normal! i" . content
-			silent execute "!del " . file
-		endif
+		let content = readfile(file)
+		let current_line = line('.')
+		call append(current_line - 1, content)
+		silent execute "!rm " . shellescape(file)
 	endfor
 endfunction
 command! -range PasteWatchMemo call s:PasteWatchMemo() 
