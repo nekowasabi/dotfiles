@@ -1,4 +1,5 @@
 nnoremap <silent> ,ops :Octo pr search<CR>
+nnoremap <silent> ,ois :Octo issue search<CR>
 
 lua << EOF
 require"octo".setup({

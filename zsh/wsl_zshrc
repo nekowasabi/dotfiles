@@ -130,6 +130,7 @@ alias phpctags='/usr/local/bin/phpctags'
 alias ...='cd ../../'
 alias ....='cd ../../../'
 alias v='/home/linuxbrew/.linuxbrew/bin/nvim'
+alias yolo="claude --dangerously-skip-permissions"
 # }}}1
 
 
