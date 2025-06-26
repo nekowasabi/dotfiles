@@ -318,6 +318,18 @@ cmp.setup.cmdline(':', {
     ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), {'i', 'c'}),
     ['<CR>'] = cmp.mapping(cmp.mapping.confirm({ select = true }), {'i', 'c'}),
   }),
+  enabled = function()
+    -- コマンドラインに ! が含まれる場合は補完を無効化
+    local cmdline = vim.fn.getcmdline()
+    if string.match(cmdline, '!') then
+      -- 補完ウィンドウが開いていれば閉じる
+      if cmp.visible() then
+        cmp.close()
+      end
+      return false
+    end
+    return true
+  end,
   sources = cmp.config.sources({
     { name = 'path' },
     { 

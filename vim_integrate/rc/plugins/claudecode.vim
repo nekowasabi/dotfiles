@@ -5,7 +5,7 @@
 let s:claude_base_command = 'claude '
 let g:claude_floatwin_width = 100
 let g:claude_floatwin_height = 50
-let g:claude_buffer_open_type = 'floating'
+let g:claude_buffer_open_type = 'vsplit'
 let g:claude_floatwin_border = 'double'
 let g:claude_floatwin_style = 'minimal'
 
@@ -43,7 +43,7 @@ augroup ClaudeOpenGroup
 augroup END
 
 function! s:ClaudeOpenHandler() abort
-  tnoremap <Esc> <C-\><C-n>
+  " tnoremap <Esc> <C-\><C-n>
   tnoremap <C-x><C-x> <C-\><C-n><C-\><C-n><ESC>:ClaudeHide<CR>
   tnoremap <C-x><C-c> <Esc> <C-\><C-n><C-w>w
   nnoremap <C-x><C-x> :ClaudeHide<CR>

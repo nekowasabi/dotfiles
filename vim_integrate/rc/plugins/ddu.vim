@@ -452,10 +452,10 @@ nnoremap <silent> <D-a>
 
 nnoremap <silent> <CR>b
       \ <Cmd>call ddu#start({'sources': [{'name': 'vim-bookmark'}]})<CR>
-nnoremap <silent> <M-b>
-      \ <Cmd>call ddu#start({'sources': [{'name': 'vim-bookmark'}]})<CR>
-nnoremap <silent> <D-b>
-      \ <Cmd>call ddu#start({'sources': [{'name': 'vim-bookmark'}]})<CR>
+" nnoremap <silent> <M-b>
+"       \ <Cmd>call ddu#start({'sources': [{'name': 'vim-bookmark'}]})<CR>
+" nnoremap <silent> <D-b>
+"       \ <Cmd>call ddu#start({'sources': [{'name': 'vim-bookmark'}]})<CR>
 
 nnoremap <silent> <CR><CR>
       \ <Cmd>call ddu#start({'sources': [{'name': 'mr', 'params': {'kind': 'mrw'}}]})<CR>
