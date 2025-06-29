@@ -397,49 +397,71 @@ nnoremap <silent> ,rw :call ReplaceCurrentWordWithYank()<CR>
 " -----------------------------------------------------------
 " test: 指定のJSONファイルからnameに一致するrulesを取得する {{{1
 function! s:Test()
-  " 選択範囲のテキストを取得
-  let selected_text = s:get_visual_text()
+  " " 選択範囲のテキストを取得
+  " let selected_text = s:get_visual_text()
+  " 
+  " if empty(selected_text)
+  "   echo "テキストが選択されていません"
+  "   return
+  " endif
+  " 
+  " " 先頭10文字を取得（改行を除去）
+  " let first_line = split(selected_text, '\n')[0]
+  "
+  " let prefix = strcharpart(first_line, 0, 10)
+  "
+  " " 現在の日時を取得
+  " let datetime = strftime("%Y-%m-%d %H:%M")
+  "
+  " " 改行を除去したテキストを配列として取得
+  " let text_lines = split(selected_text, '\n')
+  "
+  " " フォーマットしたテキストをヘッダーとして作成
+  " let header_text = "* " . prefix . " " . datetime . " [idea]:"
+  "
+  " " ファイルパス
+  " let filepath = "/Users/takets/repos/changelog/changelogmemo"
+  "
+  " " ファイルを開く
+  " execute 'edit ' . filepath
+  "
+  " " 2行目にヘッダー挿入
+  " call append(1, '')
+  " call append(2, header_text)
+  "
+  " " 配列をループして、3行目以降に挿入する
+  " let line_num = 3
+  " for text_line in text_lines
+  "   call append(line_num, text_line)
+  "   let line_num += 1
+  " endfor
+  "
+  " " ファイルを保存
+  " write
+  "
+  " echo "changelogmemoに追加しました"
+
+  execute("RtmAddTask ")
+  let l:test = execute("RtmGetIncompleteTaskListByListId 49467424")
+  echo l:test
   
-  if empty(selected_text)
-    echo "テキストが選択されていません"
-    return
-  endif
+  " JSONからnameだけを抽出
+  let l:names = []
+  let l:lines = split(l:test, '\n')
   
-  " 先頭10文字を取得（改行を除去）
-  let first_line = split(selected_text, '\n')[0]
-
-  let prefix = strcharpart(first_line, 0, 10)
-
-  " 現在の日時を取得
-  let datetime = strftime("%Y-%m-%d %H:%M")
-
-  " 改行を除去したテキストを配列として取得
-  let text_lines = split(selected_text, '\n')
-
-  " フォーマットしたテキストをヘッダーとして作成
-  let header_text = "* " . prefix . " " . datetime . " [idea]:"
-
-  " ファイルパス
-  let filepath = "/Users/takets/repos/changelog/changelogmemo"
-
-  " ファイルを開く
-  execute 'edit ' . filepath
-
-  " 2行目にヘッダー挿入
-  call append(1, '')
-  call append(2, header_text)
-
-  " 配列をループして、3行目以降に挿入する
-  let line_num = 3
-  for text_line in text_lines
-    call append(line_num, text_line)
-    let line_num += 1
+  for line in l:lines
+    if line =~ '"name":'
+      let l:name_match = matchstr(line, '"name":\s*"\zs[^"]*\ze"')
+      if !empty(l:name_match)
+        call add(l:names, l:name_match)
+      endif
+    endif
   endfor
-
-  " ファイルを保存
-  write
-
-  echo "changelogmemoに追加しました"
+  
+  " 抽出したnameを表示
+  for name in l:names
+    echo name
+  endfor
 endfunction
 
 command! -range -nargs=0 Test call s:Test()
