@@ -126,6 +126,7 @@ lua << EOF
 require("nudge-two-hats").setup({
   idle_time = 0.05, -- virtual text表示までの時間（分）
   cursor_idle_delay = 0.2, -- カーソル停止後のタイマー設定までの時間（分）
+  cursor_idle_threshold_seconds = 240, -- Stop timers when cursor is idle for this long
   text_color = "#eee8d5",
   background_color = "#073642",
   virtual_text_message_length = 50,
@@ -138,9 +139,8 @@ require("nudge-two-hats").setup({
 
   -- Timing configuration
   notify_interval_correction = 1, 
-  notify_interval_seconds = 120, -- Minimum interval between API calls in seconds
-  virtual_text_interval_seconds = 10, -- Time in seconds before showing virtual text
-	cursor_idle_threshold_seconds = 5, -- Time in seconds before cursor idle triggers virtual text
+  notify_interval_seconds = 180, -- Minimum interval between API calls in seconds
+  virtual_text_interval_seconds = 15, -- Time in seconds before showing virtual text
 
   -- Debug configuration
   debug_mode = false, -- When true, prints nudge text to Vim's 
