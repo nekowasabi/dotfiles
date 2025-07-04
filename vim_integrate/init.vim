@@ -101,7 +101,7 @@ nnoremap <silent> z<CR> :ZenMode<CR>
 nnoremap <Leader>: :
 
 " Ri"みたいに使う
-map R <Plug>(operator-replace)
+map r <Plug>(operator-replace)
 
 augroup filetype_echo                                                                              
    autocmd!                                                                                         
