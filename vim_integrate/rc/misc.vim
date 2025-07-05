@@ -50,6 +50,9 @@ endif
 function! s:DuplicateLineFormat()
 	let line = getline('.')
 
+	if line =~ "^[\t　 ]*- \\[ \\] " 
+		return "\<End>\n- [ ] "
+	endif
 	if line =~ "^[\t　]*・" 
 		return "\<End>\n・"
 	endif
@@ -62,6 +65,9 @@ function! s:DuplicateLineFormat()
 	if line =~ "^[\t　]*\\* "
 		return "\<End>\n\* "
 	end
+	if line =~ "^[\t　]*→" 
+		return "\<End>\n→"
+	endif
 	if line =~ "^[\t　]*\+ "
 		return "\<End>\n+ "
 	end
