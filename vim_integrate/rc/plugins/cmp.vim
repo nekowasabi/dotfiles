@@ -74,20 +74,20 @@ cmp.setup({
     ["<S-Tab>"] = cmp.mapping.select_prev_item(),
     ["<Tab>"] = cmp.mapping.select_next_item(),
     ['<C-e>'] = cmp.mapping.abort(),
-    ['<C-s>'] = function(fallback)
-          if cmp.visible() then
-            local confirm_opts = {
-              select = true,
-              behavior = cmp.ConfirmBehavior.Insert,
-            }
-            cmp.confirm(confirm_opts, function()
-              local key = vim.api.nvim_replace_termcodes("<Tab>", true, false, true)
-              vim.api.nvim_feedkeys(key, 't', true)
-            end)
-          else
-            fallback()
-          end
-        end,
+    -- ['<C-s>'] = function(fallback)
+    --       if cmp.visible() then
+    --         local confirm_opts = {
+    --           select = true,
+    --           behavior = cmp.ConfirmBehavior.Insert,
+    --         }
+    --         cmp.confirm(confirm_opts, function()
+    --           local key = vim.api.nvim_replace_termcodes("<Tab>", true, false, true)
+    --           vim.api.nvim_feedkeys(key, 't', true)
+    --         end)
+    --       else
+    --         fallback()
+    --       end
+    --     end,
     -- insert, commandモードでの補完を有効にする
     -- cmp.mappingと{'i', 'c'}を指定することで、insert, commandモードでの補完を有効にする
     ["<CR>"] = cmp.mapping(cmp.mapping.confirm { select = true }, {'i', 'c'}),
