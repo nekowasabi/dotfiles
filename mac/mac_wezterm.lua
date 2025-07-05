@@ -55,7 +55,7 @@ return {
 -- wsl_domains = wsl_domains,
   default_cwd = "/Users/ttakeda",
   font = wezterm.font("RuikaMono07 Nerd Font", { weight = 7, stretch="Normal", style = 'Normal',  italic = false }),
-  font_size = 22,
+  font_size = 24,
   enable_csi_u_key_encoding = false,
   enable_kitty_keyboard = true,
   color_schemes = {
