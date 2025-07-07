@@ -20,6 +20,15 @@ call lexima#add_rule({
     \   'filetype': ['changelog']
     \   })
 
+" 行頭（タブ考慮）に『・』があるときの改行
+call lexima#add_rule({
+      \ 'char': '<CR>',
+      \ 'at': '^\s*・.*\%#$',
+      \ 'input': '<CR>・',
+      \ 'filetype': 'changelog',
+      \ })
+
+
 let s:rules += [
       \ { 'filetype': 'changelog', 'char': '#',       'at': '^\%#\%(#\)\@!',                  'input': '#<Space>'                           },
       \ { 'filetype': 'changelog', 'char': '#',       'at': '#\s\%#',                         'input': '<BS>#<Space>',                      },
