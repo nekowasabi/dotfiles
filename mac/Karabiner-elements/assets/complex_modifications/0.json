@@ -931,6 +931,26 @@
           ]
         },
         {
+          "description": "iterm2アクティブ",
+          "from": {
+            "key_code": "1",
+            "modifiers": {
+              "mandatory": ["control"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "1",
+							"modifiers": ["control"]
+            },
+            {
+              "shell_command": "osascript -e 'tell application \"iTerm2\" to activate' -e 'tell application \"System Events\" to set frontmost of process \"iTerm2\" to true'"
+            }
+          ],
+          "type": "basic"
+        },
+
+        {
           "type": "basic",
           "from": {
             "key_code": "e",
