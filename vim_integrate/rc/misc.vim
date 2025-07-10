@@ -447,32 +447,34 @@ function! s:Test()
   "
   " echo "changelogmemoに追加しました"
 
-  execute("RtmAddTask ")
-  let l:test = execute("RtmGetIncompleteTaskListByListId 49467424")
-  echo l:test
-  
-  " JSONからnameだけを抽出
-  let l:names = []
-  let l:lines = split(l:test, '\n')
-  
-  for line in l:lines
-    if line =~ '"name":'
-      let l:name_match = matchstr(line, '"name":\s*"\zs[^"]*\ze"')
-      if !empty(l:name_match)
-        call add(l:names, l:name_match)
-      endif
-    endif
-  endfor
-  
-  " 抽出したnameを表示
-  for name in l:names
-    echo name
-  endfor
+
+	echo "okl"
+
+  " execute("RtmAddTask ")
+  " let l:test = execute("RtmGetIncompleteTaskListByListId 49467424")
+  " echo l:test
+  " 
+  " " JSONからnameだけを抽出
+  " let l:names = []
+  " let l:lines = split(l:test, '\n')
+  " 
+  " for line in l:lines
+  "   if line =~ '"name":'
+  "     let l:name_match = matchstr(line, '"name":\s*"\zs[^"]*\ze"')
+  "     if !empty(l:name_match)
+  "       call add(l:names, l:name_match)
+  "     endif
+  "   endif
+  " endfor
+  " 
+  " " 抽出したnameを表示
+  " for name in l:names
+  "   echo name
+  " endfor
 endfunction
 
 command! -range -nargs=0 Test call s:Test()
 
-nnoremap <silent> <M-w> :Test<CR>
 nnoremap <silent> <F2> :Test<CR>
 vnoremap <silent> <F2> :Test<CR>
 " }}}1

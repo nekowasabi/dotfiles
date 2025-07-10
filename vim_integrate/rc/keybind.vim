@@ -183,6 +183,7 @@ nnoremap <silent> <D-p> :normal! vip<CR>
 nnoremap <silent> <Space><CR> ciW
 nnoremap <silent> <CR><Space> ciw
 
+
 xnoremap a" 2i"
 xnoremap a' 2i'
 xnoremap a` 2i`
@@ -459,8 +460,14 @@ nnoremap M %
 nnoremap <silent> <C-d> dd
 nnoremap dp dip
 nnoremap d<C-w> diw
+
 nnoremap c<C-w> ciw
 nnoremap cW ciW
+inoremap <M-w> <Esc>ciW
+inoremap <D-w> <Esc>ciW
+nnoremap <M-w> <Esc>ciW
+nnoremap <D-w> <Esc>ciW
+
 nnoremap dW viWd
 nnoremap d" di"
 nnoremap c" ci"
