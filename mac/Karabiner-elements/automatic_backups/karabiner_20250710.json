@@ -609,36 +609,6 @@
                                 "type": "basic"
                             },
                             {
-                                "description": "RememberTheMilkアクティブ",
-                                "from": {
-                                    "key_code": "5",
-                                    "modifiers": { "mandatory": ["control"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "5",
-                                        "modifiers": ["control"]
-                                    },
-                                    { "shell_command": "osascript -e 'tell application \"Remember The Milk\" to activate' -e 'tell application \"System Events\" to set frontmost of process \"Remember The Milk\" to true'" }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "description": "Firefoxアクティブ",
-                                "from": {
-                                    "key_code": "2",
-                                    "modifiers": { "mandatory": ["control"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "2",
-                                        "modifiers": ["control"]
-                                    },
-                                    { "shell_command": "osascript -e 'tell application \"Firefox\" to activate' -e 'tell application \"System Events\" to set frontmost of process \"Firefox\" to true'" }
-                                ],
-                                "type": "basic"
-                            },
-                            {
                                 "conditions": [
                                     {
                                         "name": "eisuu",
