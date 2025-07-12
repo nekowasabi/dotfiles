@@ -491,8 +491,8 @@ endfunction
 
 vnoremap <silent> <C-c>a y<Cmd>call DduAiConnectorByFiletype('AiderSendPromptByCommandline')<CR>
 vnoremap <silent> <C-c>c y<Cmd>call DduAiConnectorByFiletype('CopilotChat')<CR>
-vnoremap <silent> <C-c>g y<Cmd>call DduAiConnectorByFiletype('GpAppend')<CR>
-vnoremap <silent> <C-c>r y<Cmd>call DduAiConnectorByFiletype('GpRewrite')<CR>
+vnoremap <silent> <C-c>g y<Cmd>call DduAiConnectorByFiletype('PrtAppend')<CR>
+vnoremap <silent> <C-c>r y<Cmd>call DduAiConnectorByFiletype('PrtRewrite')<CR>
 
 nnoremap <silent> <Leader>ll
       \ <Cmd>call ddu#start({'sources': [{'name': 'line'}]})<CR>
