@@ -54,6 +54,7 @@ alias gp='git pull'
 alias lg='lazygit'
 alias g='gptme'
 alias cd='j'
+alias yolo="claude --dangerously-skip-permissions --model opus"
 
 # alias xargs='gxargs'
 # }}}1
