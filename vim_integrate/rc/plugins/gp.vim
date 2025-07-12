@@ -18,118 +18,23 @@ require("gp").setup({
 			},
 		},
 	},
-  agents =
-  {
-    -- {
-    --   provider = "copilot",
-    --   name = "copilot-o1",
-    --   chat = true,
-    --   command = false,
-    --   model = { model = "o1", temperature = 0.8, top_p = 1 },
-    --   system_prompt = require("gp.defaults").chat_system_prompt,
-    -- },
-    {
-      provider = "copilot",
-      name = "copilot-3-7-Sonnet",
-      chat = true,
-      command = true,
-      model = { model = "claude-3.7-sonnet", temperature = 0.8, top_p = 1 },
-      system_prompt = require("gp.defaults").chat_system_prompt,
-    },
-    {
-      provider = "copilot",
-      name = "copilot-3-5-Sonnet",
-      chat = true,
-      command = true,
-      model = { model = "claude-3.5-sonnet", temperature = 0.8, top_p = 1 },
-      system_prompt = require("gp.defaults").chat_system_prompt,
-    },
-    { 
-        name = "ChatGPT4o", 
-        chat = true, 
-        command = true, 
-        disable = true,
-        -- string with model name or table with model name and parameters 
-        model = { model = "gpt-4o-2024-08-06", temperature = 1.1, top_p =
-        1 }, 
-        -- system prompt (use this to specify the persona/role of the AI) 
-        system_prompt = "レスポンスは、日本語で回答してください\n\n" 
-        .. "1つずつ、step by stepで説明してください。\n\n", 
-
-        system_prompt = "You are a general AI assistant.\n\n"
-        .. "レスポンスは、日本語で回答してください\n\n" 
-        .. "The user provided the additional info about how they would like you to respond:\n\n"
-        .. "- If you're unsure don't guess and say you don't know instead.\n"
-        .. "- Ask question if you need clarification to provide better answer.\n"
-        .. "- Think deeply and carefully from first principles step by step.\n"
-        .. "- Zoom out first to see the big picture and then zoom in to details.\n"
-        .. "- Use Socratic method to improve your thinking and coding skills.\n"
-        .. "- Don't elide any code from your output if the answer requires coding.\n"
-        .. "- Take a deep breath; You've got this!\n",
-    }, 
-    { 
-        name = "ChatGPT4oMini", 
-        chat = true, 
-        command = true, 
-        -- string with model name or table with model name and parameters 
-        model = { model = "gpt-4o-mini", temperature = 1.1, top_p =
-        1 }, 
-        -- system prompt (use this to specify the persona/role of the AI) 
-        system_prompt = "レスポンスは、日本語で回答してください\n\n" 
-        .. "1つずつ、step by stepで説明してください。\n\n", 
-
-        system_prompt = "You are a general AI assistant.\n\n"
-        .. "レスポンスは、日本語で回答してください\n\n" 
-        .. "The user provided the additional info about how they would like you to respond:\n\n"
-        .. "- If you're unsure don't guess and say you don't know instead.\n"
-        .. "- Ask question if you need clarification to provide better answer.\n"
-        .. "- Thin deeply and carefully from first principles step by step.\n"
-        .. "- Zoom out first to see the big picture and then zoom in to details.\n"
-        .. "- Use Socratic method to improve your thinking and coding skills.\n"
-        .. "- Don't elide any code from your output if the answer requires coding.\n"
-        .. "- Take a deep breath; You've got this!\n",
-    }
+ 	agents = { 
+ 		{ 
+ 			name = "ExampleDisabledAgent", 
+ 			disable = true, 
+ 		}, 
+ 		{ 
+ 			provider = "copilot", 
+ 			name = "ChatCopilot", 
+ 			chat = true, 
+ 			command = false, 
+ 			-- string with model name or table with model name and parameters 
+ 			model = { model = "claude-sonnet-4", temperature = 1.1, top_p = 1 }, 
+ 			-- system prompt (use this to specify the persona/role of the AI) 
+ 			system_prompt = require("gp.defaults").chat_system_prompt, 
+ 		}, 
   },
-  hooks = {
-    RewriteOMini = function(gp, params)
-      local template = "Having following from {{filename}}:\n\n"
-        .. "```{{filetype}}\n{{selection}}\n```\n\n"
-        .. "Please rewrite this according to the contained instructions.\n\n"
-        .. ".以下のテキストに以下の処理を行ってください\n\n"
-        .. "# Do\n"
-        .. "- 誤字脱字の修正\n"
-        .. "- 英単語のスペルミスの修正\n"
-        .. "- 適切な句読点を追加\n"
-        .. "- テキストの意味を損なわないように、slackでのメッセージとして伝わるように変換する\n"
-        .. "- 必要に応じて段落分けも行う\n\n"
-        .. "# Not to do\n"
-        .. "- 行頭に・がある時は削除しないでください\n"
-        .. "- 語尾は変更しないでください\n"
-        .. "- 「余分な説明は不要です」\n"
-        .. "- 「挨拶や前置きは省略してください」\n"
-        .. "- 「追加の説明や例示は不要です」\n"
-        .. "- テキストを「」囲まないでください\n"
-        .. "- 以下のように修正しました。は不要です\n"
-        .. "- テキストの修正結果のみを返してください\n"
-        .. "- ダブルクオテーションで囲まないでください\n"
 
-
-      local agent = gp.get_command_agent()
-      gp.logger.info("Implementing selection with agent: " .. agent.name)
-
-      -- you can also create a chat with a specific fixed agent like this:
-      local agent = gp.get_chat_agent("ChatGPT4oMini")
-
-      gp.Prompt(
-        params,
-        gp.Target.rewrite,
-        agent,
-        template,
-        nil, -- command will run directly without any prompting for user input
-        nil -- no predefined instructions (e.g. speech-to-text from Whisper)
-      )
-    end
-  },
   chat_assistant_prefix = { "🤖:", "[{{agent}}]" }, 
   chat_dir = vim.fn.stdpath("data"):gsub("/$", "") .. "/gp/chats",
   chat_shortcut_respond = { modes = { "n", "i", "v", "x" }, shortcut = "<C-c>r" }, 
