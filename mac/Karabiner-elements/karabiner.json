@@ -19241,6 +19241,79 @@
                         ]
                     },
                     {
+                        "description": "Brave用設定",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "com.brave.Browser"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "description": "前回タスクの時間を入力",
+                                "from": {
+                                    "key_code": "s",
+                                    "modifiers": { "mandatory": ["control"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "s",
+                                        "modifiers": ["shift"]
+                                    },
+                                    { "key_code": "j" },
+                                    { "key_code": "return_or_enter" }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "com.brave.Browser"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "description": "予定通りの時間を入力",
+                                "from": {
+                                    "key_code": "f",
+                                    "modifiers": { "mandatory": ["control"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "f",
+                                        "modifiers": ["shift"]
+                                    },
+                                    { "key_code": "j" },
+                                    { "key_code": "return_or_enter" }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "com.brave.Browser"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "description": "次のタスク開始",
+                                "from": {
+                                    "key_code": "n",
+                                    "modifiers": { "mandatory": ["control"] }
+                                },
+                                "to": [
+                                    { "key_code": "j" },
+                                    { "key_code": "s" }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "Firefox設定",
                         "manipulators": [
                             {

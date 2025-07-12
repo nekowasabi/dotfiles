@@ -740,6 +740,98 @@
 				}
 			]
 		},
+    {
+      "description": "Brave用設定",
+      "manipulators": [
+        {
+          "type": "basic",
+          "description": "前回タスクの時間を入力",
+          "from": {
+            "key_code": "s",
+            "modifiers": {
+              "mandatory": ["control"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "s",
+              "modifiers": ["shift"]
+            },
+            {
+              "key_code": "j"
+            },
+            {
+              "key_code": "return_or_enter"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "com.brave.Browser"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "description": "予定通りの時間を入力",
+          "from": {
+            "key_code": "f",
+            "modifiers": {
+              "mandatory": ["control"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "f",
+              "modifiers": ["shift"]
+            },
+            {
+              "key_code": "j"
+            },
+            {
+              "key_code": "return_or_enter"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "com.brave.Browser"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "description": "次のタスク開始",
+          "from": {
+            "key_code": "n",
+            "modifiers": {
+              "mandatory": ["control"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "j"
+            },
+            {
+              "key_code": "s"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "com.brave.Browser"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+
 		{
 			"description": "RTM設定",
 			"manipulators": [
