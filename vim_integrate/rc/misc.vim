@@ -401,16 +401,15 @@ nnoremap <silent> ,rw :call ReplaceCurrentWordWithYank()<CR>
 " }}}1
 
 " -----------------------------------------------------------
-" test: 指定のJSONファイルからnameに一致するrulesを取得する {{{1
 function! s:Test()
   " " 選択範囲のテキストを取得
   " let selected_text = s:get_visual_text()
-  " 
+  "
   " if empty(selected_text)
   "   echo "テキストが選択されていません"
   "   return
   " endif
-  " 
+  "
   " " 先頭10文字を取得（改行を除去）
   " let first_line = split(selected_text, '\n')[0]
   "
@@ -426,7 +425,7 @@ function! s:Test()
   " let header_text = "* " . prefix . " " . datetime . " [idea]:"
   "
   " " ファイルパス
-  " let filepath = "/Users/takets/repos/changelog/changelogmemo"
+  " let filepath = "~/repos/changelog/changelogmemo"
   "
   " " ファイルを開く
   " execute 'edit ' . filepath
@@ -446,9 +445,6 @@ function! s:Test()
   " write
   "
   " echo "changelogmemoに追加しました"
-
-
-	echo "okl"
 
   " execute("RtmAddTask ")
   " let l:test = execute("RtmGetIncompleteTaskListByListId 49467424")

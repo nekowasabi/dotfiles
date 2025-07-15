@@ -1,17 +1,17 @@
 lastupdatecheck: 0
 recentrepos:
-- /Users/ttakeda/repos/changelog
 - /Users/ttakeda/repos/private_dotfiles
 - /Users/ttakeda/repos/dotfiles
 - /Users/ttakeda/works/invase-backend
+- /Users/ttakeda/works/invase-api-schema
+- /Users/ttakeda/repos/mfs-tools
+- /Users/ttakeda/repos/changelog
 - /Users/ttakeda/.config/nvim/plugged/rtm_deno
 - /Users/ttakeda/repos/taskchute-claude-cli
 - /Users/ttakeda/repos/surfingkeys
 - /Users/ttakeda/.config/nvim/plugged/aider.vim
-- /Users/ttakeda/repos/mfs-tools
 - /Users/ttakeda/repos/feynman-technique
 - /Users/ttakeda/.config/nvim/plugged/claudecode.vim
-- /Users/ttakeda/works/invase-api-schema
 - /Users/ttakeda/works/invase-frontend
 - /Users/ttakeda/.config/nvim/plugged/nudge-two-hats.vim
 - /Users/ttakeda/.config/nvim/plugged/cross-channel.nvim
