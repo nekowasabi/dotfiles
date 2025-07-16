@@ -251,17 +251,22 @@ endfunction
 function! s:PasteWatchMemo()
   if g:IsMacNeovimInWork()
     let g:shortcuts_dir = '/Users/ttakeda/repos/changelog/'
+  elseif g:IsWsl()
+    let g:shortcuts_dir = '/home/takets/repos/changelog/'
 	else
     let g:shortcuts_dir = '/Users/takets/repos/changelog/'
   endif
 
 	let files = glob(g:shortcuts_dir . "shortcuts/*.md", 0, 1)
 
+  let l:header = '* 音声入力メモ' . strftime("%Y-%m-%d %H:%M") . '  takets [idea]:'
+  call append(2, l:header)
+
 	let content = ''
 
 	for file in files
-		let content = readfile(file)
-		let current_line = line('.')
+		let content = readfile(file) . "\n"
+		let current_line = 3
 		call append(current_line - 1, content)
 		silent execute "!rm " . shellescape(file)
 	endfor
