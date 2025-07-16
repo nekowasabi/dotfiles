@@ -272,8 +272,16 @@ command! -range PasteWatchMemo call s:PasteWatchMemo()
 " changelogをpush, pullする {{{1
 function! s:PullChangelog()
   execute "cd ".g:GetChangelogDirectory()
-  call system("git checkout -f")
-  call system("git pull")
+  let checkout_result = system("git checkout -f")
+  if v:shell_error != 0
+    echoerr 'git checkout failed: ' . checkout_result
+    return
+  endif
+  let pull_result = system("git pull")
+  if v:shell_error != 0
+    echoerr 'git pull failed: ' . pull_result
+    return
+  endif
   echo 'pull done.'
 endfunction
 command! -range PullChangelog call s:PullChangelog()
