@@ -84,13 +84,6 @@ function! s:AiderOpenHandler() abort
 endfunction
 " }}}1
 
-let s:aider_common_options = ' --no-detect-urls --no-auto-accept-architect --notifications'
-      \ . ' --no-auto-commits --no-show-model-warnings'
-      \ . ' --chat-language ja --no-stream'
-      \ . ' --cache-prompts --cache-keepalive-pings 6'
-      \ . ' --suggest-shell-commands --map-refresh auto'
-      \ . ' --load ' . g:init_load_command
-
 " モデル設定 {{{2
 " ---------------------------------------------------------
 " 各AIモデルのコマンドラインオプション定義
@@ -113,8 +106,20 @@ let s:models = {
   \ }
 
 " 共通のAider設定プリセット
+function! s:get_aider_common_options()
+  let options = ' --no-detect-urls --no-auto-accept-architect --notifications'
+        \ . ' --no-auto-commits --no-show-model-warnings'
+        \ . ' --chat-language ja --no-stream'
+        \ . ' --cache-prompts --cache-keepalive-pings 6'
+        \ . ' --suggest-shell-commands --map-refresh auto'
+  if exists('g:init_load_command') && !empty(g:init_load_command)
+    let options .= ' --load ' . g:init_load_command
+  endif
+  return options
+endfunction
+
 function! s:build_options(base, model, watch_files) abort
-  let options = a:base . s:aider_common_options
+  let options = a:base . s:get_aider_common_options()
   let options .= ' --architect ' . s:models[a:model]
   return a:watch_files ? options . ' --watch-files' : options
 endfunction
@@ -128,8 +133,8 @@ let s:common_aider_settings = {
       \ 'architect_experimental':  s:build_options(s:aider_base_command, 'experimental', 0),
       \ 'architect_default':  s:build_options(s:aider_base_command, 'default',            0),
       \ 'architect_gpt':      s:build_options(s:aider_base_command, 'gpt',               0),
-      \ 'doc':                s:aider_base_command . s:models.gemini_flash_not_thinking . s:aider_common_options . ' --chat-mode ask',
-      \ 'vhs':                s:aider_base_command . s:models.claude . s:aider_common_options . ' --chat-mode code ',
+      \ 'doc':                s:aider_base_command . s:models.gemini_flash_not_thinking . s:get_aider_common_options() . ' --chat-mode ask',
+      \ 'vhs':                s:aider_base_command . s:models.claude . s:get_aider_common_options() . ' --chat-mode code ',
       \ 'watch_deepseek':     s:build_options(s:aider_base_command, 'deepseek',          1),
       \ 'watch':              s:build_options(s:aider_base_command, 'deepseek',          1),
       \ 'watch_claude':       s:build_options(s:aider_base_command, 'claude',            1)
@@ -470,7 +475,7 @@ endfunction
 command! -nargs=0 AiderWithCopilot call s:switch_aider_with_copilot()
 
 function! s:doc_aider_with_copilot() abort
-  let g:aider_command = '~/.config/nvim/plugged/aider.vim/copilot.sh ' . s:models['copilot_claude'] . s:aider_common_options
+  let g:aider_command = '~/.config/nvim/plugged/aider.vim/copilot.sh ' . s:models['copilot_claude'] . s:get_aider_common_options()
 
   execute 'AiderRun'
 	execute "5sleep"

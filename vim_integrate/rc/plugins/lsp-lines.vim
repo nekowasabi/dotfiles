@@ -1,6 +1,6 @@
 if g:IsMacNeovim() && g:IsMacNeovimInWork() == v:false
 lua << EOF
-    require("lsp_lines").setup()
+    -- require("lsp_lines").setup()
 EOF
 endif
 

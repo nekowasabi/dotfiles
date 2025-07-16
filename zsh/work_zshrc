@@ -117,11 +117,6 @@ function wezterm_neovim() {
 }
 alias n='wezterm_neovim'
 
-
-alias n='wezterm_neovim'
-
-
-
 function wezterm_neovim_work() {
  /opt/homebrew/bin/nvim  $1 $2 ~/work
 }
