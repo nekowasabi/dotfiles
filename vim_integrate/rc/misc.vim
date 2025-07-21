@@ -259,6 +259,11 @@ function! s:PasteWatchMemo()
 
 	let files = glob(g:shortcuts_dir . "shortcuts/*.md", 0, 1)
 
+  " ファイルが存在しない場合は処理を終了
+  if empty(files)
+    return
+  endif
+
   let l:header = '* 音声入力メモ' . strftime("%Y-%m-%d %H:%M") . '  takets [idea]:'
   call append(2, l:header)
 
