@@ -287,6 +287,7 @@ function! s:PullChangelog()
     echoerr 'git pull failed: ' . pull_result
     return
   endif
+	execute "PasteWatchMemo"
   echo 'pull done.'
 endfunction
 command! -range PullChangelog call s:PullChangelog()
