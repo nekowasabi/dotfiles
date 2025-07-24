@@ -284,6 +284,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'hrsh7th/cmp-emoji'
   Plug 'hrsh7th/cmp-calc'
   Plug 'hrsh7th/cmp-nvim-lsp'
+	Plug 'biosugar0/cmp-claudecode'
   Plug 'amarz45/nvim-cmp-buffer-lines'
   Plug 'chrisgrieser/cmp_yanky'
   Plug 'notomo/cmp-neosnippet'
