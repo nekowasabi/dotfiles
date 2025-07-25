@@ -1,5 +1,7 @@
 let g:_ts_force_sync_parsing = v:true
 
+
+
 lua << EOF
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the four listed parsers should always be installed)
@@ -27,7 +29,7 @@ require'nvim-treesitter.configs'.setup {
     -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
     -- the name of the parser)
     -- list of language that will be disabled
-    disable = { "c", "rust", "blade" },
+    disable = { "c", "rust", "blade", "markdown"},
     -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
     disable = function(lang, buf)
     local max_filesize = 512 * 1024 -- 100 KB
@@ -65,3 +67,9 @@ EOF
 "   au BufNewFile,BufRead *.blade.php set ft=blade
 "   au BufNewFile,BufRead *.blade.php set ft=blade tabstop=2 softtabstop=2 shiftwidth=2 expandtab autoindent
 " augroup END
+
+" Toggle TreeSitter highlight for markdown files
+augroup MarkdownTreeSitterToggle
+  autocmd!
+  autocmd FileType markdown nnoremap <buffer> <Leader>th :TSToggle highlight<CR>
+augroup END

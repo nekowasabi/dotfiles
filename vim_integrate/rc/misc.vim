@@ -267,12 +267,12 @@ function! s:PasteWatchMemo()
   let l:header = '* 音声入力メモ' . strftime("%Y-%m-%d %H:%M") . '  takets [idea]:'
   call append(2, l:header)
 
-	let content = ''
+	let current_line = 4
 
 	for file in files
-		let content = readfile(file) . "\n"
-		let current_line = 3
+		let content = readfile(file)
 		call append(current_line - 1, content)
+		let current_line = current_line + len(content)
 		silent execute "!rm " . shellescape(file)
 	endfor
 endfunction

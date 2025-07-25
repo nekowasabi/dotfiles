@@ -609,6 +609,14 @@ require("mcphub").setup({
 
 require('Comment').setup()
 
+vim.api.nvim_create_autocmd("FileType", {
+  callback = function()
+    local ft = vim.bo.filetype
+    if ft == "markdown" then
+      vim.opt_local.conceallevel = 0  -- markdownではconcealを無効
+    end
+  end,
+})
 
 EOF
 
