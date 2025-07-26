@@ -118,6 +118,11 @@ endfunction
 
 nnoremap <M-j> :echo "ok"<CR>
 
+augroup parrot
+	autocmd!
+	autocmd FileType diff call system("terminal-notifier -title '📜 parrot' -message '🍎 parrotの処理が完了しました'")
+augroup END
+
 " -----------------------------------------------------------
 " lua
 
