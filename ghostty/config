@@ -11,6 +11,9 @@ quick-terminal-screen = "main"
 # アニメーション時間を設定（0で即時表示）
 quick-terminal-animation-duration = 0
 
+# グローバルホットキーを設定
+keybind = global:f12=toggle_quick_terminal
+
 # リガチャ不要
 font-feature = -calt
 font-feature = -dlig
