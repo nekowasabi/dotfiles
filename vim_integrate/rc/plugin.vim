@@ -106,6 +106,7 @@ Plug 'nekowasabi/cross-channel.nvim'
 Plug 'atusy/aibou.nvim'
 Plug 'olimorris/codecompanion.nvim'
 Plug 'nekowasabi/claudecode.vim'
+Plug 'copilotlsp-nvim/copilot-lsp'
 
 " denops
 Plug 'hrsh7th/vim-searchx'
