@@ -138,6 +138,7 @@ alias deno='~/.deno/bin/deno'
 alias grealpath='/opt/homebrew/bin/grealpath'
 alias cj='j'
 alias yolo="claude --dangerously-skip-permissions --model opus"
+alias ys="claude --dangerously-skip-permissions"
 # }}}0
 
 zinit light zdharma-continuum/fast-syntax-highlighting
