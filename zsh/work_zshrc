@@ -137,7 +137,7 @@ alias v='/opt/homebrew/bin/nvim'
 alias deno='~/.deno/bin/deno'
 alias grealpath='/opt/homebrew/bin/grealpath'
 alias cj='j'
-alias yolo="claude --dangerously-skip-permissions --model opus"
+alias yo="claude --dangerously-skip-permissions --model opus"
 alias ys="claude --dangerously-skip-permissions"
 # }}}0
 
