@@ -420,75 +420,52 @@ nnoremap <silent> ,rw :call ReplaceCurrentWordWithYank()<CR>
 " }}}1
 
 " -----------------------------------------------------------
-function! s:Test()
-  " " 選択範囲のテキストを取得
-  " let selected_text = s:get_visual_text()
-  "
-  " if empty(selected_text)
-  "   echo "テキストが選択されていません"
-  "   return
-  " endif
-  "
-  " " 先頭10文字を取得（改行を除去）
-  " let first_line = split(selected_text, '\n')[0]
-  "
-  " let prefix = strcharpart(first_line, 0, 10)
-  "
-  " " 現在の日時を取得
-  " let datetime = strftime("%Y-%m-%d %H:%M")
-  "
-  " " 改行を除去したテキストを配列として取得
-  " let text_lines = split(selected_text, '\n')
-  "
-  " " フォーマットしたテキストをヘッダーとして作成
-  " let header_text = "* " . prefix . " " . datetime . " [idea]:"
-  "
-  " " ファイルパス
-  " let filepath = "~/repos/changelog/changelogmemo"
-  "
-  " " ファイルを開く
-  " execute 'edit ' . filepath
-  "
-  " " 2行目にヘッダー挿入
-  " call append(1, '')
-  " call append(2, header_text)
-  "
-  " " 配列をループして、3行目以降に挿入する
-  " let line_num = 3
-  " for text_line in text_lines
-  "   call append(line_num, text_line)
-  "   let line_num += 1
-  " endfor
-  "
-  " " ファイルを保存
-  " write
-  "
-  " echo "changelogmemoに追加しました"
-
-  " execute("RtmAddTask ")
-  " let l:test = execute("RtmGetIncompleteTaskListByListId 49467424")
-  " echo l:test
-  " 
-  " " JSONからnameだけを抽出
-  " let l:names = []
-  " let l:lines = split(l:test, '\n')
-  " 
-  " for line in l:lines
-  "   if line =~ '"name":'
-  "     let l:name_match = matchstr(line, '"name":\s*"\zs[^"]*\ze"')
-  "     if !empty(l:name_match)
-  "       call add(l:names, l:name_match)
-  "     endif
-  "   endif
-  " endfor
-  " 
-  " " 抽出したnameを表示
-  " for name in l:names
-  "   echo name
-  " endfor
+function! s:Test() range
+  " 選択範囲の全行を処理（a:firstlineからa:lastlineまで）
+  for lnum in range(a:firstline, a:lastline)
+    call s:ProcessLine(lnum)
+  endfor
 endfunction
 
-command! -range -nargs=0 Test call s:Test()
+function! s:ProcessLine(line_num)
+  " 指定行のテキストを取得
+  let l:line = getline(a:line_num)
+  
+  " フルパスのパターンマッチ（Unix/Windowsパス対応）
+  let l:path_pattern = '\v(/[^[:space:]]+|[a-zA-Z]:\\[^[:space:]]+|\~[^[:space:]]+)'
+  let l:match = matchstr(l:line, l:path_pattern)
+  
+  if l:match != ''
+    " フルパスを取得
+    let l:fullpath = expand(l:match)
+    
+    " ファイルが存在するか確認
+    if !filereadable(l:fullpath)
+      " ファイルが存在しない場合はスキップ
+      return
+    endif
+    
+    " ファイル名を変数に取得
+    let l:filename = fnamemodify(l:fullpath, ':t')
+    
+    " フルパスをhome directoryからの相対パスに変換
+    let l:home = expand('~')
+    if l:fullpath =~ '^' . l:home
+      let l:relpath = '~' . strpart(l:fullpath, len(l:home))
+    else
+      let l:relpath = l:fullpath
+    endif
+    
+    " markdownリンクを生成 [ファイル名](相対パス)
+    let l:markdown_link = '[' . l:filename . '](' . l:relpath . ')'
+    
+    " フルパスをmarkdownリンクに変換
+    let l:new_line = substitute(l:line, escape(l:match, '/\'), l:markdown_link, '')
+    call setline(a:line_num, l:new_line)
+  endif
+endfunction
+
+command! -range -nargs=0 Test <line1>,<line2>call s:Test()
 
 nnoremap <silent> <F2> :Test<CR>
 vnoremap <silent> <F2> :Test<CR>
