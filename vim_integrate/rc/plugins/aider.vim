@@ -5,8 +5,7 @@
 let s:aider_base_command = 'aider '
 let g:aider_floatwin_width = 100
 let g:aider_floatwin_height = 50
-let g:aider_buffer_open_type = 'vsplit'
-" let g:aider_buffer_open_type = 'floating'
+let g:aider_buffer_open_type = 'floating'
 let g:aider_floatwin_border = 'double'
 let g:aider_floatwin_style = 'minimal'
 if g:IsMacNeovimInWezterm()
@@ -92,7 +91,9 @@ endfunction
 let s:models = {
   \ 'default':    ' --no-auto-commits --model openrouter/anthropic/claude-sonnet-4 --editor-model openrouter/google/gemini-2.5-flash-preview-05-20',
   \ 'claude':    ' --no-auto-commits --model architect/anthropic/claude-4 --editor-model editor/anthropic/claude-4',
-  \ 'gpt':       ' --reasoning-effort medium --weak-model openrouter/openai/gpt-5-nano --model openrouter/openai/gpt-5-mini --editor-model openai/gpt-5-mini',
+  \ 'gpt':       ' --reasoning-effort medium --weak-model openai/gpt-4.1-nano --model openai/o3-mini --editor-model openai/gpt-4o',
+  \ 'gpt_41_mini':    ' --weak-model openrouter/openai/gpt-4.1-mini --model openrouter/openai/gpt-4.1-mini --editor-model openrouter/openai/gpt-4.1-mini',
+  \ 'gpt_41_nano':    ' --weak-model openrouter/openai/gpt-4.1-nano --model openrouter/openai/gpt-4.1-nano --editor-model openrouter/openai/gpt-4.1-nano',
   \ 'gemini':    ' --no-auto-commits --model openrouter/google/gemini-2.5-pro-preview --editor-model openrouter/google/gemini-2.5-flash-preview-05-20',
   \ 'gemini_not_thinking':    ' --no-auto-commits --model my-openrouter/google/gemini-2.5-preview --editor-model my-openrouter/google/gemini-2.5-preview ',
   \ 'gemini_flash_not_thinking': ' --no-auto-commits --model my-openrouter/google/gemini-2.5-flash-preview --editor-model my-openrouter/google/gemini-2.5-flash-preview ',
@@ -150,7 +151,7 @@ function! s:setup_environment() abort
           \ 'architect_experimental': s:build_options(s:aider_base_command, 'experimental', 0),
           \ 'gpt': s:build_options(s:aider_base_command, 'gpt', 0)
           \ })
-    let g:aider_command = s:aider_settings['architect_gpt']
+    let g:aider_command = s:aider_settings['architect_gemini']
   endif
 endfunction
 
