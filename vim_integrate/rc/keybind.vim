@@ -190,6 +190,40 @@ xnoremap a` 2i`
 onoremap a" 2i"
 onoremap a' 2i'
 onoremap a` 2i`
+
+nnoremap dp dip
+nnoremap d<C-w> diw
+
+nnoremap c<C-w> ciw
+nnoremap cW ciW
+inoremap <M-w> <Esc>ciW
+inoremap <D-w> <Esc>ciW
+nnoremap <M-w> <Esc>ciW
+nnoremap <D-w> <Esc>ciW
+
+nnoremap dW viWd
+nnoremap d" di"
+nnoremap c" ci"
+nnoremap D" da"
+nnoremap d' di'
+nnoremap c' ci'
+nnoremap D' da'
+nnoremap d( di()
+nnoremap c( ci(
+nnoremap D( da()
+nnoremap y" yi"
+nnoremap y' yi'
+nnoremap yw yiw
+nnoremap yW yiW
+nnoremap v<C-w> viw
+nnoremap vW viW
+nnoremap v" vi"
+nnoremap v' vi'
+nnoremap v( vi(
+nmap dk dib
+nmap ck cib
+nmap dK dab
+
 " }}}1
 
 " Fast switching to the alternate file {{{
@@ -458,36 +492,4 @@ endif
 " 基本的な編集操作
 nnoremap M %
 nnoremap <silent> <C-d> dd
-nnoremap dp dip
-nnoremap d<C-w> diw
-
-nnoremap c<C-w> ciw
-nnoremap cW ciW
-inoremap <M-w> <Esc>ciW
-inoremap <D-w> <Esc>ciW
-nnoremap <M-w> <Esc>ciW
-nnoremap <D-w> <Esc>ciW
-
-nnoremap dW viWd
-nnoremap d" di"
-nnoremap c" ci"
-nnoremap D" da"
-nnoremap d' di'
-nnoremap c' ci'
-nnoremap D' da'
-nnoremap d( di()
-nnoremap c( ci(
-nnoremap D( da()
-nnoremap y" yi"
-nnoremap y' yi'
-nnoremap yw yiw
-nnoremap yW yiW
-nnoremap v<C-w> viw
-nnoremap vW viW
-nnoremap v" vi"
-nnoremap v' vi'
-nnoremap v( vi(
-nmap dk dib
-nmap ck cib
-nmap dK dab
 " }}}1
