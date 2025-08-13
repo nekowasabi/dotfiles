@@ -5,7 +5,7 @@
 let s:aider_base_command = 'aider '
 let g:aider_floatwin_width = 100
 let g:aider_floatwin_height = 50
-let g:aider_buffer_open_type = 'floating'
+let g:aider_buffer_open_type = 'vsplit'
 let g:aider_floatwin_border = 'double'
 let g:aider_floatwin_style = 'minimal'
 if g:IsMacNeovimInWezterm()
