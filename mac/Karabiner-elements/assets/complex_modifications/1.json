@@ -745,6 +745,33 @@
       "manipulators": [
         {
           "type": "basic",
+          "description": "タスク削除",
+          "from": {
+            "key_code": "d",
+            "modifiers": {
+              "mandatory": ["control"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "d"
+            },
+            {
+              "key_code": "d"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "com.brave.Browser"
+              ]
+            }
+          ]
+        },
+
+        {
+          "type": "basic",
           "description": "前回タスクの時間を入力",
           "from": {
             "key_code": "s",

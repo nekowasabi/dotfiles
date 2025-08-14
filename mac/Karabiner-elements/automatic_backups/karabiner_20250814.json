@@ -711,6 +711,91 @@
                         ]
                     },
                     {
+                        "description": "taskchute設定",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.electron\\.taskchute-cloud",
+                                            "com\\.vivaldi\\.Vivaldi"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "description": "IME OFFして次のタスク",
+                                "from": {
+                                    "key_code": "n",
+                                    "modifiers": { "mandatory": ["control"] }
+                                },
+                                "to": [
+                                    { "key_code": "lang2" },
+                                    { "key_code": "j" },
+                                    { "key_code": "s" },
+                                    { "key_code": "lang2" },
+                                    {
+                                        "key_code": "q",
+                                        "modifiers": ["shift"]
+                                    },
+                                    { "key_code": "j" },
+                                    { "key_code": "j" },
+                                    { "key_code": "return_or_enter" }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.electron\\.taskchute-cloud",
+                                            "com\\.vivaldi\\.Vivaldi"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "description": "平均値に更新",
+                                "from": {
+                                    "key_code": "q",
+                                    "modifiers": { "mandatory": ["control"] }
+                                },
+                                "to": [
+                                    { "key_code": "lang2" },
+                                    {
+                                        "key_code": "q",
+                                        "modifiers": ["shift"]
+                                    },
+                                    { "key_code": "j" },
+                                    { "key_code": "j" },
+                                    { "key_code": "return_or_enter" },
+                                    { "key_code": "lang2" }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.electron\\.taskchute-cloud",
+                                            "com\\.vivaldi\\.Vivaldi"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "description": "IME OFFして決定",
+                                "from": {
+                                    "key_code": "n",
+                                    "modifiers": { "mandatory": ["control"] }
+                                },
+                                "to": [
+                                    { "key_code": "lang2" },
+                                    { "key_code": "lang2" },
+                                    { "key_code": "return_or_enter" }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "同時打鍵",
                         "manipulators": [
                             {
@@ -19158,26 +19243,6 @@
                     {
                         "description": "Brave用設定",
                         "manipulators": [
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "com.brave.Browser"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "description": "タスク削除",
-                                "from": {
-                                    "key_code": "d",
-                                    "modifiers": { "mandatory": ["control"] }
-                                },
-                                "to": [
-                                    { "key_code": "d" },
-                                    { "key_code": "d" }
-                                ],
-                                "type": "basic"
-                            },
                             {
                                 "conditions": [
                                     {
