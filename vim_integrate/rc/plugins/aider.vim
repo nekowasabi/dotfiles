@@ -91,7 +91,7 @@ endfunction
 let s:models = {
   \ 'default':    ' --no-auto-commits --model openrouter/anthropic/claude-sonnet-4 --editor-model openrouter/google/gemini-2.5-flash-preview-05-20',
   \ 'claude':    ' --no-auto-commits --model architect/anthropic/claude-4 --editor-model editor/anthropic/claude-4',
-  \ 'gpt':    ' --weak-model openrouter/openai/gpt-5-mini --model openrouter/openai/gpt-5 --editor-model openrouter/openai/gpt-5-mini',
+  \ 'gpt':    ' --weak-model openrouter/gpt-5-mini --model openrouter/gpt-5 --editor-model openrouter/gpt-5-mini',
   \ 'gemini':    ' --no-auto-commits --model openrouter/google/gemini-2.5-pro-preview --editor-model openrouter/google/gemini-2.5-flash-preview-05-20',
   \ 'gemini_not_thinking':    ' --no-auto-commits --model my-openrouter/google/gemini-2.5-preview --editor-model my-openrouter/google/gemini-2.5-preview ',
   \ 'gemini_flash_not_thinking': ' --no-auto-commits --model my-openrouter/google/gemini-2.5-flash-preview --editor-model my-openrouter/google/gemini-2.5-flash-preview ',
@@ -146,7 +146,7 @@ function! s:setup_environment() abort
     let g:aider_command = s:aider_settings['architect_default']
   else
     let s:aider_settings = extend(copy(s:common_aider_settings), {
-          \ 'architect_experimental': s:build_options(s:aider_base_command, 'experimental', 0),
+          \ 'architect_experimental': s:build_options(s:aider_base_command, 'gpt', 0),
           \ 'gpt': s:build_options(s:aider_base_command, 'gpt', 0)
           \ })
     let g:aider_command = s:aider_settings['architect_gpt']
