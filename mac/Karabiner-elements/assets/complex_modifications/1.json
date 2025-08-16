@@ -830,6 +830,33 @@
             }
           ]
         },
+				{
+          "type": "basic",
+          "description": "終了して次タスクにフォーカス",
+          "from": {
+            "key_code": "c",
+            "modifiers": {
+              "mandatory": ["control"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "s"
+            },
+            {
+              "key_code": "n"
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_if",
+              "bundle_identifiers": [
+                "com.brave.Browser"
+              ]
+            }
+          ]
+        },
+
         {
           "type": "basic",
           "description": "次のタスク開始",
