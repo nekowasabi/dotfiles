@@ -19107,110 +19107,6 @@
                         ]
                     },
                     {
-                        "description": "RTM設定",
-                        "manipulators": [
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^com\\.rememberthemilk\\.Deskmilk"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "j",
-                                    "modifiers": { "mandatory": ["control"] }
-                                },
-                                "to": [
-                                    { "key_code": "j" },
-                                    { "key_code": "j" },
-                                    { "key_code": "j" },
-                                    { "key_code": "j" },
-                                    { "key_code": "j" }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^com\\.rememberthemilk\\.Deskmilk"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "k",
-                                    "modifiers": { "mandatory": ["control"] }
-                                },
-                                "to": [
-                                    { "key_code": "k" },
-                                    { "key_code": "k" },
-                                    { "key_code": "k" },
-                                    { "key_code": "k" },
-                                    { "key_code": "k" }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Firefox設定",
-                        "manipulators": [
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^org\\.mozilla\\.firefox",
-                                            "^org\\.waterfoxproject\\.waterfox"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "t",
-                                    "modifiers": { "mandatory": ["command"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "t",
-                                        "modifiers": "command"
-                                    },
-                                    { "key_code": "lang2" },
-                                    { "key_code": "lang2" },
-                                    { "key_code": "lang2" }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^org\\.mozilla\\.firefox",
-                                            "^org\\.waterfoxproject\\.waterfox"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "from": {
-                                    "key_code": "l",
-                                    "modifiers": { "mandatory": ["command"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "l",
-                                        "modifiers": "command"
-                                    },
-                                    { "key_code": "lang2" },
-                                    { "key_code": "lang2" },
-                                    { "key_code": "lang2" }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
                         "description": "Brave用設定",
                         "manipulators": [
                             {
@@ -19317,9 +19213,111 @@
                                 },
                                 "to": [
                                     { "key_code": "n" },
-                                    { "key_code": "s" },
-                                    { "key_code": "j" },
                                     { "key_code": "s" }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "RTM設定",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.rememberthemilk\\.Deskmilk"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "j",
+                                    "modifiers": { "mandatory": ["control"] }
+                                },
+                                "to": [
+                                    { "key_code": "j" },
+                                    { "key_code": "j" },
+                                    { "key_code": "j" },
+                                    { "key_code": "j" },
+                                    { "key_code": "j" }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.rememberthemilk\\.Deskmilk"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "k",
+                                    "modifiers": { "mandatory": ["control"] }
+                                },
+                                "to": [
+                                    { "key_code": "k" },
+                                    { "key_code": "k" },
+                                    { "key_code": "k" },
+                                    { "key_code": "k" },
+                                    { "key_code": "k" }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Firefox設定",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^org\\.mozilla\\.firefox",
+                                            "^org\\.waterfoxproject\\.waterfox"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "t",
+                                    "modifiers": { "mandatory": ["command"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "t",
+                                        "modifiers": "command"
+                                    },
+                                    { "key_code": "lang2" },
+                                    { "key_code": "lang2" },
+                                    { "key_code": "lang2" }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^org\\.mozilla\\.firefox",
+                                            "^org\\.waterfoxproject\\.waterfox"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "l",
+                                    "modifiers": { "mandatory": ["command"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "l",
+                                        "modifiers": "command"
+                                    },
+                                    { "key_code": "lang2" },
+                                    { "key_code": "lang2" },
+                                    { "key_code": "lang2" }
                                 ],
                                 "type": "basic"
                             }

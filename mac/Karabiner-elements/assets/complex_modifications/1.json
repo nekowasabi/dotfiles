@@ -872,6 +872,12 @@
             },
             {
               "key_code": "s"
+            },
+            {
+              "key_code": "j"
+            },
+            {
+              "key_code": "s"
             }
           ],
           "conditions": [
