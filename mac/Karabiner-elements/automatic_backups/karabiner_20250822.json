@@ -19107,121 +19107,6 @@
                         ]
                     },
                     {
-                        "description": "Brave用設定",
-                        "manipulators": [
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "com.brave.Browser"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "description": "タスク削除",
-                                "from": {
-                                    "key_code": "d",
-                                    "modifiers": { "mandatory": ["control"] }
-                                },
-                                "to": [
-                                    { "key_code": "d" },
-                                    { "key_code": "d" }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "com.brave.Browser"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "description": "前回タスクの時間を入力",
-                                "from": {
-                                    "key_code": "s",
-                                    "modifiers": { "mandatory": ["control"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "s",
-                                        "modifiers": ["shift"]
-                                    },
-                                    { "key_code": "j" },
-                                    { "key_code": "return_or_enter" }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "com.brave.Browser"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "description": "予定通りの時間を入力",
-                                "from": {
-                                    "key_code": "f",
-                                    "modifiers": { "mandatory": ["control"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "f",
-                                        "modifiers": ["shift"]
-                                    },
-                                    { "key_code": "j" },
-                                    { "key_code": "return_or_enter" }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "com.brave.Browser"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "description": "終了して次タスクにフォーカス",
-                                "from": {
-                                    "key_code": "c",
-                                    "modifiers": { "mandatory": ["control"] }
-                                },
-                                "to": [
-                                    { "key_code": "n" },
-                                    { "key_code": "s" }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "com.brave.Browser"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "description": "次のタスク開始",
-                                "from": {
-                                    "key_code": "n",
-                                    "modifiers": { "mandatory": ["control"] }
-                                },
-                                "to": [
-                                    { "key_code": "n" },
-                                    { "key_code": "s" },
-                                    { "key_code": "j" },
-                                    { "key_code": "s" }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
                         "description": "RTM設定",
                         "manipulators": [
                             {
@@ -19320,6 +19205,121 @@
                                     { "key_code": "lang2" },
                                     { "key_code": "lang2" },
                                     { "key_code": "lang2" }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Brave用設定",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "com.brave.Browser"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "description": "タスク削除",
+                                "from": {
+                                    "key_code": "d",
+                                    "modifiers": { "mandatory": ["control"] }
+                                },
+                                "to": [
+                                    { "key_code": "d" },
+                                    { "key_code": "d" }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "com.brave.Browser"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "description": "前回タスクの時間を入力",
+                                "from": {
+                                    "key_code": "s",
+                                    "modifiers": { "mandatory": ["control"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "s",
+                                        "modifiers": ["shift"]
+                                    },
+                                    { "key_code": "j" },
+                                    { "key_code": "return_or_enter" }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "com.brave.Browser"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "description": "予定通りの時間を入力",
+                                "from": {
+                                    "key_code": "f",
+                                    "modifiers": { "mandatory": ["control"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "f",
+                                        "modifiers": ["shift"]
+                                    },
+                                    { "key_code": "j" },
+                                    { "key_code": "return_or_enter" }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "com.brave.Browser"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "description": "終了して次タスクにフォーカス",
+                                "from": {
+                                    "key_code": "c",
+                                    "modifiers": { "mandatory": ["control"] }
+                                },
+                                "to": [
+                                    { "key_code": "s" },
+                                    { "key_code": "n" }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "com.brave.Browser"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "description": "次のタスク開始",
+                                "from": {
+                                    "key_code": "n",
+                                    "modifiers": { "mandatory": ["control"] }
+                                },
+                                "to": [
+                                    { "key_code": "n" },
+                                    { "key_code": "s" },
+                                    { "key_code": "j" },
+                                    { "key_code": "s" }
                                 ],
                                 "type": "basic"
                             }
