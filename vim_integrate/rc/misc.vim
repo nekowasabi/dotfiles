@@ -421,71 +421,70 @@ nnoremap <silent> ,rw :call ReplaceCurrentWordWithYank()<CR>
 
 " -----------------------------------------------------------
 function! s:Test()
-  " " 選択範囲のテキストを取得
-  " let selected_text = s:get_visual_text()
-  "
-  " if empty(selected_text)
-  "   echo "テキストが選択されていません"
-  "   return
-  " endif
-  "
-  " " 先頭10文字を取得（改行を除去）
-  " let first_line = split(selected_text, '\n')[0]
-  "
-  " let prefix = strcharpart(first_line, 0, 10)
-  "
-  " " 現在の日時を取得
-  " let datetime = strftime("%Y-%m-%d %H:%M")
-  "
-  " " 改行を除去したテキストを配列として取得
-  " let text_lines = split(selected_text, '\n')
-  "
-  " " フォーマットしたテキストをヘッダーとして作成
-  " let header_text = "* " . prefix . " " . datetime . " [idea]:"
-  "
-  " " ファイルパス
-  " let filepath = "~/repos/changelog/changelogmemo"
-  "
-  " " ファイルを開く
-  " execute 'edit ' . filepath
-  "
-  " " 2行目にヘッダー挿入
-  " call append(1, '')
-  " call append(2, header_text)
-  "
-  " " 配列をループして、3行目以降に挿入する
-  " let line_num = 3
-  " for text_line in text_lines
-  "   call append(line_num, text_line)
-  "   let line_num += 1
-  " endfor
-  "
-  " " ファイルを保存
-  " write
-  "
-  " echo "changelogmemoに追加しました"
-
-  " execute("RtmAddTask ")
-  " let l:test = execute("RtmGetIncompleteTaskListByListId 49467424")
-  " echo l:test
-  " 
-  " " JSONからnameだけを抽出
-  " let l:names = []
-  " let l:lines = split(l:test, '\n')
-  " 
-  " for line in l:lines
-  "   if line =~ '"name":'
-  "     let l:name_match = matchstr(line, '"name":\s*"\zs[^"]*\ze"')
-  "     if !empty(l:name_match)
-  "       call add(l:names, l:name_match)
-  "     endif
-  "   endif
-  " endfor
-  " 
-  " " 抽出したnameを表示
-  " for name in l:names
-  "   echo name
-  " endfor
+  " 選択範囲のテキストを取得
+  let selected_text = s:get_visual_text()
+  
+  if empty(selected_text)
+    echo "テキストが選択されていません"
+    return
+  endif
+  
+  " テキストを行ごとに分割
+  let lines = split(selected_text, '\n')
+  let result = []
+  
+  " ホームディレクトリのパスを取得
+  let home_dir = expand('~')
+  
+  " 各行を処理
+  for line in lines
+    " ファイルパスのパターンを検出（/で始まるパス）
+    if line =~ '/[^[:space:]]*'
+      " パス部分を抽出
+      let path_match = matchstr(line, '/[^[:space:]]*')
+      
+      if !empty(path_match)
+        " ファイル名を取得（最後の/以降）
+        let filename = fnamemodify(path_match, ':t')
+        
+        " フルパスを相対パスに変換
+        let relative_path = path_match
+        if relative_path =~ '^/Users/[^/]*/'
+          " /Users/username/ を ~/ に置換
+          let relative_path = substitute(relative_path, '^/Users/[^/]*/', '~/', '')
+        endif
+        
+        " Markdown形式のリンクを作成
+        let markdown_link = '- [' . filename . '](' . relative_path . ')'
+        
+        " 元の行でパスより前の部分を保持（インデントやリストマーカーなど）
+        let prefix = substitute(line, path_match . '.*', '', '')
+        
+        " プレフィックスがリストマーカーを含む場合はそのまま使用、含まない場合は追加
+        if prefix =~ '^\s*-\s*$'
+          call add(result, prefix . '[' . filename . '](' . relative_path . ')')
+        else
+          call add(result, markdown_link)
+        endif
+      else
+        " パスが含まれない行はそのまま
+        call add(result, line)
+      endif
+    else
+      " パスが含まれない行はそのまま
+      call add(result, line)
+    endif
+  endfor
+  
+  " 結果を結合して表示
+  let output = join(result, "\n")
+  
+  " 選択範囲を結果で置換
+  normal! gvd
+  let @" = output
+  normal! P
+  
+  echo "Markdownリンクに変換しました"
 endfunction
 
 command! -range -nargs=0 Test call s:Test()
