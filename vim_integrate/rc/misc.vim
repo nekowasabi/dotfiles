@@ -419,7 +419,95 @@ endfunction
 nnoremap <silent> ,rw :call ReplaceCurrentWordWithYank()<CR>
 " }}}1
 
+" 選択範囲のパスをMarkdownリンクに変換 {{{1
+function! s:ConvertMarkdownLink() range
+  " visual modeかどうかを判定
+  let is_visual = (a:firstline != a:lastline) || (visualmode() != '')
+  
+  if is_visual
+    " visual modeの場合は選択範囲のテキストを取得
+    let selected_text = s:get_visual_text()
+    
+    if empty(selected_text)
+      echo "テキストが選択されていません"
+      return
+    endif
+    
+    " テキストを行ごとに分割
+    let lines = split(selected_text, '\n')
+  else
+    " normal modeの場合はカーソル行のみを処理
+    let lines = [getline('.')]
+  endif
+  
+  let result = []
+  
+  " ホームディレクトリのパスを取得
+  let home_dir = expand('~')
+  
+  " 各行を処理
+  for line in lines
+    " ファイルパスのパターンを検出（/で始まるパス）
+    if line =~ '/[^[:space:]]*'
+      " パス部分を抽出
+      let path_match = matchstr(line, '/[^[:space:]]*')
+      
+      if !empty(path_match)
+        " ファイル名を取得（最後の/以降）
+        let filename = fnamemodify(path_match, ':t')
+        
+        " フルパスを相対パスに変換
+        let relative_path = path_match
+        if relative_path =~ '^/Users/[^/]*/'
+          " /Users/username/ を ~/ に置換
+          let relative_path = substitute(relative_path, '^/Users/[^/]*/', '~/', '')
+        endif
+        
+        " Markdown形式のリンクを作成
+        let markdown_link = '- [' . filename . '](' . relative_path . ')'
+        
+        " 元の行でパスより前の部分を保持（インデントやリストマーカーなど）
+        let prefix = substitute(line, path_match . '.*', '', '')
+        
+        " プレフィックスがリストマーカーを含む場合はそのまま使用、含まない場合は追加
+        if prefix =~ '^\s*-\s*$'
+          call add(result, prefix . '[' . filename . '](' . relative_path . ')')
+        else
+          call add(result, markdown_link)
+        endif
+      else
+        " パスが含まれない行はそのまま
+        call add(result, line)
+      endif
+    else
+      " パスが含まれない行はそのまま
+      call add(result, line)
+    endif
+  endfor
+  
+  " 結果を結合
+  let output = join(result, "\n")
+  
+  if is_visual
+    " visual modeの場合は選択範囲を結果で置換
+    normal! gvd
+    let @" = output
+    normal! P
+  else
+    " normal modeの場合はカーソル行を置換
+    call setline('.', result[0])
+  endif
+  
+  echo "Markdownリンクに変換しました"
+endfunction
+
+command! -range -nargs=0 ConvertMarkdownLink call s:ConvertMarkdownLink()
+" }}}1
+
+
+
 " -----------------------------------------------------------
+" test {{{1
 function! s:Test()
   " 選択範囲のテキストを取得
   let selected_text = s:get_visual_text()
