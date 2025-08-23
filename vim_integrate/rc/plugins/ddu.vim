@@ -487,7 +487,8 @@ function! DduAiConnectorByFiletype(command) abort
 
 endfunction
 
-
+" TODO: 全部のプロンプトが候補になるddu
+" TODO: vim-rule-switcher形式の候補をfiletypeごとに出す
 
 vnoremap <silent> <C-c>a y<Cmd>call DduAiConnectorByFiletype('AiderSendPromptByCommandline')<CR>
 vnoremap <silent> <C-c>c y<Cmd>call DduAiConnectorByFiletype('CopilotChat')<CR>
