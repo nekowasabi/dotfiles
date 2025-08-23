@@ -150,16 +150,25 @@ require("parrot").setup({
       endpoint = "https://openrouter.ai/api/v1/chat/completions",
       topic = {
         model = "openai/gpt-oss-120b",
-        params = { max_completion_tokens = 64 },
+        params = { max_completion_tokens = 128 },
       },
       models ={
-        "openai/gpt-4.1-nano",
+        "openai/gpt-oss-120b",
       },
       params = {
-        chat = { temperature = 1.1, top_p = 1 },
-        command = { temperature = 1.1, top_p = 1 },
-        provider = {
-          order = { "cerebras"  },
+        chat = { 
+          temperature = 1.1, 
+          top_p = 1,
+          -- provider = {
+          --   only = { "Cerebras" }
+          -- }
+        },
+        command = { 
+          temperature = 1.1, 
+          top_p = 1,
+          provider = {
+            only = { "Cerebras" }
+          }
         },
       },
       headers = function(self)
@@ -292,7 +301,7 @@ require("parrot").setup({
   chat_shortcut_stop = { modes = { "n", "i", "v", "x" }, shortcut = "<C-c>s" },
   chat_shortcut_new = { modes = { "n", "i", "v", "x" }, shortcut = "<C-c>c" },
 
-	enable_preview_mode = true,
+	enable_preview_mode = false,
 })
 
 require("nudge-two-hats").setup({
