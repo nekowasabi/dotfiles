@@ -458,9 +458,17 @@ function! s:ConvertMarkdownLink() range
         
         " フルパスを相対パスに変換
         let relative_path = path_match
-        if relative_path =~ '^/Users/[^/]*/'
-          " /Users/username/ を ~/ に置換
+        " ホームディレクトリのパスを取得
+        let home = expand('~')
+        " フルパスがホームディレクトリで始まる場合は ~ に置換
+        if relative_path =~ '^' . home
+          let relative_path = substitute(relative_path, '^' . home, '~', '')
+        elseif relative_path =~ '^/Users/[^/]*/'
+          " /Users/username/ を ~/ に置換（Mac用のフォールバック）
           let relative_path = substitute(relative_path, '^/Users/[^/]*/', '~/', '')
+        elseif relative_path =~ '^/home/[^/]*/'
+          " /home/username/ を ~/ に置換（Linux/WSL用のフォールバック）
+          let relative_path = substitute(relative_path, '^/home/[^/]*/', '~/', '')
         endif
         
         " Markdown形式のリンクを作成
@@ -537,9 +545,17 @@ function! s:Test()
         
         " フルパスを相対パスに変換
         let relative_path = path_match
-        if relative_path =~ '^/Users/[^/]*/'
-          " /Users/username/ を ~/ に置換
+        " ホームディレクトリのパスを取得
+        let home = expand('~')
+        " フルパスがホームディレクトリで始まる場合は ~ に置換
+        if relative_path =~ '^' . home
+          let relative_path = substitute(relative_path, '^' . home, '~', '')
+        elseif relative_path =~ '^/Users/[^/]*/'
+          " /Users/username/ を ~/ に置換（Mac用のフォールバック）
           let relative_path = substitute(relative_path, '^/Users/[^/]*/', '~/', '')
+        elseif relative_path =~ '^/home/[^/]*/'
+          " /home/username/ を ~/ に置換（Linux/WSL用のフォールバック）
+          let relative_path = substitute(relative_path, '^/home/[^/]*/', '~/', '')
         endif
         
         " Markdown形式のリンクを作成
