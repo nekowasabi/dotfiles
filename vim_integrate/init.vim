@@ -159,9 +159,6 @@ require("parrot").setup({
         chat = { 
           temperature = 1.1, 
           top_p = 1,
-          -- provider = {
-          --   only = { "Cerebras" }
-          -- }
         },
         command = { 
           temperature = 1.1, 
@@ -259,7 +256,6 @@ require("parrot").setup({
                 end,
     },
   },
-
 	-- default system prompts used for the chat sessions and the command routines
 	system_prompt = {
 		chat = "You are a helpful assistant.",
@@ -680,7 +676,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 EOF
 
-PrtModel gemini-2.5-flash
+"PrtModel gemini-2.5-flash
 
 " Lua関数get_git_diffをVimコマンドとして呼び出せるようにする
 command! GetGitDiff lua get_git_diff()
