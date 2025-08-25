@@ -143,41 +143,41 @@ lua << EOF
 
 require("parrot").setup({
   providers = {
-    -- custom_openrouter = {
-    --   name = "custom_openrouter",
-    --   style = "openai",
-    --   api_key = os.getenv "OPENROUTER_API_KEY",
-    --   endpoint = "https://openrouter.ai/api/v1/chat/completions",
-    --   topic = {
-    --     model = "openai/gpt-oss-120b",
-    --     params = { max_completion_tokens = 128 },
-    --   },
-    --   models ={
-    --     "openai/gpt-oss-120b",
-    --   },
-    --   params = {
-    --     chat = { 
-    --       temperature = 1.1, 
-    --       top_p = 1,
-    --       -- provider = {
-    --       --   only = { "Cerebras" }
-    --       -- }
-    --     },
-    --     command = { 
-    --       temperature = 1.1, 
-    --       top_p = 1,
-    --       provider = {
-    --         only = { "Cerebras" }
-    --       }
-    --     },
-    --   },
-    --   headers = function(self)
-    --     return {
-    --       ["Content-Type"] = "application/json",
-    --       ["Authorization"] = "Bearer " .. self.api_key,
-    --     }
-    --   end,
-    -- },
+    custom_openrouter = {
+      name = "custom_openrouter",
+      style = "openai",
+      api_key = os.getenv "OPENROUTER_API_KEY",
+      endpoint = "https://openrouter.ai/api/v1/chat/completions",
+      topic = {
+        model = "openai/gpt-oss-120b",
+        params = { max_completion_tokens = 128 },
+      },
+      models ={
+        "openai/gpt-oss-120b",
+      },
+      params = {
+        chat = { 
+          temperature = 1.1, 
+          top_p = 1,
+          -- provider = {
+          --   only = { "Cerebras" }
+          -- }
+        },
+        command = { 
+          temperature = 1.1, 
+          top_p = 1,
+          provider = {
+            only = { "Cerebras" }
+          }
+        },
+      },
+      headers = function(self)
+        return {
+          ["Content-Type"] = "application/json",
+          ["Authorization"] = "Bearer " .. self.api_key,
+        }
+      end,
+    },
     gemini = {
       name = "gemini",
       endpoint = function(self)
@@ -259,6 +259,13 @@ require("parrot").setup({
                 end,
     },
   },
+
+	-- default system prompts used for the chat sessions and the command routines
+	system_prompt = {
+		chat = "You are a helpful assistant.",
+		command = "Act as general purpose expert superhuman.",
+	},
+
   -- the prefix used for all commands
   cmd_prefix = "Prt",
 
