@@ -123,8 +123,8 @@ function wezterm_neovim_work() {
 alias m='wezterm_neovim_work'
 # }}}1
 
-alias ll='eza --long --header --git  --sort=type --classify --git'
-alias la='eza --long --header --git --grid --classify --sort=type --git'
+alias ll='eza -ll --long --header --git --sort=type --classify --git'
+alias la='eza -la --long --header --git --grid --classify --sort=type --git'
 # alias python='/opt/homebrew/bin/python3'
 # alias python3='/opt/homebrew/bin/python3'
 # alias pip3='/opt/homebrew/bin//pip3'
