@@ -5,9 +5,10 @@
 let s:claude_base_command = 'claude '
 let g:claude_floatwin_width = 100
 let g:claude_floatwin_height = 50
-let g:claude_buffer_open_type = 'floating'
+let g:claude_buffer_open_type = 'vsplit'
 let g:claude_floatwin_border = 'double'
 let g:claude_floatwin_style = 'minimal'
+let g:claude_tmux_pane_id = 'test'
 
 " キーマッピング設定 {{{2
 " ---------------------------------------------------------

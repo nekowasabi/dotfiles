@@ -305,3 +305,5 @@ if [ -f '/Users/takets/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/takets/g
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/takets/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/takets/google-cloud-sdk/completion.zsh.inc'; fi
 export PATH="$HOME/.local/bin:$PATH"
+
+# alias claude="/Users/takets/.claude/local/claude"
