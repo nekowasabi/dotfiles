@@ -300,9 +300,9 @@ if g:IsWsl()
   let g:migemodict = '/home/linuxbrew/.linuxbrew/Cellar/cmigemo/20110227/share/migemo/utf-8/migemo-dict'
 endif
 
-if g:IsLinux()
-  let g:migemodict = '/home/linuxbrew/.linuxbrew/Cellar/cmigemo/20110227/share/migemo/utf-8/migemo-dict'
-endif
+" if g:IsLinux()
+"   let g:migemodict = '/home/linuxbrew/.linuxbrew/Cellar/cmigemo/20110227/share/migemo/utf-8/migemo-dict'
+" endif
 
 if g:IsMacNeovimInWork()
   let g:migemodict = '/opt/homebrew/Cellar/cmigemo/20110227/share/migemo/utf-8/migemo-dict'

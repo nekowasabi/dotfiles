@@ -109,7 +109,11 @@ Plug 'nekowasabi/claudecode.vim'
 Plug 'copilotlsp-nvim/copilot-lsp'
 
 " denops
+Plug 'denops-plugins/vim-vue'
+Plug 'denops-plugins/denops-gh'
+if !g:IsWsl()
 Plug 'hrsh7th/vim-searchx'
+endif
 Plug 'lambdalisue/kensaku.vim'
 Plug 'lambdalisue/mr.vim'
 Plug 'lambdalisue/vim-mr'
@@ -345,7 +349,6 @@ execute 'source '.g:GetVimConfigRootPath().'rc/plugins/openbrowser.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/choosewin.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/easyalign.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-rtm.vim'
-execute 'source '.g:GetVimConfigRootPath().'rc/plugins/searchx.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-sandwich.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lexima.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/easymotion.vim'
@@ -354,7 +357,14 @@ execute 'source '.g:GetVimConfigRootPath().'rc/plugins/surround.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/sayonara.vim'
 " }}}1
 
+
+
 " setting Mac Neovim {{{1
+
+if !g:IsWsl()
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/searchx.vim'
+endif
+
 if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/mark.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesitter.vim'
