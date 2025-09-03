@@ -111,9 +111,7 @@ Plug 'copilotlsp-nvim/copilot-lsp'
 " denops
 Plug 'denops-plugins/vim-vue'
 Plug 'denops-plugins/denops-gh'
-if !g:IsWsl()
 Plug 'hrsh7th/vim-searchx'
-endif
 Plug 'lambdalisue/kensaku.vim'
 Plug 'lambdalisue/mr.vim'
 Plug 'lambdalisue/vim-mr'
@@ -355,22 +353,18 @@ execute 'source '.g:GetVimConfigRootPath().'rc/plugins/easymotion.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/edgemotion.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/surround.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/sayonara.vim'
+execute 'source '.g:GetVimConfigRootPath().'rc/plugins/searchx.vim'
 " }}}1
 
 
 
 " setting Mac Neovim {{{1
 
-if !g:IsWsl()
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/searchx.vim'
-endif
 
 if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/mark.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesitter.vim'
-
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lsp.vim'
-
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/neosnippet.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-bookmark.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/devicons.vim'
