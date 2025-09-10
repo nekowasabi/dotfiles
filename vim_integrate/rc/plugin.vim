@@ -109,8 +109,6 @@ Plug 'nekowasabi/claudecode.vim'
 Plug 'copilotlsp-nvim/copilot-lsp'
 
 " denops
-Plug 'denops-plugins/vim-vue'
-Plug 'denops-plugins/denops-gh'
 Plug 'hrsh7th/vim-searchx'
 Plug 'lambdalisue/kensaku.vim'
 Plug 'lambdalisue/mr.vim'
@@ -293,11 +291,13 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'notomo/cmp-neosnippet'
   Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
   Plug 'onsails/lspkind.nvim'
-  Plug 'folke/snacks.nvim'
+  " Plug 'folke/snacks.nvim'
   Plug 'SmiteshP/nvim-navic'
   Plug 'nekowasabi/vim-syntax-tyranoscript'
   Plug 'nvimdev/lspsaga.nvim'
-	Plug 'echasnovski/mini.nvim'
+	" Plug 'echasnovski/mini.nvim'
+
+  Plug 'kdheepak/lazygit.nvim'
 
   call g:SetDdu()
 
@@ -356,8 +356,6 @@ execute 'source '.g:GetVimConfigRootPath().'rc/plugins/sayonara.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/searchx.vim'
 " }}}1
 
-
-
 " setting Mac Neovim {{{1
 
 
@@ -394,7 +392,7 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/yazi.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/yanky.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/sns.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/snacks.vim'
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/snacks.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/context.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cr-remover.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/render-markdown.vim'
