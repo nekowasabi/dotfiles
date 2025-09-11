@@ -125,7 +125,7 @@ augroup parrot
 augroup END
 
 " lazygit.nvim
-nnoremap <silent> <leader>gg :LazyGit<CR>
+nnoremap <silent> <leader>lg :LazyGit<CR>
 
 " -----------------------------------------------------------
 " lua
