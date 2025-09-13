@@ -121,6 +121,7 @@ Plug 'vim-denops/denops.vim'
 Plug 'lambdalisue/vim-deno-cache'
 " Plug 'vim-denops/denops-helloworld.vim'
 Plug 'vim-denops/denops-shared-server.vim'
+Plug 'nekowasabi/hellshake-yano.vim'
 
 " textobj
 Plug 'kana/vim-operator-user'
