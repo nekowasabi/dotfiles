@@ -101,7 +101,6 @@ nnoremap <silent> z<CR> :ZenMode<CR>
 nnoremap <Leader>: :
 
 " ri"みたいに使う
-" p
 map r <Plug>(operator-replace)
 
 augroup filetype_echo                                                                              
