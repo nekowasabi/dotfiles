@@ -124,8 +124,21 @@ augroup parrot
 	autocmd FileType diff call system("terminal-notifier -title '📜 parrot' -message '🍎 parrotの処理が完了しました'")
 augroup END
 
-" lazygit.nvim
-nnoremap <silent> <leader>lg :LazyGit<CR>
+" " lazygit.nvim
+" nnoremap <silent> <leader>lg :LazyGit<CR>
+
+" hellshake-yano
+let g:hellshake_yano = {
+      \ 'use_japanese': v:true,
+      \ 'enable_tinysegmenter': v:true,
+      \ 'min_word_length': 3
+      \ }
+
+let g:hellshake_yano_japanese_min_word_length = 2
+let g:hellshake_yano_japanese_merge_particles = v:true
+let g:hellshake_yano_japanese_merge_threshold = 2
+
+nnoremap <silent> ,h :HellshakeYanoToggle<CR> 
 
 " -----------------------------------------------------------
 " lua
