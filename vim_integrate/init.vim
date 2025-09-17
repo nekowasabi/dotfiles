@@ -131,7 +131,11 @@ augroup END
 let g:hellshake_yano = {
       \ 'use_japanese': v:true,
       \ 'enable_tinysegmenter': v:true,
-      \ 'min_word_length': 3
+      \ 'min_word_length': 3,
+      \ 'single_char_keys': split('ASDFGNM0123456789', '\zs'),
+      \ 'multi_char_keys': split('BCEIOPQRTUVWXYZ', '\zs'),
+      \ 'highlight_hint_marker': {'fg': '#00ff00', 'bg': '#1a1a1a'},
+      \ 'highlight_hint_marker_current': {'fg': '#ffffff', 'bg': '#ff0000'},
       \ }
 
 let g:hellshake_yano_japanese_min_word_length = 2
