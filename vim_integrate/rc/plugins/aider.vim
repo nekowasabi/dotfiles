@@ -86,103 +86,291 @@ endfunction
 
 " モデル設定 {{{2
 " ---------------------------------------------------------
-" 各AIモデルのコマンドラインオプション定義
+" 階層化されたAIモデル設定
 " ---------------------------------------------------------
-let s:models = {
-  \ 'default':    ' --no-auto-commits --model openrouter/anthropic/claude-sonnet-4 --editor-model openrouter/google/gemini-2.5-flash-preview-05-20',
-  \ 'claude':    ' --no-auto-commits --model architect/anthropic/claude-4 --editor-model editor/anthropic/claude-4',
-  \ 'gpt':    ' --weak-model openrouter/gpt-5-mini --model openrouter/gpt-5 --editor-model openrouter/gpt-5-mini',
-  \ 'gemini':    ' --no-auto-commits --model openrouter/google/gemini-2.5-pro-preview --editor-model openrouter/google/gemini-2.5-flash-preview-05-20',
-  \ 'gemini_not_thinking':    ' --no-auto-commits --model my-openrouter/google/gemini-2.5-preview --editor-model my-openrouter/google/gemini-2.5-preview ',
-  \ 'gemini_flash_not_thinking': ' --no-auto-commits --model my-openrouter/google/gemini-2.5-flash-preview --editor-model my-openrouter/google/gemini-2.5-flash-preview ',
-  \ 'deepseek':  ' --no-auto-commits --model my-openai/firework/deepseek-r1-fast --editor-model my-openai/firework/deepseek-v3',
-  \ 'copilot':   ' --weak-model openrouter/google/gemini-2.5-flash-preview-05-20 --model openai/gemini-2.5-pro --editor-model copilot/gpt-4.1',
-  \ 'copilot_claude': ' --weak-model openrouter/openai/gpt-4.1-nano --model copilot/claude-sonnet-4 --editor-model openrouter/google/gemini-2.5-flash-preview-05-20',
-  \ 'copilot_gemini': ' --weak-model openrouter/openai/gpt-4.1-nano --model copilot/openai/gemini-2.5-pro --editor-model openrouter/google/gemini-2.5-flash-preview-05-20',
-  \ 'experimental': ' --no-auto-commits --model openrouter/google/gemini-2.5-pro-exp-03-25:free --editor-model my-openai/firework/deepseek-v3 --weak-model openrouter/gpt-4.1-nano',
-  \ 'testing':   ''
+" モデル定義を構造化して管理
+let s:model_configs = {
+  \ 'base': {
+  \   'flags': '--no-auto-commits',
+  \   'models': {}
+  \ },
+  \ 'models': {
+  \   'default': {
+  \     'model': 'openrouter/anthropic/claude-sonnet-4',
+  \     'editor': 'openrouter/google/gemini-2.5-flash-preview-05-20'
+  \   },
+  \   'claude': {
+  \     'model': 'architect/anthropic/claude-4',
+  \     'editor': 'editor/anthropic/claude-4'
+  \   },
+  \   'gpt': {
+  \     'model': 'openrouter/gpt-5',
+  \     'editor': 'openrouter/gpt-5-mini',
+  \     'weak': 'openrouter/gpt-5-mini'
+  \   },
+  \   'gemini': {
+  \     'model': 'openrouter/google/gemini-2.5-pro-preview',
+  \     'editor': 'openrouter/google/gemini-2.5-flash-preview-05-20'
+  \   },
+  \   'gemini_not_thinking': {
+  \     'model': 'my-openrouter/google/gemini-2.5-preview',
+  \     'editor': 'my-openrouter/google/gemini-2.5-preview'
+  \   },
+  \   'gemini_flash_not_thinking': {
+  \     'model': 'my-openrouter/google/gemini-2.5-flash-preview',
+  \     'editor': 'my-openrouter/google/gemini-2.5-flash-preview'
+  \   },
+  \   'deepseek': {
+  \     'model': 'my-openai/firework/deepseek-r1-fast',
+  \     'editor': 'my-openai/firework/deepseek-v3'
+  \   },
+  \   'copilot': {
+  \     'model': 'openai/gemini-2.5-pro',
+  \     'editor': 'copilot/gpt-4.1',
+  \     'weak': 'openrouter/google/gemini-2.5-flash-preview-05-20'
+  \   },
+  \   'copilot_claude': {
+  \     'model': 'copilot/claude-sonnet-4',
+  \     'editor': 'openrouter/google/gemini-2.5-flash-preview-05-20',
+  \     'weak': 'openrouter/openai/gpt-4.1-nano'
+  \   },
+  \   'copilot_gemini': {
+  \     'model': 'copilot/openai/gemini-2.5-pro',
+  \     'editor': 'openrouter/google/gemini-2.5-flash-preview-05-20',
+  \     'weak': 'openrouter/openai/gpt-4.1-nano'
+  \   },
+  \   'experimental': {
+  \     'model': 'openrouter/google/gemini-2.5-pro-exp-03-25:free',
+  \     'editor': 'my-openai/firework/deepseek-v3',
+  \     'weak': 'openrouter/gpt-4.1-nano'
+  \   },
+  \   'cerebras': {
+  \     'model': 'my-openrouter/qwen/qwen3-coder',
+  \     'editor': 'my-openrouter/qwen/qwen3-coder',
+  \     'weak': 'my-openrouter/qwen/qwen3-coder'
+  \   },
+  \   'testing': {}
+  \ }
   \ }
 
-" 共通のAider設定プリセット
-function! s:get_aider_common_options()
-  let options = ' --no-detect-urls --no-auto-accept-architect --notifications'
-        \ . ' --no-auto-commits --no-show-model-warnings'
-        \ . ' --chat-language ja --no-stream'
-        \ . ' --cache-prompts --cache-keepalive-pings 6'
-        \ . ' --suggest-shell-commands --map-refresh auto'
+" モデル設定文字列を生成する汎用関数
+function! s:build_model_string(model_name) abort
+  if !has_key(s:model_configs.models, a:model_name)
+    return ''
+  endif
+
+  let config = s:model_configs.models[a:model_name]
+  let result = ''
+
+  " 基本フラグを追加
+  if a:model_name !=# 'testing'
+    let result .= ' ' . s:model_configs.base.flags
+  endif
+
+  " モデル設定を追加
+  if has_key(config, 'model')
+    let result .= ' --model ' . config.model
+  endif
+  if has_key(config, 'editor')
+    let result .= ' --editor-model ' . config.editor
+  endif
+  if has_key(config, 'weak')
+    let result .= ' --weak-model ' . config.weak
+  endif
+
+  return result
+endfunction
+
+" 後方互換性のために従来のs:models辞書を生成
+let s:models = {}
+for [name, _] in items(s:model_configs.models)
+  let s:models[name] = s:build_model_string(name)
+endfor
+
+" 共通のAider設定オプション
+let s:common_options = {
+  \ 'base': '--no-detect-urls --no-auto-accept-architect --notifications'
+  \       . ' --no-auto-commits --no-show-model-warnings'
+  \       . ' --chat-language ja --no-stream'
+  \       . ' --cache-prompts --cache-keepalive-pings 6'
+  \       . ' --suggest-shell-commands --map-refresh auto',
+  \ 'architect': ' --architect',
+  \ 'watch': ' --watch-files',
+  \ 'ask': ' --chat-mode ask',
+  \ 'code': ' --chat-mode code'
+  \ }
+
+" 共通オプションを取得
+function! s:get_aider_common_options(...) abort
+  let mode = get(a:, 1, 'normal')
+  let options = s:common_options.base
+
+  " Watchモードの場合は--no-auto-accept-architectを除外
+  if mode ==# 'watch'
+    let options = substitute(options, '--no-auto-accept-architect ', '', '')
+  endif
+
   if exists('g:init_load_command') && !empty(g:init_load_command)
     let options .= ' --load ' . g:init_load_command
   endif
   return options
 endfunction
 
-function! s:build_options(base, model, watch_files) abort
-  let options = a:base . s:get_aider_common_options()
-  let options .= ' --architect ' . s:models[a:model]
-  return a:watch_files ? options . ' --watch-files' : options
+" 設定を構築する統一関数
+function! s:build_aider_config(preset_type, model_name, ...) abort
+  let options = get(a:, 1, {})
+  let command = s:aider_base_command
+
+  " 基本オプションを追加
+  let command .= ' ' . s:get_aider_common_options()
+
+  " プリセットタイプに応じた設定
+  if a:preset_type ==# 'architect'
+    let command .= s:common_options.architect
+    let command .= ' ' . s:build_model_string(a:model_name)
+  elseif a:preset_type ==# 'watch'
+    " Watchモード用の基本オプションを取得（--no-auto-accept-architectを除外）
+    let command = s:aider_base_command . ' ' . s:get_aider_common_options('watch')
+    let command .= ' --auto-accept-architect'  " 明示的に追加
+    let command .= s:common_options.architect
+    let command .= ' ' . s:build_model_string(a:model_name)
+    let command .= s:common_options.watch
+  elseif a:preset_type ==# 'doc'
+    let command .= ' ' . s:build_model_string(a:model_name)
+    let command .= s:common_options.ask
+  elseif a:preset_type ==# 'code'
+    let command .= ' ' . s:build_model_string(a:model_name)
+    let command .= s:common_options.code
+  else
+    let command .= ' ' . s:build_model_string(a:model_name)
+  endif
+
+  " 追加オプションがあれば適用
+  if has_key(options, 'extra')
+    let command .= ' ' . options.extra
+  endif
+
+  return command
 endfunction
 
-let s:common_aider_settings = {
-      \ 'architect_copilot':  s:build_options(s:aider_base_command, 'copilot',           0),
-      \ 'architect_claude':   s:build_options(s:aider_base_command, 'claude',            0),
-      \ 'architect_deepseek': s:build_options(s:aider_base_command, 'deepseek',          0),
-      \ 'architect_gemini':   s:build_options(s:aider_base_command, 'gemini',            0),
-      \ 'architect_testing':  s:build_options(s:aider_base_command, 'testing',           0),
-      \ 'architect_experimental':  s:build_options(s:aider_base_command, 'experimental', 0),
-      \ 'architect_default':  s:build_options(s:aider_base_command, 'default',            0),
-      \ 'architect_gpt':      s:build_options(s:aider_base_command, 'gpt',               0),
-      \ 'doc':                s:aider_base_command . s:models.gemini_flash_not_thinking . s:get_aider_common_options() . ' --chat-mode ask',
-      \ 'vhs':                s:aider_base_command . s:models.claude . s:get_aider_common_options() . ' --chat-mode code ',
-      \ 'watch_deepseek':     s:build_options(s:aider_base_command, 'deepseek',          1),
-      \ 'watch':              s:build_options(s:aider_base_command, 'deepseek',          1),
-      \ 'watch_claude':       s:build_options(s:aider_base_command, 'claude',            1)
-      \ }
+" 設定プリセットを動的に生成
+function! s:generate_aider_settings() abort
+  let settings = {}
 
+  " Architect モード設定
+  for model in ['copilot', 'claude', 'deepseek', 'gemini', 'testing',
+              \ 'experimental', 'default', 'gpt', 'cerebras']
+    let key = 'architect_' . model
+    let settings[key] = s:build_aider_config('architect', model)
+  endfor
+
+  " Watch モード設定
+  for model in ['deepseek', 'claude', 'cerebras']
+    let key = 'watch_' . model
+    let settings[key] = s:build_aider_config('watch', model)
+  endfor
+
+  " 特殊モード設定
+  let settings['doc'] = s:build_aider_config('doc', 'gemini_flash_not_thinking')
+  let settings['vhs'] = s:build_aider_config('code', 'claude')
+
+  return settings
+endfunction
+
+let s:common_aider_settings = s:generate_aider_settings()
+
+" 環境設定を取得
+function! s:get_environment_config() abort
+  return {
+    \ 'is_work': g:IsMacNeovimInWork(),
+    \ 'is_wsl': g:IsWsl(),
+    \ 'is_wezterm': g:IsMacNeovimInWezterm(),
+    \ 'default_model': g:IsMacNeovimInWork() ? 'architect_default' : 'architect_cerebras'
+    \ }
+endfunction
+
+" 環境に応じた設定を適用
 function! s:setup_environment() abort
-  " imakoko
-  if g:IsMacNeovimInWork()
-    let s:aider_settings = copy(s:common_aider_settings)
-    let s:aider_settings['watch'] = s:aider_base_command . s:models.claude . ' --watch-files'
-    let g:aider_command = s:aider_settings['architect_default']
-  else
-    let s:aider_settings = extend(copy(s:common_aider_settings), {
-          \ 'architect_experimental': s:build_options(s:aider_base_command, 'gpt', 0),
-          \ 'gpt': s:build_options(s:aider_base_command, 'gpt', 0)
-          \ })
-    let g:aider_command = s:aider_settings['architect_gpt']
-  endif
+  let env = s:get_environment_config()
+  let s:aider_settings = s:common_aider_settings
+  let g:aider_command = s:aider_settings[env.default_model]
 endfunction
 
 call s:setup_environment()
 " }}}2
 
-" 異なるAider設定を切り替える {{{1
-"
-" @param {string} setting_name - 切り替える設定の名前
-"                               利用可能な設定: default, architect, watch, gpt, vhs
-"                               空の場合は'architect'がデフォルト値として使用される
-" @return void - なし
-function! s:switch_aider_setting(setting_name) abort
-  let l:setting_name = empty(a:setting_name) ? 'architect' : a:setting_name
-  if has_key(s:aider_settings, l:setting_name)
-    let g:aider_command = s:aider_settings[l:setting_name]
+" Aider設定の切り替え {{{1
+" ---------------------------------------------------------
+" 明確なコマンド体系での設定切り替え
+" ---------------------------------------------------------
+
+" 利用可能なモデルの定義
+let s:available_models = {
+  \ 'architect': ['claude', 'deepseek', 'gemini', 'gpt', 'cerebras', 'copilot', 'experimental', 'default', 'testing'],
+  \ 'watch': ['claude', 'deepseek', 'cerebras']
+  \ }
+
+" 通常モードでのAider起動
+function! s:switch_aider_architect(model_name) abort
+  let env = s:get_environment_config()
+  let model = empty(a:model_name) ? env.default_model : 'architect_' . a:model_name
+
+  " architect_プレフィックスが既にある場合はそのまま使用
+  if a:model_name =~# '^architect_'
+    let model = a:model_name
   endif
 
-  if l:setting_name ==# 'watch'
-    let g:aider_buffer_open_type = 'split'
-  else
-    " let g:aider_buffer_open_type = 'floating'
+  if !has_key(s:aider_settings, model)
+    echo 'Error: Unknown model "' . a:model_name . '"'
+    return
   endif
 
-  " execute 'AiderExit'
+  let g:aider_command = s:aider_settings[model]
   execute 'AiderRun'
-
-  echo 'Switched to ' . a:setting_name . ' setting'
+  echo 'Switched to ' . model . ' (architect mode)'
 endfunction
-command! -nargs=? -complete=customlist,<SID>aider_setting_complete AiderSwitch call s:switch_aider_setting(<q-args>)
 
-function! s:aider_setting_complete(ArgLead, CmdLine, CursorPos) abort
-  return filter(keys(s:aider_settings), 'v:val =~ "^" . a:ArgLead')
+" WatchモードでのAider起動
+function! s:switch_aider_watch(model_name) abort
+  let model = empty(a:model_name) ? 'claude' : a:model_name
+  let setting_key = 'watch_' . model
+
+  if !has_key(s:aider_settings, setting_key)
+    echo 'Error: Model "' . model . '" is not available in watch mode'
+    echo 'Available models: ' . join(s:available_models.watch, ', ')
+    return
+  endif
+
+  let g:aider_command = s:aider_settings[setting_key]
+  let g:aider_buffer_open_type = 'split'
+  execute 'AiderRun'
+  echo 'Switched to ' . model . ' (watch mode)'
+endfunction
+
+" ドキュメントモードでのAider起動
+function! s:switch_aider_doc() abort
+  if !has_key(s:aider_settings, 'doc')
+    echo 'Error: Doc mode is not configured'
+    return
+  endif
+
+  let g:aider_command = s:aider_settings['doc']
+  execute 'AiderRun'
+  echo 'Switched to doc mode'
+endfunction
+
+" コマンド定義
+command! -nargs=? -complete=customlist,<SID>architect_model_complete AiderSwitch call s:switch_aider_architect(<q-args>)
+command! -nargs=? -complete=customlist,<SID>watch_model_complete AiderSwitchWatch call s:switch_aider_watch(<q-args>)
+command! -nargs=0 AiderSwitchDoc call s:switch_aider_doc()
+
+" 補完関数
+function! s:architect_model_complete(ArgLead, CmdLine, CursorPos) abort
+  return filter(copy(s:available_models.architect), 'v:val =~ "^" . a:ArgLead')
+endfunction
+
+function! s:watch_model_complete(ArgLead, CmdLine, CursorPos) abort
+  return filter(copy(s:available_models.watch), 'v:val =~ "^" . a:ArgLead')
 endfunction
 " }}}1
 
@@ -459,26 +647,33 @@ function! s:open_by_copilot() abort
 endfunction
 command! AiderOpenByCopilot call s:open_by_copilot()
 
-" Aiderをcopilot設定で切り替える {{{1
-"
-" @param {string} setting_name - 切り替える設定の名前
-"                               利用可能な設定: default, architect, watch, gpt, vhs
-"                               空の場合は'architect'がデフォルト値として使用される
-" @return void - なし
-function! s:switch_aider_with_copilot() abort
-  let g:aider_command = '~/.config/nvim/plugged/aider.vim/copilot.sh ' . s:models['copilot_claude'] . s:build_options(s:aider_base_command, 'copilot_gemini', 0)
+" Copilot統合設定 {{{1
+" ---------------------------------------------------------
+" GitHub Copilotを使用したAider設定
+" ---------------------------------------------------------
+
+" Copilotを使用した設定切り替え
+function! s:switch_aider_with_copilot(...) abort
+  let model_type = get(a:, 1, 'copilot_claude')
+  let script_path = '~/.config/nvim/plugged/aider.vim/copilot.sh'
+
+  " Copilot用のコマンドを構築
+  let g:aider_command = script_path . ' ' . s:build_model_string(model_type)
+  let g:aider_command .= ' ' . s:get_aider_common_options()
 
   execute 'AiderRun'
+  echo 'Switched to Copilot mode with ' . model_type
 endfunction
-command! -nargs=0 AiderWithCopilot call s:switch_aider_with_copilot()
 
+command! -nargs=? AiderWithCopilot call s:switch_aider_with_copilot(<q-args>)
+
+" ドキュメントモードのCopilot設定
 function! s:doc_aider_with_copilot() abort
-  let g:aider_command = '~/.config/nvim/plugged/aider.vim/copilot.sh ' . s:models['copilot_claude'] . s:get_aider_common_options()
-
-  execute 'AiderRun'
-	execute "5sleep"
+  call s:switch_aider_with_copilot('copilot_claude')
+  execute "5sleep"
   execute "AiderSendPromptByCommandline /run deno run --allow-read ~/repos/changelog/extract.ts ~/repos/changelog/changelogmemo -- tips idea knowledge memo"
 endfunction
+
 command! -nargs=0 AiderDocWithCopilot call s:doc_aider_with_copilot()
 
 " }}}1

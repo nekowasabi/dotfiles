@@ -1,9 +1,9 @@
-" function! s:LazyGit()
-"   call setcellwidths([])
-"   lua require("snacks").lazygit()
-" endfunction
-" command! LazyGit call <SID>LazyGit()
-" nnoremap <silent> <leader>lg :LazyGit<CR>
+function! s:LazyGit()
+  call setcellwidths([])
+  lua require("snacks").lazygit()
+endfunction
+command! LazyGit call <SID>LazyGit()
+nnoremap <silent> <leader>lg :LazyGit<CR>
 
 " function! s:Terminal()
 "   call setcellwidths([])
@@ -15,7 +15,7 @@
 lua << EOF
 require("snacks").setup({
   opts = {
-    lazygit = { enabled = false },
+    lazygit = { enabled = true },
     bufdelete = { enabled = true },
     notify = { enabled = true },
     scratch = { enabled = true },
