@@ -123,24 +123,34 @@ augroup parrot
 	autocmd FileType diff call system("terminal-notifier -title '📜 parrot' -message '🍎 parrotの処理が完了しました'")
 augroup END
 
-" " lazygit.nvim
-" nnoremap <silent> <leader>lg :LazyGit<CR>
-
 " hellshake-yano
 let g:hellshake_yano = {
+      \ 'debug_mode': v:false,
       \ 'use_japanese': v:true,
+      \ 'use_hint_groups': v:true,
       \ 'enable_tinysegmenter': v:true,
       \ 'single_char_keys': split('ASDFGNM0123456789', '\zs'),
       \ 'multi_char_keys': split('BCEIOPQRTUVWXYZ', '\zs'),
-      \ 'highlight_hint_marker': {'fg': '#00ff00', 'bg': '#1a1a1a'},
-      \ 'highlight_hint_marker_current': {'fg': '#ffffff', 'bg': '#ff0000'},
+      \ 'highlight_hint_marker': {'bg': 'black', 'fg': '#57FD14'},
+      \ 'highlight_hint_marker_current': {'bg': 'Red', 'fg': 'White'},
+      \ 'highlight_selected': v:true,
       \ 'per_key_min_length': {
-      \   'v': 1,
-      \   'V': 1,
       \   'w': 1,
       \   'b': 1,
+      \   'e': 1,
       \ },
       \ 'default_min_word_length': 3,
+      \ 'per_key_motion_count': {
+      \   'w': 1,
+      \   'b': 1,
+      \   'e': 1,
+      \   'h': 3,
+      \   'j': 3,
+      \   'k': 3,
+      \   'l': 3,
+      \ },
+      \ 'motion_count': 3,
+      \ 'visual_hint_position': 'both',
       \ }
 
 let g:hellshake_yano_japanese_min_word_length = 2
