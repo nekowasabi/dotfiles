@@ -125,7 +125,7 @@ augroup END
 
 " hellshake-yano
 let g:hellshake_yano = {
-      \ 'debug_mode': v:false,
+      \ 'debug_mode': v:true,
       \ 'use_japanese': v:true,
       \ 'use_hint_groups': v:true,
       \ 'enable_tinysegmenter': v:true,
