@@ -125,7 +125,7 @@ augroup END
 
 " hellshake-yano
 let g:hellshake_yano = {
-      \ 'debug_mode': v:true,
+      \ 'debug_mode': v:false,
       \ 'use_japanese': v:true,
       \ 'use_hint_groups': v:true,
       \ 'enable_tinysegmenter': v:true,
@@ -155,7 +155,7 @@ let g:hellshake_yano = {
 
 let g:hellshake_yano_japanese_min_word_length = 2
 let g:hellshake_yano_japanese_merge_particles = v:true
-let g:hellshake_yano_japanese_merge_threshold = 2
+let g:hellshake_yano_japanese_merge_threshold = 4
 
 nnoremap <silent> ,h :HellshakeYanoToggle<CR> 
 
