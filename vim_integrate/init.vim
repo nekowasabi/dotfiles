@@ -139,7 +139,7 @@ let g:hellshake_yano = {
       \   'b': 1,
       \   'e': 1,
       \ },
-      \ 'default_min_word_length': 3,
+      \ 'default_min_word_length': 2,
       \ 'per_key_motion_count': {
       \   'w': 1,
       \   'b': 1,
@@ -150,10 +150,7 @@ let g:hellshake_yano = {
       \   'l': 3,
       \ },
       \ 'motion_count': 3,
-      \ 'visual_hint_position': 'both',
       \ }
-
-let g:hellshake_yano_japanese_min_word_length = 2
 let g:hellshake_yano_japanese_merge_particles = v:true
 let g:hellshake_yano_japanese_merge_threshold = 4
 
