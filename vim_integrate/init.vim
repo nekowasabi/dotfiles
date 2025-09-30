@@ -125,22 +125,23 @@ augroup END
 
 " hellshake-yano
 let g:hellshake_yano = {
-      \ 'debug_mode': v:false,
-      \ 'use_japanese': v:true,
-      \ 'use_hint_groups': v:true,
-      \ 'enable_tinysegmenter': v:true,
-      \ 'single_char_keys': split('ASDFGNM0123456789', '\zs'),
-      \ 'multi_char_keys': split('BCEIOPQRTUVWXYZ', '\zs'),
-      \ 'highlight_hint_marker': {'bg': 'black', 'fg': '#57FD14'},
-      \ 'highlight_hint_marker_current': {'bg': 'Red', 'fg': 'White'},
-      \ 'highlight_selected': v:true,
-      \ 'per_key_min_length': {
+      \ 'debugMode': v:false,
+      \ 'useJapanese': v:true,
+      \ 'useHintGroups': v:true,
+      \ 'highlightSelected': v:true,
+      \ 'useNumericMultiCharHints': v:true,
+      \ 'enableTinySegmenter': v:true,
+      \ 'singleCharKeys': 'ASDFGNM@;,.',
+      \ 'multiCharKeys': 'BCEIOPQRTUVWXYZ',
+      \ 'highlightHintMarker': {'bg': 'black', 'fg': '#57FD14'},
+      \ 'highlightHintMarkerCurrent': {'bg': 'Red', 'fg': 'White'},
+      \ 'perKeyMinLength': {
       \   'w': 1,
       \   'b': 1,
       \   'e': 1,
       \ },
-      \ 'default_min_word_length': 2,
-      \ 'per_key_motion_count': {
+      \ 'defaultMinWordLength': 3,
+      \ 'perKeyMotionCount': {
       \   'w': 1,
       \   'b': 1,
       \   'e': 1,
@@ -149,10 +150,11 @@ let g:hellshake_yano = {
       \   'k': 3,
       \   'l': 3,
       \ },
-      \ 'motion_count': 3,
+      \ 'motionCount': 3,
+      \ 'japaneseMinWordLength': 3,
+      \ 'segmenterThreshold': 4,
+      \ 'japaneseMergeThreshold': 4,
       \ }
-let g:hellshake_yano_japanese_merge_particles = v:true
-let g:hellshake_yano_japanese_merge_threshold = 4
 
 nnoremap <silent> ,h :HellshakeYanoToggle<CR> 
 
