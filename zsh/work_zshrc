@@ -137,8 +137,8 @@ alias v='/opt/homebrew/bin/nvim'
 alias deno='~/.deno/bin/deno'
 alias grealpath='/opt/homebrew/bin/grealpath'
 alias cj='j'
-alias yo="claude --dangerously-skip-permissions --model opus"
-alias ys="claude --dangerously-skip-permissions"
+alias yo="claude --dangerously-skip-permissions --model opus --agents serena-expert"
+alias ys="claude --dangerously-skip-permissions --model sonnet --agents serena-expert"
 # }}}0
 
 zinit light zdharma-continuum/fast-syntax-highlighting
