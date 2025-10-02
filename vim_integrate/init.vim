@@ -136,9 +136,9 @@ let g:hellshake_yano = {
       \ 'highlightHintMarker': {'bg': 'black', 'fg': '#57FD14'},
       \ 'highlightHintMarkerCurrent': {'bg': 'Red', 'fg': 'White'},
       \ 'perKeyMinLength': {
-      \   'w': 1,
-      \   'b': 1,
-      \   'e': 1,
+      \   'w': 3,
+      \   'b': 3,
+      \   'e': 3,
       \ },
       \ 'defaultMinWordLength': 3,
       \ 'perKeyMotionCount': {
