@@ -306,6 +306,27 @@ function DduGrepCurrentDirectory() abort
 				\ })
 endfunction
 
+nnoremap <silent> <Space>pl  :<C-u>call DduLineWithExtract()<CR>
+function DduLineWithExtract() abort
+  let s:input = input('Line > ')
+
+  if s:input == ''
+    return
+  endif
+
+	call ddu#start({
+        \   'sourceParams' : #{
+        \     line : #{
+        \       matchers: ['matcher_matchfuzzy'],
+        \     },
+        \   },
+				\   'input': s:input,
+				\   'sources': [{'name': 'line'}]
+				\ })
+endfunction
+
+
+
 nnoremap <silent> <Space>pm  :<C-u>call DduGrepChangelogHeader()<CR>
 nnoremap <silent> <M-p>  :<C-u>call DduGrepChangelogHeader()<CR>
 nnoremap <silent> <D-p>  :<C-u>call DduGrepChangelogHeader()<CR>
@@ -504,23 +525,14 @@ function DduLineFiltering() abort
 	call feedkeys('i', 'i')
 endfunction
 
-
-
 nnoremap <Space>lw  :<C-u>call DduLineWord()<CR>
 function DduLineWord() abort
-  let search_word = expand("<cword>")
-	call ddu#start({
-				\   'sourceParams' : #{
-				\     rg : #{
-				\       args: ['--json'],
-				\     },
-				\   },
-				\   'sources':[
-				\     {'name': 'line', 'params': {'input': search_word}},
-				\   ],
-				\ })
+      let search_word = expand('<cword>')
+      call ddu#start({
+      \    'input': search_word,
+      \    'sources': [{'name': 'line'}]
+      \  })
 endfunction
-
 
 
 nnoremap <silent> <Leader>h
