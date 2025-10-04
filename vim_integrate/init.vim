@@ -150,7 +150,7 @@ let g:hellshake_yano = {
       \   'k': 2,
       \   'l': 2,
       \ },
-      \ 'motionCount': 3,
+      \ 'defaultMotionCount': 3,
       \ 'japaneseMinWordLength': 3,
       \ 'segmenterThreshold': 4,
       \ 'japaneseMergeThreshold': 4,
