@@ -40,8 +40,9 @@ else
   nnoremap <silent> g? <Cmd>call searchx#start({ 'dir': 0 })<CR>
   nnoremap <silent> g/ <Cmd>call searchx#start({ 'dir': 1 })<CR>
 
-  xnoremap <silent> ? :MigemoSearchxBackrward<CR>
-  xnoremap <silent> / :MigemoSearchxForward<CR>
+  " Note: / and ? mappings are handled by hellshake-yano.vim via key_commands
+  " xnoremap <silent> ? :MigemoSearchxBackrward<CR>
+  " xnoremap <silent> / :MigemoSearchxForward<CR>
   xnoremap <silent> g? <Cmd>call searchx#start({ 'dir': 0 })<CR>
   xnoremap <silent> g/ <Cmd>call searchx#start({ 'dir': 1 })<CR>
 endif

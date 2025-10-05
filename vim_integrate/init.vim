@@ -125,13 +125,13 @@ augroup END
 
 " hellshake-yano
 let g:hellshake_yano = {
-      \ 'debugMode': v:false,
+      \ 'debugMode': v:true,
       \ 'useJapanese': v:true,
       \ 'useHintGroups': v:true,
       \ 'highlightSelected': v:true,
       \ 'useNumericMultiCharHints': v:true,
       \ 'enableTinySegmenter': v:true,
-      \ 'singleCharKeys': 'ASDFGNM@;,.',
+      \ 'singleCharKeys': 'ASDFGNM@;,./',
       \ 'multiCharKeys': 'BCEIOPQRTUVWXYZ',
       \ 'highlightHintMarker': {'bg': 'black', 'fg': '#57FD14'},
       \ 'highlightHintMarkerCurrent': {'bg': 'Red', 'fg': 'White'},

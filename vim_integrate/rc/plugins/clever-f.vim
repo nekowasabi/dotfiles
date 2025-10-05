@@ -1,9 +1,10 @@
  " -----------------------------------------------------------
  " clever-f
-nmap f <Plug>(clever-f-f)
+" Note: f and F normal mode mappings are handled by hellshake-yano.vim via keyCommands
+" nmap f <Plug>(clever-f-f)
 xmap f <Plug>(clever-f-f)
 omap f <Plug>(clever-f-f)
-nmap F <Plug>(clever-f-F)
+" nmap F <Plug>(clever-f-F)
 xmap F <Plug>(clever-f-F)
 omap F <Plug>(clever-f-F)
 
