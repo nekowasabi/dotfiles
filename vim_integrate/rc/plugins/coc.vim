@@ -91,7 +91,8 @@ endfunction
 
 " Completion settings. {{{1
 " 統一設定を使用（plugin.vimで定義済み）
-let g:coc_toggle_delay = 1000
+" パフォーマンス最適化: 遅延を0msに設定してモード遷移時の待機時間を削除
+let g:coc_toggle_delay = 0
 let g:is_coc_enabled = v:true
 
 " Check if current filetype should enable Coc

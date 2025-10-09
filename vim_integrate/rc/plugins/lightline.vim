@@ -155,10 +155,13 @@ endfunction
 "
 " If you want to show the nearest function in your statusline automatically,
 " you can add the following line to your vimrc
+"
+" パフォーマンス最適化: CursorMoved, InsertEnter/Leaveでのlightline更新を削除
+" CursorHoldのみで更新することで、PHP編集時のモード遷移の遅延を解消
 autocmd CursorHold * call lightline#update()
-autocmd InsertEnter,InsertLeave,CursorMoved,CursorHold * call lightline#enable()
-autocmd InsertEnter,InsertLeave,CursorMoved,CursorHold * call lightline#update()
-autocmd InsertEnter,InsertLeave,CursorMoved,CursorHold * redraw
+" autocmd InsertEnter,InsertLeave,CursorMoved,CursorHold * call lightline#enable()
+" autocmd InsertEnter,InsertLeave,CursorMoved,CursorHold * call lightline#update()
+" autocmd InsertEnter,InsertLeave,CursorMoved,CursorHold * redraw
 " autocmd User CocStatusChange redraws
 
 " ファイルサイズを計算して返す関数
