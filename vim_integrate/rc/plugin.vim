@@ -75,9 +75,9 @@ Plug 'mmikeww/autohotkey.vim'
 Plug 'nekowasabi/foldCC.vim'
 Plug 'nekowasabi/nvimdoc-ja'
 Plug 'nekowasabi/vim-sayonara'
-Plug 'previm/previm'
+Plug 'previm/previm', { 'on': 'PrevimOpen' }
 Plug 'rhysd/clever-f.vim'
-Plug 'rhysd/git-messenger.vim'
+Plug 'rhysd/git-messenger.vim', { 'on': 'GitMessenger' }
 Plug 'ryanoasis/vim-devicons'
 Plug 't9md/vim-choosewin'
 Plug 'termoshtt/curl.vim'
@@ -99,9 +99,9 @@ Plug 'sirasagi62/tinysegmenter.nvim'
 " AI
  Plug 'github/copilot.vim'
 " Plug 'zbirenbaum/copilot.lua'
-Plug 'nekowasabi/aider.vim'
+Plug 'nekowasabi/aider.vim', { 'on': ['AiderStart', 'AiderSendPromptByCommandline'] }
 " Plug 'Robitx/gp.nvim'
-Plug 'frankroeder/parrot.nvim'
+Plug 'frankroeder/parrot.nvim', { 'on': 'PrtAppend' }
 Plug 'ravitemer/mcphub.nvim', {'do': 'npm install -g mcp-hub@latest'}
 Plug 'nekowasabi/cross-channel.nvim'
 Plug 'atusy/aibou.nvim'
@@ -231,13 +231,13 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'mengelbrecht/lightline-bufferline'
   Plug 'maximbaz/lightline-ale'
   Plug 'dense-analysis/ale' " textlint
-	Plug 'pwntester/octo.nvim' " github操作
+	Plug 'pwntester/octo.nvim', { 'on': 'Octo' } " github操作
   Plug 'nvim-lua/plenary.nvim' " luaのライブラリ
   Plug 'nvim-telescope/telescope.nvim' " 普段は使わないけれど、プラグイン連携でたまに使う
   Plug 'elzr/vim-json'
-  Plug 'MattesGroeger/vim-bookmarks'
+  Plug 'MattesGroeger/vim-bookmarks', { 'on': 'BookmarkToggle' }
   Plug 'tpope/vim-dadbod'  " DBクライアント
-  Plug 'kristijanhusak/vim-dadbod-ui'
+  Plug 'kristijanhusak/vim-dadbod-ui', { 'on': 'DBUI' }
   Plug 'lewis6991/gitsigns.nvim'
   Plug 'overcache/NeoSolarized'
   Plug 'rhysd/conflict-marker.vim'
@@ -246,14 +246,14 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'HiPhish/rainbow-delimiters.nvim'
   Plug 'shellRaining/hlchunk.nvim'
   Plug 'atusy/treemonkey.nvim'
-	Plug 'CopilotC-Nvim/CopilotChat.nvim'
+	Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'on': 'CopilotChat' }
 	Plug 'tani/dmacro.nvim'
   Plug 'nekowasabi/vim-rule-switcher'
   Plug 'williamboman/mason.nvim'
   Plug 'williamboman/mason-lspconfig.nvim'
   Plug 'neovim/nvim-lspconfig'
   Plug 'Wansmer/treesj'
-  Plug 'vim-test/vim-test'
+  Plug 'vim-test/vim-test', { 'on': ['TestNearest', 'TestFile', 'TestSuite', 'TestLast', 'TestVisit'] }
   Plug 'skywind3000/asyncrun.vim'
   Plug 'mfussenegger/nvim-dap'
   Plug 'rcarriga/nvim-dap-ui'
@@ -380,7 +380,8 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/telescope.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/hlchunk.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treemonkey.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/aider.vim'
+  " Lazy loading: aider.vim config is loaded on :Aider* command
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/aider.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/dmacro.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesj.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/nvim-dap.vim'
@@ -399,10 +400,12 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cr-remover.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/render-markdown.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/previm.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot-chat.vim'
+  " Lazy loading: copilot-chat.vim config is loaded on :CopilotChat* command
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot-chat.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/codecompanion.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cmp.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
+  " Lazy loading: octo.vim config is loaded on :Octo* command
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cross-channel.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/claudecode.vim'
@@ -415,6 +418,41 @@ endif
 if g:IsMacNeovimInWork()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
 endif
+
+" Lazy Plugin Config {{{1
+" 遅延読み込みプラグインの設定を、コマンド実行時に読み込む
+augroup LazyPluginConfig
+  autocmd!
+  " CopilotChat.nvim: :CopilotChat* コマンド実行時に設定を読み込み
+  autocmd CmdUndefined CopilotChat* call s:LoadCopilotChatConfig()
+  " parrot.nvim: :Prt* コマンド実行時に設定を読み込み
+  autocmd CmdUndefined Prt* call s:LoadParrotConfig()
+  " octo.nvim: :Octo* コマンド実行時に設定を読み込み
+  autocmd CmdUndefined Octo* call s:LoadOctoConfig()
+  " aider.vim: :Aider* コマンド実行時に設定を読み込み
+  autocmd CmdUndefined Aider* call s:LoadAiderConfig()
+augroup END
+
+" 各プラグインの設定を読み込む関数
+function! s:LoadCopilotChatConfig()
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot-chat.vim'
+  autocmd! LazyPluginConfig CmdUndefined CopilotChat*
+endfunction
+
+function! s:LoadParrotConfig()
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/parrot.vim'
+  autocmd! LazyPluginConfig CmdUndefined Prt*
+endfunction
+
+function! s:LoadOctoConfig()
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
+  autocmd! LazyPluginConfig CmdUndefined Octo*
+endfunction
+
+function! s:LoadAiderConfig()
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/aider.vim'
+  autocmd! LazyPluginConfig CmdUndefined Aider*
+endfunction
 " }}}1
 
 " highlightyank
