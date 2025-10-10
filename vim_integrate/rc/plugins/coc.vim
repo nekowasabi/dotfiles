@@ -163,10 +163,29 @@ endfunction
 " Autocommands for Coc toggle
 augroup CocToggleForFileTypes
   autocmd!
-  autocmd BufEnter * call ToggleCocByFileType()
+  " FileTypeイベントでCoC切り替え（BufEnterより効率的）
+  autocmd FileType * call ToggleCocByFileType()
   autocmd CmdLineLeave * call RestoreCocByFileType()
   autocmd CmdlineEnter * silent call OpenCommandLineByCmp()
 augroup END
+" }}}1
+
+" Insert mode復帰時の自動補完トリガー {{{1
+" <Esc>でnormal modeに遷移してからinsert modeに戻った時に補完を表示
+augroup CocAutoTrigger
+  autocmd!
+  autocmd InsertEnter * call timer_start(50, {-> s:TriggerCompletionIfNeeded()})
+augroup END
+
+function! s:TriggerCompletionIfNeeded() abort
+  " CoCが有効かつ、カーソル位置に単語文字がある場合のみトリガー
+  if g:is_coc_enabled && getline('.')[col('.')-1] =~# '\w'
+    call coc#refresh()
+  endif
+endfunction
+
+" 手動補完トリガー（Ctrl+Space）
+inoremap <silent><expr> <C-Space> coc#refresh()
 " }}}1
 
 " Disable Coc for command line

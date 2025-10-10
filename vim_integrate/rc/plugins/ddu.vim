@@ -259,7 +259,10 @@ call ddu#custom#patch_global(#{
 		\ })
 
 	" Set highlight for your hl-group
-	autocmd ColorScheme * highlight myOriginalHlGroup guifg=#8fbc8b guibg=#000000
+	augroup DduHighlight
+	  autocmd!
+	  autocmd ColorScheme * ++once highlight myOriginalHlGroup guifg=#8fbc8b guibg=#000000
+	augroup END
 
 call ddu#custom#patch_global('filterParams', #{
      \  matcher_kensaku: #{
