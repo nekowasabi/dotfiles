@@ -90,11 +90,11 @@ command! DuplicateLineFormatNormal call <SID>DuplicateLineFormatNormal()
 if g:IsMacGvim() || g:IsMacNeovim() || g:IsWsl()
   nnoremap <silent> <F4> :DuplicateLineFormatNormal<CR>
   inoremap <expr> <F4> <SID>DuplicateLineFormat()
-  inoremap <expr> <C-o> <SID>DuplicateLineFormat()
+  inoremap <expr> <C-o> <SID>DuplicateLineFormat() . "\<C-r>=timer_start(50, {-> exists('*coc#refresh') && g:is_coc_enabled ? coc#refresh() : ''})\<CR>"
 endif
 if g:IsWindowsGvim()
   nnoremap <silent> <F4> :DuplicateLineFormatNormal<CR>
-  inoremap <expr> <C-o> <SID>DuplicateLineFormat()
+  inoremap <expr> <C-o> <SID>DuplicateLineFormat() . "\<C-r>=timer_start(50, {-> exists('*coc#refresh') && g:is_coc_enabled ? coc#refresh() : ''})\<CR>"
 endif
 " }}}1
 

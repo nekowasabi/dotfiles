@@ -134,7 +134,7 @@ endfunction
 
 augroup CustomCellWidths
   autocmd!
-  autocmd BufEnter,BufWinEnter vim,changelog,markdown,text call SetCustomCellWidths()
+  autocmd FileType vim,changelog,markdown,text call SetCustomCellWidths()
 augroup END
 
 
@@ -219,23 +219,7 @@ EOF
 " time backup {{{1
 set backupskip=/tmp/*,/private/tmp/*
 augroup time_backup
-  if strftime('%M') >= 0 && strftime('%M') < 10
-    au BufWritePre * let &bex = '.' . strftime('%Y%m%d_%H') . '00'
-  endif
-  if strftime('%M') >= 10 && strftime('%M') < 20
-    au BufWritePre * let &bex = '.' . strftime('%Y%m%d_%H') . '10'
-  endif
-  if strftime('%M') >= 20 && strftime('%M') < 30
-    au BufWritePre * let &bex = '.' . strftime('%Y%m%d_%H') . '20'
-  endif
-  if strftime('%M') >= 30 && strftime('%M') < 40
-    au BufWritePre * let &bex = '.' . strftime('%Y%m%d_%H') . '30'
-  endif
-  if strftime('%M') >= 40 && strftime('%M') < 50
-    au BufWritePre * let &bex = '.' . strftime('%Y%m%d_%H') . '40'
-  endif
-  if strftime('%M') >= 50 && strftime('%M') < 59
-    au BufWritePre * let &bex = '.' . strftime('%Y%m%d_%H') . '50'
-  endif
+  autocmd!
+  au BufWritePre * let &bex = '.' . strftime('%Y%m%d_%H') . printf('%02d', (strftime('%M') / 10) * 10)
 augroup END
 " }}}1
