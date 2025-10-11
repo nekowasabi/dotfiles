@@ -154,6 +154,9 @@ let g:hellshake_yano = {
       \ 'japaneseMinWordLength': 3,
       \ 'segmenterThreshold': 4,
       \ 'japaneseMergeThreshold': 4,
+      \ 'continuousHintMode': v:true,
+      \ 'recenterCommand': 'normal! zz',
+      \ 'maxContinuousJumps': 25,
       \ }
 
 nnoremap <silent> ,h :HellshakeYanoToggle<CR> 
