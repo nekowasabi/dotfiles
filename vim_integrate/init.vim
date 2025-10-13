@@ -131,7 +131,7 @@ let g:hellshake_yano = {
       \ 'highlightSelected': v:true,
       \ 'useNumericMultiCharHints': v:true,
       \ 'enableTinySegmenter': v:true,
-      \ 'singleCharKeys': 'ASDFGNM@;,./',
+      \ 'singleCharKeys': 'ASDFGNM@,./',
       \ 'multiCharKeys': 'BCEIOPQRTUVWXYZ',
       \ 'highlightHintMarker': {'bg': 'black', 'fg': '#57FD14'},
       \ 'highlightHintMarkerCurrent': {'bg': 'Red', 'fg': 'White'},
