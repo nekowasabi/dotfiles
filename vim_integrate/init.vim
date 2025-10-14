@@ -154,7 +154,7 @@ let g:hellshake_yano = {
       \ 'japaneseMinWordLength': 3,
       \ 'segmenterThreshold': 4,
       \ 'japaneseMergeThreshold': 4,
-      \ 'continuousHintMode': v:true,
+      \ 'continuousHintMode': v:false,
       \ 'recenterCommand': 'normal! zz',
       \ 'maxContinuousJumps': 25,
       \ }

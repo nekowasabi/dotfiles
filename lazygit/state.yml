@@ -1,9 +1,10 @@
 lastupdatecheck: 0
 recentrepos:
+- /Users/ttakeda/works/invase-backend
+- /Users/ttakeda/repos/read-aloud-tab
+- /Users/ttakeda/repos/changelog
 - /Users/ttakeda/repos/private_dotfiles
 - /Users/ttakeda/repos/dotfiles
-- /Users/ttakeda/works/invase-backend
-- /Users/ttakeda/repos/changelog
 - /Users/ttakeda/works/dotfiles-ai-tools
 - /Users/ttakeda/.config/nvim/plugged/hellshake-yano.vim
 - /Users/ttakeda/works/invase-api-schema
