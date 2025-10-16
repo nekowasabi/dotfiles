@@ -878,6 +878,12 @@
             },
             {
               "key_code": "s"
+            },
+            {
+              "key_code": "n"
+            },
+            {
+              "key_code": "n"
             }
           ],
           "conditions": [
