@@ -93,68 +93,64 @@ endfunction
 " 統一設定を使用（plugin.vimで定義済み）
 " パフォーマンス最適化: 遅延を0msに設定してモード遷移時の待機時間を削除
 let g:coc_toggle_delay = 0
-let g:is_coc_enabled = v:true
 
 " Check if current filetype should enable Coc
 function! s:ShouldEnableCoc() abort
+  " 必須グローバル変数の存在チェック
+  if !exists('g:enable_coc')
+    return v:false
+  endif
+
   if &buftype != '' || !exists('g:did_coc_loaded')
     return v:false
   endif
 
   " 無効化filetypeの場合は無効
-  if index(g:completion_disabled_filetypes, &filetype) >= 0
+  if exists('g:completion_disabled_filetypes') && index(g:completion_disabled_filetypes, &filetype) >= 0
     return v:false
   endif
-  
-  " 両方サポートfiletype（現在はg:coc_only_filetypes）の場合はCoC設定により判定
-  if index(g:coc_only_filetypes, &filetype) >= 0
-    return g:enable_coc == v:true
-  endif
-  
-  " CMPのみfiletypeの場合は無効
-  if index(g:cmp_only_filetypes, &filetype) >= 0
-    return v:false
-  endif
-  
-  " デフォルトは無効
-  return v:false
-endfunction
 
-" Execute Coc commands with delay
-function! s:ExecuteCocCommands(commands) abort
-  call timer_start(g:coc_toggle_delay, {-> execute(join(a:commands, '|'))})
+  " CMPのみfiletypeの場合は無効
+  if exists('g:cmp_only_filetypes') && index(g:cmp_only_filetypes, &filetype) >= 0
+    return v:false
+  endif
+
+  " CoCのみfiletypeまたはその他のfiletypeは、g:enable_cocの値に従う
+  return g:enable_coc
 endfunction
 
 " Toggle Coc based on filetype
 function! ToggleCocByFileType() abort
-  if s:ShouldEnableCoc()
-    let l:commands = [
-          \ 'execute "silent! CocEnable"',
-          \ 'let b:your_cmp_disable_enable_toggle = v:false'
-          \ ]
-    let g:is_coc_enabled = v:true
-  else
-    if &filetype == 'vim'
-      return
-    endif
-    let l:commands = [
-          \ 'execute "silent! CocDisable"',
-          \ 'let b:your_cmp_disable_enable_toggle = v:true'
-          \ ]
-    let g:is_coc_enabled = v:false
-  endif
+  let l:should_enable = s:ShouldEnableCoc()
+  let l:current_state = get(b:, 'is_coc_enabled', v:false)
 
-  call s:ExecuteCocCommands(l:commands)
+  " 状態が変わる時のみ実行（パフォーマンス改善）
+  if l:should_enable != l:current_state
+    if l:should_enable
+      try
+        execute "silent! CocEnable"
+        let b:is_coc_enabled = v:true
+        let b:your_cmp_disable_enable_toggle = v:false
+      catch
+        " CocEnableが失敗した場合でも状態を更新
+        let b:is_coc_enabled = v:false
+      endtry
+    else
+      execute "silent! CocDisable"
+      let b:is_coc_enabled = v:false
+      let b:your_cmp_disable_enable_toggle = v:true
+    endif
+  endif
 endfunction
 
 
 " Restore previous Coc state
 function! RestoreCocByFileType() abort
-  if exists('g:is_coc_enabled')
-		if g:is_coc_enabled
+  if exists('b:is_coc_enabled')
+		if b:is_coc_enabled
 			execute "silent! CocEnable"
 		else
-			let g:your_cmp_disable_enable_toggle = v:true
+			let b:your_cmp_disable_enable_toggle = v:true
 			execute "silent! CocDisable"
 		endif
   endif
@@ -165,7 +161,7 @@ augroup CocToggleForFileTypes
   autocmd!
   " FileTypeイベントでCoC切り替え（BufEnterより効率的）
   autocmd FileType * call ToggleCocByFileType()
-  autocmd CmdLineLeave * call RestoreCocByFileType()
+  autocmd CmdlineLeave * call RestoreCocByFileType()
   autocmd CmdlineEnter * silent call OpenCommandLineByCmp()
 augroup END
 " }}}1
@@ -179,7 +175,9 @@ augroup END
 
 function! s:TriggerCompletionIfNeeded() abort
   " CoCが有効かつ、カーソル位置に単語文字がある場合のみトリガー
-  if g:is_coc_enabled && getline('.')[col('.')-1] =~# '\w'
+  if exists('b:is_coc_enabled') && b:is_coc_enabled
+        \ && getline('.')[col('.')-1] =~# '\w'
+        \ && exists('*coc#refresh')
     call coc#refresh()
   endif
 endfunction

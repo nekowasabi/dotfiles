@@ -23,14 +23,20 @@ function! s:ShouldEnableCmp() abort
   return v:true
 endfunction
 
-" 無効化filetypeでCMPを無効化
-if !empty(g:completion_disabled_filetypes)
-  execute 'autocmd FileType ' . join(g:completion_disabled_filetypes, ',') . ' lua require("cmp").setup.buffer { enabled = false }'
-endif
+augroup CmpFileTypeConfig
+  autocmd!
+  " 無効化filetypeでCMPを無効化
+  if !empty(g:completion_disabled_filetypes)
+    execute 'autocmd CmpFileTypeConfig FileType ' . join(g:completion_disabled_filetypes, ',') . ' lua require("cmp").setup.buffer { enabled = false }'
+  endif
 
-" CoCが有効な環境では両方サポートfiletypeでCMPを無効化
-if (g:IsMacNeovimInWork() || g:enable_coc == v:true) && !empty(g:coc_only_filetypes)
-  execute 'autocmd FileType ' . join(g:coc_only_filetypes, ',') . ' lua require("cmp").setup.buffer { enabled = false }'
+  " CoCが有効な環境では両方サポートfiletypeでCMPを無効化
+  if (g:IsMacNeovimInWork() || g:enable_coc == v:true) && !empty(g:coc_only_filetypes)
+    execute 'autocmd CmpFileTypeConfig FileType ' . join(g:coc_only_filetypes, ',') . ' lua require("cmp").setup.buffer { enabled = false }'
+  endif
+augroup END
+
+if (g:IsMacNeovimInWork() || g:enable_coc == v:true)
   let g:your_cmp_disable_enable_toggle = v:false
 else
   let g:your_cmp_disable_enable_toggle = v:false
