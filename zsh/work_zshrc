@@ -1,4 +1,4 @@
-eval "$(~/.local/bin/cursor-agent shell-integration zsh)"
+# eval "$(~/.local/bin/cursor-agent shell-integration zsh)"  # Weztermとの互換性問題のため無効化
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
     print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
     command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
@@ -8,20 +8,21 @@ if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
 fi
 
 
+source $HOME/.local/share/zinit/zinit.git/zinit.zsh
+
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-source $HOME/.local/share/zinit/zinit.git/zinit.zsh
-
 # setting path {{{1
-export PATH=/usr/local/bin:/bin:/usr/bin:$DENO_INSTALL/bin:/Users/ttakeda/go/bin:/opt/homebrew/bin:$HOME/.nodenv/bin:/opt/homebrew/opt/php@8.1/bin:/opt/homebrew/opt/php@8.1/sbin:~/.deno/bin/:/opt/homebrew/Cellar/python@3.11/3.11.6_1/libexec/bin:$PATH:/User/ttakeda/.luarocks:/Users/ttakeda/.luarocks/lib/luarocks/rocks-5.4:/Users/ttakeda/bin:~/.cargo/bin:/Users/ttakeda/.local/bin
+export DENO_INSTALL="/Users/ttakeda/.deno"
+export PATH=/usr/local/bin:/bin:/usr/bin:$DENO_INSTALL/bin:/Users/ttakeda/go/bin:/opt/homebrew/bin:$HOME/.nodenv/bin:/opt/homebrew/opt/php@8.1/bin:/opt/homebrew/opt/php@8.1/sbin:~/.deno/bin/:/opt/homebrew/Cellar/python@3.11/3.11.6_1/libexec/bin:$PATH:/Users/ttakeda/.luarocks:/Users/ttakeda/.luarocks/lib/luarocks/rocks-5.4:/Users/ttakeda/bin:~/.cargo/bin:/Users/ttakeda/.local/bin
 
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
 export EDITOR=nvim
-export PYENV_ROOT=$HOME/.pyenv
+#export PYENV_ROOT=$HOME/.pyenv
 export NVIM_NODE_LOG_FILE='/Users/ttakeda/nvim_node_log.log' 
 export NVIM_NODE_LOG_LEVEL=info
 export FZF_PREVIEW_DEBUG=1
@@ -29,7 +30,6 @@ export DENOPS_TEST_DENOPS_PATH=/Users/ttakeda/.config/nvim/plugged/denops.vim
 export DENOPS_TEST_VIM=/usr/local/bin/vim
 export DENOPS_PATH=/Users/ttakeda/.config/nvim/plugged/denops.vim
 export DENOPS_TEST_NVIM=/usr/local/bin/nvim
-export DENO_INSTALL="/Users/ttakeda/.deno"
 export MOCWORD_DATA='/Users/ttakeda/.config/mocword/mocword.sqlite'
 export ZENO_HOME='/Users/ttakeda/.config/zeno'
 export RIPGREP_CONFIG_PATH='/Users/ttakeda/.ripgreprc'
@@ -180,12 +180,12 @@ if [[ -n $ZENO_LOADED ]]; then
   export ZENO_COMPLETION_FALLBACK=expand-or-complete
 fi
 
-export FZF_DEFAULT_COMMAND'=rg --files --hidden --follow --glob "!.git/*"'
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 export FZF_DEFAULT_OPTS='--height 80% --reverse'
 
 # 移動したディレクトリ検索(Ctrl+Z)
-zle -N fzf-z-search
-bindkey '^Z' fzf-z-search
+# zle -N fzf-z-search
+# bindkey '^Z' fzf-z-search
 
 function chpwd() {
   powered_cd_add_log
@@ -287,11 +287,18 @@ export PATH="/opt/homebrew/opt/php@8.3/sbin:$PATH"
 # Added by Windsurf
 export PATH="/Users/ttakeda/.codeium/windsurf/bin:$PATH"
 
-# Added by Windsurf
-export PATH="/Users/ttakeda/.codeium/windsurf/bin:$PATH"
-
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/ttakeda/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/ttakeda/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/ttakeda/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/ttakeda/google-cloud-sdk/completion.zsh.inc'; fi
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
+### End of Zinit's installer chunk
