@@ -69,16 +69,17 @@ ft_substitute(
 ft_substitute(
   '#',
   [[#\s\%#]],
-  [[<BS>##<Space>\%#]],
+  [[##<Space>\%#]],
   { 'changelog'  }
 )
+
 
 -- # の削除（Backspace）
 -- "# " の状態で Ctrl-h を押すと完全削除
 ft_substitute(
   '<C-h>',
   [[^#\s\%#]],
-  [[<BS><BS>\%#]],
+  [[\%#]],
   { 'changelog'  }
 )
 
@@ -86,7 +87,7 @@ ft_substitute(
 ft_substitute(
   '<C-h>',
   [[##\s\%#]],
-  [[<BS><BS><Space>\%#]],
+  [[#<Space>\%#]],
   { 'changelog'  }
 )
 
@@ -94,14 +95,58 @@ ft_substitute(
 ft_substitute(
   '<BS>',
   [[^#\s\%#]],
-  [[<BS><BS>\%#]],
+  [[\%#]],
   { 'changelog'  }
 )
 ft_substitute(
   '<BS>',
   [[##\s\%#]],
-  [[<BS><BS><Space>\%#]],
+  [[#<Space>\%#]],
   { 'changelog'  }
+)
+
+-- [ の自動ペア
+-- [ を入力すると "[]" になり、カーソルが中に配置される
+insx.add(
+  '[',
+  insx.with(
+    require('insx.recipe.auto_pair')({
+      open = '[',
+      close = ']'
+    }),
+    {
+      insx.with.filetype({'changelog'})
+    }
+  )
+)
+
+-- ] の自動スキップ
+-- カーソルが ] の直前にあるときに ] を入力すると、] をスキップする
+insx.add(
+  ']',
+  insx.with(
+    require('insx.recipe.jump_next')({
+      jump_pattern = [=[\]]=]
+    }),
+    {
+      insx.with.filetype({'changelog'})
+    }
+  )
+)
+
+-- [] のBackspace削除
+-- カーソルが [] の間にあるときにBackspaceを押すと、両方削除
+insx.add(
+  '<BS>',
+  insx.with(
+    require('insx.recipe.delete_pair')({
+      open_pat = [=[\[]=],
+      close_pat = [=[\]]=]
+    }),
+    {
+      insx.with.filetype({'changelog'})
+    }
+  )
 )
 
 -- - のリスト入力補助
@@ -113,241 +158,82 @@ ft_substitute(
   { 'changelog'  }
 )
 
--- Tab でインデント（リストマーカー "- " がある場合）
-ft_substitute(
-  '<Tab>',
-  [[^\s*-\s\%#]],
-  [[<Home><Tab><End>\%#]],
-  { 'changelog'  }
-)
-ft_substitute(
-  '<Tab>',
-  [[^\s*-\s\w.*\%#]],
-  [[<Home><Tab><End>\%#]],
-  { 'changelog'  }
-)
-
--- Shift-Tab でアンインデント
-ft_substitute(
-  '<S-Tab>',
-  [[^\s+-\s\%#]],
-  [[<Home><Del><Del><End>\%#]],
-  { 'changelog'  }
-)
-ft_substitute(
-  '<S-Tab>',
-  [[^\s+-\s\w.*\%#]],
-  [[<Home><Del><Del><End>\%#]],
-  { 'changelog'  }
-)
-ft_substitute(
-  '<S-Tab>',
-  [[^-\s\w.*\%#]],
-  [=[\%#]]=],
-  { 'changelog'  }
-)  -- 最小インデントでは何もしない
-
 -- Backspace でリストマーカー削除
 ft_substitute(
   '<C-h>',
   [[^-\s\%#]],
-  [[<C-w><BS>\%#]],
+  [[<C-w>\%#]],
   { 'changelog'  }
 )
 ft_substitute(
   '<C-h>',
   [[^\s+-\s\%#]],
-  [[<C-w><C-w><BS>\%#]],
+  [[<C-w><C-w>\%#]],
   { 'changelog'  }
 )
 ft_substitute(
   '<BS>',
   [[^-\s\%#]],
-  [[<C-w><BS>\%#]],
+  [[<C-w>\%#]],
   { 'changelog'  }
 )
 ft_substitute(
   '<BS>',
   [[^\s+-\s\%#]],
-  [[<C-w><C-w><BS>\%#]],
+  [[<C-w><C-w>\%#]],
   { 'changelog'  }
 )
 
--- Enter でリストマーカー削除（空行の場合）
-ft_substitute(
+-- Enter でリスト継続（カスタムアクション版）
+-- カーソル位置に関わらず、元の行のテキストを保持したまま新しい行に「- 」を挿入
+insx.add(
   '<CR>',
-  [[^-\s\%#]],
-  [[<C-w><CR>\%#]],
-  { 'changelog'  }
-)
-ft_substitute(
-  '<CR>',
-  [[^\s+-\s\%#]],
-  [[<C-w><C-w><CR>\%#]],
-  { 'changelog'  }
-)
-
--- Enter でリスト継続
-ft_substitute(
-  '<CR>',
-  [[^\s*-\s\w.*\%#]],
-  [[<CR>-<Space>\%#]],
-  { 'changelog'  }
-)
-
--- チェックボックス [] の入力補助
--- "- " の状態で [ を入力すると " []" を挿入してカーソルを内側に
-ft_substitute(
-  '[',
-  [[^\s*-\s\%#]],
-  [=[<Left><Space>[]<Left>\%#]=],
-  { 'changelog'  }
-)
-
--- チェックボックスでの Tab インデント
-ft_substitute(
-  '<Tab>',
-  [=[^\s*-\s\[\%#\]\s]=],
-  [[<Home><Tab><End><Left><Left>\%#]],
-  { 'changelog'  }
-)
-ft_substitute(
-  '<S-Tab>',
-  [=[^-\s\[\%#\]\s]=],
-  [=[\%#]]=],
-  { 'changelog'  }
-)
-ft_substitute(
-  '<S-Tab>',
-  [=[^\s+-\s\[\%#\]\s]=],
-  [[<Home><Del><Del><End><Left><Left>\%#]],
-  { 'changelog'  }
-)
-
--- チェックボックス削除
-ft_substitute(
-  '<C-h>',
-  [=[^\s*-\s\[\%#\]]=],
-  [[<BS><Del><Del>\%#]],
-  { 'changelog'  }
-)
-ft_substitute(
-  '<BS>',
-  [=[^\s*-\s\[\%#\]]=],
-  [[<BS><Del><Del>\%#]],
-  { 'changelog'  }
-)
-
--- チェックボックス内でスペースを入力すると末尾に移動
-ft_substitute(
-  '<Space>',
-  [=[^\s*-\s\[\%#\]]=],
-  [[<Space><End>\%#]],
-  { 'changelog'  }
-)
-
--- チェックボックス内で x を入力すると末尾に移動
-ft_substitute(
-  'x',
-  [=[^\s*-\s\[\%#\]]=],
-  [[x<End>\%#]],
-  { 'changelog'  }
-)
-
--- チェックボックス内で Enter（空の場合）
-ft_substitute(
-  '<CR>',
-  [=[^-\s\[\%#\]]=],
-  [[<End><C-w><C-w><C-w><CR>\%#]],
-  { 'changelog'  }
-)
-ft_substitute(
-  '<CR>',
-  [=[^\s+-\s\[\%#\]]=],
-  [[<End><C-w><C-w><C-w><C-w><CR>\%#]],
-  { 'changelog'  }
-)
-
--- チェックボックス（チェック済み/未チェック）での Tab インデント
-ft_substitute(
-  '<Tab>',
-  [=[^\s*-\s\[(\s|x)\]\s\%#]=],
-  [[<Home><Tab><End>\%#]],
-  { 'changelog'  }
-)
-ft_substitute(
-  '<Tab>',
-  [=[^\s*-\s\[(\s|x)\]\s\w.*\%#]=],
-  [[<Home><Tab><End>\%#]],
-  { 'changelog'  }
-)
-
--- チェックボックス（チェック済み/未チェック）での Shift-Tab アンインデント
-ft_substitute(
-  '<S-Tab>',
-  [=[^\s+-\s\[(\s|x)\]\s\%#]=],
-  [[<Home><Del><Del><End>\%#]],
-  { 'changelog'  }
-)
-ft_substitute(
-  '<S-Tab>',
-  [=[^\s+-\s\[(\s|x)\]\s\w.*\%#]=],
-  [[<Home><Del><Del><End>\%#]],
-  { 'changelog'  }
-)
-ft_substitute(
-  '<S-Tab>',
-  [=[^-\s\[(\s|x)\]\s\w.*\%#]=],
-  [=[\%#]]=],
-  { 'changelog'  }
-)
-
--- チェックボックス（チェック済み/未チェック）での Backspace
-ft_substitute(
-  '<C-h>',
-  [=[^-\s\[(\s|x)\]\s\%#]=],
-  [[<C-w><C-w><C-w><BS>\%#]],
-  { 'changelog'  }
-)
-ft_substitute(
-  '<C-h>',
-  [=[^\s+-\s\[(\s|x)\]\s\%#]=],
-  [[<C-w><C-w><C-w><C-w><BS>\%#]],
-  { 'changelog'  }
-)
-ft_substitute(
-  '<BS>',
-  [=[^-\s\[(\s|x)\]\s\%#]=],
-  [[<C-w><C-w><C-w><BS>\%#]],
-  { 'changelog'  }
-)
-ft_substitute(
-  '<BS>',
-  [=[^\s+-\s\[(\s|x)\]\s\%#]=],
-  [[<C-w><C-w><C-w><C-w><BS>\%#]],
-  { 'changelog'  }
-)
-
--- チェックボックス（チェック済み/未チェック）での Enter（空の場合）
-ft_substitute(
-  '<CR>',
-  [=[^-\s\[(\s|x)\]\s\%#]=],
-  [[<C-w><C-w><C-w><CR>\%#]],
-  { 'changelog'  }
-)
-ft_substitute(
-  '<CR>',
-  [=[^\s+-\s\[(\s|x)\]\s\%#]=],
-  [[<C-w><C-w><C-w><C-w><CR>\%#]],
-  { 'changelog'  }
+  insx.with(
+    {
+      enabled = function(ctx)
+        local line = vim.api.nvim_get_current_line()
+        -- "- " の後に空白以外の文字がある行
+        return line:match('^%s*-%s%S') ~= nil
+      end,
+      action = function(ctx)
+        -- 行末に移動してから改行し、新しい行に「- 」を挿入
+        vim.api.nvim_feedkeys(
+          vim.api.nvim_replace_termcodes('<End><CR>-<Space>', true, false, true),
+          'n',
+          false
+        )
+      end
+    },
+    {
+      insx.with.filetype({'changelog'})
+    }
+  )
 )
 
 -- チェックボックス（チェック済み/未チェック）での Enter（リスト継続）
-ft_substitute(
+-- カーソル位置に関わらず、元の行のテキストを保持したまま新しい行に「- [ ] 」を挿入
+insx.add(
   '<CR>',
-  [=[^\s*-\s\[(\s|x)\]\s\w.*\%#]=],
-  [=[<CR>-<Space>[]<Space><Left><Left>\%#]=],
-  { 'changelog'  }
+  insx.with(
+    {
+      enabled = function(ctx)
+        local line = vim.api.nvim_get_current_line()
+        -- "- [ ]" または "- [x]" の後に空白以外の文字がある行
+        return line:match('^%s*-%s%[[ x]%]%s%S') ~= nil
+      end,
+      action = function(ctx)
+        -- 行末に移動してから改行し、新しい行に「- [ ] 」を挿入、カーソルを[]内に配置
+        vim.api.nvim_feedkeys(
+          vim.api.nvim_replace_termcodes('<End><CR>-<Space>[]<Space><Left><Left>', true, false, true),
+          'n',
+          false
+        )
+      end
+    },
+    {
+      insx.with.filetype({'changelog'})
+    }
+  )
 )
 
 -- 「・」の改行継続（カスタムアクション版）
@@ -405,25 +291,25 @@ ft_substitute(
 ft_substitute(
   '<C-h>',
   [[^#\s\%#]],
-  [[<BS><BS>\%#]],
+  [[\%#]],
   { 'text'  }
 )
 ft_substitute(
   '<C-h>',
   [[##\s\%#]],
-  [[<BS><BS><Space>\%#]],
+  [[#<Space>\%#]],
   { 'text'  }
 )
 ft_substitute(
   '<BS>',
   [[^#\s\%#]],
-  [[<BS><BS>\%#]],
+  [[\%#]],
   { 'text'  }
 )
 ft_substitute(
   '<BS>',
   [[##\s\%#]],
-  [[<BS><BS><Space>\%#]],
+  [[#<Space>\%#]],
   { 'text'  }
 )
 
@@ -436,17 +322,30 @@ ft_substitute(
 )
 
 -- Tab でインデント
-ft_substitute(
+insx.add(
   '<Tab>',
-  [[^\s*-\s\%#]],
-  [[<Home><Tab><End>\%#]],
-  { 'text'  }
-)
-ft_substitute(
-  '<Tab>',
-  [[^\s*-\s\w.*\%#]],
-  [[<Home><Tab><End>\%#]],
-  { 'text'  }
+  insx.with(
+    {
+      enabled = function(ctx)
+        local line = vim.api.nvim_get_current_line()
+        return line:match('^%s*-%s') ~= nil
+      end,
+      action = function(ctx)
+        local line = vim.api.nvim_get_current_line()
+        local cursor = vim.api.nvim_win_get_cursor(0)
+        local row = cursor[1]
+        local col = cursor[2]
+
+        -- 行頭にタブを挿入
+        vim.api.nvim_set_current_line('\t' .. line)
+        -- カーソル位置を調整（タブの分だけ右に移動）
+        vim.api.nvim_win_set_cursor(0, {row, col + 1})
+      end
+    },
+    {
+      insx.with.filetype({'text'})
+    }
+  )
 )
 
 -- Shift-Tab でアンインデント
@@ -473,25 +372,25 @@ ft_substitute(
 ft_substitute(
   '<C-h>',
   [[^-\s\%#]],
-  [[<C-w><BS>\%#]],
+  [[<C-w>\%#]],
   { 'text'  }
 )
 ft_substitute(
   '<C-h>',
   [[^\s+-\s\%#]],
-  [[<C-w><C-w><BS>\%#]],
+  [[<C-w><C-w>\%#]],
   { 'text'  }
 )
 ft_substitute(
   '<BS>',
   [[^-\s\%#]],
-  [[<C-w><BS>\%#]],
+  [[<C-w>\%#]],
   { 'text'  }
 )
 ft_substitute(
   '<BS>',
   [[^\s+-\s\%#]],
-  [[<C-w><C-w><BS>\%#]],
+  [[<C-w><C-w>\%#]],
   { 'text'  }
 )
 
@@ -526,11 +425,31 @@ ft_substitute(
 )
 
 -- チェックボックス Tab/Shift-Tab
-ft_substitute(
+insx.add(
   '<Tab>',
-  [=[^\s*-\s\[\%#\]\s]=],
-  [[<Home><Tab><End><Left><Left>\%#]],
-  { 'text'  }
+  insx.with(
+    {
+      enabled = function(ctx)
+        local line = vim.api.nvim_get_current_line()
+        local col = vim.api.nvim_win_get_cursor(0)[2]
+        return line:match('^%s*-%s%[%]%s') ~= nil and col < #line
+      end,
+      action = function(ctx)
+        local line = vim.api.nvim_get_current_line()
+        local cursor = vim.api.nvim_win_get_cursor(0)
+        local row = cursor[1]
+        local col = cursor[2]
+
+        -- 行頭にタブを挿入
+        vim.api.nvim_set_current_line('\t' .. line)
+        -- カーソル位置を調整（タブの分だけ右に移動）
+        vim.api.nvim_win_set_cursor(0, {row, col + 1})
+      end
+    },
+    {
+      insx.with.filetype({'text'})
+    }
+  )
 )
 ft_substitute(
   '<S-Tab>',
@@ -588,17 +507,30 @@ ft_substitute(
 )
 
 -- チェック済みボックス Tab/Shift-Tab
-ft_substitute(
+insx.add(
   '<Tab>',
-  [=[^\s*-\s\[(\s|x)\]\s\%#]=],
-  [[<Home><Tab><End>\%#]],
-  { 'text'  }
-)
-ft_substitute(
-  '<Tab>',
-  [=[^\s*-\s\[(\s|x)\]\s\w.*\%#]=],
-  [[<Home><Tab><End>\%#]],
-  { 'text'  }
+  insx.with(
+    {
+      enabled = function(ctx)
+        local line = vim.api.nvim_get_current_line()
+        return line:match('^%s*-%s%[[ x]%]%s') ~= nil
+      end,
+      action = function(ctx)
+        local line = vim.api.nvim_get_current_line()
+        local cursor = vim.api.nvim_win_get_cursor(0)
+        local row = cursor[1]
+        local col = cursor[2]
+
+        -- 行頭にタブを挿入
+        vim.api.nvim_set_current_line('\t' .. line)
+        -- カーソル位置を調整（タブの分だけ右に移動）
+        vim.api.nvim_win_set_cursor(0, {row, col + 1})
+      end
+    },
+    {
+      insx.with.filetype({'text'})
+    }
+  )
 )
 ft_substitute(
   '<S-Tab>',
@@ -687,25 +619,25 @@ ft_substitute(
 ft_substitute(
   '<C-h>',
   [[^#\s\%#]],
-  [[<BS><BS>\%#]],
+  [[\%#]],
   { 'markdown'  }
 )
 ft_substitute(
   '<C-h>',
   [[##\s\%#]],
-  [[<BS><BS><Space>\%#]],
+  [[#<Space>\%#]],
   { 'markdown'  }
 )
 ft_substitute(
   '<BS>',
   [[^#\s\%#]],
-  [[<BS><BS>\%#]],
+  [[\%#]],
   { 'markdown'  }
 )
 ft_substitute(
   '<BS>',
   [[##\s\%#]],
-  [[<BS><BS><Space>\%#]],
+  [[#<Space>\%#]],
   { 'markdown'  }
 )
 
@@ -717,18 +649,28 @@ ft_substitute(
   { 'markdown'  }
 )
 
--- Tab でインデント
-ft_substitute(
+-- Tab でインデント（リストマーカー "- " がある場合）
+insx.add(
   '<Tab>',
-  [[^\s*-\s\%#]],
-  [[<Home><Tab><End>\%#]],
-  { 'markdown'  }
-)
-ft_substitute(
-  '<Tab>',
-  [[^\s*-\s\w.*\%#]],
-  [[<Home><Tab><End>\%#]],
-  { 'markdown'  }
+  insx.with(
+    {
+      enabled = function(ctx)
+        local line = vim.api.nvim_get_current_line()
+        return line:match('^%s*-%s') ~= nil
+      end,
+      action = function(ctx)
+        -- 行頭に移動 → タブ挿入 → 行末に移動
+        vim.api.nvim_feedkeys(
+          vim.api.nvim_replace_termcodes('<Home><Tab><End>', true, false, true),
+          'n',
+          false
+        )
+      end
+    },
+    {
+      insx.with.filetype({'markdown'})
+    }
+  )
 )
 
 -- Shift-Tab でアンインデント
@@ -755,13 +697,13 @@ ft_substitute(
 ft_substitute(
   '<C-h>',
   [[^-\s\%#]],
-  [[<C-w><BS>\%#]],
+  [[<C-w>\%#]],
   { 'markdown'  }
 )
 ft_substitute(
   '<C-h>',
   [[^\s+-\s\%#]],
-  [[<C-w><C-w><BS>\%#]],
+  [[<C-w><C-w>\%#]],
   { 'markdown'  }
 )
 ft_substitute(
@@ -791,12 +733,30 @@ ft_substitute(
   { 'markdown'  }
 )
 
--- Enter でリスト継続
-ft_substitute(
+-- Enter でリスト継続（カスタムアクション版）
+-- カーソル位置に関わらず、元の行のテキストを保持したまま新しい行に「- 」を挿入
+insx.add(
   '<CR>',
-  [[^\s*-\s\w.*\%#]],
-  [[<CR>-<Space>\%#]],
-  { 'markdown'  }
+  insx.with(
+    {
+      enabled = function(ctx)
+        local line = vim.api.nvim_get_current_line()
+        -- "- " の後に空白以外の文字がある行
+        return line:match('^%s*-%s%S') ~= nil
+      end,
+      action = function(ctx)
+        -- 行末に移動してから改行し、新しい行に「- 」を挿入
+        vim.api.nvim_feedkeys(
+          vim.api.nvim_replace_termcodes('<End><CR>-<Space>', true, false, true),
+          'n',
+          false
+        )
+      end
+    },
+    {
+      insx.with.filetype({'markdown'})
+    }
+  )
 )
 
 -- ============================================================================
@@ -823,25 +783,25 @@ ft_substitute(
 ft_substitute(
   '<C-h>',
   [[^#\s\%#]],
-  [[<BS><BS>\%#]],
+  [[\%#]],
   { 'octo'  }
 )
 ft_substitute(
   '<C-h>',
   [[##\s\%#]],
-  [[<BS><BS><Space>\%#]],
+  [[#<Space>\%#]],
   { 'octo'  }
 )
 ft_substitute(
   '<BS>',
   [[^#\s\%#]],
-  [[<BS><BS>\%#]],
+  [[\%#]],
   { 'octo'  }
 )
 ft_substitute(
   '<BS>',
   [[##\s\%#]],
-  [[<BS><BS><Space>\%#]],
+  [[#<Space>\%#]],
   { 'octo'  }
 )
 
@@ -853,18 +813,28 @@ ft_substitute(
   { 'octo'  }
 )
 
--- Tab でインデント
-ft_substitute(
+-- Tab でインデント（リストマーカー "- " がある場合）
+insx.add(
   '<Tab>',
-  [[^\s*-\s\%#]],
-  [[<Home><Tab><End>\%#]],
-  { 'octo'  }
-)
-ft_substitute(
-  '<Tab>',
-  [[^\s*-\s\w.*\%#]],
-  [[<Home><Tab><End>\%#]],
-  { 'octo'  }
+  insx.with(
+    {
+      enabled = function(ctx)
+        local line = vim.api.nvim_get_current_line()
+        return line:match('^%s*-%s') ~= nil
+      end,
+      action = function(ctx)
+        -- 行頭に移動 → タブ挿入 → 行末に移動
+        vim.api.nvim_feedkeys(
+          vim.api.nvim_replace_termcodes('<Home><Tab><End>', true, false, true),
+          'n',
+          false
+        )
+      end
+    },
+    {
+      insx.with.filetype({'octo'})
+    }
+  )
 )
 
 -- Shift-Tab でアンインデント
@@ -891,25 +861,25 @@ ft_substitute(
 ft_substitute(
   '<C-h>',
   [[^-\s\%#]],
-  [[<C-w><BS>\%#]],
+  [[<C-w>\%#]],
   { 'octo'  }
 )
 ft_substitute(
   '<C-h>',
   [[^\s+-\s\%#]],
-  [[<C-w><C-w><BS>\%#]],
+  [[<C-w><C-w>\%#]],
   { 'octo'  }
 )
 ft_substitute(
   '<BS>',
   [[^-\s\%#]],
-  [[<C-w><BS>\%#]],
+  [[<C-w>\%#]],
   { 'octo'  }
 )
 ft_substitute(
   '<BS>',
   [[^\s+-\s\%#]],
-  [[<C-w><C-w><BS>\%#]],
+  [[<C-w><C-w>\%#]],
   { 'octo'  }
 )
 
@@ -927,12 +897,30 @@ ft_substitute(
   { 'octo'  }
 )
 
--- Enter でリスト継続
-ft_substitute(
+-- Enter でリスト継続（カスタムアクション版）
+-- カーソル位置に関わらず、元の行のテキストを保持したまま新しい行に「- 」を挿入
+insx.add(
   '<CR>',
-  [[^\s*-\s\w.*\%#]],
-  [[<CR>-<Space>\%#]],
-  { 'octo'  }
+  insx.with(
+    {
+      enabled = function(ctx)
+        local line = vim.api.nvim_get_current_line()
+        -- "- " の後に空白以外の文字がある行
+        return line:match('^%s*-%s%S') ~= nil
+      end,
+      action = function(ctx)
+        -- 行末に移動してから改行し、新しい行に「- 」を挿入
+        vim.api.nvim_feedkeys(
+          vim.api.nvim_replace_termcodes('<End><CR>-<Space>', true, false, true),
+          'n',
+          false
+        )
+      end
+    },
+    {
+      insx.with.filetype({'octo'})
+    }
+  )
 )
 
 -- チェックボックス入力
@@ -943,12 +931,30 @@ ft_substitute(
   { 'octo'  }
 )
 
--- チェックボックス Tab/Shift-Tab
-ft_substitute(
+-- チェックボックスでの Tab インデント
+insx.add(
   '<Tab>',
-  [=[^\s*-\s\[\%#\]\s]=],
-  [[<Home><Tab><End><Left><Left>\%#]],
-  { 'octo'  }
+  insx.with(
+    {
+      enabled = function(ctx)
+        local line = vim.api.nvim_get_current_line()
+        local col = vim.api.nvim_win_get_cursor(0)[2]
+        -- "- []" がある場合
+        return line:match('^%s*-%s%[%]%s') ~= nil
+      end,
+      action = function(ctx)
+        -- 行頭に移動 → タブ挿入 → 行末に移動 → 左2文字移動（] の中に戻る）
+        vim.api.nvim_feedkeys(
+          vim.api.nvim_replace_termcodes('<Home><Tab><End><Left><Left>', true, false, true),
+          'n',
+          false
+        )
+      end
+    },
+    {
+      insx.with.filetype({'octo'})
+    }
+  )
 )
 ft_substitute(
   '<S-Tab>',
@@ -1005,18 +1011,28 @@ ft_substitute(
   { 'octo'  }
 )
 
--- チェック済みボックス Tab/Shift-Tab
-ft_substitute(
+-- チェックボックス（チェック済み/未チェック）での Tab インデント
+insx.add(
   '<Tab>',
-  [=[^\s*-\s\[(\s|x)\]\s\%#]=],
-  [[<Home><Tab><End>\%#]],
-  { 'octo'  }
-)
-ft_substitute(
-  '<Tab>',
-  [=[^\s*-\s\[(\s|x)\]\s\w.*\%#]=],
-  [[<Home><Tab><End>\%#]],
-  { 'octo'  }
+  insx.with(
+    {
+      enabled = function(ctx)
+        local line = vim.api.nvim_get_current_line()
+        return line:match('^%s*-%s%[[ x]%]%s') ~= nil
+      end,
+      action = function(ctx)
+        -- 行頭に移動 → タブ挿入 → 行末に移動
+        vim.api.nvim_feedkeys(
+          vim.api.nvim_replace_termcodes('<Home><Tab><End>', true, false, true),
+          'n',
+          false
+        )
+      end
+    },
+    {
+      insx.with.filetype({'octo'})
+    }
+  )
 )
 ft_substitute(
   '<S-Tab>',
@@ -1076,11 +1092,30 @@ ft_substitute(
   [[<C-w><C-w><C-w><C-w><CR>\%#]],
   { 'octo'  }
 )
-ft_substitute(
+-- チェックボックス（チェック済み/未チェック）での Enter（リスト継続）
+-- カーソル位置に関わらず、元の行のテキストを保持したまま新しい行に「- [ ] 」を挿入
+insx.add(
   '<CR>',
-  [=[^\s*-\s\[(\s|x)\]\s\w.*\%#]=],
-  [=[<CR>-<Space>[]<Space><Left><Left>\%#]=],
-  { 'octo'  }
+  insx.with(
+    {
+      enabled = function(ctx)
+        local line = vim.api.nvim_get_current_line()
+        -- "- [ ]" または "- [x]" の後に空白以外の文字がある行
+        return line:match('^%s*-%s%[[ x]%]%s%S') ~= nil
+      end,
+      action = function(ctx)
+        -- 行末に移動してから改行し、新しい行に「- [ ] 」を挿入、カーソルを[]内に配置
+        vim.api.nvim_feedkeys(
+          vim.api.nvim_replace_termcodes('<End><CR>-<Space>[]<Space><Left><Left>', true, false, true),
+          'n',
+          false
+        )
+      end
+    },
+    {
+      insx.with.filetype({'octo'})
+    }
+  )
 )
 
 -- ============================================================================
