@@ -1,7 +1,26 @@
+" ============================================================================
+" lexima.vim configuration (Minimal - Command Mode Aliases Only)
+" ============================================================================
+"
+" Most input assistance features have been migrated to nvim-insx.
+" See: rc/plugins/insx.vim
+"
+" This file now only contains:
+" - Command mode aliases (LeximaAlterCommand)
+" - Environment-specific settings that are difficult to implement in nvim-insx
+"
+" Migration date: 2025-10-25
+" ============================================================================
+
 " Enterキーで補完候補を選択する際のlexima.vimの動作を無効化
 let lexima_accept_pum_with_enter = 0
 
-" iterm専用
+" ============================================================================
+" Environment-Specific Settings
+" ============================================================================
+
+" iterm専用 - 「」の入力補助
+" Note: This is environment-specific and remains in lexima.vim
 if g:IsMacNeovim() && !g:IsMacNeovimInWork() && !g:IsMacNeovimInWezterm()
   " 「」で囲まれた行でEnterを押すと、改行して新しい「」ペアを作成
   " at: 行頭(^)から「で始まり、カーソル位置(\%#)があり、」で終わる
@@ -14,424 +33,11 @@ if g:IsMacNeovim() && !g:IsMacNeovimInWork() && !g:IsMacNeovimInWezterm()
      \ })
 endif
 
-let s:rules = []
-
-" changelog {{{1
-" ]の直前でコロンを入力すると、]の後ろにコロンを配置
-" 例: [issue\%#] → [issue]:  (\%#はカーソル位置)
-call lexima#add_rule({
-    \   'at'    : '\%#]',
-    \   'char'  : ':',
-    \   'input' : '<Right>:',
-    \   'filetype': ['changelog']
-    \   })
-
-" 行頭（タブ考慮）に『・』があるときの改行
-" at: 行頭(^)、任意の空白(\s*)、・があり、カーソル(\%#)が行末($)にある
-" input: 改行して新しい・を自動挿入
-call lexima#add_rule({
-      \ 'char': '<CR>',
-      \ 'at': '^\s*・.*\%#$',
-      \ 'input': '<CR>・',
-      \ 'filetype': 'changelog',
-      \ })
-
-" changelog {{{1
-call lexima#add_rule({
-    \   'at'    : '\%#]',
-    \   'char'  : ':',
-    \   'input' : '<Right>:',
-    \   'filetype': ['changelog']
-    \   })
-
-call lexima#add_rule({
-      \ 'char': '<CR>',
-      \ 'at': '^\s*・.*\%#$',
-      \ 'input': '<CR>・',
-      \ 'filetype': 'changelog',
-      \ })
-
-
-let s:rules += [
-      \ { 'filetype': 'changelog', 'char': '#',       'at': '^\%#\%(#\)\@!',                  'input': '#<Space>'                           },
-      \ { 'filetype': 'changelog', 'char': '#',       'at': '#\s\%#',                         'input': '<BS>#<Space>',                      },
-      \ { 'filetype': 'changelog', 'char': '<C-h>',   'at': '^#\s\%#',                        'input': '<BS><BS>'                           },
-      \ { 'filetype': 'changelog', 'char': '<C-h>',   'at': '##\s\%#',                        'input': '<BS><BS><Space>',                   },
-      \ { 'filetype': 'changelog', 'char': '<BS>',    'at': '^#\s\%#',                        'input': '<BS><BS>'                           },
-      \ { 'filetype': 'changelog', 'char': '<BS>',    'at': '##\s\%#',                        'input': '<BS><BS><Space>',                   },
-      \ { 'filetype': 'changelog', 'char': '-',       'at': '^\s*\%#',                        'input': '-<Space>',                          },
-      \ { 'filetype': 'changelog', 'char': '<Tab>',   'at': '^\s*-\s\%#',                     'input': '<Home><Tab><End>',                  },
-      \ { 'filetype': 'changelog', 'char': '<Tab>',   'at': '^\s*-\s\w.*\%#',                 'input': '<Home><Tab><End>',                  },
-      \ { 'filetype': 'changelog', 'char': '<S-Tab>', 'at': '^\s\+-\s\%#',                    'input': '<Home><Del><Del><End>',             },
-      \ { 'filetype': 'changelog', 'char': '<S-Tab>', 'at': '^\s\+-\s\w.*\%#',                'input': '<Home><Del><Del><End>',             },
-      \ { 'filetype': 'changelog', 'char': '<S-Tab>', 'at': '^-\s\w.*\%#',                    'input': '',                                  },
-      \ { 'filetype': 'changelog', 'char': '<C-h>',   'at': '^-\s\%#',                        'input': '<C-w><BS>',                         },
-      \ { 'filetype': 'changelog', 'char': '<C-h>',   'at': '^\s\+-\s\%#',                    'input': '<C-w><C-w><BS>',                    },
-      \ { 'filetype': 'changelog', 'char': '<BS>',    'at': '^-\s\%#',                        'input': '<C-w><BS>',                         },
-      \ { 'filetype': 'changelog', 'char': '<BS>',    'at': '^\s\+-\s\%#',                    'input': '<C-w><C-w><BS>',                    },
-      \ { 'filetype': 'changelog', 'char': '<CR>',    'at': '^-\s\%#',                        'input': '<C-w><CR>',                         },
-      \ { 'filetype': 'changelog', 'char': '<CR>',    'at': '^\s\+-\s\%#',                    'input': '<C-w><C-w><CR>',                    },
-      \ { 'filetype': 'changelog', 'char': '<CR>',    'at': '^\s*-\s\w.*\%#',                 'input': '<CR>-<Space>',                      },
-      \ { 'filetype': 'changelog', 'char': '[',       'at': '^\s*-\s\%#',                     'input': '<Left><Space>[]<Left>',             },
-      \ { 'filetype': 'changelog', 'char': '<Tab>',   'at': '^\s*-\s\[\%#\]\s',               'input': '<Home><Tab><End><Left><Left>',      },
-      \ { 'filetype': 'changelog', 'char': '<S-Tab>', 'at': '^-\s\[\%#\]\s',                  'input': '',                                  },
-      \ { 'filetype': 'changelog', 'char': '<S-Tab>', 'at': '^\s\+-\s\[\%#\]\s',              'input': '<Home><Del><Del><End><Left><Left>', },
-      \ { 'filetype': 'changelog', 'char': '<C-h>',   'at': '^\s*-\s\[\%#\]',                 'input': '<BS><Del><Del>',                    },
-      \ { 'filetype': 'changelog', 'char': '<BS>',    'at': '^\s*-\s\[\%#\]',                 'input': '<BS><Del><Del>',                    },
-      \ { 'filetype': 'changelog', 'char': '<Space>', 'at': '^\s*-\s\[\%#\]',                 'input': '<Space><End>',                      },
-      \ { 'filetype': 'changelog', 'char': 'x',       'at': '^\s*-\s\[\%#\]',                 'input': 'x<End>',                            },
-      \ { 'filetype': 'changelog', 'char': '<CR>',    'at': '^-\s\[\%#\]',                    'input': '<End><C-w><C-w><C-w><CR>',          },
-      \ { 'filetype': 'changelog', 'char': '<CR>',    'at': '^\s\+-\s\[\%#\]',                'input': '<End><C-w><C-w><C-w><C-w><CR>',     },
-      \ { 'filetype': 'changelog', 'char': '<Tab>',   'at': '^\s*-\s\[\(\s\|x\)\]\s\%#',      'input': '<Home><Tab><End>',                  },
-      \ { 'filetype': 'changelog', 'char': '<Tab>',   'at': '^\s*-\s\[\(\s\|x\)\]\s\w.*\%#',  'input': '<Home><Tab><End>',                  },
-      \ { 'filetype': 'changelog', 'char': '<S-Tab>', 'at': '^\s\+-\s\[\(\s\|x\)\]\s\%#',     'input': '<Home><Del><Del><End>',             },
-      \ { 'filetype': 'changelog', 'char': '<S-Tab>', 'at': '^\s\+-\s\[\(\s\|x\)\]\s\w.*\%#', 'input': '<Home><Del><Del><End>',             },
-      \ { 'filetype': 'changelog', 'char': '<S-Tab>', 'at': '^-\s\[\(\s\|x\)\]\s\w.*\%#',     'input': '',                                  },
-      \ { 'filetype': 'changelog', 'char': '<C-h>',   'at': '^-\s\[\(\s\|x\)\]\s\%#',         'input': '<C-w><C-w><C-w><BS>',               },
-      \ { 'filetype': 'changelog', 'char': '<C-h>',   'at': '^\s\+-\s\[\(\s\|x\)\]\s\%#',     'input': '<C-w><C-w><C-w><C-w><BS>',          },
-      \ { 'filetype': 'changelog', 'char': '<BS>',    'at': '^-\s\[\(\s\|x\)\]\s\%#',         'input': '<C-w><C-w><C-w><BS>',               },
-      \ { 'filetype': 'changelog', 'char': '<BS>',    'at': '^\s\+-\s\[\(\s\|x\)\]\s\%#',     'input': '<C-w><C-w><C-w><C-w><BS>',          },
-      \ { 'filetype': 'changelog', 'char': '<CR>',    'at': '^-\s\[\(\s\|x\)\]\s\%#',         'input': '<C-w><C-w><C-w><CR>',               },
-      \ { 'filetype': 'changelog', 'char': '<CR>',    'at': '^\s\+-\s\[\(\s\|x\)\]\s\%#',     'input': '<C-w><C-w><C-w><C-w><CR>',          },
-      \ { 'filetype': 'changelog', 'char': '<CR>',    'at': '^\s*-\s\[\(\s\|x\)\]\s\w.*\%#',  'input': '<CR>-<Space>[]<Space><Left><Left>', },
-      \ ]
-
-" }}}1
-
-" php {{{1
-call lexima#add_rule({
-    \   'at'    : '->\%#',
-    \   'char'  : '<BS>',
-    \   'input' : '<BS><BS>',
-    \   'filetype': ['php']
-    \   })
-
-call lexima#add_rule({
-    \   'at'    : '^ *\%#',
-    \   'char'  : '>',
-    \   'input' : '->',
-    \   'filetype': ['php']
-    \   })
-
-call lexima#add_rule({
-    \   'at'    : ')\%#',
-    \   'char'  : '>',
-    \   'input' : '->',
-    \   'filetype': ['php']
-    \   })
-
-let s:rules += [
-      \ { 'filetype': 'php', 'char': '$' ,       'at': '$\%#',    'input': 'this->'                            },
-      \ { 'filetype': 'php', 'char': '>' ,       'at': '$.*\%#',  'input': '->'                              },
-      \ { 'filetype': 'php', 'char': '>' ,       'at': '.*)\%#',  'input': '->'                              },
-      \ { 'filetype': 'php', 'char': '>' ,       'at': '.*\%#''', 'input': '<Right> => '                              },
-      \ ]
-
-
-" }}}1
-
-" text {{{1
-let s:rules += [
-      \ { 'filetype': 'text', 'char': '#',       'at': '^\%#\%(#\)\@!',                  'input': '#<Space>'                           },
-      \ { 'filetype': 'text', 'char': '#',       'at': '#\s\%#',                         'input': '<BS>#<Space>',                      },
-      \ { 'filetype': 'text', 'char': '<C-h>',   'at': '^#\s\%#',                        'input': '<BS><BS>'                           },
-      \ { 'filetype': 'text', 'char': '<C-h>',   'at': '##\s\%#',                        'input': '<BS><BS><Space>',                   },
-      \ { 'filetype': 'text', 'char': '<BS>',    'at': '^#\s\%#',                        'input': '<BS><BS>'                           },
-      \ { 'filetype': 'text', 'char': '<BS>',    'at': '##\s\%#',                        'input': '<BS><BS><Space>',                   },
-      \ { 'filetype': 'text', 'char': '-',       'at': '^\s*\%#',                        'input': '-<Space>',                          },
-      \ { 'filetype': 'text', 'char': '<Tab>',   'at': '^\s*-\s\%#',                     'input': '<Home><Tab><End>',                  },
-      \ { 'filetype': 'text', 'char': '<Tab>',   'at': '^\s*-\s\w.*\%#',                 'input': '<Home><Tab><End>',                  },
-      \ { 'filetype': 'text', 'char': '<S-Tab>', 'at': '^\s\+-\s\%#',                    'input': '<Home><Del><Del><End>',             },
-      \ { 'filetype': 'text', 'char': '<S-Tab>', 'at': '^\s\+-\s\w.*\%#',                'input': '<Home><Del><Del><End>',             },
-      \ { 'filetype': 'text', 'char': '<S-Tab>', 'at': '^-\s\w.*\%#',                    'input': '',                                  },
-      \ { 'filetype': 'text', 'char': '<C-h>',   'at': '^-\s\%#',                        'input': '<C-w><BS>',                         },
-      \ { 'filetype': 'text', 'char': '<C-h>',   'at': '^\s\+-\s\%#',                    'input': '<C-w><C-w><BS>',                    },
-      \ { 'filetype': 'text', 'char': '<BS>',    'at': '^-\s\%#',                        'input': '<C-w><BS>',                         },
-      \ { 'filetype': 'text', 'char': '<BS>',    'at': '^\s\+-\s\%#',                    'input': '<C-w><C-w><BS>',                    },
-      \ { 'filetype': 'text', 'char': '<CR>',    'at': '^-\s\%#',                        'input': '<C-w><CR>',                         },
-      \ { 'filetype': 'text', 'char': '<CR>',    'at': '^\s\+-\s\%#',                    'input': '<C-w><C-w><CR>',                    },
-      \ { 'filetype': 'text', 'char': '<CR>',    'at': '^\s*-\s\w.*\%#',                 'input': '<CR>-<Space>',                      },
-      \ { 'filetype': 'text', 'char': '[',       'at': '^\s*-\s\%#',                     'input': '<Left><Space>[]<Left>',             },
-      \ { 'filetype': 'text', 'char': '<Tab>',   'at': '^\s*-\s\[\%#\]\s',               'input': '<Home><Tab><End><Left><Left>',      },
-      \ { 'filetype': 'text', 'char': '<S-Tab>', 'at': '^-\s\[\%#\]\s',                  'input': '',                                  },
-      \ { 'filetype': 'text', 'char': '<S-Tab>', 'at': '^\s\+-\s\[\%#\]\s',              'input': '<Home><Del><Del><End><Left><Left>', },
-      \ { 'filetype': 'text', 'char': '<C-h>',   'at': '^\s*-\s\[\%#\]',                 'input': '<BS><Del><Del>',                    },
-      \ { 'filetype': 'text', 'char': '<BS>',    'at': '^\s*-\s\[\%#\]',                 'input': '<BS><Del><Del>',                    },
-      \ { 'filetype': 'text', 'char': '<Space>', 'at': '^\s*-\s\[\%#\]',                 'input': '<Space><End>',                      },
-      \ { 'filetype': 'text', 'char': 'x',       'at': '^\s*-\s\[\%#\]',                 'input': 'x<End>',                            },
-      \ { 'filetype': 'text', 'char': '<CR>',    'at': '^-\s\[\%#\]',                    'input': '<End><C-w><C-w><C-w><CR>',          },
-      \ { 'filetype': 'text', 'char': '<CR>',    'at': '^\s\+-\s\[\%#\]',                'input': '<End><C-w><C-w><C-w><C-w><CR>',     },
-      \ { 'filetype': 'text', 'char': '<Tab>',   'at': '^\s*-\s\[\(\s\|x\)\]\s\%#',      'input': '<Home><Tab><End>',                  },
-      \ { 'filetype': 'text', 'char': '<Tab>',   'at': '^\s*-\s\[\(\s\|x\)\]\s\w.*\%#',  'input': '<Home><Tab><End>',                  },
-      \ { 'filetype': 'text', 'char': '<S-Tab>', 'at': '^\s\+-\s\[\(\s\|x\)\]\s\%#',     'input': '<Home><Del><Del><End>',             },
-      \ { 'filetype': 'text', 'char': '<S-Tab>', 'at': '^\s\+-\s\[\(\s\|x\)\]\s\w.*\%#', 'input': '<Home><Del><Del><End>',             },
-      \ { 'filetype': 'text', 'char': '<S-Tab>', 'at': '^-\s\[\(\s\|x\)\]\s\w.*\%#',     'input': '',                                  },
-      \ { 'filetype': 'text', 'char': '<C-h>',   'at': '^-\s\[\(\s\|x\)\]\s\%#',         'input': '<C-w><C-w><C-w><BS>',               },
-      \ { 'filetype': 'text', 'char': '<C-h>',   'at': '^\s\+-\s\[\(\s\|x\)\]\s\%#',     'input': '<C-w><C-w><C-w><C-w><BS>',          },
-      \ { 'filetype': 'text', 'char': '<BS>',    'at': '^-\s\[\(\s\|x\)\]\s\%#',         'input': '<C-w><C-w><C-w><BS>',               },
-      \ { 'filetype': 'text', 'char': '<BS>',    'at': '^\s\+-\s\[\(\s\|x\)\]\s\%#',     'input': '<C-w><C-w><C-w><C-w><BS>',          },
-      \ { 'filetype': 'text', 'char': '<CR>',    'at': '^-\s\[\(\s\|x\)\]\s\%#',         'input': '<C-w><C-w><C-w><CR>',               },
-      \ { 'filetype': 'text', 'char': '<CR>',    'at': '^\s\+-\s\[\(\s\|x\)\]\s\%#',     'input': '<C-w><C-w><C-w><C-w><CR>',          },
-      \ { 'filetype': 'text', 'char': '<CR>',    'at': '^\s*-\s\[\(\s\|x\)\]\s\w.*\%#',  'input': '<CR>-<Space>[]<Space><Left><Left>', },
-      \ ]
-
-
-
-" }}}1
-
-" markdown {{{1
-let s:rules += [
-      \ { 'filetype': 'markdown', 'char': '#',       'at': '^\%#\%(#\)\@!',                  'input': '#<Space>'                           },
-      \ { 'filetype': 'markdown', 'char': '#',       'at': '#\s\%#',                         'input': '<BS>#<Space>',                      },
-      \ { 'filetype': 'markdown', 'char': '<C-h>',   'at': '^#\s\%#',                        'input': '<BS><BS>'                           },
-      \ { 'filetype': 'markdown', 'char': '<C-h>',   'at': '##\s\%#',                        'input': '<BS><BS><Space>',                   },
-      \ { 'filetype': 'markdown', 'char': '<BS>',    'at': '^#\s\%#',                        'input': '<BS><BS>'                           },
-      \ { 'filetype': 'markdown', 'char': '<BS>',    'at': '##\s\%#',                        'input': '<BS><BS><Space>',                   },
-      \ { 'filetype': 'markdown', 'char': '-',       'at': '^\s*\%#',                        'input': '-<Space>',                          },
-      \ { 'filetype': 'markdown', 'char': '<Tab>',   'at': '^\s*-\s\%#',                     'input': '<Home><Tab><End>',                  },
-      \ { 'filetype': 'markdown', 'char': '<Tab>',   'at': '^\s*-\s\w.*\%#',                 'input': '<Home><Tab><End>',                  },
-      \ { 'filetype': 'markdown', 'char': '<S-Tab>', 'at': '^\s\+-\s\%#',                    'input': '<Home><Del><Del><End>',             },
-      \ { 'filetype': 'markdown', 'char': '<S-Tab>', 'at': '^\s\+-\s\w.*\%#',                'input': '<Home><Del><Del><End>',             },
-      \ { 'filetype': 'markdown', 'char': '<S-Tab>', 'at': '^-\s\w.*\%#',                    'input': '',                                  },
-      \ { 'filetype': 'markdown', 'char': '<C-h>',   'at': '^-\s\%#',                        'input': '<C-w><BS>',                         },
-      \ { 'filetype': 'markdown', 'char': '<C-h>',   'at': '^\s\+-\s\%#',                    'input': '<C-w><C-w><BS>',                    },
-      \ { 'filetype': 'markdown', 'char': '<BS>',    'at': '^-\s\%#',                        'input': '<C-w>',                         },
-      \ { 'filetype': 'markdown', 'char': '<BS>',    'at': '^\s\+-\s\%#',                    'input': '<C-w><C-w>',                    },
-      \ { 'filetype': 'markdown', 'char': '<CR>',    'at': '^-\s\%#',                        'input': '<C-w><CR>',                         },
-      \ { 'filetype': 'markdown', 'char': '<CR>',    'at': '^\s\+-\s\%#',                    'input': '<C-w><C-w><CR>',                    },
-      \ { 'filetype': 'markdown', 'char': '<CR>',    'at': '^\s*-\s\w.*\%#',                 'input': '<CR>-<Space>',                      },
-      \ ]
-
-      " \ { 'filetype': 'markdown', 'char': '[',       'at': '^\s*-\s\%#',                     'input': '[<Space>]<Left><Left>',             },
-      " \ { 'filetype': 'markdown', 'char': '<Tab>',   'at': '^\s*-\s\[\%#\]\s',               'input': '<Home><Tab><End><Left><Left>',      },
-      " \ { 'filetype': 'markdown', 'char': '<S-Tab>', 'at': '^-\s\[\%#\]\s',                  'input': '',                                  },
-      " \ { 'filetype': 'markdown', 'char': '<S-Tab>', 'at': '^\s\+-\s\[\%#\]\s',              'input': '<Home><Del><Del><End><Left><Left>', },
-      " \ { 'filetype': 'markdown', 'char': '<C-h>',   'at': '^\s*-\s\[\%#\]',                 'input': '<BS><Del><Del>',                    },
-      " \ { 'filetype': 'markdown', 'char': '<BS>',    'at': '^\s*-\s\[\%#\]',                 'input': '<BS><Del><Del>',                    },
-      " \ { 'filetype': 'markdown', 'char': '<Space>', 'at': '^\s*-\s\[\%#\]',                 'input': '<Space><End>',                      },
-      " \ { 'filetype': 'markdown', 'char': 'x',       'at': '^\s*-\s\[\%#\]',                 'input': 'x<End>',                            },
-      " \ { 'filetype': 'markdown', 'char': '<CR>',    'at': '^-\s\[\%#\]',                    'input': '<End><C-w><C-w><C-w><CR>',          },
-      " \ { 'filetype': 'markdown', 'char': '<CR>',    'at': '^\s\+-\s\[\%#\]',                'input': '<End><C-w><C-w><C-w><C-w><CR>',     },
-      " \ { 'filetype': 'markdown', 'char': '<Tab>',   'at': '^\s*-\s\[\(\s\|x\)\]\s\%#',      'input': '<Home><Tab><End>',                  },
-      " \ { 'filetype': 'markdown', 'char': '<Tab>',   'at': '^\s*-\s\[\(\s\|x\)\]\s\w.*\%#',  'input': '<Home><Tab><End>',                  },
-      " \ { 'filetype': 'markdown', 'char': '<S-Tab>', 'at': '^\s\+-\s\[\(\s\|x\)\]\s\%#',     'input': '<Home><Del><Del><End>',             },
-      " \ { 'filetype': 'markdown', 'char': '<S-Tab>', 'at': '^\s\+-\s\[\(\s\|x\)\]\s\w.*\%#', 'input': '<Home><Del><Del><End>',             },
-      " \ { 'filetype': 'markdown', 'char': '<S-Tab>', 'at': '^-\s\[\(\s\|x\)\]\s\w.*\%#',     'input': '',                                  },
-      " \ { 'filetype': 'markdown', 'char': '<C-h>',   'at': '^-\s\[\(\s\|x\)\]\s\%#',         'input': '<C-w><C-w><C-w><BS>',               },
-      " \ { 'filetype': 'markdown', 'char': '<C-h>',   'at': '^\s\+-\s\[\(\s\|x\)\]\s\%#',     'input': '<C-w><C-w><C-w><C-w><BS>',          },
-      " \ { 'filetype': 'markdown', 'char': '<BS>',    'at': '^-\s\[\(\s\|x\)\]\s\%#',         'input': '<C-w><C-w><C-w>',               },
-      " \ { 'filetype': 'markdown', 'char': '<BS>',    'at': '^\s\+-\s\[\(\s\|x\)\]\s\%#',     'input': '<C-w><C-w><C-w><C-w>',          },
-      " \ { 'filetype': 'markdown', 'char': '<CR>',    'at': '^-\s\[\(\s\|x\)\]\s\%#',         'input': '<C-w><C-w><C-w><CR>',               },
-      " \ { 'filetype': 'markdown', 'char': '<CR>',    'at': '^\s\+-\s\[\(\s\|x\)\]\s\%#',     'input': '<C-w><C-w><C-w><C-w><CR>',          },
-      " \ { 'filetype': 'markdown', 'char': '<CR>',    'at': '^\s*-\s\[\(\s\|x\)\]\s\w.*\%#',  'input': '<CR>-<Space>[]<Space><Left><Left>', },
-      " \ { 'filetype': 'markdown', 'char': '<BS>',    'at': '^-\s\%#',                        'input': '<C-w><BS>',                         },
-      " \ { 'filetype': 'markdown', 'char': '<BS>',    'at': '^\s\+-\s\%#',                    'input': '<C-w><C-w><BS>',                    },
-      " \ { 'filetype': 'markdown', 'char': '<BS>',    'at': '^-\s\[\(\s\|x\)\]\s\%#',         'input': '<C-w><C-w><C-w><BS>',               },
-      " \ { 'filetype': 'markdown', 'char': '<BS>',    'at': '^\s\+-\s\[\(\s\|x\)\]\s\%#',     'input': '<C-w><C-w><C-w><C-w><BS>',          },
-
-" }}}1
-
-" octo {{{1
- let s:rules += [
-      \ { 'filetype': 'octo', 'char': '#',       'at': '^\%#\%(#\)\@!',                  'input': '#<Space>'                           },
-      \ { 'filetype': 'octo', 'char': '#',       'at': '#\s\%#',                         'input': '<BS>#<Space>',                      },
-      \ { 'filetype': 'octo', 'char': '<C-h>',   'at': '^#\s\%#',                        'input': '<BS><BS>'                           },
-      \ { 'filetype': 'octo', 'char': '<C-h>',   'at': '##\s\%#',                        'input': '<BS><BS><Space>',                   },
-      \ { 'filetype': 'octo', 'char': '<BS>',    'at': '^#\s\%#',                        'input': '<BS><BS>'                           },
-      \ { 'filetype': 'octo', 'char': '<BS>',    'at': '##\s\%#',                        'input': '<BS><BS><Space>',                   },
-      \ { 'filetype': 'octo', 'char': '-',       'at': '^\s*\%#',                        'input': '-<Space>',                          },
-      \ { 'filetype': 'octo', 'char': '<Tab>',   'at': '^\s*-\s\%#',                     'input': '<Home><Tab><End>',                  },
-      \ { 'filetype': 'octo', 'char': '<Tab>',   'at': '^\s*-\s\w.*\%#',                 'input': '<Home><Tab><End>',                  },
-      \ { 'filetype': 'octo', 'char': '<S-Tab>', 'at': '^\s\+-\s\%#',                    'input': '<Home><Del><Del><End>',             },
-      \ { 'filetype': 'octo', 'char': '<S-Tab>', 'at': '^\s\+-\s\w.*\%#',                'input': '<Home><Del><Del><End>',             },
-      \ { 'filetype': 'octo', 'char': '<S-Tab>', 'at': '^-\s\w.*\%#',                    'input': '',                                  },
-      \ { 'filetype': 'octo', 'char': '<C-h>',   'at': '^-\s\%#',                        'input': '<C-w><BS>',                         },
-      \ { 'filetype': 'octo', 'char': '<C-h>',   'at': '^\s\+-\s\%#',                    'input': '<C-w><C-w><BS>',                    },
-      \ { 'filetype': 'octo', 'char': '<BS>',    'at': '^-\s\%#',                        'input': '<C-w><BS>',                         },
-      \ { 'filetype': 'octo', 'char': '<BS>',    'at': '^\s\+-\s\%#',                    'input': '<C-w><C-w><BS>',                    },
-      \ { 'filetype': 'octo', 'char': '<CR>',    'at': '^-\s\%#',                        'input': '<C-w><CR>',                         },
-      \ { 'filetype': 'octo', 'char': '<CR>',    'at': '^\s\+-\s\%#',                    'input': '<C-w><C-w><CR>',                    },
-      \ { 'filetype': 'octo', 'char': '<CR>',    'at': '^\s*-\s\w.*\%#',                 'input': '<CR>-<Space>',                      },
-      \ { 'filetype': 'octo', 'char': '[',       'at': '^\s*-\s\%#',                     'input': '<Left><Space>[]<Left>',             },
-      \ { 'filetype': 'octo', 'char': '<Tab>',   'at': '^\s*-\s\[\%#\]\s',               'input': '<Home><Tab><End><Left><Left>',      },
-      \ { 'filetype': 'octo', 'char': '<S-Tab>', 'at': '^-\s\[\%#\]\s',                  'input': '',                                  },
-      \ { 'filetype': 'octo', 'char': '<S-Tab>', 'at': '^\s\+-\s\[\%#\]\s',              'input': '<Home><Del><Del><End><Left><Left>', },
-      \ { 'filetype': 'octo', 'char': '<C-h>',   'at': '^\s*-\s\[\%#\]',                 'input': '<BS><Del><Del>',                    },
-      \ { 'filetype': 'octo', 'char': '<BS>',    'at': '^\s*-\s\[\%#\]',                 'input': '<BS><Del><Del>',                    },
-      \ { 'filetype': 'octo', 'char': '<Space>', 'at': '^\s*-\s\[\%#\]',                 'input': '<Space><End>',                      },
-      \ { 'filetype': 'octo', 'char': 'x',       'at': '^\s*-\s\[\%#\]',                 'input': 'x<End>',                            },
-      \ { 'filetype': 'octo', 'char': '<CR>',    'at': '^-\s\[\%#\]',                    'input': '<End><C-w><C-w><C-w><CR>',          },
-      \ { 'filetype': 'octo', 'char': '<CR>',    'at': '^\s\+-\s\[\%#\]',                'input': '<End><C-w><C-w><C-w><C-w><CR>',     },
-      \ { 'filetype': 'octo', 'char': '<Tab>',   'at': '^\s*-\s\[\(\s\|x\)\]\s\%#',      'input': '<Home><Tab><End>',                  },
-      \ { 'filetype': 'octo', 'char': '<Tab>',   'at': '^\s*-\s\[\(\s\|x\)\]\s\w.*\%#',  'input': '<Home><Tab><End>',                  },
-      \ { 'filetype': 'octo', 'char': '<S-Tab>', 'at': '^\s\+-\s\[\(\s\|x\)\]\s\%#',     'input': '<Home><Del><Del><End>',             },
-      \ { 'filetype': 'octo', 'char': '<S-Tab>', 'at': '^\s\+-\s\[\(\s\|x\)\]\s\w.*\%#', 'input': '<Home><Del><Del><End>',             },
-      \ { 'filetype': 'octo', 'char': '<S-Tab>', 'at': '^-\s\[\(\s\|x\)\]\s\w.*\%#',     'input': '',                                  },
-      \ { 'filetype': 'octo', 'char': '<C-h>',   'at': '^-\s\[\(\s\|x\)\]\s\%#',         'input': '<C-w><C-w><C-w><BS>',               },
-      \ { 'filetype': 'octo', 'char': '<C-h>',   'at': '^\s\+-\s\[\(\s\|x\)\]\s\%#',     'input': '<C-w><C-w><C-w><C-w><BS>',          },
-      \ { 'filetype': 'octo', 'char': '<BS>',    'at': '^-\s\[\(\s\|x\)\]\s\%#',         'input': '<C-w><C-w><C-w><BS>',               },
-      \ { 'filetype': 'octo', 'char': '<BS>',    'at': '^\s\+-\s\[\(\s\|x\)\]\s\%#',     'input': '<C-w><C-w><C-w><C-w><BS>',          },
-      \ { 'filetype': 'octo', 'char': '<CR>',    'at': '^-\s\[\(\s\|x\)\]\s\%#',         'input': '<C-w><C-w><C-w><CR>',               },
-      \ { 'filetype': 'octo', 'char': '<CR>',    'at': '^\s\+-\s\[\(\s\|x\)\]\s\%#',     'input': '<C-w><C-w><C-w><C-w><CR>',          },
-      \ { 'filetype': 'octo', 'char': '<CR>',    'at': '^\s*-\s\[\(\s\|x\)\]\s\w.*\%#',  'input': '<CR>-<Space>[]<Space><Left><Left>', },
-      \ ]
-
-
-" }}}1
-
-for s:rule in s:rules
-  call lexima#add_rule(s:rule)
-endfor
-
-" general {{{
-call lexima#add_rule({
-    \   'at'    : '\%#)',
-    \   'char'  : ';',
-    \   'input' : '<Right>;',
-    \   })
-call lexima#add_rule({
-    \   'at'    : ')\%#',
-    \   'char'  : '>',
-    \   'input' : ' => ',
-    \   })
-
-call lexima#add_rule({
-    \   'at'    : '\%#]',
-    \   'char'  : ';',
-    \   'input' : '<Right>;',
-    \   })
-call lexima#add_rule({
-    \   'at'    : '\%#'']',
-    \   'char'  : ';',
-    \   'input' : '<Right><Right>;',
-    \   })
-
-call lexima#add_rule({
-    \   'at'    : '".*\%#"',
-    \   'char'  : ';',
-    \   'input' : '<Right>;',
-    \   })
-call lexima#add_rule({
-    \   'at'    : "\%#'",
-    \   'char'  : ';',
-    \   'input' : '<Right>;',
-    \   })
-call lexima#add_rule({
-    \   'at'    : '\%#")',
-    \   'char'  : ';',
-    \   'input' : '<Right><Right>;',
-    \   })
-call lexima#add_rule({
-    \   'at'    : '\%#"]',
-    \   'char'  : ';',
-    \   'input' : '<Right><Right>;',
-    \   })
-call lexima#add_rule({
-    \   'at'    : '\%#''',
-    \   'char'  : ';',
-    \   'input' : '<Right>;',
-    \   })
-call lexima#add_rule({
-    \   'at'    : '\%#'')',
-    \   'char'  : ';',
-    \   'input' : '<Right><Right>;',
-    \   })
-call lexima#add_rule({
-    \   'at'    : '\%#''',
-    \   'char'  : '<',
-    \   'input' : '<Right>, ',
-    \   })
-
-call lexima#add_rule({
-    \   'at'    : '\%#''',
-    \   'char'  : '=',
-    \   'input' : '<Right> = ',
-    \   })
-call lexima#add_rule({
-    \   'at'    : '\%#'')',
-    \   'char'  : '=',
-    \   'input' : '<Right><Right> = ',
-    \   })
-call lexima#add_rule({
-    \   'at'    : '\%#")',
-    \   'char'  : '=',
-    \   'input' : '<Right><Right> = ',
-    \   })
-call lexima#add_rule({
-    \   'at'    : '\%#'']',
-    \   'char'  : '=',
-    \   'input' : '<Right><Right> = ',
-    \   })
-call lexima#add_rule({
-    \   'at'    : '\%#"]',
-    \   'char'  : '=',
-    \   'input' : '<Right><Right> = ',
-    \   })
-
-call lexima#add_rule({
-    \   'at'    : '\%#',
-    \   'char'  : '=',
-    \   'input' : ' = ',
-    \   })
-call lexima#add_rule({'char': '=', 'at': ' = \%#',    'input': '<BS><BS><BS>='})
-call lexima#add_rule({'char': '=', 'at': '=\%#',    'input': '<BS> == '})
-call lexima#add_rule({'char': '=', 'at': ' == \%#',    'input': '<BS><BS><BS>=== '})
-call lexima#add_rule({'char': '=', 'at': ' === \%#',    'input': '<BS><BS><BS><BS>= '})
-
-call lexima#add_rule({
-    \   'at'    : '\%#',
-    \   'char'  : '%',
-    \   'input' : ' % ',
-    \   })
-call lexima#add_rule({'char': '%', 'at': ' % \%#',   'input': '<BS><BS><BS>%'})
-call lexima#add_rule({'char': '%', 'at': '%\%#',    'input': '<BS> % '})
-
-call lexima#add_rule({
-    \   'at'    : '\%#',
-    \   'char'  : '&',
-    \   'input' : ' & ',
-    \   })
-call lexima#add_rule({'char': '&', 'at': ' & \%#',   'input': '<BS><BS><BS> && '})
-call lexima#add_rule({'char': '&', 'at': ' && \%#',    'input': '<BS><BS><BS><BS>&'}) 
-call lexima#add_rule({'char': '&', 'at': '&\%#',    'input': '<BS> & '}) 
-
-call lexima#add_rule({
-    \   'at'    : '\%#',
-    \   'char'  : ',',
-    \   'input' : ', ',
-    \   })
-call lexima#add_rule({'char': ',', 'at': ', \%#',   'input': '<BS><BS>,'})
-call lexima#add_rule({'char': ',', 'at': ',\%#',    'input': '<BS>, '})
-
-
-call lexima#add_rule({
-    \   'at'    : '\%#',
-    \   'char'  : '!',
-    \   'input' : '!',
-    \   })
-call lexima#add_rule({'char': '!', 'at': '!\%#',   'input': '<BS> !== '})
-call lexima#add_rule({'char': '!', 'at': ' !== \%#',    'input': '<BS><BS><BS><BS><BS>!'})
-
-call lexima#add_rule({
-    \   'at'    : '\%#',
-    \   'char'  : '+',
-    \   'input' : '+',
-    \   })
-call lexima#add_rule({'char': '+', 'at': '+\%#',   'input': '<BS> + '})
-call lexima#add_rule({'char': '+', 'at': ' + \%#',    'input': '<BS><BS><BS>++'}) 
-call lexima#add_rule({'char': '+', 'at': '++\%#',    'input': '<BS><BS>+'}) 
-
-call lexima#add_rule({
-    \   'at'    : '\%#',
-    \   'char'  : '/',
-    \   'input' : '/',
-    \   })
-call lexima#add_rule({'char': '/', 'at': '/\%#',    'input': '<BS> / '})
-call lexima#add_rule({'char': '/', 'at': ' / \%#',    'input': '<BS><BS><BS>// '})
-call lexima#add_rule({'char': '/', 'at': '// \%#',    'input': '<BS><BS><BS>//'})
-call lexima#add_rule({'char': '/', 'at': '//\%#',    'input': '<BS><BS>/'})
-
-" }}}1
+" ============================================================================
+" Command Mode Aliases
+" ============================================================================
+" nvim-insxではコマンドモードの高度な操作が困難なため、
+" この機能のみlexima.vimで維持
 
 function! s:lexima_alter_command(original, altanative) abort
   let input_space = '<C-w>' .. a:altanative .. '<Space>'
@@ -439,7 +45,7 @@ function! s:lexima_alter_command(original, altanative) abort
 
   let rule = {
         \ 'mode': ':',
-        \ 'at': '^\(''<,''>\)\?' .. a:original .. '\%#',
+        \ 'at': '^\(''<,''>\ )\?' .. a:original .. '\%#',
         \ }
 
   call lexima#add_rule(extend(rule, { 'char': '<Space>', 'input': input_space }))
@@ -448,4 +54,21 @@ endfunction
 
 command! -nargs=+ LeximaAlterCommand call <SID>lexima_alter_command(<f-args>)
 
+" Command aliases
 LeximaAlterCommand omm OpenMindMap
+
+" ============================================================================
+" Migration Note
+" ============================================================================
+"
+" All filetype-specific input assistance and general operator spacing have
+" been migrated to nvim-insx. To restore the old lexima.vim configuration,
+" check git history before 2025-10-25.
+"
+" Migrated features:
+" - changelog/text/markdown/octo filetype rules
+" - PHP filetype rules
+" - General operator spacing (=, +, /, &, %, !, ,)
+" - Semicolon auto-placement
+"
+" ============================================================================

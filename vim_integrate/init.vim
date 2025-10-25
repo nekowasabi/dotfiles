@@ -142,9 +142,9 @@ let g:hellshake_yano = {
       \ },
       \ 'defaultMinWordLength': 3,
       \ 'perKeyMotionCount': {
-      \   'w': 1,
-      \   'b': 1,
-      \   'e': 1,
+      \   'w': 2,
+      \   'b': 2,
+      \   'e': 2,
       \   'h': 2,
       \   'j': 2,
       \   'k': 2,

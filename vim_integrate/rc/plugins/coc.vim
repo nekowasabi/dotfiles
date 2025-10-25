@@ -35,13 +35,20 @@ let g:markdown_fenced_languages = [
      \ 'help'
      \]
 
+
 let g:coc_fzf_opts = ['--layout=reverse']
 let g:fzf_layout = { 'up': '~40%' }
 let g:fzf_layout = { 'window': { 'width': 0.7, 'height': 0.6,} }
 let g:coc_disable_startup_warning = 1
 
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm()
-      \: "\<C-g>u" . lexima#expand('<LT>CR>', 'i')
+
+" バックアップとしてしばらく残しておく
+" inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm()
+"       \: "\<C-g>u" . lexima#expand('<LT>CR>', 'i')
+
+" <CR> mapping: ToggleCocByFileType()関数内でバッファローカルマッピングを設定
+" cmp_only_filetypesでは、cmpのfallback()がinsxに委譲するため設定不要
+
 
 inoremap <silent><expr> <C-n> coc#pum#visible() ? coc#pum#next(1):  "\<C-n>"
 inoremap <silent><expr> <C-p> coc#pum#visible() ? coc#pum#prev(1):  "\<C-p>"
@@ -131,6 +138,9 @@ function! ToggleCocByFileType() abort
         execute "silent! CocEnable"
         let b:is_coc_enabled = v:true
         let b:your_cmp_disable_enable_toggle = v:false
+
+        " CoCが有効になった直後にバッファローカル<CR>マッピングを設定
+        inoremap <buffer><silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
       catch
         " CocEnableが失敗した場合でも状態を更新
         let b:is_coc_enabled = v:false
@@ -139,6 +149,9 @@ function! ToggleCocByFileType() abort
       execute "silent! CocDisable"
       let b:is_coc_enabled = v:false
       let b:your_cmp_disable_enable_toggle = v:true
+
+      " CoCが無効になった時にバッファローカル<CR>マッピングを削除
+      silent! iunmap <buffer> <CR>
     endif
   endif
 endfunction

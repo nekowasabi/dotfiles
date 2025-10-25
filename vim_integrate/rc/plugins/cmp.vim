@@ -96,7 +96,16 @@ cmp.setup({
     --     end,
     -- insert, commandモードでの補完を有効にする
     -- cmp.mappingと{'i', 'c'}を指定することで、insert, commandモードでの補完を有効にする
-    ["<CR>"] = cmp.mapping(cmp.mapping.confirm { select = true }, {'i', 'c'}),
+    ["<CR>"] = cmp.mapping({
+      i = function(fallback)
+        if cmp.visible() then
+          cmp.confirm({ select = true })
+        else
+          fallback()
+        end
+      end,
+      c = cmp.mapping.confirm({ select = true }),
+    }),
   }),
   window = {
     completion = cmp.config.window.bordered(),

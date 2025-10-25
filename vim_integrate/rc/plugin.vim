@@ -55,7 +55,7 @@ Plug 'Bakudankun/BackAndForward.vim'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neosnippet.vim'
 Plug 'airblade/vim-rooter'
-Plug 'cohama/lexima.vim'
+" Plug 'cohama/lexima.vim'
 Plug 'haya14busa/vim-asterisk'
 Plug 'haya14busa/vim-edgemotion'
 Plug 'itchyny/vim-parenmatch'
@@ -94,7 +94,7 @@ Plug 'atusy/budoux.lua'
 Plug 'dnlhc/glance.nvim'
 Plug 'yuki-yano/smart-i.nvim'
 Plug 'sirasagi62/tinysegmenter.nvim'
-
+Plug 'hrsh7th/nvim-insx'
 
 " AI
  Plug 'github/copilot.vim'
@@ -350,12 +350,13 @@ execute 'source '.g:GetVimConfigRootPath().'rc/plugins/choosewin.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/easyalign.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-rtm.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/vim-sandwich.vim'
-execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lexima.vim'
+" execute 'source '.g:GetVimConfigRootPath().'rc/plugins/lexima.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/easymotion.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/edgemotion.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/surround.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/sayonara.vim'
 execute 'source '.g:GetVimConfigRootPath().'rc/plugins/searchx.vim'
+execute 'source '.g:GetVimConfigRootPath().'rc/plugins/insx.vim'
 " }}}1
 
 " setting Mac Neovim {{{1
