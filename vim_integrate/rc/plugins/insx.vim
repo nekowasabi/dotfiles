@@ -350,14 +350,25 @@ ft_substitute(
   { 'changelog'  }
 )
 
--- 「・」の改行継続（直接実装版）
+-- 「・」の改行継続（カスタムアクション版）
+-- カーソル位置に関わらず、元の行のテキストを保持したまま新しい行に「・」を挿入
 insx.add(
   '<CR>',
   insx.with(
-    require('insx.recipe.substitute')({
-      pattern = [[^\s*・.*\%#]],
-      replace = [[<CR>・\%#]]
-    }),
+    {
+      enabled = function(ctx)
+        local line = vim.api.nvim_get_current_line()
+        return line:match('^%s*・') ~= nil
+      end,
+      action = function(ctx)
+        -- 行末に移動してから改行し、新しい行に「・」を挿入
+        vim.api.nvim_feedkeys(
+          vim.api.nvim_replace_termcodes('<End><CR>・', true, false, true),
+          'n',
+          false
+        )
+      end
+    },
     {
       insx.with.filetype({'changelog'})
     }
