@@ -262,11 +262,29 @@ insx.add(
 )
 
 -- ]の直前で:を入力すると]の後ろにコロンを配置
-ft_substitute(
+insx.add(
   ':',
-  [=[\%#]]=],
-  [[<Right>:\%#]],
-  { 'changelog'  }
+  insx.with(
+    {
+      enabled = function(ctx)
+        local line = vim.api.nvim_get_current_line()
+        local col = vim.api.nvim_win_get_cursor(0)[2]
+        -- カーソル位置の次の文字が ] かどうか
+        return col < #line and line:sub(col + 1, col + 1) == ']'
+      end,
+      action = function(ctx)
+        -- ]をスキップしてコロンを入力
+        vim.api.nvim_feedkeys(
+          vim.api.nvim_replace_termcodes('<Right>:', true, false, true),
+          'n',
+          false
+        )
+      end
+    },
+    {
+      insx.with.filetype({'changelog'})
+    }
+  )
 )
 
 -- ============================================================================
