@@ -364,8 +364,8 @@ ft_substitute(
 insx.add(
   ';',
   require('insx.recipe.substitute')({
-    pattern = [[\%#)]],
-    replace = [[<Right>;\%#]]
+    pattern = [[\%#\()\)]],
+    replace = [[\1;\%#]]
   })
 )
 
@@ -373,8 +373,8 @@ insx.add(
 insx.add(
   ';',
   require('insx.recipe.substitute')({
-    pattern = [=[\%#]]=],
-    replace = [[<Right>;\%#]]
+    pattern = [=[\%#\(]\)]=],
+    replace = [=[\1;\%#]=]
   })
 )
 
@@ -382,8 +382,8 @@ insx.add(
 insx.add(
   ';',
   require('insx.recipe.substitute')({
-    pattern = [=[\%#'']=],
-    replace = [[<Right><Right>;\%#]]
+    pattern = [=[\%#\(''\)]=],
+    replace = [=[\1;\%#]=]
   })
 )
 
@@ -391,8 +391,8 @@ insx.add(
 insx.add(
   ';',
   require('insx.recipe.substitute')({
-    pattern = [=[".*\%#"]=],
-    replace = [[<Right>;\%#]]
+    pattern = [=[\(".*\)\%#"]=],
+    replace = [=[\1";\%#]=]
   })
 )
 
@@ -400,8 +400,8 @@ insx.add(
 insx.add(
   ';',
   require('insx.recipe.substitute')({
-    pattern = [=[\%#']=],
-    replace = [[<Right>;\%#]]
+    pattern = [=[\%#\('\)]=],
+    replace = [=[\1;\%#]=]
   })
 )
 
@@ -409,8 +409,8 @@ insx.add(
 insx.add(
   ';',
   require('insx.recipe.substitute')({
-    pattern = [=[\%#")]=],
-    replace = [[<Right><Right>;\%#]]
+    pattern = [=[\%#\(")\)]=],
+    replace = [=[\1;\%#]=]
   })
 )
 
@@ -418,8 +418,8 @@ insx.add(
 insx.add(
   ';',
   require('insx.recipe.substitute')({
-    pattern = [=[\%#"]=],
-    replace = [[<Right><Right>;\%#]]
+    pattern = [=[\%#\("]\)]=],
+    replace = [=[\1;\%#]=]
   })
 )
 
@@ -427,8 +427,8 @@ insx.add(
 insx.add(
   ';',
   require('insx.recipe.substitute')({
-    pattern = [=[\%#')]=],
-    replace = [[<Right><Right>;\%#]]
+    pattern = [=[\%#\(')\)]=],
+    replace = [=[\1;\%#]=]
   })
 )
 
@@ -438,6 +438,7 @@ insx.add(
 
 -- 演算子の自動スペース挿入
 
+-- imakoko
 -- = のトグル：= → " = " → "==" → "===" → "="
 insx.add(
   '=',
@@ -715,12 +716,55 @@ insx.add(
   })
 )
 
--- ) の直後で > を入力すると " => " を挿入
+-- ' の自動ペア
 insx.add(
-  '>',
-  require('insx.recipe.substitute')({
-    pattern = [[)\%#]],
-    replace = [[ => \%#]]
+  "'",
+  require('insx.recipe.auto_pair')({
+    open = "'",
+    close = "'"
+  })
+)
+
+-- ' の自動スキップ
+insx.add(
+  "'",
+  require('insx.recipe.jump_next')({
+    jump_pattern = [=[\']=]
+  })
+)
+
+-- ' のペア削除
+insx.add(
+  '<BS>',
+  require('insx.recipe.delete_pair')({
+    open_pat = [=[\']=],
+    close_pat = [=[\']=]
+  })
+)
+
+-- " の自動ペア
+insx.add(
+  '"',
+  require('insx.recipe.auto_pair')({
+    open = '"',
+    close = '"'
+  })
+)
+
+-- " の自動スキップ
+insx.add(
+  '"',
+  require('insx.recipe.jump_next')({
+    jump_pattern = [=["]=]
+  })
+)
+
+-- " のペア削除
+insx.add(
+  '<BS>',
+  require('insx.recipe.delete_pair')({
+    open_pat = [=["]=],
+    close_pat = [=["]=]
   })
 )
 
