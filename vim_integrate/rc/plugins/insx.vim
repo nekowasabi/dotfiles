@@ -438,45 +438,31 @@ insx.add(
 
 -- 演算子の自動スペース挿入
 
--- imakoko
--- = のトグル：= → " = " → "==" → "===" → "="
-insx.add(
-  '=',
-  require('insx.recipe.substitute')({
-    pattern = [=[\%#]]=],
-    replace = [[ = \%#]]
-  })
-)
-
-insx.add(
-  '=',
-  require('insx.recipe.substitute')({
-    pattern = [[ = \%#]],
-    replace = [[<BS><BS><BS>=\%#]]
-  })
-)
-
-insx.add(
-  '=',
-  require('insx.recipe.substitute')({
-    pattern = [[=\%#]],
-    replace = [[<BS> == \%#]]
-  })
-)
-
-insx.add(
-  '=',
-  require('insx.recipe.substitute')({
-    pattern = [[ == \%#]],
-    replace = [[<BS><BS><BS>=== \%#]]
-  })
-)
-
+-- = のトグル：" = " ⇄ " === "（2つの状態をループ）
+-- ステップ1: " === " → " = "（最も長いパターンを先に）
 insx.add(
   '=',
   require('insx.recipe.substitute')({
     pattern = [[ === \%#]],
-    replace = [[<BS><BS><BS><BS>= \%#]]
+    replace = [[ = \%#]]
+  })
+)
+
+-- ステップ2: " = " → " === "
+insx.add(
+  '=',
+  require('insx.recipe.substitute')({
+    pattern = [[ = \%#]],
+    replace = [[ === \%#]]
+  })
+)
+
+-- ステップ3: 最初の = → " = "（非空白文字の直後）
+insx.add(
+  '=',
+  require('insx.recipe.substitute')({
+    pattern = [[\S\zs\%#]],
+    replace = [[ = \%#]]
   })
 )
 
