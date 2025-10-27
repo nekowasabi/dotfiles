@@ -539,36 +539,31 @@ insx.add(
   })
 )
 
--- & のトグル：& → " & " → " && " → "&"
-insx.add(
-  '&',
-  require('insx.recipe.substitute')({
-    pattern = [=[\%#]]=],
-    replace = [[ & \%#]]
-  })
-)
-
-insx.add(
-  '&',
-  require('insx.recipe.substitute')({
-    pattern = [[ & \%#]],
-    replace = [[<BS><BS><BS> && \%#]]
-  })
-)
-
+-- & のトグル：" & " ⇄ " && "
+-- ステップ1: " && " → " & "（最も長いパターンを先に）
 insx.add(
   '&',
   require('insx.recipe.substitute')({
     pattern = [[ && \%#]],
-    replace = [[<BS><BS><BS><BS>&\%#]]
+    replace = [[ & \%#]]
   })
 )
 
+-- ステップ2: " & " → " && "
 insx.add(
   '&',
   require('insx.recipe.substitute')({
-    pattern = [[&\%#]],
-    replace = [[<BS> & \%#]]
+    pattern = [[ & \%#]],
+    replace = [[ && \%#]]
+  })
+)
+
+-- ステップ3: 最初の & → " & "（非空白文字の直後）
+insx.add(
+  '&',
+  require('insx.recipe.substitute')({
+    pattern = [[\S\zs\%#]],
+    replace = [[ & \%#]]
   })
 )
 
