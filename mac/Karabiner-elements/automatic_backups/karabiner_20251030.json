@@ -12400,31 +12400,6 @@
                                         "type": "input_source_if"
                                     }
                                 ],
-                                "description": "でる",
-                                "from": {
-                                    "simultaneous": [
-                                        { "key_code": "e" },
-                                        { "key_code": "h" }
-                                    ]
-                                },
-                                "to": [
-                                    { "key_code": "d" },
-                                    { "key_code": "e" },
-                                    { "key_code": "r" },
-                                    {
-                                        "key_code": "u",
-                                        "repeat": false
-                                    }
-                                ],
-                                "type": "basic"
-                            },
-                            {
-                                "conditions": [
-                                    {
-                                        "input_sources": [{ "language": "ja" }],
-                                        "type": "input_source_if"
-                                    }
-                                ],
                                 "description": "わたしの",
                                 "from": {
                                     "simultaneous": [

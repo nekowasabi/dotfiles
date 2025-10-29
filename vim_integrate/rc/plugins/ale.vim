@@ -48,14 +48,11 @@ let g:ale_fixers = {
     \}
 
 " pip install -U flake8 black isort mypyのインストールが必要
-let g:ale_python_isort_use_global = 1
-let g:ale_python_black_use_global = 1
-let g:ale_python_flake8_use_global = 1
-let g:ale_python_mypy_use_global = 1
-" let g:ale_python_black_executable = '/home/linuxbrew/.linuxbrew/bin/black'
-" let g:ale_python_isort_executable = '/home/linuxbrew/.linuxbrew/bin/isort'
-" let g:ale_python_flake8_executable = '/home/linuxbrew/.linuxbrew/bin/flake8'
-" let g:ale_python_mypy_executable = '/home/linuxbrew/.linuxbrew/bin/mypy'
+" use_global = 0 により、ALEが自動的に.venv内のツールを検出します
+let g:ale_python_isort_use_global = 0
+let g:ale_python_black_use_global = 0
+let g:ale_python_flake8_use_global = 0
+let g:ale_python_mypy_use_global = 0
 
 " php
 if g:IsMacNeovimInWork()
