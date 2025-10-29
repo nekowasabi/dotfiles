@@ -568,6 +568,64 @@ insx.add(
 )
 
 -- , のトグル：", " ⇄ ","
+-- 特別ケース: ' の直後で , を入力すると ", " を挿入
+-- （文字列の外側でのみ適用：後続文字が空白、括弧閉じ、カンマ、セミコロン、または行末の場合）
+insx.add(
+  ',',
+  {
+    enabled = function(ctx)
+      local line = vim.api.nvim_get_current_line()
+      local col = vim.api.nvim_win_get_cursor(0)[2]
+      -- カーソルの直後が ' であることを確認
+      if col < #line and line:sub(col + 1, col + 1) == "'" then
+        -- 行末または後続文字が空白、括弧閉じ、カンマ、セミコロンの場合のみ適用
+        if col + 1 >= #line then
+          return true
+        end
+        local next_char = line:sub(col + 2, col + 2)
+        return next_char:match('[%s%)%],;]') ~= nil
+      end
+      return false
+    end,
+    action = function(ctx)
+      vim.api.nvim_feedkeys(
+        vim.api.nvim_replace_termcodes('<Right>, ', true, false, true),
+        'n',
+        false
+      )
+    end
+  }
+)
+
+-- 特別ケース: " の直後で , を入力すると ", " を挿入
+-- （文字列の外側でのみ適用：後続文字が空白、括弧閉じ、カンマ、セミコロン、または行末の場合）
+insx.add(
+  ',',
+  {
+    enabled = function(ctx)
+      local line = vim.api.nvim_get_current_line()
+      local col = vim.api.nvim_win_get_cursor(0)[2]
+      -- カーソルの直後が " であることを確認
+      if col < #line and line:sub(col + 1, col + 1) == '"' then
+        -- 行末または後続文字が空白、括弧閉じ、カンマ、セミコロンの場合のみ適用
+        if col + 1 >= #line then
+          return true
+        end
+        local next_char = line:sub(col + 2, col + 2)
+        return next_char:match('[%s%)%],;]') ~= nil
+      end
+      return false
+    end,
+    action = function(ctx)
+      vim.api.nvim_feedkeys(
+        vim.api.nvim_replace_termcodes('<Right>, ', true, false, true),
+        'n',
+        false
+      )
+    end
+  }
+)
+
 -- ステップ1: ", " → ","（最も長いパターンを先に）
 insx.add(
   ',',
