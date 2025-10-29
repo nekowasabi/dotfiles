@@ -38,20 +38,24 @@ let g:ale_linters = {
 			\   'javascript': ['eslint'],
 		  \   'php': ['pint', 'intelephense'],
   		\   'http': ['kulala_fmt'],
-      \   'python': ['flake8'],
+      \   'python': ['flake8', 'mypy'],
       \}
 let g:ale_fixers = {
     \   'typescript': ['deno'],
     \   'javascript': ['eslint'],
 		\   'php': ['pint'],
-    \   'python': ['autopep8', 'black', 'isort'],
+    \   'python': ['black', 'isort'],
     \}
 
-" pip install -U flake8 flake8-import-order autopep8 black isortのインストールが必要
-let g:ale_python_autopep8_use_global = 1
+" pip install -U flake8 black isort mypyのインストールが必要
 let g:ale_python_isort_use_global = 1
 let g:ale_python_black_use_global = 1
 let g:ale_python_flake8_use_global = 1
+let g:ale_python_mypy_use_global = 1
+" let g:ale_python_black_executable = '/home/linuxbrew/.linuxbrew/bin/black'
+" let g:ale_python_isort_executable = '/home/linuxbrew/.linuxbrew/bin/isort'
+" let g:ale_python_flake8_executable = '/home/linuxbrew/.linuxbrew/bin/flake8'
+" let g:ale_python_mypy_executable = '/home/linuxbrew/.linuxbrew/bin/mypy'
 
 " php
 if g:IsMacNeovimInWork()
@@ -90,4 +94,3 @@ call ale#linter#Define('shd', {
 
 nnoremap <Leader>[ :<C-u>ALEPrevious<CR>
 nnoremap <Leader>] :<C-u>ALENext<CR>
-

@@ -32,6 +32,8 @@ export EDITOR=vim
 export GOROOT=/usr/local/opt/go/libexec
 export GOPATH=$HOME/go
 export PYENV_ROOT=$HOME/.pyenv
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 export NEXTWORD_DATA_PATH=~/tmp/nextword-data-large
 export NVIM_NODE_LOG_LEVEL=info
 export FZF_PREVIEW_DEBUG=1
@@ -132,8 +134,8 @@ alias ....='cd ../../../'
 alias v='/home/linuxbrew/.linuxbrew/bin/nvim'
 alias yo="claude --dangerously-skip-permissions --model opus"
 alias ys="claude --dangerously-skip-permissions --model sonnet"
-alias python3='/home/linuxbrew/.linuxbrew/bin/python3'
-alias pip3='/home/linuxbrew/.linuxbrew/bin/pip3'
+alias python3='/home/linuxbrew/.linuxbrew/bin/python3.12'
+alias pip3='/home/linuxbrew/.linuxbrew/bin/pip3.12'
 # }}}1
 
 

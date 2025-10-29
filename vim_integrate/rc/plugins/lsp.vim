@@ -62,7 +62,7 @@ require('lspsaga').setup({
   },
 })
 
-vim.lsp.config("pyright", {})
+-- vim.lsp.config("pyright", {})
 
 vim.lsp.config("lua_ls", {
   on_init = function(client)
@@ -94,7 +94,7 @@ vim.lsp.config("lua_ls", {
       }
     })
 
-vim.lsp.enable({"lua_ls", "denols", "pyright"})
+vim.lsp.enable({"lua_ls", "denols"})
 
 vim.lsp.diagnostics_trigger_update = true
 

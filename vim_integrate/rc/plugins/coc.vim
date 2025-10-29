@@ -19,6 +19,7 @@ let g:coc_global_extensions = [
   \, '@hexuhua/coc-copilot'
   \, 'coc-stylua'
   \, 'coc-vimlsp'
+  \, 'coc-pyright'
   \ ]
 
   " \, 'coc-swagger'

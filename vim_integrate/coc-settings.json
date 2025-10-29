@@ -39,7 +39,11 @@
   "diagnostic.infoSign": "📑",
   "suggest.labelMaxLength": 30,
   "semanticTokens.enable": true,
-  "semanticTokens.incrementTypes": ["variable", "string", "parameter"],
+  "semanticTokens.incrementTypes": [
+    "variable",
+    "string",
+    "parameter"
+  ],
   "suggest.completionItemKindLabels": {
     "keyword": "\uf1de",
     "variable": "\ue79b",
@@ -69,25 +73,42 @@
   },
   "coc.preferences.enableMarkdown": true,
   "coc.preferences.formatOnType": false,
-    "coc.preferences.formatOnSaveTimeout": 1000,
-  "coc.preferences.willSaveHandlerTimeout": 2000,
-  "coc.preferences.currentFunctionSymbolAutoUpdate": true,
-  "coc.preferences.currentFunctionSymbolDebounceTime": 1000,
+  "c
+
+
+
+
+  oc.preferences.willSaveHandlerTimeout": 2000,
+  "coc.preferences.currentFunctionSymbolA
+
+
+
+  utoUpdate": true,"coc.preferences.currentFunctionSymbolDebounceTime": 1000,
   "coc.source.file.ignoreHidden": false,
   "[blade]": {
     "coc.preferences.formatOnSave": false
   },
   "intelephense.client.disableInlayHints": true,
-  "intelephense.files.associations": ["*.inc", "*.php", "*Test.php", "*.phtml"],
-  "intelephense.environment.includePaths": ["_ide_helper.php", "_ide_helper_models.php", ".phpstorm.meta.php"],
+  "intelephense.files.associations": [
+    "*.inc",
+    "*.php",
+    "*Test.php",
+    "*.phtml"
+  ],
+  "intelephense.environment.includePaths": [
+    "_ide_helper.php",
+    "_ide_helper_models.php",
+    ".phpstorm.meta.php"
+  ],
   "intelephense.files.maxSize": 10000000000,
   "intelephense.format.enable": true,
   "intelephense.diagnostics.typeErrors": true,
   "intelephense.completion.triggerParameterHints": true,
   "intelephense.compatibility.correctForBaseClassStaticUnionTypes": true,
   "intelephense.completion.insertUseDeclaration": true,
-  "intelephense.completion.fullyQualifyGlobalConstantsAndFunctions": true,
-  "intelephense.diagnostics.undefinedTypes": false,
+  "i
+
+  ntelephense.completion.fullyQualifyGlobalConstantsAndFunctions": true,"intelephense.diagnostics.undefinedTypes": false,
   "intelephense.diagnostics.undefinedClassConstants": false,
   "intelephense.diagnostics.undefinedFunctions": false,
   "intelephense.diagnostics.undefinedMethods": false,
@@ -138,8 +159,11 @@
     "pgsql",
     "Phar",
     "posix",
-    "pspell",
-    "readline",
+
+
+    "pspel
+
+    l","readline",
     "Reflection",
     "session",
     "shmop",
@@ -150,9 +174,13 @@
     "sodium",
     "SPL",
     "sqlite3",
-    "standard",
-    "superglobals",
-    "sysvmsg",
+    "standard
+
+
+    ",
+    "supergloba
+
+    ls","sysvmsg",
     "sysvsem",
     "sysvshm",
     "tidy",
@@ -176,17 +204,37 @@
   "languageserver": {
     "sql": {
       "command": "sqls",
-      "args": ["-config", "/Users/ttakeda/.config/sqls/config.yml"],
-      "filetypes": ["sql"],
+      "args": [
+        "-config",
+        "/Users/ttakeda/.config/sqls/config.yml"
+      ],
+      "filetypes": [
+        "sql"
+      ],
       "shell": true
     }
   },
   "deno.lint": false,
-  "biome.enable": false,
-  "biome.trace.server": "verbose",
-  "biome.requireConfiguration": true,
   "vimlsp.trace.server": "off",
   "vimlsp.indexes.count": 1,
   "vimlsp.indexes.gap": 1000,
-  "lua.enable": true
+  "lua.enable": true,
+  "python.pythonPath": "/home/linuxbrew/.linuxbrew/bin/python3.12",
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.diagnosticMode": "workspace",
+  "python.linting.enabled": false,
+  "python.linting.flake8Enabled": true,
+  "python.linting.flake8Path": "flake8",
+  "python.formatting.provider": "black",
+  "python.formatting.blackPath": "black",
+  "python.sortImports.path": "isort",
+  "coc.preferences.formatOnSave": false,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "typescript",
+    "json",
+    "php"
+  ],
+  "coc.preferences.formatOnSaveTimeout": 2000
 }
