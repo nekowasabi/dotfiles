@@ -233,8 +233,10 @@
   "coc.preferences.formatOnSaveFiletypes": [
     "javascript",
     "typescript",
-    "json",
     "php"
   ],
-  "coc.preferences.formatOnSaveTimeout": 2000
+  "coc.preferences.formatOnSaveTimeout": 2000,
+  "[json]": {
+    "coc.preferences.formatOnSave": false
+  }
 }

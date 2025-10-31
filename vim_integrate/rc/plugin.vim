@@ -274,7 +274,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'basyura/dsky.vim'
   Plug 'gw31415/mstdn.vim'
   Plug 'gw31415/mstdn-editor.vim'
-	Plug 'tochikuji/cr-remover.nvim'
+	" Plug 'tochikuji/cr-remover.nvim'
   Plug 'nvim-neotest/nvim-nio'
   Plug 'napisani/context-nvim'
   Plug 'folke/noice.nvim'
@@ -398,7 +398,7 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/sns.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/snacks.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/context.vim'
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cr-remover.vim'
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cr-remover.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/render-markdown.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/previm.vim'
   " Lazy loading: copilot-chat.vim config is loaded on :CopilotChat* command
