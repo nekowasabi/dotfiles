@@ -406,7 +406,7 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/codecompanion.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cmp.vim'
   " Lazy loading: octo.vim config is loaded on :Octo* command
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cross-channel.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/claudecode.vim'
