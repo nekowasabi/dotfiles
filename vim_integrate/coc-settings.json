@@ -232,8 +232,7 @@
   "coc.preferences.formatOnSave": false,
   "coc.preferences.formatOnSaveFiletypes": [
     "javascript",
-    "typescript",
-    "php"
+    "typescript"
   ],
   "coc.preferences.formatOnSaveTimeout": 2000,
   "[json]": {
