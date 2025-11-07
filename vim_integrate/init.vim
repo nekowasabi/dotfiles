@@ -162,6 +162,23 @@ let g:hellshake_yano = {
 
 nnoremap <silent> ,h :HellshakeYanoToggle<CR> 
 
+"" スクラッチバッファを開く
+command! Scratch call <SID>OpenScratchBuffer()
+
+function! s:OpenScratchBuffer()
+    " 新しいバッファを作成
+    enew
+    " スクラッチバッファの設定
+    setlocal buftype=nofile
+    setlocal bufhidden=hide
+    setlocal noswapfile
+    setlocal nobuflisted
+    setlocal filetype=markdown
+    " バッファ名を設定
+    file [Scratch]
+endfunction
+
+
 " -----------------------------------------------------------
 " lua
 
