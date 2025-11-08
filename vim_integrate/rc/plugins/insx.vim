@@ -438,133 +438,289 @@ insx.add(
 
 -- 演算子の自動スペース挿入
 
--- = のトグル：" = " ⇄ " === "（2つの状態をループ）
--- ステップ1: " === " → " = "（最も長いパターンを先に）
+-- = のトグル：" = " → " === " → "="
+-- 優先度を明示的に指定して、長いパターンから順にマッチさせる
+
+-- ステップ1: 非空白直後の " === " → "=" (優先度: 100 - 最高)
 insx.add(
   '=',
-  require('insx.recipe.substitute')({
-    pattern = [[ === \%#]],
-    replace = [[ = \%#]]
-  })
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[\S\zs === \%#]],
+      replace = [[=\%#]]
+    }),
+    { insx.with.priority(100) }
+  )
 )
 
--- ステップ2: " = " → " === "
+-- ステップ1.5: 行頭の " === " → "=" (優先度: 95)
 insx.add(
   '=',
-  require('insx.recipe.substitute')({
-    pattern = [[ = \%#]],
-    replace = [[ === \%#]]
-  })
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[^ === \%#]],
+      replace = [[=\%#]]
+    }),
+    { insx.with.priority(95) }
+  )
 )
 
--- ステップ3: 最初の = → " = "（非空白文字の直後）
+-- ステップ2: " = " → " === " (優先度: 80)
 insx.add(
   '=',
-  require('insx.recipe.substitute')({
-    pattern = [[\S\zs\%#]],
-    replace = [[ = \%#]]
-  })
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[ = \%#]],
+      replace = [[ === \%#]]
+    }),
+    { insx.with.priority(80) }
+  )
 )
 
--- ' の後で = を入力すると " = " を挿入
+-- ステップ2.5: "=" → " = " (優先度: 65)
 insx.add(
   '=',
-  require('insx.recipe.substitute')({
-    pattern = [=[\%#']=],
-    replace = [[<Right> = \%#]]
-  })
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[=\%#]],
+      replace = [[ = \%#]]
+    }),
+    { insx.with.priority(65) }
+  )
 )
 
--- ') の後で = を入力すると " = " を挿入
+-- ステップ3: 最初の = → "=" (優先度: 10 - 最低)
 insx.add(
   '=',
-  require('insx.recipe.substitute')({
-    pattern = [=[\%#')]=],
-    replace = [[<Right><Right> = \%#]]
-  })
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[\%#]],
+      replace = [[=\%#]]
+    }),
+    { insx.with.priority(10) }
+  )
 )
 
--- ") の後で = を入力すると " = " を挿入
+-- ステップ4: 非空白文字の直後の = → " = " (優先度: 60)
 insx.add(
   '=',
-  require('insx.recipe.substitute')({
-    pattern = [=[\%#")]=],
-    replace = [[<Right><Right> = \%#]]
-  })
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[\S\zs=\%#]],
+      replace = [[ = \%#]]
+    }),
+    { insx.with.priority(60) }
+  )
 )
 
--- '] の後で = を入力すると " = " を挿入
+-- ' の後で = を入力すると " = " を挿入 (優先度: 90)
 insx.add(
   '=',
-  require('insx.recipe.substitute')({
-    pattern = [=[\%#']=],
-    replace = [[<Right><Right> = \%#]]
-  })
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [=[\%#']=],
+      replace = [[<Right> = \%#]]
+    }),
+    { insx.with.priority(90) }
+  )
 )
 
--- "] の後で = を入力すると " = " を挿入
+-- ') の後で = を入力すると " = " を挿入 (優先度: 90)
 insx.add(
   '=',
-  require('insx.recipe.substitute')({
-    pattern = [=[\%#"]=],
-    replace = [[<Right><Right> = \%#]]
-  })
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [=[\%#')]=],
+      replace = [[<Right><Right> = \%#]]
+    }),
+    { insx.with.priority(90) }
+  )
+)
+
+-- ") の後で = を入力すると " = " を挿入 (優先度: 90)
+insx.add(
+  '=',
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [=[\%#")]=],
+      replace = [[<Right><Right> = \%#]]
+    }),
+    { insx.with.priority(90) }
+  )
+)
+
+-- '] の後で = を入力すると " = " を挿入 (優先度: 90)
+insx.add(
+  '=',
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [=[\%#']]=],
+      replace = [[<Right><Right> = \%#]]
+    }),
+    { insx.with.priority(90) }
+  )
+)
+
+-- "] の後で = を入力すると " = " を挿入 (優先度: 90)
+insx.add(
+  '=',
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [=[\%#"]]=],
+      replace = [[<Right><Right> = \%#]]
+    }),
+    { insx.with.priority(90) }
+  )
 )
 
 -- % のトグル：" % " ⇄ " %% " ⇄ " % "
--- ステップ1: " %% " → " % "（最も長いパターンを先に）
+-- 優先度を明示的に指定して、長いパターンから順にマッチさせる
+
+-- ステップ1: " %% " → " % " (優先度: 100 - 最高)
 insx.add(
   '%',
-  require('insx.recipe.substitute')({
-    pattern = [[ %% \%#]],
-    replace = [[ % \%#]]
-  })
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[ %% \%#]],
+      replace = [[ % \%#]]
+    }),
+    { insx.with.priority(100) }
+  )
 )
 
--- ステップ2: " % " → " %% "
+-- ステップ2: " % " → " %% " (優先度: 80)
 insx.add(
   '%',
-  require('insx.recipe.substitute')({
-    pattern = [[ % \%#]],
-    replace = [[ %% \%#]]
-  })
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[ % \%#]],
+      replace = [[ %% \%#]]
+    }),
+    { insx.with.priority(80) }
+  )
 )
 
--- ステップ3: 最初の % → " % "（非空白文字の直後）
+-- ステップ2.5: "%%" → " %% " (優先度: 70)
 insx.add(
   '%',
-  require('insx.recipe.substitute')({
-    pattern = [[\S\zs\%#]],
-    replace = [[ % \%#]]
-  })
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[%%\%#]],
+      replace = [[ %% \%#]]
+    }),
+    { insx.with.priority(70) }
+  )
+)
+
+-- ステップ2.8: "%" → "%%" (優先度: 65)
+insx.add(
+  '%',
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[%\%#]],
+      replace = [[%%\%#]]
+    }),
+    { insx.with.priority(65) }
+  )
+)
+
+-- ステップ3: 最初の % → "%" (優先度: 10 - 最低)
+insx.add(
+  '%',
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[\%#]],
+      replace = [[%\%#]]
+    }),
+    { insx.with.priority(10) }
+  )
+)
+
+-- ステップ4: 非空白文字の直後の % → " % " (優先度: 60)
+insx.add(
+  '%',
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[\S\zs%\%#]],
+      replace = [[ % \%#]]
+    }),
+    { insx.with.priority(60) }
+  )
 )
 
 -- & のトグル：" & " ⇄ " && "
--- ステップ1: " && " → " & "（最も長いパターンを先に）
+-- 優先度を明示的に指定して、長いパターンから順にマッチさせる
+
+-- ステップ1: " && " → " & " (優先度: 100 - 最高)
 insx.add(
   '&',
-  require('insx.recipe.substitute')({
-    pattern = [[ && \%#]],
-    replace = [[ & \%#]]
-  })
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[ && \%#]],
+      replace = [[ & \%#]]
+    }),
+    { insx.with.priority(100) }
+  )
 )
 
--- ステップ2: " & " → " && "
+-- ステップ2: " & " → " && " (優先度: 80)
 insx.add(
   '&',
-  require('insx.recipe.substitute')({
-    pattern = [[ & \%#]],
-    replace = [[ && \%#]]
-  })
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[ & \%#]],
+      replace = [[ && \%#]]
+    }),
+    { insx.with.priority(80) }
+  )
 )
 
--- ステップ3: 最初の & → " & "（非空白文字の直後）
+-- ステップ2.5: "&&" → " && " (優先度: 70)
 insx.add(
   '&',
-  require('insx.recipe.substitute')({
-    pattern = [[\S\zs\%#]],
-    replace = [[ & \%#]]
-  })
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[&&\%#]],
+      replace = [[ && \%#]]
+    }),
+    { insx.with.priority(70) }
+  )
+)
+
+-- ステップ2.8: "&" → "&&" (優先度: 65)
+insx.add(
+  '&',
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[&\%#]],
+      replace = [[&&\%#]]
+    }),
+    { insx.with.priority(65) }
+  )
+)
+
+-- ステップ3: 最初の & → "&" (優先度: 10 - 最低)
+insx.add(
+  '&',
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[\%#]],
+      replace = [[&\%#]]
+    }),
+    { insx.with.priority(10) }
+  )
+)
+
+-- ステップ4: 非空白文字の直後の & → " & " (優先度: 60)
+insx.add(
+  '&',
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[\S\zs&\%#]],
+      replace = [[ & \%#]]
+    }),
+    { insx.with.priority(60) }
+  )
 )
 
 -- , のトグル：", " ⇄ ","
@@ -662,103 +818,169 @@ insx.add(
   })
 )
 
--- ! のトグル：! → " !== " → "!"
+-- ! のトグル：! → "!!" → " !== " → "!"
+-- 優先度を明示的に指定して、長いパターンから順にマッチさせる
+
+-- ステップ1: " !== " → "!" (優先度: 100 - 最高)
 insx.add(
   '!',
-  require('insx.recipe.substitute')({
-    pattern = [=[\%#]]=],
-    replace = [[!\%#]]
-  })
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[ !== \%#]],
+      replace = [[!\%#]]
+    }),
+    { insx.with.priority(100) }
+  )
 )
 
+-- ステップ2: "!!" → " !== " (優先度: 80)
 insx.add(
   '!',
-  require('insx.recipe.substitute')({
-    pattern = [[!\%#]],
-    replace = [[<BS> !== \%#]]
-  })
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[!!\%#]],
+      replace = [[ !== \%#]]
+    }),
+    { insx.with.priority(80) }
+  )
 )
 
+-- ステップ3: "!" → "!!" (優先度: 65)
 insx.add(
   '!',
-  require('insx.recipe.substitute')({
-    pattern = [[ !== \%#]],
-    replace = [[<BS><BS><BS><BS><BS>!\%#]]
-  })
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[!\%#]],
+      replace = [[!!\%#]]
+    }),
+    { insx.with.priority(65) }
+  )
+)
+
+-- ステップ4: 最初の ! → "!" (優先度: 10 - 最低)
+insx.add(
+  '!',
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[\%#]],
+      replace = [[!\%#]]
+    }),
+    { insx.with.priority(10) }
+  )
 )
 
 -- + のトグル：+ → " + " → "++" → "+"
+-- 優先度を明示的に指定して、長いパターンから順にマッチさせる
+
+-- ステップ3: " + " → "++" (優先度: 100 - 最高)
 insx.add(
   '+',
-  require('insx.recipe.substitute')({
-    pattern = [=[\%#]]=],
-    replace = [[+\%#]]
-  })
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[ + \%#]],
+      replace = [[++\%#]]
+    }),
+    { insx.with.priority(100) }
+  )
 )
 
+-- ステップ4: "++" → "+" (優先度: 90)
 insx.add(
   '+',
-  require('insx.recipe.substitute')({
-    pattern = [[+\%#]],
-    replace = [[<BS> + \%#]]
-  })
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[++\%#]],
+      replace = [[+\%#]]
+    }),
+    { insx.with.priority(90) }
+  )
 )
 
+-- ステップ2: "+" → " + " (優先度: 60)
 insx.add(
   '+',
-  require('insx.recipe.substitute')({
-    pattern = [[ + \%#]],
-    replace = [[<BS><BS><BS>++\%#]]
-  })
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[+\%#]],
+      replace = [[ + \%#]]
+    }),
+    { insx.with.priority(60) }
+  )
 )
 
+-- ステップ1: 何もない → "+" (優先度: 10 - 最低)
 insx.add(
   '+',
-  require('insx.recipe.substitute')({
-    pattern = [[++\%#]],
-    replace = [[<BS><BS>+\%#]]
-  })
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[\%#]],
+      replace = [[+\%#]]
+    }),
+    { insx.with.priority(10) }
+  )
 )
 
 -- / のトグル：/ → " / " → "// " → "//" → "/"
+-- 優先度を明示的に指定して、長いパターンから順にマッチさせる
+
+-- ステップ4: "// " → "//" (優先度: 100 - 最高)
 insx.add(
   '/',
-  require('insx.recipe.substitute')({
-    pattern = [=[\%#]]=],
-    replace = [[/\%#]]
-  })
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[// \%#]],
+      replace = [[//\%#]]
+    }),
+    { insx.with.priority(100) }
+  )
 )
 
+-- ステップ5: "//" → "/" (優先度: 90)
 insx.add(
   '/',
-  require('insx.recipe.substitute')({
-    pattern = [[/\%#]],
-    replace = [[<BS> / \%#]]
-  })
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[//\%#]],
+      replace = [[/\%#]]
+    }),
+    { insx.with.priority(90) }
+  )
 )
 
+-- ステップ3: " / " → "// " (優先度: 80)
 insx.add(
   '/',
-  require('insx.recipe.substitute')({
-    pattern = [[ / \%#]],
-    replace = [[<BS><BS><BS>// \%#]]
-  })
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[ / \%#]],
+      replace = [[// \%#]]
+    }),
+    { insx.with.priority(80) }
+  )
 )
 
+-- ステップ2: "/" → " / " (優先度: 60)
 insx.add(
   '/',
-  require('insx.recipe.substitute')({
-    pattern = [[// \%#]],
-    replace = [[<BS><BS><BS>//\%#]]
-  })
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[/\%#]],
+      replace = [[ / \%#]]
+    }),
+    { insx.with.priority(60) }
+  )
 )
 
+-- ステップ1: 何もない → "/" (優先度: 10 - 最低)
 insx.add(
   '/',
-  require('insx.recipe.substitute')({
-    pattern = [[//\%#]],
-    replace = [[<BS><BS>/\%#]]
-  })
+  insx.with(
+    require('insx.recipe.substitute')({
+      pattern = [[\%#]],
+      replace = [[/\%#]]
+    }),
+    { insx.with.priority(10) }
+  )
 )
 
 -- ' の自動ペア
