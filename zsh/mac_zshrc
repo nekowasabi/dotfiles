@@ -306,3 +306,4 @@ if [ -f '/Users/takets/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/ta
 export PATH="$HOME/.local/bin:$PATH"
 
 # alias claude="/Users/takets/.claude/local/claude"
+

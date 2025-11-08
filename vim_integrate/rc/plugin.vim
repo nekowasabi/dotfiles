@@ -382,7 +382,7 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/hlchunk.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treemonkey.vim'
   " Lazy loading: aider.vim config is loaded on :Aider* command
-  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/aider.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/aider.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/dmacro.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesj.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/nvim-dap.vim'

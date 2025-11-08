@@ -145,9 +145,9 @@ let s:model_configs = {
   \     'weak': 'openrouter/gpt-4.1-nano'
   \   },
   \   'cerebras': {
-  \     'model': 'my-openrouter/qwen/qwen3-coder',
-  \     'editor': 'my-openrouter/qwen/qwen3-coder',
-  \     'weak': 'my-openrouter/qwen/qwen3-coder'
+  \     'model': 'my-cerebras-glm',
+  \     'editor': 'my-cerebras-glm',
+  \     'weak': 'my-cerebras-glm'
   \   },
   \   'testing': {}
   \ }
