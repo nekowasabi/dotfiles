@@ -107,13 +107,30 @@ ft_substitute(
 
 -- [ の自動ペア
 -- [ を入力すると "[]" になり、カーソルが中に配置される
+-- ただしチェックボックス行では無効
 insx.add(
   '[',
   insx.with(
-    require('insx.recipe.auto_pair')({
-      open = '[',
-      close = ']'
-    }),
+    {
+      enabled = function(ctx)
+        local line = vim.api.nvim_get_current_line()
+        -- 完全なチェックボックス行（- [ ] または - [x] の後に内容がある）では無効化
+        if line:match('^%s*-%s%[[ x]%]%s') then
+          return false
+        end
+        -- auto_pairのデフォルト条件を実行
+        return require('insx.recipe.auto_pair')({
+          open = '[',
+          close = ']'
+        }).enabled(ctx)
+      end,
+      action = function(ctx)
+        return require('insx.recipe.auto_pair')({
+          open = '[',
+          close = ']'
+        }).action(ctx)
+      end
+    },
     {
       insx.with.filetype({'changelog', 'octo', 'markdown', 'text'})
     }
@@ -122,12 +139,28 @@ insx.add(
 
 -- ] の自動スキップ
 -- カーソルが ] の直前にあるときに ] を入力すると、] をスキップする
+-- ただしチェックボックス行では無効
 insx.add(
   ']',
   insx.with(
-    require('insx.recipe.jump_next')({
-      jump_pattern = [=[\]]=]
-    }),
+    {
+      enabled = function(ctx)
+        local line = vim.api.nvim_get_current_line()
+        -- 完全なチェックボックス行（- [ ] または - [x] の後に内容がある）では無効化
+        if line:match('^%s*-%s%[[ x]%]%s') then
+          return false
+        end
+        -- jump_nextのデフォルト条件を実行
+        return require('insx.recipe.jump_next')({
+          jump_pattern = [=[\]]=]
+        }).enabled(ctx)
+      end,
+      action = function(ctx)
+        return require('insx.recipe.jump_next')({
+          jump_pattern = [=[\]]=]
+        }).action(ctx)
+      end
+    },
     {
       insx.with.filetype({'changelog', 'octo', 'markdown', 'text'})
     }
@@ -192,8 +225,9 @@ insx.add(
     {
       enabled = function(ctx)
         local line = vim.api.nvim_get_current_line()
-        -- "- " の後に空白以外の文字がある行
+        -- "- " の後に空白以外の文字がある行、ただしチェックボックスは除外
         return line:match('^%s*-%s%S') ~= nil
+           and line:match('^%s*-%s%[[ x]%]') == nil
       end,
       action = function(ctx)
         -- 行末に移動してから改行し、新しい行に「- 」を挿入
@@ -218,20 +252,27 @@ insx.add(
     {
       enabled = function(ctx)
         local line = vim.api.nvim_get_current_line()
-        -- "- [ ]" または "- [x]" の後に空白以外の文字がある行
-        return line:match('^%s*-%s%[[ x]%]%s%S') ~= nil
+        -- "- [ ]" または "- [x]" の後に文字がある行（スペースは任意）
+        return line:match('^%s*-%s%[[ x]%].*%S') ~= nil
       end,
       action = function(ctx)
-        -- 行末に移動してから改行し、新しい行に「- [ ] 」を挿入、カーソルを[]内に配置
+        -- 行末に移動してから改行
         vim.api.nvim_feedkeys(
-          vim.api.nvim_replace_termcodes('<End><CR>-<Space>[]<Space><Left><Left>', true, false, true),
+          vim.api.nvim_replace_termcodes('<End><CR>', true, false, true),
           'n',
           false
         )
+        -- Luaで直接テキストを挿入（自動ペアを回避）
+        vim.schedule(function()
+          local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+          vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, {'- [ ] '})
+          vim.api.nvim_win_set_cursor(0, {row, col + 6})
+        end)
       end
     },
     {
-      insx.with.filetype({'changelog', 'octo', 'markdown', 'text'})
+      insx.with.filetype({'changelog', 'octo', 'markdown', 'text'}),
+      insx.with.priority(100)
     }
   )
 )
@@ -1079,31 +1120,31 @@ insx.add(
   })
 )
 
--- [ の自動ペア
-insx.add(
-  '[',
-  require('insx.recipe.auto_pair')({
-    open = '[',
-    close = ']'
-  })
-)
-
--- ] の自動スキップ
-insx.add(
-  ']',
-  require('insx.recipe.jump_next')({
-    jump_pattern = [=[\\]]=]
-  })
-)
-
--- [] のペア削除
-insx.add(
-  '<BS>',
-  require('insx.recipe.delete_pair')({
-    open_pat = [=[\[]=],
-    close_pat = [=[\]]=]
-  })
-)
+-- -- [ の自動ペア
+-- insx.add(
+--   '[',
+--   require('insx.recipe.auto_pair')({
+--     open = '[',
+--     close = ']'
+--   })
+-- )
+--
+-- -- ] の自動スキップ
+-- insx.add(
+--   ']',
+--   require('insx.recipe.jump_next')({
+--     jump_pattern = [=[\\]]=]
+--   })
+-- )
+--
+-- -- [] のペア削除
+-- insx.add(
+--   '<BS>',
+--   require('insx.recipe.delete_pair')({
+--     open_pat = [=[\[]=],
+--     close_pat = [=[\]]=]
+--   })
+-- )
 
 EOF
 
