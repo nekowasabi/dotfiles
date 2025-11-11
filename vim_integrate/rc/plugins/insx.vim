@@ -132,7 +132,7 @@ insx.add(
       end
     },
     {
-      insx.with.filetype({'changelog', 'octo', 'markdown', 'text'})
+      insx.with.filetype({'changelog', 'octo', 'markdown', 'text', 'php', 'vim', 'typescript', 'javascript'})
     }
   )
 )
@@ -1119,32 +1119,6 @@ insx.add(
     close_pat = [=[`]=]
   })
 )
-
--- -- [ の自動ペア
--- insx.add(
---   '[',
---   require('insx.recipe.auto_pair')({
---     open = '[',
---     close = ']'
---   })
--- )
---
--- -- ] の自動スキップ
--- insx.add(
---   ']',
---   require('insx.recipe.jump_next')({
---     jump_pattern = [=[\\]]=]
---   })
--- )
---
--- -- [] のペア削除
--- insx.add(
---   '<BS>',
---   require('insx.recipe.delete_pair')({
---     open_pat = [=[\[]=],
---     close_pat = [=[\]]=]
---   })
--- )
 
 EOF
 
