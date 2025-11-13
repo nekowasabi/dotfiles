@@ -488,6 +488,40 @@ nnoremap <silent> <BS>
       \ <Cmd>call ddu#start({'sources': [{'name': 'buffer'}]})<CR>
 
 function! DduAiConnectorByFiletype(command) abort
+  " 元のウィンドウIDとバッファ番号を保存
+  let g:ddu_ai_original_winid = win_getid()
+  let g:ddu_ai_original_bufnr = bufnr('%')
+
+  let s:filetye = &filetype
+
+  let s:type_text = ['text', 'markdown', 'help', 'changelog']
+
+  if index(s:type_text, s:filetye) != -1
+    let s:tag = 'text'
+  else
+    let s:tag = ''
+  endif
+
+  call ddu#start({
+        \ 'sources': [{
+        \   'name': 'prompt',
+        \   'params': {
+        \     'command': a:command,
+        \     'tag': s:tag,
+        \     'selected': s:get_visual_text()
+        \   }
+        \ }]
+        \ })
+
+endfunction
+
+" Parrot専用のdduコネクタ
+function! DduParrotConnector(command) abort
+  " 元のウィンドウIDとバッファ番号を保存
+  let g:ddu_ai_original_winid = win_getid()
+  let g:ddu_ai_original_bufnr = bufnr('%')
+  let g:ddu_ai_is_parrot = v:true  " Parrot専用フラグ
+
   let s:filetye = &filetype
 
   let s:type_text = ['text', 'markdown', 'help', 'changelog']
@@ -516,8 +550,10 @@ endfunction
 
 vnoremap <silent> <C-c>a y<Cmd>call DduAiConnectorByFiletype('AiderSendPromptByCommandline')<CR>
 vnoremap <silent> <C-c>c y<Cmd>call DduAiConnectorByFiletype('CopilotChat')<CR>
-vnoremap <silent> <C-c>g y<Cmd>call DduAiConnectorByFiletype('PrtAppend')<CR>
-vnoremap <silent> <C-c>r y<Cmd>call DduAiConnectorByFiletype('PrtRewrite')<CR>
+vnoremap <silent> <C-c>g y<Cmd>call DduAiConnectorByFiletype('AiEdit')<CR>
+vnoremap <silent> <C-c>r y<Cmd>call DduAiConnectorByFiletype('AiRewrite')<CR>
+" vnoremap <silent> <C-c>g y<Cmd>call DduParrotConnector('PrtAppend')<CR>
+" vnoremap <silent> <C-c>r y<Cmd>call DduParrotConnector('PrtRewrite')<CR>
 
 nnoremap <silent> <Leader>ll
       \ <Cmd>call ddu#start({'sources': [{'name': 'line'}]})<CR>
