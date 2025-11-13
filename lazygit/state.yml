@@ -1,10 +1,11 @@
 lastupdatecheck: 0
 recentrepos:
-- /Users/ttakeda/repos/tmux-text-object
+- /Users/ttakeda/.config/nvim/plugged/ai-edit.vim
+- /Users/ttakeda/repos/geminitranslate
 - /Users/ttakeda/repos/private_dotfiles
 - /Users/ttakeda/repos/dotfiles
+- /Users/ttakeda/repos/tmux-text-object
 - /Users/ttakeda/works/invase-backend
-- /Users/ttakeda/repos/geminitranslate
 - /Users/ttakeda/works/invase-app-backend
 - /Users/ttakeda/.config/nvim/plugged/hellshake-yano.vim
 - /Users/ttakeda/repos/feynman-technique
