@@ -15,6 +15,7 @@ autocmd FileType changelog,text,shd let b:switch_custom_definitions = [
 			\		['true','true'],
 			\		['帰る', '変える','買える'],
 			\		['使用','しよう'],
+			\		['以外','意外'],
 			\		['拾う','疲労'],
 			\		['絶対','絶体'],
 			\		['移行','以降'],
