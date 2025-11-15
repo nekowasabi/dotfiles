@@ -185,7 +185,7 @@ let g:ai_edit_temperature = 0.7
 let g:ai_edit_language = 'ja'
 let g:ai_edit_max_tokens = 4096
 let g:ai_edit_stream = 1
-let g:ai_edit_provider_preferences = 'Cerebras'
+let g:ai_edit_provider_preferences = 'Groq'
 
 
 " -----------------------------------------------------------
