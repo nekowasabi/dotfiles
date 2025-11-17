@@ -187,6 +187,8 @@ let g:ai_edit_max_tokens = 4096
 let g:ai_edit_stream = 1
 let g:ai_edit_provider_preferences = 'Groq'
 
+nmap <Leader>gm <Plug>(git-messenger)
+
 
 " -----------------------------------------------------------
 " lua
