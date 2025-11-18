@@ -344,6 +344,10 @@ if g:IsMacGvim() || g:IsMacNeovim() || g:IsWsl()
 	nnoremap <silent> ,l <ESC>:OpenChangelog<CR>:set showtabline=2<CR>
 	nnoremap <silent> ,L <ESC>:OpenChangelog<CR><C-home>o<CR>i<C-r>=neosnippet#expand('cpw')<CR>
 
+  nnoremap <silent> ,jp :e ~/repos/changelog/ai/battlefront/progress/private.md<CR>
+  nnoremap <silent> ,jw :e ~/repos/changelog/ai/battlefront/progress/work.md<CR>
+
+
 	cnoremap <C-b> <Left>
 	cnoremap <C-f> <Right>
 	cnoremap <C-a> <Home>
@@ -400,93 +404,6 @@ endif
 
 "}}}1
 
-" 2024/12/31 まで使わなかったら削除 {{{1
-" if g:IsWindowsGvim()
-" 	set backupdir=$HOME/time_backup
-"
-" 	nnoremap <silent> ,rr :source c:/takeda/tools/vim/vimrc<CR>:source c:/takeda/tools/vim/gvimrc<CR>
-" 	nnoremap <silent> ,RR :Restart<CR>
-"
-" 	function! s:OpenChangelog()
-" 		if expand("%") != "changelogmemo"
-" 			execute ":e c:/takeda/repos/changelog/changelogmemo"
-" 		endif
-" 	endfunction
-" 	command! OpenChangelog call <SID>OpenChangelog()
-" 	nnoremap <silent> ,c <ESC>:OpenChangelog<CR>
-"
-" 	function! s:OpenTentask()
-" 		if expand("%") != "tenTask.txt" && bufnr('tenTask.txt') == -1
-" 			execute ":e c:/takeda/repos/changelog/tenTask.txt"
-" 		endif
-"
-" 		call append("$", ['----- '.strftime('%Y-%m-%d %H:%M:%S'), '・'])
-" 		exe "normal! GkA"
-" 		redraw
-" 	endfunction
-" 	command! OpenTentask call <SID>OpenTentask()
-" 	nnoremap <silent> ,c <ESC>:OpenChangelog<CR>
-" 	nnoremap <silent> ,l :buffer changelogmemo<CR><C-home>o<CR>a<C-r>=neosnippet#expand('cpw')<CR>
-" 	nnoremap <silent> ,L :buffer changelogmemo<CR><C-home>o<CR>a<C-r>=neosnippet#expand('cpwd')<CR>
-"
-" 	function! s:OpenTentask()
-" 		if expand("%") != "tenTask.txt" && bufnr('tenTask.txt') == -1
-" 			execute ":e c:/takeda/repos/changelog/tentask.txt"
-" 		endif
-"
-" 		if bufnr('tenTask.txt') != -1
-" 			execute ":buffer c:/takeda/repos/changelog/tentask.txt"
-" 		endif
-"
-" 		call append("$", ['----- '.strftime('%Y-%m-%d %H:%M:%S'), '・'])
-" 		exe "normal! GkA"
-"
-" 	endfunction
-" 	command! OpenTentask call <SID>OpenTentask()
-" 	nnoremap <silent> ,t :OpenTentask<CR>GA
-"
-" 	function! s:OpenOnlyTentask()
-" 		if expand("%") != "tenTask.txt" && bufnr('tenTask.txt') == -1
-" 			execute ":e c:/takeda/repos/changelog/tentask.txt"
-" 		endif
-"
-" 		if bufnr('tenTask.txt') != -1
-" 			execute ":buffer c:/takeda/repos/changelog/tentask.txt"
-" 		endif
-"
-" 		exe "normal! Gz+"
-" 		redraw
-" 	endfunction
-" 	command! OpenOnlyTentask call <SID>OpenOnlyTentask()
-" 	nnoremap <silent> ,T :OpenOnlyTentask<CR>
-"
-" 	" TODO: use noremap!
-" 	" imap <C-b> <Left>
-" 	" imap <C-f> <Right>
-" 	" imap <C-p> <Up>
-" 	" imap <C-n> <Down>
-" 	" imap <C-a> <C-o>
-" 	" imap <C-e> <C-o>$
-"
-" 	cnoremap <C-b> <Left>
-" 	cnoremap <C-f> <Right>
-" 	cnoremap <C-a> <Home>
-" 	cnoremap <C-e> <End>
-" 	inoremap <C-f> ／
-" 	inoremap <C-x><C-x> ？／
-" 	cnoremap <C-f> ／
-" 	inoremap <C-b> →
-" 	" nnoremap <C-Tab> 0i	
-" 	" nnoremap <S-Tab> 0x
-"   nnoremap <silent>H 10h
-"   nnoremap <silent>J 5gj
-"   nnoremap <silent>K 5gk
-"   nmap <silent>K 5gk
-"   nnoremap <silent>L 10l
-"
-"
-" endif
-" }}}1
 
 " init.vimから移動されたキーバインド設定 {{{1
 " 基本的な編集操作

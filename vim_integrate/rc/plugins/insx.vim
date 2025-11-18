@@ -183,11 +183,11 @@ insx.add(
 )
 
 -- - のリスト入力補助
--- 行頭で - を入力すると "- " に展開
+-- 行頭で - を入力すると "- " に展開（インデントを保持）
 ft_substitute(
   '-',
-  [[^\s*\%#]],
-  [[-<Space>\%#]],
+  [[^\(\s*\)\%#]],
+  [[\1-<Space>\%#]],
   { 'changelog', 'octo', 'markdown', 'text' }
 )
 
@@ -225,21 +225,21 @@ insx.add(
     {
       enabled = function(ctx)
         local line = vim.api.nvim_get_current_line()
-        -- "- " の後に空白以外の文字がある行、ただしチェックボックスは除外
-        return line:match('^%s*-%s%S') ~= nil
-           and line:match('^%s*-%s%[[ x]%]') == nil
+        -- "- " の後に空白以外の文字があり、かつチェックボックスではない行
+        if line:match('^%s*-%s%S') then
+          -- チェックボックス（- [ ] または - [x]）を除外
+          return line:match('^%s*-%s%[[ x]%]') == nil
+        end
+        return false
       end,
       action = function(ctx)
         -- 行末に移動してから改行し、新しい行に「- 」を挿入
-        vim.api.nvim_feedkeys(
-          vim.api.nvim_replace_termcodes('<End><CR>-<Space>', true, false, true),
-          'n',
-          false
-        )
+        ctx.send('<End><CR>- ')
       end
     },
     {
-      insx.with.filetype({'changelog', 'octo', 'markdown', 'text'})
+      insx.with.filetype({'changelog', 'octo', 'markdown', 'text'}),
+      insx.with.priority(50)  -- 通常のリストは低めの優先順位
     }
   )
 )
@@ -272,7 +272,7 @@ insx.add(
     },
     {
       insx.with.filetype({'changelog', 'octo', 'markdown', 'text'}),
-      insx.with.priority(100)
+      insx.with.priority(100)  -- チェックボックスは高い優先順位
     }
   )
 )
@@ -289,15 +289,12 @@ insx.add(
       end,
       action = function(ctx)
         -- 行末に移動してから改行し、新しい行に「・」を挿入
-        vim.api.nvim_feedkeys(
-          vim.api.nvim_replace_termcodes('<End><CR>・', true, false, true),
-          'n',
-          false
-        )
+        ctx.send('<End><CR>・')
       end
     },
     {
-      insx.with.filetype({'changelog','text'})
+      insx.with.filetype({'changelog','text'}),
+      insx.with.priority(90)  -- チェックボックスより低く、通常リストより高い
     }
   )
 )
