@@ -303,3 +303,12 @@ zinit light-mode for \
 
 ### End of Zinit's installer chunk
 
+
+# Added by Antigravity
+export PATH="/Users/ttakeda/.antigravity/antigravity/bin:$PATH"
+
+# Added by Antigravity
+export PATH="/Users/ttakeda/.antigravity/antigravity/bin:$PATH"
+
+# Added by Antigravity
+export PATH="/Users/ttakeda/.antigravity/antigravity/bin:$PATH"
