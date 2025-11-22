@@ -96,7 +96,8 @@ function! s:fern_reopen(dict) abort
       silent! execute 'bwipeout' l:bn
     endif
   endfor
-  call s:fern_open(a:dict, 1)
+  " reopen 時は stay させず、そのまま fern にフォーカスを残す
+  call s:fern_open(a:dict, 0)
 endfunction
 
 " root なら親へ、そうでなければ collapse
