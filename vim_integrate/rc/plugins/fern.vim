@@ -70,6 +70,18 @@ function! s:fern_winnr() abort
   return 0
 endfunction
 
+function! s:fern_reopen(dict) abort
+  if empty(a:dict)
+    return
+  endif
+  let l:winnr = s:fern_winnr()
+  if l:winnr
+    execute l:winnr . 'wincmd c'
+  endif
+  call s:fern_open(a:dict, 1)
+endfunction
+
+
 " 現在バッファから root/reveal を算出
 function! s:fern_root_reveal() abort
   let l:path = expand('%:p')
@@ -155,9 +167,8 @@ function! s:fern_sync_on_bufenter() abort
     if string(l:current_root) ==# string(l:info.root)
       call win_execute(l:winnr, 'silent! FernReveal ' . fnameescape(l:info.reveal))
     else
-      execute l:winnr . 'wincmd c'
       let l:info_copy = copy(l:info)
-      call timer_start(0, { -> s:fern_open(l:info_copy, 1) })
+      call timer_start(0, { -> s:fern_reopen(l:info_copy) })
     endif
   catch
     " 何かあれば黙って抜ける（他プラグインをブロックしない）
