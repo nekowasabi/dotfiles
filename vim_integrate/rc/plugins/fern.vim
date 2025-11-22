@@ -2,6 +2,8 @@ function! s:fern_reveal(dict) abort
   execute 'FernReveal' a:dict.relative_path
 endfunction
 
+let g:fern_debug_sync = 1
+
 let g:fern#disable_default_mappings             = 1
 let g:fern#drawer_width                         = 30
 let g:fern#renderer                             = 'nerdfont'
@@ -96,8 +98,9 @@ function! s:fern_reopen(dict) abort
       silent! execute 'bwipeout' l:bn
     endif
   endfor
-  " reopen 時は stay させず、そのまま fern にフォーカスを残す
-  call s:fern_open(a:dict, 0)
+  " reopen でも -stay を付けて元のウィンドウにフォーカスを戻す
+  " BufEnter で root が変わったときにカーソルが fern 側へ飛ぶのを防ぐ
+  call s:fern_open(a:dict, 1)
 endfunction
 
 " root なら親へ、そうでなければ collapse
@@ -133,7 +136,6 @@ function! s:fern_open_parent() abort
   endif
 
   let l:info = {'root': l:parent, 'reveal': fnamemodify(l:current_root, ':t')}
-  let s:skip_sync_once = 1
   let s:manual_root = l:parent
   call s:fern_reopen(l:info)
 endfunction
@@ -142,43 +144,45 @@ endfunction
 " 現在バッファから root/reveal を算出
 function! s:fern_root_reveal() abort
   let l:path = expand('%:p')
-  if empty(l:path) || (!filereadable(l:path) && !isdirectory(l:path))
+  " 新規バッファなど未保存パスでも root 計算できるよう、存在チェックはしない
+  if empty(l:path)
     return {}
   endif
 
   let l:dir = fnamemodify(l:path, ':h')
-  " 手動 root が指定されていれば最優先
+
+  " 手動 root が指定されていて、かつその配下ならそれを使う
   if !empty(s:manual_root) && isdirectory(s:manual_root)
     let l:root = s:manual_root
     if stridx(l:path, l:root . '/') == 0
       let l:reveal = l:path[len(l:root)+1:]
-    else
-      " 手動ルート外のバッファの場合は root を変えずに root へフォーカス
-      let l:reveal = ''
+      return {'root': l:root, 'reveal': l:reveal}
     endif
-  else
-    let l:git_root = ''
-    try
-      let l:out = systemlist(['git', '-C', l:dir, 'rev-parse', '--show-toplevel'])
-      if v:shell_error == 0
-        let l:candidate = get(l:out, 0, '')
-        if !empty(l:candidate) && isdirectory(l:candidate)
-          let l:git_root = l:candidate
-        endif
-      endif
-    catch
-    endtry
+    " 手動 root だが配下でなければリセットして通常計算へ
+    let s:manual_root = ''
+  endif
 
-    if empty(l:git_root)
-      let l:root = fnamemodify(l:dir, ':h')
-      let l:reveal = fnamemodify(l:dir, ':t')
-    else
-      let l:root = l:git_root
-      if stridx(l:path, l:root . '/') == 0
-        let l:reveal = l:path[len(l:root)+1:]
-      else
-        let l:reveal = fnamemodify(l:path, ':t')
+  let l:git_root = ''
+  try
+    let l:out = systemlist(['git', '-C', l:dir, 'rev-parse', '--show-toplevel'])
+    if v:shell_error == 0
+      let l:candidate = get(l:out, 0, '')
+      if !empty(l:candidate) && isdirectory(l:candidate)
+        let l:git_root = l:candidate
       endif
+    endif
+  catch
+  endtry
+
+  if empty(l:git_root)
+    let l:root = fnamemodify(l:dir, ':h')
+    let l:reveal = fnamemodify(l:dir, ':t')
+  else
+    let l:root = l:git_root
+    if stridx(l:path, l:root . '/') == 0
+      let l:reveal = l:path[len(l:root)+1:]
+    else
+      let l:reveal = fnamemodify(l:path, ':t')
     endif
   endif
 
@@ -239,7 +243,8 @@ function! s:fern_sync_on_bufenter() abort
 
     " ルートが同じなら FernReveal だけで再描画
     if string(l:current_root) ==# string(l:info.root)
-      call win_execute(l:winnr, 'silent! FernReveal ' . fnameescape(l:info.reveal))
+      let l:reveal = fnameescape(l:info.reveal)
+      call timer_start(0, { -> win_execute(l:winnr, 'silent! FernReveal ' . l:reveal) })
     else
       let l:info_copy = copy(l:info)
       call timer_start(0, { -> s:fern_reopen(l:info_copy) })
@@ -254,5 +259,7 @@ nnoremap <silent> <leader>e :FernSmartToggle<CR>
 
 augroup my-fern-smart-sync
   autocmd!
-  autocmd BufEnter * call s:fern_sync_on_bufenter()
+  autocmd BufEnter *    call s:fern_sync_on_bufenter()
+  autocmd BufWinEnter * call s:fern_sync_on_bufenter()
+  autocmd WinEnter *    call s:fern_sync_on_bufenter()
 augroup END
