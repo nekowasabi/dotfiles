@@ -25,6 +25,11 @@ let g:fern_preview_window_calculator = {
 autocmd FileType fern call s:fern_my_settings()
 
 function! s:fern_my_settings() abort
+  if exists('b:fern_my_settings_initialized')
+    return
+  endif
+  let b:fern_my_settings_initialized = 1
+
   nmap <silent> <buffer> h <Plug>(fern-action-collapse)
   nmap <silent> <buffer> l <Plug>(fern-action-open-or-expand)
 
@@ -42,6 +47,11 @@ function! s:fern_my_settings() abort
 endfunction
 
 function s:init_fern_mapping_reload_all()
+    if exists('b:fern_reload_all_initialized')
+        return
+    endif
+    let b:fern_reload_all_initialized = 1
+
     nmap <silent> <buffer> R <Plug>(fern-action-reload:all)
     nnoremap <silent> <buffer> <C-F> <C-W>p
 endfunction
