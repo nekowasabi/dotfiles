@@ -138,7 +138,8 @@ function! s:fern_toggle() abort
   if empty(l:info)
     return
   endif
-  call s:fern_open(l:info, 0)
+  " 初回オープン時は -stay で元のウィンドウにフォーカスを戻す
+  call s:fern_open(l:info, 1)
 endfunction
 
 " BufEnter で fern を再計算・再描画
