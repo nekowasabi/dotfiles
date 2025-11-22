@@ -22,6 +22,9 @@ let g:fern_preview_window_calculator = {
      \ 'width': function('s:fern_preview_width')
      \ }
 
+let s:skip_sync_once = 0
+let s:manual_root = ''
+
 autocmd FileType fern call s:fern_my_settings()
 
 function! s:fern_my_settings() abort
@@ -30,7 +33,10 @@ function! s:fern_my_settings() abort
   endif
   let b:fern_my_settings_initialized = 1
 
-  nmap <silent> <buffer> h <Plug>(fern-action-collapse)
+  " h: root なら親ディレクトリへ遷移、その他は collapse
+  nnoremap <silent> <buffer> h :<C-u>call <SID>fern_collapse_or_parent()<CR>
+
+  " l: 従来どおり open / expand
   nmap <silent> <buffer> l <Plug>(fern-action-open-or-expand)
 
   nmap <silent> <buffer> dd <Plug>(fern-action-clipboard-move)
@@ -84,11 +90,51 @@ function! s:fern_reopen(dict) abort
   if empty(a:dict)
     return
   endif
-  let l:winnr = s:fern_winnr()
-  if l:winnr
-    execute l:winnr . 'wincmd c'
-  endif
+  " 既存 fern バッファを全て閉じてから開き直す（root を確実に反映）
+  for l:bn in range(1, bufnr('$'))
+    if getbufvar(l:bn, '&filetype') ==# 'fern'
+      silent! execute 'bwipeout' l:bn
+    endif
+  endfor
   call s:fern_open(a:dict, 1)
+endfunction
+
+" root なら親へ、そうでなければ collapse
+function! s:fern_collapse_or_parent() abort
+  try
+    let l:helper = fern#helper#new()
+    let l:node = l:helper.sync.get_cursor_node()
+    let l:is_root = type(l:node) is# v:t_dict && (
+          \ get(l:node, '__owner', v:null) is# v:null
+          \ || get(l:node, '__key', []) ==# []
+          \ || l:node is# l:helper.sync.get_root_node())
+    if l:is_root
+      call s:fern_open_parent()
+    else
+      execute 'normal! \<Plug>(fern-action-collapse)'
+    endif
+  catch
+  endtry
+endfunction
+
+" root の一つ上を新しい root にして再描画
+function! s:fern_open_parent() abort
+  let l:fern_dict = get(b:, 'fern', {})
+  let l:root_node = get(l:fern_dict, 'root', {})
+  let l:current_root = get(l:root_node, '_path', '')
+  if type(l:current_root) isnot# v:t_string || empty(l:current_root)
+    return
+  endif
+
+  let l:parent = fnamemodify(l:current_root, ':h')
+  if l:parent ==# l:current_root
+    return
+  endif
+
+  let l:info = {'root': l:parent, 'reveal': fnamemodify(l:current_root, ':t')}
+  let s:skip_sync_once = 1
+  let s:manual_root = l:parent
+  call s:fern_reopen(l:info)
 endfunction
 
 
@@ -100,27 +146,38 @@ function! s:fern_root_reveal() abort
   endif
 
   let l:dir = fnamemodify(l:path, ':h')
-  let l:git_root = ''
-  try
-    let l:out = systemlist(['git', '-C', l:dir, 'rev-parse', '--show-toplevel'])
-    if v:shell_error == 0
-      let l:candidate = get(l:out, 0, '')
-      if !empty(l:candidate) && isdirectory(l:candidate)
-        let l:git_root = l:candidate
-      endif
-    endif
-  catch
-  endtry
-
-  if empty(l:git_root)
-    let l:root = l:dir
-    let l:reveal = fnamemodify(l:path, ':t')
-  else
-    let l:root = l:git_root
+  " 手動 root が指定されていれば最優先
+  if !empty(s:manual_root) && isdirectory(s:manual_root)
+    let l:root = s:manual_root
     if stridx(l:path, l:root . '/') == 0
       let l:reveal = l:path[len(l:root)+1:]
     else
-      let l:reveal = fnamemodify(l:path, ':t')
+      " 手動ルート外のバッファの場合は root を変えずに root へフォーカス
+      let l:reveal = ''
+    endif
+  else
+    let l:git_root = ''
+    try
+      let l:out = systemlist(['git', '-C', l:dir, 'rev-parse', '--show-toplevel'])
+      if v:shell_error == 0
+        let l:candidate = get(l:out, 0, '')
+        if !empty(l:candidate) && isdirectory(l:candidate)
+          let l:git_root = l:candidate
+        endif
+      endif
+    catch
+    endtry
+
+    if empty(l:git_root)
+      let l:root = fnamemodify(l:dir, ':h')
+      let l:reveal = fnamemodify(l:dir, ':t')
+    else
+      let l:root = l:git_root
+      if stridx(l:path, l:root . '/') == 0
+        let l:reveal = l:path[len(l:root)+1:]
+      else
+        let l:reveal = fnamemodify(l:path, ':t')
+      endif
     endif
   endif
 
@@ -141,6 +198,7 @@ function! s:fern_toggle() abort
   let l:winnr = s:fern_winnr()
   if l:winnr
     execute l:winnr . 'wincmd c'
+    let s:manual_root = ''
     return
   endif
 
@@ -154,6 +212,10 @@ endfunction
 
 " BufEnter で fern を再計算・再描画
 function! s:fern_sync_on_bufenter() abort
+  if s:skip_sync_once
+    let s:skip_sync_once = 0
+    return
+  endif
   if &filetype ==# 'fern' || &buftype !=# ''
     return
   endif
