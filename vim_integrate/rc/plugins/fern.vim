@@ -22,12 +22,22 @@ let g:fern_preview_window_calculator = {
      \ 'width': function('s:fern_preview_width')
      \ }
 
-nnoremap <silent> <C-F> :Fern %:h -drawer -reveal=%<CR>
+function! s:fern_open_with_git_root() abort
+  let l:git_root = system('git rev-parse --show-toplevel 2>/dev/null')
+  if v:shell_error == 0
+    let l:git_root = substitute(l:git_root, '\n$', '', '')
+    execute 'Fern' l:git_root '-drawer -reveal=' . expand('%:p')
+  else
+    " Git リポジトリでない場合は従来通り
+    execute 'Fern %:h -drawer -reveal=%'
+  endif
+endfunction
+
+nnoremap <silent> <C-F> :call <SID>fern_open_with_git_root()<CR>
 
 autocmd FileType fern call s:fern_my_settings()
 
 function! s:fern_my_settings() abort
-  echo 'ok'
   nmap <silent> <buffer> h <Plug>(fern-action-collapse)
   nmap <silent> <buffer> l <Plug>(fern-action-open-or-expand)
 
