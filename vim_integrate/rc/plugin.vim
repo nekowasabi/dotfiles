@@ -96,6 +96,9 @@ Plug 'yuki-yano/smart-i.nvim'
 Plug 'sirasagi62/tinysegmenter.nvim'
 Plug 'hrsh7th/nvim-insx'
 Plug 'lambdalisue/vim-fern'
+Plug 'lambdalisue/vim-glyph-palette'
+Plug 'lambdalisue/vim-fern-renderer-nerdfont'
+Plug 'lambdalisue/vim-fern-git-status'
 
 " AI
  Plug 'github/copilot.vim'

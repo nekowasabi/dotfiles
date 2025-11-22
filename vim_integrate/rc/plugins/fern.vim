@@ -22,19 +22,6 @@ let g:fern_preview_window_calculator = {
      \ 'width': function('s:fern_preview_width')
      \ }
 
-function! s:fern_open_with_git_root() abort
-  let l:git_root = system('git rev-parse --show-toplevel 2>/dev/null')
-  if v:shell_error == 0
-    let l:git_root = substitute(l:git_root, '\n$', '', '')
-    execute 'Fern' l:git_root '-drawer -reveal=' . expand('%:p')
-  else
-    " Git リポジトリでない場合は従来通り
-    execute 'Fern %:h -drawer -reveal=%'
-  endif
-endfunction
-
-nnoremap <silent> <C-F> :call <SID>fern_open_with_git_root()<CR>
-
 autocmd FileType fern call s:fern_my_settings()
 
 function! s:fern_my_settings() abort
@@ -64,4 +51,123 @@ augroup my-fern-mapping-reload-all
     autocmd FileType fern set nonu
 augroup END
 
-autocmd FileType fern call glyph_palette#apply()
+augroup my-glyph-palette
+  autocmd! *
+  autocmd FileType fern call glyph_palette#apply()
+augroup END
+
+" =============================
+" Smart open/toggle helpers
+" =============================
+
+" fern ウィンドウ番号を取得（なければ 0）
+function! s:fern_winnr() abort
+  for l:nr in range(1, winnr('$'))
+    if getbufvar(winbufnr(l:nr), '&filetype') ==# 'fern'
+      return l:nr
+    endif
+  endfor
+  return 0
+endfunction
+
+" 現在バッファから root/reveal を算出
+function! s:fern_root_reveal() abort
+  let l:path = expand('%:p')
+  if empty(l:path) || (!filereadable(l:path) && !isdirectory(l:path))
+    return {}
+  endif
+
+  let l:dir = fnamemodify(l:path, ':h')
+  let l:git_root = ''
+  try
+    let l:out = systemlist(['git', '-C', l:dir, 'rev-parse', '--show-toplevel'])
+    if v:shell_error == 0
+      let l:candidate = get(l:out, 0, '')
+      if !empty(l:candidate) && isdirectory(l:candidate)
+        let l:git_root = l:candidate
+      endif
+    endif
+  catch
+  endtry
+
+  if empty(l:git_root)
+    let l:root = l:dir
+    let l:reveal = fnamemodify(l:path, ':t')
+  else
+    let l:root = l:git_root
+    if stridx(l:path, l:root . '/') == 0
+      let l:reveal = l:path[len(l:root)+1:]
+    else
+      let l:reveal = fnamemodify(l:path, ':t')
+    endif
+  endif
+
+  return {'root': l:root, 'reveal': l:reveal}
+endfunction
+
+" Fern を開く（stay でフォーカスを元に戻す）
+function! s:fern_open(dict, stay) abort
+  if empty(a:dict) | return | endif
+  let l:cmd = ['Fern', fnameescape(a:dict.root), '-reveal=' . fnameescape(a:dict.reveal), '-drawer']
+  if a:stay
+    call add(l:cmd, '-stay')
+  endif
+  execute join(l:cmd, ' ')
+endfunction
+
+function! s:fern_toggle() abort
+  let l:winnr = s:fern_winnr()
+  if l:winnr
+    execute l:winnr . 'wincmd c'
+    return
+  endif
+
+  let l:info = s:fern_root_reveal()
+  if empty(l:info)
+    return
+  endif
+  call s:fern_open(l:info, 0)
+endfunction
+
+" BufEnter で fern を再計算・再描画
+function! s:fern_sync_on_bufenter() abort
+  if &filetype ==# 'fern' || &buftype !=# ''
+    return
+  endif
+
+  let l:winnr = s:fern_winnr()
+  if !l:winnr
+    return
+  endif
+
+  let l:info = s:fern_root_reveal()
+  if empty(l:info)
+    return
+  endif
+
+  try
+    let l:fern_dict = getbufvar(winbufnr(l:winnr), 'fern', {})
+    let l:root_node = get(l:fern_dict, 'root', {})
+    let l:current_root = get(l:root_node, '_path', '')
+    let l:current_root = type(l:current_root) is# v:t_string ? l:current_root : ''
+
+    " ルートが同じなら FernReveal だけで再描画
+    if string(l:current_root) ==# string(l:info.root)
+      call win_execute(l:winnr, 'silent! FernReveal ' . fnameescape(l:info.reveal))
+    else
+      execute l:winnr . 'wincmd c'
+      let l:info_copy = copy(l:info)
+      call timer_start(0, { -> s:fern_open(l:info_copy, 1) })
+    endif
+  catch
+    " 何かあれば黙って抜ける（他プラグインをブロックしない）
+  endtry
+endfunction
+
+command! FernSmartToggle call <SID>fern_toggle()
+nnoremap <silent> <leader>e :FernSmartToggle<CR>
+
+augroup my-fern-smart-sync
+  autocmd!
+  autocmd BufEnter * call s:fern_sync_on_bufenter()
+augroup END
