@@ -88,19 +88,19 @@ function! s:fern_winnr() abort
   return 0
 endfunction
 
-function! s:fern_reopen(dict) abort
+function! s:fern_reopen(dict, ...) abort
   if empty(a:dict)
     return
   endif
+  let l:stay = get(a:000, 0, 1)
   " 既存 fern バッファを全て閉じてから開き直す（root を確実に反映）
   for l:bn in range(1, bufnr('$'))
     if getbufvar(l:bn, '&filetype') ==# 'fern'
       silent! execute 'bwipeout' l:bn
     endif
   endfor
-  " reopen でも -stay を付けて元のウィンドウにフォーカスを戻す
-  " BufEnter で root が変わったときにカーソルが fern 側へ飛ぶのを防ぐ
-  call s:fern_open(a:dict, 1)
+  " stay フラグに応じてフォーカスを戻す/残す
+  call s:fern_open(a:dict, l:stay)
 endfunction
 
 " root なら親へ、そうでなければ collapse
@@ -137,7 +137,8 @@ function! s:fern_open_parent() abort
 
   let l:info = {'root': l:parent, 'reveal': fnamemodify(l:current_root, ':t')}
   let s:manual_root = l:parent
-  call s:fern_reopen(l:info)
+  " 親へ上がるときは fern ウィンドウにフォーカスを残す（stay しない）
+  call s:fern_reopen(l:info, 0)
 endfunction
 
 
@@ -256,6 +257,7 @@ endfunction
 
 command! FernSmartToggle call <SID>fern_toggle()
 nnoremap <silent> <leader>e :FernSmartToggle<CR>
+nnoremap <silent> <C-f> :FernSmartToggle<CR>
 
 augroup my-fern-smart-sync
   autocmd!
