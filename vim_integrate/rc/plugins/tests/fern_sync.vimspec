@@ -1,0 +1,132 @@
+Describe myfern#sync
+
+  Before all
+    " Create test directory structure
+    let g:test_workdir = tempname()
+    call mkdir(g:test_workdir . '/subdir', 'p')
+    call writefile(['test content'], g:test_workdir . '/file.txt')
+    call writefile(['nested content'], g:test_workdir . '/subdir/nested.txt')
+
+    " Initialize git repo for testing
+    call system('git init -q ' . shellescape(g:test_workdir))
+  End
+
+  After all
+    %bwipeout!
+    call delete(g:test_workdir, 'rf')
+  End
+
+  Before
+    %bwipeout!
+    call myfern#sync#clear_manual_root()
+  End
+
+  Describe #get_fern_winid()
+    It returns 0 when no Fern window exists
+      Assert Equals(myfern#sync#get_fern_winid(), 0)
+    End
+
+    " NOTE: Fern-dependent tests are skipped in unit test
+    " These should be tested manually or in integration tests
+  End
+
+  Describe #should_skip()
+    It returns false for normal file buffer
+      execute 'edit ' . fnameescape(g:test_workdir . '/file.txt')
+      Assert False(myfern#sync#should_skip())
+    End
+
+    It returns true for special buftype (nofile)
+      new
+      setlocal buftype=nofile
+      Assert True(myfern#sync#should_skip())
+    End
+
+    It returns true for help buffer
+      help
+      Assert True(myfern#sync#should_skip())
+      helpclose
+    End
+
+    It returns true for fern:// URI in buffer name
+      new
+      file fern://test
+      Assert True(myfern#sync#should_skip())
+    End
+  End
+
+  Describe #get_root_reveal()
+    It returns empty dict for new empty buffer
+      new
+      Assert Equals(myfern#sync#get_root_reveal(), {})
+    End
+
+    It returns empty dict for fern:// buffer name
+      new
+      file fern://localhost/test
+      Assert Equals(myfern#sync#get_root_reveal(), {})
+    End
+
+    It uses manual root when set
+      call myfern#sync#set_manual_root(g:test_workdir . '/subdir')
+      execute 'edit ' . fnameescape(g:test_workdir . '/subdir/nested.txt')
+      let result = myfern#sync#get_root_reveal()
+      Assert Equals(result.root, g:test_workdir . '/subdir')
+      Assert Equals(result.reveal, 'nested.txt')
+    End
+
+    It returns root and reveal for file (with manual root)
+      " Set manual root to test_workdir to bypass git detection issues
+      call myfern#sync#set_manual_root(g:test_workdir)
+      execute 'edit ' . fnameescape(g:test_workdir . '/file.txt')
+      let result = myfern#sync#get_root_reveal()
+      Assert KeyExists(result, 'root')
+      Assert KeyExists(result, 'reveal')
+      Assert Equals(result.root, g:test_workdir)
+      Assert Equals(result.reveal, 'file.txt')
+    End
+
+    It returns correct reveal path for nested file (with manual root)
+      call myfern#sync#set_manual_root(g:test_workdir)
+      execute 'edit ' . fnameescape(g:test_workdir . '/subdir/nested.txt')
+      let result = myfern#sync#get_root_reveal()
+      Assert Equals(result.root, g:test_workdir)
+      Assert Equals(result.reveal, 'subdir/nested.txt')
+    End
+
+    It clears manual root when file is outside manual root
+      call myfern#sync#set_manual_root(g:test_workdir . '/subdir')
+      execute 'edit ' . fnameescape(g:test_workdir . '/file.txt')
+      let result = myfern#sync#get_root_reveal()
+      " Manual root should be cleared
+      Assert Equals(myfern#sync#get_manual_root(), '')
+      " Result should still have root and reveal (from fallback)
+      Assert KeyExists(result, 'root')
+      Assert KeyExists(result, 'reveal')
+    End
+  End
+
+  Describe #manual_root management
+    It can set and get manual root
+      call myfern#sync#set_manual_root('/test/path')
+      Assert Equals(myfern#sync#get_manual_root(), '/test/path')
+    End
+
+    It can clear manual root
+      call myfern#sync#set_manual_root('/test/path')
+      call myfern#sync#clear_manual_root()
+      Assert Equals(myfern#sync#get_manual_root(), '')
+    End
+  End
+
+  Describe #get_current_fern_root()
+    It returns empty string when winid is 0
+      Assert Equals(myfern#sync#get_current_fern_root(0), '')
+    End
+
+    It returns empty string when winid is invalid
+      Assert Equals(myfern#sync#get_current_fern_root(99999), '')
+    End
+  End
+
+End

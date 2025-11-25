@@ -25,7 +25,7 @@ let g:fern_preview_window_calculator = {
      \ }
 
 let s:skip_sync_once = 0
-let s:manual_root = ''
+" s:manual_root は autoload/myfern/sync.vim に移動
 
 autocmd FileType fern call s:fern_my_settings()
 
@@ -78,14 +78,16 @@ augroup END
 " Smart open/toggle helpers
 " =============================
 
-" fern ウィンドウ番号を取得（なければ 0）
+" fern ウィンドウ ID を取得（なければ 0）
+" autoload 関数を使用
+function! s:fern_winid() abort
+  return myfern#sync#get_fern_winid()
+endfunction
+
+" 互換性のため winnr も残す
 function! s:fern_winnr() abort
-  for l:nr in range(1, winnr('$'))
-    if getbufvar(winbufnr(l:nr), '&filetype') ==# 'fern'
-      return l:nr
-    endif
-  endfor
-  return 0
+  let l:winid = s:fern_winid()
+  return l:winid ? win_id2win(l:winid) : 0
 endfunction
 
 function! s:fern_reopen(dict, ...) abort
@@ -136,58 +138,15 @@ function! s:fern_open_parent() abort
   endif
 
   let l:info = {'root': l:parent, 'reveal': fnamemodify(l:current_root, ':t')}
-  let s:manual_root = l:parent
+  call myfern#sync#set_manual_root(l:parent)
   " 親へ上がるときは fern ウィンドウにフォーカスを残す（stay しない）
   call s:fern_reopen(l:info, 0)
 endfunction
 
 
-" 現在バッファから root/reveal を算出
+" 現在バッファから root/reveal を算出（autoload 関数を使用）
 function! s:fern_root_reveal() abort
-  let l:path = expand('%:p')
-  " 新規バッファなど未保存パスでも root 計算できるよう、存在チェックはしない
-  if empty(l:path)
-    return {}
-  endif
-
-  let l:dir = fnamemodify(l:path, ':h')
-
-  " 手動 root が指定されていて、かつその配下ならそれを使う
-  if !empty(s:manual_root) && isdirectory(s:manual_root)
-    let l:root = s:manual_root
-    if stridx(l:path, l:root . '/') == 0
-      let l:reveal = l:path[len(l:root)+1:]
-      return {'root': l:root, 'reveal': l:reveal}
-    endif
-    " 手動 root だが配下でなければリセットして通常計算へ
-    let s:manual_root = ''
-  endif
-
-  let l:git_root = ''
-  try
-    let l:out = systemlist(['git', '-C', l:dir, 'rev-parse', '--show-toplevel'])
-    if v:shell_error == 0
-      let l:candidate = get(l:out, 0, '')
-      if !empty(l:candidate) && isdirectory(l:candidate)
-        let l:git_root = l:candidate
-      endif
-    endif
-  catch
-  endtry
-
-  if empty(l:git_root)
-    let l:root = fnamemodify(l:dir, ':h')
-    let l:reveal = fnamemodify(l:dir, ':t')
-  else
-    let l:root = l:git_root
-    if stridx(l:path, l:root . '/') == 0
-      let l:reveal = l:path[len(l:root)+1:]
-    else
-      let l:reveal = fnamemodify(l:path, ':t')
-    endif
-  endif
-
-  return {'root': l:root, 'reveal': l:reveal}
+  return myfern#sync#get_root_reveal()
 endfunction
 
 " Fern を開く（stay でフォーカスを元に戻す）
@@ -204,7 +163,7 @@ function! s:fern_toggle() abort
   let l:winnr = s:fern_winnr()
   if l:winnr
     execute l:winnr . 'wincmd c'
-    let s:manual_root = ''
+    call myfern#sync#clear_manual_root()
     return
   endif
 
@@ -222,12 +181,15 @@ function! s:fern_sync_on_bufenter() abort
     let s:skip_sync_once = 0
     return
   endif
-  if &filetype ==# 'fern' || &buftype !=# ''
+
+  " バッファ判定の強化: filetype, buftype, バッファ名でスキップ判定
+  if myfern#sync#should_skip()
     return
   endif
 
-  let l:winnr = s:fern_winnr()
-  if !l:winnr
+  " ウィンドウ ID を使用（タイマー実行時にも安定）
+  let l:winid = s:fern_winid()
+  if !l:winid
     return
   endif
 
@@ -237,15 +199,14 @@ function! s:fern_sync_on_bufenter() abort
   endif
 
   try
-    let l:fern_dict = getbufvar(winbufnr(l:winnr), 'fern', {})
-    let l:root_node = get(l:fern_dict, 'root', {})
-    let l:current_root = get(l:root_node, '_path', '')
-    let l:current_root = type(l:current_root) is# v:t_string ? l:current_root : ''
+    " autoload 関数で現在の Fern ルートを取得
+    let l:current_root = myfern#sync#get_current_fern_root(l:winid)
 
     " ルートが同じなら FernReveal だけで再描画
-    if string(l:current_root) ==# string(l:info.root)
+    if l:current_root ==# l:info.root
       let l:reveal = fnameescape(l:info.reveal)
-      call timer_start(0, { -> win_execute(l:winnr, 'silent! FernReveal ' . l:reveal) })
+      " ウィンドウ ID を使用（タイマー実行時にも安定）
+      call timer_start(0, { -> win_execute(l:winid, 'silent! FernReveal ' . l:reveal) })
     else
       let l:info_copy = copy(l:info)
       call timer_start(0, { -> s:fern_reopen(l:info_copy) })
@@ -261,7 +222,6 @@ nnoremap <silent> <C-f> :FernSmartToggle<CR>
 
 augroup my-fern-smart-sync
   autocmd!
-  autocmd BufEnter *    call s:fern_sync_on_bufenter()
-  autocmd BufWinEnter * call s:fern_sync_on_bufenter()
-  autocmd WinEnter *    call s:fern_sync_on_bufenter()
+  " BufEnter のみで十分（重複イベント削減）
+  autocmd BufEnter * call s:fern_sync_on_bufenter()
 augroup END
