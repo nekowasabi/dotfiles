@@ -97,7 +97,7 @@ let s:model_configs = {
   \ 'models': {
   \   'default': {
   \     'model': 'openrouter/anthropic/claude-sonnet-4',
-  \     'editor': 'openrouter/google/gemini-2.5-flash-preview-05-20'
+  \     'editor': 'openrouter/'
   \   },
   \   'claude': {
   \     'model': 'architect/anthropic/claude-4',

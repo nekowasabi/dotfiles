@@ -1,20 +1,20 @@
 lastupdatecheck: 0
 recentrepos:
-- /Users/ttakeda/repos/feynman-technique
+- /Users/ttakeda/works/invase-app-backend
 - /Users/ttakeda/repos/private_dotfiles
+- /Users/ttakeda/works/invase-api-schema
+- /Users/ttakeda/works/invase-backend
+- /Users/ttakeda/repos/read-aloud-tab
 - /Users/ttakeda/repos/dotfiles
 - /Users/ttakeda/repos/changelog
-- /Users/ttakeda/works/invase-backend
-- /Users/ttakeda/works/invase-app-backend
-- /Users/ttakeda/repos/read-aloud-tab
+- /Users/ttakeda/.config/nvim/plugged/aider.vim
+- /Users/ttakeda/repos/feynman-technique
 - /Users/ttakeda/repos/geminitranslate
 - /Users/ttakeda/.config/nvim/plugged/ai-edit.vim
 - /Users/ttakeda/repos/tmux-text-object
 - /Users/ttakeda/.config/nvim/plugged/hellshake-yano.vim
 - /Users/ttakeda/works/dotfiles-ai-tools
-- /Users/ttakeda/works/invase-api-schema
 - /Users/ttakeda/works/invase-frontend
-- /Users/ttakeda/.config/nvim/plugged/aider.vim
 - /Users/ttakeda/works/mfs-ir-site
 - /Users/ttakeda/repos/mfs-tools
 - /Users/ttakeda/.config/nvim/plugged/rtm_deno
