@@ -32,14 +32,15 @@ function! DockerTransformNearest(cmd) abort
     return
   endif
 
-  " Python テスト（test_*.py）
+  " Python テスト（test_*.py）- 高速版（マイグレーションなし）
   if l:filename =~ "^test_.*\.py$"
     let l:project_root = s:FindProjectRoot()
     if l:project_root != ""
       execute "cd " . l:project_root
       " apps/ から始まる相対パスに変換
       let l:relative_cmd = substitute(a:cmd, '.*\(apps/.*\)', '\1', '')
-      return "./mac test " . l:relative_cmd
+      " FAST_TEST=1 --reuse-db --no-migrations で高速実行
+      return "docker compose exec -e FAST_TEST=1 web pytest --reuse-db --no-migrations " . l:relative_cmd
     endif
   endif
 
@@ -67,14 +68,15 @@ function! DockerTransformFile(cmd) abort
     return
   endif
 
-  " Python テスト（test_*.py）
+  " Python テスト（test_*.py）- 高速版（マイグレーションなし）
   if l:filename =~ "^test_.*\.py$"
     let l:project_root = s:FindProjectRoot()
     if l:project_root != ""
       execute "cd " . l:project_root
       " apps/ から始まるパスを抽出
       let l:apps_path = matchstr(l:fullpath, 'apps/.*\.py$')
-      return "./mac test " . l:apps_path . " -v"
+      " FAST_TEST=1 --reuse-db --no-migrations で高速実行
+      return "docker compose exec -e FAST_TEST=1 web pytest --reuse-db --no-migrations " . l:apps_path . " -v"
     endif
   endif
 
