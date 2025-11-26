@@ -217,7 +217,6 @@ function! s:fern_sync_on_bufenter() abort
 endfunction
 
 command! FernSmartToggle call <SID>fern_toggle()
-nnoremap <silent> <leader>e :FernSmartToggle<CR>
 nnoremap <silent> <C-f> :FernSmartToggle<CR>
 
 augroup my-fern-smart-sync
