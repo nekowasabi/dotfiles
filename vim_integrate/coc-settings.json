@@ -222,7 +222,7 @@
   "python.pythonPath": "/home/linuxbrew/.linuxbrew/bin/python3.12",
   "python.analysis.typeCheckingMode": "basic",
   "python.analysis.autoImportCompletions": true,
-  "python.analysis.diagnosticMode": "workspace",
+  "python.analysis.diagnosticMode": "openFilesOnly",
   "python.linting.enabled": false,
   "python.linting.flake8Enabled": true,
   "python.linting.flake8Path": "flake8",
