@@ -1,5 +1,5 @@
 {
-    "preset": "laravel",
+   "preset": "laravel",
     "cache-file": ".pint.cache",
     "exclude": [
         "database/migrations"
