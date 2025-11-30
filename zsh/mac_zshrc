@@ -55,6 +55,7 @@ alias lg='lazygit'
 alias g='gptme'
 alias yo="claude --dangerously-skip-permissions --model opus"
 alias ys="claude --dangerously-skip-permissions --model sonnet"
+alias c="claude --dangerously-skip-permissions"
 
 # alias xargs='gxargs'
 # }}}1
