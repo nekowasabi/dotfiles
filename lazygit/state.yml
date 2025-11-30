@@ -1,39 +1,10 @@
 lastupdatecheck: 0
 recentrepos:
-- /Users/ttakeda/works/invase-backend
-- /Users/ttakeda/repos/private_dotfiles
-- /Users/ttakeda/repos/dotfiles
-- /Users/ttakeda/works/invase-app-backend
-- /Users/ttakeda/works/invase-api-schema
-- /Users/ttakeda/repos/read-aloud-tab
-- /Users/ttakeda/repos/changelog
-- /Users/ttakeda/.config/nvim/plugged/aider.vim
-- /Users/ttakeda/repos/feynman-technique
-- /Users/ttakeda/repos/geminitranslate
-- /Users/ttakeda/.config/nvim/plugged/ai-edit.vim
-- /Users/ttakeda/repos/tmux-text-object
-- /Users/ttakeda/.config/nvim/plugged/hellshake-yano.vim
-- /Users/ttakeda/works/dotfiles-ai-tools
-- /Users/ttakeda/works/invase-frontend
-- /Users/ttakeda/works/mfs-ir-site
-- /Users/ttakeda/repos/mfs-tools
-- /Users/ttakeda/.config/nvim/plugged/rtm_deno
-- /Users/ttakeda/repos/taskchute-claude-cli
-- /Users/ttakeda/repos/surfingkeys
-- /Users/ttakeda/.config/nvim/plugged/claudecode.vim
-- /Users/ttakeda/.config/nvim/plugged/nudge-two-hats.vim
-- /Users/ttakeda/.config/nvim/plugged/cross-channel.nvim
-- /Users/ttakeda/repos/zenn
-- /Users/ttakeda/.config/nvim/plugged/vim-rule-switcher
-- /Users/ttakeda/.config/nvim/plugged/ddu-ai-prompt-connecter
+    - /Users/takets/repos/dotfiles
+    - /Users/takets/repos/private_dotfiles
 startuppopupversion: 5
-lastversion: 0.41.0
+didshowhunkstaginghint: false
+lastversion: 0.55.0
 customcommandshistory:
-- qa
+    - qa
 hidecommandlog: false
-ignorewhitespaceindiffview: true
-diffcontextsize: 3
-localbranchsortorder: recency
-remotebranchsortorder: alphabetical
-gitlogorder: topo-order
-gitlogshowgraph: always
