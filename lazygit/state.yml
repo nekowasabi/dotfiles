@@ -2,8 +2,8 @@ lastupdatecheck: 0
 recentrepos:
 - /Users/ttakeda/works/invase-app-backend
 - /Users/ttakeda/repos/private_dotfiles
-- /Users/ttakeda/repos/changelog
 - /Users/ttakeda/repos/dotfiles
+- /Users/ttakeda/repos/changelog
 startuppopupversion: 5
 lastversion: 0.41.0
 customcommandshistory:
