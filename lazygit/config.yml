@@ -133,3 +133,10 @@ customCommands:
         body: "Commit with the message '{{.Form.Type}}: {{.Form.Message}}{{.Form.Emoji}}'. Is this okay?"
     command: "bash -c 'type=\"{{.Form.Type}}\"; message=\"{{.Form.Message}}\"; emoji=\"{{.Form.Emoji}}\"; commit_message=\"$message $emoji\"; git commit -m \"$commit_message\"'"
     loadingText: "Commiting..."
+  # Claude Code コミット計画
+  - key: "z"
+    context: "files"
+    description: "Claude Code でコミット計画を作成"
+    command: "osascript -e 'tell application \"iTerm\" to activate' -e \"tell application \\\"iTerm\\\" to create window with default profile command \\\"cd '$(pwd)' && claude '/commit-plan'\\\"\""
+    output: none
+    loadingText: "Claude Code を起動中..."
