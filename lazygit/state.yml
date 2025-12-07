@@ -1,20 +1,10 @@
 lastupdatecheck: 0
 recentrepos:
-- /Users/ttakeda/works/invase-app-backend
-- /Users/ttakeda/repos/private_dotfiles
-- /Users/ttakeda/works/invase-backend
-- /Users/ttakeda/repos/sprits-speed-reading
-- /Users/ttakeda/repos/changelog
-- /Users/ttakeda/repos/dotfiles
-- /Users/ttakeda/repos/mfs-tools
+    - /Users/takets/repos/private_dotfiles
+    - /Users/takets/repos/dotfiles
 startuppopupversion: 5
-lastversion: 0.41.0
+didshowhunkstaginghint: false
+lastversion: 0.55.0
 customcommandshistory:
-- qa
+    - qa
 hidecommandlog: false
-ignorewhitespaceindiffview: false
-diffcontextsize: 3
-localbranchsortorder: recency
-remotebranchsortorder: alphabetical
-gitlogorder: topo-order
-gitlogshowgraph: always
