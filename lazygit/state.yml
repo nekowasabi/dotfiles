@@ -1,10 +1,10 @@
 lastupdatecheck: 0
 recentrepos:
+    - /Users/takets/repos/dotfiles
     - /Users/takets/repos/geminitranslate
     - /Users/takets/repos/read-aloud-tab
     - /Users/takets/repos/private_dotfiles
     - /Users/takets/repos/changelog
-    - /Users/takets/repos/dotfiles
 startuppopupversion: 5
 didshowhunkstaginghint: false
 lastversion: 0.55.0
