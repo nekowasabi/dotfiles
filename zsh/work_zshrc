@@ -316,3 +316,9 @@ export PATH="/Users/ttakeda/.antigravity/antigravity/bin:$PATH"
 
 # Added by Antigravity
 export PATH="/Users/ttakeda/.antigravity/antigravity/bin:$PATH"
+
+# tmux session switching
+alias tw='tmux switch-client -t invase-web'   # web環境へ切り替え
+alias ta='tmux switch-client -t invase-app'   # app環境へ切り替え
+alias tl='tmux switch-client -l'              # 直前の環境へトグル
+alias ts='tmux list-sessions'                 # セッション一覧表示
