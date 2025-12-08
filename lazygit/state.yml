@@ -1,13 +1,16 @@
 lastupdatecheck: 0
 recentrepos:
-    - /Users/takets/repos/dotfiles
-    - /Users/takets/repos/geminitranslate
-    - /Users/takets/repos/read-aloud-tab
-    - /Users/takets/repos/private_dotfiles
-    - /Users/takets/repos/changelog
+- /Users/ttakeda/works/invase-backend
+- /Users/ttakeda/repos/private_dotfiles
+- /Users/ttakeda/repos/changelog
 startuppopupversion: 5
-didshowhunkstaginghint: false
-lastversion: 0.55.0
+lastversion: 0.41.0
 customcommandshistory:
-    - qa
+- qa
 hidecommandlog: false
+ignorewhitespaceindiffview: false
+diffcontextsize: 3
+localbranchsortorder: recency
+remotebranchsortorder: alphabetical
+gitlogorder: topo-order
+gitlogshowgraph: always
