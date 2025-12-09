@@ -129,6 +129,7 @@ Plug 'lambdalisue/vim-deno-cache'
 Plug 'vim-denops/denops-shared-server.vim'
 Plug 'nekowasabi/hellshake-yano.vim'
 Plug 'nekowasabi/ai-edit.vim'
+Plug 'nekowasabi/sprit-reading.vim'
 
 " textobj
 Plug 'kana/vim-operator-user'

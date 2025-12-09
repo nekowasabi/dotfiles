@@ -189,6 +189,13 @@ let g:ai_edit_provider_preferences = 'Cerebras'
 
 nmap <Leader>gm <Plug>(git-messenger)
 
+" spritz.vim の設定"
+let g:spritz_wpm = 350           " 初期WPM (100-1000)
+let g:spritz_font_size = 64      " フォントサイズ (px)
+let g:spritz_window_width = 600  " ウィンドウ幅 (px)
+let g:spritz_window_height = 200 " ウィンドウ高さ (px)
+let g:spritz_always_on_top = v:true  " 常に最前面
+let g:spritz_show_progress = v:true  " 進捗バー表示
 
 " -----------------------------------------------------------
 " lua
