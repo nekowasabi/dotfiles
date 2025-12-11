@@ -139,7 +139,7 @@ alias deno='~/.deno/bin/deno'
 alias grealpath='/opt/homebrew/bin/grealpath'
 alias cj='j'
 alias yo="claude --dangerously-skip-permissions --model opus --agents serena-expert"
-alias ys="claude --dangerously-skip-permissions --model sonnet --agents serena-expert"
+alias ys="claude --dangerously-skip-permissions --model opus --agents serena-expert"
 alias c="claude --dangerously-skip-permissions --agents serena-expert"
 # }}}0
 
