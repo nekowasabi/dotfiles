@@ -202,48 +202,66 @@ nnoremap <silent> ,Hd :HugoDeploy<CR>
 
 " changelogメモの項目を一番上に移動する {{{1
 function! s:MoveChangelogItemToTop()
-    execute "normal! zR"
+    silent execute "normal! zR"
 	let txt = MoveSectionToTop()
-	call append(2, txt)
+	silent call append(2, txt)
   call feedkeys("ggzC")
-	" execute "normal! z0"
 endfunction
-command! -range MoveChangelogItemToTop call s:MoveChangelogItemToTop() 
-nnoremap ,C :MoveChangelogItemToTop<CR>
+command! -range MoveChangelogItemToTop call s:MoveChangelogItemToTop()
+nnoremap <silent> ,C :MoveChangelogItemToTop<CR>
 
 function! MoveSectionToTop()
     let current_section = []
-    let cursor_position = getpos('.')
     let pattern = '^\* \zs.*\ze\(\s\[\w*\]:\)*$'
     let pattern_datetime_header = '^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]  takets.*$'
-    
+
     " Check if the current line matches the header format
     if getline('.') !~ pattern
-        echo "Current line is not a header."
-        return current_section
+        " ヘッダ行でない場合、上方向に検索してヘッダ行を探す
+        let header_line = search(pattern, 'bnW')
+        if header_line == 0
+            echo "セクションヘッダが見つかりません"
+            return current_section
+        endif
+        " ヘッダ行にカーソルを移動
+        call cursor(header_line, 1)
     endif
 
-    " Save the header line
-    call add(current_section, getline('.'))
+    let start_line = line('.')
 
-    " Move to the next line
-    normal! j
+    " 次の行から検索を開始するため、一時的に移動
+    silent normal! j
 
-    " Collect lines until the next header is found or the end of the buffer
-    while getline('.') !~ pattern &&  getline('.') !~ pattern_datetime_header
-        call add(current_section, getline('.'))
-        " Delete the current line
-        execute "normal! dd"
-    endwhile
+    " 次のヘッダ行または日付ヘッダを検索して終了行を特定
+    let next_header = search(pattern, 'nW')
+    let next_date = search(pattern_datetime_header, 'nW')
 
-    " Delete the header line
-    call setpos('.', cursor_position)
-    execute "normal! dd"
+    " カーソルを元のヘッダ行に戻す
+    call cursor(start_line, 1)
 
-    " Restore the cursor position
-    call setpos('.', cursor_position)
+    " 終了行を決定（見つからない場合はファイル末尾）
+    if next_header == 0 && next_date == 0
+        let end_line = line('$')
+    elseif next_header == 0
+        let end_line = next_date - 1
+    elseif next_date == 0
+        let end_line = next_header - 1
+    else
+        let end_line = min([next_header, next_date]) - 1
+    endif
 
-		return current_section
+    " end_lineがstart_lineより小さい場合は、ヘッダ行のみ
+    if end_line < start_line
+        let end_line = start_line
+    endif
+
+    " セクションの内容を取得（一括）
+    let current_section = getline(start_line, end_line)
+
+    " セクションを一括削除
+    silent execute start_line . ',' . end_line . 'delete _'
+
+    return current_section
 endfunction
 " }}}1
 
