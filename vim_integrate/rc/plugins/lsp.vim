@@ -1,12 +1,35 @@
-" lsp_saga
+" LSP キーバインド設定
+" - CoC filetypes (vim,typescript,php,json,go,lua,sh,python,javascript,vue,yaml,blade): coc.vim で設定
+" - markdown: nvim-lsp (storyteller LSP) を使用（下部のLuaで設定）
+" - その他: Lspsaga を使用
+
+" CoC filetypes かどうかを判定
+function! s:IsCocFiletype() abort
+  let l:coc_filetypes = ['vim', 'typescript', 'php', 'json', 'go', 'lua', 'sh', 'python', 'javascript', 'vue', 'yaml', 'blade']
+  return index(l:coc_filetypes, &filetype) >= 0
+endfunction
+
+" Lspsaga用キーバインドを設定する関数
+function! s:SetLspsagaKeybindings() abort
+  nnoremap <buffer><silent> ,cd <cmd>Lspsaga goto_definition<CR>
+  nnoremap <buffer><silent> ,ck <cmd>Lspsaga hover_doc<CR>
+  nnoremap <buffer><silent> ,cr <cmd>Lspsaga rename<CR>
+  nnoremap <buffer><silent> ,cR <cmd>Lspsaga finder ref<CR>
+  nnoremap <buffer><silent> ,ca <cmd>Lspsaga code_action<CR>
+  nnoremap <buffer><silent> ,cf <cmd>Lspsaga code_action<CR>
+  nnoremap <buffer><silent> ,co <cmd>Telescope lsp_document_symbols<CR>
+  nnoremap <buffer><silent> ,cO <cmd>Lspsaga outline<CR>
+  nnoremap <buffer><silent> ,ci <cmd>Lspsaga finder imp<CR>
+  nnoremap <buffer><silent> ,cla <cmd>Lspsaga show_workspace_diagnostics<CR>
+  nnoremap <buffer><silent> ,clb <cmd>Lspsaga show_buf_diagnostics<CR>
+endfunction
+
 if !g:IsMacNeovimInWork()
-  nnoremap <silent> ,ck <cmd>Lspsaga hover_doc<CR>
-  nnoremap <silent> ,cf <cmd>Lspsaga code_action<CR>
-  nnoremap <silent> ,cr <cmd>Lspsaga rename<CR>
-  nnoremap <silent> ,cd <cmd>Lspsaga goto_definition<CR>
-  nnoremap <silent> ,co <cmd>Telescope lsp_document_symbols<CR>
-  nnoremap <silent> ,cO <cmd>Lspsaga outline<CR>
-  nnoremap <silent> ,ca <cmd>Lspsaga code_action<CR>
+  augroup LspsagaMappings
+    autocmd!
+    " CoC filetypes と markdown 以外で Lspsaga キーバインドを設定
+    autocmd FileType * if &filetype != 'markdown' && !s:IsCocFiletype() | call s:SetLspsagaKeybindings() | endif
+  augroup END
 endif
 
 lua << EOF
@@ -117,15 +140,23 @@ lspconfig.storyteller.setup({
 
 vim.lsp.enable({"lua_ls", "denols"})
 
--- markdownファイル用のキーマッピング（coc.nvimの代わりにnvim-lspを使用）
+-- markdownファイル用のキーマッピング（nvim-lsp / storyteller LSP を使用）
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "markdown",
   callback = function()
     local opts = { buffer = true, silent = true }
+    -- 基本操作
     vim.keymap.set("n", ",cd", vim.lsp.buf.definition, opts)
     vim.keymap.set("n", ",ck", vim.lsp.buf.hover, opts)
     vim.keymap.set("n", ",cr", vim.lsp.buf.references, opts)
     vim.keymap.set("n", ",ca", vim.lsp.buf.code_action, opts)
+    vim.keymap.set("n", ",cf", vim.lsp.buf.code_action, opts)
+    vim.keymap.set("n", ",cn", vim.lsp.buf.rename, opts)
+    -- Outline (Telescope)
+    vim.keymap.set("n", ",co", "<cmd>Telescope lsp_document_symbols<CR>", opts)
+    -- Diagnostics
+    vim.keymap.set("n", ",cla", vim.diagnostic.setqflist, opts)
+    vim.keymap.set("n", ",clb", vim.diagnostic.setloclist, opts)
   end,
 })
 
