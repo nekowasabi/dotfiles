@@ -228,10 +228,10 @@ nmap dK dab
 
 " Fast switching to the alternate file {{{
 inoremap <silent> <C-z> <Esc>:SwitchPreviousBuffer<CR>
-nnoremap <silent> <C-z> <Esc>:SwitchPreviousBuffer<CR>
+nnoremap <silent> <C-z> :SwitchPreviousBuffer<CR>
 
 function! s:SwitchPreviousBuffer()
-  silent! buffer#
+  silent! b#
 endfunction
 command! SwitchPreviousBuffer call <SID>SwitchPreviousBuffer()
 " }}}1
