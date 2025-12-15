@@ -38,6 +38,13 @@ let g:completion_disabled_filetypes = [
       \ 'sql'
       \ ]
 
+" CoC を完全に無効化する filetype（プラグインロード前に設定が必要）
+" g:cmp_only_filetypes と同期させる
+let g:coc_filetype_map = {}
+for ft in g:cmp_only_filetypes
+  let g:coc_filetype_map[ft] = ''
+endfor
+
 " init {{{1
 if empty(g:GetAutoloadPath() . 'plug.vim')
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs

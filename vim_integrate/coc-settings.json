@@ -1,4 +1,18 @@
 {
+  "coc.preferences.enabledFiletypes": [
+    "vim",
+    "typescript",
+    "php",
+    "json",
+    "go",
+    "lua",
+    "sh",
+    "python",
+    "javascript",
+    "vue",
+    "yaml",
+    "blade"
+  ],
   "tsserver.enable": true,
   "diagnostic.enable": true,
   "inlayHint.enable": false,
