@@ -94,7 +94,40 @@ vim.lsp.config("lua_ls", {
       }
     })
 
+-- storyteller LSP (物語作成支援ツール)
+local lspconfig = require('lspconfig')
+local configs = require('lspconfig.configs')
+
+-- カスタムLSPサーバーの定義
+if not configs.storyteller then
+  configs.storyteller = {
+    default_config = {
+      cmd = { "/home/takets/repos/street-storyteller/storyteller", "lsp", "start", "--stdio" },
+      filetypes = { "markdown" },
+      root_dir = lspconfig.util.root_pattern(".storyteller.json", "story.config.ts", "deno.json"),
+      single_file_support = true,
+    },
+  }
+end
+
+-- storyteller LSPを起動
+lspconfig.storyteller.setup({
+  capabilities = capabilities,
+})
+
 vim.lsp.enable({"lua_ls", "denols"})
+
+-- markdownファイル用のキーマッピング（coc.nvimの代わりにnvim-lspを使用）
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    local opts = { buffer = true, silent = true }
+    vim.keymap.set("n", ",cd", vim.lsp.buf.definition, opts)
+    vim.keymap.set("n", ",ck", vim.lsp.buf.hover, opts)
+    vim.keymap.set("n", ",cr", vim.lsp.buf.references, opts)
+    vim.keymap.set("n", ",ca", vim.lsp.buf.code_action, opts)
+  end,
+})
 
 vim.lsp.diagnostics_trigger_update = true
 
