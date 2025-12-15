@@ -1,3 +1,5 @@
+" g:coc_filetype_map は plugin.vim で設定済み（プラグインロード前に必要）
+
 let g:coc_global_extensions = [
   \  'coc-json'
   \, 'coc-lists'
@@ -63,31 +65,47 @@ endfunction
 
 let g:coc_snippet_next = '<tab>'
 
-nmap <silent> ,cd <Plug>(coc-definition)
-nmap <silent> ,cy <Plug>(coc-type-definition)
-nmap <silent> ,ci <Plug>(coc-implementation)
-nmap <silent> ,cr <Plug>(coc-references)
-nmap <silent> ,cn <Plug>(coc-rename)
-nmap <silent> ,cf <Plug>(coc-format)
-vmap <silent> ,cf <Plug>(coc-format)
-nmap <silent> ,cR  <Plug>(coc-refactor)
+" CoC用キーバインドをバッファローカルで設定する関数
+function! s:SetCocKeybindings() abort
+  " 基本操作
+  nmap <buffer><silent> ,cd <Plug>(coc-definition)
+  nmap <buffer><silent> ,cy <Plug>(coc-type-definition)
+  nmap <buffer><silent> ,ci <Plug>(coc-implementation)
+  nmap <buffer><silent> ,cr <Plug>(coc-references)
+  nmap <buffer><silent> ,cn <Plug>(coc-rename)
+  nmap <buffer><silent> ,cf <Plug>(coc-format)
+  vmap <buffer><silent> ,cf <Plug>(coc-format)
+  nmap <buffer><silent> ,cR <Plug>(coc-refactor)
 
-nnoremap <silent> ,cla  :<C-u>CocFzfList diagnostics<CR>
-nnoremap <silent> ,clb  :<C-u>CocFzfList diagnostics --current-buf<CR>
-nnoremap <silent> ,clc  :<C-u>CocFzfList commands<CR>
-nnoremap <silent> ,cle  :<C-u>CocFzfList extensions<CR>
-nnoremap <silent> ,cls  :<C-u>CocFzfList symbols<CR>
-nnoremap <silent> ,clS  :<C-u>CocFzfList services<CR>
-nnoremap <silent> ,clp  :<C-u>CocFzfListResume<CR>
-nmap <silent> ,caA <Plug>(coc-codeaction)
-nmap <silent> ,cal <Plug>(coc-codeaction-line)
-xmap <silent> ,cas <Plug>(coc-codeaction-selected)
-nmap <silent> ,caa <Plug>(coc-codeaction-cursor)
+  " CocFzfList
+  nnoremap <buffer><silent> ,cla :<C-u>CocFzfList diagnostics<CR>
+  nnoremap <buffer><silent> ,clb :<C-u>CocFzfList diagnostics --current-buf<CR>
+  nnoremap <buffer><silent> ,clc :<C-u>CocFzfList commands<CR>
+  nnoremap <buffer><silent> ,cle :<C-u>CocFzfList extensions<CR>
+  nnoremap <buffer><silent> ,cls :<C-u>CocFzfList symbols<CR>
+  nnoremap <buffer><silent> ,clS :<C-u>CocFzfList services<CR>
+  nnoremap <buffer><silent> ,clp :<C-u>CocFzfListResume<CR>
 
-autocmd FileType php,typescript,python,markdown,javascript,vim nnoremap <silent> ,co  :<C-u>CocFzfList outline<CR>
+  " Code Action
+  nmap <buffer><silent> ,caA <Plug>(coc-codeaction)
+  nmap <buffer><silent> ,cal <Plug>(coc-codeaction-line)
+  xmap <buffer><silent> ,cas <Plug>(coc-codeaction-selected)
+  nmap <buffer><silent> ,caa <Plug>(coc-codeaction-cursor)
+  nmap <buffer><silent> ,ca <Plug>(coc-codeaction-cursor)
 
-" Use K to show documentation in preview window
-nnoremap <silent> ,ck :call <SID>show_documentation()<CR>
+  " Outline
+  nnoremap <buffer><silent> ,co :<C-u>CocFzfList outline<CR>
+
+  " Hover documentation
+  nnoremap <buffer><silent> ,ck :call <SID>show_documentation()<CR>
+endfunction
+
+" CoC filetypeでキーバインドを設定
+augroup CocKeybindings
+  autocmd!
+  " g:coc_only_filetypes に含まれるfiletypeでのみCoC用キーバインドを設定
+  autocmd FileType vim,typescript,php,json,go,lua,sh,python,javascript,vue,yaml,blade call s:SetCocKeybindings()
+augroup END
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -129,14 +147,24 @@ endfunction
 
 " Toggle Coc based on filetype
 function! ToggleCocByFileType() abort
+  " CoCがロードされていない、または準備できていない場合はスキップ
+  if !exists('g:did_coc_loaded')
+    return
+  endif
+
   let l:should_enable = s:ShouldEnableCoc()
   let l:current_state = get(b:, 'is_coc_enabled', v:false)
 
   " 状態が変わる時のみ実行（パフォーマンス改善）
   if l:should_enable != l:current_state
     if l:should_enable
+      " CoCサービスが初期化されていない場合はスキップ
+      if !exists('g:coc_service_initialized') || !g:coc_service_initialized
+        let b:is_coc_enabled = v:false
+        return
+      endif
       try
-        execute "silent! CocEnable"
+        silent! CocEnable
         let b:is_coc_enabled = v:true
         let b:your_cmp_disable_enable_toggle = v:false
 
@@ -147,7 +175,7 @@ function! ToggleCocByFileType() abort
         let b:is_coc_enabled = v:false
       endtry
     else
-      execute "silent! CocDisable"
+      silent! CocDisable
       let b:is_coc_enabled = v:false
       let b:your_cmp_disable_enable_toggle = v:true
 
@@ -160,13 +188,18 @@ endfunction
 
 " Restore previous Coc state
 function! RestoreCocByFileType() abort
+  " CoCがロードされていない、または準備できていない場合はスキップ
+  if !exists('g:did_coc_loaded') || !exists('g:coc_service_initialized') || !g:coc_service_initialized
+    return
+  endif
+
   if exists('b:is_coc_enabled')
-		if b:is_coc_enabled
-			execute "silent! CocEnable"
-		else
-			let b:your_cmp_disable_enable_toggle = v:true
-			execute "silent! CocDisable"
-		endif
+    if b:is_coc_enabled
+      silent! CocEnable
+    else
+      let b:your_cmp_disable_enable_toggle = v:true
+      silent! CocDisable
+    endif
   endif
 endfunction
 
@@ -175,8 +208,13 @@ augroup CocToggleForFileTypes
   autocmd!
   " FileTypeイベントでCoC切り替え（BufEnterより効率的）
   autocmd FileType * call ToggleCocByFileType()
+  " BufEnterでもCoC状態を切り替え（バッファ移動時の対応）
+  autocmd BufEnter * call ToggleCocByFileType()
   autocmd CmdlineLeave * call RestoreCocByFileType()
   autocmd CmdlineEnter * silent call OpenCommandLineByCmp()
+  " markdown等のCMPのみfiletypeでは、バッファレベルでもCoCを無効化
+  autocmd FileType markdown,noice,changelog,text,gitcommit,copilot-chat,AvanteInput let b:coc_enabled = 0
+  autocmd BufEnter *.md let b:coc_enabled = 0 | silent! CocDisable
 augroup END
 " }}}1
 
