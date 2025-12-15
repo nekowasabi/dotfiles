@@ -231,7 +231,15 @@ inoremap <silent> <C-z> <Esc>:SwitchPreviousBuffer<CR>
 nnoremap <silent> <C-z> :SwitchPreviousBuffer<CR>
 
 function! s:SwitchPreviousBuffer()
+  " バッファ切り替え前にCoCを一時停止（エラー回避）
+  if exists('g:did_coc_loaded')
+    silent! CocDisable
+  endif
   silent! b#
+  " バッファ切り替え後にfiletype に応じてCoC状態を復元
+  if exists('*ToggleCocByFileType')
+    call ToggleCocByFileType()
+  endif
 endfunction
 command! SwitchPreviousBuffer call <SID>SwitchPreviousBuffer()
 " }}}1
