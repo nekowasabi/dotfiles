@@ -1,4 +1,4 @@
-" cmp.vim - nvim-cmp specific settings
+" cmp.vim - nv/home/takets/repos/street-storyteller/samples/cinderella/src/settings/mansion.tsim-cmp specific settings
 " Note: Completion switching logic is in autoload/completion.vim
 
 lua << EOF
@@ -29,7 +29,9 @@ cmp.setup({
     fetching_timeout = 1,
   },
   snippet = {
-    expand = function(_)
+    expand = function(args)
+      -- Neovim 0.10+ 組み込みスニペット展開を使用
+      vim.snippet.expand(args.body)
     end,
   },
   mapping = cmp.mapping.preset.insert({
@@ -180,34 +182,36 @@ cmp.setup.filetype('markdown', {
 
 })
 
--- cmp.setup.filetype({'vim', 'typescript', 'python', 'lua'}, {
---   sources = cmp.config.sources({
---     { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
---   },
---   {
---     { name = "nvim_lsp", keyword_length = 3 },
---     { name = 'path' },
---     { name = 'buffer',
---       option = {
---         get_bufnrs = function()
---         return vim.api.nvim_list_bufs()
---         end
---       },
---     },
---     { name = 'neosnippet', keyword_length = 3 },
---     { name = 'context_nvim' },
---   }),
---   window = {
---     completion = cmp.config.window.bordered(),
---     -- documentation = cmp.config.window.bordered(),
---   },
---   view = {
---     entries = {
---       follow_cursor = true,
---     }
---   },
--- })
--- 動的な有効化判定（上記のautocmdで処理済みのためコメントアウト）
+cmp.setup.filetype({'typescript', 'typescriptreact', 'javascript', 'javascriptreact'}, {
+  sources = cmp.config.sources({
+    { name = 'cmp_git' },
+  },
+  {
+    {
+      name = "nvim_lsp",
+      keyword_length = 3,
+    },
+    { name = 'path' },
+    { name = 'buffer',
+      option = {
+        get_bufnrs = function()
+        return vim.api.nvim_list_bufs()
+        end
+      },
+    },
+    { name = 'neosnippet', keyword_length = 3 },
+    { name = 'context_nvim' },
+  }),
+  window = {
+    completion = cmp.config.window.bordered(),
+  },
+  view = {
+    entries = {
+      follow_cursor = true,
+    }
+  },
+})
+-- -- 動的な有効化判定（上記のautocmdで処理済みのためコメントアウト）
 -- cmp.setup.filetype({'vim', 'typescript', 'python', 'lua', 'go'}, {
 --   enabled = false
 -- })
