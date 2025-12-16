@@ -28,7 +28,10 @@ let g:coc_only_filetypes = [
       \ 'lua',
       \ 'sh',
       \ 'python',
-      \ 'javascript'
+      \ 'javascript',
+      \ 'vue',
+      \ 'yaml',
+      \ 'blade'
       \ ]
 
 " CMPのみ使用するfiletype
