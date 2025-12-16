@@ -7,6 +7,16 @@ else
   let g:enable_coc = v:true
 endif
 
+" CoC: Disable automatic startup - start manually after VimEnter
+" This MUST be set before coc.nvim plugin is loaded
+let g:coc_start_at_startup = 0
+
+" Start CoC after VimEnter with delay
+augroup CocManualStart
+  autocmd!
+  autocmd VimEnter * call timer_start(100, {-> execute('CocStart')})
+augroup END
+
 " Completion system filetype configuration
 " CoCのみ使用するfiletype（現在は空）
 let g:coc_only_filetypes = [
