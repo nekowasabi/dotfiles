@@ -140,6 +140,24 @@ lspconfig.storyteller.setup({
 
 vim.lsp.enable({"lua_ls", "denols"})
 
+-- storyteller LSP semantic tokens highlight
+-- ColorScheme読み込み後にも適用されるようautocmdで設定
+local function setup_storyteller_highlights()
+  vim.api.nvim_set_hl(0, '@lsp.type.character', { fg = '#FF8800' })
+  vim.api.nvim_set_hl(0, '@lsp.type.character.markdown', { fg = '#FF8800' })
+  vim.api.nvim_set_hl(0, '@lsp.type.setting', { fg = '#0087FF' })
+  vim.api.nvim_set_hl(0, '@lsp.type.setting.markdown', { fg = '#0087FF' })
+  vim.api.nvim_set_hl(0, '@lsp.mod.lowConfidence', { underdashed = true })
+end
+
+-- 起動時に設定
+setup_storyteller_highlights()
+
+-- ColorScheme変更時にも再設定
+vim.api.nvim_create_autocmd('ColorScheme', {
+  callback = setup_storyteller_highlights,
+})
+
 -- markdownファイル用のキーマッピング（nvim-lsp / storyteller LSP を使用）
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "markdown",
