@@ -120,6 +120,7 @@ Plug 'lambdalisue/vim-glyph-palette'
 Plug 'lambdalisue/vim-fern-renderer-nerdfont'
 Plug 'lambdalisue/vim-fern-git-status'
 Plug 'yuki-yano/fern-preview.vim'
+Plug 'thinca/vim-themis'
 
 " AI
  Plug 'github/copilot.vim'
