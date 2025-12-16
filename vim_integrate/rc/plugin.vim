@@ -325,12 +325,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'SmiteshP/nvim-navic'
   Plug 'nekowasabi/vim-syntax-tyranoscript'
   Plug 'nvimdev/lspsaga.nvim'
-	" Plug 'echasnovski/mini.nvim'
-
-  " Plug 'kdheepak/lazygit.nvim'
-
   call g:SetDdu()
-
 
   if g:IsWsl()
     Plug 'MunifTanjim/nui.nvim', { 'commit': '8d3bce9764e627b62b07424e0df77f680d47ffdb' }
@@ -342,14 +337,15 @@ if g:IsMacNeovim() || g:IsWsl()
     call g:SetCoc()
   elseif g:IsMacNeovim()
     call g:SetCoc()
+    Plug 'nekowasabi/street-storyteller.vim'
     Plug 'abzcoding/lsp_lines.nvim'
   elseif g:IsWsl()
     Plug 'Shougo/ddc-source-lsp'
+    Plug 'nekowasabi/street-storyteller.vim'
   elseif g:IsMacNeovimInWezterm()
     call g:SetCoc()
+    Plug 'nekowasabi/street-storyteller.vim'
   else
-    Plug 'gelguy/wilder.nvim'
-    Plug 'Shougo/ddc-source-lsp'
     call g:SetCoc()
   endif
 
