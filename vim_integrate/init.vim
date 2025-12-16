@@ -202,6 +202,16 @@ let g:spritz_show_progress = v:true  " 進捗バー表示
 
 lua << EOF
 
+
+vim.api.nvim_create_autocmd("BufReadPost", {
+  pattern = { "*/src/characters/*.ts", "*/src/settings/*.ts" },
+  callback = function()
+  if vim.g.coc_global_extensions ~= nil then
+    vim.b.coc_enabled = 0
+    end
+    end,
+})
+
 -- parrot.nvim config is now lazy loaded from rc/plugins/parrot.vim
 
 require("nudge-two-hats").setup({
