@@ -43,7 +43,31 @@ capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
 
 -- vim.lsp.set_log_level("trace")
 
+-- Helper: find root directory by marker files
+local function find_root(markers)
+  return function(bufnr, on_dir)
+    local path = vim.api.nvim_buf_get_name(bufnr)
+    if path == "" then return nil end
+    local dir = vim.fn.fnamemodify(path, ":h")
+    while dir ~= "/" do
+      for _, marker in ipairs(markers) do
+        if vim.uv.fs_stat(dir .. "/" .. marker) then
+          if on_dir then on_dir(dir) end
+          return dir
+        end
+      end
+      dir = vim.fn.fnamemodify(dir, ":h")
+    end
+    return nil
+  end
+end
+
+-- Deno LSP configuration (Neovim 0.11+ vim.lsp.config API)
 vim.lsp.config("denols", {
+  cmd = { "deno", "lsp" },
+  filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+  root_dir = find_root({ "deno.json", "deno.jsonc", "import_map.json" }),
+  capabilities = capabilities,
   settings = {
     deno = {
       enable = true,
@@ -55,25 +79,25 @@ vim.lsp.config("denols", {
         }
       },
       inlayHints = {
-        parameterNames = true,
-        parameterTypes = true,
-        variableTypes = true,
-        functionReturnTypes = true,
-        enumMemberValues = true,
-        propertyDeclarationTypes = true,
-        parameterNamesSuppressWhenArgumentMatchesName = true,
+        parameterNames = { enabled = "all" },
+        parameterTypes = { enabled = true },
+        variableTypes = { enabled = true },
+        functionReturnTypes = { enabled = true },
+        enumMemberValues = { enabled = true },
+        propertyDeclarationTypes = { enabled = true },
       },
       unstable = true,
       codeLens = {
         implementations = true,
         references = true,
       },
-      cache = true,
-      import_map = true,
+      lint = true,
     },
   },
-  root_dir = require('lspconfig').util.root_pattern("deno.json", "deno.jsonc", "import_map.json"),
 })
+
+-- Enable denols for TypeScript/JavaScript in Deno projects
+vim.lsp.enable("denols")
 
 require('lspsaga').setup({
   symbol_in_winbar = {

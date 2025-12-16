@@ -85,7 +85,11 @@ endfunction
 function! s:EnableCmp() abort
   " Disable CoC for this buffer
   if exists('g:did_coc_loaded')
-    silent! CocDisable
+    try
+      silent! CocDisable
+    catch
+      " coc.nvim内部エラーを無視
+    endtry
   endif
 
   " Enable cmp for this buffer
@@ -99,7 +103,11 @@ endfunction
 function! s:DisableAll() abort
   " Disable CoC
   if exists('g:did_coc_loaded')
-    silent! CocDisable
+    try
+      silent! CocDisable
+    catch
+      " coc.nvim内部エラーを無視
+    endtry
   endif
 
   " Disable cmp
@@ -137,13 +145,13 @@ let g:coc_global_extensions = [
   \, 'coc-yaml'
   \, 'coc-blade'
   \, 'coc-lua'
-  \, 'coc-deno'
   \, '@hexuhua/coc-copilot'
   \, 'coc-stylua'
   \, 'coc-vimlsp'
   \, 'coc-pyright'
   \ ]
 
+  " \, 'coc-deno'
 " Markdown fenced languages
 let g:markdown_fenced_languages = [
      \ 'vim',
