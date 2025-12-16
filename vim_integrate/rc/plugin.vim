@@ -21,7 +21,6 @@ augroup END
 " CoCのみ使用するfiletype（現在は空）
 let g:coc_only_filetypes = [
       \ 'vim',
-      \ 'typescript',
       \ 'php',
       \ 'json',
       \ 'go',
@@ -42,6 +41,7 @@ let g:cmp_only_filetypes = [
       \ 'text',
       \ 'gitcommit',
       \ 'copilot-chat',
+      \ 'typescript',
       \ 'AvanteInput'
       \ ]
 
