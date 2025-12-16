@@ -118,65 +118,66 @@ vim.lsp.config("lua_ls", {
     })
 
 -- storyteller LSP (物語作成支援ツール)
-local lspconfig = require('lspconfig')
-local configs = require('lspconfig.configs')
+-- g:IsMacNeovimInWork() が false のときのみ有効化
+if not vim.fn.IsMacNeovimInWork() then
+  local lspconfig = require('lspconfig')
+  local configs = require('lspconfig.configs')
 
--- カスタムLSPサーバーの定義
-if not configs.storyteller then
-  configs.storyteller = {
-    default_config = {
-      cmd = { "/home/takets/repos/street-storyteller/storyteller", "lsp", "start", "--stdio" },
-      filetypes = { "markdown" },
-      root_dir = lspconfig.util.root_pattern(".storyteller.json", "story.config.ts", "deno.json"),
-      single_file_support = true,
-    },
-  }
+  -- カスタムLSPサーバーの定義
+  if not configs.storyteller then
+    configs.storyteller = {
+      default_config = {
+        cmd = { "/home/takets/repos/street-storyteller/storyteller", "lsp", "start", "--stdio" },
+        filetypes = { "markdown" },
+        root_dir = lspconfig.util.root_pattern(".storyteller.json", "story.config.ts", "deno.json"),
+        single_file_support = true,
+      },
+    }
+  end
+
+  -- storyteller LSPを起動
+  lspconfig.storyteller.setup({
+    capabilities = capabilities,
+  })
+
+  -- storyteller LSP semantic tokens highlight
+  -- ColorScheme読み込み後にも適用されるようautocmdで設定
+  local function setup_storyteller_highlights()
+    vim.api.nvim_set_hl(0, '@lsp.type.character', { fg = '#FF8800' })
+    vim.api.nvim_set_hl(0, '@lsp.type.character.markdown', { fg = '#FF8800' })
+    vim.api.nvim_set_hl(0, '@lsp.type.setting', { fg = '#0087FF' })
+    vim.api.nvim_set_hl(0, '@lsp.type.setting.markdown', { fg = '#0087FF' })
+    vim.api.nvim_set_hl(0, '@lsp.mod.lowConfidence', { underdashed = true })
+  end
+
+  -- 起動時に設定
+  setup_storyteller_highlights()
+
+  -- ColorScheme変更時にも再設定
+  vim.api.nvim_create_autocmd('ColorScheme', {
+    callback = setup_storyteller_highlights,
+  })
+
+  -- markdownファイル用のキーマッピング（nvim-lsp / storyteller LSP を使用）
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = "markdown",
+    callback = function()
+      local opts = { buffer = true, silent = true }
+      -- 基本操作
+      vim.keymap.set("n", ",cd", vim.lsp.buf.definition, opts)
+      vim.keymap.set("n", ",ck", vim.lsp.buf.hover, opts)
+      vim.keymap.set("n", ",cr", vim.lsp.buf.references, opts)
+      vim.keymap.set("n", ",ca", vim.lsp.buf.code_action, opts)
+      vim.keymap.set("n", ",cf", vim.lsp.buf.code_action, opts)
+      vim.keymap.set("n", ",cn", vim.lsp.buf.rename, opts)
+      -- Outline (Telescope)
+      vim.keymap.set("n", ",co", "<cmd>Telescope lsp_document_symbols<CR>", opts)
+      -- Diagnostics
+      vim.keymap.set("n", ",cla", vim.diagnostic.setqflist, opts)
+      vim.keymap.set("n", ",clb", vim.diagnostic.setloclist, opts)
+    end,
+  })
 end
-
--- storyteller LSPを起動
-lspconfig.storyteller.setup({
-  capabilities = capabilities,
-})
-
-vim.lsp.enable({"lua_ls", "denols"})
-
--- storyteller LSP semantic tokens highlight
--- ColorScheme読み込み後にも適用されるようautocmdで設定
-local function setup_storyteller_highlights()
-  vim.api.nvim_set_hl(0, '@lsp.type.character', { fg = '#FF8800' })
-  vim.api.nvim_set_hl(0, '@lsp.type.character.markdown', { fg = '#FF8800' })
-  vim.api.nvim_set_hl(0, '@lsp.type.setting', { fg = '#0087FF' })
-  vim.api.nvim_set_hl(0, '@lsp.type.setting.markdown', { fg = '#0087FF' })
-  vim.api.nvim_set_hl(0, '@lsp.mod.lowConfidence', { underdashed = true })
-end
-
--- 起動時に設定
-setup_storyteller_highlights()
-
--- ColorScheme変更時にも再設定
-vim.api.nvim_create_autocmd('ColorScheme', {
-  callback = setup_storyteller_highlights,
-})
-
--- markdownファイル用のキーマッピング（nvim-lsp / storyteller LSP を使用）
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "markdown",
-  callback = function()
-    local opts = { buffer = true, silent = true }
-    -- 基本操作
-    vim.keymap.set("n", ",cd", vim.lsp.buf.definition, opts)
-    vim.keymap.set("n", ",ck", vim.lsp.buf.hover, opts)
-    vim.keymap.set("n", ",cr", vim.lsp.buf.references, opts)
-    vim.keymap.set("n", ",ca", vim.lsp.buf.code_action, opts)
-    vim.keymap.set("n", ",cf", vim.lsp.buf.code_action, opts)
-    vim.keymap.set("n", ",cn", vim.lsp.buf.rename, opts)
-    -- Outline (Telescope)
-    vim.keymap.set("n", ",co", "<cmd>Telescope lsp_document_symbols<CR>", opts)
-    -- Diagnostics
-    vim.keymap.set("n", ",cla", vim.diagnostic.setqflist, opts)
-    vim.keymap.set("n", ",clb", vim.diagnostic.setloclist, opts)
-  end,
-})
 
 vim.lsp.diagnostics_trigger_update = true
 
