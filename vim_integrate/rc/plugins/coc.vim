@@ -1,9 +1,129 @@
-" g:coc_filetype_map は plugin.vim で設定済み（プラグインロード前に必要）
+" coc.vim - CoC settings and completion engine switching
 
+" ============================================================================
+" CoC Startup Configuration
+" ============================================================================
+
+" Track CoC ready state
+let g:coc_is_ready = 0
+
+" Start CoC after VimEnter and listen for ready event
+augroup CocStartup
+  autocmd!
+  autocmd User CocNvimInit call s:OnCocReady()
+augroup END
+
+" Called when CoC is fully initialized
+function! s:OnCocReady() abort
+  let g:coc_is_ready = 1
+  lua vim.notify('coc.nvim ready!', vim.log.levels.INFO)
+  " Re-apply completion engine for current buffer
+  call s:ApplyCompletionEngine()
+endfunction
+
+" ============================================================================
+" Completion Engine Switching Logic
+" ============================================================================
+
+" Filetype configuration is defined in plugin.vim:
+" g:coc_only_filetypes, g:cmp_only_filetypes, g:completion_disabled_filetypes
+
+" Get completion engine for a given filetype
+" Returns: 'coc', 'cmp', or 'none'
+function! s:GetEngine(filetype) abort
+  if index(g:completion_disabled_filetypes, a:filetype) >= 0
+    return 'none'
+  endif
+  if index(g:coc_only_filetypes, a:filetype) >= 0
+    return 'coc'
+  endif
+  " Default to cmp (including g:cmp_only_filetypes and unknown filetypes)
+  return 'cmp'
+endfunction
+
+" Apply completion engine for current buffer
+function! s:ApplyCompletionEngine() abort
+  " Skip special buffers
+  if &buftype != ''
+    return
+  endif
+
+  let l:engine = s:GetEngine(&filetype)
+
+  if l:engine ==# 'coc'
+    call s:EnableCoc()
+  elseif l:engine ==# 'cmp'
+    call s:EnableCmp()
+  else
+    call s:DisableAll()
+  endif
+endfunction
+
+" Enable CoC for current buffer
+function! s:EnableCoc() abort
+  " Skip if CoC is not loaded or not ready
+  if !exists('g:did_coc_loaded') || !g:coc_is_ready
+    return
+  endif
+
+  " Enable CoC
+  CocEnable
+
+  " Attach CoC to current buffer explicitly
+  if exists('*CocAction')
+    call CocAction('ensureDocument')
+  endif
+
+  " Disable cmp for this buffer
+  lua vim.b.cmp_enabled = false
+
+  " Set CoC's <CR> mapping for this buffer
+  inoremap <buffer><silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
+endfunction
+
+" Enable cmp for current buffer
+function! s:EnableCmp() abort
+  " Disable CoC for this buffer
+  if exists('g:did_coc_loaded')
+    silent! CocDisable
+  endif
+
+  " Enable cmp for this buffer
+  lua vim.b.cmp_enabled = true
+
+  " Remove CoC's <CR> mapping if exists
+  silent! iunmap <buffer> <CR>
+endfunction
+
+" Disable all completion for current buffer
+function! s:DisableAll() abort
+  " Disable CoC
+  if exists('g:did_coc_loaded')
+    silent! CocDisable
+  endif
+
+  " Disable cmp
+  lua vim.b.cmp_enabled = false
+
+  " Remove <CR> mapping
+  silent! iunmap <buffer> <CR>
+endfunction
+
+" Autocmds for completion switching
+augroup CompletionSwitch
+  autocmd!
+  autocmd FileType * call s:ApplyCompletionEngine()
+augroup END
+
+" ============================================================================
+" CoC Specific Settings
+" ============================================================================
+
+" Global extensions
 let g:coc_global_extensions = [
   \  'coc-json'
   \, 'coc-lists'
-	\, 'coc-eslint'
+  \, 'coc-eslint'
   \, 'coc-tsserver'
   \, 'coc-diagnostic'
   \, 'coc-git'
@@ -24,12 +144,7 @@ let g:coc_global_extensions = [
   \, 'coc-pyright'
   \ ]
 
-  " \, 'coc-swagger'
-  " \, 'coc-biome'
-  " \, 'coc-fzf-preview'
-  " \, 'coc-php-cs-fixer'
-  " \, '@yaegassy/coc-phpstan'
-
+" Markdown fenced languages
 let g:markdown_fenced_languages = [
      \ 'vim',
      \ 'php=php',
@@ -38,36 +153,26 @@ let g:markdown_fenced_languages = [
      \ 'help'
      \]
 
-
+" FZF settings
 let g:coc_fzf_opts = ['--layout=reverse']
-let g:fzf_layout = { 'up': '~40%' }
 let g:fzf_layout = { 'window': { 'width': 0.7, 'height': 0.6,} }
 let g:coc_disable_startup_warning = 1
 
-
-" バックアップとしてしばらく残しておく
-" inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm()
-"       \: "\<C-g>u" . lexima#expand('<LT>CR>', 'i')
-
-" <CR> mapping: ToggleCocByFileType()関数内でバッファローカルマッピングを設定
-" cmp_only_filetypesでは、cmpのfallback()がinsxに委譲するため設定不要
-
-
+" Popup navigation mappings
 inoremap <silent><expr> <C-n> coc#pum#visible() ? coc#pum#next(1):  "\<C-n>"
 inoremap <silent><expr> <C-p> coc#pum#visible() ? coc#pum#prev(1):  "\<C-p>"
 inoremap <silent><expr> <down> coc#pum#visible() ? coc#pum#next(0): "\<down>"
 inoremap <silent><expr> <up> coc#pum#visible() ? coc#pum#prev(0):   "\<up>"
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
-
+" Snippet navigation
 let g:coc_snippet_next = '<tab>'
 
-" CoC用キーバインドをバッファローカルで設定する関数
+" Manual completion trigger
+inoremap <silent><expr> <C-Space> coc#refresh()
+
+" CoC keybindings for CoC filetypes
 function! s:SetCocKeybindings() abort
-  " 基本操作
+  " Basic operations
   nmap <buffer><silent> ,cd <Plug>(coc-definition)
   nmap <buffer><silent> ,cy <Plug>(coc-type-definition)
   nmap <buffer><silent> ,ci <Plug>(coc-implementation)
@@ -100,13 +205,6 @@ function! s:SetCocKeybindings() abort
   nnoremap <buffer><silent> ,ck :call <SID>show_documentation()<CR>
 endfunction
 
-" CoC filetypeでキーバインドを設定
-augroup CocKeybindings
-  autocmd!
-  " g:coc_only_filetypes に含まれるfiletypeでのみCoC用キーバインドを設定
-  autocmd FileType vim,typescript,php,json,go,lua,sh,python,javascript,vue,yaml,blade call s:SetCocKeybindings()
-augroup END
-
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -115,133 +213,8 @@ function! s:show_documentation()
   endif
 endfunction
 
-" Completion settings. {{{1
-" 統一設定を使用（plugin.vimで定義済み）
-" パフォーマンス最適化: 遅延を0msに設定してモード遷移時の待機時間を削除
-let g:coc_toggle_delay = 0
-
-" Check if current filetype should enable Coc
-function! s:ShouldEnableCoc() abort
-  " 必須グローバル変数の存在チェック
-  if !exists('g:enable_coc')
-    return v:false
-  endif
-
-  if &buftype != '' || !exists('g:did_coc_loaded')
-    return v:false
-  endif
-
-  " 無効化filetypeの場合は無効
-  if exists('g:completion_disabled_filetypes') && index(g:completion_disabled_filetypes, &filetype) >= 0
-    return v:false
-  endif
-
-  " CMPのみfiletypeの場合は無効
-  if exists('g:cmp_only_filetypes') && index(g:cmp_only_filetypes, &filetype) >= 0
-    return v:false
-  endif
-
-  " CoCのみfiletypeまたはその他のfiletypeは、g:enable_cocの値に従う
-  return g:enable_coc
-endfunction
-
-" Toggle Coc based on filetype
-function! ToggleCocByFileType() abort
-  " CoCがロードされていない、または準備できていない場合はスキップ
-  if !exists('g:did_coc_loaded')
-    return
-  endif
-
-  let l:should_enable = s:ShouldEnableCoc()
-  let l:current_state = get(b:, 'is_coc_enabled', v:false)
-
-  " 状態が変わる時のみ実行（パフォーマンス改善）
-  if l:should_enable != l:current_state
-    if l:should_enable
-      " CoCサービスが初期化されていない場合はスキップ
-      if !exists('g:coc_service_initialized') || !g:coc_service_initialized
-        let b:is_coc_enabled = v:false
-        return
-      endif
-      try
-        silent! CocEnable
-        let b:is_coc_enabled = v:true
-        let b:your_cmp_disable_enable_toggle = v:false
-
-        " CoCが有効になった直後にバッファローカル<CR>マッピングを設定
-        inoremap <buffer><silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
-      catch
-        " CocEnableが失敗した場合でも状態を更新
-        let b:is_coc_enabled = v:false
-      endtry
-    else
-      silent! CocDisable
-      let b:is_coc_enabled = v:false
-      let b:your_cmp_disable_enable_toggle = v:true
-
-      " CoCが無効になった時にバッファローカル<CR>マッピングを削除
-      silent! iunmap <buffer> <CR>
-    endif
-  endif
-endfunction
-
-
-" Restore previous Coc state
-function! RestoreCocByFileType() abort
-  " CoCがロードされていない、または準備できていない場合はスキップ
-  if !exists('g:did_coc_loaded') || !exists('g:coc_service_initialized') || !g:coc_service_initialized
-    return
-  endif
-
-  if exists('b:is_coc_enabled')
-    if b:is_coc_enabled
-      silent! CocEnable
-    else
-      let b:your_cmp_disable_enable_toggle = v:true
-      silent! CocDisable
-    endif
-  endif
-endfunction
-
-" Autocommands for Coc toggle
-augroup CocToggleForFileTypes
+" Setup keybindings for CoC filetypes (using g:coc_only_filetypes from plugin.vim)
+augroup CocKeybindings
   autocmd!
-  " FileTypeイベントでCoC切り替え（BufEnterより効率的）
-  autocmd FileType * call ToggleCocByFileType()
-  " BufEnterでもCoC状態を切り替え（バッファ移動時の対応）
-  autocmd BufEnter * call ToggleCocByFileType()
-  autocmd CmdlineLeave * call RestoreCocByFileType()
-  autocmd CmdlineEnter * silent call OpenCommandLineByCmp()
-  " markdown等のCMPのみfiletypeでは、バッファレベルでもCoCを無効化
-  autocmd FileType markdown,noice,changelog,text,gitcommit,copilot-chat,AvanteInput let b:coc_enabled = 0
-  autocmd BufEnter *.md let b:coc_enabled = 0 | silent! CocDisable
+  execute 'autocmd FileType ' . join(g:coc_only_filetypes, ',') . ' call s:SetCocKeybindings()'
 augroup END
-" }}}1
-
-" Insert mode復帰時の自動補完トリガー {{{1
-" <Esc>でnormal modeに遷移してからinsert modeに戻った時に補完を表示
-augroup CocAutoTrigger
-  autocmd!
-  autocmd InsertEnter * call timer_start(50, {-> s:TriggerCompletionIfNeeded()})
-augroup END
-
-function! s:TriggerCompletionIfNeeded() abort
-  " CoCが有効かつ、カーソル位置に単語文字がある場合のみトリガー
-  if exists('b:is_coc_enabled') && b:is_coc_enabled
-        \ && getline('.')[col('.')-1] =~# '\w'
-        \ && exists('*coc#refresh')
-    call coc#refresh()
-  endif
-endfunction
-
-" 手動補完トリガー（Ctrl+Space）
-inoremap <silent><expr> <C-Space> coc#refresh()
-" }}}1
-
-" Disable Coc for command line
-function! OpenCommandLineByCmp() abort
-  execute "silent! CocDisable"
-  let b:your_cmp_disable_enable_toggle = v:true
-endfunction
-
-nnoremap <Leader>: :

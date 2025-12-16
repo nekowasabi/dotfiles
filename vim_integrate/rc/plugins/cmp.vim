@@ -1,47 +1,5 @@
-" CMP有効化判定関数
-function! s:ShouldEnableCmp() abort
-  " 無効化filetypeの場合は無効
-  if index(g:completion_disabled_filetypes, &filetype) >= 0
-    return v:false
-  endif
-  
-  " CMPのみfiletypeの場合は有効
-  if index(g:cmp_only_filetypes, &filetype) >= 0
-    return v:true
-  endif
-  
-  " CoCのみfiletype（両方サポート）でCoCが有効な場合は無効
-  if index(g:coc_only_filetypes, &filetype) >= 0
-    if (g:IsMacNeovimInWork() || g:enable_coc == v:true)
-      return v:false
-    else
-      return v:true
-    endif
-  endif
-  
-  " デフォルトは有効
-  return v:true
-endfunction
-
-augroup CmpFileTypeConfig
-  autocmd!
-  " 無効化filetypeでCMPを無効化
-  if !empty(g:completion_disabled_filetypes)
-    execute 'autocmd CmpFileTypeConfig FileType ' . join(g:completion_disabled_filetypes, ',') . ' lua require("cmp").setup.buffer { enabled = false }'
-  endif
-
-  " CoCが有効な環境では両方サポートfiletypeでCMPを無効化
-  if (g:IsMacNeovimInWork() || g:enable_coc == v:true) && !empty(g:coc_only_filetypes)
-    execute 'autocmd CmpFileTypeConfig FileType ' . join(g:coc_only_filetypes, ',') . ' lua require("cmp").setup.buffer { enabled = false }'
-  endif
-augroup END
-
-if (g:IsMacNeovimInWork() || g:enable_coc == v:true)
-  let g:your_cmp_disable_enable_toggle = v:false
-else
-  let g:your_cmp_disable_enable_toggle = v:false
-endif
-
+" cmp.vim - nvim-cmp specific settings
+" Note: Completion switching logic is in autoload/completion.vim
 
 lua << EOF
 
@@ -61,7 +19,9 @@ end
 cmp.setup({
   filetypes = { "markdown", "changelog", "text" },
   enabled = function()
-    return vim.b.your_cmp_disable_enable_toggle ~= false
+    -- vim.b.cmp_enabled is set by completion#apply()
+    -- Default to true if not set (for unknown filetypes)
+    return vim.b.cmp_enabled ~= false
   end,
   performance = {
     debounce = 100,
@@ -196,23 +156,28 @@ cmp.setup.filetype('gitcommit', {
 })
 
 cmp.setup.filetype('markdown', {
-  sources = cmp.config.sources({
-  { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+  snippet = {
+    expand = function(_)
+    end,
   },
+  sources = cmp.config.sources(
   {
-    { name = 'buffer',
-      entry_filter = function(entry, ctx)
-        return string.len(entry.completion_item.label) >= 30
-      end,
-      option = {
-        get_bufnrs = function()
-        return vim.api.nvim_list_bufs()
-        end
+      { name = 'calc' },
+      { name = 'emoji' },
+      { name = 'neosnippet', keyword_length = 3 },
+      {
+					name = 'buffer',
+					keyword_length = 2,
+          entry_filter = function(entry, ctx)
+            return string.len(entry.completion_item.label) < 30
+          end,
+          option = {
+            get_bufnrs = get_buffer_source_bufnrs,
+            indexing_interval = 1000,
+          },
       },
-    },
-    { name = 'neosnippet', keyword_length = 3 },
-    { name = 'context_nvim' }
-  })
+  }),
+
 })
 
 -- cmp.setup.filetype({'vim', 'typescript', 'python', 'lua'}, {
