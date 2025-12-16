@@ -1,81 +1,89 @@
+" treesitter.vim - nvim-treesitter configuration (new API)
 let g:_ts_force_sync_parsing = v:true
 
 lua << EOF
-vim.api.nvim_create_autocmd("VimEnter", {
+-- Filetypes to enable treesitter features
+local ts_filetypes = { 'vim', 'lua', 'php', 'javascript', 'sql', 'yaml', 'json', 'html', 'css', 'bash', 'gitcommit' }
+-- Filetypes to disable treesitter highlight
+local ts_disable_highlight = { 'c', 'rust', 'blade', 'markdown' }
+-- Max filesize for treesitter highlight (512KB)
+local max_filesize = 512 * 1024
+
+-- Helper: check if value is in table
+local function contains(tbl, val)
+  for _, v in ipairs(tbl) do
+    if v == val then return true end
+  end
+  return false
+end
+
+-- Helper: check if file is too large
+local function is_large_file(buf)
+  local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
+  return ok and stats and stats.size > max_filesize
+end
+
+-- Setup nvim-treesitter (new API)
+local ok, ts = pcall(require, 'nvim-treesitter')
+if ok then
+  ts.setup {
+    install_dir = vim.fn.stdpath('data') .. '/site'
+  }
+end
+
+-- Blade parser configuration (for User TSUpdate event)
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'TSUpdate',
   callback = function()
-    local ok, ts_configs = pcall(require, 'nvim-treesitter.configs')
-    if not ok then
-      vim.notify('nvim-treesitter not found, skipping configuration', vim.log.levels.WARN)
+    local parsers_ok, parsers = pcall(require, 'nvim-treesitter.parsers')
+    if parsers_ok then
+      parsers.blade = {
+        install_info = {
+          url = 'https://github.com/EmranMR/tree-sitter-blade',
+          files = { 'src/parser.c' },
+          branch = 'main',
+        },
+      }
+    end
+  end,
+})
+
+-- Register blade filetype
+vim.filetype.add({
+  pattern = {
+    ['.*%.blade%.php'] = 'blade',
+  },
+})
+
+-- Enable treesitter highlight for supported filetypes
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = ts_filetypes,
+  callback = function(args)
+    local ft = vim.bo[args.buf].filetype
+    -- Skip if filetype is in disable list
+    if contains(ts_disable_highlight, ft) then
       return
     end
-
-    ts_configs.setup {
-      -- A list of parser names, or "all" (the four listed parsers should always be installed)
-      ensure_installed = { "php", "lua", "vim", "javascript", "sql", "yaml", "json", "jsdoc", "html", "gitignore", "gitcommit", "css", "bash"},
-
-      -- Install parsers synchronously ()
-      sync_install = false,
-
-      -- Automatically install missing parsers when entering buffer
-      -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-      auto_install = false,
-
-      -- List of parsers to ignore installing (for "all")
-      ignore_install = {},
-
-      indent = {
-        enable = true,
-      },
-
-      highlight = {
-        -- `false` will disable the whole extension
-        enable = true,
-
-        -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
-        -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
-        -- the name of the parser)
-        -- list of language that will be disabled
-        disable = { "c", "rust", "blade", "markdown"},
-        -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
-        disable = function(lang, buf)
-          local max_filesize = 512 * 1024 -- 100 KB
-          local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-          if ok and stats and stats.size > max_filesize then
-            return true
-          end
-        end,
-
-        -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-        -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-        -- Using this option may slow down your editor, and you may see some duplicate highlights.
-        -- Instead of true it can also be a list of languages
-        additional_vim_regex_highlighting = true,
-      },
-    }
-
-    -- Blade parser configuration
-    local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-    parser_config.blade = {
-      install_info = {
-        url = "https://github.com/EmranMR/tree-sitter-blade",
-        files = { "src/parser.c" },
-        branch = "main",
-      },
-      filetype = "blade",
-    }
-
-    vim.filetype.add({
-      pattern = {
-        [".*%.blade%.php"] = "blade",
-      },
-    })
+    -- Skip if file is too large
+    if is_large_file(args.buf) then
+      return
+    end
+    -- Start treesitter highlight
+    pcall(vim.treesitter.start, args.buf)
   end,
-  once = true,
+})
+
+-- Enable treesitter indentation for supported filetypes
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = ts_filetypes,
+  callback = function(args)
+    vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  end,
 })
 EOF
 
 " Toggle TreeSitter highlight for markdown files
 augroup MarkdownTreeSitterToggle
   autocmd!
-  autocmd FileType markdown nnoremap <buffer> <Leader>th :TSToggle highlight<CR>
+  autocmd FileType markdown nnoremap <buffer> <Leader>th <Cmd>lua if vim.b.ts_highlight then vim.treesitter.stop() vim.b.ts_highlight = false else vim.treesitter.start() vim.b.ts_highlight = true end<CR>
 augroup END
