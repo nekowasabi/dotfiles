@@ -3,9 +3,9 @@ let g:_ts_force_sync_parsing = v:true
 
 lua << EOF
 -- Filetypes to enable treesitter features
-local ts_filetypes = { 'vim', 'lua', 'php', 'javascript', 'sql', 'yaml', 'json', 'html', 'css', 'bash', 'gitcommit' }
+local ts_filetypes = { 'vim', 'lua', 'php', 'javascript', 'sql', 'yaml', 'json', 'html', 'css', 'bash', 'gitcommit', 'blade' }
 -- Filetypes to disable treesitter highlight
-local ts_disable_highlight = { 'c', 'rust', 'blade', 'markdown' }
+local ts_disable_highlight = { 'c', 'rust', 'markdown' }
 -- Max filesize for treesitter highlight (512KB)
 local max_filesize = 512 * 1024
 
@@ -23,30 +23,14 @@ local function is_large_file(buf)
   return ok and stats and stats.size > max_filesize
 end
 
+-- Add nvim-treesitter runtime to runtimepath (for queries)
+vim.opt.runtimepath:append(vim.fn.stdpath('config') .. '/plugged/nvim-treesitter/runtime')
+
 -- Setup nvim-treesitter (new API)
 local ok, ts = pcall(require, 'nvim-treesitter')
 if ok then
-  ts.setup {
-    install_dir = vim.fn.stdpath('data') .. '/site'
-  }
+  ts.setup {}
 end
-
--- Blade parser configuration (for User TSUpdate event)
-vim.api.nvim_create_autocmd('User', {
-  pattern = 'TSUpdate',
-  callback = function()
-    local parsers_ok, parsers = pcall(require, 'nvim-treesitter.parsers')
-    if parsers_ok then
-      parsers.blade = {
-        install_info = {
-          url = 'https://github.com/EmranMR/tree-sitter-blade',
-          files = { 'src/parser.c' },
-          branch = 'main',
-        },
-      }
-    end
-  end,
-})
 
 -- Register blade filetype
 vim.filetype.add({
