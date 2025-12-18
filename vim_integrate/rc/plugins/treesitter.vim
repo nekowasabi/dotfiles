@@ -3,7 +3,7 @@ let g:_ts_force_sync_parsing = v:true
 
 lua << EOF
 -- Filetypes to enable treesitter features
-local ts_filetypes = { 'vim', 'lua', 'php', 'javascript', 'sql', 'yaml', 'json', 'html', 'css', 'bash', 'gitcommit', 'blade' }
+local ts_filetypes = { 'vim', 'lua', 'php', 'javascript', 'sql', 'yaml', 'json', 'html', 'css', 'bash', 'gitcommit', 'blade', 'python' }
 -- Filetypes to disable treesitter highlight
 local ts_disable_highlight = { 'c', 'rust', 'markdown' }
 -- Max filesize for treesitter highlight (512KB)
@@ -58,10 +58,27 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 -- Enable treesitter indentation for supported filetypes
+-- Note: Python uses Vim's standard indent (python#GetIndent) for better import formatting
+local ts_indent_filetypes = vim.tbl_filter(function(ft) return ft ~= 'python' end, ts_filetypes)
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = ts_filetypes,
+  pattern = ts_indent_filetypes,
   callback = function(args)
     vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  end,
+})
+
+-- Python: Use Vim's standard indent for better import formatting
+-- Use defer_fn to ensure this runs after all other autocmds
+vim.api.nvim_create_autocmd({'FileType', 'BufEnter'}, {
+  pattern = {'python', '*.py'},
+  callback = function(args)
+    if vim.bo[args.buf].filetype == 'python' then
+      vim.defer_fn(function()
+        if vim.api.nvim_buf_is_valid(args.buf) then
+          vim.bo[args.buf].indentexpr = 'python#GetIndent(v:lnum)'
+        end
+      end, 10)
+    end
   end,
 })
 EOF
