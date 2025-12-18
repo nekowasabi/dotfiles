@@ -236,9 +236,9 @@ function! s:SwitchPreviousBuffer()
     silent! CocDisable
   endif
   silent! b#
-  " バッファ切り替え後にfiletype に応じてCoC状態を復元
-  if exists('*ToggleCocByFileType')
-    call ToggleCocByFileType()
+  " バッファ切り替え後にfiletype に応じて補完エンジンを復元
+  if exists('*ApplyCompletionEngine')
+    call ApplyCompletionEngine()
   endif
 endfunction
 command! SwitchPreviousBuffer call <SID>SwitchPreviousBuffer()

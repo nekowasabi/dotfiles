@@ -18,7 +18,7 @@ function! s:OnCocReady() abort
   let g:coc_is_ready = 1
   lua vim.notify('coc.nvim ready!', vim.log.levels.INFO)
   " Re-apply completion engine for current buffer
-  call s:ApplyCompletionEngine()
+  call s:ApplyCompletionEngineInternal()
 endfunction
 
 " ============================================================================
@@ -41,8 +41,13 @@ function! s:GetEngine(filetype) abort
   return 'cmp'
 endfunction
 
+" Apply completion engine for current buffer (global wrapper)
+function! ApplyCompletionEngine() abort
+  call s:ApplyCompletionEngineInternal()
+endfunction
+
 " Apply completion engine for current buffer
-function! s:ApplyCompletionEngine() abort
+function! s:ApplyCompletionEngineInternal() abort
   " Skip special buffers
   if &buftype != ''
     return
@@ -120,7 +125,7 @@ endfunction
 " Autocmds for completion switching
 augroup CompletionSwitch
   autocmd!
-  autocmd FileType * call s:ApplyCompletionEngine()
+  autocmd FileType * call s:ApplyCompletionEngineInternal()
 augroup END
 
 " ============================================================================
