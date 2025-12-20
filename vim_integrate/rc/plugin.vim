@@ -134,6 +134,7 @@ Plug 'atusy/aibou.nvim'
 Plug 'olimorris/codecompanion.nvim'
 Plug 'nekowasabi/claudecode.vim'
 Plug 'copilotlsp-nvim/copilot-lsp'
+Plug 'junegunn/goyo.vim'
 
 " denops
 Plug 'hrsh7th/vim-searchx'

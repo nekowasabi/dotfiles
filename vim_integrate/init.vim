@@ -197,6 +197,12 @@ let g:spritz_window_height = 200 " ウィンドウ高さ (px)
 let g:spritz_always_on_top = v:true  " 常に最前面
 let g:spritz_show_progress = v:true  " 進捗バー表示
 
+" goyo
+nnoremap <silent> <C-w>o <Cmd>Goyo<CR>
+let g:goyo_width = 120
+let g:goyo_height = '95%'
+let g:goyo_linenr = 1
+
 " -----------------------------------------------------------
 " lua
 
