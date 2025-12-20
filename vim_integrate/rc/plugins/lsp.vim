@@ -1,38 +1,20 @@
 " LSP キーバインド設定
 " - CoC filetypes (vim,typescript,php,json,go,lua,sh,python,javascript,vue,yaml,blade): coc.vim で設定
 " - markdown: nvim-lsp (storyteller LSP) を使用（下部のLuaで設定）
-" - その他: Lspsaga を使用
-
-" CoC filetypes かどうかを判定
-function! s:IsCocFiletype() abort
-  let l:coc_filetypes = ['vim', 'typescript', 'php', 'json', 'go', 'lua', 'sh', 'python', 'javascript', 'vue', 'yaml', 'blade']
-  return index(l:coc_filetypes, &filetype) >= 0
-endfunction
-
-" Lspsaga用キーバインドを設定する関数
-function! s:SetLspsagaKeybindings() abort
-  nnoremap <buffer><silent> ,cd <cmd>Lspsaga goto_definition<CR>
-  nnoremap <buffer><silent> ,ck <cmd>Lspsaga hover_doc<CR>
-  nnoremap <buffer><silent> ,cr <cmd>Lspsaga rename<CR>
-  nnoremap <buffer><silent> ,cR <cmd>Lspsaga finder ref<CR>
-  nnoremap <buffer><silent> ,ca <cmd>Lspsaga code_action<CR>
-  nnoremap <buffer><silent> ,cf <cmd>Lspsaga code_action<CR>
-  nnoremap <buffer><silent> ,co <cmd>Telescope lsp_document_symbols<CR>
-  nnoremap <buffer><silent> ,cO <cmd>Lspsaga outline<CR>
-  nnoremap <buffer><silent> ,ci <cmd>Lspsaga finder imp<CR>
-  nnoremap <buffer><silent> ,cla <cmd>Lspsaga show_workspace_diagnostics<CR>
-  nnoremap <buffer><silent> ,clb <cmd>Lspsaga show_buf_diagnostics<CR>
-endfunction
-
-if !g:IsMacNeovimInWork()
-  augroup LspsagaMappings
-    autocmd!
-    " CoC filetypes と markdown 以外で Lspsaga キーバインドを設定
-    autocmd FileType * if &filetype != 'markdown' && !s:IsCocFiletype() | call s:SetLspsagaKeybindings() | endif
-  augroup END
-endif
+" - その他: nvim-lsp ビルトインコマンドを使用（下部のLuaで設定）
 
 lua << EOF
+
+-- ligthtlineで使用するため、インストールだけはしておく
+require('lspsaga').setup({
+  symbol_in_winbar = {
+    enable = false,
+    separator = " > ",
+    show_file = true,
+    folder_level = 2,
+    click_support = false,
+  },
+})
 
 require("mason").setup()
 local capabilities = vim.tbl_deep_extend("force",
@@ -99,15 +81,6 @@ vim.lsp.config("denols", {
 -- Enable denols for TypeScript/JavaScript in Deno projects
 vim.lsp.enable("denols")
 
-require('lspsaga').setup({
-  symbol_in_winbar = {
-    enable = false,
-    separator = " > ",
-    show_file = true,
-    folder_level = 2,
-    click_support = false,
-  },
-})
 
 -- vim.lsp.config("pyright", {})
 
@@ -148,11 +121,12 @@ if not vim.fn.IsMacNeovimInWork() then
   local configs = require('lspconfig.configs')
 
   -- カスタムLSPサーバーの定義
+  -- TypeScriptファイルでもリテラル型ホバーを有効にするため、filetypesにtypescriptを追加
   if not configs.storyteller then
     configs.storyteller = {
       default_config = {
-        cmd = { "/home/takets/repos/street-storyteller/storyteller", "lsp", "start", "--stdio" },
-        filetypes = { "markdown" },
+        cmd = { "storyteller", "lsp", "start", "--stdio" },
+        filetypes = { "markdown", "typescript", "typescriptreact" },
         root_dir = lspconfig.util.root_pattern(".storyteller.json", "story.config.ts", "deno.json"),
         single_file_support = true,
       },
@@ -199,6 +173,40 @@ if not vim.fn.IsMacNeovimInWork() then
       -- Diagnostics
       vim.keymap.set("n", ",cla", vim.diagnostic.setqflist, opts)
       vim.keymap.set("n", ",clb", vim.diagnostic.setloclist, opts)
+    end,
+  })
+
+  -- 汎用 LSP キーマップ（CoC/markdown 以外のファイルタイプ用）
+  -- TypeScript/JavaScript は denols を使うため CoC から除外
+  local coc_filetypes = {
+    'vim', 'php', 'json', 'go', 'lua', 'sh',
+    'python', 'vue', 'yaml', 'blade'
+  }
+
+  local function is_coc_filetype(ft)
+    for _, cft in ipairs(coc_filetypes) do
+      if ft == cft then return true end
+    end
+    return false
+  end
+
+  vim.api.nvim_create_autocmd("FileType", {
+    callback = function()
+      local ft = vim.bo.filetype
+      if ft ~= 'markdown' and not is_coc_filetype(ft) then
+        local opts = { buffer = true, silent = true }
+        vim.keymap.set("n", ",cd", vim.lsp.buf.definition, opts)
+        vim.keymap.set("n", ",ck", vim.lsp.buf.hover, opts)
+        vim.keymap.set("n", ",cr", vim.lsp.buf.references, opts)
+        vim.keymap.set("n", ",cn", vim.lsp.buf.rename, opts)
+        vim.keymap.set("n", ",ca", vim.lsp.buf.code_action, opts)
+        vim.keymap.set("n", ",cf", vim.lsp.buf.code_action, opts)
+        vim.keymap.set("n", ",co", "<cmd>Telescope lsp_document_symbols<CR>", opts)
+        vim.keymap.set("n", ",cO", "<cmd>Telescope lsp_document_symbols<CR>", opts)
+        vim.keymap.set("n", ",ci", vim.lsp.buf.implementation, opts)
+        vim.keymap.set("n", ",cla", vim.diagnostic.setqflist, opts)
+        vim.keymap.set("n", ",clb", vim.diagnostic.setloclist, opts)
+      end
     end,
   })
 end
