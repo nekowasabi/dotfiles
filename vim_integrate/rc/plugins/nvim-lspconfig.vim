@@ -1,9 +1,7 @@
 lua << EOF
-local mason = require('mason')
-local mason_lckspconfigspconfig = require('mason-lspconfig')
+-- mason.setup() は lsp.vim で設定済み
+local mason_lspconfig = require('mason-lspconfig')
 local nvim_lsp = require('lspconfig')
-
-mason.setup()
 
 require("lspconfig").vimls.setup {}
 nvim_lsp.intelephense.setup {}
