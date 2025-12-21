@@ -45,6 +45,9 @@
 
 " init setting {{{1
 
+" Neovim 0.11+ の非推奨API警告を抑制（プラグイン更新まで一時的に）
+lua vim.deprecate = function() end
+
 " 環境ごとの設定ディレクトリパスを取得
 set runtimepath+=/usr/local/opt/fzf
 source ~/.config/nvim/rc/env.vim
@@ -59,7 +62,9 @@ augroup END
 
 command! -nargs=* AutoCmd autocmd MyVimrc <args>
 
-AutoCmd VimEnter * MasonUpdate
+" 起動時のMasonUpdate自動実行を無効化（通知抑制のため）
+" 必要な場合は :MasonUpdate を手動実行してください
+" AutoCmd VimEnter * MasonUpdate
 " }}}1
 
 " colorscheme {{{1

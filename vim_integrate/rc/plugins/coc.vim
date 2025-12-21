@@ -16,7 +16,6 @@ augroup END
 " Called when CoC is fully initialized
 function! s:OnCocReady() abort
   let g:coc_is_ready = 1
-  lua vim.notify('coc.nvim ready!', vim.log.levels.INFO)
   " Re-apply completion engine for current buffer
   call s:ApplyCompletionEngineInternal()
 endfunction

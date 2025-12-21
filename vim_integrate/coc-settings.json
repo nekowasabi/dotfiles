@@ -1,4 +1,7 @@
 {
+  "coc.preferences.messageLevel": "error",
+  "coc.preferences.enableMessageDialog": false,
+  "coc.preferences.silentAutoupdate": true,
   "coc.preferences.enabledFiletypes": [
     "vim",
     "typescript",

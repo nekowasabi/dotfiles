@@ -16,7 +16,22 @@ require('lspsaga').setup({
   },
 })
 
-require("mason").setup()
+
+require("mason").setup({
+  log_level = vim.log.levels.ERROR,
+  -- 起動時の通知を無効化
+  ui = {
+    check_outdated_packages_on_open = false,
+  },
+  -- レジストリの自動更新を無効化（手動で :MasonUpdate を実行）
+  registries = {
+    "github:mason-org/mason-registry",
+  },
+  -- pip upgrade通知も無効化
+  pip = {
+    upgrade_pip = false,
+  },
+})
 local capabilities = vim.tbl_deep_extend("force",
   vim.lsp.protocol.make_client_capabilities(),
   require('cmp_nvim_lsp').default_capabilities()
