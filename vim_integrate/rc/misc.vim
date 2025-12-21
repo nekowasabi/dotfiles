@@ -619,3 +619,60 @@ nnoremap x "_x
 xnoremap x "_x
 nnoremap X "_X
 xnoremap X "_X
+
+" 教訓記録機能 (AiEditOutput使用) {{{1
+" 選択テキストをAIで教訓形式に変換し、changelogmemoに追記
+function! s:CreateLessonLearned() range
+  " 1. 選択テキスト取得
+  let selected_text = s:get_visual_text()
+  if empty(selected_text)
+    echo "テキストが選択されていません"
+    return
+  endif
+
+  " 2. 追加指示を取得
+  let instruction = input("教訓の観点・指示 > ")
+  redraw
+
+  " 3. AIプロンプト作成
+  let prompt = "以下のテキストを教訓として記録します。\n"
+  let prompt .= "指示: " . instruction . "\n\n"
+  let prompt .= "以下の形式でMarkdownに整理してください:\n"
+  let prompt .= "1. 冒頭に「## 理解度確認」として、この教訓の理解度を確認する質問を2-3個追加\n"
+  let prompt .= "2. 「## 教訓」として本文を整理\n"
+  let prompt .= "3. 「## ポイント」として重要点を箇条書き\n\n"
+  let prompt .= "対象テキスト:\n" . selected_text
+
+  " 4. AiEditOutput()でAI変換（同期）
+  echo "AIで教訓を生成中..."
+  let result = AiEditOutput(prompt)
+  if empty(result)
+    echo "AI変換に失敗しました"
+    return
+  endif
+
+  " 5. changelogmemoに追記
+  call s:AppendToChangelogMemo(result)
+endfunction
+
+function! s:AppendToChangelogMemo(content)
+  " changelogmemoを開く
+  let changelog_path = expand('~/repos/changelog/changelogmemo')
+  execute "silent! e " . changelog_path
+
+  " ヘッダー行を生成（cpwスニペット形式）
+  let header = "* 教訓メモ " . strftime("%Y-%m-%d %H:%M:%S") . " [lesson]:"
+
+  " 先頭（3行目）に挿入
+  call cursor(1, 1)
+  call append(2, ['', header])
+  call append(4, split(a:content, "\n"))
+
+  " 保存
+  silent! write
+  echo "教訓をchangelogmemoに追記しました"
+endfunction
+
+command! -range CreateLessonLearned call s:CreateLessonLearned()
+vnoremap <silent> ,ll :CreateLessonLearned<CR>
+" }}}1
