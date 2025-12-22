@@ -23,10 +23,10 @@ git:
 os:
   editPreset: "nvim-remote"
 customCommands:
-  - key: 'C'
-    command: "aicommit2 --locale 'ja' --type 'conventional' -y --generate 3 -p 'Must: コミットメッセージは必ず日本語にしてください。Must: コミットメッセージは必ず日本語にしてください。Must: コミットメッセージは必ず日本語にしてください。'"
-    context: 'files'
-    description: 'commit changes using git editor(Custom Command)'
+  - key: "C"
+    context: "files"
+    description: "Generate commit message with Claude Code"
+    command: "git diff --staged | claude -p 'これらのステージされた変更に対して簡潔な git コミットメッセージを生成してください。マークダウンやコードブロック、バックティック、説明は一切出さず、生のコミットメッセージだけを出力してください。Conventional Commit 形式を使用してください。' --model haiku --output-format text > /tmp/commit_msg && GIT_EDITOR=vim git  commit -e -F /tmp/commit_msg"
     output: terminal
   - key: "<c-c>"
     context: "files"
