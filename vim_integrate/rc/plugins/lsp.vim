@@ -36,7 +36,9 @@ local capabilities = vim.tbl_deep_extend("force",
   vim.lsp.protocol.make_client_capabilities(),
   require('cmp_nvim_lsp').default_capabilities()
 )
-capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+-- storyteller LSPがファイル監視を動的登録できるようにする
+-- false だと client/registerCapability が無視される
+capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true
 
 -- vim.lsp.set_log_level("trace")
 
@@ -132,6 +134,9 @@ vim.lsp.config("lua_ls", {
 -- storyteller LSP (物語作成支援ツール)
 -- g:IsMacNeovimInWork() が false のときのみ有効化
 if not vim.fn.IsMacNeovimInWork() then
+  -- セマンティックトークンの優先度をTreesitter/Syntaxより高く設定
+  -- HTMLコメント内の伏線アノテーションが正しくハイライトされるようにする
+  vim.hl.priorities.semantic_tokens = 200
   local lspconfig = require('lspconfig')
   local configs = require('lspconfig.configs')
 
@@ -151,6 +156,27 @@ if not vim.fn.IsMacNeovimInWork() then
   -- storyteller LSPを起動
   lspconfig.storyteller.setup({
     capabilities = capabilities,
+    handlers = {
+      -- semanticTokens/refresh を受け取ったらセマンティックトークンを再取得
+      ["workspace/semanticTokens/refresh"] = function(err, result, ctx, config)
+        -- Markdownバッファを強制的に再読み込みしてセマンティックトークンを更新
+        for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+          if vim.api.nvim_buf_is_loaded(bufnr) then
+            local ft = vim.bo[bufnr].filetype
+            local clients = vim.lsp.get_clients({ bufnr = bufnr, name = "storyteller" })
+            if #clients > 0 and ft == "markdown" then
+              -- バッファが変更されていなければ再読み込み
+              if not vim.bo[bufnr].modified then
+                vim.api.nvim_buf_call(bufnr, function()
+                  vim.cmd('edit')
+                end)
+              end
+            end
+          end
+        end
+        return vim.NIL
+      end,
+    },
   })
 
   -- storyteller LSP semantic tokens highlight
@@ -161,6 +187,24 @@ if not vim.fn.IsMacNeovimInWork() then
     vim.api.nvim_set_hl(0, '@lsp.type.setting', { fg = '#0087FF' })
     vim.api.nvim_set_hl(0, '@lsp.type.setting.markdown', { fg = '#0087FF' })
     vim.api.nvim_set_hl(0, '@lsp.mod.lowConfidence', { underdashed = true })
+
+    -- 伏線（foreshadowing）トークンタイプ
+    vim.api.nvim_set_hl(0, '@lsp.type.foreshadowing', { fg = '#e67e22', italic = false })
+    vim.api.nvim_set_hl(0, '@lsp.type.foreshadowing.markdown', { fg = '#e67e22', italic = false })
+
+    -- 伏線ステータスモディファイア
+    vim.api.nvim_set_hl(0, '@lsp.mod.planted', { fg = '#e67e22' })
+    vim.api.nvim_set_hl(0, '@lsp.mod.resolved', { fg = '#27ae60' })
+
+    -- typemod形式（より優先度が高い）
+    vim.api.nvim_set_hl(0, '@lsp.typemod.foreshadowing.planted.markdown', {
+      fg = '#e67e22',
+      bold = false
+    })
+    vim.api.nvim_set_hl(0, '@lsp.typemod.foreshadowing.resolved.markdown', {
+      fg = '#27ae60',
+      bold = false
+    })
   end
 
   -- 起動時に設定
