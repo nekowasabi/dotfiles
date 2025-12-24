@@ -769,7 +769,6 @@
             }
           ]
         },
-
         {
           "type": "basic",
           "description": "前回タスクの時間を入力",
@@ -1044,6 +1043,35 @@
 							"bundle_identifiers": [
 								"^org\\.mozilla\\.firefox",
 								"^org\\.waterfoxproject\\.waterfox"
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"description": "ghostty設定",
+			"manipulators": [
+				{
+							"type": "basic",
+							"description": "改行",
+							"from": {
+								"key_code": "return_or_enter",
+								"modifiers": {
+									"mandatory": ["shift"]
+								}
+							},
+							"to": [
+								{
+									"key_code": "return_or_enter",
+									"modifiers": ["option"]
+								}
+							],
+					"conditions": [
+						{
+							"type": "frontmost_application_if",
+							"bundle_identifiers": [
+								"^com\\.mitchellh\\.ghostty"
 							]
 						}
 					]
