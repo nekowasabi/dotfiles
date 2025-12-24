@@ -38,6 +38,8 @@ augroup allFileTypesConceal
   autocmd FileType * setlocal conceallevel=2
   autocmd FileType * let &l:concealcursor = 'nc'
   autocmd FileType * highlight default link LinkURL Conceal
+  " markdown は HTMLコメントを表示するため conceallevel=0
+  autocmd FileType markdown setlocal conceallevel=0
 augroup END
 
 
