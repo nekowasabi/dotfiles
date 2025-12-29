@@ -54,7 +54,7 @@ snippets:
     snippet: ">/dev/null 2>&1"
   - name: "commit.sh"
     keyword: "cmm"
-    snippet: "~/repos/private_dotfiles/mac/scripts/commit_dotfiles.sh"
+    snippet: "~/repos/private_dotfiles/mac/scripts/rsync_commit_dotfiles.sh"
   - name: "rg & fzf & nvim"
     keyword: "rgv"
     snippet: rg --line-number {{word}} | fzf | awk -F ':' '{print $1 ":" $2}' | xargs -I {} zsh -c 'source ~/.zshrc && wezterm_neovim $(echo {} | cut -d":" -f1) +$(echo {} | cut -d":" -f2)'
@@ -63,7 +63,7 @@ snippets:
     snippet: rg --line-number {{word}} | fzf | awk -F ':' '{print $1 ":" $2}' | xargs -I {} zsh -c 'nvim $(echo {} | cut -d":" -f1) +$(echo {} | cut -d":" -f2)'
   - name: "deploy.sh"
     keyword: "dpl"
-    snippet: "~/repos/private_dotfiles/mac/scripts/deploy_dotfiles.sh"
+    snippet: "~/repos/private_dotfiles/mac/scripts/rsync_deploy_dotfiles.sh"
 
 
 
