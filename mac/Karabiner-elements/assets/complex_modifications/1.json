@@ -1050,7 +1050,7 @@
 			]
 		},
 		{
-			"description": "ghostty設定",
+			"description": "terminal設定",
 			"manipulators": [
 				{
 							"type": "basic",
@@ -1071,7 +1071,8 @@
 						{
 							"type": "frontmost_application_if",
 							"bundle_identifiers": [
-								"^com\\.mitchellh\\.ghostty"
+								"^com\\.mitchellh\\.ghostty",
+								"^com\\.github\\.wez\\.wezterm$"
 							]
 						}
 					]
