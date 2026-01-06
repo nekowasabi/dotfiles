@@ -1,4 +1,4 @@
-snippets:
+:
   # snippet and keyword abbrev
   - name: docker up
     keyword: dud
@@ -64,14 +64,6 @@ snippets:
   - name: "deploy.sh"
     keyword: "dpl"
     snippet: "~/repos/private_dotfiles/mac/scripts/rsync_deploy_dotfiles.sh"
-
-
-
-    # auto expand condition
-    # If not defined, it is only valid at the beginning of a line.
-    context:
-      lbuffer: '.+\s'
-      # rbuffer: ''
   - name: branch
     keyword: B
     snippet: git symbolic-ref --short HEAD
@@ -105,9 +97,6 @@ snippets:
   - name: commit.sh
     keyword: cmt
     snippet: ~/repos/private_dotfiles/mac/scripts/commit_dotfiles.sh
-  - name: deploy.sh
-    keyword: dpl
-    snippet: ~/repos/private_dotfiles/mac/scripts/deploy_dotfiles.sh
   - name: php artisan migration
     keyword: pam
     snippet: php artisan migrate
