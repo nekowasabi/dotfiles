@@ -1,4 +1,4 @@
-:
+snippets:
   # snippet and keyword abbrev
   - name: docker up
     keyword: dud
