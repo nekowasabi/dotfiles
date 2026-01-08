@@ -17,17 +17,87 @@ gui:
       - default
 git:
   parseEmoji: true
-  paging:
-    colorArg: always
-    pager: delta --paging=never
+  pagers:
+    - colorArg: always
+      pager: delta --paging=never
 os:
   editPreset: "nvim-remote"
 customCommands:
+  # AI Commit: Claude AIでメッセージ自動生成
   - key: "C"
     context: "files"
-    description: "Generate commit message with Claude Code"
-    command: "git diff --staged | claude -p 'これらのステージされた変更に対して簡潔な git コミットメッセージを生成してください。マークダウンやコードブロック、バックティック、説明は一切出さず、生のコミットメッセージだけを出力してください。Conventional Commit 形式を使用してください。' --model haiku --output-format text > /tmp/commit_msg && GIT_EDITOR=vim git  commit -e -F /tmp/commit_msg"
-    output: terminal
+    description: "AI commit (Claude) - auto-fill message"
+    prompts:
+      - type: "input"
+        title: "AI-generated Message (edit if needed)"
+        key: "Message"
+        initialValue: '{{ runCommand "/Users/ttakeda/bin/lazygit-ai-msg" }}'
+      - type: "menu"
+        title: "Choose the emoji (optional)"
+        key: "Emoji"
+        options:
+          - name: '(empty)'
+            description: ''
+            value: ''
+          - name: ':ambulance:'
+            description: "(fix)🚑致命的なバグ修正"
+            value: ':ambulance:'
+          - name: ':bug:'
+            description: "(fix)🐛バグ修正"
+            value: ':bug:'
+          - name: ':+1:'
+            description: "(fix)👍機能改善や機能修正"
+            value: ':+1:'
+          - name: ':cop:'
+            description: "(fix)👮セキュリティ関連の修正"
+            value: ':cop:'
+          - name: ':tada:'
+            description: "(feat)🎉大きな機能追加"
+            value: ':tada:'
+          - name: ':sparkles:'
+            description: "(feat)✨部分的な機能追加"
+            value: ':sparkles:'
+          - name: ':up:'
+            description: "(feat)🆙依存パッケージ等のアップデート"
+            value: ':up:'
+          - name: ':memo:'
+            description: "(docs)📝ドキュメントの追加や修正"
+            value: ':memo:'
+          - name: ':bulb:'
+            description: "(docs)💡ソースコードへのコメント追加や修正"
+            value: ':bulb:'
+          - name: ':art:'
+            description: "(style)🎨レイアウト関連の修正"
+            value: ':art:'
+          - name: ':lipstick:'
+            description: "(style)💄Lintエラーの修正やコードスタイルの修正"
+            value: ':lipstick:'
+          - name: ':recycle:'
+            description: "(refactor)♻️リファクタリング"
+            value: ':recycle:'
+          - name: ':fire:'
+            description: "(refactor)🔥コードやファイルの削除"
+            value: ':fire:'
+          - name: ':green_heart:'
+            description: "(test)💚テストやCIの修正"
+            value: ':green_heart:'
+          - name: ':rocket:'
+            description: "(perf)🚀パフォーマンス改善"
+            value: ':rocket:'
+          - name: ':wrench:'
+            description: "(chore)🔧設定ファイルの修正"
+            value: ':wrench:'
+          - name: ':building_construction:'
+            description: "(chore)🏗️アーキテクチャの修正"
+            value: ':building_construction:'
+          - name: ':construction:'
+            description: "(wip)🚧作業中"
+            value: ':construction:'
+      - type: "confirm"
+        title: "Commit"
+        body: "Commit: '{{.Form.Message}} {{.Form.Emoji}}'"
+    command: "git commit -m '{{.Form.Message}} {{.Form.Emoji}}'"
+    loadingText: "🤖 Claude AIでコミットメッセージを生成中..."
   - key: "<c-c>"
     context: "files"
     description: 'commit files with format'
