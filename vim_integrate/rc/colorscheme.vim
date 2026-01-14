@@ -24,7 +24,8 @@ if g:IsMacNeovim()
   autocmd ColorScheme * highlight ErrorMsg ctermfg=22 guifg=red guibg=#2f4f4f gui=underline
   autocmd ColorScheme * highlight MatchWord ctermfg=blue guifg=blue cterm=underline gui=underline
   autocmd ColorScheme * highlight AnnotationString ctermfg=white ctermbg=red
-  autocmd ColorScheme * highlight NormalFloat ctermfg=grey ctermbg=black
+  autocmd ColorScheme * highlight NormalFloat ctermfg=grey ctermbg=black guifg=#c0c0c0 guibg=#1a1a1a
+  autocmd ColorScheme * highlight FloatBorder ctermfg=cyan ctermbg=black guifg=#5f87af guibg=#1a1a1a
   autocmd ColorScheme * highlight MatchWord ctermfg=226 guifg=#b0c4de guibg=#000000
   autocmd ColorScheme * highlight SearchxMarker ctermfg=red ctermbg=white guifg=red guibg=#FFFFFF
   autocmd ColorScheme * highlight SearchxMarkerCurrent ctermfg=red ctermbg=white
@@ -52,7 +53,8 @@ if g:IsMacGvim()
   autocmd ColorScheme * highlight ErrorMsg ctermfg=22 guifg=red guibg=#2f4f4f gui=underline
   autocmd ColorScheme * highlight MatchWord ctermfg=blue guifg=blue cterm=underline gui=underline
   autocmd ColorScheme * highlight AnnotationString ctermfg=white ctermbg=red
-  autocmd ColorScheme * highlight NormalFloat ctermfg=grey ctermbg=black
+  autocmd ColorScheme * highlight NormalFloat ctermfg=grey ctermbg=black guifg=#c0c0c0 guibg=#1a1a1a
+  autocmd ColorScheme * highlight FloatBorder ctermfg=cyan ctermbg=black guifg=#5f87af guibg=#1a1a1a
   autocmd ColorScheme * highlight MatchWord ctermfg=226 guifg=#b0c4de guibg=#000000
   autocmd ColorScheme * highlight SearchxMarker ctermfg=red ctermbg=white guifg=red guibg=#FFFFFF
   autocmd ColorScheme * highlight SearchxMarkerCurrent ctermfg=red ctermbg=white
@@ -99,7 +101,8 @@ if g:IsWsl()
   autocmd ColorScheme * highlight ErrorMsg ctermfg=22 guifg=red guibg=#2f4f4f gui=underline
   autocmd ColorScheme * highlight MatchWord ctermfg=blue guifg=blue cterm=underline gui=underline
   autocmd ColorScheme * highlight AnnotationString ctermfg=white ctermbg=red
-  autocmd ColorScheme * highlight NormalFloat ctermfg=grey ctermbg=black
+  autocmd ColorScheme * highlight NormalFloat ctermfg=grey ctermbg=black guifg=#c0c0c0 guibg=#1a1a1a
+  autocmd ColorScheme * highlight FloatBorder ctermfg=cyan ctermbg=black guifg=#5f87af guibg=#1a1a1a
   autocmd ColorScheme * highlight MatchWord ctermfg=226 guifg=#b0c4de guibg=#000000
   autocmd ColorScheme * highlight SearchxMarker ctermfg=red ctermbg=white guifg=red guibg=#FFFFFF
   autocmd ColorScheme * highlight SearchxMarkerCurrent ctermfg=red ctermbg=white
@@ -124,7 +127,8 @@ if g:IsLinux()
   autocmd ColorScheme * highlight ErrorMsg ctermfg=22 guifg=red guibg=#2f4f4f gui=underline
   autocmd ColorScheme * highlight MatchWord ctermfg=blue guifg=blue cterm=underline gui=underline
   autocmd ColorScheme * highlight AnnotationString ctermfg=white ctermbg=red
-  autocmd ColorScheme * highlight NormalFloat ctermfg=grey ctermbg=black
+  autocmd ColorScheme * highlight NormalFloat ctermfg=grey ctermbg=black guifg=#c0c0c0 guibg=#1a1a1a
+  autocmd ColorScheme * highlight FloatBorder ctermfg=cyan ctermbg=black guifg=#5f87af guibg=#1a1a1a
   autocmd ColorScheme * highlight MatchWord ctermfg=226 guifg=#b0c4de guibg=#000000
   autocmd ColorScheme * highlight SearchxMarker ctermfg=red ctermbg=white guifg=red guibg=#FFFFFF
   autocmd ColorScheme * highlight SearchxMarkerCurrent ctermfg=red ctermbg=white
