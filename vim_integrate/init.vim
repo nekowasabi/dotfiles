@@ -213,7 +213,6 @@ let g:goyo_linenr = 1
 
 lua << EOF
 
-
 vim.api.nvim_create_autocmd("BufReadPost", {
   pattern = { "*/src/characters/*.ts", "*/src/settings/*.ts" },
   callback = function()
