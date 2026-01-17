@@ -354,6 +354,8 @@ if g:IsMacGvim() || g:IsMacNeovim() || g:IsWsl()
 
   nnoremap <silent> ,jp :e ~/repos/changelog/ai/battlefront/progress/private.md<CR>
   nnoremap <silent> ,jw :e ~/repos/changelog/ai/battlefront/progress/work.md<CR>
+  nnoremap <silent> ,jy :e ~/repos/changelog/ai/battlefront/progress/year.md<CR>
+  nnoremap <silent> ,js :e ~/repos/changelog/ai/battlefront/progress/style.md<CR>
 
 
 	cnoremap <C-b> <Left>
