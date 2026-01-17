@@ -163,6 +163,9 @@ let g:hellshake_yano = {
       \ 'recenterCommand': 'normal! zz',
       \ 'maxContinuousJumps': 25,
       \ 'directionalHintFilter': v:true,
+      \ 'multiWindowMode': v:true,
+      \ 'multiWindowMaxWindows': 4,
+      \ 'multiWindowExcludeTypes': ['help', 'quickfix', 'terminal', 'popup']
       \ }
 
 nnoremap <silent> ,h :HellshakeYanoToggle<CR> 
