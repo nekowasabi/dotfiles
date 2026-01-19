@@ -1,6 +1,6 @@
 scriptencoding utf-8
 
-runtime ftplugin/changelog.vim
+" runtime ftplugin/changelog.vim  " 削除: ftpluginは自動で読み込まれるため不要。起動時にb:undo_ftpluginエラーを引き起こす
 
 let g:loaded_gzip              = 1
 let g:loaded_tar               = 1
