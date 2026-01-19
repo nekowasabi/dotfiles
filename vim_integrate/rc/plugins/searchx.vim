@@ -298,7 +298,7 @@ if g:IsWindowsGvim()
 endif
 
 if g:IsWsl()
-  let g:migemodict = '/home/linuxbrew/.linuxbrew/Cellar/cmigemo/20110227/share/migemo/utf-8/migemo-dict'
+  let g:migemodict = expand('~/.nix-profile/share/migemo/utf-8/migemo-dict')
 endif
 
 " if g:IsLinux()
