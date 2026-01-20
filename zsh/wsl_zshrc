@@ -157,8 +157,8 @@ zinit light mollifier/cd-bookmark
 autoload -Uz cd-bookmark
 alias b='cd-bookmark'
 
-zi ice has'zoxide'
-zi light z-shell/zsh-zoxide
+# zi ice has'zoxide'
+# zi light z-shell/zsh-zoxide
 
 export DENO_INSTALL="/home/linuxbrew/.linuxbrew"
 export PATH="$DENO_INSTALL/bin:$PATH:/home/takets/.local/bin"
@@ -316,7 +316,10 @@ function set_fast_theme() {
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # eval "$(zoxide init zsh)"
-eval "$(zoxide init --cmd j zsh)"
+eval "$(zoxide init --cmd j zsh)"  # home-managerで管理
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/home/takets/google-cloud-sdk/path.zsh.inc' ]; then . '/home/takets/google-cloud-sdk/path.zsh.inc'; fi
+
+# mise (runtime version manager)
+eval "$(mise activate zsh)"
