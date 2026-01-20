@@ -121,6 +121,7 @@ Plug 'lambdalisue/vim-fern-renderer-nerdfont'
 Plug 'lambdalisue/vim-fern-git-status'
 Plug 'yuki-yano/fern-preview.vim'
 Plug 'thinca/vim-themis'
+Plug 'nvim-tree/nvim-web-devicons'
 
 " AI
  Plug 'github/copilot.vim'
