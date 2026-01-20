@@ -8,6 +8,20 @@ if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
         print -P "%F{160} The clone has failed.%f%b"
 fi
 
+if [ -z "$SSH_AUTH_SOCK" ]; then
+	# 既存のagentソケットを探す
+	export SSH_AUTH_SOCK="$HOME/.ssh/agent.sock"
+
+      # agentが動いていなければ起動
+      if ! ss -a | grep -q "$SSH_AUTH_SOCK"; then
+	      rm -f "$SSH_AUTH_SOCK"
+	      eval "$(ssh-agent -a $SSH_AUTH_SOCK -s)" > /dev/null
+      fi
+fi
+
+# SSH鍵の自動登録（鍵が登録されていない場合のみ）
+ssh-add -l &>/dev/null || ssh-add ~/.ssh/id_ed25519 2>/dev/null
+
 source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
