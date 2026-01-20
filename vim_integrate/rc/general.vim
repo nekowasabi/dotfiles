@@ -56,7 +56,7 @@ set incsearch
 set visualbell t_vb=
 set noundofile
 set gdefault " 置換の時 g オプションをデフォルトで有効にする
-set ttimeoutlen=10
+set ttimeoutlen=50
 set nocursorcolumn
 set cursorline
 set norelativenumber
