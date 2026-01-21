@@ -347,6 +347,7 @@ alias cmd="chezmoi diff"
 alias cme="chezmoi edit"
 alias cmu="chezmoi update"  # git pull + apply
 alias cms="chezmoi status"
+alias cmr="chezmoi re-add"  # 全変更を一括反映
 
 # chezmoi-commit: 変更をコミット
 chezmoi-commit() {

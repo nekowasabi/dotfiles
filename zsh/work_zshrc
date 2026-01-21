@@ -321,3 +321,29 @@ alias tw='tmux switch-client -t invase-web'   # web環境へ切り替え
 alias ta='tmux switch-client -t invase-app'   # app環境へ切り替え
 alias tl='tmux switch-client -l'              # 直前の環境へトグル
 alias ts='tmux list-sessions'                 # セッション一覧表示
+
+# ==============================================================================
+# chezmoi aliases
+# ==============================================================================
+alias cm="chezmoi"
+alias cma="chezmoi add"
+alias cmd="chezmoi diff"
+alias cme="chezmoi edit"
+alias cmu="chezmoi update"  # git pull + apply
+alias cms="chezmoi status"
+alias cmr="chezmoi re-add"  # 全変更を一括反映
+
+# chezmoi-commit: 変更をコミット
+chezmoi-commit() {
+    local source_dir=$(chezmoi source-path)
+    cd "$source_dir"
+    git add -A
+    git status
+    echo "Commit message (empty to cancel):"
+    read msg
+    if [ -n "$msg" ]; then
+        git commit -m "$msg"
+    fi
+    cd -
+}
+alias cmc="chezmoi-commit"
