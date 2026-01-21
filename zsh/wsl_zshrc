@@ -8,6 +8,20 @@ if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
         print -P "%F{160} The clone has failed.%f%b"
 fi
 
+if [ -z "$SSH_AUTH_SOCK" ]; then
+	# 既存のagentソケットを探す
+	export SSH_AUTH_SOCK="$HOME/.ssh/agent.sock"
+
+      # agentが動いていなければ起動
+      if ! ss -a | grep -q "$SSH_AUTH_SOCK"; then
+	      rm -f "$SSH_AUTH_SOCK"
+	      eval "$(ssh-agent -a $SSH_AUTH_SOCK -s)" > /dev/null
+      fi
+fi
+
+# SSH鍵の自動登録（鍵が登録されていない場合のみ）
+ssh-add -l &>/dev/null || ssh-add ~/.ssh/id_ed25519 2>/dev/null
+
 source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
@@ -157,8 +171,8 @@ zinit light mollifier/cd-bookmark
 autoload -Uz cd-bookmark
 alias b='cd-bookmark'
 
-zi ice has'zoxide'
-zi light z-shell/zsh-zoxide
+# zi ice has'zoxide'
+# zi light z-shell/zsh-zoxide
 
 export DENO_INSTALL="/home/linuxbrew/.linuxbrew"
 export PATH="$DENO_INSTALL/bin:$PATH:/home/takets/.local/bin"
@@ -316,7 +330,10 @@ function set_fast_theme() {
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # eval "$(zoxide init zsh)"
-eval "$(zoxide init --cmd j zsh)"
+eval "$(zoxide init --cmd j zsh)"  # home-managerで管理
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/home/takets/google-cloud-sdk/path.zsh.inc' ]; then . '/home/takets/google-cloud-sdk/path.zsh.inc'; fi
+
+# mise (runtime version manager)
+eval "$(mise activate zsh)"
