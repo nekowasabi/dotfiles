@@ -10,14 +10,11 @@ alias gls="gls --color"
 
 # eza: modern ls replacement
 alias ll='eza --long --header --git --sort=type --classify --git'
-alias la='eza --long --header --git --grid --classify --sort=type --git'
+alias la='eza -la --long --header --git --grid --classify --sort=type --git'
 
 # Directory navigation shortcuts
 alias ...='cd ../../'
 alias ....='cd ../../../'
-
-# cd-bookmark integration
-alias b='cd-bookmark'
 
 # ============================================
 # Editor & IDE
@@ -40,15 +37,12 @@ function wezterm_neovim() {
 }
 alias n='wezterm_neovim'
 
-# Nvim direct alias (Homebrew path)
-alias v='/home/linuxbrew/.linuxbrew/bin/nvim'
-
 # ============================================
 # Claude CLI
 # ============================================
 
 # Claude with default permissions and model
-alias c="claude --dangerously-skip-permissions"
+alias c="MAX_THINKING_TOKENS=63999 claude --dangerously-skip-permissions"
 
 # Claude with Sonnet model
 alias ys="claude --dangerously-skip-permissions --model sonnet"
@@ -60,9 +54,13 @@ alias yo="claude --dangerously-skip-permissions --model opus"
 # Development Tools
 # ============================================
 
-# PHP tags
-alias phpctags='/usr/local/bin/phpctags'
-
 # Python & Pip (Homebrew versions)
 alias python3='/home/linuxbrew/.linuxbrew/bin/python3.12'
 alias pip3='/home/linuxbrew/.linuxbrew/bin/pip3.12'
+
+# ============================================
+# Repository Management (ghq)
+# ============================================
+
+# ghq + fzf: リポジトリ選択してジャンプ
+alias g='cd $(ghq list -p | fzf --preview "ls -la {}")'
