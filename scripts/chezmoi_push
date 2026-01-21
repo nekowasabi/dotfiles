@@ -1,0 +1,47 @@
+#!/bin/bash
+# chezmoi_push - chezmoi 管理ファイルの変更を一括コミット＆プッシュ
+#
+# Usage: chezmoi_push
+#   claude コマンドで自動コミットメッセージ生成 → プッシュ
+
+set -e
+
+# 色定義
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
+# chezmoi ソースディレクトリ
+CHEZMOI_SOURCE="$(chezmoi source-path)"
+
+echo -e "${BLUE}━━━ chezmoi_push ━━━${NC}"
+
+# 1. 管理ファイルの変更を chezmoi ソースに反映
+echo -e "\n${YELLOW}[1/4] 変更を chezmoi ソースに反映中...${NC}"
+chezmoi re-add
+
+# 2. ソースディレクトリに移動
+cd "$CHEZMOI_SOURCE"
+
+# 3. 差分確認
+echo -e "\n${YELLOW}[2/4] 差分を確認中...${NC}"
+if git status --porcelain | grep -q .; then
+    git status --short
+    echo ""
+    git diff --stat
+else
+    echo -e "${GREEN}変更はありません。${NC}"
+    exit 0
+fi
+
+# 4. claude で自動コミット＆プッシュ
+echo -e "\n${YELLOW}[3/4] claude で自動コミット中...${NC}"
+claude "/commit-plan --no-backup --auto"
+
+echo -e "\n${YELLOW}[4/4] プッシュ中...${NC}"
+git push
+
+echo -e "\n${GREEN}完了！${NC}"
+git log -1 --oneline
