@@ -106,3 +106,45 @@ compdef _powered_cd powered_cd
 
 # powered_cd.log ファイルが存在しなければ作成
 [ -e ~/.powered_cd.log ] || touch ~/.powered_cd.log
+
+# ============================================================================
+# ghq + fzf + fd/rg 連携関数
+# ============================================================================
+
+# ghqリポジトリを選択し、その中のファイルをfdで検索してエディタで開く
+function ghq_fd() {
+  local repo=$(ghq list | fzf --preview "eza --tree --level=2 --color=always $(ghq root)/{}")
+  [[ -z "$repo" ]] && return
+
+  local repo_path="$(ghq root)/$repo"
+  local file=$(fd --type f . "$repo_path" | fzf --preview "bat --color=always {}")
+  [[ -z "$file" ]] && return
+
+  nvim "$file"
+}
+
+# ghqリポジトリを選択し、その中をrgで検索してファイルを開く
+function ghq_rg() {
+  local repo=$(ghq list | fzf --preview "eza --tree --level=2 --color=always $(ghq root)/{}")
+  [[ -z "$repo" ]] && return
+
+  local repo_path="$(ghq root)/$repo"
+
+  # rg + fzf でインタラクティブ検索（入力するたびに検索実行）
+  local selection=$(: | fzf --ansi --disabled \
+    --bind "change:reload:rg --color=always --line-number --no-heading --smart-case {q} \"$repo_path\" 2>/dev/null || true" \
+    --preview 'bat --color=always --highlight-line {2} {1}' \
+    --preview-window '+{2}-10' \
+    --delimiter ':' \
+    --header '検索ワードを入力')
+
+  [[ -z "$selection" ]] && return
+
+  local file=$(echo "$selection" | cut -d':' -f1)
+  local line=$(echo "$selection" | cut -d':' -f2)
+  nvim "+$line" "$file"
+}
+
+# エイリアス
+alias gf='ghq_fd'
+alias gr='ghq_rg'

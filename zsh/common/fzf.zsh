@@ -56,3 +56,19 @@ fzf_find_path() {
 # Ctrl+t のキーバインドを設定
 zle -N fzf_find_path
 bindkey '^t' fzf_find_path
+
+
+# ============================================================================
+# ghq-fzf: Ctrl+gでghqリポジトリを選択してジャンプ
+# ============================================================================
+# ghq + fzf: リポジトリ選択してジャンプ
+function ghq-fzf() {
+  local selected_dir=$(ghq list -p | fzf --preview "ls -la {}" --query "$LBUFFER")
+  if [ -n "$selected_dir" ]; then
+    BUFFER="cd ${selected_dir}"
+    zle accept-line
+  fi
+  zle clear-screen
+}
+zle -N ghq-fzf
+bindkey '^g' ghq-fzf
