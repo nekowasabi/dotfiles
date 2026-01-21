@@ -138,8 +138,8 @@ alias v='/opt/homebrew/bin/nvim'
 alias deno='~/.deno/bin/deno'
 alias grealpath='/opt/homebrew/bin/grealpath'
 alias cj='j'
-alias c="claude --dangerously-skip-permissions"
-alias cg="claude --dangerously-skip-permissions --chrome"
+alias c="MAX_THINKING_TOKENS=63999 claude --dangerously-skip-permissions"
+alias cg="MAX_THINKING_TOKENS=63999 claude --dangerously-skip-permissions --chrome"
 # }}}0
 
 zinit light zdharma-continuum/fast-syntax-highlighting
