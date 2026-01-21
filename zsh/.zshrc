@@ -137,8 +137,9 @@ zinit light zdharma-continuum/fast-syntax-highlighting
 zinit ice pick"async.zsh" src"pure.zsh"
 zinit light sindresorhus/pure
 
+# fzf: FZF (fuzzy finder) - 最新バイナリを GitHub Releases から取得
 zinit ice from"gh-r" as"program"
-zinit load junegunn/fzf-bin
+zinit load junegunn/fzf
 
 zinit ice lucid depth"1" blockf
 zinit light yuki-yano/zeno.zsh

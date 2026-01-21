@@ -48,11 +48,9 @@ zinit light zdharma-continuum/fast-syntax-highlighting
 # Command-line Tools
 # ============================================================================
 
-# fzf-bin: FZF (fuzzy finder) binary
-# from"gh-r": Downloads from GitHub releases
-# as"program": Treats as executable program
+# fzf: FZF (fuzzy finder) - 最新バイナリを GitHub Releases から取得
 zinit ice from"gh-r" as"program"
-zinit load junegunn/fzf-bin
+zinit load junegunn/fzf
 
 # cd-bookmark: Bookmark and navigate directories quickly
 # Allows marking directories for quick access
