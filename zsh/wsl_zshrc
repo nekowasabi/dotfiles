@@ -337,3 +337,28 @@ if [ -f '/home/takets/google-cloud-sdk/path.zsh.inc' ]; then . '/home/takets/goo
 
 # mise (runtime version manager)
 eval "$(mise activate zsh)"
+
+# ==============================================================================
+# chezmoi aliases
+# ==============================================================================
+alias cm="chezmoi"
+alias cma="chezmoi add"
+alias cmd="chezmoi diff"
+alias cme="chezmoi edit"
+alias cmu="chezmoi update"  # git pull + apply
+alias cms="chezmoi status"
+
+# chezmoi-commit: 変更をコミット
+chezmoi-commit() {
+    local source_dir=$(chezmoi source-path)
+    cd "$source_dir"
+    git add -A
+    git status
+    echo "Commit message (empty to cancel):"
+    read msg
+    if [ -n "$msg" ]; then
+        git commit -m "$msg"
+    fi
+    cd -
+}
+alias cmc="chezmoi-commit"

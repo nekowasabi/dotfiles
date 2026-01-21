@@ -1,0 +1,35 @@
+font-family = "RuikaMono07 Nerd Font"
+font-size = 24
+theme = "Solarized Dark Patched"
+
+# クイックターミナルの位置を画面上部に設定
+quick-terminal-position = "top"
+
+# クイックターミナルを表示するスクリーンを設定 (メインスクリーン)
+quick-terminal-screen = "main"
+
+# アニメーション時間を設定（0で即時表示）
+quick-terminal-animation-duration = 0
+
+# リガチャ不要
+font-feature = -calt
+font-feature = -dlig
+
+# マウス設定
+mouse-hide-while-typing = true
+mouse-scroll-multiplier = 2
+
+# カーソル設定
+cursor-opacity = 0.7
+cursor-style = block
+cursor-style-blink = false
+
+
+unfocused-split-opacity = 0.825
+
+fullscreen = false
+
+window-inherit-working-directory = true
+
+resize-overlay = never
+keybind = shift+enter=text:\x1b\r

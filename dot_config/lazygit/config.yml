@@ -1,0 +1,212 @@
+gui:
+  language: 'en'
+  showIcons: true
+  nerdFontsVersion: '3'
+  theme:
+    selectedLineBgColor:
+      - reverse
+    optionsTextColor:
+      - blue
+    cherryPickedCommitBgColor:
+      - cyan
+    cherryPickedCommitFgColor:
+      - blue
+    unstagedChangesColor:
+      - red
+    defaultFgColor:
+      - default
+git:
+  parseEmoji: true
+  pagers:
+    - colorArg: always
+      pager: delta --paging=never
+os:
+  editPreset: "nvim-remote"
+customCommands:
+  # AI Commit: Claude AIでメッセージ自動生成
+  - key: "C"
+    context: "files"
+    description: "AI commit (Claude) - auto-fill message"
+    prompts:
+      - type: "input"
+        title: "AI-generated Message (edit if needed)"
+        key: "Message"
+        initialValue: '{{ runCommand "/Users/ttakeda/bin/lazygit-ai-msg" }}'
+      - type: "menu"
+        title: "Choose the emoji (optional)"
+        key: "Emoji"
+        options:
+          - name: '(empty)'
+            description: ''
+            value: ''
+          - name: ':ambulance:'
+            description: "(fix)🚑致命的なバグ修正"
+            value: ':ambulance:'
+          - name: ':bug:'
+            description: "(fix)🐛バグ修正"
+            value: ':bug:'
+          - name: ':+1:'
+            description: "(fix)👍機能改善や機能修正"
+            value: ':+1:'
+          - name: ':cop:'
+            description: "(fix)👮セキュリティ関連の修正"
+            value: ':cop:'
+          - name: ':tada:'
+            description: "(feat)🎉大きな機能追加"
+            value: ':tada:'
+          - name: ':sparkles:'
+            description: "(feat)✨部分的な機能追加"
+            value: ':sparkles:'
+          - name: ':up:'
+            description: "(feat)🆙依存パッケージ等のアップデート"
+            value: ':up:'
+          - name: ':memo:'
+            description: "(docs)📝ドキュメントの追加や修正"
+            value: ':memo:'
+          - name: ':bulb:'
+            description: "(docs)💡ソースコードへのコメント追加や修正"
+            value: ':bulb:'
+          - name: ':art:'
+            description: "(style)🎨レイアウト関連の修正"
+            value: ':art:'
+          - name: ':lipstick:'
+            description: "(style)💄Lintエラーの修正やコードスタイルの修正"
+            value: ':lipstick:'
+          - name: ':recycle:'
+            description: "(refactor)♻️リファクタリング"
+            value: ':recycle:'
+          - name: ':fire:'
+            description: "(refactor)🔥コードやファイルの削除"
+            value: ':fire:'
+          - name: ':green_heart:'
+            description: "(test)💚テストやCIの修正"
+            value: ':green_heart:'
+          - name: ':rocket:'
+            description: "(perf)🚀パフォーマンス改善"
+            value: ':rocket:'
+          - name: ':wrench:'
+            description: "(chore)🔧設定ファイルの修正"
+            value: ':wrench:'
+          - name: ':building_construction:'
+            description: "(chore)🏗️アーキテクチャの修正"
+            value: ':building_construction:'
+          - name: ':construction:'
+            description: "(wip)🚧作業中"
+            value: ':construction:'
+      - type: "confirm"
+        title: "Commit"
+        body: "Commit: '{{.Form.Message}} {{.Form.Emoji}}'"
+    command: "git commit -m '{{.Form.Message}} {{.Form.Emoji}}'"
+    loadingText: "🤖 Claude AIでコミットメッセージを生成中..."
+  - key: "<c-c>"
+    context: "files"
+    description: 'commit files with format'
+    prompts:
+      - type: "menu"
+        title: "What kind of commit type is it?"
+        key: "Type"
+        options:
+          - name: "fix"
+            description: "バグや不具合の修正"
+            value: "fix"
+          - name: "feat"
+            description: "新機能の追加"
+            value: "feat"
+          - name: "docs"
+            description: "ドキュメントの更新や改善"
+            value: "docs"
+          - name: "style"
+            description: "コードフォーマットの修正、UIのみの変更"
+            value: "style"
+          - name: "refactor"
+            description: "パフォーマンスの改善なしのコードの改善"
+            value: "refactor"
+          - name: "test"
+            description: "テストの追加や改善"
+            value: "test"
+          - name: "perf"
+            description: "パフォーマンスの改善"
+            value: "perf"
+          - name: "chore"
+            description: "ビルドプロセスの変更や改善"
+            value: "chore"
+          - name: "wip"
+            description: "作業中"
+            value: "wip"
+      - type: "input"
+        title: "Enter the Message"
+        key: "Message"
+        initialValue: ""
+      - type: "menu"
+        title: "Choise the emoji"
+        key: "Emoji"
+        options:
+          - name: '(empty)'
+            description: ''
+            value: ''
+          - name: ':ambulance:'
+            description: "(fix)\U0001F691致命的なバグ修正"
+            value: ':ambulance:'
+          - name: ':bug:'
+            description: "(fix)\U0001F41Bバグ修正"
+            value: ':bug:'
+          - name: ':+1:'
+            description: "(fix)\U0001F44D機能改善や機能修正"
+            value: ':+1:'
+          - name: ':cop:'
+            description: "(fix)\U0001F46Eセキュリティ関連の修正"
+            value: ':cop:'
+          - name: ':tada'
+            description: "(feat)\U0001F389大きな機能追加"
+            value: ':tada:'
+          - name: ':sparkles:'
+            description: '(feat)✨部分的な機能追加'
+            value: ':sparkles:'
+          - name: ':up:'
+            description: "(feat)\U0001F199依存パッケージ等のアップデート"
+            value: ':up:'
+          - name: ':memo:'
+            description: "(docs)\U0001F4DDドキュメントの追加や修正"
+            value: ':memo:'
+          - name: ':bulb'
+            description: "(docs)\U0001F4A1ソースコードへのコメント追加や修正"
+            value: ':bulb:'
+          - name: ':art:'
+            description: "(style)\U0001F3A8レイアウト関連の修正"
+            value: ':art:'
+          - name: ':lipstick:'
+            description: "(style)\U0001F484Lintエラーの修正やコードスタイルの修正"
+            value: ':lipstick:'
+          - name: ':recycle:'
+            description: '(refactor)♻️ リファクタリング'
+            value: ':recycle:'
+          - name: ':fire:'
+            description: "(refactor)\U0001F525コードやファイルの削除"
+            value: ':fire:'
+          - name: ':green_heart:'
+            description: "(test)\U0001F49AテストやCIの修正"
+            value: ':green_heart:'
+          - name: ':rocket:'
+            description: "(perf)\U0001F680パフォーマンス改善"
+            value: ':rocket:'
+          - name: ':wrench:'
+            description: "(chore)\U0001F527設定ファイルの修正"
+            value: ':wrench:'
+          - name: ':building_construction:'
+            description: "(chore)\U0001F3D7️アーキテクチャの修正"
+            value: ':building_construction:'
+          - name: ':construction:'
+            description: "(wip)\U0001F6A7作業中"
+            value: ':construction:'
+      - type: "confirm"
+        title: "Commit"
+        body: "Commit with the message '{{.Form.Type}}: {{.Form.Message}}{{.Form.Emoji}}'. Is this okay?"
+    command: "bash -c 'type=\"{{.Form.Type}}\"; message=\"{{.Form.Message}}\"; emoji=\"{{.Form.Emoji}}\"; commit_message=\"$message $emoji\"; git commit -m \"$commit_message\"'"
+    loadingText: "Commiting..."
+  # Claude Code コミット計画
+  - key: "z"
+    context: "files"
+    description: "Claude Code でコミット計画を作成"
+    command: "osascript -e 'tell application \"iTerm\" to activate' -e \"tell application \\\"iTerm\\\" to create window with default profile command \\\"cd '$(pwd)' && claude '/commit-plan'\\\"\""
+    output: none
+    loadingText: "Claude Code を起動中..."
