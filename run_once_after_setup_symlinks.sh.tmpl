@@ -1,0 +1,43 @@
+#!/bin/bash
+# chezmoi run_once script: Setup symlinks for large directories
+# This script runs once after chezmoi apply
+
+set -e
+
+PRIVATE_DOTFILES="$HOME/repos/private_dotfiles"
+
+echo "Setting up symlinks from private_dotfiles..."
+
+# Check if private_dotfiles exists
+if [ ! -d "$PRIVATE_DOTFILES" ]; then
+    echo "Warning: $PRIVATE_DOTFILES not found. Skipping symlink setup."
+    echo "Clone it with: git clone git@github.com:nekowasabi/private_dotfiles.git ~/repos/private_dotfiles"
+    exit 0
+fi
+
+# Claude settings
+mkdir -p ~/.claude
+[ -f "$PRIVATE_DOTFILES/claude/settings.json" ] && ln -sf "$PRIVATE_DOTFILES/claude/settings.json" ~/.claude/settings.json
+[ -f "$PRIVATE_DOTFILES/claude/CLAUDE.md" ] && ln -sf "$PRIVATE_DOTFILES/claude/CLAUDE.md" ~/.claude/CLAUDE.md
+[ -d "$PRIVATE_DOTFILES/claude/hooks" ] && ln -sfn "$PRIVATE_DOTFILES/claude/hooks" ~/.claude/hooks
+[ -d "$PRIVATE_DOTFILES/claude/skills" ] && ln -sfn "$PRIVATE_DOTFILES/claude/skills" ~/.claude/skills
+[ -d "$PRIVATE_DOTFILES/claude/commands" ] && ln -sfn "$PRIVATE_DOTFILES/claude/commands" ~/.claude/commands
+[ -d "$PRIVATE_DOTFILES/claude/agents" ] && ln -sfn "$PRIVATE_DOTFILES/claude/agents" ~/.claude/agents
+echo "✓ Claude settings linked"
+
+# aichat settings
+mkdir -p ~/.config/aichat
+[ -f "$PRIVATE_DOTFILES/aichat/config.yaml" ] && ln -sf "$PRIVATE_DOTFILES/aichat/config.yaml" ~/.config/aichat/config.yaml
+[ -d "$PRIVATE_DOTFILES/aichat/rags" ] && ln -sfn "$PRIVATE_DOTFILES/aichat/rags" ~/.config/aichat/rags
+echo "✓ aichat settings linked"
+
+{{- if .isMac }}
+# Mac specific: Alfred
+if [ -d "$PRIVATE_DOTFILES/alfred/Alfred.alfredpreferences" ]; then
+    mkdir -p ~/Library/Application\ Support/Alfred
+    ln -sfn "$PRIVATE_DOTFILES/alfred/Alfred.alfredpreferences" ~/Library/Application\ Support/Alfred/Alfred.alfredpreferences
+    echo "✓ Alfred preferences linked"
+fi
+{{- end }}
+
+echo "Symlink setup completed!"

@@ -1,0 +1,29 @@
+# chezmoi ignore file
+# These files/directories are part of the source repo structure
+# but should not be deployed to home directory
+
+# Original dotfiles structure (used as include sources)
+zsh/
+tmux/
+vim_integrate/
+common/
+mac/
+windows/
+wsl/
+ghostty/
+lazygit/
+ripgrep/
+zellij/
+zeno/
+laravel/
+
+# Git files
+.git/
+.gitignore
+README.md
+LICENSE
+
+# Backup files
+*.backup
+*.bak
+update

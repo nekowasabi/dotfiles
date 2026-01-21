@@ -1,0 +1,24 @@
+{{- /* 環境検出テンプレート */ -}}
+{{- $pc := env "PC" | default "private" -}}
+{{- $isWsl := false -}}
+{{- $isMac := false -}}
+{{- $isLinux := false -}}
+
+{{- if eq .chezmoi.os "darwin" -}}
+{{-   $isMac = true -}}
+{{- else if eq .chezmoi.os "linux" -}}
+{{-   $isLinux = true -}}
+{{-   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
+{{-     $isWsl = true -}}
+{{-   end -}}
+{{- end -}}
+
+sourceDir = "/home/takets/repos/dotfiles"
+
+[data]
+    pc = {{ $pc | quote }}
+    isMac = {{ $isMac }}
+    isWsl = {{ $isWsl }}
+    isLinux = {{ and $isLinux (not $isWsl) }}
+    email = "nolifeking00@gmail.com"
+    name = "takets"
