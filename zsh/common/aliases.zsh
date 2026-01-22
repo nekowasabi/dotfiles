@@ -32,7 +32,7 @@ function wezterm_neovim() {
   elif [ -d "/home/takets" ]; then
     /home/takets/.nix-profile/bin/nvim $1 $2
   else
-    /usr/local/bin/nvim $1 $2 ~/wezterm
+    /opt/homebrew/bin/nvim  $1 $2 ~/work
   fi
 }
 alias n='wezterm_neovim'
