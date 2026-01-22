@@ -6,6 +6,9 @@ let g:ale_lint_delay = 1500
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_insert_leave = 0
 
+" ALE のデフォルトマッピングを作らせない
+let g:ale_set_mappings = 0
+
 " neovimのvirtual textでlintのメッセージを表示
 let g:ale_virtualtext_cursor = 0
 
