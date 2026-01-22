@@ -49,9 +49,9 @@ require('gitsigns').setup {
       opts.buffer = bufnr
       vim.keymap.set(mode, l, r, opts)
     end
-
+    
     -- Navigation
-    map('n', ']c', function()
+    map('n', 'g]', function()
       if vim.wo.diff then
         vim.cmd.normal({']c', bang = true})
       else
@@ -59,7 +59,7 @@ require('gitsigns').setup {
       end
     end)
 
-    map('n', '[c', function()
+    map('n', 'g[', function()
       if vim.wo.diff then
         vim.cmd.normal({'[c', bang = true})
       else
