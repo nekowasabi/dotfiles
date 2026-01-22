@@ -33,13 +33,9 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 # neovim エイリアス (linuxbrew版)
 alias v='/home/linuxbrew/.linuxbrew/bin/nvim'
 
-# Python/Pip エイリアス (linuxbrew版)
-alias python3='/home/linuxbrew/.linuxbrew/bin/python3.12'
-alias pip3='/home/linuxbrew/.linuxbrew/bin/pip3.12'
 
 # Deno環境設定
-export DENO_INSTALL="/home/linuxbrew/.linuxbrew"
-export PATH="$DENO_INSTALL/bin:$PATH:/home/takets/.local/bin"
+export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH:/home/takets/.local/bin"
 
 # Denops テスト設定
 export DENOPS_TEST_DENOPS_PATH=/home/takets/.config/nvim/plugged/denops.vim
