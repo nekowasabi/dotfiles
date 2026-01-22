@@ -1,5 +1,16 @@
 # WSL environment specific settings
 
+# 復号キーの読み込み（dotenvx用）
+[ -f "$HOME/.zshenv.local" ] && source "$HOME/.zshenv.local"
+
+# dotenvx による機密情報の復号と読み込み
+if command -v dotenvx &> /dev/null && [ -f "$HOME/.env.zsh" ]; then
+  # シンボリックリンクを解決して実体パスを使用
+  # --all を削除（.envファイルの変数のみを取得）
+  local env_file="$(readlink -f "$HOME/.env.zsh" 2>/dev/null || echo "$HOME/.env.zsh")"
+  eval "$(dotenvx get --format eval -f "$env_file" 2>/dev/null || true)"
+fi
+
 # SSH Agent設定
 # SSH_AUTH_SOCKが設定されていない場合、エージェントを起動
 if [ -z "$SSH_AUTH_SOCK" ]; then
