@@ -30,10 +30,6 @@ ssh-add -l &>/dev/null || ssh-add ~/.ssh/id_ed25519 2>/dev/null
 # linuxbrewのパス設定
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-# neovim エイリアス (linuxbrew版)
-alias v='/home/linuxbrew/.linuxbrew/bin/nvim'
-
-
 # Deno環境設定
 export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH:/home/takets/.local/bin"
 
