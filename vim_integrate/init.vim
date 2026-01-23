@@ -128,9 +128,11 @@ augroup parrot
 	autocmd FileType diff call system("terminal-notifier -title '📜 parrot' -message '🍎 parrotの処理が完了しました'")
 augroup END
 
+let g:hellshake_yano_debug = 1
+
 " hellshake-yano
 let g:hellshake_yano = {
-      \ 'debugMode': v:false,
+      \ 'debugMode': v:true,
       \ 'useJapanese': v:true,
       \ 'useHintGroups': v:true,
       \ 'highlightSelected': v:true,
