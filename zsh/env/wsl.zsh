@@ -8,7 +8,8 @@ if command -v dotenvx &> /dev/null && [ -f "$HOME/.env.zsh" ]; then
   # シンボリックリンクを解決して実体パスを使用
   # --all を削除（.envファイルの変数のみを取得）
   local env_file="$(readlink -f "$HOME/.env.zsh" 2>/dev/null || echo "$HOME/.env.zsh")"
-  eval "$(dotenvx get --format eval -f "$env_file" 2>/dev/null || true)"
+  # shellフォーマットで取得してexport（子プロセスに継承されるようにする）
+  eval "export $(dotenvx get --format shell -f "$env_file" 2>/dev/null || true)"
 fi
 
 # SSH Agent設定
