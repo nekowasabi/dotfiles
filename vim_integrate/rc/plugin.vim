@@ -129,7 +129,6 @@ Plug 'nvim-tree/nvim-web-devicons'
 Plug 'nekowasabi/aider.vim', { 'on': ['AiderStart', 'AiderSendPromptByCommandline'] }
 " Plug 'Robitx/gp.nvim'
 Plug 'frankroeder/parrot.nvim', { 'on': 'PrtAppend' }
-Plug 'ravitemer/mcphub.nvim', {'do': 'npm install -g mcp-hub@latest'}
 Plug 'nekowasabi/cross-channel.nvim'
 Plug 'atusy/aibou.nvim'
 Plug 'olimorris/codecompanion.nvim'

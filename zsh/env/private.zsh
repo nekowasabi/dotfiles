@@ -1,7 +1,7 @@
 # Private (takets) environment specific settings
 
 # takets専用のPATH設定
-export PATH=$PATH:/usr/local/bin:/bin:/usr/bin:$GOROOT/bin:$GOPATH/bin:/Users/takets/.nodebrew/current/bin:/Users/takets/go/bin:/Users/takets/.cargo/bin:/usr/local/Cellar/python@3.13/3.13.0_1/bin::$DENO_INSTALL/bin:$PATH:/Users/takets/.deno/bin:/Users/takets/.local/bin:/Users/takets/bin:/Users/takets/tmp/nvim-macos-x86_64/bin:/Users/takets/tmp/nvim-macos-x86_64
+export PATH=$PATH:/usr/local/bin:/bin:/usr/bin:$GOROOT/bin:$GOPATH/bin:/Users/takets/.nodebrew/current/bin:/Users/takets/go/bin:/Users/takets/.cargo/bin::$DENO_INSTALL/bin:$PATH:/Users/takets/.deno/bin:/Users/takets/.local/bin:/Users/takets/bin:/Users/takets/tmp/nvim-macos-x86_64/bin:/Users/takets/tmp/nvim-macos-x86_64
 
 # Python environment
 export PYENV_ROOT=$HOME/.pyenv
@@ -32,7 +32,5 @@ if [ -f '/Users/takets/google-cloud-sdk/completion.zsh.inc' ]; then
 fi
 
 # takets専用のエイリアス
-alias python='/usr/local/Cellar/python@3.13/3.13.0_1/bin/python3'
-alias pip3='/usr/local/Cellar/python@3.13/3.13.3/bin/pip3'
-alias pip='/usr/local/Cellar/python@3.13/3.13.3/bin/pip3'
-alias deno='~/.deno/bin/deno'
+# mise managed - aliases removed to use mise shims
+# python, pip, pip3, deno are managed by mise (~/.local/share/mise/shims/)
