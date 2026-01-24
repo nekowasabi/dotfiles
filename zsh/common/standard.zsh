@@ -99,3 +99,6 @@ zinit_update() {
 
 # Run on each shell start to avoid stale completion cache.
 zinit cdreplay
+
+# Load local zsh configuration (e.g., mise initialization)
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
