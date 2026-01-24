@@ -31,6 +31,8 @@ function wezterm_neovim() {
     /opt/homebrew/bin/nvim  $1 $2 ~/work
   elif [ -d "/home/takets" ]; then
     /home/takets/.nix-profile/bin/nvim $1 $2
+  elif [ -d "/Users/takets" ]; then
+    /etc/profiles/per-user/takets/bin/nvim $1 $2
   else
     /opt/homebrew/bin/nvim  $1 $2 ~/work
   fi
