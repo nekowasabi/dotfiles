@@ -85,3 +85,17 @@ zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'c
 # Additional Paths
 # =========================
 fpath=(/usr/local/share/zsh-completions ${fpath})
+
+# =========================
+# Zinit helpers
+# =========================
+zinit_update() {
+  zinit update
+  rm -f ~/.zcompdump*
+  autoload -Uz compinit
+  compinit
+  zinit cdreplay
+}
+
+# Run on each shell start to avoid stale completion cache.
+zinit cdreplay
