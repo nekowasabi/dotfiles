@@ -1,12 +1,12 @@
 # zeno configuration
 # https://github.com/yuki-yano/zeno.zsh
 
+# ZENO_HOME設定
+export ZENO_HOME=~/.config/zeno
+
 # zinit load
 zinit ice lucid depth"1" blockf
 zinit light yuki-yano/zeno.zsh
-
-# ZENO_HOME設定
-export ZENO_HOME=~/.config/zeno
 
 # git folder preview with color
 export ZENO_GIT_TREE="exa --tree"
