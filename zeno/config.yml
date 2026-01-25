@@ -109,6 +109,9 @@ snippets:
   - name: make migration
     keyword: mamm
     snippet: ./mac artisan make:migration 
+  - name: nix apply for mac
+    keyword: nap
+    snippet: sudo -H nix run nix-darwin -- switch --flake /Users/takets/.config/home-manager#takets
 
 completions:
   - name: kill
