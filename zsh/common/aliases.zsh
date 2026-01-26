@@ -56,10 +56,6 @@ alias yo="claude --dangerously-skip-permissions --model opus"
 # Development Tools
 # ============================================
 
-# Python & Pip (Homebrew versions)
-alias python3='/home/linuxbrew/.linuxbrew/bin/python3.12'
-alias pip3='/home/linuxbrew/.linuxbrew/bin/pip3.12'
-
 # ============================================
 # Repository Management (ghq)
 # ============================================
