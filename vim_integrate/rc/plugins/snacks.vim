@@ -14,27 +14,30 @@ nnoremap <silent> <leader>lg :LazyGit<CR>
 
 lua << EOF
 require("snacks").setup({
-  opts = {
-    lazygit = { enabled = true },
-    bufdelete = { enabled = true },
-    notify = { enabled = true },
-    scratch = { enabled = true },
-    terminal = { enabled = true },
-    toggle = {
-      enabled = true,
-      map = vim.keymap.set, -- keymap.set function to use
-      which_key = true, -- integrate with which-key to show enabled/disabled icons and colors
-      notify = true, -- show a notification when toggling
-      -- icons for enabled/disabled states
-      icon = {
-        enabled = " ",
-        disabled = " ",
-      },
-      -- colors for enabled/disabled states
-      color = {
-        enabled = "green",
-        disabled = "yellow",
-      },
+  lazygit = {
+    enabled = true,
+    win = {
+      fixbuf = false,  -- バッファ交換によるちらつきを防止
+    },
+  },
+  bufdelete = { enabled = true },
+  notify = { enabled = true },
+  scratch = { enabled = true },
+  terminal = { enabled = true },
+  toggle = {
+    enabled = true,
+    map = vim.keymap.set, -- keymap.set function to use
+    which_key = true, -- integrate with which-key to show enabled/disabled icons and colors
+    notify = true, -- show a notification when toggling
+    -- icons for enabled/disabled states
+    icon = {
+      enabled = " ",
+      disabled = " ",
+    },
+    -- colors for enabled/disabled states
+    color = {
+      enabled = "green",
+      disabled = "yellow",
     },
   },
 })
