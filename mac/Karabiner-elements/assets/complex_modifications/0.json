@@ -931,84 +931,61 @@
           ]
         },
         {
+          "type": "basic",
           "description": "iterm2アクティブ",
           "from": {
             "key_code": "1",
             "modifiers": {
-              "mandatory": [
-                
-              
-                "control"
-              ]
+              "mandatory": ["control"]
             }
           },
           "to": [
-                   {
-                
-              
+            {
               "key_code": "1",
-              "modifiers": [
-                "control"
-              ]
+              "modifiers": ["control"]
             },
             {
               "shell_command": "osascript -e 'tell application \"iTerm2\" to activate' -e 'tell application \"System Events\" to set frontmost of process \"iTerm2\" to true'"
             }
-          ],
-          "type": "basic"
+          ]
         },
         {
-          "description": "Re
-                memberThe
-              Milkアクティブ",
+          "type": "basic",
+          "description": "RememberTheMilkアクティブ",
           "from": {
             "key_code": "5",
             "modifiers": {
-              "mandatory": [
-                "control"
-                     ]
-                
-              
+              "mandatory": ["control"]
             }
           },
           "to": [
             {
               "key_code": "5",
-              "modifiers": [
-                "control"
-              ]
+              "modifiers": ["control"]
             },
             {
               "shell_command": "osascript -e 'tell application \"Remember The Milk\" to activate' -e 'tell application \"System Events\" to set frontmost of process \"Remember The Milk\" to true'"
             }
-          ],
-                
-              
-          "type": "basic"
+          ]
         },
         {
+          "type": "basic",
           "description": "Firefoxアクティブ",
           "from": {
-                   "key_code
-                ": "2",
-              
+            "key_code": "2",
             "modifiers": {
-              "mandatory": [
-                "control"
-              ]
+              "mandatory": ["control"]
             }
           },
-          
+          "to": [
+            {
               "key_code": "2",
-              "modifiers": [
-                "control"
-              ]
+              "modifiers": ["control"]
             },
             {
               "shell_command": "osascript -e 'tell application \"Firefox\" to activate' -e 'tell application \"System Events\" to set frontmost of process \"Firefox\" to true'"
             }
-          ],
-          "type": "basic"
+          ]
         },
         {
           "type": "basic",
@@ -1103,6 +1080,18 @@
                 "name": "eisuu",
                 "value": 0
               }
+            }
+          ]
+        },
+        {
+          "type": "basic",
+          "description": "F21 to fn key",
+          "from": {
+            "key_code": "f21"
+          },
+          "to": [
+            {
+              "key_code": "fn"
             }
           ]
         }

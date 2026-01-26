@@ -142,7 +142,7 @@
                             },
                             {
                                 "conditions": [],
-                                "description": "音声入力",
+                                "description": "superwhisper 音声入力",
                                 "from": {
                                     "key_code": "j",
                                     "modifiers": { "mandatory": ["command"] }
@@ -706,6 +706,12 @@
                                     }
                                 ],
                                 "to_if_alone": [{ "key_code": "delete_or_backspace" }],
+                                "type": "basic"
+                            },
+                            {
+                                "description": "F21 to fn key",
+                                "from": { "key_code": "f21" },
+                                "to": [{ "key_code": "fn" }],
                                 "type": "basic"
                             }
                         ]
