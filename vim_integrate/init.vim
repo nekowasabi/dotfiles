@@ -130,7 +130,7 @@ augroup END
 
 " hellshake-yano
 let g:hellshake_yano = {
-      \ 'debugMode': v:true,
+      \ 'debugMode': v:false,
       \ 'useJapanese': v:true,
       \ 'useHintGroups': v:true,
       \ 'highlightSelected': v:true,
