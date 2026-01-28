@@ -47,7 +47,7 @@ let g:ale_fixers = {
     \   'typescript': ['deno'],
     \   'javascript': ['eslint'],
 		\   'php': ['pint'],
-    \   'python': ['black', 'isort'],
+    \   'python': ['isort', 'black'],
     \}
 
 " pip install -U flake8 black isort mypyのインストールが必要
