@@ -1,4 +1,5 @@
 snippets:
+
   # snippet and keyword abbrev
   - name: docker up
     keyword: dud
@@ -112,6 +113,9 @@ snippets:
   - name: nix apply for mac
     keyword: nap
     snippet: sudo -H nix run nix-darwin -- switch --flake /Users/takets/.config/home-manager#takets
+  - name: git worktree cd
+    keyword: gwt
+    snippet: cd $(git-wt | fzf | awk '{print $1}')
 
 completions:
   - name: kill
