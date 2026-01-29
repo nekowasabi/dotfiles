@@ -102,3 +102,6 @@ zinit cdreplay
 
 # Load local zsh configuration (e.g., mise initialization)
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+
+# git-wt
+eval "$(git wt --init zsh)"
