@@ -61,7 +61,7 @@ alias yo="claude --dangerously-skip-permissions --model opus"
 # ============================================
 
 # ghq + fzf: リポジトリ選択してジャンプ
-alias g='cd $(ghq list -p | fzf --preview "ls -la {}")'
+alias g='dir=$(ghq list -p | fzf --preview "ls -la {}"); [ -n "$dir" ] && cd "$dir"'
 
 # git-wt: worktree選択してジャンプ
-alias w='cd $(git-wt | fzf | awk '\''{print $1}'\'')'
+alias w='dir=$(git-wt | fzf | awk '\''{print $1}'\''); [ -n "$dir" ] && cd "$dir"'

@@ -9,11 +9,24 @@ zinit ice lucid depth"1" blockf
 zinit light yuki-yano/zeno.zsh
 
 # git folder preview with color
-export ZENO_GIT_TREE="exa --tree"
+export ZENO_GIT_TREE="eza --tree"
 export ZENO_GIT_CAT="bat --color=always"
 
 # FZF TMUX options
 export ZENO_FZF_TMUX_OPTIONS="-p"
+
+# config.yml変更後にzenoを即時反映するリロード関数
+function zeno-reload() {
+  local zeno_plugin_dir="${ZINIT[PLUGINS_DIR]}/yuki-yano---zeno.zsh"
+  if [[ -d "$zeno_plugin_dir" ]]; then
+    pkill -f "deno.*zeno" 2>/dev/null
+    sleep 0.3
+    source "$zeno_plugin_dir/zeno.zsh"
+    echo "✓ zeno.zsh reloaded"
+  else
+    echo "✗ zeno.zsh plugin directory not found"
+  fi
+}
 
 # zeno key bindings
 if [[ -n $ZENO_LOADED ]]; then

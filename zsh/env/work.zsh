@@ -15,7 +15,6 @@ export DENOPS_TEST_VIM=/usr/local/bin/vim
 export DENOPS_PATH=/Users/ttakeda/.config/nvim/plugged/denops.vim
 export DENOPS_TEST_NVIM=/usr/local/bin/nvim
 export MOCWORD_DATA='/Users/ttakeda/.config/mocword/mocword.sqlite'
-export ZENO_HOME='/Users/ttakeda/.config/zeno'
 export RIPGREP_CONFIG_PATH='/Users/ttakeda/.ripgreprc'
 # }}}1
 
