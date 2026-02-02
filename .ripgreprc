@@ -1,0 +1,67 @@
+# -*- mode: sh -*-
+# https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md#configuration-file
+# オプションに引数があるときは「=」か「改行」で区切る。半角スペースはダメ。
+
+# ignore-case を有効にする
+--ignore-case
+
+# 後方参照などを使ったときだけ正規表現ライブラリを PCRE2 に変更する
+--engine=auto
+
+# 端末が死なないように長すぎる一行を切る
+--max-columns=128
+
+# 一行を切ったとき切った前の部分は表示する
+--max-columns-preview
+
+# ファイル名だけ別に表示するのではなくコンテンツと一緒に一行で表示する
+--no-heading
+
+# ファイルを1件指定したときファイル名がわかりきっていても省略せずに表示する
+# ・これを常時有効にすると helm-do-ag-this-file のときもファイル名が表示されて面倒なことになる
+# --with-filename
+
+# 表示の際に左側のスペースを取る
+--trim
+
+# 改行が \r\n であっても $ をマッチさせる (PCRE2 のとき \R が改行にマッチするようになる)
+--crlf
+
+# --multiline を使ったとき "\n" に "." でマッチするようになる
+--multiline-dotall
+
+# 一般的な圧縮ファイルの中も見る
+--search-zip
+
+# 指定サイズを超えるファイルはスキップする
+--max-filesize=10M
+
+# ファイルシステムを跨がない
+--one-file-system
+
+# *.min.css, *.min.html, *.min.js を除外する
+--type-not=minified
+
+# .git ディレクトリがないところでもGitのグローバル除外ルールを適用する
+--no-require-git
+
+# 親ディレクトリの無視ルールを無視
+--no-ignore-parent
+
+# 特定のディレクトリを除外する
+# ・--no-require-git によって有効になる除外ルールとかぶっていたら不要
+# ・一度設定すると --no-config しないと取り除けない。-uuu も負ける
+# --glob=!dist
+
+# 指定のバイナリファイルは事前にテキスト変換する
+# ・~/ とか使うと動かない
+# ・めちゃくちゃ重くなるので基本OFFでいい
+# --pre=/Users/alice/bin/rg-preprocessor
+
+# --pre が有効なとき、そのコマンドに渡すことができるファイルを絞る
+# ・rga を使うときは全部OFFにしておかないと rga がぶっこわれる
+# --pre-glob=*.xlsx
+# --pre-glob=*.pdf
+# --pre-glob=*.{png,jpg,apng,webp,gif}
+# --pre-glob=*.{wav,mp3,m4a,ogg}
+# --pre-glob=*.{mp4,mov,avi,webm}
