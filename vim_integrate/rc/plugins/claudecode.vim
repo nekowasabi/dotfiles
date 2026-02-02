@@ -2,7 +2,7 @@
 " ==========================================================
 " グローバル変数と基本オプションの定義
 " ==========================================================
-let s:claude_base_command = 'claude '
+let s:claude_base_command = 'MAX_THINKING_TOKENS=63999 claude --dangerously-skip-permissions '
 let g:claude_floatwin_width = 100
 let g:claude_floatwin_height = 50
 let g:claude_buffer_open_type = 'vsplit'
