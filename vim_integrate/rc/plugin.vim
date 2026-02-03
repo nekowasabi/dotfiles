@@ -243,6 +243,7 @@ function g:SetDdu()
   Plug 'nekowasabi/ddu-ai-prompt-connecter'
   Plug 'liquidz/ddu-source-custom-list'
   Plug 'kuuote/ddu-filter-fuse'
+  Plug 'nekowasabi/ddu-source-git_worktree'
 endfunction
 
 function g:SetCoc()
