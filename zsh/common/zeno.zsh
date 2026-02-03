@@ -42,4 +42,15 @@ if [[ -n $ZENO_LOADED ]]; then
   bindkey '^i' zeno-completion
   bindkey '^x^s' zeno-insert-snippet
   export ZENO_COMPLETION_FALLBACK=expand-or-complete
+
+  # ghq cd後にtmuxセッション名をリポジトリ名にリネーム
+  function zeno-ghq-cd-post-hook-impl() {
+    local dir="$ZENO_GHQ_CD_DIR"
+    if [[ -n $TMUX ]]; then
+      local repository=${dir:t}
+      local session=${repository//./-}
+      tmux rename-session "${session}"
+    fi
+  }
+  zle -N zeno-ghq-cd-post-hook zeno-ghq-cd-post-hook-impl
 fi
