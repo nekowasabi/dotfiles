@@ -24,3 +24,13 @@ source "$DOTFILES_ZSH/platform/mac.zsh"
 # Environment-specific settings (work/ttakeda)
 # ============================================================
 source "$DOTFILES_ZSH/env/work.zsh"
+
+# sup - GitHub PR picker
+sup() {
+  rm -f /tmp/sup-selection
+  command sup "$@"
+  if [[ -f /tmp/sup-selection ]]; then
+    cd "$(cat /tmp/sup-selection)"
+    rm -f /tmp/sup-selection
+  fi
+}
