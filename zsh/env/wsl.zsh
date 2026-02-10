@@ -39,5 +39,5 @@ export DENOPS_TEST_DENOPS_PATH=/home/takets/.config/nvim/plugged/denops.vim
 export DENOPS_TEST_NVIM=/usr/local/bin/nvim
 export DENOPS_TEST_VIM=/usr/local/bin/vim
 
-# mise (runtime version manager)
-eval "$(mise activate zsh)"
+# mise: wsl.nix で lib.mkBefore により先に初期化済み
+# （zeno.zsh より前に deno が PATH に必要なため）
