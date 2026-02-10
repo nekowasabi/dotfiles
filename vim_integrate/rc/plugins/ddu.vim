@@ -135,6 +135,9 @@ call ddu#custom#patch_global(#{
     \     prompt: #{
     \       defaultAction: 'execute',
     \     },
+    \     worktree: #{
+    \       defaultAction: 'cd',
+    \     },
     \   }
     \ })
 
