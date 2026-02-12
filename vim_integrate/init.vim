@@ -156,7 +156,7 @@ let g:hellshake_yano = {
       \   'l': 2,
       \ },
       \ 'defaultMotionCount': 3,
-      \ 'japaneseMinWordLength': 2,
+      \ 'japaneseMinWordLength': 3,
       \ 'segmenterThreshold': 3,
       \ 'japaneseMergeThreshold': 3,
       \ 'continuousHintMode': v:false,
