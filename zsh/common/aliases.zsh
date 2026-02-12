@@ -68,3 +68,10 @@ alias w='dir=$(git-wt | fzf | awk '\''{print $1}'\''); [ -n "$dir" ] && cd "$dir
 
 # git-wt: 現在のブランチのworktreeを削除
 alias wd='git wt -d $(git branch --show-current)'
+
+# ============================================
+# GitHub
+# ============================================
+
+# GitHub PR list page in browser
+alias gpl='gh pr list --web'
