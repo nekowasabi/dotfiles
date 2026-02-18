@@ -44,7 +44,7 @@ alias n='wezterm_neovim'
 # ============================================
 
 # Claude with default permissions and model
-alias c="MAX_THINKING_TOKENS=63999 claude --model claude-opus-4-5 --dangerously-skip-permissions "
+alias c="MAX_THINKING_TOKENS=63999 claude --dangerously-skip-permissions "
 
 # Claude with Sonnet model
 alias ys="claude --dangerously-skip-permissions --model sonnet"
