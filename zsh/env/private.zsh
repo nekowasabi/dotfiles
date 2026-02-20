@@ -1,5 +1,7 @@
 # Private (takets) environment specific settings
 
+export PC="private"
+
 # 復号キーの読み込み（dotenvx用）
 [ -f "$HOME/.zshenv.local" ] && source "$HOME/.zshenv.local"
 

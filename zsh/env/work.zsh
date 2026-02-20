@@ -1,5 +1,7 @@
 # Work (ttakeda) environment specific settings
 
+export PC="mfs"
+
 # setting path {{{1
 export DENO_INSTALL="/Users/ttakeda/.deno"
 export PATH=/usr/local/bin:/bin:/usr/bin:$DENO_INSTALL/bin:/Users/ttakeda/go/bin:/opt/homebrew/bin:$HOME/.nodenv/bin:/opt/homebrew/opt/php@8.1/bin:/opt/homebrew/opt/php@8.1/sbin:~/.deno/bin/:/opt/homebrew/Cellar/python@3.11/3.11.6_1/libexec/bin:$PATH:/Users/ttakeda/.luarocks:/Users/ttakeda/.luarocks/lib/luarocks/rocks-5.4:/Users/ttakeda/bin:~/.cargo/bin:/Users/ttakeda/.local/bin
