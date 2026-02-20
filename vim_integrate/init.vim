@@ -228,6 +228,10 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 -- parrot.nvim config is now lazy loaded from rc/plugins/parrot.vim
 
 require("nudge-two-hats").setup({
+  openrouter_model = "openai/gpt-oss-120b",
+  openrouter_provider = "cerebras", -- 任意
+  use_plenary_curl = false,
+  openrouter_base_url = "https://openrouter.ai/api/v1", -- 任意（通常はこのまま）
   idle_time = 0.05, -- virtual text表示までの時間（分）
   cursor_idle_delay = 0.2, -- カーソル停止後のタイマー設定までの時間（分）
   cursor_idle_threshold_seconds = 240, -- Stop timers when cursor is idle for this long
@@ -554,7 +558,6 @@ vim.api.nvim_create_autocmd("FileType", {
 
 EOF
 
-"PrtModel gemini-2.5-flash
 
 " Lua関数get_git_diffをVimコマンドとして呼び出せるようにする
 command! GetGitDiff lua get_git_diff()
