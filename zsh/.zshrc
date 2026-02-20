@@ -111,10 +111,10 @@ function wezterm_neovim() {
 }
 alias n='wezterm_neovim'
 
-function wezterm_neovim_mfs() {
- /opt/homebrew/bin/nvim  $1 ~/mfs
+function wezterm_neovim_work() {
+ /opt/homebrew/bin/nvim  $1 ~/work
 }
-alias m='wezterm_neovim_mfs'
+alias m='wezterm_neovim_work'
 
 alias ll='eza --long --header --git  --sort=type --classify --git'
 alias la='eza --long --header --git --grid --classify --sort=type --git'
