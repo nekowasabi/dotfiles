@@ -1,6 +1,6 @@
-# Work (ttakeda) environment specific settings
+# Work  environment specific settings
 
-export PC="mfs"
+export PC="work"
 
 # setting path {{{1
 export DENO_INSTALL="/Users/ttakeda/.deno"
