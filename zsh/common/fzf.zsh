@@ -11,12 +11,7 @@ export FZF_DEFAULT_OPTS='--height 80% --reverse'
 # ============================================================================
 # select-history: Ctrl+Rでコマンド履歴をfzfで検索
 # ============================================================================
-function select-history() {
-    BUFFER=$(history -n -r 1 | fzf --no-sort +m --query "$LBUFFER" --prompt="History > ")
-    CURSOR=$#BUFFER
-}
-zle -N select-history
-bindkey '^r' select-history
+source "${0:A:h}/select-history.zsh"
 
 
 # ============================================================================

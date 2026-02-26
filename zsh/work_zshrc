@@ -231,12 +231,7 @@ function run_powered_cd_2() {
 zle -N run_powered_cd_2
 bindkey '^z' run_powered_cd_2
 
-function select-history() {
-  BUFFER=$(history -n -r 1 | fzf --no-sort +m --query "$LBUFFER" --prompt="History > ")
-  CURSOR=$#BUFFER
-}
-zle -N select-history
-bindkey '^r' select-history
+source "$HOME/repos/dotfiles/zsh/common/select-history.zsh"
 
 # カレント以下のコマンドやパスを取得
 fzf_find_path() {

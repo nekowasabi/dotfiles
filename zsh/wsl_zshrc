@@ -209,12 +209,7 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 export FZF_DEFAULT_OPTS='--height 80% --reverse'
 
 
-function select-history() {
-BUFFER=$(history -n -r 1 | fzf --no-sort +m --query "$LBUFFER" --prompt="History > ")
-CURSOR=$#BUFFER
-}
-zle -N select-history
-bindkey '^r' select-history
+source "$HOME/repos/dotfiles/zsh/common/select-history.zsh"
 
 # 移動したディレクトリ検索(Ctrl+Z)
 fzf-z-search() {
