@@ -31,7 +31,7 @@ customCommands:
       - type: "input"
         title: "AI-generated Message (edit if needed)"
         key: "Message"
-        initialValue: '{{ runCommand "~/bin/lazygit-ai-msg" }}'
+        initialValue: '{{ runCommand "/Users/ttakeda/bin/lazygit-ai-msg" }}'
       - type: "menu"
         title: "Choose the emoji (optional)"
         key: "Emoji"
