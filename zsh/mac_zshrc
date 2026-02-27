@@ -292,8 +292,6 @@ fzf_find_path() {
 zle -N fzf_find_path
 bindkey '^t' fzf_find_path
 
-eval "$(zoxide init --cmd j zsh)"
-
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/takets/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/takets/google-cloud-sdk/path.zsh.inc'; fi
 

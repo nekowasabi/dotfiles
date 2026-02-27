@@ -83,21 +83,18 @@ alias gpl='gh pr list --web'
 # zoxide初期化（--no-cmd: z/zi の自動定義を抑制し、カスタム関数で上書き）
 eval "$(zoxide init zsh --no-cmd)"
 
-# j: zoxide wrapper - 候補1件なら即ジャンプ、複数件ならfzfで選択
+# j: zoxide wrapper - 引数なしならfzf、引数ありなら最初の候補に即ジャンプ
 j() {
   if [ $# -eq 0 ]; then
-    __zoxide_zi
+    __zoxide_zi        # 引数なし → fzf でインタラクティブ選択
     return
   fi
+  __zoxide_z "$@"      # 引数あり → 最初の候補に即ジャンプ
+}
 
-  local n
-  n="$(zoxide query -l -- "$@" 2>/dev/null | wc -l | tr -d ' ')"
-
-  if [ "${n:-0}" -ge 2 ]; then
-    __zoxide_zi "$@"
-  else
-    __zoxide_z "$@"
-  fi
+# ji: zoxide interactive - fzf で絞り込みジャンプ（引数あり/なし両対応）
+ji() {
+  __zoxide_zi "$@"
 }
 
 # ============================================

@@ -275,7 +275,6 @@ function nn() {
     osascript -e 'display dialog "てす と" buttons {"OK"} with title "テスト"'
 }
 
-eval "$(zoxide init --cmd j zsh)"
 export PATH="/opt/homebrew/opt/php@8.3/bin:$PATH"
 export PATH="/opt/homebrew/opt/php@8.3/sbin:$PATH"
 
