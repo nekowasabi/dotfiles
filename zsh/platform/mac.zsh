@@ -6,9 +6,6 @@ alias date="gdate"
 # ctags設定
 alias ctags="`brew --prefix`/bin/ctags"
 
-# zoxide初期化
-eval "$(zoxide init --cmd j zsh)"
-
 # Homebrew path設定
 export PATH=$PATH:/usr/local/bin:/bin:/usr/bin
 

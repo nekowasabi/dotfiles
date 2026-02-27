@@ -15,5 +15,3 @@ export PATH=$PATH:/usr/local/bin:/bin:/usr/bin:$GOROOT/bin:$GOPATH/bin:/home/tak
 # Deno設定
 export DENO_INSTALL="/home/linuxbrew/.linuxbrew"
 export PATH="$DENO_INSTALL/bin:$PATH:/home/takets/.local/bin"
-
-# zoxide初期化は home-manager で管理（programs.zoxide）
