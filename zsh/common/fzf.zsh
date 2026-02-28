@@ -5,7 +5,7 @@
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 
 # FZF_DEFAULT_OPTS: プレビュー、色設定、表示高さなど
-export FZF_DEFAULT_OPTS='--height 80% --reverse'
+export FZF_DEFAULT_OPTS='--height 80% --reverse --color=fg:white,fg+:bright-white,bg+:236,hl:yellow,hl+:bright-yellow,prompt:cyan,pointer:cyan,info:gray'
 
 
 # ============================================================================
