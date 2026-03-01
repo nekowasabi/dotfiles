@@ -13,7 +13,6 @@ export PATH=$PATH:/usr/local/bin:/bin:/usr/bin
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin:/Users/takets/.nodebrew/current/bin:/Users/takets/go/bin:/Users/takets/.cargo/bin:/usr/local/Cellar/python@3.13/3.13.0_1/bin::$DENO_INSTALL/bin:/Users/takets/.deno/bin:/Users/takets/.local/bin:/Users/takets/bin:/Users/takets/tmp/nvim-macos-x86_64/bin
 
 # Mac固有の環境変数
-export GOROOT=/usr/local/opt/go/libexec
 
 # zsh補完パス（Mac固有）
 fpath=(/usr/local/share/zsh-completions ${fpath})

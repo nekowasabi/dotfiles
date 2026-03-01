@@ -20,7 +20,6 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
 export EDITOR=nvim
-export GOROOT=/usr/local/opt/go/libexec
 export GOPATH=$HOME/go
 export PYENV_ROOT=$HOME/.pyenv
 export NVIM_NODE_LOG_FILE='/Users/ttakeda/nvim_node_log.log' 

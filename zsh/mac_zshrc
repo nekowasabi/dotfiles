@@ -7,7 +7,6 @@ source "${ZINIT_HOME}/zinit.zsh"
 export PATH=$PATH:/usr/local/bin:/bin:/usr/bin:$GOROOT/bin:$GOPATH/bin:/Users/takets/.nodebrew/current/bin:/Users/takets/go/bin:/Users/takets/.cargo/bin:/usr/local/Cellar/python@3.13/3.13.0_1/bin::$DENO_INSTALL/bin:$PATH:/Users/takets/.deno/bin:/Users/takets/.local/bin:/Users/takets/bin:/Users/takets/tmp/nvim-macos-x86_64/bin:/Users/takets/tmp/nvim-macos-x86_64
 
 export EDITOR=vim
-export GOROOT=/usr/local/opt/go/libexec
 export GOPATH=$HOME/go
 export ZPLUG_HOME=~/.zplug
 export PYENV_ROOT=$HOME/.pyenv
