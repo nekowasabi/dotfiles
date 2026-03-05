@@ -867,22 +867,8 @@
           },
           "to": [
             {
-              "key_code": "n"
-            },
-            {
-              "key_code": "s"
-            },
-            {
-              "key_code": "j"
-            },
-            {
-              "key_code": "s"
-            },
-            {
-              "key_code": "n"
-            },
-            {
-              "key_code": "n"
+              "key_code": "n",
+              "modifiers": ["option"]
             }
           ],
           "conditions": [
