@@ -52,6 +52,9 @@ alias ys="claude --dangerously-skip-permissions --model sonnet"
 # Claude with Opus model
 alias yo="claude --dangerously-skip-permissions --model opus"
 
+# Quatarly (token stored in ~/.zshenv as $QUATARLY_AUTH_TOKEN)
+alias cq='export ANTHROPIC_BASE_URL="${QUATARLY_BASE_URL}" ANTHROPIC_AUTH_TOKEN="${QUATARLY_AUTH_TOKEN}" ANTHROPIC_DEFAULT_HAIKU_MODEL="claude-haiku-4-5-20251001" ANTHROPIC_DEFAULT_SONNET_MODEL="claude-sonnet-4-6-20250929" ANTHROPIC_DEFAULT_OPUS_MODEL="claude-opus-4-6-thinking" && claude --dangerously-skip-permissions '
+
 # ============================================
 # Development Tools
 # ============================================
