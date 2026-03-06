@@ -869,6 +869,9 @@
             {
               "key_code": "n",
               "modifiers": ["option"]
+            },
+            {
+              "key_code": "n"
             }
           ],
           "conditions": [

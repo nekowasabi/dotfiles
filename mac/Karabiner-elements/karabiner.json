@@ -19270,6 +19270,21 @@
                         ]
                     },
                     {
+                        "description": "Change ¥ to Alt+¥",
+                        "manipulators": [
+                            {
+                                "from": { "key_code": "international3" },
+                                "to": [
+                                    {
+                                        "key_code": "international3",
+                                        "modifiers": ["option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "Brave用設定",
                         "manipulators": [
                             {
@@ -19378,22 +19393,8 @@
                                     {
                                         "key_code": "n",
                                         "modifiers": ["option"]
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Change ¥ to Alt+¥",
-                        "manipulators": [
-                            {
-                                "from": { "key_code": "international3" },
-                                "to": [
-                                    {
-                                        "key_code": "international3",
-                                        "modifiers": ["option"]
-                                    }
+                                    },
+                                    { "key_code": "n" }
                                 ],
                                 "type": "basic"
                             }
