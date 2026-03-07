@@ -12,7 +12,7 @@ colors
 # Completion
 # =========================
 autoload -Uz compinit
-compinit
+compinit -u
 
 # =========================
 # Emacs Key Bindings

@@ -49,4 +49,44 @@ fi
 # python, pip, pip3, deno are managed by mise (~/.local/share/mise/shims/)
 
 # mise (runtime version manager)
-eval "$(mise activate zsh)"
+# hook-env を毎回自動実行せず、プロジェクト境界をまたぐ時だけ更新する。
+eval "$(/etc/profiles/per-user/takets/bin/mise activate zsh --no-hook-env)"
+
+_mise_hook() {
+  if (( $# > 0 )); then
+    eval "$(/etc/profiles/per-user/takets/bin/mise hook-env -s zsh --reason "$1")"
+  else
+    eval "$(/etc/profiles/per-user/takets/bin/mise hook-env -s zsh)"
+  fi
+}
+
+_mise_config_root_for_dir() {
+  local dir=${1:-$PWD}
+  dir=${dir:A}
+
+  while true; do
+    if [[ -f "$dir/.mise.toml" || -f "$dir/mise.toml" || -f "$dir/.tool-versions" || -f "$dir/mise.local.toml" ]]; then
+      print -r -- "$dir"
+      return 0
+    fi
+
+    [[ "$dir" == "/" ]] && return 1
+    dir=${dir:h}
+  done
+}
+
+_mise_maybe_hook_env() {
+  local root=""
+  root="$(_mise_config_root_for_dir "$PWD")" || root=""
+
+  if [[ "${_MISE_LAST_ROOT-}" == "$root" ]]; then
+    return 0
+  fi
+
+  _MISE_LAST_ROOT="$root"
+  _mise_hook chpwd
+}
+
+autoload -Uz add-zsh-hook
+(( ${chpwd_functions[(I)_mise_maybe_hook_env]} )) || add-zsh-hook chpwd _mise_maybe_hook_env
+_mise_maybe_hook_env

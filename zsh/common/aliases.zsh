@@ -44,7 +44,7 @@ alias n='wezterm_neovim'
 # ============================================
 
 # Claude with default permissions and model
-alias c="MAX_THINKING_TOKENS=63999 claude --dangerously-skip-permissions "
+alias c="MAX_THINKING_TOKENS=63999 claude --dangerously-skip-permissions --model sonnet"
 
 # Claude with Sonnet model
 alias ys="claude --dangerously-skip-permissions --model sonnet"
@@ -53,7 +53,7 @@ alias ys="claude --dangerously-skip-permissions --model sonnet"
 alias yo="claude --dangerously-skip-permissions --model opus"
 
 # Quatarly (token stored in ~/.zshenv as $QUATARLY_AUTH_TOKEN)
-alias cq='ANTHROPIC_BASE_URL="${QUATARLY_BASE_URL}" ANTHROPIC_AUTH_TOKEN="${QUATARLY_AUTH_TOKEN}" ANTHROPIC_DEFAULT_HAIKU_MODEL="claude-haiku-4-5-20251001" ANTHROPIC_DEFAULT_SONNET_MODEL="claude-sonnet-4-6-20250929" ANTHROPIC_DEFAULT_OPUS_MODEL="claude-opus-4-6-thinking" claude --dangerously-skip-permissions '
+alias cq='CLAUDE_CODE_MAX_OUTPUT_TOKENS=64000 ANTHROPIC_BASE_URL="${QUATARLY_BASE_URL}" ANTHROPIC_AUTH_TOKEN="${QUATARLY_AUTH_TOKEN}" ANTHROPIC_DEFAULT_HAIKU_MODEL="claude-haiku-4-5-20251001" ANTHROPIC_DEFAULT_SONNET_MODEL="claude-sonnet-4-6-20250929" ANTHROPIC_DEFAULT_OPUS_MODEL="claude-opus-4-6-thinking" claude --dangerously-skip-permissions '
 
 # ============================================
 # Development Tools
@@ -84,20 +84,37 @@ alias gpl='gh pr list --web'
 # ============================================
 
 # zoxide初期化（--no-cmd: z/zi の自動定義を抑制し、カスタム関数で上書き）
-eval "$(zoxide init zsh --no-cmd)"
+# Home Manager 側で先に初期化済みなら再実行しない。
+if ! whence -w __zoxide_z >/dev/null 2>&1; then
+  eval "$(zoxide init zsh --no-cmd)"
+fi
 
 # j: zoxide wrapper - 引数なしならfzf、引数ありなら最初の候補に即ジャンプ
 j() {
-  if [ $# -eq 0 ]; then
-    __zoxide_zi        # 引数なし → fzf でインタラクティブ選択
+  local result
+
+  if (( $# == 0 )); then
+    result="$(command zoxide query --interactive -- "$@")" && builtin cd -- "$result"
     return
   fi
-  __zoxide_z "$@"      # 引数あり → 最初の候補に即ジャンプ
+
+  if [[ $# -eq 1 ]] && { [[ -d "$1" ]] || [[ "$1" = '-' ]] || [[ "$1" =~ ^[-+][0-9]$ ]]; }; then
+    builtin cd -- "$1"
+    return
+  fi
+
+  if [[ $# -eq 2 && "$1" = "--" ]]; then
+    builtin cd -- "$2"
+    return
+  fi
+
+  result="$(command zoxide query --exclude "$PWD" -- "$@")" && builtin cd -- "$result"
 }
 
 # ji: zoxide interactive - fzf で絞り込みジャンプ（引数あり/なし両対応）
 ji() {
-  __zoxide_zi "$@"
+  local result
+  result="$(command zoxide query --interactive -- "$@")" && builtin cd -- "$result"
 }
 
 # ============================================

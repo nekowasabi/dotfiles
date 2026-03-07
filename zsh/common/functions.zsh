@@ -41,24 +41,29 @@ function wezterm_neovim() {
 # powered_cd_add_log: ディレクトリ移動ログに現在のディレクトリを追加
 # 説明: chpwd フックから呼び出され、訪問したディレクトリを ~/.powered_cd.log に記録
 # 処理:
-#   1. ログファイルを行ごとに読み込み
-#   2. 99行目に達したら削除（最大99行を維持）
-#   3. 既に記録されているディレクトリがあれば削除（重複排除）
-#   4. 現在のディレクトリを末尾に追加
+#   1. ログファイルを配列として読み込む
+#   2. 現在のディレクトリと重複する要素を除外
+#   3. 現在のディレクトリを末尾に追加
+#   4. 最大99件に丸めて一度だけ書き戻す
 function powered_cd_add_log() {
-  local i=0
-  cat ~/.powered_cd.log | while read line; do
-    (( i++ ))
-    # ログが99行を超えた場合、99行目を削除
-    if [ $i = 99 ]; then
-      sed -i -e "99,99d" ~/.powered_cd.log
-    # 既に記録されているディレクトリなら削除（重複排除）
-    elif [ "$line" = "$PWD" ]; then
-      sed -i -e "${i},${i}d" ~/.powered_cd.log
-    fi
+  local log_file=~/.powered_cd.log
+  local line
+  local -a entries filtered_entries
+
+  [[ -e "$log_file" ]] || : >| "$log_file"
+  entries=("${(@f)$(<"$log_file")}")
+
+  for line in "${entries[@]}"; do
+    [[ -n "$line" && "$line" != "$PWD" ]] && filtered_entries+=("$line")
   done
-  # 現在のディレクトリをログに追加
-  echo "$PWD" >> ~/.powered_cd.log
+
+  filtered_entries+=("$PWD")
+
+  if (( ${#filtered_entries[@]} > 99 )); then
+    filtered_entries=("${(@)filtered_entries[-99,-1]}")
+  fi
+
+  print -l -- "${filtered_entries[@]}" >| "$log_file"
 }
 
 # powered_cd_2: ディレクトリ履歴から fzf で選択して移動
@@ -77,10 +82,9 @@ function powered_cd_2() {
 # ============================================================================
 # chpwd フック: ディレクトリ変更時に自動実行
 # ============================================================================
-# 説明: zsh の chpwd フックで ディレクトリ移動時に powered_cd_add_log を呼び出す
-function chpwd() {
-  powered_cd_add_log
-}
+# 説明: zsh の chpwd フックに powered_cd_add_log を登録
+autoload -Uz add-zsh-hook
+(( ${chpwd_functions[(I)powered_cd_add_log]} )) || add-zsh-hook chpwd powered_cd_add_log
 
 # ============================================================================
 # powered_cd_2 を Ctrl+Z で実行するショートカット
