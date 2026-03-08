@@ -19438,6 +19438,97 @@
                                 "type": "basic"
                             }
                         ]
+                    },
+                    {
+                        "description": "Alfred設定",
+                        "manipulators": [
+                            {
+                                "description": "Alfred起動(Cmd+U)でalfed_activeをセット",
+                                "from": {
+                                    "key_code": "u",
+                                    "modifiers": { "mandatory": ["command"] }
+                                },
+                                "to": [
+                                    {
+                                        "set_variable": {
+                                            "name": "alfred_active",
+                                            "value": 1
+                                        }
+                                    },
+                                    {
+                                        "key_code": "u",
+                                        "modifiers": ["command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "alfred_active",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "Alfred中: @ → Enter、変数リセット",
+                                "from": {
+                                    "key_code": "open_bracket",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [
+                                    { "key_code": "return_or_enter" },
+                                    {
+                                        "set_variable": {
+                                            "name": "alfred_active",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "alfred_active",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "Alfred中: Escape → 変数リセット",
+                                "from": { "key_code": "escape" },
+                                "to": [
+                                    { "key_code": "escape" },
+                                    {
+                                        "set_variable": {
+                                            "name": "alfred_active",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "alfred_active",
+                                        "type": "variable_if",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "Alfred中: Enter → 変数リセット",
+                                "from": { "key_code": "return_or_enter" },
+                                "to": [
+                                    { "key_code": "return_or_enter" },
+                                    {
+                                        "set_variable": {
+                                            "name": "alfred_active",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
                     }
                 ]
             },
