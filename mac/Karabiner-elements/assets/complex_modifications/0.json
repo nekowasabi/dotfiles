@@ -8,6 +8,39 @@
       "manipulators": [
         {
           "type": "basic",
+          "description": "Control → Hyper（長押し）/ A（単独タップ）",
+          "conditions": [
+            {
+              "type": "variable_unless",
+              "name": "japanese_kana_as_ctrl",
+              "value": 1
+            }
+          ],
+          "from": {
+            "key_code": "left_control",
+            "modifiers": {
+              "optional": ["any"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "left_control",
+              "modifiers": [
+                "left_command",
+                "left_control",
+                "left_option"
+              ],
+              "lazy": true
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "a"
+            }
+          ]
+        },
+        {
+          "type": "basic",
           "conditions": [],
           "from": {
             "key_code": "m",
@@ -67,12 +100,26 @@
           },
           "to": [
             {
+              "set_variable": {
+                "name": "japanese_kana_as_ctrl",
+                "value": 1
+              }
+            },
+            {
               "key_code": "left_control"
             }
           ],
           "to_if_alone": [
             {
               "key_code": "return_or_enter"
+            }
+          ],
+          "to_after_key_up": [
+            {
+              "set_variable": {
+                "name": "japanese_kana_as_ctrl",
+                "value": 0
+              }
             }
           ]
         },

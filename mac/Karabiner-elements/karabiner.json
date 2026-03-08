@@ -8,6 +8,29 @@
                         "description": "グローバル設定",
                         "manipulators": [
                             {
+                                "conditions": [
+                                    {
+                                        "name": "japanese_kana_as_ctrl",
+                                        "type": "variable_unless",
+                                        "value": 1
+                                    }
+                                ],
+                                "description": "Control → Hyper（長押し）/ A（単独タップ）",
+                                "from": {
+                                    "key_code": "left_control",
+                                    "modifiers": { "optional": ["any"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "left_control",
+                                        "lazy": true,
+                                        "modifiers": ["left_command", "left_control", "left_option"]
+                                    }
+                                ],
+                                "to_if_alone": [{ "key_code": "a" }],
+                                "type": "basic"
+                            },
+                            {
                                 "conditions": [],
                                 "from": {
                                     "key_code": "m",
@@ -43,7 +66,23 @@
                             {
                                 "conditions": [],
                                 "from": { "key_code": "japanese_kana" },
-                                "to": [{ "key_code": "left_control" }],
+                                "to": [
+                                    {
+                                        "set_variable": {
+                                            "name": "japanese_kana_as_ctrl",
+                                            "value": 1
+                                        }
+                                    },
+                                    { "key_code": "left_control" }
+                                ],
+                                "to_after_key_up": [
+                                    {
+                                        "set_variable": {
+                                            "name": "japanese_kana_as_ctrl",
+                                            "value": 0
+                                        }
+                                    }
+                                ],
                                 "to_if_alone": [{ "key_code": "return_or_enter" }],
                                 "type": "basic"
                             },
