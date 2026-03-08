@@ -676,3 +676,161 @@ endfunction
 command! -range CreateLessonLearned call s:CreateLessonLearned()
 vnoremap <silent> ,ll :CreateLessonLearned<CR>
 " }}}1
+
+" Battlefront Progress Navigation Keys {{{1
+" Arrow key bindings for ~/repos/changelog/ai/battlefront/progress/{private,work}.md
+" <Down>  : move current line/selection to end of file
+" <Left>  : move current line/selection above previous # header
+" <Right> : move current line/selection below next # header
+" <Up>    : move current line/selection to just below # Today (dedup if already present)
+
+function! s:BattlefrontMoveToBottom() range
+  let lines = getline(a:firstline, a:lastline)
+  execute a:firstline . ',' . a:lastline . 'delete _'
+  let total = line('$')
+  call append(total, lines)
+  call cursor(total + 1, 1)
+endfunction
+
+function! s:BattlefrontMoveAbovePrevHeader() range
+  let header_line = 0
+  let i = a:firstline - 1
+  while i >= 1
+    if getline(i) =~# '^#'
+      let header_line = i
+      break
+    endif
+    let i -= 1
+  endwhile
+  if header_line == 0
+    echo "No previous # header"
+    return
+  endif
+  let lines = getline(a:firstline, a:lastline)
+  execute a:firstline . ',' . a:lastline . 'delete _'
+  " header_line is above firstline, so no offset shift needed
+  " Skip blank lines just before the header to insert before them
+  let insert_pos = header_line - 1
+  while insert_pos >= 1 && getline(insert_pos) =~# '^$'
+    let insert_pos -= 1
+  endwhile
+  call append(insert_pos, lines)
+  call cursor(insert_pos + 1, 1)
+endfunction
+
+function! s:BattlefrontMoveBelowNextHeader() range
+  let total = line('$')
+  let header_line = 0
+  let i = a:lastline + 1
+  while i <= total
+    if getline(i) =~# '^#'
+      let header_line = i
+      break
+    endif
+    let i += 1
+  endwhile
+  if header_line == 0
+    echo "No next # header"
+    return
+  endif
+  let lines = getline(a:firstline, a:lastline)
+  let count = a:lastline - a:firstline + 1
+  execute a:firstline . ',' . a:lastline . 'delete _'
+  " header_line was below firstline, so it shifts up by count after deletion
+  let new_insert_pos = header_line - count
+  call append(new_insert_pos, lines)
+  call cursor(new_insert_pos + 1, 1)
+endfunction
+
+function! s:BattlefrontMoveToToday() range
+  let lines = getline(a:firstline, a:lastline)
+  let total = line('$')
+  let today_line = 0
+  let i = 1
+  while i <= total
+    if getline(i) =~# '^# Today'
+      let today_line = i
+      break
+    endif
+    let i += 1
+  endwhile
+  if today_line == 0
+    echo "No # Today header found"
+    return
+  endif
+  let already_in_today = a:firstline > today_line
+  if already_in_today
+    " Remove from Today: search for matching line in non-Today sections
+    let match_line = 0
+    for line_text in lines
+      if line_text !=# ''
+        let k = 1
+        while k < today_line
+          if getline(k) ==# line_text
+            let match_line = k
+            break
+          endif
+          let k += 1
+        endwhile
+        if match_line > 0
+          break
+        endif
+      endif
+    endfor
+    if match_line > 0
+      execute a:firstline . ',' . a:lastline . 'delete _'
+      let mid = matchaddpos('Search', [match_line])
+      call timer_start(1500, {-> matchdelete(mid)})
+      echo "Returned: line " . match_line
+    else
+      echo "No corresponding task found outside Today"
+    endif
+    return
+  endif
+  " Moving from outside Today to Today
+  let today_block = []
+  let j = today_line + 1
+  while j <= total
+    if getline(j) =~# '^#'
+      break
+    endif
+    call add(today_block, getline(j))
+    let j += 1
+  endwhile
+  let is_duplicate = 0
+  for line_text in lines
+    if line_text !=# '' && index(today_block, line_text) >= 0
+      let is_duplicate = 1
+      break
+    endif
+  endfor
+  if is_duplicate
+    echo "Already in # Today"
+    return
+  endif
+  execute a:firstline . ',' . a:lastline . 'delete _'
+  let new_today_line = today_line
+  if a:firstline < today_line
+    let new_today_line = today_line - (a:lastline - a:firstline + 1)
+  endif
+  call append(new_today_line, lines)
+  call cursor(new_today_line + 1, 1)
+endfunction
+
+function! s:SetupBattlefrontProgressKeys()
+  nnoremap <buffer> <silent> <Down>  :call <SID>BattlefrontMoveToBottom()<CR>
+  xnoremap <buffer> <silent> <Down>  :call <SID>BattlefrontMoveToBottom()<CR>
+  nnoremap <buffer> <silent> <Left>  :call <SID>BattlefrontMoveAbovePrevHeader()<CR>
+  xnoremap <buffer> <silent> <Left>  :call <SID>BattlefrontMoveAbovePrevHeader()<CR>
+  nnoremap <buffer> <silent> <Right> :call <SID>BattlefrontMoveBelowNextHeader()<CR>
+  xnoremap <buffer> <silent> <Right> :call <SID>BattlefrontMoveBelowNextHeader()<CR>
+  nnoremap <buffer> <silent> <Up>    :call <SID>BattlefrontMoveToToday()<CR>
+  xnoremap <buffer> <silent> <Up>    :call <SID>BattlefrontMoveToToday()<CR>
+endfunction
+
+augroup BattlefrontProgress
+  autocmd!
+  autocmd BufEnter */battlefront/progress/private.md,
+    \*/battlefront/progress/work.md call s:SetupBattlefrontProgressKeys()
+augroup END
+" }}}1
