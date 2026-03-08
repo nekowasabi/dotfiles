@@ -759,67 +759,149 @@ function! s:BattlefrontMoveToToday() range
     return
   endif
   let already_in_today = a:firstline > today_line
-  if already_in_today
-    " Remove from Today: search for matching line in non-Today sections
-    let match_line = 0
-    for line_text in lines
-      if line_text !=# ''
-        let k = 1
-        while k < today_line
-          if getline(k) ==# line_text
-            let match_line = k
-            break
-          endif
-          let k += 1
-        endwhile
-        if match_line > 0
-          break
-        endif
-      endif
-    endfor
-    if match_line > 0
-      execute a:firstline . ',' . a:lastline . 'delete _'
-      let mid = matchaddpos('Search', [match_line])
-      call timer_start(1500, {-> matchdelete(mid)})
-      echo "Returned: line " . match_line
-    else
-      echo "No corresponding task found outside Today"
-    endif
+  if !already_in_today
+    echo "Use <Down> to move to # Today"
     return
   endif
-  " Moving from outside Today to Today
-  let today_block = []
-  let j = today_line + 1
-  while j <= total
-    if getline(j) =~# '^#'
-      break
+  " already_in_today = true: restore from Today
+  if a:firstline == a:lastline
+    let parent_in_today = s:GetParentTaskLineNum(a:firstline)
+    if parent_in_today > today_line
+      let parent_text = getline(parent_in_today)
+      let child_text  = getline(a:firstline)
+      let parent_match_line = 0
+      let k = 1
+      while k < today_line
+        if getline(k) ==# parent_text
+          let parent_match_line = k
+          break
+        endif
+        let k += 1
+      endwhile
+      " Delete child (higher line) first, then parent (lower line)
+      silent execute a:firstline . 'delete _'
+      silent execute parent_in_today . 'delete _'
+      if parent_match_line > 0
+        call append(parent_match_line, [child_text])
+      else
+        call append(today_line - 1, [parent_text, child_text])
+      endif
+      return
     endif
-    call add(today_block, getline(j))
-    let j += 1
-  endwhile
-  let is_duplicate = 0
+  endif
+  " Default: remove from Today, search for matching line outside Today
+  let match_line = 0
   for line_text in lines
-    if line_text !=# '' && index(today_block, line_text) >= 0
-      let is_duplicate = 1
-      break
+    if line_text !=# ''
+      let k = 1
+      while k < today_line
+        if getline(k) ==# line_text
+          let match_line = k
+          break
+        endif
+        let k += 1
+      endwhile
+      if match_line > 0
+        break
+      endif
     endif
   endfor
-  if is_duplicate
+  if match_line > 0
+    execute a:firstline . ',' . a:lastline . 'delete _'
+    let mid = matchaddpos('Search', [match_line])
+    call timer_start(1500, {-> matchdelete(mid)})
+    echo "Returned: line " . match_line
+  else
+    echo "No corresponding task found outside Today"
+  endif
+endfunction
+
+" 指定行が子タスクかどうか判定し、親行番号を返す (-1 = 子タスクではない)
+function! s:GetParentTaskLineNum(line_num)
+  let current_line = getline(a:line_num)
+  if current_line !~# '^\s\+[-*]\s*\['
+    return -1
+  endif
+  let current_indent = strlen(matchstr(current_line, '^\s*'))
+  let i = a:line_num - 1
+  while i >= 1
+    let line = getline(i)
+    if line =~# '^\s*$'
+      let i -= 1
+      continue
+    endif
+    let line_indent = strlen(matchstr(line, '^\s*'))
+    if line_indent < current_indent
+      return i
+    endif
+    let i -= 1
+  endwhile
+  return -1
+endfunction
+
+function! s:BattlefrontMoveDown() range
+  let today_line = 0
+  let i = 1
+  while i <= line('$')
+    if getline(i) =~# '^# Today'
+      let today_line = i
+      break
+    endif
+    let i += 1
+  endwhile
+  if today_line == 0
+    echo "No # Today header found"
+    return
+  endif
+  " 既に Today 内にいる場合は何もしない
+  if a:firstline > today_line
     echo "Already in # Today"
     return
   endif
-  execute a:firstline . ',' . a:lastline . 'delete _'
-  let new_today_line = today_line
-  if a:firstline < today_line
-    let new_today_line = today_line - (a:lastline - a:firstline + 1)
+  " 単一行で子タスクの場合: 親+子を Today へ
+  if a:firstline == a:lastline
+    let parent_line_num = s:GetParentTaskLineNum(a:firstline)
+    if parent_line_num > 0 && parent_line_num < today_line
+      let parent_text = getline(parent_line_num)
+      let child_text  = getline(a:firstline)
+      " Today 内に同じ子タスクが既にある場合はスキップ
+      let today_end = line('$')
+      let j = today_line + 1
+      while j <= line('$')
+        if getline(j) =~# '^#'
+          let today_end = j - 1
+          break
+        endif
+        let j += 1
+      endwhile
+      for line_text in getline(today_line + 1, today_end)
+        if line_text ==# child_text
+          echo "Already in # Today"
+          return
+        endif
+      endfor
+      " 子 (下側) → 親 (上側) の順で削除してラインズレを防ぐ
+      silent execute a:firstline    . 'delete _'
+      silent execute parent_line_num . 'delete _'
+      " 2行削除後の Today ヘッダ位置
+      let new_today_line = today_line - 2
+      call append(new_today_line, [parent_text, child_text])
+      call cursor(new_today_line + 1, 1)
+      return
+    endif
   endif
+  " 通常ライン (非子タスク or レンジ選択): そのまま Today へ
+  let lines = getline(a:firstline, a:lastline)
+  let count = a:lastline - a:firstline + 1
+  execute a:firstline . ',' . a:lastline . 'delete _'
+  let new_today_line = today_line - count
   call append(new_today_line, lines)
   call cursor(new_today_line + 1, 1)
 endfunction
 
 function! s:SetupBattlefrontProgressKeys()
-  nnoremap <buffer> <silent> <Down>  :call <SID>BattlefrontMoveToBottom()<CR>
-  xnoremap <buffer> <silent> <Down>  :call <SID>BattlefrontMoveToBottom()<CR>
+  nnoremap <buffer> <silent> <Down>  :call <SID>BattlefrontMoveDown()<CR>
+  xnoremap <buffer> <silent> <Down>  :call <SID>BattlefrontMoveDown()<CR>
   nnoremap <buffer> <silent> <Left>  :call <SID>BattlefrontMoveAbovePrevHeader()<CR>
   xnoremap <buffer> <silent> <Left>  :call <SID>BattlefrontMoveAbovePrevHeader()<CR>
   nnoremap <buffer> <silent> <Right> :call <SID>BattlefrontMoveBelowNextHeader()<CR>
