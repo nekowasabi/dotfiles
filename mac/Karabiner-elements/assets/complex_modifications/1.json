@@ -1212,7 +1212,7 @@
         },
         {
           "type": "basic",
-          "description": "Alfred中: @ → Enter、変数リセット",
+          "description": "Alfred中: @ → Enter、変数リセット（設定画面以外）",
           "from": {
             "key_code": "open_bracket",
             "modifiers": { "optional": ["any"] }
@@ -1222,16 +1222,16 @@
             { "set_variable": { "name": "alfred_active", "value": 0 } }
           ],
           "conditions": [
-            { "type": "variable_if", "name": "alfred_active", "value": 1 }
+            { "type": "variable_if", "name": "alfred_active", "value": 1 },
+            { "type": "frontmost_application_unless", "bundle_identifiers": ["^com\\.runningwithcrayons\\.Alfred-Preferences$"] }
           ]
         },
         {
           "type": "basic",
-          "description": "Alfred中: Escape → 変数リセット",
+          "description": "Alfred中: Escape → 変数リセットなし（候補ナビゲーション後に入力欄へ戻っても@が使えるよう対応）",
           "from": { "key_code": "escape" },
           "to": [
-            { "key_code": "escape" },
-            { "set_variable": { "name": "alfred_active", "value": 0 } }
+            { "key_code": "escape" }
           ],
           "conditions": [
             { "type": "variable_if", "name": "alfred_active", "value": 1 }
@@ -1239,11 +1239,10 @@
         },
         {
           "type": "basic",
-          "description": "Alfred中: Enter → 変数リセット",
+          "description": "Alfred中: Enter → パススルー（ナビゲーション対応、変数リセットなし）",
           "from": { "key_code": "return_or_enter" },
           "to": [
-            { "key_code": "return_or_enter" },
-            { "set_variable": { "name": "alfred_active", "value": 0 } }
+            { "key_code": "return_or_enter" }
           ],
           "conditions": [
             { "type": "variable_if", "name": "alfred_active", "value": 1 }
