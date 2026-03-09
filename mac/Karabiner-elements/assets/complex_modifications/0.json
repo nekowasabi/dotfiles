@@ -312,7 +312,10 @@
             "key_code": "j",
             "modifiers": {
               "mandatory": [
-                "command"
+                "command",
+                "control",
+                "option",
+                "shift"
               ]
             }
           },

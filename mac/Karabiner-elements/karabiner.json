@@ -184,7 +184,7 @@
                                 "description": "superwhisper 音声入力",
                                 "from": {
                                     "key_code": "j",
-                                    "modifiers": { "mandatory": ["command"] }
+                                    "modifiers": { "mandatory": ["command", "control", "option", "shift"] }
                                 },
                                 "to": [
                                     {
