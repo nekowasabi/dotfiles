@@ -880,14 +880,159 @@ function! s:BattlefrontMoveDown() range
           return
         endif
       endfor
-      " 子 (下側) → 親 (上側) の順で削除してラインズレを防ぐ
-      silent execute a:firstline    . 'delete _'
-      silent execute parent_line_num . 'delete _'
-      " 2行削除後の Today ヘッダ位置
-      let new_today_line = today_line - 2
-      call append(new_today_line, [parent_text, child_text])
-      call cursor(new_today_line + 1, 1)
+      " Today 内に同じ親行があるか確認
+      let today_has_parent = 0
+      let today_parent_pos = -1
+      let j2 = today_line + 1
+      while j2 <= line('$')
+        if getline(j2) =~# '^#'
+          break
+        endif
+        if getline(j2) ==# parent_text
+          let today_has_parent = 1
+          let today_parent_pos = j2
+          break
+        endif
+        let j2 += 1
+      endwhile
+
+      if today_has_parent
+        " ケース2: 親が Today に存在する → 子のみ削除して既存親の最後の子の後に挿入
+        let parent_indent = strlen(matchstr(parent_text, '^\s*'))
+        let insert_pos = today_parent_pos
+        let k = today_parent_pos + 1
+        while k <= line('$')
+          let kline = getline(k)
+          if kline =~# '^\s*$'
+            let k += 1
+            continue
+          endif
+          let k_indent = strlen(matchstr(kline, '^\s*'))
+          if k_indent > parent_indent
+            let insert_pos = k
+            let k += 1
+          else
+            break
+          endif
+        endwhile
+        silent execute a:firstline . 'delete _'
+        call append(insert_pos - 1, [child_text])
+        call cursor(insert_pos, 1)
+      else
+        " ケース1: 親が Today にいない → 子のみ削除し、親をコピーして Today 先頭に挿入
+        silent execute a:firstline . 'delete _'
+        let new_today_line = today_line - 1
+        call append(new_today_line, [parent_text, child_text])
+        call cursor(new_today_line + 1, 1)
+      endif
       return
+    endif
+  endif
+  " 複数行選択でその先頭行が子タスクの場合: 親コピー + 選択行を Today へ
+  if a:firstline < a:lastline
+    let ml_parent = s:GetParentTaskLineNum(a:firstline)
+    if ml_parent > 0 && ml_parent < today_line
+      let ml_parent_text = getline(ml_parent)
+      let selected_lines = getline(a:firstline, a:lastline)
+      let sel_count = a:lastline - a:firstline + 1
+      execute a:firstline . ',' . a:lastline . 'delete _'
+      let new_today_line = today_line - sel_count
+      " Today 内に同じ親がいるか確認
+      let ml_has_parent = 0
+      let ml_parent_pos = -1
+      let jj = new_today_line + 1
+      while jj <= line('$')
+        if getline(jj) =~# '^#'
+          break
+        endif
+        if getline(jj) ==# ml_parent_text
+          let ml_has_parent = 1
+          let ml_parent_pos = jj
+          break
+        endif
+        let jj += 1
+      endwhile
+      if ml_has_parent
+        " ケース2: 既存親の末尾に追加
+        let ml_indent = strlen(matchstr(ml_parent_text, '^\s*'))
+        let ml_insert = ml_parent_pos
+        let kk = ml_parent_pos + 1
+        while kk <= line('$')
+          let kline = getline(kk)
+          if kline =~# '^\s*$'
+            let kk += 1
+            continue
+          endif
+          if strlen(matchstr(kline, '^\s*')) > ml_indent
+            let ml_insert = kk
+            let kk += 1
+          else
+            break
+          endif
+        endwhile
+        call append(ml_insert, selected_lines)
+        call cursor(ml_insert + 1, 1)
+      else
+        " ケース1: 親をコピーして Today 先頭に挿入
+        call append(new_today_line, [ml_parent_text] + selected_lines)
+        call cursor(new_today_line + 1, 1)
+      endif
+      return
+    endif
+    " 先頭行が親タスク自体（子タスクを含む選択）の場合: 親コピー + 子のみ Today へ
+    let pa_first_text = getline(a:firstline)
+    let pa_first_indent = strlen(matchstr(pa_first_text, '^\s*'))
+    if pa_first_text =~# '^\s*[-*]\s*\[' && a:firstline + 1 <= a:lastline
+      let pa_next_indent = strlen(matchstr(getline(a:firstline + 1), '^\s*'))
+      if pa_next_indent > pa_first_indent
+        let pa_parent_text = pa_first_text
+        let pa_children = getline(a:firstline + 1, a:lastline)
+        let pa_child_count = a:lastline - a:firstline
+        " 子のみ削除（親行 a:firstline は残す）
+        execute (a:firstline + 1) . ',' . a:lastline . 'delete _'
+        let new_today_line = today_line - pa_child_count
+        " Today 内に同じ親がいるか確認
+        let pa_has_parent = 0
+        let pa_parent_pos = -1
+        let pp = new_today_line + 1
+        while pp <= line('$')
+          if getline(pp) =~# '^#'
+            break
+          endif
+          if getline(pp) ==# pa_parent_text
+            let pa_has_parent = 1
+            let pa_parent_pos = pp
+            break
+          endif
+          let pp += 1
+        endwhile
+        if pa_has_parent
+          " ケース2: 既存親の末尾に追加
+          let pa_indent = strlen(matchstr(pa_parent_text, '^\s*'))
+          let pa_insert = pa_parent_pos
+          let pk = pa_parent_pos + 1
+          while pk <= line('$')
+            let pkline = getline(pk)
+            if pkline =~# '^\s*$'
+              let pk += 1
+              continue
+            endif
+            if strlen(matchstr(pkline, '^\s*')) > pa_indent
+              let pa_insert = pk
+              let pk += 1
+            else
+              break
+            endif
+          endwhile
+          call append(pa_insert, pa_children)
+          call cursor(pa_insert + 1, 1)
+        else
+          " ケース1: 親コピー + 子を Today 先頭に挿入
+          call append(new_today_line, [pa_parent_text] + pa_children)
+          call cursor(new_today_line + 1, 1)
+        endif
+        return
+      endif
     endif
   endif
   " 通常ライン (非子タスク or レンジ選択): そのまま Today へ
