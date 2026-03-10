@@ -27,7 +27,11 @@
                                         "modifiers": ["left_command", "left_control", "left_option"]
                                     }
                                 ],
-                                "to_if_alone": [{ "key_code": "a" }],
+                                "to_if_alone": [
+                                    { "key_code": "escape" },
+                                    { "key_code": "lang2" },
+                                    { "key_code": "lang2" }
+                                ],
                                 "type": "basic"
                             },
                             {

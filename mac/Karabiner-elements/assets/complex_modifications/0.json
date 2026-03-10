@@ -35,7 +35,13 @@
           ],
           "to_if_alone": [
             {
-              "key_code": "a"
+              "key_code": "escape"
+            },
+            {
+              "key_code": "lang2"
+            },
+            {
+              "key_code": "lang2"
             }
           ]
         },
@@ -1148,4 +1154,4 @@
       ]
     }
   ]
-}
+
