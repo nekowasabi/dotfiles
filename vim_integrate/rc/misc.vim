@@ -743,6 +743,9 @@ function! s:BattlefrontMoveBelowNextHeader() range
 endfunction
 
 function! s:BattlefrontMoveToToday() range
+  if !exists('g:debug_battlefront')
+    let g:debug_battlefront = 0
+  endif
   let lines = getline(a:firstline, a:lastline)
   let total = line('$')
   let today_line = 0
@@ -807,11 +810,35 @@ function! s:BattlefrontMoveToToday() range
     endif
   endfor
   if match_line > 0
+    " match_line に対応する lines[] のインデックスを特定
+    let matched_idx = 0
+    for i in range(len(lines))
+      if lines[i] !=# ''
+        let matched_idx = i
+        break
+      endif
+    endfor
+    let child_lines = lines[matched_idx + 1:]
+
+    if g:debug_battlefront | echom "[BF:MoveToToday] match_line=" . match_line . " matched_idx=" . matched_idx . " child_count=" . len(child_lines) | endif
+
+    " Today から全選択行を削除（match_line < a:firstline なので行番号シフトなし）
     execute a:firstline . ',' . a:lastline . 'delete _'
-    let mid = matchaddpos('Search', [match_line])
-    call timer_start(1500, {-> matchdelete(mid)})
-    echo "Returned: line " . match_line
+
+    if len(child_lines) > 0
+      if g:debug_battlefront | echom "[BF:MoveToToday] inserting " . len(child_lines) . " children after line " . match_line | endif
+      call append(match_line, child_lines)
+      call cursor(match_line, 1)
+      let mid = matchaddpos('Search', [match_line])
+      call timer_start(1500, {-> matchdelete(mid)})
+      echo "Returned: line " . match_line . " (with " . len(child_lines) . " children)"
+    else
+      let mid = matchaddpos('Search', [match_line])
+      call timer_start(1500, {-> matchdelete(mid)})
+      echo "Returned: line " . match_line
+    endif
   else
+    if g:debug_battlefront | echom "[BF:MoveToToday] No match found for lines: " . join(lines, ' | ') | endif
     echo "No corresponding task found outside Today"
   endif
 endfunction
