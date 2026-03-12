@@ -329,7 +329,7 @@ function! s:PushChangelog()
   let l:cmd = ['sh', '-c',
     \ 'cd ' . shellescape(l:dir)
     \ . ' && git add .'
-    \ . ' && MSG=$(git diff --cached | env -u CLAUDECODE /opt/homebrew/bin/claude'
+    \ . ' && MSG=$(git diff --cached | env -u CLAUDECODE claude'
     \ . ' -p ' . shellescape('このgit diffから日本語でコミットメッセージを1行生成。形式: <type>: <内容>')
     \ . ' --model haiku --tools "" --no-session-persistence --output-format text)'
     \ . ' && git commit -m "$MSG"'
