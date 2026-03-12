@@ -131,13 +131,14 @@ augroup END
 " hellshake-yano
 let g:hellshake_yano = {
       \ 'debugMode': v:false,
+      \ 'debugLogFile': '/tmp/hellshake-yano-debug.log',
       \ 'useJapanese': v:true,
       \ 'useHintGroups': v:true,
       \ 'highlightSelected': v:true,
       \ 'useNumericMultiCharHints': v:true,
       \ 'enableTinySegmenter': v:true,
       \ 'singleCharKeys': '/',
-      \ 'multiCharKeys': 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+      \ 'multiCharKeys': 'BCDEGHJKLMNOQRSUWZ',
       \ 'highlightHintMarker': {'bg': 'black', 'fg': '#57FD14'},
       \ 'highlightHintMarkerCurrent': {'bg': 'Red', 'fg': 'White'},
       \ 'perKeyMinLength': {
@@ -155,7 +156,7 @@ let g:hellshake_yano = {
       \   'k': 2,
       \   'l': 2,
       \ },
-			\ 'cancelKeys': ['y', 'p', 'd', 'x', 'v', 'a', 'i', 'o', 'O', 'f', 'F', 't', 'T', '<CR>' , 
+			\ 'cancelKeys': ['y', 'p', 'd', 'x', 'v', 'a', 'i', 'o', 'f', 'F', 't', 'T', '<CR>' , 
 			\                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
       \ 'defaultMotionCount': 3,
       \ 'japaneseMinWordLength': 3,
@@ -169,6 +170,10 @@ let g:hellshake_yano = {
       \ 'multiWindowMaxWindows': 4,
       \ 'multiWindowExcludeTypes': ['help', 'quickfix', 'terminal', 'popup']
       \ }
+
+
+
+
 
 nnoremap <silent> ,h :HellshakeYanoToggle<CR> 
 
