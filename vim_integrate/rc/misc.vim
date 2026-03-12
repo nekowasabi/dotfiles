@@ -315,13 +315,28 @@ function! s:PullChangelog()
 endfunction
 command! -range PullChangelog call s:PullChangelog()
 
+function! s:PushChangelogOnExit(job_id, exit_code, event) dict
+  if a:exit_code == 0
+    echomsg '✅ push done'
+  else
+    echohl ErrorMsg | echomsg '❌ push FAILED (exit=' . a:exit_code . ')' | echohl None
+  endif
+endfunction
+
 function! s:PushChangelog()
-  execute "cd ".g:GetChangelogDirectory()
-  call system("git add .")
-  call system("git commit -m 'update.'")
-  call system("git push")
-  execute "silent :e %"
-  echo 'push done'
+  let l:dir = expand(g:GetChangelogDirectory())
+  execute "cd " . l:dir
+  let l:cmd = ['sh', '-c',
+    \ 'cd ' . shellescape(l:dir)
+    \ . ' && git add .'
+    \ . ' && MSG=$(git diff --cached | env -u CLAUDECODE /opt/homebrew/bin/claude'
+    \ . ' -p ' . shellescape('このgit diffから日本語でコミットメッセージを1行生成。形式: <type>: <内容>')
+    \ . ' --model haiku --tools "" --no-session-persistence --output-format text)'
+    \ . ' && git commit -m "$MSG"'
+    \ . ' && git push'
+    \ ]
+  call jobstart(l:cmd, {'on_exit': function('s:PushChangelogOnExit')})
+  echo 'pushing changelog...'
 endfunction
 command! -range PushChangelog call s:PushChangelog() 
 nnoremap <silent> ,p :PushChangelog<CR>
