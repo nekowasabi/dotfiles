@@ -1,6 +1,6 @@
 let mapleader = "\<Space>"
  
-" global keybind {{{1
+" global keybind {{{0
 nnoremap <silent><C-j> }
 nnoremap <silent><C-k> {
 vnoremap <C-j> }
@@ -67,7 +67,7 @@ function! s:prev_cursor_char(n)
 		return chars[len(chars) - a:n - 1]
 	endif
 endfunction
-" }}}1
+" }}}0
 
 " leader {{{1
 nnoremap Â :
@@ -371,8 +371,8 @@ if g:IsMacGvim() || g:IsMacNeovim() || g:IsWsl()
   nnoremap <silent>H 10h
   nnoremap <silent>J 5gj
   nnoremap <silent>K 5gk
-  nmap <silent>K 5gk
   nnoremap <silent>L 10l
+  nmap <silent>K 5gk
 
 	let g:tabpagebuffer#command#bdelete_keeptabpage = 1
 
