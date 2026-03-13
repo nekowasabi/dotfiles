@@ -337,28 +337,6 @@
         },
         {
           "type": "basic",
-          "description": "音声入力モードトグル",
-          "conditions": [],
-          "from": {
-            "key_code": "l",
-            "modifiers": {
-              "mandatory": [
-                "option"
-              ]
-            }
-          },
-          "to": [
-            {
-              "key_code": "l",
-              "modifiers": [
-                "shift",
-                "option"
-              ]
-            }
-          ]
-        },
-        {
-          "type": "basic",
           "conditions": [],
           "from": {
             "key_code": "comma",
@@ -1154,4 +1132,4 @@
       ]
     }
   ]
-
+}
