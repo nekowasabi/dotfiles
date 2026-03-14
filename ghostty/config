@@ -27,7 +27,7 @@ cursor-style-blink = false
 
 unfocused-split-opacity = 0.825
 
-fullscreen = false
+fullscreen = true
 
 window-inherit-working-directory = true
 
