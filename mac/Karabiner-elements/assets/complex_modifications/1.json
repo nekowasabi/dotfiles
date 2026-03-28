@@ -220,36 +220,6 @@
 				{
 					"type": "basic",
 					"from": {
-						"key_code": "comma",
-						"modifiers": {
-							"mandatory": [
-								"control"
-							]
-						}
-					},
-					"to": [
-						{
-							"key_code": "c",
-							"modifiers": "control"
-						},
-						{
-							"key_code": "x",
-							"modifiers": "control"
-						}
-					],
-					"conditions": [
-						{
-							"type": "frontmost_application_if",
-							"bundle_identifiers": [
-								"^org\\.vim\\.",
-								"^com\\.googlecode\\.iterm2$"
-							]
-						}
-					]
-				},
-				{
-					"type": "basic",
-					"from": {
 						"key_code": "q",
 						"modifiers": {
 							"mandatory": [

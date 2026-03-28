@@ -270,6 +270,9 @@
               ]
             }
           ],
+          "parameters": {
+            "basic.to_if_alone_timeout_milliseconds": 200
+          },
           "from": {
             "key_code": "left_command"
           },
@@ -296,6 +299,9 @@
               ]
             }
           ],
+          "parameters": {
+            "basic.to_if_alone_timeout_milliseconds": 200
+          },
           "from": {
             "key_code": "left_command"
           },
