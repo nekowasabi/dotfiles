@@ -320,6 +320,8 @@ if g:IsMacNeovim() || g:IsWsl()
 	Plug 'biosugar0/cmp-claudecode'
   Plug 'amarz45/nvim-cmp-buffer-lines'
   Plug 'chrisgrieser/cmp_yanky'
+  Plug 'yuki-yano/cmp-coding-agent'
+  Plug 'yuki-yano/cmp-prompt-abbr'
   Plug 'notomo/cmp-neosnippet'
   Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
   Plug 'onsails/lspkind.nvim'

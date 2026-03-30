@@ -5,6 +5,20 @@ lua << EOF
 
 local cmp = require'cmp'
 
+-- Why: setup() before cmp.setup() — register source before cmp references it by name
+require('cmp_prompt_abbr').setup({
+  label_fn = function(item)
+    return string.format('%s → %s', item.source, item.target)
+  end,
+  mappings = {
+    { source = ';jp', target = '日本語で説明して' },
+    { source = ';en', target = 'Explain in English' },
+  },
+  matching = 'prefix',
+  case_sensitive = false,
+  keyword_length = 1,
+})
+
 local function get_buffer_source_bufnrs()
   local buf = vim.api.nvim_get_current_buf()
   local byte_size = vim.api.nvim_buf_get_offset(buf, vim.api.nvim_buf_line_count(buf))
@@ -91,9 +105,10 @@ cmp.setup({
     disallow_partial_matching = false,
   },
    sources = {
+     { name = 'prompt_abbr' },
      { name = 'path' },
      { name = 'neosnippet' },
-     { name = 'buffer', 
+     { name = 'buffer',
        keyword_length = 4,
        entry_filter = function(entry, ctx)
          return string.len(entry.completion_item.label) < 30
@@ -113,6 +128,7 @@ cmp.setup({
              calc = '🔢',
              neosnippet = '✂️',
              nvim_lsp = '🔗',
+             prompt_abbr = '📝',
          }
          local kind_icon = {
            Text = '  ',
@@ -170,6 +186,10 @@ cmp.setup.filetype('markdown', {
   },
   sources = cmp.config.sources(
   {
+      { name = 'prompt_abbr' },
+      { name = 'coding_agent_slash' },
+      { name = 'coding_agent_dollar' },
+      { name = 'coding_agent_at' },
       { name = 'calc' },
       { name = 'emoji' },
       { name = 'neosnippet', keyword_length = 3 },
@@ -440,5 +460,52 @@ require("cmp_git").setup({
     },
   }
 )
+
+require('cmp_coding_agent').setup({
+  agent = 'both',
+  max_items = 200,
+  paths = {
+    preserve_at_prefix = true,
+    show_hidden = true,
+    preview_lines = 20,
+    deep_search = true,
+    root = 'git',
+  },
+  skills = {
+    include = {
+      repo_agents = true,
+      repo_claude = true,
+      repo_codex = true,
+      repo_copilot = true,
+      user_agents = true,
+      user_claude = true,
+      user_codex = true,
+      user_copilot = true,
+    },
+    include_non_user_invocable = false,
+  },
+  commands = {
+    include_builtins = {
+      claude = true,
+      codex = true,
+      copilot = true,
+    },
+    extra = {
+      claude = {},
+      codex = {},
+      copilot = {},
+    },
+    disabled = {
+      claude = {},
+      codex = {},
+      copilot = {},
+    },
+  },
+  prompts = {
+    codex = {
+      enabled = true,
+    },
+  },
+})
 
 EOF
