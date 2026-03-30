@@ -3,6 +3,12 @@
 stty stop undef
 
 # =========================
+# Environment Variables
+# =========================
+export EDITOR=nvim
+export VISUAL=nvim
+
+# =========================
 # Colors
 # =========================
 autoload -Uz colors
