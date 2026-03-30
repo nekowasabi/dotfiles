@@ -53,22 +53,13 @@ alias ys="claude --dangerously-skip-permissions --model sonnet"
 alias yo="claude --dangerously-skip-permissions --model opus"
 
 # Quatarly (token stored in ~/.zshenv as $QUATARLY_AUTH_TOKEN)
-# Why: inline VAR=value command ではなく export 方式 — Claude Code がインライン環境変数を読み取れず 502 エラーになるため
+# Why: inline VAR=value command ではなく export 方式 — Claude Code がインライン環境変数を読み取れず 502 sages
+# ラーになるため
 cq() {
-  export ANTHROPIC_BASE_URL="${QUATARLY_BASE_URL}"
-  export ANTHROPIC_AUTH_TOKEN="${QUATARLY_AUTH_TOKEN}"
-  export ANTHROPIC_DEFAULT_HAIKU_MODEL="claude-haiku-4-5-20251001"
-  export ANTHROPIC_DEFAULT_SONNET_MODEL="claude-sonnet-4-6-20250929"
-  export ANTHROPIC_DEFAULT_OPUS_MODEL="claude-opus-4-6-thinking"
-  claude --dangerously-skip-permissions "$@"
+  ANTHROPIC_BASE_URL="https://api.quatarly.cloud/" ANTHROPIC_AUTH_TOKEN="${QUATARLY_API_KEY}" ANTHROPIC_DEFAULT_HAIKU_MODEL="claude-haiku-4-5-20251001" ANTHROPIC_DEFAULT_SONNET_MODEL="claude-sonnet-4-6-20250929" ANTHROPIC_DEFAULT_OPUS_MODEL="claude-opus-4-6-thinking" claude --dangerously-skip-permissions "$@"
 }
-cc() {
-  export ANTHROPIC_BASE_URL="${QUATARLY_BASE_URL}"
-  export ANTHROPIC_AUTH_TOKEN="${QUATARLY_AUTH_TOKEN}"
-  export ANTHROPIC_DEFAULT_HAIKU_MODEL="gemini-3-flash"
-  export ANTHROPIC_DEFAULT_SONNET_MODEL="gpt-5.3-codex"
-  export ANTHROPIC_DEFAULT_OPUS_MODEL="gpt-5.3-codex"
-  claude --dangerously-skip-permissions "$@"
+cz() {
+  ANTHROPIC_BASE_URL="https://api.z.ai/api/anthropic" ANTHROPIC_AUTH_TOKEN="test" ANTHROPIC_DEFAULT_HAIKU_MODEL="glm-4.7" ANTHROPIC_DEFAULT_SONNET_MODEL="glm-4.7" ANTHROPIC_DEFAULT_OPUS_MODEL="glm-4.7" claude --dangerously-skip-permissions "$@"
 }
 
 # ============================================
