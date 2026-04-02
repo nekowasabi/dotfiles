@@ -20,6 +20,7 @@ zinit light-mode for \
 
 # zsh-autosuggestions: Fish-like autosuggestions for zsh
 # Suggests commands based on history as you type
+zinit ice wait"0" lucid
 zinit light zsh-users/zsh-autosuggestions
 
 # zsh-completions: Additional completion definitions for zsh
@@ -42,6 +43,7 @@ zinit light sindresorhus/pure
 
 # fast-syntax-highlighting: Faster alternative to zsh-syntax-highlighting
 # Provides real-time syntax highlighting of commands
+zinit ice wait"0" lucid
 zinit light zdharma-continuum/fast-syntax-highlighting
 
 # ============================================================================
@@ -49,11 +51,12 @@ zinit light zdharma-continuum/fast-syntax-highlighting
 # ============================================================================
 
 # fzf: FZF (fuzzy finder) - 最新バイナリを GitHub Releases から取得
-zinit ice from"gh-r" as"program"
+zinit ice wait"1" lucid from"gh-r" as"program"
 zinit load junegunn/fzf
 
 # cd-bookmark: Bookmark and navigate directories quickly
 # Allows marking directories for quick access
+zinit ice wait"1" lucid
 zinit light mollifier/cd-bookmark
 autoload -Uz cd-bookmark
 alias b='cd-bookmark'
