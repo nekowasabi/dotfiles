@@ -18,7 +18,13 @@ colors
 # Completion
 # =========================
 autoload -Uz compinit
-compinit -u
+# Why: compinit -u は毎回フルスキャン(302ms)。-C はキャッシュ(.zcompdump)利用で高速化。
+# 24時間以上古い場合のみフルスキャンし、それ以外はキャッシュを使う。
+if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
 
 # =========================
 # Emacs Key Bindings
@@ -110,4 +116,11 @@ zinit cdreplay
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
 
 # git-wt
-eval "$(git wt --init zsh)"
+# Why: eval "$(git wt --init zsh)" は毎回サブプロセス起動(34ms)。
+# キャッシュファイルに保存し source で読み込むことで起動コストをほぼゼロにする。
+_git_wt_cache="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/git-wt-init.zsh"
+if [[ ! -f "$_git_wt_cache" ]] || [[ -n "$_git_wt_cache"(#qN.mh+24) ]]; then
+  mkdir -p "${_git_wt_cache:h}"
+  git wt --init zsh > "$_git_wt_cache" 2>/dev/null
+fi
+source "$_git_wt_cache" 2>/dev/null
