@@ -4,7 +4,8 @@
 alias date="gdate"
 
 # ctags設定
-alias ctags="`brew --prefix`/bin/ctags"
+# Why: `brew --prefix` は毎回サブプロセス起動(24ms)。Apple Silicon Mac は /opt/homebrew 固定。
+alias ctags="/opt/homebrew/bin/ctags"
 
 # Homebrew path設定
 export PATH=$PATH:/usr/local/bin:/bin:/usr/bin
