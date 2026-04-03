@@ -47,10 +47,10 @@ alias n='wezterm_neovim'
 alias c="MAX_THINKING_TOKENS=63999 claude --dangerously-skip-permissions --model opus "
 
 # Claude with Sonnet model
-alias ys="claude --dangerously-skip-permissions --model sonnet"
+alias cs="claude --dangerously-skip-permissions --model sonnet"
 
 # Claude with Opus model
-alias yo="claude --dangerously-skip-permissions --model opus"
+alias co="claude --dangerously-skip-permissions --model opus"
 
 # Quatarly (token stored in ~/.zshenv as $QUATARLY_AUTH_TOKEN)
 # Why: inline VAR=value command ではなく export 方式 — Claude Code がインライン環境変数を読み取れず 502 エラーになるため
