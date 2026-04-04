@@ -9,7 +9,7 @@ Format (tag_RomaKanaInfo, Big-Endian):
   Section B (4000 bytes): 1000 entries × {uint16 c_offset, uint8 in_len, uint8 out_len}
   Section C (12000 bytes): 6000 uint16 - flat (input_chars..., output_halfwidth_kana...)
 """
-import plistlib, struct, shutil
+import plistlib, struct, shutil, base64, re
 from pathlib import Path
 
 STYLE_FILE = Path('/Users/takets/Library/Preferences/ATOK35/Styles/StUser0.plist')
@@ -69,6 +69,11 @@ KANA_TO_HW['\u30F5'] = [0xFF76]          # ヵ (小書きカタカナ KA)
 KANA_TO_HW['\u30F6'] = [0xFF79]          # ヶ (小書きカタカナ KE)
 KANA_TO_HW['\u309B'] = [0xFF9E]          # ゛ (全角結合濁点) → 半角ﾞ
 KANA_TO_HW['\u309C'] = [0xFF9F]          # ゜ (全角結合半濁点) → 半角ﾟ
+# 句読点・括弧（テキストエクスポートのデフォルトルール用）
+KANA_TO_HW['、'] = [0xFF64]              # 読点
+KANA_TO_HW['。'] = [0xFF61]              # 句点
+KANA_TO_HW['「'] = [0xFF62]              # かぎ括弧開き
+KANA_TO_HW['」'] = [0xFF63]              # かぎ括弧閉じ
 
 
 def to_hw(kana_str):
@@ -162,22 +167,20 @@ def build_romaji_binary(rules):
         fc = input_codes[0]
         groups[fc].append(idx)
 
-    for fc, indices in groups.items():
-        key = (fc - 32) * 2
-        if 0 <= key < 191:
-            section_a[key]     = min(indices)
-            section_a[key + 1] = len(indices)
-        else:
-            print(f"  WARNING: first_char=0x{fc:02X} のSection Aインデックスが範囲外: {key}")
-
-    # 有効範囲外の文字には終端値（total）を設定
+    # Why: 0初期化+後埋めではなくforward-fill。理由: ATOKが未使用エントリの
+    #   start値をルックアップ範囲計算に使用し、start=0だとB[0]を誤参照する
+    current_end = 0
     for i in range(0, 192, 2):
-        if section_a[i] == 0 and section_a[i+1] == 0:
-            # 未使用エントリに終端値を設定
-            fc = i // 2 + 32
-            # すべての有効な最初文字より大きいASCII値には終端を設定
-            if fc > max(groups.keys(), default=32):
-                section_a[i] = total
+        fc = i // 2 + 32
+        if fc in groups:
+            start = min(groups[fc])
+            count = len(groups[fc])
+            section_a[i] = start
+            section_a[i + 1] = count
+            current_end = start + count
+        else:
+            section_a[i] = current_end
+            section_a[i + 1] = 0
 
     # バイナリを組み立て（Big-Endian）
     buf = bytearray(16392)
@@ -214,21 +217,41 @@ def main():
         hw = to_hw(kana)
         print(f"  '{romaji}' → '{kana}' → {[hex(v) for v in hw]}")
 
+    # Why: テキストエクスポートではなくデフォルト追加。理由: ATOKのテキスト出力は
+    #   記号→句読点ルール(, . [ ])を含まないが、バイナリには必要
+    existing = {r[0] for r in rules}
+    defaults = [(',', '、'), ('.', '。'), ('[', '「'), (']', '」')]
+    for rom, kana in defaults:
+        if rom not in existing:
+            rules.append((rom, kana))
+            print(f"  デフォルト追加: '{rom}' → '{kana}'")
+
     # バイナリ構築
     print("\n=== バイナリ構築 ===")
     new_roma = build_romaji_binary(rules)
     print(f"生成バイナリサイズ: {len(new_roma)} bytes (期待値: 16392)")
     assert len(new_roma) == 16392
 
-    # plist を更新
+    # plist を更新（XMLテキストレベルで ローマ字 データのみ差し替え）
+    # Why: plistlib.dump() ではなくテキスト置換。理由: plistlib は <data> を改行付き
+    #   base64 に再フォーマットするが、ATOK35 の独自パーサーは1行 base64 しか読めない
     print("\n=== plist 更新 ===")
-    with open(STYLE_FILE, 'rb') as f:
-        plist_data = plistlib.load(f)
+    shutil.copy2(STYLE_FILE, str(STYLE_FILE) + '.bak')
+    print(f"バックアップ作成: {STYLE_FILE}.bak")
 
-    plist_data['ローマ字'] = new_roma
+    with open(STYLE_FILE, 'r', encoding='utf-8') as f:
+        xml_text = f.read()
 
-    with open(STYLE_FILE, 'wb') as f:
-        plistlib.dump(plist_data, f, fmt=plistlib.FMT_XML)
+    new_roma_b64 = base64.b64encode(new_roma).decode('ascii')
+    xml_text = re.sub(
+        r'(<key>ローマ字</key>\s*<data>).*?(</data>)',
+        lambda m: m.group(1) + new_roma_b64 + m.group(2),
+        xml_text,
+        flags=re.DOTALL,
+    )
+
+    with open(STYLE_FILE, 'w', encoding='utf-8') as f:
+        f.write(xml_text)
 
     print(f"更新完了: {STYLE_FILE}")
 
