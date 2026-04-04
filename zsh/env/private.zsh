@@ -1,4 +1,7 @@
 # Private (takets) environment specific settings
+# Guard: mkBefore で先行 source されるため二重読み込みを防止
+[[ -n $_PRIVATE_ZSH_LOADED ]] && return
+_PRIVATE_ZSH_LOADED=1
 
 export PC="private"
 

@@ -29,7 +29,9 @@ function zeno-reload() {
 }
 
 # zeno key bindings
-if [[ -n $ZENO_LOADED ]]; then
+# Why: ZENO_LOADED ではなく ZENO_ENABLE — ZENO_LOADED は zeno-init (deno cache後) で遅延設定されるため、
+# bootstrap 完了時点で同期的に設定される ZENO_ENABLE でチェックする
+if [[ -n $ZENO_ENABLE ]]; then
   snippet_and_completion() {
     zeno-auto-snippet
     zeno-completion
