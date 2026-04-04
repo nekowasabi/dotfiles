@@ -2795,6 +2795,10 @@
                                     { "key_code": "t" },
                                     { "key_code": "e" },
                                     { "key_code": "n" },
+                                    {
+                                        "hold_down_milliseconds": 50,
+                                        "key_code": "n"
+                                    },
                                     { "key_code": "spacebar" },
                                     {
                                         "key_code": "return_or_enter",
