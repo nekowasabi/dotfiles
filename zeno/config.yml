@@ -116,6 +116,9 @@ snippets:
   - name: git worktree cd
     keyword: gwt
     snippet: cd $(git-wt | fzf | awk '{print $1}')
+  - name: home-manager rebuild
+    keyword: hmr
+    snippet: cd ~/repos/private_dotfiles/nix/home-manager && sudo darwin-rebuild switch --flake .#takets --no-update-lock-file
 
 completions:
   - name: kill
