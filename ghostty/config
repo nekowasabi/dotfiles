@@ -23,6 +23,7 @@ mouse-scroll-multiplier = 2
 cursor-opacity = 0.7
 cursor-style = block
 cursor-style-blink = false
+cursor-color = #ff0000
 
 unfocused-split-opacity = 0.825
 
