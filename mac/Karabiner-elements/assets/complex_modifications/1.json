@@ -711,7 +711,7 @@
 			]
 		},
     {
-      "description": "Brave用設定",
+      "description": "ブラウザ＆TCC用設定",
       "manipulators": [
         {
           "type": "basic",
@@ -734,7 +734,8 @@
             {
               "type": "frontmost_application_if",
               "bundle_identifiers": [
-                "com.brave.Browser"
+                "com.brave.Browser",
+                "net.imput.helium"
               ]
             }
           ]
@@ -764,7 +765,8 @@
             {
               "type": "frontmost_application_if",
               "bundle_identifiers": [
-                "com.brave.Browser"
+                "com.brave.Browser",
+                "net.imput.helium"
               ]
             }
           ]
@@ -794,7 +796,8 @@
             {
               "type": "frontmost_application_if",
               "bundle_identifiers": [
-                "com.brave.Browser"
+                "com.brave.Browser",
+                "net.imput.helium"
               ]
             }
           ]
@@ -820,7 +823,8 @@
             {
               "type": "frontmost_application_if",
               "bundle_identifiers": [
-                "com.brave.Browser"
+                "com.brave.Browser",
+                "net.imput.helium"
               ]
             }
           ]
@@ -848,7 +852,8 @@
             {
               "type": "frontmost_application_if",
               "bundle_identifiers": [
-                "com.brave.Browser"
+                "com.brave.Browser",
+                "net.imput.helium"
               ]
             }
           ]

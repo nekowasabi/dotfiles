@@ -19233,28 +19233,14 @@
                         ]
                     },
                     {
-                        "description": "Change ¥ to Alt+¥",
-                        "manipulators": [
-                            {
-                                "from": { "key_code": "international3" },
-                                "to": [
-                                    {
-                                        "key_code": "international3",
-                                        "modifiers": ["option"]
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "Brave用設定",
+                        "description": "ブラウザ＆TCC用設定",
                         "manipulators": [
                             {
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com.brave.Browser"
+                                            "com.brave.Browser",
+                                            "net.imput.helium"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -19274,7 +19260,8 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com.brave.Browser"
+                                            "com.brave.Browser",
+                                            "net.imput.helium"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -19298,7 +19285,8 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com.brave.Browser"
+                                            "com.brave.Browser",
+                                            "net.imput.helium"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -19322,7 +19310,8 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com.brave.Browser"
+                                            "com.brave.Browser",
+                                            "net.imput.helium"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -19342,7 +19331,8 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "com.brave.Browser"
+                                            "com.brave.Browser",
+                                            "net.imput.helium"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -19358,6 +19348,21 @@
                                         "modifiers": ["option"]
                                     },
                                     { "key_code": "n" }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "Change ¥ to Alt+¥",
+                        "manipulators": [
+                            {
+                                "from": { "key_code": "international3" },
+                                "to": [
+                                    {
+                                        "key_code": "international3",
+                                        "modifiers": ["option"]
+                                    }
                                 ],
                                 "type": "basic"
                             }
