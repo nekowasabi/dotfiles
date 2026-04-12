@@ -68,11 +68,9 @@ for [mode, lhs, rhs, desc] in s:keymaps
 endfor
 
 let g:aider_additional_prompt = [
-      \ "- ► THINKINGの内容を日本語に翻訳してください。",
-      \ "- 翻訳したTHINKINGの内容を表示してください。",
-      \ "- quoteで囲まれたところに対象コードがある場合は、対象コードを出力コードに置き換えることのみを行ってください。",
-      \ "- 選択された範囲のコードのみが変更対象であり、その他のコードを変更することは禁止されています。",
-      \ "- コードはシンプルに保ちます。"
+      \ "- quoteで囲まれた対象となる内容の処理のみを実施してください。",
+      \ "- 選択された範囲のコードのみが変更対象であり、その他のコードを対象とすることは禁止されています。",
+      \ "- 処理結果のみの出力をしてください。説明や理由などの余計な内容は出力しないでください。",
       \]
 
 augroup AiderOpenGroup
@@ -92,7 +90,7 @@ endfunction
 " ---------------------------------------------------------
 " Why: 6層パイプラインを1層に簡素化 — 間接参照が多すぎて切り替え時の挙動追跡が困難だったため
 " ---------------------------------------------------------
-let s:default_model = 'z'
+let s:default_model = 'z-fast'
 
 let s:models = {
   \ 'default': { 'model': 'openrouter/gpt-5.4', 'editor': 'claude-sonnet-4-6-thinking' },
@@ -108,7 +106,7 @@ let s:common_options = '--no-detect-urls --no-auto-accept-architect --notificati
       \ . ' --chat-language ja --no-stream'
       \ . ' --cache-prompts --cache-keepalive-pings 6'
       \ . ' --suggest-shell-commands --map-refresh auto'
-      \ . ' --architect'
+      \ . ' --chat-mode ask'
 
 function! s:build_aider_command(model_name) abort
   if !has_key(s:models, a:model_name)
