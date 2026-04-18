@@ -146,7 +146,7 @@ let g:hellshake_yano = {
       \   'b': 3,
       \   'e': 3,
       \ },
-      \ 'defaultMinWordLength': 2,
+      \ 'defaultMinWordLength': 3,
       \ 'perKeyMotionCount': {
       \   'w': 2,
       \   'b': 2,
@@ -159,7 +159,7 @@ let g:hellshake_yano = {
 			\ 'cancelKeys': ['y', 'p', 'x', 'v', 'a', 'i', 'f', 'F', 't', 'T', '<CR>' , 
 			\                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
       \ 'defaultMotionCount': 3,
-      \ 'japaneseMinWordLength': 3,
+      \ 'japaneseMinWordLength': 5,
       \ 'segmenterThreshold': 3,
       \ 'japaneseMergeThreshold': 3,
       \ 'continuousHintMode': v:false,
