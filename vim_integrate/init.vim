@@ -168,7 +168,7 @@ let g:hellshake_yano = {
       \ 'directionalHintFilter': v:true,
       \ 'multiWindowMode': v:true,
       \ 'multiWindowMaxWindows': 4,
-      \ 'dictionaryPath': '~/.config/hellshake-yano/dictionary.yaml',
+      \ 'dictionaryPath': '~/.config/nvim/dictionary.yaml',
       \ 'multiWindowExcludeTypes': ['help', 'quickfix', 'terminal', 'popup']
       \ }
 
