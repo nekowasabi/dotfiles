@@ -787,10 +787,77 @@ function! s:BattlefrontMoveToToday() range
     if parent_in_today > today_line
       let parent_text = getline(parent_in_today)
       let child_text  = getline(a:firstline)
+
+      " Why: タグ優先復元 ではなく テキスト完全一致フォールバック。
+      "   タグがある場合はヘッダ名で復元先を特定し、タグを除去して挿入する。
+      "   タグがない場合（既存データ）は旧フォールバック（行テキスト一致）を使用。
+      let child_tag  = s:ExtractOriginTag(child_text)
+      let parent_tag = s:ExtractOriginTag(parent_text)
+      let restore_tag = child_tag !=# '' ? child_tag : parent_tag
+
+      if restore_tag !=# ''
+        " タグ優先経路: ヘッダ行を探して直下に復元
+        let dest_header_line = s:FindHeaderLineByName(restore_tag)
+        if g:debug_battlefront | echom "[BF:Tag] restore_tag=" . restore_tag . " dest_header_line=" . dest_header_line | endif
+        if dest_header_line > 0
+          let clean_parent = s:StripOriginTag(parent_text)
+          let clean_child  = s:StripOriginTag(child_text)
+          " Delete child first (higher line), then parent (lower line)
+          silent execute a:firstline . 'delete _'
+          silent execute parent_in_today . 'delete _'
+          " 挿入位置: ヘッダ直下の非空行末尾（子タスクのインデントが親より深い場合は末尾）
+          " ヘッダ行番号はファイル変化後なので再取得
+          let dest_header_line = s:FindHeaderLineByName(restore_tag)
+          " origin に同一親がいるか確認（タグなし本文で比較）
+          let restore_parent_pos = 0
+          let rp = dest_header_line + 1
+          while rp <= line('$')
+            let rpline = getline(rp)
+            if rpline =~# '^#'
+              break
+            endif
+            if s:StripOriginTag(rpline) ==# clean_parent
+              let restore_parent_pos = rp
+              break
+            endif
+            let rp += 1
+          endwhile
+          if restore_parent_pos > 0
+            " 親が origin に存在 → 既存親の子末尾に挿入
+            let rp_indent = strlen(matchstr(clean_parent, '^\s*'))
+            let rp_insert = restore_parent_pos
+            let rk = restore_parent_pos + 1
+            while rk <= line('$')
+              let rkline = getline(rk)
+              if rkline =~# '^\s*$'
+                let rk += 1
+                continue
+              endif
+              if strlen(matchstr(rkline, '^\s*')) > rp_indent
+                let rp_insert = rk
+                let rk += 1
+              else
+                break
+              endif
+            endwhile
+            call append(rp_insert, [clean_child])
+            call cursor(rp_insert + 1, 1)
+            echo "Returned (tag): " . clean_child
+          else
+            " 親が origin にいない → ヘッダ直下に親＋子を挿入
+            call append(dest_header_line, [clean_parent, clean_child])
+            call cursor(dest_header_line + 1, 1)
+            echo "Returned (tag): " . clean_parent
+          endif
+          return
+        endif
+      endif
+
+      " フォールバック: 旧テキスト一致による親検索
       let parent_match_line = 0
       let k = 1
       while k < today_line
-        if getline(k) ==# parent_text
+        if s:StripOriginTag(getline(k)) ==# s:StripOriginTag(parent_text)
           let parent_match_line = k
           break
         endif
@@ -799,21 +866,68 @@ function! s:BattlefrontMoveToToday() range
       " Delete child (higher line) first, then parent (lower line)
       silent execute a:firstline . 'delete _'
       silent execute parent_in_today . 'delete _'
+      let clean_child = s:StripOriginTag(child_text)
       if parent_match_line > 0
-        call append(parent_match_line, [child_text])
+        call append(parent_match_line, [clean_child])
       else
-        call append(today_line - 1, [parent_text, child_text])
+        let clean_parent = s:StripOriginTag(parent_text)
+        call append(today_line - 1, [clean_parent, clean_child])
       endif
       return
     endif
   endif
+
   " Default: remove from Today, search for matching line outside Today
+  " Why: タグ優先で復元先ヘッダを特定し、タグなしの場合は行テキスト一致にフォールバック（後方互換）
+  let first_tag = ''
+  for line_text in lines
+    if line_text !=# ''
+      let first_tag = s:ExtractOriginTag(line_text)
+      break
+    endif
+  endfor
+
+  if first_tag !=# ''
+    " タグ優先経路
+    let dest_header_line = s:FindHeaderLineByName(first_tag)
+    if g:debug_battlefront | echom "[BF:Tag] default restore first_tag=" . first_tag . " dest=" . dest_header_line | endif
+    if dest_header_line > 0
+      let clean_lines = []
+      for lt in lines
+        call add(clean_lines, s:StripOriginTag(lt))
+      endfor
+      execute a:firstline . ',' . a:lastline . 'delete _'
+      " 再取得（削除によりヘッダ行番号が変化する場合がある）
+      let dest_header_line = s:FindHeaderLineByName(first_tag)
+      " ヘッダ直下の末尾（既存子の後ろ）に挿入する位置を探す
+      let dest_insert = dest_header_line
+      let di = dest_header_line + 1
+      while di <= line('$')
+        let diline = getline(di)
+        if diline =~# '^#'
+          break
+        endif
+        if diline !~# '^\s*$'
+          let dest_insert = di
+        endif
+        let di += 1
+      endwhile
+      call append(dest_insert, clean_lines)
+      call cursor(dest_insert + 1, 1)
+      let mid = matchaddpos('Search', [dest_insert + 1])
+      call timer_start(1500, {-> matchdelete(mid)})
+      echo "Returned (tag): " . first_tag
+      return
+    endif
+  endif
+
+  " フォールバック: 旧テキスト一致検索（タグなし既存データ用）
   let match_line = 0
   for line_text in lines
     if line_text !=# ''
       let k = 1
       while k < today_line
-        if getline(k) ==# line_text
+        if s:StripOriginTag(getline(k)) ==# s:StripOriginTag(line_text)
           let match_line = k
           break
         endif
@@ -834,19 +948,23 @@ function! s:BattlefrontMoveToToday() range
       endif
     endfor
     let child_lines = lines[matched_idx + 1:]
+    let clean_child_lines = []
+    for lt in child_lines
+      call add(clean_child_lines, s:StripOriginTag(lt))
+    endfor
 
     if g:debug_battlefront | echom "[BF:MoveToToday] match_line=" . match_line . " matched_idx=" . matched_idx . " child_count=" . len(child_lines) | endif
 
     " Today から全選択行を削除（match_line < a:firstline なので行番号シフトなし）
     execute a:firstline . ',' . a:lastline . 'delete _'
 
-    if len(child_lines) > 0
-      if g:debug_battlefront | echom "[BF:MoveToToday] inserting " . len(child_lines) . " children after line " . match_line | endif
-      call append(match_line, child_lines)
+    if len(clean_child_lines) > 0
+      if g:debug_battlefront | echom "[BF:MoveToToday] inserting " . len(clean_child_lines) . " children after line " . match_line | endif
+      call append(match_line, clean_child_lines)
       call cursor(match_line, 1)
       let mid = matchaddpos('Search', [match_line])
       call timer_start(1500, {-> matchdelete(mid)})
-      echo "Returned: line " . match_line . " (with " . len(child_lines) . " children)"
+      echo "Returned: line " . match_line . " (with " . len(clean_child_lines) . " children)"
     else
       let mid = matchaddpos('Search', [match_line])
       call timer_start(1500, {-> matchdelete(mid)})
@@ -881,7 +999,100 @@ function! s:GetParentTaskLineNum(line_num)
   return -1
 endfunction
 
+" ── Battlefront ヘルパー関数群 ──────────────────────────────────────
+
+" 指定行から上方探索して最初の ^# ヘッダ名本体を返す。見つからなければ ''
+function! s:GetOriginHeaderName(line_num)
+  let i = a:line_num
+  while i >= 1
+    let line = getline(i)
+    if line =~# '^#\s'
+      " Why: matchstr で # と空白を除いてヘッダ名本体のみ取得
+      return matchstr(line, '^#\s\+\zs.\{-}\ze\s*$')
+    endif
+    let i -= 1
+  endwhile
+  return ''
+endfunction
+
+" 行末に @<header_name> タグを注入。既にタグがあれば無変更で返す
+" Why: 二重注入防止のため既存タグチェックを先行させる
+function! s:InjectOriginTag(text, header_name)
+  if a:header_name ==# ''
+    return a:text
+  endif
+  if a:text =~# '\s*@\S\+\s*$'
+    return a:text
+  endif
+  return a:text . ' @' . a:header_name
+endfunction
+
+" 行末タグ @<name> からヘッダ名を抽出。なければ ''
+function! s:ExtractOriginTag(text)
+  return matchstr(a:text, '\s*@\zs\S\+\ze\s*$')
+endfunction
+
+" タグを除去した本文を返す
+function! s:StripOriginTag(text)
+  return substitute(a:text, '\s*@\S\+\s*$', '', '')
+endfunction
+
+" ^# <name> 行番号を返す。見つからなければ 0
+function! s:FindHeaderLineByName(header_name)
+  if a:header_name ==# ''
+    return 0
+  endif
+  let total = line('$')
+  let i = 1
+  while i <= total
+    if getline(i) =~# '^#\s\+' . a:header_name . '\s*$'
+      return i
+    endif
+    let i += 1
+  endwhile
+  return 0
+endfunction
+
+" last_selected_line+1 以降、次ヘッダ/ファイル末まで parent_line より深いインデント行が
+" 存在するか判定。存在すれば 1（残り子あり）、なければ 0（全子選択済み）
+" Why: 全子選択判定により、親を origin から安全に削除できるかを決定する
+function! s:HasRemainingChildrenAfter(parent_line, last_selected_line)
+  let parent_text   = getline(a:parent_line)
+  let parent_indent = strlen(matchstr(parent_text, '^\s*'))
+  let total = line('$')
+  let i = a:last_selected_line + 1
+  while i <= total
+    let line = getline(i)
+    if line =~# '^#'
+      break
+    endif
+    if line =~# '^\s*$'
+      let i += 1
+      continue
+    endif
+    if strlen(matchstr(line, '^\s*')) > parent_indent
+      return 1
+    endif
+    break
+  endwhile
+  return 0
+endfunction
+
+" 行リストの全行にタグを注入して返す
+function! s:InjectTagToLines(lines, header_name)
+  let result = []
+  for line in a:lines
+    call add(result, s:InjectOriginTag(line, a:header_name))
+  endfor
+  return result
+endfunction
+
+" ── ヘルパー関数群ここまで ────────────────────────────────────────
+
 function! s:BattlefrontMoveDown() range
+  if !exists('g:debug_battlefront')
+    let g:debug_battlefront = 0
+  endif
   let today_line = 0
   let i = 1
   while i <= line('$')
@@ -938,6 +1149,8 @@ function! s:BattlefrontMoveDown() range
         let j2 += 1
       endwhile
 
+      " Why: origin_header は削除前に取得する（削除後は行番号が変わるため）
+      let origin_header = s:GetOriginHeaderName(a:firstline)
       if today_has_parent
         " ケース2: 親が Today に存在する → 子のみ削除して既存親の最後の子の後に挿入
         let parent_indent = strlen(matchstr(parent_text, '^\s*'))
@@ -957,14 +1170,19 @@ function! s:BattlefrontMoveDown() range
             break
           endif
         endwhile
+        let tagged_child = s:InjectOriginTag(child_text, origin_header)
+        if g:debug_battlefront | echom "[BF:Tag] injected: " . tagged_child | endif
         silent execute a:firstline . 'delete _'
-        call append(insert_pos - 1, [child_text])
+        call append(insert_pos - 1, [tagged_child])
         call cursor(insert_pos, 1)
       else
         " ケース1: 親が Today にいない → 子のみ削除し、親をコピーして Today 先頭に挿入
+        let tagged_parent = s:InjectOriginTag(parent_text, origin_header)
+        let tagged_child  = s:InjectOriginTag(child_text,  origin_header)
+        if g:debug_battlefront | echom "[BF:Tag] injected parent: " . tagged_parent | endif
         silent execute a:firstline . 'delete _'
         let new_today_line = today_line - 1
-        call append(new_today_line, [parent_text, child_text])
+        call append(new_today_line, [tagged_parent, tagged_child])
         call cursor(new_today_line + 1, 1)
       endif
       return
@@ -976,6 +1194,9 @@ function! s:BattlefrontMoveDown() range
     if ml_parent > 0 && ml_parent < today_line
       let ml_parent_text = getline(ml_parent)
       let selected_lines = getline(a:firstline, a:lastline)
+      " Why: origin_header は削除前に取得する（削除後は行番号が変わるため）
+      let ml_origin_header = s:GetOriginHeaderName(a:firstline)
+      let ml_tagged_lines  = s:InjectTagToLines(selected_lines, ml_origin_header)
       let sel_count = a:lastline - a:firstline + 1
       execute a:firstline . ',' . a:lastline . 'delete _'
       let new_today_line = today_line - sel_count
@@ -994,6 +1215,7 @@ function! s:BattlefrontMoveDown() range
         endif
         let jj += 1
       endwhile
+      if g:debug_battlefront | echom "[BF:Tag] ml tagged_lines[0]: " . ml_tagged_lines[0] | endif
       if ml_has_parent
         " ケース2: 既存親の末尾に追加
         let ml_indent = strlen(matchstr(ml_parent_text, '^\s*'))
@@ -1012,28 +1234,53 @@ function! s:BattlefrontMoveDown() range
             break
           endif
         endwhile
-        call append(ml_insert, selected_lines)
+        call append(ml_insert, ml_tagged_lines)
         call cursor(ml_insert + 1, 1)
       else
         " ケース1: 親をコピーして Today 先頭に挿入
-        call append(new_today_line, [ml_parent_text] + selected_lines)
+        let ml_tagged_parent = s:InjectOriginTag(ml_parent_text, ml_origin_header)
+        call append(new_today_line, [ml_tagged_parent] + ml_tagged_lines)
         call cursor(new_today_line + 1, 1)
       endif
       return
     endif
-    " 先頭行が親タスク自体（子タスクを含む選択）の場合: 親コピー + 子のみ Today へ
+    " 先頭行が親タスク自体（子タスクを含む選択）の場合
     let pa_first_text = getline(a:firstline)
     let pa_first_indent = strlen(matchstr(pa_first_text, '^\s*'))
     if pa_first_text =~# '^\s*[-*]\s*\[' && a:firstline + 1 <= a:lastline
       let pa_next_indent = strlen(matchstr(getline(a:firstline + 1), '^\s*'))
       if pa_next_indent > pa_first_indent
         let pa_parent_text = pa_first_text
-        let pa_children = getline(a:firstline + 1, a:lastline)
-        let pa_child_count = a:lastline - a:firstline
-        " 子のみ削除（親行 a:firstline は残す）
-        execute (a:firstline + 1) . ',' . a:lastline . 'delete _'
-        let new_today_line = today_line - pa_child_count
+        let pa_children    = getline(a:firstline + 1, a:lastline)
+        let pa_origin_header = s:GetOriginHeaderName(a:firstline)
+
+        " Why: 全子選択判定方式 ではなく 子のみ削除方式。
+        "   理由: 親に未選択子がある場合のデータ消失を防ぐ。
+        "   全子選択済みなら親も origin から削除し、孤児親の残存を解消する。
+        let pa_all_children_selected = !s:HasRemainingChildrenAfter(a:firstline, a:lastline)
+        if g:debug_battlefront
+          echom "[BF:Tag] pa_all_children_selected=" . pa_all_children_selected . " header=" . pa_origin_header
+        endif
+
+        if pa_all_children_selected
+          " 全子選択済み → 親も含めて全行削除
+          let pa_child_count = a:lastline - a:firstline + 1
+          execute a:firstline . ',' . a:lastline . 'delete _'
+          let new_today_line = today_line - pa_child_count
+        else
+          " 一部子選択 → 子のみ削除（親は origin に残す）
+          let pa_child_count = a:lastline - a:firstline
+          execute (a:firstline + 1) . ',' . a:lastline . 'delete _'
+          let new_today_line = today_line - pa_child_count
+        endif
+
+        " タグ注入
+        let pa_tagged_parent   = s:InjectOriginTag(pa_parent_text, pa_origin_header)
+        let pa_tagged_children = s:InjectTagToLines(pa_children, pa_origin_header)
+        if g:debug_battlefront | echom "[BF:Tag] injected pa_parent: " . pa_tagged_parent | endif
+
         " Today 内に同じ親がいるか確認
+        " Why: 親テキストの完全一致でなくタグなし本文で比較する（既存タグ付き行との一致を保証）
         let pa_has_parent = 0
         let pa_parent_pos = -1
         let pp = new_today_line + 1
@@ -1041,7 +1288,7 @@ function! s:BattlefrontMoveDown() range
           if getline(pp) =~# '^#'
             break
           endif
-          if getline(pp) ==# pa_parent_text
+          if s:StripOriginTag(getline(pp)) ==# s:StripOriginTag(pa_parent_text)
             let pa_has_parent = 1
             let pa_parent_pos = pp
             break
@@ -1066,23 +1313,26 @@ function! s:BattlefrontMoveDown() range
               break
             endif
           endwhile
-          call append(pa_insert, pa_children)
+          call append(pa_insert, pa_tagged_children)
           call cursor(pa_insert + 1, 1)
         else
-          " ケース1: 親コピー + 子を Today 先頭に挿入
-          call append(new_today_line, [pa_parent_text] + pa_children)
+          " ケース1: 親（タグ付き）＋子（タグ付き）を Today 先頭に挿入
+          call append(new_today_line, [pa_tagged_parent] + pa_tagged_children)
           call cursor(new_today_line + 1, 1)
         endif
         return
       endif
     endif
   endif
-  " 通常ライン (非子タスク or レンジ選択): そのまま Today へ
+  " 通常ライン (非子タスク or レンジ選択): そのまま Today へ（タグ注入付き）
   let lines = getline(a:firstline, a:lastline)
+  let norm_origin_header = s:GetOriginHeaderName(a:firstline)
+  let tagged_lines = s:InjectTagToLines(lines, norm_origin_header)
+  if g:debug_battlefront | echom "[BF:Tag] normal tagged_lines[0]: " . tagged_lines[0] | endif
   let count = a:lastline - a:firstline + 1
   execute a:firstline . ',' . a:lastline . 'delete _'
   let new_today_line = today_line - count
-  call append(new_today_line, lines)
+  call append(new_today_line, tagged_lines)
   call cursor(new_today_line + 1, 1)
 endfunction
 
@@ -1102,4 +1352,60 @@ augroup BattlefrontProgress
   autocmd BufEnter */battlefront/progress/private.md,
     \*/battlefront/progress/work.md call s:SetupBattlefrontProgressKeys()
 augroup END
+" }}}1
+
+" Battlefront Tag Display (inline conceal + right-align virt_text) {{{1
+" Why: タグを inline 表示 ではなく 右端 virt_text + conceal。理由: 可読性向上とデータ保持の両立
+
+" Why: has('nvim-0.6') でガードする理由: virt_text_pos='right_align' は Neovim 0.6 で追加された機能。
+"   Vim には prop_add しかなく挙動が異なるため、Vim ユーザーには機能を提供しない選択とする。
+if has('nvim-0.6')
+  let s:battlefront_tag_ns = nvim_create_namespace('battlefront_tag_display')
+
+  function! s:BattlefrontClearTagDisplay(buf) abort
+    call nvim_buf_clear_namespace(a:buf, s:battlefront_tag_ns, 0, -1)
+  endfunction
+
+  function! s:BattlefrontApplyTagDisplay() abort
+    let l:buf = bufnr('%')
+    call s:BattlefrontClearTagDisplay(l:buf)
+    let l:total = line('$')
+    let l:i = 1
+    while l:i <= l:total
+      let l:line = getline(l:i)
+      let l:tag_name = matchstr(l:line, '@\zs\S\+\ze\s*$')
+      if !empty(l:tag_name)
+        " Why: hl_mode='combine' にする理由: 既存 syntax ハイライトと色を併用するため。
+        "   'replace' にすると Comment の色で元の行ハイライトを上書きしてしまう。
+        call nvim_buf_set_extmark(l:buf, s:battlefront_tag_ns, l:i - 1, 0, {
+              \ 'virt_text': [['[' . l:tag_name . ']', 'BattlefrontTag']],
+              \ 'virt_text_pos': 'right_align',
+              \ 'hl_mode': 'combine'
+              \ })
+      endif
+      let l:i += 1
+    endwhile
+  endfunction
+
+  function! s:BattlefrontSetupTagDisplay() abort
+    " syntax conceal でインラインタグを非表示
+    " Why: containedin=ALL にする理由: markdown の他 syntax 要素との干渉を避け安全側に倒す
+    syntax match BattlefrontTagInline /\s\+@\S\+\s*$/ conceal containedin=ALL
+    setlocal conceallevel=2
+    " Why: concealcursor=nc にする理由: 挿入モード中のカーソル行でタグ編集時にちらつかないようにする
+    setlocal concealcursor=nc
+    " ハイライトグループ（未定義時のみ Comment にフォールバック）
+    " Why: Comment リンク ではなく 明示的な暗灰色。理由: タグは補助情報のため base01 (#586e75) より暗く設定し solarized dark で目立たなくする
+    highlight default BattlefrontTag guifg=#4a5a62 ctermfg=239 gui=NONE cterm=NONE
+    call s:BattlefrontApplyTagDisplay()
+  endfunction
+
+  " Why: TextChanged も採用する理由: 通常の行追加・削除時もタグ表示を即座に反映させるため。
+  "   負荷が問題になる場合は TextChanged を除去し InsertLeave のみとすることも可。
+  augroup BattlefrontTagDisplay
+    autocmd!
+    autocmd BufEnter,BufWinEnter */battlefront/progress/*.md call s:BattlefrontSetupTagDisplay()
+    autocmd InsertLeave,BufWritePost,TextChanged */battlefront/progress/*.md call s:BattlefrontApplyTagDisplay()
+  augroup END
+endif
 " }}}1
