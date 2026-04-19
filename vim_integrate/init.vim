@@ -108,9 +108,9 @@ nnoremap <Leader>: :
 " ri"みたいに使う
 map r <Plug>(operator-replace)
 
-augroup filetype_echo                                                                              
-   autocmd!                                                                                         
-   autocmd BufReadPost changelogmemo,tenTask.txt NudgeTwoHatsStart
+augroup filetype_echo
+   autocmd!
+   " nudge-two-hats は setup() で有効化（旧 NudgeTwoHatsStart は廃止）
 augroup END                                                                                        
  
 function! NudgeCallback() 
@@ -237,263 +237,45 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 -- parrot.nvim config is now lazy loaded from rc/plugins/parrot.vim
 
 require("nudge-two-hats").setup({
-  openrouter_model = "openai/gpt-oss-120b",
-  openrouter_provider = "cerebras", -- 任意
-  use_plenary_curl = false,
-  openrouter_base_url = "https://openrouter.ai/api/v1", -- 任意（通常はこのまま）
-  idle_time = 0.05, -- virtual text表示までの時間（分）
-  cursor_idle_delay = 0.2, -- カーソル停止後のタイマー設定までの時間（分）
-  cursor_idle_threshold_seconds = 240, -- Stop timers when cursor is idle for this long
-  text_color = "#eee8d5",
-  background_color = "#073642",
-  virtual_text_message_length = 50,
-  -- Message length configuration
-  length_type = "characters", -- Can be "characters" (for Japanese) or "words" (for English)
-
-  -- language configuration
-  output_language = "ja", -- Can be "auto", "en" (English), or "ja" (Japanese)
-  translate_messages = true, -- Whether to translate messages to the specified language
-
-  -- Timing configuration
-  notify_interval_correction = 1, 
-  notify_interval_seconds = 180, -- Minimum interval between API calls in seconds
-  virtual_text_interval_seconds = 15, -- Time in seconds before showing virtual text
-
-  -- Debug configuration
-  debug_mode = false, -- When true, prints nudge text to Vim's 
+  -- nudge-two-hats: メッセージは設定で注入（OpenRouter / AI 呼び出しは廃止）
+  debug = false,
 
   notification = {
-    system_prompt = [[
-			# AI Agent Instructions - Base Configuration
-
-			## 1. Overarching Principle: Dynamic Persona Adherence
-			**CRITICAL**: Your entire persona, the style of your advice, and its specific focus are **dictated by the dynamic parameters** that will be provided to you by the `prompt.lua` module. These parameters include:
-			- **Role**: Your assigned character.
-			- **Selected Hat (Mode)**: The specific mode of operation or perspective you must adopt.
-			- **Direction**: The overarching goal or guidance for your advice.
-			- **Emotion**: The emotional state you should convey.
-			- **Tone**: The specific manner of your expression.
-			- **Prompt Text**: The core request or subject matter you need to address.
-			You MUST fully embody these elements in your response. This base configuration provides general tasks, but your specific execution is governed by these dynamic inputs.
-
-			## 2. Task Context
-			This prompt provides the foundational instructions for an AI agent. The dynamic parameters mentioned above (Role, Hat, Direction, Emotion, Tone, Prompt Text) will be prepended to these base instructions and are paramount.
-
-			## 3. Core Task
-			Analyze the provided code change (diff content) and offer varied, specific advice. Your analysis should consider:
-			- The programmer's likely focus: refactoring, adding new features, fixing bugs, or improving tests.
-			- The specific changes observed in the diff.
-
-			## 4. Advice Characteristics
-			- **Tailored**: Advice must be directly relevant to the code changes AND the persona defined by the dynamic parameters.
-			- **Varied**: Ensure that the content and style of advice differ each time to maintain user engagement, while staying true to the defined persona.
-			- **Context-Aware**: Adapt your advice based on whether it's for a 'notification' or 'virtual_text', as indicated by other parts of the full prompt.
-
-			## 5. Output Medium (Placeholder)
-			Details about the output medium (e.g., UI Notification, Virtual Text) and specific guidance for that medium will be provided by the `prompt.lua` module.
-
-			## 6. Constraints (Placeholder)
-			Specific constraints, such as message length, will also be provided by the `prompt.lua` module.
-		]],
-    default_cbt = {
-      role = "Cognitive behavioral therapy specialist",
-      direction = "Guide towards healthier thought patterns and behaviors",
-      emotion = "Empathetic and understanding",
-      tone = "Supportive and encouraging but direct",
-      hats = {"Therapist", "Coach", "Mentor", "Advisor", "Counselor"},
-    },
-    filetype_prompts = {
-      markdown = {
-        prompt = "Give advice about this writing, focusing on clarity and structure.",
-        role = "Cognitive behavioral therapy specialist",
-        direction = "Guide towards clearer and more structured writing",
-        emotion = "Empathetic and understanding",
-        tone = "Supportive and encouraging but direct",
-        hats = {"Writing Coach", "Editor", "Reviewer", "Content Specialist", "Clarity Expert"},
-        callback = "",
-      },
-			changelog = {
-        purpose = "次に書くべき内容にフォーカスした助言をする。",
-				-- 要件1: role / direction / emotion / tone / hats で構成されるペルソナを明示
-				-- 要件2〜6: OODA 特化の分析官像 + 冷静・客観トーン
-				-- 要件4: 「優勢な状況は存在しない」という信念を明示
-				prompt = [[
-	require("claude-code").setup({
-  -- Terminal window settings
-  window = {
-    split_ratio = 0.3,      -- Percentage of screen for the terminal window (height for horizontal, width for vertical splits)
-    position = "botright",  -- Position of the window: "botright", "topleft", "vertical", "rightbelow vsplit", etc.
-    enter_insert = true,    -- Whether to enter insert mode when opening Claude Code
-    hide_numbers = true,    -- Hide line numbers in the terminal window
-    hide_signcolumn = true, -- Hide the sign column in the terminal window
-  },
-  -- File refresh settings
-  refresh = {
-    enable = true,           -- Enable file change detection
-    updatetime = 100,        -- updatetime when Claude Code is active (milliseconds)
-    timer_interval = 1000,   -- How often to check for file changes (milliseconds)
-    show_notifications = true, -- Show notification when files are reloaded
-  },
-  -- Git project settings
-  git = {
-    use_git_root = true,     -- Set CWD to git root when opening Claude Code (if in git project)
-  },
-  -- Shell-specific settings
-  shell = {
-    separator = '&&',        -- Command separator used in shell commands
-    pushd_cmd = 'pushd',     -- Command to push directory onto stack (e.g., 'pushd' for bash/zsh, 'enter' for nushell)
-    popd_cmd = 'popd',       -- Command to pop directory from stack (e.g., 'popd' for bash/zsh, 'exit' for nushell)
-  },
-  -- Command settings
-  command = "claude",        -- Command used to launch Claude Code
-  -- Command variants
-  command_variants = {
-    -- Conversation management
-    continue = "--continue", -- Resume the most recent conversation
-    resume = "--resume",     -- Display an interactive conversation picker
-
-    -- Output options
-    verbose = "--verbose",   -- Enable verbose logging with full turn-by-turn output
-  },
-  -- Keymaps
-  keymaps = {
-    toggle = {
-      normal = "<C-,>",       -- Normal mode keymap for toggling Claude Code, false to disable
-      terminal = "<C-,>",     -- Terminal mode keymap for toggling Claude Code, false to disable
-      variants = {
-        continue = "<leader>cC", -- Normal mode keymap for Claude Code with continue flag
-        verbose = "<leader>cV",  -- Normal mode keymap for Claude Code with verbose flag
-      },
-    },
-    window_navigation = true, -- Enable window navigation keymaps (<C-h/j/k/l>)
-    scrolling = true,         -- Enable scrolling keymaps (<C-f/b>) for page up/down
-  }
-})			As an OODA-focused Situation Analysis Specialist wearing three hats — Observation Analyst, Direction Analyst, and Action Analyst — give advice on this writing, focusing on clarity and structure.  
-				Firmly believe that no situation is inherently advantageous; therefore, observe the situation from a flat, neutral perspective and propose possible directions only.  
-				Maintain a calm, objective tone unswayed by emotion.
-				]],
-				role = "OODA Situation Analysis Specialist",
-				direction = "No situation is inherently superior; objectively observe from a flat perspective and suggest directions accordingly.",
-				emotion = "Calm and objective; not swayed by emotion.",
-				tone = "Calm, objective, and composed.",
-				hats = { "Expert Observation Analyst", "Expert Direction Analyst", "Expert Action Analyst" },
-				callback = "",
-			},
-			text = {
-				purpose = "メンタルヘルスの観点から、ネガティブな思考を共感的かつ寄り添う姿勢で、ポジティブに変換するための助言をする",
-				-- 要件1: role / direction / emotion / tone / hats で構成されるペルソナを明示
-				-- 要件2〜6: OODA 特化の分析官像 + 冷静・客観トーン
-				-- 要件4: 「優勢な状況は存在しない」という信念を明示
-				prompt = [[
-				As an OODA-focused Situation Analysis Specialist wearing three hats — Observation Analyst, Direction Analyst, and Action Analyst — give advice on this writing, focusing on clarity and structure.  
-				Firmly believe that no situation is inherently advantageous; therefore, observe the situation from a flat, neutral perspective and propose possible directions only.  
-				Maintain a calm, objective tone unswayed by emotion.
-				]],
-				role = "OODA Situation Analysis Specialist",
-				direction = "No situation is inherently superior; objectively observe from a flat perspective and suggest directions accordingly.",
-				emotion = "Calm and objective; not swayed by emotion.",
-				tone = "Calm, objective, and composed.",
-				hats = { "Expert Observation Analyst", "Expert Direction Analyst", "Expert Action Analyst" },
-				callback = "",
-			},
-      javascript = {
-        prompt = "Give advice about this JavaScript code change, focusing on which hat (refactoring or feature) the programmer is wearing.",
-        role = "Cognitive behavioral therapy specialist",
-        direction = "Guide towards clearer and more maintainable code",
-        emotion = "Empathetic and understanding",
-        tone = "Supportive and encouraging but direct",
-        hats = {"JavaScript Expert", "Frontend Advisor", "Code Quality Advocate", "Performance Guru", "Best Practices Guide"},
-        callback = "",
-      },
-    },
-		notify_message_length = 50, -- Default length of the advice message
+    enabled = true,
+    idle_seconds = 180,
+    title = "Nudge Two Hats",
+    icon = "🎩",
+    message = function(ctx)
+      local ft = ctx.filetype
+      if ft == "text" then
+        return vim.fn.NudgeCallback()
+      elseif ft == "changelog" then
+        return "次に書くべき内容にフォーカスした助言をする。ござる。"
+      elseif ft == "javascript" or ft == "typescript" then
+        return "リファクタリングか機能追加か、どちらの作業ですか？"
+      end
+      return "今の作業の目的は何ですか？"
+    end,
   },
 
-  -- Context-specific settings for virtual text
   virtual_text = {
-    system_prompt = [[
-			# AI Agent Instructions - Base Configuration
-
-			## 1. Overarching Principle: Dynamic Persona Adherence
-			**CRITICAL**: Your entire persona, the style of your advice, and its specific focus are **dictated by the dynamic parameters** that will be provided to you by the `prompt.lua` module. These parameters include:
-			- **Role**: Your assigned character.
-			- **Selected Hat (Mode)**: The specific mode of operation or perspective you must adopt.
-			- **Direction**: The overarching goal or guidance for your advice.
-			- **Emotion**: The emotional state you should convey.
-			- **Tone**: The specific manner of your expression.
-			- **Prompt Text**: The core request or subject matter you need to address.
-			You MUST fully embody these elements in your response. This base configuration provides general tasks, but your specific execution is governed by these dynamic inputs.
-
-			## 2. Task Context
-			This prompt provides the foundational instructions for an AI agent. The dynamic parameters mentioned above (Role, Hat, Direction, Emotion, Tone, Prompt Text) will be prepended to these base instructions and are paramount.
-
-			## 3. Core Task
-			Analyze the provided code change (diff content) and offer varied, specific advice. Your analysis should consider:
-			- The programmer's likely focus: refactoring, adding new features, fixing bugs, or improving tests.
-			- The specific changes observed in the diff.
-
-			## 4. Advice Characteristics
-			- **Tailored**: Advice must be directly relevant to the code changes AND the persona defined by the dynamic parameters.
-			- **Varied**: Ensure that the content and style of advice differ each time to maintain user engagement, while staying true to the defined persona.
-			- **Context-Aware**: Adapt your advice based on whether it's for a 'notification' or 'virtual_text', as indicated by other parts of the full prompt.
-
-			## 5. Output Medium (Placeholder)
-			Details about the output medium (e.g., UI Notification, Virtual Text) and specific guidance for that medium will be provided by the `prompt.lua` module.
-
-			## 6. Constraints (Placeholder)
-			Specific constraints, such as message length, will also be provided by the `prompt.lua` module.
-		]],
-    purpose = "", -- Work purpose or objective
-    default_cbt = {
-      role = "Cognitive behavioral therapy specialist",
-      direction = "Guide towards healthier thought patterns and behaviors",
-      emotion = "Empathetic and understanding",
-      tone = "Supportive and encouraging but direct",
-      hats = {"Therapist", "Coach", "Mentor", "Advisor", "Counselor"},
-    },
-    filetype_prompts = {
-			changelog = {
-        purpose = "次に書くべき内容にフォーカスした助言をする。",
-				-- CBT エキスパートとして共感的かつ寄り添う姿勢で助言する
-				prompt = [[
-				As a Cognitive Behavioral Therapy (CBT) Expert wearing three hats — Friend-like Advisor, Professional Expert, and Growth Supporter — provide compassionate advice grounded in CBT principles.  
-				Help the client notice and understand their current thought patterns, then gently guide them to refocus on the present moment.  
-				Speak in a warm, reassuring tone that conveys empathy and supports the client’s growth.
-				]],
-				role = "Cognitive Behavioral Therapy Expert — client-centered and compassionate",
-				direction = "Apply CBT principles: understand the client's thinking patterns and encourage refocusing on the present.",
-				emotion = "Empathetic and validating of the client's feelings.",
-				tone = "Warm, reassuring, and supportive.",
-				hats = { "Friend-like Advisor", "Professional Expert", "Growth Supporter" },
-				callback = "",
-			},
-			text = {
-				purpose = "メンタルヘルスの観点から、ネガティブな思考を共感的かつ寄り添う姿勢で、ポジティブに変換するための助言をする",
-				-- CBT エキスパートとして共感的かつ寄り添う姿勢で助言する
-				prompt = [[
-				As a Cognitive Behavioral Therapy (CBT) Expert wearing three hats — Friend-like Advisor, Professional Expert, and Growth Supporter — provide compassionate advice grounded in CBT principles.  
-				Help the client notice and understand their current thought patterns, then gently guide them to refocus on the present moment.  
-				Speak in a warm, reassuring tone that conveys empathy and supports the client’s growth.
-				]],
-				role = "Cognitive Behavioral Therapy Expert — client-centered and compassionate",
-				direction = "Apply CBT principles: understand the client's thinking patterns and encourage refocusing on the present.",
-				emotion = "Empathetic and validating of the client's feelings.",
-				tone = "Warm, reassuring, and supportive.",
-				hats = { "Friend-like Advisor", "Professional Expert", "Growth Supporter" },
-				callback = "",
-			},
-      javascript = {
-        prompt = "Give advice about this JavaScript code change, focusing on which hat (refactoring or feature) the programmer is wearing.",
-        role = "Cognitive behavioral therapy specialist",
-        direction = "Guide towards clearer and more maintainable code",
-        emotion = "Empathetic and understanding",
-        tone = "Supportive and encouraging but direct",
-        hats = {"JavaScript Expert", "Frontend Advisor", "Code Quality Advocate", "Performance Guru", "Best Practices Guide"},
-        callback = "",
-      },
-    },
+    enabled = true,
+    idle_seconds = 5,
+    position = "right_align",
+    text_color = "#eee8d5",
+    background_color = "#073642",
+    message = function(ctx)
+      local ft = ctx.filetype
+      if ft == "text" then
+        return vim.fn.NudgeCallback2()
+      elseif ft == "changelog" then
+        return "次の一行は？"
+      elseif ft == "javascript" or ft == "typescript" then
+        return "小さく変更する"
+      end
+      return nil
+    end,
   },
-
 })
 
 
