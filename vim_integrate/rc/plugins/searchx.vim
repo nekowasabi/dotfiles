@@ -290,7 +290,8 @@ function! s:fuzzy_query(input) abort
 endfunction
 
 if g:IsMacNeovim()
-  let g:migemodict = '/usr/local/Cellar/cmigemo/20110227/share/migemo/utf-8/migemo-dict'
+  " let g:migemodict = '/usr/local/Cellar/cmigemo/20110227/share/migemo/utf-8/migemo-dict'
+  let g:migemodict = '/opt/homebrew/Cellar/cmigemo/20110227/share/migemo/utf-8/migemo-dict'
 endif
 
 if g:IsWindowsGvim()
