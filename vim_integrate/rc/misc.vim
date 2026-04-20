@@ -1033,8 +1033,11 @@ function! s:ExtractOriginTag(text)
 endfunction
 
 " タグを除去した本文を返す
+" Why: 単発 substitute ではなく 末尾 @tag を繰り返し剥がす実装。
+"   理由: 過去の不具合や手編集で @tagA @tagB と多重注入された行が Today 内に
+"   残留した場合でも、<Up> 復元時に全タグを確実に除去するための防御。
 function! s:StripOriginTag(text)
-  return substitute(a:text, '\s*@\S\+\s*$', '', '')
+  return substitute(a:text, '\%(\s*@\S\+\)\+\s*$', '', '')
 endfunction
 
 " ^# <name> 行番号を返す。見つからなければ 0
