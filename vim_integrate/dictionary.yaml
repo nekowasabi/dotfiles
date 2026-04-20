@@ -1,0 +1,18 @@
+# Hellshake-Yano 個人辞書
+# 参照: https://github.com/nekowasabi/hellshake-yano.vim#dictionary-system
+
+version: "1.0"
+description: "個人用 hellshake-yano 辞書"
+
+hintPatterns:
+  - name: checkbox
+    pattern: "^\\s*-\\s*\\[\\s\\]\\s+(.)"
+    hintPosition: "capture:1"
+    description: "未チェックのチェックボックス行の先頭1文字にヒント配置"
+    priority: 100
+
+  - name: checked_checkbox
+    pattern: "^\\s*-\\s*\\[x\\]\\s+(.)"
+    hintPosition: "capture:1"
+    description: "チェック済みチェックボックス行の先頭1文字にヒント配置"
+    priority: 90
