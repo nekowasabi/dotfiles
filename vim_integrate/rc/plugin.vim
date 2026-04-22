@@ -110,7 +110,6 @@ Plug 'vim-jp/vimdoc-ja'
 Plug 'vimpostor/vim-tpipeline'
 Plug 'itchyny/vim-highlighturl'
 Plug 'atusy/budouxify.nvim'
-Plug 'atusy/budoux.lua'
 Plug 'dnlhc/glance.nvim'
 Plug 'yuki-yano/smart-i.nvim'
 Plug 'sirasagi62/tinysegmenter.nvim'
@@ -329,6 +328,9 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'SmiteshP/nvim-navic'
   Plug 'nekowasabi/vim-syntax-tyranoscript'
   Plug 'nvimdev/lspsaga.nvim'
+  Plug 'delphinus/md-render.nvim'
+  Plug 'delphinus/budoux.lua'
+
   call g:SetDdu()
 
   if g:IsWsl()
