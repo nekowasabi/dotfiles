@@ -21,3 +21,6 @@ fpath=(/usr/local/share/zsh-completions ${fpath})
 # Mac固有のls設定
 alias ls="ls -GF"
 alias gls="gls --color"
+
+# ByteRover CLI
+export PATH="$HOME/.brv-cli/bin:$PATH"
