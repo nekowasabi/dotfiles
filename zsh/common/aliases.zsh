@@ -46,9 +46,10 @@ alias n='wezterm_neovim'
 # Claude with default permissions and model
 alias c="MAX_THINKING_TOKENS=63999 claude --permission-mode auto "
 
-# --permission-mode auto
+cz() {
+  ANTHROPIC_BASE_URL="https://api.z.ai/api/anthropic" ANTHROPIC_AUTH_TOKEN="${Z_API_KEY}" ANTHROPIC_DEFAULT_HAIKU_MODEL="glm-5-turbo" ANTHROPIC_DEFAULT_SONNET_MODEL="glm-5.1" ANTHROPIC_DEFAULT_OPUS_MODEL="glm-5.1" claude --dangerously-skip-permissions "$@"
+}
 
-# Claude with Sonnet model
-alias cs="claude --permission-mode auto --model sonnet"
-
-# Claude with Opus model
+co() {
+  ANTHROPIC_BASE_URL="https://ollama.com" ANTHROPIC_AUTH_TOKEN="${OLLAMA_AUTH_TOKEN}" ANTHROPIC_DEFAULT_HAIKU_MODEL="deepseek-v4-flash:cloud" ANTHROPIC_DEFAULT_SONNET_MODEL="deepseek-v4-flash:cloud" ANTHROPIC_DEFAULT_OPUS_MODEL="deepseek-v4-pro:cloud" claude --dangerously-skip-permissions
+}
