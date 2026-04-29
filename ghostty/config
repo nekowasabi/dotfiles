@@ -33,3 +33,6 @@ window-inherit-working-directory = true
 
 resize-overlay = never
 keybind = shift+enter=text:\x1b\r
+
+# Macの場合タイトルバーを隠す
+macos-titlebar-style = hidden
