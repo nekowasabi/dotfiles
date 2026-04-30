@@ -804,19 +804,19 @@
         },
 				{
           "type": "basic",
-          "description": "終了して次タスクにフォーカス",
+          "description": "IME OFFして決定",
           "from": {
-            "key_code": "c",
+            "key_code": "j",
             "modifiers": {
               "mandatory": ["control"]
             }
           },
           "to": [
             {
-              "key_code": "n"
+              "key_code": "lang2"
             },
             {
-              "key_code": "s"
+              "key_code": "return_or_enter"
             }
           ],
           "conditions": [
@@ -1043,133 +1043,6 @@
 				}
 			]
 		},
-		{
-			"description": "taskchute設定",
-			"manipulators": [
-				{
-					"type": "basic",
-          "description": "IME OFFして次のタスク",
-					"from": {
-						"key_code": "n",
-						"modifiers": {
-							"mandatory": [
-								"control"
-							]
-						}
-					},
-					"to": [
-						{
-							"key_code": "lang2"
-						},
-						{
-							"key_code": "j"
-						},
-						{
-							"key_code": "s"
-						},
-						{
-							"key_code": "lang2"
-						},
-						{
-							"key_code": "q",
-							"modifiers": ["shift"]
-						},
-						{
-							"key_code": "j"
-						},
-						{
-							"key_code": "j"
-						},
-            {
-              "key_code": "return_or_enter"
-            }
-					],
-					"conditions": [
-						{
-							"type": "frontmost_application_if",
-							"bundle_identifiers": [
-								"^com\\.electron\\.taskchute-cloud",
-								"com\\.vivaldi\\.Vivaldi"
-							]
-						}
-					]
-        },
-				{
-					"type": "basic",
-          "description": "平均値に更新",
-					"from": {
-						"key_code": "q",
-						"modifiers": {
-							"mandatory": [
-								"control"
-							]
-						}
-					},
-					"to": [
-						{
-							"key_code": "lang2"
-						},
-						{
-							"key_code": "q",
-							"modifiers": ["shift"]
-						},
-						{
-							"key_code": "j"
-						},
-						{
-							"key_code": "j"
-						},
-            {
-              "key_code": "return_or_enter"
-            },
-						{
-							"key_code": "lang2"
-						}
-					],
-					"conditions": [
-						{
-							"type": "frontmost_application_if",
-							"bundle_identifiers": [
-								"^com\\.electron\\.taskchute-cloud",
-								"com\\.vivaldi\\.Vivaldi"
-							]
-						}
-					]
-        },
-        {
-          "type": "basic",
-          "description": "IME OFFして決定",
-          "from": {
-            "key_code": "n",
-            "modifiers": {
-              "mandatory": [
-                "control"
-              ]
-            }
-          },
-					"to": [
-						{
-							"key_code": "lang2"
-						},
-						{
-							"key_code": "lang2"
-						},
-            {
-              "key_code": "return_or_enter"
-            }
-					],
-          "conditions": [
-            {
-              "type": "frontmost_application_if",
-              "bundle_identifiers": [
-                "^com\\.electron\\.taskchute-cloud",
-                "com\\.vivaldi\\.Vivaldi"
-              ]
-            }
-          ]
-        }
-      ]
-    },
     {
       "description": "Alfred設定",
       "manipulators": [

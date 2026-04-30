@@ -19205,34 +19205,6 @@
                         ]
                     },
                     {
-                        "description": "terminal設定",
-                        "manipulators": [
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^com\\.mitchellh\\.ghostty",
-                                            "^com\\.github\\.wez\\.wezterm$"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "description": "改行",
-                                "from": {
-                                    "key_code": "return_or_enter",
-                                    "modifiers": { "mandatory": ["shift"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "return_or_enter",
-                                        "modifiers": ["option"]
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
                         "description": "ブラウザ＆TCC用設定",
                         "manipulators": [
                             {
@@ -19316,14 +19288,14 @@
                                         "type": "frontmost_application_if"
                                     }
                                 ],
-                                "description": "終了して次タスクにフォーカス",
+                                "description": "IME OFFして決定",
                                 "from": {
-                                    "key_code": "c",
+                                    "key_code": "j",
                                     "modifiers": { "mandatory": ["control"] }
                                 },
                                 "to": [
-                                    { "key_code": "n" },
-                                    { "key_code": "s" }
+                                    { "key_code": "lang2" },
+                                    { "key_code": "return_or_enter" }
                                 ],
                                 "type": "basic"
                             },
@@ -19348,6 +19320,34 @@
                                         "modifiers": ["option"]
                                     },
                                     { "key_code": "n" }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "terminal設定",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.mitchellh\\.ghostty",
+                                            "^com\\.github\\.wez\\.wezterm$"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "description": "改行",
+                                "from": {
+                                    "key_code": "return_or_enter",
+                                    "modifiers": { "mandatory": ["shift"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "return_or_enter",
+                                        "modifiers": ["option"]
+                                    }
                                 ],
                                 "type": "basic"
                             }
