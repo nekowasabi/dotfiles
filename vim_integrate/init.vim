@@ -220,6 +220,14 @@ let g:goyo_width = 120
 let g:goyo_height = '95%'
 let g:goyo_linenr = 1
 
+" 行入れ換え
+nnoremap <silent> <S-Down> :m .+1<CR>==
+nnoremap <silent> <S-Up> :m .-2<CR>==
+
+vnoremap <S-Down> :m '>+1<CR>gv=gv
+vnoremap <S-Up> :m '<-2<CR>gv=gv
+
+
 " -----------------------------------------------------------
 " lua
 
