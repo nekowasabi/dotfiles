@@ -1036,6 +1036,36 @@
 							"type": "frontmost_application_if",
 							"bundle_identifiers": [
 								"^com\\.mitchellh\\.ghostty",
+								"^com\\.googlecode\\.iterm2$",
+								"^com\\.github\\.wez\\.wezterm$"
+							]
+						}
+					]
+				},
+        {
+							"type": "basic",
+							"description": "tmuxのprefix keyのときIMEをOFFにする",
+							"from": {
+								"key_code": "h",
+								"modifiers": {
+									"mandatory": ["control"]
+								}
+							},
+							"to": [
+                {
+                  "key_code": "lang2"
+                },
+								{
+									"key_code": "h",
+									"modifiers": ["control"]
+								}
+							],
+					"conditions": [
+						{
+							"type": "frontmost_application_if",
+							"bundle_identifiers": [
+								"^com\\.mitchellh\\.ghostty",
+								"^com\\.googlecode\\.iterm2$",
 								"^com\\.github\\.wez\\.wezterm$"
 							]
 						}

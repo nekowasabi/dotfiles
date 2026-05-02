@@ -19205,6 +19205,60 @@
                         ]
                     },
                     {
+                        "description": "terminal設定",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.mitchellh\\.ghostty",
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^com\\.github\\.wez\\.wezterm$"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "description": "改行",
+                                "from": {
+                                    "key_code": "return_or_enter",
+                                    "modifiers": { "mandatory": ["shift"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "return_or_enter",
+                                        "modifiers": ["option"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.mitchellh\\.ghostty",
+                                            "^com\\.googlecode\\.iterm2$",
+                                            "^com\\.github\\.wez\\.wezterm$"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "description": "tmuxのprefix keyのときIMEをOFFにする",
+                                "from": {
+                                    "key_code": "h",
+                                    "modifiers": { "mandatory": ["control"] }
+                                },
+                                "to": [
+                                    { "key_code": "lang2" },
+                                    {
+                                        "key_code": "h",
+                                        "modifiers": ["control"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
+                    },
+                    {
                         "description": "ブラウザ＆TCC用設定",
                         "manipulators": [
                             {
@@ -19320,34 +19374,6 @@
                                         "modifiers": ["option"]
                                     },
                                     { "key_code": "n" }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
-                        "description": "terminal設定",
-                        "manipulators": [
-                            {
-                                "conditions": [
-                                    {
-                                        "bundle_identifiers": [
-                                            "^com\\.mitchellh\\.ghostty",
-                                            "^com\\.github\\.wez\\.wezterm$"
-                                        ],
-                                        "type": "frontmost_application_if"
-                                    }
-                                ],
-                                "description": "改行",
-                                "from": {
-                                    "key_code": "return_or_enter",
-                                    "modifiers": { "mandatory": ["shift"] }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "return_or_enter",
-                                        "modifiers": ["option"]
-                                    }
                                 ],
                                 "type": "basic"
                             }
