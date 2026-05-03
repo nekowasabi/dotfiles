@@ -19278,7 +19278,10 @@
                                 },
                                 "to": [
                                     { "key_code": "d" },
-                                    { "key_code": "d" }
+                                    { "key_code": "d" },
+                                    { "key_code": "n" },
+                                    { "key_code": "n" },
+                                    { "key_code": "n" }
                                 ],
                                 "type": "basic"
                             },
