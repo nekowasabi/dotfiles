@@ -134,6 +134,7 @@ Plug 'olimorris/codecompanion.nvim'
 Plug 'nekowasabi/claudecode.vim'
 Plug 'copilotlsp-nvim/copilot-lsp'
 Plug 'junegunn/goyo.vim'
+Plug 'nekowasabi/hermes-agent.vim'
 
 " denops
 Plug 'hrsh7th/vim-searchx'
