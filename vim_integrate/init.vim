@@ -245,6 +245,64 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 
 -- parrot.nvim config is now lazy loaded from rc/plugins/parrot.vim
 
+local nudge_two_hats_default_colors = {
+  fg = "#eee8d5",
+  bg = "#073642",
+}
+
+local function set_nudge_two_hats_virtual_text_color(fg)
+  vim.api.nvim_set_hl(0, "NudgeTwoHatsVirtualText", {
+    fg = fg,
+    bg = nudge_two_hats_default_colors.bg,
+  })
+end
+
+local function taskchute_nudge_message()
+  local cli_path = vim.fn.expand("~/repos/dashboard/backend/dist/cli/index.js")
+  local output = vim.fn.system({ "node", cli_path, "output", "taskchute" })
+
+  if vim.v.shell_error ~= 0 or type(output) ~= "string" or output == "" then
+    set_nudge_two_hats_virtual_text_color("#dc2626")
+    return "TaskChute: 取得失敗"
+  end
+
+  local ok, result = pcall(vim.fn.json_decode, output)
+  if not ok or type(result) ~= "table" then
+    set_nudge_two_hats_virtual_text_color("#dc2626")
+    return "TaskChute: 取得失敗"
+  end
+
+  if result.status ~= "ok" then
+    set_nudge_two_hats_virtual_text_color("#dc2626")
+    return "TaskChute: 取得失敗"
+  end
+
+  if result.state == "none" then
+    set_nudge_two_hats_virtual_text_color("#dc2626")
+    return "TaskChute: 未設定"
+  end
+
+  local task = type(result.task) == "table" and result.task or {}
+  local title = type(task.title) == "string" and task.title ~= "" and task.title or "無題タスク"
+
+  if result.state == "overtime" then
+    set_nudge_two_hats_virtual_text_color("#facc15")
+    local minutes = tonumber(result.overtimeMinutes)
+    if minutes then
+      return string.format("TaskChute: 超過 %d分 %s", minutes, title)
+    end
+    return "TaskChute: 超過 " .. title
+  end
+
+  if result.state == "running" then
+    set_nudge_two_hats_virtual_text_color(nudge_two_hats_default_colors.fg)
+    return "TaskChute: 作業中 " .. title
+  end
+
+  set_nudge_two_hats_virtual_text_color("#dc2626")
+  return "TaskChute: 取得失敗"
+end
+
 require("nudge-two-hats").setup({
   -- nudge-two-hats: メッセージは設定で注入（OpenRouter / AI 呼び出しは廃止）
   debug = false,
@@ -282,7 +340,7 @@ require("nudge-two-hats").setup({
       elseif ft == "javascript" or ft == "typescript" then
         return "小さく変更する"
       end
-      return nil
+      return taskchute_nudge_message()
     end,
   },
 })
