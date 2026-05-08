@@ -275,7 +275,7 @@ function! s:PasteWatchMemo()
     let g:shortcuts_dir = '/Users/takets/repos/changelog/'
   endif
 
-	let files = glob(g:shortcuts_dir . "shortcuts/*.md", 0, 1)
+	let files = glob(g:shortcuts_dir . "memo/*.md", 0, 1)
 
   " ファイルが存在しない場合は処理を終了
   if empty(files)
