@@ -1,0 +1,1 @@
+The three-classification design philosophy divides work into deterministic code, LLM judgment, and upfront preference questions to optimize reproducibility, cost, speed, and contextual adaptability.

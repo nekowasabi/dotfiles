@@ -1,0 +1,39 @@
+{
+  "active_context": [
+    {
+      "order": 3,
+      "path": "_index.md",
+      "tokens": 258,
+      "type": "summary"
+    },
+    {
+      "order": 2,
+      "path": "design_philosophy/_index.md",
+      "tokens": 219,
+      "type": "summary"
+    },
+    {
+      "order": 1,
+      "path": "design_philosophy/agent_system/_index.md",
+      "tokens": 340,
+      "type": "summary"
+    },
+    {
+      "abstractPath": "design_philosophy/agent_system/three_classification_design.abstract.md",
+      "abstractTokens": 50,
+      "importance": 50,
+      "path": "design_philosophy/agent_system/three_classification_design.md",
+      "tokens": 50,
+      "type": "context"
+    }
+  ],
+  "generated_at": "2026-05-08T10:33:34.475Z",
+  "lane_tokens": {
+    "contexts": 50,
+    "stubs": 0,
+    "summaries": 817
+  },
+  "source_fingerprint": "d5b11a03d76399ecf71ef002ed02cdf536ba82bc078efb5222ca8e8eda001a25",
+  "total_tokens": 867,
+  "version": 1
+}

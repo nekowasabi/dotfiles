@@ -53,3 +53,10 @@ cz() {
 co() {
   ANTHROPIC_BASE_URL="https://ollama.com" ANTHROPIC_AUTH_TOKEN="${OLLAMA_AUTH_TOKEN}" ANTHROPIC_DEFAULT_HAIKU_MODEL="deepseek-v4-flash:cloud" ANTHROPIC_DEFAULT_SONNET_MODEL="deepseek-v4-flash:cloud" ANTHROPIC_DEFAULT_OPUS_MODEL="deepseek-v4-pro:cloud" claude --dangerously-skip-permissions
 }
+
+# ============================================
+# ByteRover (brv)
+# ============================================
+# Why: entry/wsl.zsh は nix(home-manager) 管理で直接編集不可。
+# common/aliases.zsh は entry から最後に source されるため、ここから読み込む。
+[[ -f "$DOTFILES_ZSH/common/byterover.zsh" ]] && source "$DOTFILES_ZSH/common/byterover.zsh"

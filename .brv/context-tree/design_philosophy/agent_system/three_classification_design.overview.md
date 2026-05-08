@@ -1,0 +1,13 @@
+- **Key Points:**
+  - Three-classification design: deterministic tasks → code, judgment tasks → LLM, preference questions → upfront pre-flight.
+  - Processing flow: Pre-flight Questions → Deterministic processing → Judgment tasks.
+  - Three rules: (1) Do not assign deterministic tasks to LLM (reproducibility/cost/speed degrade). (2) Do not over-constrain LLM on judgment tasks (loses contextual adaptability). (3) Do not postpone preference questions (consolidate upfront to reduce round-trips and context pollution).
+  - Implementation pattern: place pre-flight questions at top, implement deterministic processing with Bash/shell scripts, feed deterministic output to LLM with clear judgment target and criteria.
+- **Structure / Sections Summary:**
+  - Reason: Curate design philosophy for commands/agents/skills.
+  - Raw Concept: Task definition, files, flow, timestamp, author.
+  - Narrative: Structure (3 categories), Dependencies (A2, A3, A5), Highlights, Rules (3 rules), Examples (implementation pattern).
+- **Notable Entities, Patterns, Decisions:**
+  - Dependencies: A2 (cognitive load minimization), A3 (unverified information risk), A5 (user intent faithful realization).
+  - Decision: Deterministic tasks go to code for reproducibility/cost/speed; judgment tasks go to LLM for contextual adaptability; preferences front-loaded via AskUserQuestion.
+  - Pattern: Pre-flight phase at top of skill/agent, then deterministic code, then LLM with judgment target/criteria.
