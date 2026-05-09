@@ -39,6 +39,7 @@ while true; do
   if json="$(node "$CLI" output taskchute 2>/dev/null)"; then
     state="$(printf '%s' "$json" | jq -r '.state // empty' 2>/dev/null)"
     case "$state" in
+      running) out='#[fg=default,bg=colour28]doing#[default]' ;;
       none) out='#[fg=default,bg=colour196]no task#[default]' ;;
       overtime) out='#[fg=default,bg=colour226]overtime#[default]' ;;
       *) out='' ;;
