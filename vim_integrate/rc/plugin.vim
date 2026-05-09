@@ -127,7 +127,7 @@ Plug 'nvim-tree/nvim-web-devicons'
 " AI
  Plug 'github/copilot.vim'
 " Plug 'zbirenbaum/copilot.lua'
-Plug 'nekowasabi/aider.vim', { 'on': ['AiderStart', 'AiderSendPromptByCommandline'] }
+" Plug 'nekowasabi/aider.vim', { 'on': ['AiderStart', 'AiderSendPromptByCommandline'] }
 " Plug 'Robitx/gp.nvim'
 Plug 'frankroeder/parrot.nvim', { 'on': 'PrtAppend' }
 Plug 'nekowasabi/cross-channel.nvim'
@@ -394,8 +394,6 @@ execute 'source '.g:GetVimConfigRootPath().'rc/plugins/fern.vim'
 " }}}1
 
 " setting Mac Neovim {{{1
-
-
 if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/mark.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesitter.vim'
@@ -416,7 +414,7 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/hlchunk.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treemonkey.vim'
   " Lazy loading: aider.vim config is loaded on :Aider* command
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/aider.vim'
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/aider.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/dmacro.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/treesj.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/nvim-dap.vim'
@@ -444,6 +442,7 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cross-channel.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/claudecode.vim'
+  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/hermes-agent.vim'
 endif
 
 if g:enable_coc
@@ -453,6 +452,7 @@ endif
 if g:IsMacNeovimInWork()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/coc.vim'
 endif
+" }}}1
 
 " Lazy Plugin Config {{{1
 " 遅延読み込みプラグインの設定を、コマンド実行時に読み込む
