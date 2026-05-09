@@ -107,6 +107,8 @@ Plug 'tyru/capture.vim' " コマンドラインの結果をバッファに出力
 Plug 'tyru/current-func-info.vim'
 Plug 'tyru/open-browser.vim'
 Plug 'vim-jp/vimdoc-ja'
+" Keep TaskChute visible when vim-tpipeline owns tmux status-left.
+let g:tpipeline_embedopts = ["status-left '#(cat #{socket_path}-\\#{session_id}-vimbridge)#{?#{==:#{pane_current_command},nvim},, #(cat ~/.cache/tmux/taskchute.txt 2>/dev/null)}'"]
 Plug 'vimpostor/vim-tpipeline'
 Plug 'itchyny/vim-highlighturl'
 Plug 'atusy/budouxify.nvim'
