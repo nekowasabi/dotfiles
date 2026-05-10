@@ -1,6 +1,7 @@
 " -----------------------------------------------------------
 " vim-plug.vim
 
+" 環境ごとの設定ごとの設定 {{{1
 if g:IsMacNeovimInWork()
   let g:enable_coc = v:true
 else
@@ -57,6 +58,7 @@ let g:coc_filetype_map = {}
 for ft in g:cmp_only_filetypes
   let g:coc_filetype_map[ft] = ''
 endfor
+" }}}1
 
 " init {{{1
 if empty(g:GetAutoloadPath() . 'plug.vim')
@@ -123,6 +125,7 @@ Plug 'lambdalisue/vim-fern-git-status'
 Plug 'yuki-yano/fern-preview.vim'
 Plug 'thinca/vim-themis'
 Plug 'nvim-tree/nvim-web-devicons'
+Plug 'christoomey/vim-tmux-navigator'
 
 " AI
  Plug 'github/copilot.vim'
@@ -133,6 +136,8 @@ Plug 'frankroeder/parrot.nvim', { 'on': 'PrtAppend' }
 Plug 'nekowasabi/cross-channel.nvim'
 Plug 'atusy/aibou.nvim'
 Plug 'olimorris/codecompanion.nvim'
+" Why: claudecode.vim より前に denops.vim を登録 — claudecode.vim/plugin/claudecode.vim が g:loaded_denops を参照するため、登録順=runtimepath順=plugin source順で denops を先にロードする必要がある
+Plug 'vim-denops/denops.vim'
 Plug 'nekowasabi/claudecode.vim'
 Plug 'copilotlsp-nvim/copilot-lsp'
 Plug 'junegunn/goyo.vim'
@@ -147,7 +152,7 @@ Plug 'nekowasabi/rtm_deno'
 " Plug 'nekowasabi/vim-rtm'
 " Plug 'vim-jp/vital.vim'
 Plug 'nekowasabi/nudge-two-hats.vim'
-Plug 'vim-denops/denops.vim'
+" Why: denops.vim は claudecode.vim より前 (line ~136) に移動済 — vim-plug 登録順依存のため重複登録を避ける
 Plug 'lambdalisue/vim-deno-cache'
 " Plug 'vim-denops/denops-helloworld.vim'
 Plug 'vim-denops/denops-shared-server.vim'
