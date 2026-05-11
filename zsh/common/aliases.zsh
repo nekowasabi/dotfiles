@@ -55,6 +55,44 @@ co() {
 }
 
 # ============================================
+# zoxide (directory jumper)
+# ============================================
+
+# Why: --no-cmd で z/zi 自動定義を抑制し、カスタム j/ji で上書きする方針
+# Home Manager 側で先に初期化済みなら再実行しない（二重 eval 防止）
+if ! whence -w __zoxide_z >/dev/null 2>&1; then
+  eval "$(zoxide init zsh --no-cmd)"
+fi
+
+# j: zoxide wrapper - 引数なしならfzf、引数ありなら最初の候補に即ジャンプ
+j() {
+  local result
+
+  if (( $# == 0 )); then
+    result="$(command zoxide query --interactive -- "$@")" && builtin cd -- "$result"
+    return
+  fi
+
+  if [[ $# -eq 1 ]] && { [[ -d "$1" ]] || [[ "$1" = '-' ]] || [[ "$1" =~ ^[-+][0-9]$ ]]; }; then
+    builtin cd -- "$1"
+    return
+  fi
+
+  if [[ $# -eq 2 && "$1" = "--" ]]; then
+    builtin cd -- "$2"
+    return
+  fi
+
+  result="$(command zoxide query --exclude "$PWD" -- "$@")" && builtin cd -- "$result"
+}
+
+# ji: zoxide interactive - fzf で絞り込みジャンプ（引数あり/なし両対応）
+ji() {
+  local result
+  result="$(command zoxide query --interactive -- "$@")" && builtin cd -- "$result"
+}
+
+# ============================================
 # ByteRover (brv)
 # ============================================
 # Why: entry/wsl.zsh は nix(home-manager) 管理で直接編集不可。
