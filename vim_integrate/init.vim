@@ -101,6 +101,14 @@ if exists('')
   nnoremap gI <CMD>Glance implementations<CR>
 endif
 
+" vim-tmux-navigator: tmux prefix (<C-h>) + hjkl で Vim/tmux 透過移動
+" Why: tmux側で is_vim 判定により <C-h>+key を Vim に転送するため、対応する TmuxNavigate* を呼び出す
+let g:tmux_navigator_no_mappings = 1
+nnoremap <silent> <C-h>h :<C-U>TmuxNavigateLeft<CR>
+nnoremap <silent> <C-h>j :<C-U>TmuxNavigateDown<CR>
+nnoremap <silent> <C-h>k :<C-U>TmuxNavigateUp<CR>
+nnoremap <silent> <C-h>l :<C-U>TmuxNavigateRight<CR>
+
 nnoremap <silent> z<CR> :ZenMode<CR>
 
 nnoremap <Leader>: :
