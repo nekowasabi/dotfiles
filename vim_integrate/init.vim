@@ -265,7 +265,7 @@ local function set_nudge_two_hats_virtual_text_color(fg)
   })
 end
 
-local function taskchute_nudge_message()
+function _G.taskchute_nudge_message()
   local cli_path = vim.fn.expand("~/repos/dashboard/backend/dist/cli/index.js")
   local output = vim.fn.system({ "node", cli_path, "output", "taskchute" })
 
