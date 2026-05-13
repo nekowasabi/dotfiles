@@ -30,18 +30,10 @@ cleanup() {
 trap cleanup EXIT
 trap 'cleanup; exit 0' INT TERM
 
-# Why: 即 exit ではなくリトライ。理由: tmux サーバー起動直後は session 未登録で has-session が false を返す race があり、デーモンが起動と同時に自殺してしまうため。
-no_session=0
 while true; do
   if ! tmux has-session 2>/dev/null; then
-    no_session=$((no_session + 1))
-    if [ "$no_session" -ge 5 ]; then
-      exit 0
-    fi
-    sleep 2
-    continue
+    exit 0
   fi
-  no_session=0
 
   out=""
   if json="$(node "$CLI" output taskchute 2>/dev/null)"; then
@@ -49,7 +41,7 @@ while true; do
     case "$state" in
       running) out='#[fg=default,bg=colour28]doing#[default]' ;;
       none) out='#[fg=default,bg=colour196]no task#[default]' ;;
-      overtime) out='#[fg=colour232,bg=colour226]overtime#[default]' ;;
+      overtime) out='#[fg=default,bg=colour226]overtime#[default]' ;;
       *) out='' ;;
     esac
   fi
