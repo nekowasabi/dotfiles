@@ -41,7 +41,7 @@ while true; do
     case "$state" in
       running) out='#[fg=default,bg=colour28]doing#[default]' ;;
       none) out='#[fg=default,bg=colour196]no task#[default]' ;;
-      overtime) out='#[fg=default,bg=colour226]overtime#[default]' ;;
+      overtime) out='#[fg=colour232,bg=colour226]overtime#[default]' ;;
       *) out='' ;;
     esac
   fi
