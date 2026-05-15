@@ -1029,7 +1029,8 @@ endfunction
 
 " 行末タグ @<name> からヘッダ名を抽出。なければ ''
 function! s:ExtractOriginTag(text)
-  return matchstr(a:text, '\s*@\zs\S\+\ze\s*$')
+  let l:tag = matchstr(a:text, '\s*@\zs\S\+\ze\s*$')
+  return l:tag ==# 'routine' ? '' : l:tag
 endfunction
 
 " タグを除去した本文を返す
@@ -1088,6 +1089,137 @@ function! s:InjectTagToLines(lines, header_name)
     call add(result, s:InjectOriginTag(line, a:header_name))
   endfor
   return result
+endfunction
+
+" work/private の # Today 直下に曜日別定期タスクを挿入する
+function! s:GetBattlefrontProgressKind() abort
+  let l:path = expand('%:p')
+  if l:path =~# '/battlefront/progress/work\.md$'
+    return 'work'
+  endif
+  if l:path =~# '/battlefront/progress/private\.md$'
+    return 'private'
+  endif
+  return ''
+endfunction
+
+function! s:FindBattlefrontTodayRange() abort
+  let l:today_line = 0
+  let l:i = 1
+  while l:i <= line('$')
+    if getline(l:i) =~# '^# Today'
+      let l:today_line = l:i
+      break
+    endif
+    let l:i += 1
+  endwhile
+  if l:today_line == 0
+    return [0, 0]
+  endif
+
+  let l:end_line = line('$')
+  let l:i = l:today_line + 1
+  while l:i <= line('$')
+    if getline(l:i) =~# '^#'
+      let l:end_line = l:i - 1
+      break
+    endif
+    let l:i += 1
+  endwhile
+  return [l:today_line, l:end_line]
+endfunction
+
+
+let g:battlefront_weekly_tasks = {
+  \ 'work': {
+  \   '1': ['週次計画'],
+  \   '5': ['週次レビュー'],
+  \ },
+  \ 'private': {
+  \   '0': ['生活レビュー', '翌週の予定確認'],
+  \   '5': ['aaa'],
+  \   '6': ['部屋の片付け'],
+  \ },
+  \ }
+
+function! s:GetBattlefrontWeeklyTasks(kind, dow) abort
+  if !exists('g:battlefront_weekly_tasks')
+    let g:battlefront_weekly_tasks = {'work': {}, 'private': {}}
+  endif
+  let l:file_tasks = get(g:battlefront_weekly_tasks, a:kind, {})
+  return copy(get(l:file_tasks, string(a:dow), []))
+endfunction
+
+function! s:NormalizeBattlefrontWeeklyTask(task) abort
+  if type(a:task) == type({})
+    let l:text = get(a:task, 'text', '')
+  else
+    let l:text = a:task
+  endif
+
+  if l:text ==# ''
+    return {}
+  endif
+  if l:text !~# '^\s*[-*]\s*\['
+    let l:text = '- [ ] ' . l:text
+  endif
+  if l:text !~# '\s@routine\s*$'
+    let l:text = l:text . ' @routine'
+  endif
+  return {'text': l:text}
+endfunction
+
+function! s:NormalizeBattlefrontTaskForCompare(text) abort
+  let l:text = s:StripOriginTag(a:text)
+  let l:text = substitute(l:text, '^\(\s*[-*]\s*\[\)[ xX]\(\]\s*\)', '\1 \2', '')
+  return substitute(l:text, '\s\+$', '', '')
+endfunction
+
+function! s:BattlefrontTodayHasRoutineTask(start_line, end_line, task_text) abort
+  if a:start_line <= 0 || a:end_line < a:start_line
+    return 0
+  endif
+  let l:target = s:NormalizeBattlefrontTaskForCompare(a:task_text)
+  for l:line_text in getline(a:start_line, a:end_line)
+    if s:NormalizeBattlefrontTaskForCompare(l:line_text) ==# l:target
+      return 1
+    endif
+  endfor
+  return 0
+endfunction
+
+function! s:BattlefrontInsertWeeklyTasks() abort
+  let l:kind = s:GetBattlefrontProgressKind()
+  if l:kind ==# ''
+    return
+  endif
+
+  let l:range = s:FindBattlefrontTodayRange()
+  if l:range[0] == 0
+    return
+  endif
+
+  let l:dow = str2nr(strftime('%w'))
+  let l:tasks = s:GetBattlefrontWeeklyTasks(l:kind, l:dow)
+  if empty(l:tasks)
+    return
+  endif
+
+  let l:insert_lines = []
+  for l:task in l:tasks
+    let l:normalized = s:NormalizeBattlefrontWeeklyTask(l:task)
+    if empty(l:normalized)
+      continue
+    endif
+    if s:BattlefrontTodayHasRoutineTask(l:range[0] + 1, l:range[1], l:normalized.text)
+      continue
+    endif
+    call add(l:insert_lines, l:normalized.text)
+  endfor
+
+  if !empty(l:insert_lines)
+    call append(l:range[0], l:insert_lines)
+  endif
 endfunction
 
 " ── ヘルパー関数群ここまで ────────────────────────────────────────
@@ -1354,6 +1486,12 @@ augroup BattlefrontProgress
   autocmd!
   autocmd BufEnter */battlefront/progress/private.md,
     \*/battlefront/progress/work.md call s:SetupBattlefrontProgressKeys()
+augroup END
+
+augroup BattlefrontWeeklyTasks
+  autocmd!
+  autocmd BufEnter */battlefront/progress/private.md,
+    \*/battlefront/progress/work.md call s:BattlefrontInsertWeeklyTasks()
 augroup END
 " }}}1
 
