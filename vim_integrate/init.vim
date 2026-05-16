@@ -133,7 +133,10 @@ nnoremap <M-j> :echo "ok"<CR>
 
 augroup parrot
 	autocmd!
-	autocmd FileType diff call system("terminal-notifier -title '📜 parrot' -message '🍎 parrotの処理が完了しました'")
+	" Why: call system() ではなく jobstart() を採用。理由: system() は同期実行で
+	"   terminal-notifier 起動分（数百ms）UIをブロックするため、diff バッファを開く度に
+	"   フリーズが発生していた。jobstart はバックグラウンド実行でブロックしない。
+	autocmd FileType diff call jobstart(['terminal-notifier', '-title', '📜 parrot', '-message', '🍎 parrotの処理が完了しました'])
 augroup END
 
 " hellshake-yano
@@ -265,29 +268,41 @@ local function set_nudge_two_hats_virtual_text_color(fg)
   })
 end
 
-function _G.taskchute_nudge_message()
-  local cli_path = vim.fn.expand("~/repos/dashboard/backend/dist/cli/index.js")
-  local output = vim.fn.system({ "node", cli_path, "output", "taskchute" })
+-- Why: 同期 vim.fn.system() から jobstart() ベースの非同期キャッシュ方式に変更。
+--   旧実装は nudge-two-hats の 5秒アイドルタイマーから呼ばれる度に node プロセスを
+--   同期起動していたため、毎回 100-300ms 程度 UI がブロックされていた（操作の合間に
+--   一瞬固まる症状の原因）。
+--   新実装は「キャッシュ済みメッセージを即返却 + バックグラウンドで次回分を取得」する。
+--   nudge は 5秒間隔で再呼び出されるため、表示の鮮度は実用上問題にならない。
+local taskchute_cache = {
+  message = "TaskChute: 取得中...",
+  fetching = false,
+}
 
-  if vim.v.shell_error ~= 0 or type(output) ~= "string" or output == "" then
+local function taskchute_apply_result(output)
+  if type(output) ~= "string" or output == "" then
     set_nudge_two_hats_virtual_text_color("#dc2626")
-    return "TaskChute: 取得失敗"
+    taskchute_cache.message = "TaskChute: 取得失敗"
+    return
   end
 
   local ok, result = pcall(vim.fn.json_decode, output)
   if not ok or type(result) ~= "table" then
     set_nudge_two_hats_virtual_text_color("#dc2626")
-    return "TaskChute: 取得失敗"
+    taskchute_cache.message = "TaskChute: 取得失敗"
+    return
   end
 
   if result.status ~= "ok" then
     set_nudge_two_hats_virtual_text_color("#dc2626")
-    return "TaskChute: 取得失敗"
+    taskchute_cache.message = "TaskChute: 取得失敗"
+    return
   end
 
   if result.state == "none" then
     set_nudge_two_hats_virtual_text_color("#dc2626")
-    return "TaskChute: 未設定"
+    taskchute_cache.message = "TaskChute: 未設定"
+    return
   end
 
   local task = type(result.task) == "table" and result.task or {}
@@ -297,18 +312,66 @@ function _G.taskchute_nudge_message()
     set_nudge_two_hats_virtual_text_color("#facc15")
     local minutes = tonumber(result.overtimeMinutes)
     if minutes then
-      return string.format("TaskChute: 超過 %d分 %s", minutes, title)
+      taskchute_cache.message = string.format("TaskChute: 超過 %d分 %s", minutes, title)
+    else
+      taskchute_cache.message = "TaskChute: 超過 " .. title
     end
-    return "TaskChute: 超過 " .. title
+    return
   end
 
   if result.state == "running" then
     set_nudge_two_hats_virtual_text_color(nudge_two_hats_default_colors.fg)
-    return "TaskChute: 作業中 " .. title
+    taskchute_cache.message = "TaskChute: 作業中 " .. title
+    return
   end
 
   set_nudge_two_hats_virtual_text_color("#dc2626")
-  return "TaskChute: 取得失敗"
+  taskchute_cache.message = "TaskChute: 取得失敗"
+end
+
+local function taskchute_fetch_async()
+  -- Why: 同時起動ガード。連続呼び出しでも node プロセスを多重起動しない。
+  if taskchute_cache.fetching then
+    return
+  end
+  taskchute_cache.fetching = true
+
+  local cli_path = vim.fn.expand("~/repos/dashboard/backend/dist/cli/index.js")
+  local stdout_chunks = {}
+
+  local ok, job_id = pcall(vim.fn.jobstart, { "node", cli_path, "output", "taskchute" }, {
+    stdout_buffered = true,
+    on_stdout = function(_, data, _)
+      if type(data) == "table" then
+        for _, line in ipairs(data) do
+          if line ~= "" then
+            table.insert(stdout_chunks, line)
+          end
+        end
+      end
+    end,
+    on_exit = function(_, exit_code, _)
+      taskchute_cache.fetching = false
+      if exit_code ~= 0 then
+        set_nudge_two_hats_virtual_text_color("#dc2626")
+        taskchute_cache.message = "TaskChute: 取得失敗"
+        return
+      end
+      taskchute_apply_result(table.concat(stdout_chunks, "\n"))
+    end,
+  })
+
+  if not ok or (type(job_id) == "number" and job_id <= 0) then
+    taskchute_cache.fetching = false
+    set_nudge_two_hats_virtual_text_color("#dc2626")
+    taskchute_cache.message = "TaskChute: 取得失敗"
+  end
+end
+
+function _G.taskchute_nudge_message()
+  -- Why: ブロックせずに即キャッシュを返し、次回 nudge 用に背後で更新を走らせる。
+  taskchute_fetch_async()
+  return taskchute_cache.message
 end
 
 require("nudge-two-hats").setup({
