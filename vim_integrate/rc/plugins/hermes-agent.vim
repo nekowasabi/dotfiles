@@ -1,6 +1,17 @@
 " 基本設定 {{{1
 
-let g:hermes_command            = 'hermes chat --source transporter'
+" Why: cwd が ~/words/transporter 配下のときだけ transporter 用プロファイルを起動する。
+"      stridx だけだと ~/words/transporter-foo まで誤マッチするので、完全一致 or '/' 付き前方一致で判定。
+let s:hermes_transporter_root = expand('~/words/transporter')
+let s:hermes_cwd = getcwd()
+" Why: `chat` サブコマンドを省くと argparse が `-p` の値を subcommand 名として解釈し
+"      "invalid choice: 'transporter'" で即終了する（tmux split が一瞬で閉じる症状の原因）。
+if s:hermes_cwd ==# s:hermes_transporter_root
+      \ || stridx(s:hermes_cwd, s:hermes_transporter_root . '/') == 0
+  let g:hermes_command          = 'hermes chat -p transporter -s storyteller-foundations -s street-storyteller --source transporter'
+else
+  let g:hermes_command          = 'hermes chat'
+endif
 let g:hermes_buffer_open_type   = 'vsplit'
 let g:hermes_floatwin_width     = 100
 let g:hermes_floatwin_height    = 50
