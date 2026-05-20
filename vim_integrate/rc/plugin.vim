@@ -267,7 +267,7 @@ if g:IsMacNeovim() || g:IsWsl()
   Plug 'mengelbrecht/lightline-bufferline'
   Plug 'maximbaz/lightline-ale'
   Plug 'dense-analysis/ale' " textlint
-	Plug 'pwntester/octo.nvim', { 'on': 'Octo' } " github操作
+	" Plug 'pwntester/octo.nvim', { 'on': 'Octo' } " github操作
   Plug 'nvim-lua/plenary.nvim' " luaのライブラリ
   Plug 'nvim-telescope/telescope.nvim' " 普段は使わないけれど、プラグイン連携でたまに使う
   Plug 'elzr/vim-json'
@@ -442,7 +442,7 @@ if g:IsMacNeovim() || g:IsWsl()
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/codecompanion.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cmp.vim'
   " Lazy loading: octo.vim config is loaded on :Octo* command
-  execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
+  " execute 'source '.g:GetVimConfigRootPath().'rc/plugins/octo.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/copilot.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/cross-channel.vim'
   execute 'source '.g:GetVimConfigRootPath().'rc/plugins/claudecode.vim'
