@@ -1,29 +1,35 @@
 #!/usr/bin/env bash
-# Why: launchd で常駐管理することで、スリープ復帰や予期せぬ終了時にOSが自動再起動できるようにする
+# Why: keep tmux status rendering fast by caching the TaskChute state outside #().
 set -u
 
 CACHE_DIR="$HOME/.cache/tmux"
 CACHE_FILE="$CACHE_DIR/taskchute.txt"
 TMP_FILE="$CACHE_FILE.tmp"
+PID_FILE="$CACHE_DIR/taskchute.pid"
 CLI="$HOME/repos/dashboard/backend/dist/cli/index.js"
 INTERVAL=60
-LAUNCHD_LABEL="com.user.taskchute"
-LAUNCHD_PLIST="$HOME/Library/LaunchAgents/${LAUNCHD_LABEL}.plist"
 
 mkdir -p "$CACHE_DIR"
 
-# Why: --start は tmux 起動時の互換エントリ。launchd job が無ければ bootstrap、あればOSの管理に任せて即終了
 if [ "${1:-}" = "--start" ]; then
-  if [ -f "$LAUNCHD_PLIST" ]; then
-    if ! launchctl print "gui/$UID/${LAUNCHD_LABEL}" >/dev/null 2>&1; then
-      launchctl bootstrap "gui/$UID" "$LAUNCHD_PLIST" >/dev/null 2>&1 || true
-    fi
+  pid="$(cat "$PID_FILE" 2>/dev/null || true)"
+  if [ -n "$pid" ] &&
+    kill -0 "$pid" 2>/dev/null &&
+    ps -p "$pid" -o command= 2>/dev/null | grep -F "update-taskchute.sh" >/dev/null; then
+    exit 0
   fi
+
+  nohup "$0" >/dev/null 2>&1 &
   exit 0
 fi
 
-# Why: launchd から呼ばれる前景実行モード。PIDファイル管理は launchd に委譲したため不要
-# Why: tmux サーバ未起動時は exit → launchd が ThrottleInterval=10s で再試行
+printf '%s\n' "$$" > "$PID_FILE"
+cleanup() {
+  rm -f "$PID_FILE" "$TMP_FILE"
+}
+trap cleanup EXIT
+trap 'cleanup; exit 0' INT TERM
+
 while true; do
   if ! tmux has-session 2>/dev/null; then
     exit 0
