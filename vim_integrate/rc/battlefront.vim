@@ -1,19 +1,17 @@
 " -----------------------------------------------------------
 " battlefront.vim
-" ~/repos/changelog/ai/battlefront/progress/{private,work}.md 専用の
 " タスク移動・タグ表示・週次タスク挿入機能
 
-let g:battlefront_weekly_tasks = {
-  \ 'work': {
-  \   '1': ['週次計画'],
-  \   '5': [],
-  \ },
-  \ 'private': {
-  \   '0': ['生活レビュー', '翌週の予定確認'],
-  \   '5': [],
-  \   '6': ['部屋の片付け'],
-  \ },
-  \ }
+" Why: ハードコード ではなく 外部 YAML 読み込み。理由: 公開リポジトリでデータをコードから分離するため
+let s:battlefront_weekly_tasks_yml = '~/repos/private_dotfiles' . '/battlefront_weekly_tasks.yml'
+let g:battlefront_weekly_tasks = {'work': {}, 'private': {}}
+if filereadable(s:battlefront_weekly_tasks_yml) && has('python3')
+python3 << EOF
+import vim, yaml
+with open(vim.eval('s:battlefront_weekly_tasks_yml'), 'r', encoding='utf-8') as f:
+    vim.vars['battlefront_weekly_tasks'] = yaml.safe_load(f) or {'work': {}, 'private': {}}
+EOF
+endif
 
 " Battlefront Progress Navigation Keys {{{1
 " Arrow key bindings for ~/repos/changelog/ai/battlefront/progress/{private,work}.md
