@@ -125,6 +125,10 @@ Plug 'lambdalisue/vim-fern-git-status'
 Plug 'yuki-yano/fern-preview.vim'
 Plug 'thinca/vim-themis'
 Plug 'nvim-tree/nvim-web-devicons'
+" Why: vim-tmux-navigator が tmux の copy-mode-vi に h/j/k/l を流し込み
+"      コピーモード中のカーソル移動を上書きしてしまうのを抑止する。
+"      Vim 側 <C-h>/<C-j>/<C-k>/<C-l> マッピングは独自に必要であれば手動定義する。
+let g:tmux_navigator_no_mappings = 1
 Plug 'christoomey/vim-tmux-navigator'
 
 " AI
