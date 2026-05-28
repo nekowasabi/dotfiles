@@ -117,7 +117,7 @@ snippets:
     keyword: nap
     snippet: sudo -H nix run nix-darwin -- switch --flake /Users/takets/.config/home-manager#takets
   - name: git worktree cd
-    keyword: gwt
+    keyword: w
     snippet: cd $(git-wt | fzf | awk '{print $1}')
 
 completions:
