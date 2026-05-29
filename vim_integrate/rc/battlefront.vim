@@ -809,6 +809,10 @@ augroup END
 " Why: 旧 right-align virt_text の extmark を確実に消すため namespace を維持する。
 if has('nvim-0.6')
   let s:battlefront_tag_ns = nvim_create_namespace('battlefront_tag_display')
+  let s:battlefront_progress_files = [
+        \ '/Users/ttakeda/repos/changelog/ai/battlefront/progress/work.md',
+        \ '/Users/ttakeda/repos/changelog/ai/battlefront/progress/private.md',
+        \ ]
 
   function! s:BattlefrontClearTagDisplay(buf) abort
     call nvim_buf_clear_namespace(a:buf, s:battlefront_tag_ns, 0, -1)
@@ -819,8 +823,26 @@ if has('nvim-0.6')
     call s:BattlefrontClearTagDisplay(l:buf)
   endfunction
 
+  function! s:BattlefrontClearTagConcealMatch() abort
+    if exists('w:battlefront_tag_conceal_match_id')
+      silent! call matchdelete(w:battlefront_tag_conceal_match_id)
+      unlet w:battlefront_tag_conceal_match_id
+    endif
+  endfunction
+
+  function! s:BattlefrontApplyTagConcealMatch() abort
+    call s:BattlefrontClearTagConcealMatch()
+    let w:battlefront_tag_conceal_match_id = matchadd(
+          \ 'Conceal',
+          \ '\s\+@\S\+\s*$',
+          \ 20,
+          \ -1,
+          \ {'conceal': ' '}
+          \ )
+  endfunction
+
   function! s:BattlefrontIsProgressBuffer() abort
-    return expand('%:p') =~# '/battlefront/progress/[^/]\+\.md$'
+    return index(s:battlefront_progress_files, expand('%:p')) >= 0
   endfunction
 
   function! s:BattlefrontRefreshTagDisplayForMode() abort
@@ -835,9 +857,7 @@ if has('nvim-0.6')
   endfunction
 
   function! s:BattlefrontSetupTagDisplay() abort
-    " syntax conceal でインラインタグを非表示
-    " Why: containedin=ALL にする理由: markdown の他 syntax 要素との干渉を避け安全側に倒す
-    syntax match BattlefrontTagInline /\s\+@\S\+\s*$/ conceal containedin=ALL
+    silent! syntax clear BattlefrontTagInline
     if mode() =~# '^[iR]'
       call s:BattlefrontEnterInsertTagDisplay()
     else
@@ -848,11 +868,13 @@ if has('nvim-0.6')
 
   function! s:BattlefrontEnterInsertTagDisplay() abort
     call s:BattlefrontClearTagDisplay(bufnr('%'))
+    call s:BattlefrontClearTagConcealMatch()
     setlocal conceallevel=0
     setlocal concealcursor=
   endfunction
 
   function! s:BattlefrontLeaveInsertTagDisplay() abort
+    call s:BattlefrontApplyTagConcealMatch()
     setlocal conceallevel=2
     setlocal concealcursor=n
     call s:BattlefrontApplyTagDisplay()
@@ -861,11 +883,11 @@ if has('nvim-0.6')
   " Why: BufWritePost/TextChanged でも旧 virt_text extmark を消し、表示状態を正規化する。
   augroup BattlefrontTagDisplay
     autocmd!
-    autocmd BufEnter,BufWinEnter */battlefront/progress/*.md call s:BattlefrontSetupTagDisplay()
-    autocmd InsertEnter,TextChangedI,CursorMovedI */battlefront/progress/*.md call s:BattlefrontEnterInsertTagDisplay()
-    autocmd InsertLeave */battlefront/progress/*.md call s:BattlefrontLeaveInsertTagDisplay()
+    autocmd BufEnter,BufWinEnter /Users/ttakeda/repos/changelog/ai/battlefront/progress/work.md,/Users/ttakeda/repos/changelog/ai/battlefront/progress/private.md call s:BattlefrontSetupTagDisplay()
+    autocmd InsertEnter,TextChangedI,CursorMovedI /Users/ttakeda/repos/changelog/ai/battlefront/progress/work.md,/Users/ttakeda/repos/changelog/ai/battlefront/progress/private.md call s:BattlefrontEnterInsertTagDisplay()
+    autocmd InsertLeave /Users/ttakeda/repos/changelog/ai/battlefront/progress/work.md,/Users/ttakeda/repos/changelog/ai/battlefront/progress/private.md call s:BattlefrontLeaveInsertTagDisplay()
     autocmd ModeChanged * call s:BattlefrontRefreshTagDisplayForMode()
-    autocmd BufWritePost,TextChanged */battlefront/progress/*.md call s:BattlefrontRefreshTagDisplayForMode()
+    autocmd BufWritePost,TextChanged /Users/ttakeda/repos/changelog/ai/battlefront/progress/work.md,/Users/ttakeda/repos/changelog/ai/battlefront/progress/private.md call s:BattlefrontRefreshTagDisplayForMode()
   augroup END
 endif
 " }}}1
