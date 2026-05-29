@@ -1,0 +1,9 @@
+- Battlefront.vim manages task movement in progress files, including moving tasks into Today, across section headers, and back to their origin headers.
+- When tasks are moved into Today, the plugin injects an origin tag in the form `@<header_name>` so the source section can be restored later.
+- Weekly tasks are loaded from an external YAML file rather than being hardcoded, using Python 3 when available and the file is readable.
+- Tag display changed from right-aligned virtual text to conceal-based inline handling: tags are hidden in normal mode and shown during Insert mode.
+- The tag visibility behavior is actively refreshed with autocmds such as `InsertEnter`, `TextChangedI`, `CursorMovedI`, `ModeChanged`, `BufWritePost`, and `TextChanged`.
+- The document notes compatibility fallback behavior: if origin tags are absent, the plugin can fall back to text-based matching.
+- Key regex patterns are documented for detecting Today headers, markdown headers, inline origin tags, and indented checklist child tasks.
+- The structure centers on a reason statement, raw concept/change list, a narrative section covering structure/dependencies/highlights/rules/examples, and a facts section with specific buffer and path details.
+- Notable entities include Neovim/Vim features like conceal, syntax match, augroup autocmds, matchaddpos, timer_start, and external YAML task definitions at `~/repos/private_dotfiles/battlefront_weekly_tasks.yml`.

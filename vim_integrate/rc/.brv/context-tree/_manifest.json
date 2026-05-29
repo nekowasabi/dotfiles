@@ -1,0 +1,37 @@
+{
+  "active_context": [
+    {
+      "order": 3,
+      "path": "_index.md",
+      "tokens": 560,
+      "type": "summary"
+    },
+    {
+      "order": 2,
+      "path": "plugins/_index.md",
+      "tokens": 557,
+      "type": "summary"
+    },
+    {
+      "order": 1,
+      "path": "plugins/battlefront/_index.md",
+      "tokens": 635,
+      "type": "summary"
+    },
+    {
+      "importance": 50,
+      "path": "plugins/battlefront/battlefront_vim.md",
+      "tokens": 1461,
+      "type": "context"
+    }
+  ],
+  "generated_at": "2026-05-28T23:16:31.292Z",
+  "lane_tokens": {
+    "contexts": 1461,
+    "stubs": 0,
+    "summaries": 1752
+  },
+  "source_fingerprint": "9903307a4b11f0de8cd16630355eeca27a69fb1a7f3197f47296f61dbde0e418",
+  "total_tokens": 3213,
+  "version": 1
+}

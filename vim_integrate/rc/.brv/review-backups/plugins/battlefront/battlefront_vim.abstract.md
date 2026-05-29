@@ -1,0 +1,1 @@
+Battlefront.vim moves tasks across progress files, adds origin tags for Today items, loads weekly tasks from external YAML, and conceals tags in normal mode while revealing them during editing.

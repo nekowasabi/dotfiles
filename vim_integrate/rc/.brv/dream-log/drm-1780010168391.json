@@ -1,0 +1,34 @@
+{
+  "completedAt": 1780010191293,
+  "id": "drm-1780010168391",
+  "operations": [
+    {
+      "action": "MERGE",
+      "inputFiles": [
+        "plugins/battlefront/battlefront_vim.md",
+        "plugins/battlefront/battlefront_vim.abstract.md",
+        "plugins/battlefront/battlefront_vim.overview.md"
+      ],
+      "needsReview": true,
+      "outputFile": "plugins/battlefront/battlefront_vim.md",
+      "previousTexts": {
+        "plugins/battlefront/battlefront_vim.md": "---\ntitle: Battlefront Vim\nsummary: Battlefront.vim handles task movement in progress files, injects origin tags when moving lines to Today, loads weekly tasks from YAML, and uses conceal plus Insert-mode visibility for tags.\ntags: []\nrelated: []\nkeywords: []\ncreatedAt: '2026-05-28T22:58:32.426Z'\nupdatedAt: '2026-05-28T23:00:58.445Z'\n---\n## Reason\nDocument tag display behavior and task movement logic in battlefront.vim\n\n## Raw Concept\n**Task:**\nDocument the battlefront.vim plugin behavior for task movement, origin tagging, weekly task insertion, and tag display handling.\n\n**Changes:**\n- Added arrow-key movement for task relocation across Today and header boundaries\n- Added origin tag injection and tag-based restoration logic for Today items\n- Added weekly task insertion from external YAML data\n- Replaced old right-aligned virt_text tag display with conceal-based inline tag handling\n- Added/maintained movement mappings for progress files\n- Injected @<header_name> origin tags when moving tasks into Today\n- Loaded weekly tasks from external YAML instead of hardcoding them\n- Added conceal-based tag hiding with Insert-mode visibility refresh\n\n**Flow:**\nopen progress file -> move tasks with arrow keys -> inject origin tag from source header -> conceal tags in normal mode -> reveal inline tags in Insert mode -> refresh on cursor and text changes\n\n**Timestamp:** 2026-05-28T23:00:48.371Z\n\n**Author:** ByteRover context extraction\n\n**Patterns:**\n- `^#\\s+Today$` - Detects the Today header used for task placement\n- `^#` - Detects markdown headers used as section boundaries\n- `\\s+@\\S+\\s*$` - Matches inline origin tags appended to task lines\n- `^\\s+[-*]\\s*\\[` - Matches indented checklist child tasks\n\n## Narrative\n### Structure\nThe plugin defines helpers for moving selected tasks to Today, moving them across headers, restoring tasks back to their origin header, and injecting or stripping @<header_name> tags. A separate Tag Display section uses Neovim syntax conceal and autocmds to hide tags normally and show them during editing.\n\n### Dependencies\nRelies on Vim/Neovim features such as conceal, syntax match, augroup autocmds, matchaddpos, timer_start, and Python 3 for YAML loading. It also reads weekly task definitions from an external YAML file outside the repository.\n\n### Highlights\nTags are kept visible while editing by reapplying conceallevel=0 during InsertEnter, TextChangedI, CursorMovedI, and ModeChanged. The plugin also preserves backward compatibility by falling back to text-based matching when origin tags are absent.\n\n### Rules\nWhy: ハードコード ではなく 外部 YAML 読み込み。理由: 公開リポジトリでデータをコードから分離するため\nWhy: 通常時はタグを隠し、編集時だけ実テキストとして見せる。理由: Today 内の補助タグを視界から外しつつ手編集を妨げないため.\nWhy: BufWritePost/TextChanged でも旧 virt_text extmark を消し、表示状態を正規化する。\n\n### Examples\nA task moved into Today may be tagged like @創作戦線 so its origin header can be restored later, while the tag is concealed during normal browsing.\n\n## Facts\n- **tag_display_mode**: battlefront.vim hides tags with conceal during normal mode and shows them inline during Insert mode. [project]\n- **tag_display_autocmds**: InsertEnter, TextChangedI, CursorMovedI, ModeChanged, BufWritePost, and TextChanged are used to reapply the tag display state for progress files. [project]\n- **progress_buffers**: The progress buffers covered by the tag-display logic are battlefront/progress/private.md and battlefront/progress/work.md. [project]\n- **weekly_tasks_source**: battlefront.vim loads weekly tasks from ~/repos/private_dotfiles/battlefront_weekly_tasks.yml when the file is readable and Python 3 is available. [project]\n",
+        "plugins/battlefront/battlefront_vim.abstract.md": "Battlefront.vim moves tasks across progress files, adds origin tags for Today items, loads weekly tasks from external YAML, and conceals tags in normal mode while revealing them during editing.",
+        "plugins/battlefront/battlefront_vim.overview.md": "- Battlefront.vim manages task movement in progress files, including moving tasks into Today, across section headers, and back to their origin headers.\n- When tasks are moved into Today, the plugin injects an origin tag in the form `@<header_name>` so the source section can be restored later.\n- Weekly tasks are loaded from an external YAML file rather than being hardcoded, using Python 3 when available and the file is readable.\n- Tag display changed from right-aligned virtual text to conceal-based inline handling: tags are hidden in normal mode and shown during Insert mode.\n- The tag visibility behavior is actively refreshed with autocmds such as `InsertEnter`, `TextChangedI`, `CursorMovedI`, `ModeChanged`, `BufWritePost`, and `TextChanged`.\n- The document notes compatibility fallback behavior: if origin tags are absent, the plugin can fall back to text-based matching.\n- Key regex patterns are documented for detecting Today headers, markdown headers, inline origin tags, and indented checklist child tasks.\n- The structure centers on a reason statement, raw concept/change list, a narrative section covering structure/dependencies/highlights/rules/examples, and a facts section with specific buffer and path details.\n- Notable entities include Neovim/Vim features like conceal, syntax match, augroup autocmds, matchaddpos, timer_start, and external YAML task definitions at `~/repos/private_dotfiles/battlefront_weekly_tasks.yml`."
+      },
+      "reason": "These three files are redundant representations of the same Battlefront.vim topic. The main markdown file already contains the richest content, while the abstract and overview are compressed summaries of the same task movement, origin tagging, weekly YAML loading, conceal-based tag display, and related facts.",
+      "type": "CONSOLIDATE"
+    }
+  ],
+  "startedAt": 1780010168391,
+  "status": "completed",
+  "summary": {
+    "consolidated": 1,
+    "errors": 0,
+    "flaggedForReview": 1,
+    "pruned": 0,
+    "synthesized": 0
+  },
+  "taskId": "15f8b12b-6094-4eba-b9e2-20d7e086cc5d",
+  "trigger": "agent-idle"
+}
