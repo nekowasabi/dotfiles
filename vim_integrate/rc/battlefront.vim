@@ -803,11 +803,10 @@ augroup BattlefrontWeeklyTasks
 augroup END
 " }}}1
 
-" Battlefront Tag Display (inline conceal + right-align virt_text) {{{1
-" Why: タグを inline 表示 ではなく 右端 virt_text + conceal。理由: 可読性向上とデータ保持の両立
+" Battlefront Tag Display (normal: conceal, insert: show inline tag) {{{1
+" Why: 通常時はタグを隠し、編集時だけ実テキストとして見せる。理由: Today 内の補助タグを視界から外しつつ手編集を妨げないため。
 
-" Why: has('nvim-0.6') でガードする理由: virt_text_pos='right_align' は Neovim 0.6 で追加された機能。
-"   Vim には prop_add しかなく挙動が異なるため、Vim ユーザーには機能を提供しない選択とする。
+" Why: 旧 right-align virt_text の extmark を確実に消すため namespace を維持する。
 if has('nvim-0.6')
   let s:battlefront_tag_ns = nvim_create_namespace('battlefront_tag_display')
 
@@ -818,44 +817,55 @@ if has('nvim-0.6')
   function! s:BattlefrontApplyTagDisplay() abort
     let l:buf = bufnr('%')
     call s:BattlefrontClearTagDisplay(l:buf)
-    let l:total = line('$')
-    let l:i = 1
-    while l:i <= l:total
-      let l:line = getline(l:i)
-      let l:tag_name = matchstr(l:line, '@\zs\S\+\ze\s*$')
-      if !empty(l:tag_name)
-        " Why: hl_mode='combine' にする理由: 既存 syntax ハイライトと色を併用するため。
-        "   'replace' にすると Comment の色で元の行ハイライトを上書きしてしまう。
-        call nvim_buf_set_extmark(l:buf, s:battlefront_tag_ns, l:i - 1, 0, {
-              \ 'virt_text': [['[' . l:tag_name . ']', 'BattlefrontTag']],
-              \ 'virt_text_pos': 'right_align',
-              \ 'hl_mode': 'combine'
-              \ })
-      endif
-      let l:i += 1
-    endwhile
+  endfunction
+
+  function! s:BattlefrontIsProgressBuffer() abort
+    return expand('%:p') =~# '/battlefront/progress/[^/]\+\.md$'
+  endfunction
+
+  function! s:BattlefrontRefreshTagDisplayForMode() abort
+    if !s:BattlefrontIsProgressBuffer()
+      return
+    endif
+    if mode() =~# '^[iR]'
+      call s:BattlefrontEnterInsertTagDisplay()
+    else
+      call s:BattlefrontLeaveInsertTagDisplay()
+    endif
   endfunction
 
   function! s:BattlefrontSetupTagDisplay() abort
     " syntax conceal でインラインタグを非表示
     " Why: containedin=ALL にする理由: markdown の他 syntax 要素との干渉を避け安全側に倒す
     syntax match BattlefrontTagInline /\s\+@\S\+\s*$/ conceal containedin=ALL
-    setlocal conceallevel=2
-    " Why: concealcursor=nc にする理由: 挿入モード中のカーソル行でタグ編集時にちらつかないようにする
-    setlocal concealcursor=nc
-    " ハイライトグループ（未定義時のみ Comment にフォールバック）
-    " Why: Comment リンク ではなく 明示的な暗灰色。理由: タグは補助情報のため base01 (#586e75) より暗く設定し solarized dark で目立たなくする
-    highlight default BattlefrontTag guifg=#4a5a62 ctermfg=239 gui=NONE cterm=NONE
+    if mode() =~# '^[iR]'
+      call s:BattlefrontEnterInsertTagDisplay()
+    else
+      call s:BattlefrontLeaveInsertTagDisplay()
+    endif
     call s:BattlefrontApplyTagDisplay()
   endfunction
 
-  " Why: TextChanged も採用する理由: 通常の行追加・削除時もタグ表示を即座に反映させるため。
-  "   負荷が問題になる場合は TextChanged を除去し InsertLeave のみとすることも可。
+  function! s:BattlefrontEnterInsertTagDisplay() abort
+    call s:BattlefrontClearTagDisplay(bufnr('%'))
+    setlocal conceallevel=0
+    setlocal concealcursor=
+  endfunction
+
+  function! s:BattlefrontLeaveInsertTagDisplay() abort
+    setlocal conceallevel=2
+    setlocal concealcursor=n
+    call s:BattlefrontApplyTagDisplay()
+  endfunction
+
+  " Why: BufWritePost/TextChanged でも旧 virt_text extmark を消し、表示状態を正規化する。
   augroup BattlefrontTagDisplay
     autocmd!
     autocmd BufEnter,BufWinEnter */battlefront/progress/*.md call s:BattlefrontSetupTagDisplay()
-    autocmd InsertLeave,BufWritePost,TextChanged */battlefront/progress/*.md call s:BattlefrontApplyTagDisplay()
+    autocmd InsertEnter,TextChangedI,CursorMovedI */battlefront/progress/*.md call s:BattlefrontEnterInsertTagDisplay()
+    autocmd InsertLeave */battlefront/progress/*.md call s:BattlefrontLeaveInsertTagDisplay()
+    autocmd ModeChanged * call s:BattlefrontRefreshTagDisplayForMode()
+    autocmd BufWritePost,TextChanged */battlefront/progress/*.md call s:BattlefrontRefreshTagDisplayForMode()
   augroup END
 endif
 " }}}1
-
