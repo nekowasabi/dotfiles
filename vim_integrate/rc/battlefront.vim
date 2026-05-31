@@ -3,7 +3,7 @@
 " タスク移動・タグ表示・週次タスク挿入機能
 
 " Why: ハードコード ではなく 外部 YAML 読み込み。理由: 公開リポジトリでデータをコードから分離するため
-let s:battlefront_weekly_tasks_yml = '~/repos/private_dotfiles' . '/battlefront_weekly_tasks.yml'
+let s:battlefront_weekly_tasks_yml = '~/repos/private_dotfiles/battlefront_weekly_tasks.yml'
 let g:battlefront_weekly_tasks = {'work': {}, 'private': {}}
 if filereadable(s:battlefront_weekly_tasks_yml) && has('python3')
 python3 << EOF
