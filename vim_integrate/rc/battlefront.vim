@@ -3,15 +3,57 @@
 " タスク移動・タグ表示・週次タスク挿入機能
 
 " Why: ハードコード ではなく 外部 YAML 読み込み。理由: 公開リポジトリでデータをコードから分離するため
-let s:battlefront_weekly_tasks_yml = '~/repos/private_dotfiles/battlefront_weekly_tasks.yml'
-let g:battlefront_weekly_tasks = {'work': {}, 'private': {}}
-if filereadable(s:battlefront_weekly_tasks_yml) && has('python3')
-python3 << EOF
-import vim, yaml
-with open(vim.eval('s:battlefront_weekly_tasks_yml'), 'r', encoding='utf-8') as f:
-    vim.vars['battlefront_weekly_tasks'] = yaml.safe_load(f) or {'work': {}, 'private': {}}
-EOF
-endif
+" Why: python3 + pyyaml ではなく 純粋 vimscript パーサを採用。
+"   理由: g:python3_host_prog が環境依存（Apple Silicon で /usr/local パス不在・pyyaml 未導入）で
+"   has('python3') が 0 になり読み込みが無音で失敗していた。対象 YAML は
+"   work/private → 曜日キー → 文字列リスト の単純構造に限定されるため自前パースで十分。
+" Why: expand() で ~ を絶対パス化。理由: filereadable() は ~ を展開しないため。
+let s:battlefront_weekly_tasks_yml = expand('~/repos/private_dotfiles/battlefront_weekly_tasks.yml')
+
+" 単純構造（top: / 'dow': / - item）の YAML をパースして {top: {dow: [item,...]}} を返す
+function! s:BattlefrontParseWeeklyTasksYml(path) abort
+  let l:result = {'work': {}, 'private': {}}
+  if !filereadable(a:path)
+    return l:result
+  endif
+  let l:top = ''
+  let l:dow = ''
+  for l:raw in readfile(a:path)
+    let l:line = substitute(l:raw, '\r$', '', '')
+    if l:line =~# '^\s*$' || l:line =~# '^\s*#'
+      continue
+    endif
+    " 1. トップレベルキー: 行頭非空白 + ':' 終端 (work: / private:)
+    let l:m = matchlist(l:line, '^\(\S\+\):\s*$')
+    if !empty(l:m)
+      let l:top = l:m[1]
+      if !has_key(l:result, l:top)
+        let l:result[l:top] = {}
+      endif
+      let l:dow = ''
+      continue
+    endif
+    " 2. リスト要素: インデント + '- value' (先頭・末尾のクォートは除去)
+    let l:m = matchlist(l:line, '^\s\+-\s\+\(.*\)$')
+    if !empty(l:m) && l:top !=# '' && l:dow !=# ''
+      let l:val = substitute(l:m[1], '\s\+$', '', '')
+      let l:val = substitute(l:val, "^'\\(.*\\)'$", '\1', '')
+      let l:val = substitute(l:val, '^"\(.*\)"$', '\1', '')
+      call add(l:result[l:top][l:dow], l:val)
+      continue
+    endif
+    " 3. 曜日キー: インデント + ('1' / 1) + ':' (+ inline [] は空リスト扱い)
+    let l:m = matchlist(l:line, "^\\s\\+'\\?\\([^':]\\+\\)'\\?:\\s*\\(.*\\)$")
+    if !empty(l:m) && l:top !=# ''
+      let l:dow = l:m[1]
+      let l:result[l:top][l:dow] = []
+      continue
+    endif
+  endfor
+  return l:result
+endfunction
+
+let g:battlefront_weekly_tasks = s:BattlefrontParseWeeklyTasksYml(s:battlefront_weekly_tasks_yml)
 
 " Battlefront Progress Navigation Keys {{{1
 " Arrow key bindings for ~/repos/changelog/ai/battlefront/progress/{private,work}.md
@@ -529,6 +571,18 @@ function! s:BattlefrontInsertWeeklyTasks() abort
     call append(l:range[0], l:insert_lines)
   endif
 endfunction
+
+" 手動実行用: YAML を再読込してから当日の週次タスクを挿入する
+" Why: 自動挿入(BufEnter)が効かない場面や YAML 編集後の即時反映のため手動トリガを用意
+function! s:BattlefrontReloadAndInsertWeeklyTasks() abort
+  let g:battlefront_weekly_tasks = s:BattlefrontParseWeeklyTasksYml(s:battlefront_weekly_tasks_yml)
+  if s:GetBattlefrontProgressKind() ==# ''
+    echohl WarningMsg | echo 'battlefront: work.md / private.md で実行してください' | echohl NONE
+    return
+  endif
+  call s:BattlefrontInsertWeeklyTasks()
+endfunction
+command! BattlefrontInsertWeeklyTasks call <SID>BattlefrontReloadAndInsertWeeklyTasks()
 
 " ── ヘルパー関数群ここまで ────────────────────────────────────────
 
