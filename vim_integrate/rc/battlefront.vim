@@ -863,9 +863,12 @@ augroup END
 " Why: 旧 right-align virt_text の extmark を確実に消すため namespace を維持する。
 if has('nvim-0.6')
   let s:battlefront_tag_ns = nvim_create_namespace('battlefront_tag_display')
+  " Why: フルパス固定 ではなく expand('~/...') を採用。
+  "   理由: ホームディレクトリ名が環境で異なり（ttakeda/takets）、固定パスでは
+  "   expand('%:p') との比較が常に偽になりタグ表示機能が無音で死んでいたため。
   let s:battlefront_progress_files = [
-        \ '/Users/ttakeda/repos/changelog/ai/battlefront/progress/work.md',
-        \ '/Users/ttakeda/repos/changelog/ai/battlefront/progress/private.md',
+        \ expand('~/repos/changelog/ai/battlefront/progress/work.md'),
+        \ expand('~/repos/changelog/ai/battlefront/progress/private.md'),
         \ ]
 
   function! s:BattlefrontClearTagDisplay(buf) abort
@@ -935,13 +938,112 @@ if has('nvim-0.6')
   endfunction
 
   " Why: BufWritePost/TextChanged でも旧 virt_text extmark を消し、表示状態を正規化する。
+  " Why: autocmd パターンは ~/ 表記のまま使用（Vim が自動でホームに展開する :h autocmd-patterns）
   augroup BattlefrontTagDisplay
     autocmd!
-    autocmd BufEnter,BufWinEnter /Users/ttakeda/repos/changelog/ai/battlefront/progress/work.md,/Users/ttakeda/repos/changelog/ai/battlefront/progress/private.md call s:BattlefrontSetupTagDisplay()
-    autocmd InsertEnter,TextChangedI,CursorMovedI /Users/ttakeda/repos/changelog/ai/battlefront/progress/work.md,/Users/ttakeda/repos/changelog/ai/battlefront/progress/private.md call s:BattlefrontEnterInsertTagDisplay()
-    autocmd InsertLeave /Users/ttakeda/repos/changelog/ai/battlefront/progress/work.md,/Users/ttakeda/repos/changelog/ai/battlefront/progress/private.md call s:BattlefrontLeaveInsertTagDisplay()
+    autocmd BufEnter,BufWinEnter ~/repos/changelog/ai/battlefront/progress/work.md,~/repos/changelog/ai/battlefront/progress/private.md call s:BattlefrontSetupTagDisplay()
+    autocmd InsertEnter,TextChangedI,CursorMovedI ~/repos/changelog/ai/battlefront/progress/work.md,~/repos/changelog/ai/battlefront/progress/private.md call s:BattlefrontEnterInsertTagDisplay()
+    autocmd InsertLeave ~/repos/changelog/ai/battlefront/progress/work.md,~/repos/changelog/ai/battlefront/progress/private.md call s:BattlefrontLeaveInsertTagDisplay()
     autocmd ModeChanged * call s:BattlefrontRefreshTagDisplayForMode()
-    autocmd BufWritePost,TextChanged /Users/ttakeda/repos/changelog/ai/battlefront/progress/work.md,/Users/ttakeda/repos/changelog/ai/battlefront/progress/private.md call s:BattlefrontRefreshTagDisplayForMode()
+    autocmd BufWritePost,TextChanged ~/repos/changelog/ai/battlefront/progress/work.md,~/repos/changelog/ai/battlefront/progress/private.md call s:BattlefrontRefreshTagDisplayForMode()
   augroup END
 endif
+" }}}1
+
+" Battlefront Date/Time Highlight {{{1
+" - # Deadline 配下: ^m/d が今日より過去の行を赤（行全体）
+" - # Today 配下: ^m/d を赤、=30m 等の時間指定を黄
+" Why: syntax match ではなく matchadd/matchaddpos を採用。
+"   理由: 期限超過判定は今日の日付との比較が必要で、静的な syntax 正規表現では表現できない。
+"   セクション制約（特定ヘッダ配下のみ）も \%>Nl\%<Nl の動的合成で実現する。
+
+" Why: highlight default + ColorScheme autocmd で再定義。
+"   理由: colorscheme 切替で highlight がクリアされても復元しつつ、
+"   ユーザーが明示定義していれば default により上書きしないため。
+function! s:BattlefrontDefineDateHighlights() abort
+  highlight default BattlefrontOverdue ctermfg=203 guifg=#ff5f5f
+  highlight default BattlefrontTodayDate ctermfg=203 guifg=#ff5f5f
+  highlight default BattlefrontTodayTime ctermfg=220 guifg=#ffd700
+endfunction
+call s:BattlefrontDefineDateHighlights()
+
+" ^# ヘッダ（パターン指定）のセクション範囲 [header_line, end_line] を返す。なければ [0, 0]
+" Why: FindBattlefrontTodayRange の汎用版。既存関数は他経路で使用中のため変更しない。
+function! s:FindBattlefrontSectionRange(header_pattern) abort
+  let l:start = 0
+  let l:i = 1
+  while l:i <= line('$')
+    if getline(l:i) =~# a:header_pattern
+      let l:start = l:i
+      break
+    endif
+    let l:i += 1
+  endwhile
+  if l:start == 0
+    return [0, 0]
+  endif
+  let l:end = line('$')
+  let l:i = l:start + 1
+  while l:i <= line('$')
+    if getline(l:i) =~# '^#'
+      let l:end = l:i - 1
+      break
+    endif
+    let l:i += 1
+  endwhile
+  return [l:start, l:end]
+endfunction
+
+function! s:BattlefrontClearDateHighlights() abort
+  if exists('w:battlefront_date_match_ids')
+    for l:id in w:battlefront_date_match_ids
+      silent! call matchdelete(l:id)
+    endfor
+  endif
+  let w:battlefront_date_match_ids = []
+endfunction
+
+function! s:BattlefrontApplyDateHighlights() abort
+  call s:BattlefrontClearDateHighlights()
+
+  " 1. # Deadline 配下: ^m/d が今日より過去なら行全体を赤
+  let l:range = s:FindBattlefrontSectionRange('^# Deadline')
+  if l:range[0] > 0
+    let l:today_m = str2nr(strftime('%m'))
+    let l:today_d = str2nr(strftime('%d'))
+    for l:lnum in range(l:range[0] + 1, l:range[1])
+      let l:m = matchlist(getline(l:lnum), '\^\(\d\{1,2}\)/\(\d\{1,2}\)')
+      if empty(l:m)
+        continue
+      endif
+      " Why: 年なし表記のため同年比較のみ（12月→1月の年跨ぎは過去扱いになる制約を許容）
+      let l:mon = str2nr(l:m[1])
+      let l:day = str2nr(l:m[2])
+      if l:mon < l:today_m || (l:mon == l:today_m && l:day < l:today_d)
+        call add(w:battlefront_date_match_ids,
+              \ matchaddpos('BattlefrontOverdue', [l:lnum]))
+      endif
+    endfor
+  endif
+
+  " 2. # Today 配下: ^m/d を赤、=30m / =1h 等を黄
+  let l:range = s:FindBattlefrontSectionRange('^# Today')
+  if l:range[0] > 0 && l:range[1] > l:range[0]
+    let l:scope = '\%>' . l:range[0] . 'l\%<' . (l:range[1] + 1) . 'l'
+    call add(w:battlefront_date_match_ids,
+          \ matchadd('BattlefrontTodayDate', l:scope . '\^\d\{1,2}/\d\{1,2}'))
+    call add(w:battlefront_date_match_ids,
+          \ matchadd('BattlefrontTodayTime', l:scope . '=\d\+[mh]'))
+  endif
+endfunction
+
+" Why: タグ conceal の augroup と異なり glob パターンを使用。
+"   理由: フルパス指定はホームディレクトリ名差異（ttakeda/takets）で発火しない実績があるため。
+augroup BattlefrontDateHighlight
+  autocmd!
+  autocmd ColorScheme * call s:BattlefrontDefineDateHighlights()
+  autocmd BufEnter,BufWinEnter,TextChanged,InsertLeave
+    \ */battlefront/progress/private.md,*/battlefront/progress/work.md
+    \ call s:BattlefrontApplyDateHighlights()
+augroup END
 " }}}1
