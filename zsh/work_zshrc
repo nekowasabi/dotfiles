@@ -341,3 +341,13 @@ chezmoi-commit() {
     cd -
 }
 alias cmc="chezmoi-commit"
+
+# ==============================================================================
+# Flutter / Android SDK (work PC only)
+# ==============================================================================
+# Why: brew --cask android-commandlinetools の既定SDKルート。Android Studio未使用のためCLI構成
+export ANDROID_HOME="/opt/homebrew/share/android-commandlinetools"
+# Why: temurin@17 のパスを固定せず動的解決（パッチ更新でパスが壊れないため）
+export JAVA_HOME=$(/usr/libexec/java_home -v 17 2>/dev/null)
+# adb / emulator / sdkmanager 等を PATH に追加
+export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$JAVA_HOME/bin:$PATH"
