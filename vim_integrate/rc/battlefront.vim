@@ -863,12 +863,9 @@ augroup END
 " Why: 旧 right-align virt_text の extmark を確実に消すため namespace を維持する。
 if has('nvim-0.6')
   let s:battlefront_tag_ns = nvim_create_namespace('battlefront_tag_display')
-  " Why: フルパス固定 ではなく expand('~/...') を採用。
-  "   理由: ホームディレクトリ名が環境で異なり（ttakeda/takets）、固定パスでは
-  "   expand('%:p') との比較が常に偽になりタグ表示機能が無音で死んでいたため。
   let s:battlefront_progress_files = [
-        \ expand('~/repos/changelog/ai/battlefront/progress/work.md'),
-        \ expand('~/repos/changelog/ai/battlefront/progress/private.md'),
+        \ '/Users/ttakeda/repos/changelog/ai/battlefront/progress/work.md',
+        \ '/Users/ttakeda/repos/changelog/ai/battlefront/progress/private.md',
         \ ]
 
   function! s:BattlefrontClearTagDisplay(buf) abort
@@ -938,112 +935,71 @@ if has('nvim-0.6')
   endfunction
 
   " Why: BufWritePost/TextChanged でも旧 virt_text extmark を消し、表示状態を正規化する。
-  " Why: autocmd パターンは ~/ 表記のまま使用（Vim が自動でホームに展開する :h autocmd-patterns）
   augroup BattlefrontTagDisplay
     autocmd!
-    autocmd BufEnter,BufWinEnter ~/repos/changelog/ai/battlefront/progress/work.md,~/repos/changelog/ai/battlefront/progress/private.md call s:BattlefrontSetupTagDisplay()
-    autocmd InsertEnter,TextChangedI,CursorMovedI ~/repos/changelog/ai/battlefront/progress/work.md,~/repos/changelog/ai/battlefront/progress/private.md call s:BattlefrontEnterInsertTagDisplay()
-    autocmd InsertLeave ~/repos/changelog/ai/battlefront/progress/work.md,~/repos/changelog/ai/battlefront/progress/private.md call s:BattlefrontLeaveInsertTagDisplay()
+    autocmd BufEnter,BufWinEnter /Users/ttakeda/repos/changelog/ai/battlefront/progress/work.md,/Users/ttakeda/repos/changelog/ai/battlefront/progress/private.md call s:BattlefrontSetupTagDisplay()
+    autocmd InsertEnter,TextChangedI,CursorMovedI /Users/ttakeda/repos/changelog/ai/battlefront/progress/work.md,/Users/ttakeda/repos/changelog/ai/battlefront/progress/private.md call s:BattlefrontEnterInsertTagDisplay()
+    autocmd InsertLeave /Users/ttakeda/repos/changelog/ai/battlefront/progress/work.md,/Users/ttakeda/repos/changelog/ai/battlefront/progress/private.md call s:BattlefrontLeaveInsertTagDisplay()
     autocmd ModeChanged * call s:BattlefrontRefreshTagDisplayForMode()
-    autocmd BufWritePost,TextChanged ~/repos/changelog/ai/battlefront/progress/work.md,~/repos/changelog/ai/battlefront/progress/private.md call s:BattlefrontRefreshTagDisplayForMode()
+    autocmd BufWritePost,TextChanged /Users/ttakeda/repos/changelog/ai/battlefront/progress/work.md,/Users/ttakeda/repos/changelog/ai/battlefront/progress/private.md call s:BattlefrontRefreshTagDisplayForMode()
   augroup END
 endif
 " }}}1
 
-" Battlefront Date/Time Highlight {{{1
-" - # Deadline 配下: ^m/d が今日より過去の行を赤（行全体）
-" - # Today 配下: ^m/d を赤、=30m 等の時間指定を黄
-" Why: syntax match ではなく matchadd/matchaddpos を採用。
-"   理由: 期限超過判定は今日の日付との比較が必要で、静的な syntax 正規表現では表現できない。
-"   セクション制約（特定ヘッダ配下のみ）も \%>Nl\%<Nl の動的合成で実現する。
+" Battlefront Today Time Estimate Highlight {{{1
+" Why: #Today セクション内の =15m 形式の時間見積りを赤で強調する。
+"   syntax match ではなく matchadd を採用。理由: Neovim の Markdown は
+"   Treesitter ハイライトが優先される場合があり :syntax 定義が効かないことがある。
+"   matchadd は window-local の優先度で Treesitter/syntax の上に確実に乗る。
+"   Today 限定は既存 s:FindBattlefrontTodayRange() の行範囲を \%>l/\%<l で適用する。
 
-" Why: highlight default + ColorScheme autocmd で再定義。
-"   理由: colorscheme 切替で highlight がクリアされても復元しつつ、
-"   ユーザーが明示定義していれば default により上書きしないため。
-function! s:BattlefrontDefineDateHighlights() abort
-  highlight default BattlefrontOverdue ctermfg=203 guifg=#ff5f5f
-  highlight default BattlefrontTodayDate ctermfg=203 guifg=#ff5f5f
-  highlight default BattlefrontTodayTime ctermfg=220 guifg=#ffd700
+" Why: highlight を直書きではなく関数化し ColorScheme で再適用する。理由: 起動時は
+"   battlefront.vim の source 後に colorscheme が走り、その内部の `highlight clear` で
+"   `default` 定義の色が全消去される。結果 match(id) は残るがグループが無色になり赤く
+"   ならない（:source で効くのは colorscheme ロード後の再定義で色が復活するため）。
+function! s:BattlefrontDefineTimeEstimateHighlight() abort
+  highlight default BattlefrontTodayTimeEstimate ctermfg=red guifg=#ff5555
 endfunction
-call s:BattlefrontDefineDateHighlights()
+call s:BattlefrontDefineTimeEstimateHighlight()
 
-" ^# ヘッダ（パターン指定）のセクション範囲 [header_line, end_line] を返す。なければ [0, 0]
-" Why: FindBattlefrontTodayRange の汎用版。既存関数は他経路で使用中のため変更しない。
-function! s:FindBattlefrontSectionRange(header_pattern) abort
-  let l:start = 0
-  let l:i = 1
-  while l:i <= line('$')
-    if getline(l:i) =~# a:header_pattern
-      let l:start = l:i
-      break
-    endif
-    let l:i += 1
-  endwhile
-  if l:start == 0
-    return [0, 0]
-  endif
-  let l:end = line('$')
-  let l:i = l:start + 1
-  while l:i <= line('$')
-    if getline(l:i) =~# '^#'
-      let l:end = l:i - 1
-      break
-    endif
-    let l:i += 1
-  endwhile
-  return [l:start, l:end]
-endfunction
-
-function! s:BattlefrontClearDateHighlights() abort
-  if exists('w:battlefront_date_match_ids')
-    for l:id in w:battlefront_date_match_ids
-      silent! call matchdelete(l:id)
-    endfor
-  endif
-  let w:battlefront_date_match_ids = []
-endfunction
-
-function! s:BattlefrontApplyDateHighlights() abort
-  call s:BattlefrontClearDateHighlights()
-
-  " 1. # Deadline 配下: ^m/d が今日より過去なら行全体を赤
-  let l:range = s:FindBattlefrontSectionRange('^# Deadline')
-  if l:range[0] > 0
-    let l:today_m = str2nr(strftime('%m'))
-    let l:today_d = str2nr(strftime('%d'))
-    for l:lnum in range(l:range[0] + 1, l:range[1])
-      let l:m = matchlist(getline(l:lnum), '\^\(\d\{1,2}\)/\(\d\{1,2}\)')
-      if empty(l:m)
-        continue
-      endif
-      " Why: 年なし表記のため同年比較のみ（12月→1月の年跨ぎは過去扱いになる制約を許容）
-      let l:mon = str2nr(l:m[1])
-      let l:day = str2nr(l:m[2])
-      if l:mon < l:today_m || (l:mon == l:today_m && l:day < l:today_d)
-        call add(w:battlefront_date_match_ids,
-              \ matchaddpos('BattlefrontOverdue', [l:lnum]))
-      endif
-    endfor
-  endif
-
-  " 2. # Today 配下: ^m/d を赤、=30m / =1h 等を黄
-  let l:range = s:FindBattlefrontSectionRange('^# Today')
-  if l:range[0] > 0 && l:range[1] > l:range[0]
-    let l:scope = '\%>' . l:range[0] . 'l\%<' . (l:range[1] + 1) . 'l'
-    call add(w:battlefront_date_match_ids,
-          \ matchadd('BattlefrontTodayDate', l:scope . '\^\d\{1,2}/\d\{1,2}'))
-    call add(w:battlefront_date_match_ids,
-          \ matchadd('BattlefrontTodayTime', l:scope . '=\d\+[mh]'))
+function! s:BattlefrontClearTimeEstimateMatch() abort
+  if exists('w:battlefront_time_estimate_match_id')
+    silent! call matchdelete(w:battlefront_time_estimate_match_id)
+    unlet w:battlefront_time_estimate_match_id
   endif
 endfunction
 
-" Why: タグ conceal の augroup と異なり glob パターンを使用。
-"   理由: フルパス指定はホームディレクトリ名差異（ttakeda/takets）で発火しない実績があるため。
-augroup BattlefrontDateHighlight
+function! s:BattlefrontApplyTimeEstimateMatch() abort
+  " Why: VimEnter * からも呼ぶため、対象 progress バッファ以外は早期 return する。
+  "   理由: VimEnter はファイルパターンで絞れないため関数側で判定が必要。
+  if expand('%:p') !~# '/battlefront/progress/\%(work\|private\)\.md$'
+    return
+  endif
+  call s:BattlefrontClearTimeEstimateMatch()
+  let l:range = s:FindBattlefrontTodayRange()
+  if l:range[0] == 0
+    return
+  endif
+  " Why: \%>Nl/\%<Nl で Today セクション行範囲に限定。ヘッダ行(range[0])は
+  "   除外し、次ヘッダ直前(range[1])までを対象。=15m / =1h 等の =数字+単位に一致。
+  let l:pattern = '\%>' . l:range[0] . 'l\%<' . (l:range[1] + 1) . 'l=\d\+[smhdw]'
+  " Why: priority 30 ではなく 200。理由: Neovim の Treesitter ハイライトは
+  "   extmark priority 100 で適用されるため、それを上回らないと =15m が
+  "   リスト本文の Treesitter ハイライトに負けて赤くならない。
+  let w:battlefront_time_estimate_match_id =
+        \ matchadd('BattlefrontTodayTimeEstimate', l:pattern, 200)
+endfunction
+
+augroup BattlefrontTodayTimeEstimate
   autocmd!
-  autocmd ColorScheme * call s:BattlefrontDefineDateHighlights()
-  autocmd BufEnter,BufWinEnter,TextChanged,InsertLeave
-    \ */battlefront/progress/private.md,*/battlefront/progress/work.md
-    \ call s:BattlefrontApplyDateHighlights()
+  " Why: colorscheme 適用時の `highlight clear` で消える色を毎回再定義する。
+  "   これが「再起動だと赤くない／:source だと赤い」の根本対策。
+  autocmd ColorScheme * call s:BattlefrontDefineTimeEstimateHighlight()
+  autocmd BufEnter,BufWinEnter,TextChanged,TextChangedI,InsertLeave
+    \ /Users/ttakeda/repos/changelog/ai/battlefront/progress/work.md,/Users/ttakeda/repos/changelog/ai/battlefront/progress/private.md
+    \ call s:BattlefrontApplyTimeEstimateMatch()
+  " Why: 起動時(nvim file.md)は augroup 定義前に最初の BufEnter が発火済みで
+  "   取りこぼすため、初期化完了後に必ず一度発火する VimEnter で補う。
+  autocmd VimEnter * call s:BattlefrontApplyTimeEstimateMatch()
 augroup END
 " }}}1
