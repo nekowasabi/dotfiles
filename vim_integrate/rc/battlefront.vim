@@ -947,7 +947,8 @@ endif
 " }}}1
 
 " Battlefront Today Time Estimate Highlight {{{1
-" Why: #Today セクション内の =15m 形式の時間見積りを赤で強調する。
+" Why: #Today セクション内の =15m 形式の時間見積りを黄色、^6/7 1500 形式の
+"   締切を赤で強調する。色分け理由: 見積り(黄)より締切(赤)の緊急性が高いため。
 "   syntax match ではなく matchadd を採用。理由: Neovim の Markdown は
 "   Treesitter ハイライトが優先される場合があり :syntax 定義が効かないことがある。
 "   matchadd は window-local の優先度で Treesitter/syntax の上に確実に乗る。
@@ -958,7 +959,9 @@ endif
 "   `default` 定義の色が全消去される。結果 match(id) は残るがグループが無色になり赤く
 "   ならない（:source で効くのは colorscheme ロード後の再定義で色が復活するため）。
 function! s:BattlefrontDefineTimeEstimateHighlight() abort
-  highlight default BattlefrontTodayTimeEstimate ctermfg=red guifg=#ff5555
+  " Why: 見積り(=15m)は赤から黄に変更し、締切(^6/7 1500)用に赤を新設する。
+  highlight default BattlefrontTodayTimeEstimate ctermfg=yellow guifg=#ffd700
+  highlight default BattlefrontTodayDeadline ctermfg=red guifg=#ff5555
 endfunction
 call s:BattlefrontDefineTimeEstimateHighlight()
 
@@ -966,6 +969,10 @@ function! s:BattlefrontClearTimeEstimateMatch() abort
   if exists('w:battlefront_time_estimate_match_id')
     silent! call matchdelete(w:battlefront_time_estimate_match_id)
     unlet w:battlefront_time_estimate_match_id
+  endif
+  if exists('w:battlefront_deadline_match_id')
+    silent! call matchdelete(w:battlefront_deadline_match_id)
+    unlet w:battlefront_deadline_match_id
   endif
 endfunction
 
@@ -981,13 +988,20 @@ function! s:BattlefrontApplyTimeEstimateMatch() abort
     return
   endif
   " Why: \%>Nl/\%<Nl で Today セクション行範囲に限定。ヘッダ行(range[0])は
-  "   除外し、次ヘッダ直前(range[1])までを対象。=15m / =1h 等の =数字+単位に一致。
-  let l:pattern = '\%>' . l:range[0] . 'l\%<' . (l:range[1] + 1) . 'l=\d\+[smhdw]'
+  "   除外し、次ヘッダ直前(range[1])までを対象。両パターンで共通利用する。
+  let l:scope = '\%>' . l:range[0] . 'l\%<' . (l:range[1] + 1) . 'l'
+  " Why: =15m / =1h 等の =数字+単位（見積り = 黄色）に一致。
+  let l:estimate_pattern = l:scope . '=\d\+[smhdw]'
   " Why: priority 30 ではなく 200。理由: Neovim の Treesitter ハイライトは
   "   extmark priority 100 で適用されるため、それを上回らないと =15m が
-  "   リスト本文の Treesitter ハイライトに負けて赤くならない。
+  "   リスト本文の Treesitter ハイライトに負けて色付かない。
   let w:battlefront_time_estimate_match_id =
-        \ matchadd('BattlefrontTodayTimeEstimate', l:pattern, 200)
+        \ matchadd('BattlefrontTodayTimeEstimate', l:estimate_pattern, 200)
+  " Why: ^6/7 1500 等の ^月/日（+任意の時刻 HHMM）（締切 = 赤色）に一致。
+  "   \^ は行頭アンカーではなくリテラルの ^。時刻部分はオプション扱い。
+  let l:deadline_pattern = l:scope . '\^\d\{1,2}/\d\{1,2}\%(\s\+\d\{3,4}\)\?'
+  let w:battlefront_deadline_match_id =
+        \ matchadd('BattlefrontTodayDeadline', l:deadline_pattern, 200)
 endfunction
 
 augroup BattlefrontTodayTimeEstimate
