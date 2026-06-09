@@ -101,6 +101,11 @@ return {
       action = wezterm.action.SendString('\n')
     },
     bind_super_key_to_vim('s'),
+    -- Why: Cmd+F に tmux の M-f(=ESC+f, \x1b f) を送出させ fuzzy-motion を起動する。
+    --      SendKey{ mods='ALT' } ではなく SendString を採用。理由: enable_kitty_keyboard=true 下では
+    --      SendKey が kitty 拡張エンコーディングで送られ tmux の素の M-f バインドにマッチしない恐れが
+    --      あるため、伝統的な ESC+f バイト列を直接送って確実に M-f として解釈させる。
+    { key = 'f', mods = 'CMD', action = wezterm.action.SendString('\x1bf') },
   },
 }
 

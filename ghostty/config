@@ -33,6 +33,10 @@ window-inherit-working-directory = true
 
 resize-overlay = never
 keybind = shift+enter=text:\x1b\r
+# Why: unbind/ignore ではなく text:\x1bf を採用。Cmd は端末プロトコルに修飾キーとして存在せず
+#      unbind では tmux に何も届かない（無反応になる）。そこで ESC+f(=\x1b f, tmux の M-f) を
+#      明示送出し、tmux root テーブルの M-f バインド(fuzzy-motion 起動)を発火させる。
+keybind = cmd+f=text:\x1bf
 
 # Macの場合タイトルバーを隠す
 macos-titlebar-style = hidden
