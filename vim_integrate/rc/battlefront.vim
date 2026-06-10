@@ -962,6 +962,8 @@ function! s:BattlefrontDefineTimeEstimateHighlight() abort
   " Why: 見積り(=15m)は赤から黄に変更し、締切(^6/7 1500)用に赤を新設する。
   highlight default BattlefrontTodayTimeEstimate ctermfg=yellow guifg=#ffd700
   highlight default BattlefrontTodayDeadline ctermfg=red guifg=#ff5555
+  highlight default BattlefrontPastDeadlineLine ctermfg=red guifg=#ff5555
+  highlight default BattlefrontTodayDeadlineLine ctermfg=yellow guifg=#ffd700
 endfunction
 call s:BattlefrontDefineTimeEstimateHighlight()
 
@@ -974,15 +976,82 @@ function! s:BattlefrontClearTimeEstimateMatch() abort
     silent! call matchdelete(w:battlefront_deadline_match_id)
     unlet w:battlefront_deadline_match_id
   endif
+  for l:var_name in [
+        \ 'battlefront_past_deadline_line_match_ids',
+        \ 'battlefront_today_deadline_line_match_ids',
+        \ ]
+    if exists('w:' . l:var_name)
+      for l:match_id in get(w:, l:var_name)
+        silent! call matchdelete(l:match_id)
+      endfor
+      unlet w:{l:var_name}
+    endif
+  endfor
+endfunction
+
+function! s:BattlefrontDeadlineDateValue(month, day) abort
+  return str2nr(strftime('%Y')) * 10000 + a:month * 100 + a:day
+endfunction
+
+function! s:BattlefrontAddDeadlineLineMatches(group, positions) abort
+  let l:match_ids = []
+  let l:i = 0
+  while l:i < len(a:positions)
+    call add(l:match_ids, matchaddpos(a:group, a:positions[l:i : l:i + 7], 250))
+    let l:i += 8
+  endwhile
+  return l:match_ids
+endfunction
+
+function! s:BattlefrontApplyDeadlineLineMatch() abort
+  let l:today = s:BattlefrontDeadlineDateValue(
+        \ str2nr(strftime('%m')),
+        \ str2nr(strftime('%d')),
+        \ )
+  let l:past_positions = []
+  let l:today_positions = []
+
+  for l:lnum in range(1, line('$'))
+    let l:line = getline(l:lnum)
+    if l:line !~# '^\s*[-*]\s*\['
+      continue
+    endif
+    let l:matches = matchlist(l:line, '\^\(\d\{1,2}\)/\(\d\{1,2}\)')
+    if empty(l:matches)
+      continue
+    endif
+
+    let l:month = str2nr(l:matches[1])
+    let l:day = str2nr(l:matches[2])
+    if l:month < 1 || l:month > 12 || l:day < 1 || l:day > 31
+      continue
+    endif
+    let l:date = s:BattlefrontDeadlineDateValue(
+          \ l:month,
+          \ l:day,
+          \ )
+    let l:position = [l:lnum, 1, max([1, strlen(l:line)])]
+    if l:date < l:today
+      call add(l:past_positions, l:position)
+    elseif l:date == l:today
+      call add(l:today_positions, l:position)
+    endif
+  endfor
+
+  let w:battlefront_past_deadline_line_match_ids =
+        \ s:BattlefrontAddDeadlineLineMatches('BattlefrontPastDeadlineLine', l:past_positions)
+  let w:battlefront_today_deadline_line_match_ids =
+        \ s:BattlefrontAddDeadlineLineMatches('BattlefrontTodayDeadlineLine', l:today_positions)
 endfunction
 
 function! s:BattlefrontApplyTimeEstimateMatch() abort
   " Why: VimEnter * からも呼ぶため、対象 progress バッファ以外は早期 return する。
   "   理由: VimEnter はファイルパターンで絞れないため関数側で判定が必要。
+  call s:BattlefrontClearTimeEstimateMatch()
   if expand('%:p') !~# '/battlefront/progress/\%(work\|private\)\.md$'
     return
   endif
-  call s:BattlefrontClearTimeEstimateMatch()
+  call s:BattlefrontApplyDeadlineLineMatch()
   let l:range = s:FindBattlefrontTodayRange()
   if l:range[0] == 0
     return
@@ -1001,7 +1070,7 @@ function! s:BattlefrontApplyTimeEstimateMatch() abort
   "   \^ は行頭アンカーではなくリテラルの ^。時刻部分はオプション扱い。
   let l:deadline_pattern = l:scope . '\^\d\{1,2}/\d\{1,2}\%(\s\+\d\{3,4}\)\?'
   let w:battlefront_deadline_match_id =
-        \ matchadd('BattlefrontTodayDeadline', l:deadline_pattern, 200)
+        \ matchadd('BattlefrontTodayDeadline', l:deadline_pattern, 180)
 endfunction
 
 augroup BattlefrontTodayTimeEstimate
@@ -1010,7 +1079,7 @@ augroup BattlefrontTodayTimeEstimate
   "   これが「再起動だと赤くない／:source だと赤い」の根本対策。
   autocmd ColorScheme * call s:BattlefrontDefineTimeEstimateHighlight()
   autocmd BufEnter,BufWinEnter,TextChanged,TextChangedI,InsertLeave
-    \ /Users/ttakeda/repos/changelog/ai/battlefront/progress/work.md,/Users/ttakeda/repos/changelog/ai/battlefront/progress/private.md
+    \ */battlefront/progress/work.md,*/battlefront/progress/private.md
     \ call s:BattlefrontApplyTimeEstimateMatch()
   " Why: 起動時(nvim file.md)は augroup 定義前に最初の BufEnter が発火済みで
   "   取りこぼすため、初期化完了後に必ず一度発火する VimEnter で補う。
