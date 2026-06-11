@@ -209,6 +209,7 @@ export FZF_DEFAULT_OPTS='--height 80% --reverse'
 
 
 source "$HOME/repos/dotfiles/zsh/common/select-history.zsh"
+source "$HOME/repos/dotfiles/zsh/common/functions.zsh"
 
 # 移動したディレクトリ検索(Ctrl+Z)
 fzf-z-search() {

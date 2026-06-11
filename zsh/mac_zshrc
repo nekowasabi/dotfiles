@@ -51,7 +51,6 @@ alias gaa='git add --all && aicommits --generate 3'
 alias gps='git push'
 alias gp='git pull'
 alias lg='lazygit'
-alias g='gptme'
 alias yo="claude --dangerously-skip-permissions --model opus"
 alias ys="claude --dangerously-skip-permissions --model sonnet"
 alias c="claude --dangerously-skip-permissions"
@@ -254,6 +253,7 @@ zle -N run_powered_cd_2
 bindkey '^z' run_powered_cd_2
 
 source "$HOME/repos/dotfiles/zsh/common/select-history.zsh"
+source "$HOME/repos/dotfiles/zsh/common/functions.zsh"
 
 # カレント以下のコマンドやパスを取得
 fzf_find_path() {

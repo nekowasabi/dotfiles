@@ -149,6 +149,15 @@ function ghq_rg() {
   nvim "+$line" "$file"
 }
 
+# ghqリポジトリを選択して cd で移動する
+function ghq_cd() {
+  local repo=$(ghq list | fzf --preview "eza --tree --level=2 --color=always $(ghq root)/{}")
+  [[ -z "$repo" ]] && return
+
+  cd "$(ghq root)/$repo"
+}
+
 # エイリアス
+alias g='ghq_cd'
 alias gf='ghq_fd'
 alias gr='ghq_rg'
