@@ -744,7 +744,8 @@
               "type": "frontmost_application_if",
               "bundle_identifiers": [
                 "com.brave.Browser",
-                "net.imput.helium"
+                "net.imput.helium",
+                "cloud.taskchute.desktop"
               ]
             }
           ]
@@ -775,7 +776,8 @@
               "type": "frontmost_application_if",
               "bundle_identifiers": [
                 "com.brave.Browser",
-                "net.imput.helium"
+                "net.imput.helium",
+                "cloud.taskchute.desktop"
               ]
             }
           ]
@@ -806,7 +808,8 @@
               "type": "frontmost_application_if",
               "bundle_identifiers": [
                 "com.brave.Browser",
-                "net.imput.helium"
+                "net.imput.helium",
+                "cloud.taskchute.desktop"
               ]
             }
           ]
@@ -833,7 +836,8 @@
               "type": "frontmost_application_if",
               "bundle_identifiers": [
                 "com.brave.Browser",
-                "net.imput.helium"
+                "net.imput.helium",
+                "cloud.taskchute.desktop"
               ]
             }
           ]
@@ -862,7 +866,8 @@
               "type": "frontmost_application_if",
               "bundle_identifiers": [
                 "com.brave.Browser",
-                "net.imput.helium"
+                "net.imput.helium",
+                "cloud.taskchute.desktop"
               ]
             }
           ]
