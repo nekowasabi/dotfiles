@@ -27,7 +27,8 @@ require("kulala").setup({
       ["application/json"] = {
         ft = "json",
         formatter = { "jq", "." },
-        pathresolver = require("kulala.parser.jsonpath").parse,
+        -- Why: v6.11.1 で kulala.parser.jsonpath モジュールが削除されたため require 行を撤去。
+        -- JSON のパス解決・整形は kulala-core が内部処理する（旧来の外部 pathresolver は不要）。
       },
       ["application/xml"] = {
         ft = "xml",
