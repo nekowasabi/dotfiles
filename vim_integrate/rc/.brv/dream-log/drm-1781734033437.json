@@ -1,0 +1,34 @@
+{
+  "completedAt": 1781734066291,
+  "id": "drm-1781734033437",
+  "operations": [
+    {
+      "action": "MERGE",
+      "inputFiles": [
+        "plugins/startup_fixes/neovim_plugin_startup_fixes.md",
+        "plugins/startup_fixes/neovim_plugin_startup_fixes.abstract.md",
+        "plugins/startup_fixes/neovim_plugin_startup_fixes.overview.md"
+      ],
+      "needsReview": true,
+      "outputFile": "plugins/startup_fixes/neovim_plugin_startup_fixes.md",
+      "previousTexts": {
+        "plugins/startup_fixes/neovim_plugin_startup_fixes.md": "---\ntitle: Neovim Plugin Startup Fixes\nsummary: Kulala no longer requires kulala.parser.jsonpath; claudecode loads denops plugins with denops#plugin#load after User DenopsReady\ntags: []\nrelated: [plugins/battlefront/battlefront_vim.md]\nkeywords: []\ncreatedAt: '2026-06-17T21:52:09.694Z'\nupdatedAt: '2026-06-17T21:52:09.694Z'\n---\n## Reason\nDocument startup compatibility fixes for plugins/kulala.vim and plugins/claudecode.vim\n\n## Raw Concept\n**Task:**\nDocument Neovim rc startup fixes for plugin compatibility\n\n**Changes:**\n- Removed the kulala.parser.jsonpath requirement from kulala.nvim configuration\n- Kept JSON, XML, and HTML formatters guarded by executable() checks\n- Switched claudecode.vim loading from denops#plugin#register to denops#plugin#load after User DenopsReady\n\n**Files:**\n- plugins/kulala.vim\n- plugins/claudecode.vim\n\n**Flow:**\nNeovim startup -> load plugin config -> apply guarded formatters -> load denops plugin after User DenopsReady\n\n**Timestamp:** 2026-06-17T21:51:42.955Z\n\n## Narrative\n### Structure\nThe configuration is split across plugins/kulala.vim and plugins/claudecode.vim. Kulala defines content-type formatters for application/json, application/xml, and text/html, while claudecode must defer denops plugin loading until the DenopsReady user event.\n\n### Dependencies\nKulala depends on jq and xmllint only when they are executable. Claudecode depends on current denops.vim behavior that uses denops#plugin#load instead of the removed denops#plugin#register.\n\n### Highlights\nThe key compatibility fix is avoiding a missing kulala.parser.jsonpath module in newer kulala.nvim versions and avoiding channel-not-ready startup errors with denops.\n\n### Examples\nJSON uses jq when available, XML uses xmllint for formatting and xpath path resolution when available, and HTML uses xmllint formatting when available.\n",
+        "plugins/startup_fixes/neovim_plugin_startup_fixes.abstract.md": "Neovim startup compatibility fixes remove kulala.parser.jsonpath from kulala.nvim, guard external formatters by executable checks, and defer claudecode denops loading until User DenopsReady using denops#plugin#load.",
+        "plugins/startup_fixes/neovim_plugin_startup_fixes.overview.md": "- Documents Neovim startup compatibility fixes for two plugins: kulala.nvim and claudecode.vim.\n- Main kulala change: remove the `kulala.parser.jsonpath` dependency from configuration because newer versions no longer require it.\n- Existing formatter behavior is preserved, with JSON/XML/HTML formatters still protected by `executable()` checks.\n- Main claudecode change: replace `denops#plugin#register` with `denops#plugin#load`, and defer loading until the `User DenopsReady` event.\n- The startup flow is: Neovim starts, plugin config loads, guarded formatters are applied, then denops plugin loading occurs after `DenopsReady`.\n- File-level structure centers on two plugin config files: `plugins/kulala.vim` and `plugins/claudecode.vim`.\n- Notable entities and dependencies: `jq`, `xmllint`, `denops.vim`, and the `User DenopsReady` event; the document emphasizes avoiding missing-module and channel-not-ready startup errors."
+      },
+      "reason": "These three files all document the same Neovim startup compatibility fixes for kulala.nvim and claudecode.vim. The .md file is the richest version, while the abstract and overview are condensed duplicates of the same content.",
+      "type": "CONSOLIDATE"
+    }
+  ],
+  "startedAt": 1781734033437,
+  "status": "completed",
+  "summary": {
+    "consolidated": 1,
+    "errors": 0,
+    "flaggedForReview": 1,
+    "pruned": 0,
+    "synthesized": 0
+  },
+  "taskId": "e0731f2c-20fe-4023-8638-04321b2074f9",
+  "trigger": "agent-idle"
+}

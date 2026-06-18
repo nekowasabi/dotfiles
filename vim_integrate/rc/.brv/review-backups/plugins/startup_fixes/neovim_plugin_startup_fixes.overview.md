@@ -1,0 +1,7 @@
+- Documents Neovim startup compatibility fixes for two plugins: kulala.nvim and claudecode.vim.
+- Main kulala change: remove the `kulala.parser.jsonpath` dependency from configuration because newer versions no longer require it.
+- Existing formatter behavior is preserved, with JSON/XML/HTML formatters still protected by `executable()` checks.
+- Main claudecode change: replace `denops#plugin#register` with `denops#plugin#load`, and defer loading until the `User DenopsReady` event.
+- The startup flow is: Neovim starts, plugin config loads, guarded formatters are applied, then denops plugin loading occurs after `DenopsReady`.
+- File-level structure centers on two plugin config files: `plugins/kulala.vim` and `plugins/claudecode.vim`.
+- Notable entities and dependencies: `jq`, `xmllint`, `denops.vim`, and the `User DenopsReady` event; the document emphasizes avoiding missing-module and channel-not-ready startup errors.

@@ -1,0 +1,1 @@
+Neovim startup compatibility fixes remove kulala.parser.jsonpath from kulala.nvim, guard external formatters by executable checks, and defer claudecode denops loading until User DenopsReady using denops#plugin#load.

@@ -3,13 +3,13 @@
     {
       "order": 3,
       "path": "_index.md",
-      "tokens": 560,
+      "tokens": 666,
       "type": "summary"
     },
     {
       "order": 2,
       "path": "plugins/_index.md",
-      "tokens": 557,
+      "tokens": 693,
       "type": "summary"
     },
     {
@@ -23,15 +23,21 @@
       "path": "plugins/battlefront/battlefront_vim.md",
       "tokens": 1461,
       "type": "context"
+    },
+    {
+      "importance": 50,
+      "path": "plugins/startup_fixes/neovim_plugin_startup_fixes.md",
+      "tokens": 886,
+      "type": "context"
     }
   ],
-  "generated_at": "2026-05-28T23:16:31.292Z",
+  "generated_at": "2026-06-17T22:07:46.290Z",
   "lane_tokens": {
-    "contexts": 1461,
+    "contexts": 2347,
     "stubs": 0,
-    "summaries": 1752
+    "summaries": 1994
   },
-  "source_fingerprint": "9903307a4b11f0de8cd16630355eeca27a69fb1a7f3197f47296f61dbde0e418",
-  "total_tokens": 3213,
+  "source_fingerprint": "d1b06d70b0a5dd79c5ea7bc197934018dba8d12c08559f1f22ac0ab75dd7d370",
+  "total_tokens": 4341,
   "version": 1
 }
