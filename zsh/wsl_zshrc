@@ -174,7 +174,8 @@ alias b='cd-bookmark'
 # zi light z-shell/zsh-zoxide
 
 export DENO_INSTALL="/home/linuxbrew/.linuxbrew"
-export PATH="$DENO_INSTALL/bin:$PATH:/home/takets/.local/bin"
+# Why: mise also provides codex, so keep the Codex installer target before mise-managed shims.
+export PATH="$HOME/.local/bin:$DENO_INSTALL/bin:$PATH"
 
 # zeno
 zinit ice lucid depth"1" blockf
