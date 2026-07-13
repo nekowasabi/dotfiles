@@ -47,9 +47,6 @@ esac
 # path（小文字）は PATH（大文字）と連動する zsh 特殊変数。
 typeset -U path fpath
 
-# ByteRover CLI
-export PATH="$HOME/.brv-cli/bin:$PATH"
-
 
 # Added by Antigravity CLI installer
 export PATH="/Users/ttakeda/.local/bin:$PATH"
