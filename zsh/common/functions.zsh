@@ -149,12 +149,15 @@ function ghq_rg() {
   nvim "+$line" "$file"
 }
 
-# ghqリポジトリを選択して cd で移動する
+# ghqリポジトリ + ~/works 直下を選択して cd で移動する
+# Why: ghq list（相対パス）に ~/works を混ぜるとルート解決が破綻するため、-p の絶対パスに統一
 function ghq_cd() {
-  local repo=$(ghq list | fzf --preview "eza --tree --level=2 --color=always $(ghq root)/{}")
-  [[ -z "$repo" ]] && return
+  local dir=$( { ghq list -p; find ~/works -mindepth 1 -maxdepth 1 -type d 2>/dev/null } | \
+    sed -e "s|^${HOME}|~|" | \
+    fzf --preview "eza --tree --level=2 --color=always \$(eval echo {})")
+  [[ -z "$dir" ]] && return
 
-  cd "$(ghq root)/$repo"
+  cd "$(eval echo "$dir")"
 }
 
 # エイリアス
