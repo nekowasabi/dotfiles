@@ -242,6 +242,56 @@
         },
         {
           "type": "basic",
+          "description": "homerow - cmd+space を2回実行",
+          "conditions": [],
+          "from": {
+            "key_code": "spacebar",
+            "modifiers": {
+              "mandatory": [
+                "command"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "spacebar",
+              "modifiers": [
+                "command",
+								"left_shift"
+              ]
+            },
+            {
+              "key_code": "spacebar",
+              "modifiers": [
+                "command",
+								"left_shift"
+              ]
+            },
+            {
+              "key_code": "spacebar",
+              "modifiers": [
+                "command",
+								"left_shift"
+              ]
+            },
+            {
+              "key_code": "spacebar",
+              "modifiers": [
+                "command",
+								"left_shift"
+              ]
+            },
+            {
+              "key_code": "spacebar",
+              "modifiers": [
+                "command",
+								"left_shift"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "basic",
           "conditions": [
             {
               "type": "input_source_if",
