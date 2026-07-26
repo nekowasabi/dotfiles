@@ -14,4 +14,5 @@ export PATH=$PATH:/usr/local/bin:/bin:/usr/bin:$GOROOT/bin:$GOPATH/bin:/home/tak
 
 # Deno設定
 export DENO_INSTALL="/home/linuxbrew/.linuxbrew"
-export PATH="$DENO_INSTALL/bin:$PATH:/home/takets/.local/bin"
+# Why: mise 管理の npm 版より単体版 Codex を優先し、更新時に読み取り専用 ~/.zshrc への追記を回避する。
+export PATH="$HOME/.local/bin:$DENO_INSTALL/bin:$PATH"
