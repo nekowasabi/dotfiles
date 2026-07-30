@@ -119,13 +119,25 @@ snippets:
   - name: home-manager rebuild
     keyword: hmr
     snippet: cd ~/repos/private_dotfiles/nix/home-manager && sudo darwin-rebuild switch --flake .#takets --no-update-lock-file
+  - name: tuicr
+    keyword: tcr
+    snippet: "tuicr pr "
 
 completions:
   - name: kill
-    patterns: 
+    patterns:
       - "^kill( -9)? $"
     sourceCommand: "ps -ef | sed 1d"
     options:
       --multi: true
       --prompt: "'Kill Process> '"
     callback: "awk '{print $2}'"
+  - name: PR select for tuicr
+    patterns:
+      - "^tuicr pr $"
+    sourceCommand: "gh pr list --state open --json number,title,headRefName --jq '.[] | [.number,.title,.headRefName] | @tsv'"
+    options:
+      --prompt: "'PR> '"
+      --delimiter: "'\\t'"
+      --with-nth: "2,3"
+    callback: "awk -F'\\t' '{print $1}'"
