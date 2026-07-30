@@ -37,6 +37,9 @@ zinit light zsh-users/zsh-completions
 zinit ice pick"async.zsh" src"pure.zsh"
 zinit light sindresorhus/pure
 
+# PR number badge (right of git branch). Must load after pure itself.
+source "${0:A:h}/pure_pr_badge.zsh"
+
 # ============================================================================
 # Syntax Highlighting
 # ============================================================================
