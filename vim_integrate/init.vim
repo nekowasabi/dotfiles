@@ -207,13 +207,14 @@ endfunction
 
 
 let g:ai_edit_provider = 'openrouter'
+" let g:ai_edit_model = 'meta/muse-spark-1.1'
 let g:ai_edit_model = 'google/gemini-3.6-flash'
 " let g:ai_edit_model = 'openai/gpt-oss-120b'
 let g:ai_edit_temperature = 0.7
 let g:ai_edit_language = 'ja'
 let g:ai_edit_max_tokens = 4096
 let g:ai_edit_stream = 1
-" let g:ai_edit_provider_preferences = 'Cerebras'
+" let g:ai_edit_provider_preferences = 'Meta'
 
 nmap <Leader>gm <Plug>(git-messenger)
 
