@@ -8,10 +8,17 @@
 # synchronously in precmd would stall every prompt render, so it runs on a
 # dedicated zsh-async worker (separate from pure's own "prompt_pure" worker)
 # and results are cached per repo+branch with a TTL.
+#
+# Why: Instead of overriding prompt_pure_preprompt_render (which reconstructs
+# PROMPT every precmd, causing "literal ${prompt_newline} becomes actual newline"
+# and subsequent extraction failures), we inject PR badge into pure's PROMPT
+# template via psvar[24] at source time. This way: (1) PROMPT is built only once,
+# (2) we update psvar[24] on async fetch → pure's renderer reads it each precmd,
+# (3) no string-based extraction needed, structure-safe. Survives pure version
+# upgrades as long as the marker line exists.
 
 typeset -gA prompt_pure_pr_cache          # "repo_top:branch" -> "number:timestamp"
 typeset -g PURE_PR_TTL=${PURE_PR_TTL:-300}
-typeset -g prompt_pure_pr_number=
 typeset -g prompt_pure_pr_inflight_key=
 
 function prompt_pure_pr_async_init() {
@@ -32,19 +39,16 @@ function prompt_pure_pr_async_callback() {
   [[ $job == prompt_pure_pr_fetch ]] || return
 
   prompt_pure_pr_cache[$prompt_pure_pr_inflight_key]="${output}:${EPOCHSECONDS}"
-  prompt_pure_pr_number=$output
+  psvar[24]=$output
   prompt_pure_pr_inflight_key=
 
   prompt_pure_reset_prompt 2>/dev/null
 }
 
-# Called from the overridden prompt_pure_preprompt_render below, so it runs
-# every time pure has fresh vcs_info (not just on precmd, when the branch may
-# not be resolved yet).
 function prompt_pure_pr_maybe_fetch() {
   local branch=$prompt_pure_vcs_info[branch]
   if [[ -z $branch ]]; then
-    prompt_pure_pr_number=
+    psvar[24]=
     return
   fi
 
@@ -54,7 +58,7 @@ function prompt_pure_pr_maybe_fetch() {
   local cached_ts=${cached##*:}
 
   if [[ -n $cached ]] && (( EPOCHSECONDS - ${cached_ts:-0} < PURE_PR_TTL )); then
-    prompt_pure_pr_number=$cached_number
+    psvar[24]=$cached_number
     return
   fi
 
@@ -65,72 +69,21 @@ function prompt_pure_pr_maybe_fetch() {
   async_job prompt_pure_pr prompt_pure_pr_fetch "$branch"
 }
 
-# Pure offers no extension point for custom preprompt segments, so this
-# overrides the renderer (copied from sindresorhus/pure) to inject the PR
-# badge right after the branch/dirty segment. Pure's own pure.zsh is left
-# untouched, so `zinit` updates to the plugin keep working; only this
-# override needs to be re-synced if upstream changes prompt_pure_preprompt_render.
-function prompt_pure_preprompt_render() {
-	setopt localoptions noshwordsplit
+# Inject PR badge segment into PROMPT template (once at source time).
+# This marker is copied verbatim from pure.zsh line 1177 (the git branch segment).
+function prompt_pure_pr_badge_inject() {
+  local marker='%(14V. %F{${prompt_pure_git_branch_color}}%14v%(15V.%F{$prompt_pure_colors[git:dirty]}%15v.)%f.)'
+  # Badge segment: display PR number in the same color as the branch.
+  local badge='%(24V.%F{${prompt_pure_git_branch_color}}#%24v%f.)'
 
-	unset prompt_pure_async_render_requested
-
-	local git_color=$prompt_pure_colors[git:branch]
-	local git_dirty_color=$prompt_pure_colors[git:dirty]
-	[[ -n ${prompt_pure_git_last_dirty_check_timestamp+x} ]] && git_color=$prompt_pure_colors[git:branch:cached]
-
-	local -a preprompt_parts
-
-	if ((${(M)#jobstates:#suspended:*} != 0)); then
-		preprompt_parts+='%F{$prompt_pure_colors[suspended_jobs]}${PURE_SUSPENDED_JOBS_SYMBOL:-✦}'
-	fi
-
-	[[ -n $prompt_pure_state[username] ]] && preprompt_parts+=($prompt_pure_state[username])
-
-	preprompt_parts+=('%F{${prompt_pure_colors[path]}}%~%f')
-
-	typeset -gA prompt_pure_vcs_info
-	if [[ -n $prompt_pure_vcs_info[branch] ]]; then
-		preprompt_parts+=("%F{$git_color}"'${prompt_pure_vcs_info[branch]}'"%F{$git_dirty_color}"'${prompt_pure_git_dirty}%f')
-		prompt_pure_pr_maybe_fetch
-		[[ -n $prompt_pure_pr_number ]] && preprompt_parts+=("%F{$git_color}"'#${prompt_pure_pr_number}%f')
-	fi
-	if [[ -n $prompt_pure_vcs_info[action] ]]; then
-		preprompt_parts+=("%F{$prompt_pure_colors[git:action]}"'$prompt_pure_vcs_info[action]%f')
-	fi
-	if [[ -n $prompt_pure_git_arrows ]]; then
-		preprompt_parts+=('%F{$prompt_pure_colors[git:arrow]}${prompt_pure_git_arrows}%f')
-	fi
-	if [[ -n $prompt_pure_git_stash ]]; then
-		preprompt_parts+=('%F{$prompt_pure_colors[git:stash]}${PURE_GIT_STASH_SYMBOL:-≡}%f')
-	fi
-
-	[[ -n $prompt_pure_cmd_exec_time ]] && preprompt_parts+=('%F{$prompt_pure_colors[execution_time]}${prompt_pure_cmd_exec_time}%f')
-
-	local cleaned_ps1=$PROMPT
-	local -H MATCH MBEGIN MEND
-	if [[ $PROMPT = *$prompt_newline* ]]; then
-		cleaned_ps1=${PROMPT##*${prompt_newline}}
-	fi
-	unset MATCH MBEGIN MEND
-
-	local -ah ps1
-	ps1=(
-		${(j. .)preprompt_parts}
-		$prompt_newline
-		$cleaned_ps1
-	)
-
-	PROMPT="${(j..)ps1}"
-
-	local expanded_prompt
-	expanded_prompt="${(S%%)PROMPT}"
-
-	if [[ $1 == precmd ]]; then
-		print
-	elif [[ $prompt_pure_last_prompt != $expanded_prompt ]]; then
-		prompt_pure_reset_prompt
-	fi
-
-	typeset -g prompt_pure_last_prompt=$expanded_prompt
+  # If marker is found in PROMPT, inject badge right after it.
+  if [[ $PROMPT == *"$marker"* ]]; then
+    PROMPT=${PROMPT/$marker/$marker$badge}
+  fi
 }
+
+prompt_pure_pr_badge_inject
+
+# Register pr_maybe_fetch as a precmd hook so it runs every time before the
+# prompt is displayed (when vcs_info has fresh branch info).
+precmd_functions+=(prompt_pure_pr_maybe_fetch)
