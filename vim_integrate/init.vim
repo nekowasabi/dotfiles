@@ -208,7 +208,7 @@ endfunction
 
 let g:ai_edit_provider = 'openrouter'
 " let g:ai_edit_model = 'meta/muse-spark-1.1'
-let g:ai_edit_model = 'google/gemini-3.6-flash'
+let g:ai_edit_model = 'openai/gpt-5.6-luna'
 " let g:ai_edit_model = 'openai/gpt-oss-120b'
 let g:ai_edit_temperature = 0.7
 let g:ai_edit_language = 'ja'
