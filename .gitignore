@@ -2,3 +2,6 @@
 
 # Karabiner-Elements auto-generated backups
 mac/Karabiner-elements/automatic_backups/
+
+# byterover CLI auto-generated runtime config
+zsh/.brv/
