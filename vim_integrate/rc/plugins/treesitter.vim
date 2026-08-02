@@ -58,8 +58,8 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 -- Enable treesitter indentation for supported filetypes
--- Note: Python uses Vim's standard indent (python#GetIndent) for better import formatting
-local ts_indent_filetypes = vim.tbl_filter(function(ft) return ft ~= 'python' end, ts_filetypes)
+-- Why: Exclude Python and YAML from Tree-sitter indentation — their Vim runtime indenters are more reliable while Tree-sitter highlighting remains enabled.
+local ts_indent_filetypes = vim.tbl_filter(function(ft) return ft ~= 'python' and ft ~= 'yaml' end, ts_filetypes)
 vim.api.nvim_create_autocmd('FileType', {
   pattern = ts_indent_filetypes,
   callback = function(args)
