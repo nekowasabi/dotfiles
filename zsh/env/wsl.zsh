@@ -43,3 +43,6 @@ export DENOPS_TEST_VIM=/usr/local/bin/vim
 
 # mise: wsl.nix で lib.mkBefore により先に初期化済み
 # （zeno.zsh より前に deno が PATH に必要なため）
+
+# ByteRover CLI
+export PATH="$HOME/.brv-cli/bin:$PATH"
