@@ -31,13 +31,13 @@
       "type": "context"
     }
   ],
-  "generated_at": "2026-06-17T22:07:46.290Z",
+  "generated_at": "2026-08-02T09:16:38.456Z",
   "lane_tokens": {
     "contexts": 2347,
     "stubs": 0,
     "summaries": 1994
   },
-  "source_fingerprint": "d1b06d70b0a5dd79c5ea7bc197934018dba8d12c08559f1f22ac0ab75dd7d370",
+  "source_fingerprint": "53d13ea51413142bc5f18d5d162eec57c7cff8db2aed8e6d8dad89fb51f8ceee",
   "total_tokens": 4341,
   "version": 1
 }
