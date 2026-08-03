@@ -16,6 +16,15 @@ augroup END
 " Called when CoC is fully initialized
 function! s:OnCocReady() abort
   let g:coc_is_ready = 1
+  " Why: Apply after CocNvimInit so coc-yaml registers yaml.schemas before coc#config stores the mapping.
+  " YAML Schema settings
+  call coc#config('yaml.schemas', {
+    \ expand('$HOME') . '/repos/hq/.worktree/task/yaml-lsp-20260803/schemas/front-v3.schema.json': [
+    \   expand('$HOME') . '/repos/changelog/ai/battlefront/fronts/work/*.yaml',
+    \   expand('$HOME') . '/repos/changelog/ai/battlefront/fronts/private/*.yaml',
+    \ ],
+    \ })
+
   " Re-apply completion engine for current buffer
   call s:ApplyCompletionEngineInternal()
 endfunction
@@ -156,6 +165,7 @@ let g:coc_global_extensions = [
   \ ]
 
   " \, 'coc-deno'
+
 " Markdown fenced languages
 let g:markdown_fenced_languages = [
      \ 'vim',
