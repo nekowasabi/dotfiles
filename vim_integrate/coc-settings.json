@@ -90,22 +90,12 @@
   },
   "coc.preferences.enableMarkdown": true,
   "coc.preferences.formatOnType": false,
-  "c
-
-
-
-
-  oc.preferences.willSaveHandlerTimeout": 2000,
-  "coc.preferences.currentFunctionSymbolA
-
-
-
-  utoUpdate": true,"coc.preferences.currentFunctionSymbolDebounceTime": 1000,
+  "coc.preferences.willSaveHandlerTimeout": 2000,
+  "coc.preferences.currentFunctionSymbolAutoUpdate": true,"coc.preferences.currentFunctionSymbolDebounceTime": 1000,
   "coc.source.file.ignoreHidden": false,
   "[blade]": {
     "coc.preferences.formatOnSave": false
   },
-  "intelephense.client.disableInlayHints": true,
   "intelephense.files.associations": [
     "*.inc",
     "*.php",
@@ -123,9 +113,7 @@
   "intelephense.completion.triggerParameterHints": true,
   "intelephense.compatibility.correctForBaseClassStaticUnionTypes": true,
   "intelephense.completion.insertUseDeclaration": true,
-  "i
-
-  ntelephense.completion.fullyQualifyGlobalConstantsAndFunctions": true,"intelephense.diagnostics.undefinedTypes": false,
+  "intelephense.completion.fullyQualifyGlobalConstantsAndFunctions": true,"intelephense.diagnostics.undefinedTypes": false,
   "intelephense.diagnostics.undefinedClassConstants": false,
   "intelephense.diagnostics.undefinedFunctions": false,
   "intelephense.diagnostics.undefinedMethods": false,
@@ -169,18 +157,10 @@
     "pcntl",
     "pcre",
     "PDO",
-    "pdo_ibm",
-    "pdo_mysql",
-    "pdo_pgsql",
-    "pdo_sqlite",
     "pgsql",
     "Phar",
     "posix",
-
-
-    "pspel
-
-    l","readline",
+    "pspell","readline",
     "Reflection",
     "session",
     "shmop",
@@ -191,13 +171,9 @@
     "sodium",
     "SPL",
     "sqlite3",
-    "standard
-
-
-    ",
-    "supergloba
-
-    ls","sysvmsg",
+    "standard",
+    "superglobals",
+    "sysvmsg",
     "sysvsem",
     "sysvshm",
     "tidy",
