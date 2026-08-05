@@ -50,3 +50,6 @@ typeset -U path fpath
 
 # Added by Antigravity CLI installer
 export PATH="/Users/ttakeda/.local/bin:$PATH"
+
+# ByteRover CLI
+export PATH="$HOME/.brv-cli/bin:$PATH"
