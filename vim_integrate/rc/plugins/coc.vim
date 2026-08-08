@@ -19,7 +19,7 @@ function! s:OnCocReady() abort
   " Why: Apply after CocNvimInit so coc-yaml registers yaml.schemas before coc#config stores the mapping.
   " YAML Schema settings
   call coc#config('yaml.schemas', {
-    \ expand('$HOME') . '/repos/hq/.worktree/task/yaml-lsp-20260803/schemas/front-v3.schema.json': [
+    \ expand('$HOME') . '/repos/hq/schemas/front-v4.schema.json': [
     \   expand('$HOME') . '/repos/changelog/ai/battlefront/fronts/work/*.yaml',
     \   expand('$HOME') . '/repos/changelog/ai/battlefront/fronts/private/*.yaml',
     \ ],
