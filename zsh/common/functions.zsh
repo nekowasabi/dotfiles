@@ -164,3 +164,6 @@ function ghq_cd() {
 alias g='ghq_cd'
 alias gf='ghq_fd'
 alias gr='ghq_rg'
+
+# migemo 補完（zeno.zsh より後に読む必要があるためここから source する）
+source "${0:A:h}/migemo.zsh"
