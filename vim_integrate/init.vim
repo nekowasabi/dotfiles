@@ -187,7 +187,10 @@ let g:hellshake_yano = {
 
 
 
-nnoremap <silent> ,h :HellshakeYanoToggle<CR> 
+nnoremap <silent> ,h :HellshakeYanoToggle<CR>
+
+" 現在開いているファイルをTyporaで開く
+command! Typora silent !open -a Typora %:p
 
 "" スクラッチバッファを開く
 command! Scratch call <SID>OpenScratchBuffer()
