@@ -329,7 +329,7 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "MINUS",
+            "key_code": "hyphen",
             "modifiers": {
               "optional": [
                 "any"
@@ -364,7 +364,7 @@
         {
           "type": "basic",
           "from": {
-            "key_code": "EQUAL",
+            "key_code": "equal_sign",
             "modifiers": {
               "optional": [
                 "any"

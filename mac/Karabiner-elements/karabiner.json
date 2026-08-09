@@ -686,7 +686,7 @@
                                 "to": [
                                     {
                                         "key_code": "4",
-                                        "modifiers": { "mandatory": ["shift"] },
+                                        "modifiers": "shift",
                                         "repeat": false
                                     }
                                 ],
@@ -11392,7 +11392,7 @@
                                 "from": {
                                     "simultaneous": [
                                         { "key_code": "s" },
-                                        { "key_code": "colon" }
+                                        { "key_code": "semicolon" }
                                     ]
                                 },
                                 "to": [
@@ -14984,7 +14984,7 @@
                                     }
                                 ],
                                 "from": {
-                                    "key_code": "MINUS",
+                                    "key_code": "hyphen",
                                     "modifiers": { "optional": ["any"] }
                                 },
                                 "to": [
@@ -15009,7 +15009,7 @@
                                     }
                                 ],
                                 "from": {
-                                    "key_code": "EQUAL",
+                                    "key_code": "equal_sign",
                                     "modifiers": { "optional": ["any"] }
                                 },
                                 "to": [
@@ -16223,7 +16223,7 @@
                                     }
                                 ],
                                 "from": {
-                                    "key_code": "EQUAL",
+                                    "key_code": "equal_sign",
                                     "modifiers": { "optional": ["any"] }
                                 },
                                 "to": [
@@ -17266,7 +17266,7 @@
                                     {
                                         "key_code": "m",
                                         "modifiers": "shift",
-                                        "repet": false
+                                        "repeat": false
                                     },
                                     { "key_code": "lang1" }
                                 ],

@@ -1047,11 +1047,7 @@
           "to": [
             {
               "key_code": "4",
-              "modifiers": {
-                "mandatory": [
-                  "shift"
-                ]
-              },
+              "modifiers": "shift",
               "repeat": false
             }
           ],

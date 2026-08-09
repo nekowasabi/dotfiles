@@ -161,7 +161,7 @@
             {
               "key_code": "m",
               "modifiers": "shift",
-              "repet": false
+              "repeat": false
             },
             {
               "key_code": "lang1"
