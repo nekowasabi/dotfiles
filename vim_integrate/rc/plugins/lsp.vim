@@ -1,6 +1,6 @@
 " LSP キーバインド設定
 " - CoC filetypes (vim,typescript,php,json,go,lua,sh,python,javascript,vue,yaml,blade): coc.vim で設定
-" - markdown: nvim-lsp (storyteller + marksman) を使用（下部のLuaで設定）
+" - markdown: nvim-lsp (storyteller LSP) を使用（下部のLuaで設定）
 " - その他: nvim-lsp ビルトインコマンドを使用（下部のLuaで設定）
 
 lua << EOF
@@ -97,16 +97,6 @@ vim.lsp.config("denols", {
 
 -- Enable denols for TypeScript/JavaScript in Deno projects
 vim.lsp.enable("denols")
-
--- Markdown LSP configuration (document symbol 対応のため marksman を追加)
-vim.lsp.config("marksman", {
-  cmd = { "marksman", "server" },
-  filetypes = { "markdown" },
-  root_dir = find_root({ ".marksman.toml", ".git" }),
-  capabilities = capabilities,
-})
-
-vim.lsp.enable("marksman")
 
 
 -- vim.lsp.config("pyright", {})
