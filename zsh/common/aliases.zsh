@@ -46,7 +46,7 @@ alias n='wezterm_neovim'
 # Claude with default permissions and model
 alias c="MAX_THINKING_TOKENS=63999 claude --model sonnet --effort medium --dangerously-skip-permissions "
 
-alias cx="codex --dangerously-bypass-approvals-and-sandbox "
+alias cx="ulimit -n 8192; codex --dangerously-bypass-approvals-and-sandbox "
 alias cf="codex-fugu --dangerously-bypass-approvals-and-sandbox "
 
 cz() {
