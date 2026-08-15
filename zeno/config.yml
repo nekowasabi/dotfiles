@@ -122,6 +122,12 @@ snippets:
   - name: tuicr
     keyword: tcr
     snippet: "tuicr pr "
+  - name: repos-pull
+    keyword: rpl
+    snippet: "~/repos/private_dotfiles/mac/scripts/repos-pull.sh "
+  - name: tmux-reload
+    keyword: tmr
+    snippet: "tmux source-file ~/.tmux.conf"
 
 completions:
   - name: kill
