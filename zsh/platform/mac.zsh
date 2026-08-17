@@ -23,4 +23,7 @@ alias ls="ls -GF"
 alias gls="gls --color"
 
 # ByteRover CLI
-export PATH="$HOME/.brv-cli/bin:$PATH"
+# Why: work は lib/bin を使う。ここでも bin/ を足すと後勝ちで上書きされる。
+if [[ "$PC" != "work" ]]; then
+  export PATH="$HOME/.brv-cli/bin:$PATH"
+fi

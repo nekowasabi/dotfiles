@@ -1,8 +1,12 @@
 # ByteRover CLI (brv)
 # Why: install.sh は ~/.zshrc に PATH 追記するが、nix(home-manager)管理のため
 # 直接編集不可。dotfiles 側で同等の PATH 設定を行う。
-# Why: $PC=wsl / private のみで有効化（work 環境では brv を使わないため）
+# Why: work は npm ローカル配置で本体が lib/bin。wsl/private は install.sh の bin/。
+#      work を bin/ に混ぜると oclif ランチャだけが先に解決される。
 case "$PC" in
+  work)
+    [[ -d "$HOME/.brv-cli/lib/bin" ]] && export PATH="$HOME/.brv-cli/lib/bin:$PATH"
+    ;;
   wsl|private)
     [[ -d "$HOME/.brv-cli/bin" ]] && export PATH="$HOME/.brv-cli/bin:$PATH"
 

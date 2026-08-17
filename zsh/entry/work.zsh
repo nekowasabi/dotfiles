@@ -52,4 +52,5 @@ typeset -U path fpath
 export PATH="/Users/ttakeda/.local/bin:$PATH"
 
 # ByteRover CLI
-export PATH="$HOME/.brv-cli/bin:$PATH"
+# Why: work の brv 本体は ~/.brv-cli/lib/bin（bin/ は oclif ランチャのみ）。
+export PATH="$HOME/.brv-cli/lib/bin:$PATH"
