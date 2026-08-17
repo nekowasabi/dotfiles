@@ -5,3 +5,6 @@ mac/Karabiner-elements/automatic_backups/
 
 # byterover CLI auto-generated runtime config
 zsh/.brv/
+
+# Python bytecode cache
+__pycache__/
