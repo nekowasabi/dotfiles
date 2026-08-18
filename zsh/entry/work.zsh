@@ -48,8 +48,13 @@ esac
 typeset -U path fpath
 
 
-# Added by Antigravity CLI installer
-export PATH="/Users/ttakeda/.local/bin:$PATH"
+# Why: standalone の ~/.local/bin より npm の Codex alpha を優先するため、
+# macOS の Homebrew npm グローバル bin を先に置く。
+if [[ -d /opt/homebrew/bin ]]; then
+  export PATH="/opt/homebrew/bin:$HOME/.local/bin:$PATH"
+else
+  export PATH="$HOME/.local/bin:$PATH"
+fi
 
 # ByteRover CLI
 # Why: work の brv 本体は ~/.brv-cli/lib/bin（bin/ は oclif ランチャのみ）。
