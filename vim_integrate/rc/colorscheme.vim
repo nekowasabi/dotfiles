@@ -145,9 +145,17 @@ endif
 
 
 " コメント中の特定の単語を強調表示する
+" Why: Dedicated group instead of Todo — NeoSolarized Todo has no guibg; Folded's #2f4f4f is the // line bg
+" Why: Adopted \v<(MEMO|...) instead of \(\MEMO\|...): — \M is nomagic, so only EMO: was highlighted
+highlight HilightKeyword gui=bold ctermfg=5 ctermbg=grey guifg=#d33682 guibg=#2f4f4f
+autocmd ColorScheme * highlight HilightKeyword gui=bold ctermfg=5 ctermbg=grey guifg=#d33682 guibg=#2f4f4f
+" Why: guifg omitted so only the Folded-like bg paints the line; keyword match keeps magenta on the label
+highlight HilightKeywordLine ctermbg=grey guibg=#2f4f4f
+autocmd ColorScheme * highlight HilightKeywordLine ctermbg=grey guibg=#2f4f4f
 augroup HilightsForce
   autocmd!
-  autocmd WinEnter,BufRead,BufNew,Syntax * :silent! call matchadd('Todo', '\(\MEMO\|TODO\|NOTE\|INFO\|XXX\|TEMP\):')
+  autocmd WinEnter,BufRead,BufNew,Syntax * :silent! call matchadd('HilightKeyword', '\v<(MEMO|TODO|FIX|NOTE|INFO|XXX|TEMP|IDEA|Q):')
+  autocmd WinEnter,BufRead,BufNew,Syntax * :silent! call matchadd('HilightKeywordLine', '\v^.*<(MEMO|TODO|FIX|NOTE|INFO|XXX|TEMP|IDEA|Q):.*$', 9)
 augroup END
 
 " vim-json
