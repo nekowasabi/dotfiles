@@ -40,10 +40,10 @@ zinit light-mode for \
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 # setting path {{{1
+export GOPATH=$HOME/go
 export PATH=$PATH:/usr/local/bin:/bin:/usr/bin:$GOROOT/bin:$GOPATH/bin:/home/takets/bin:/home/takets/.bin:/home/takets/.deno/bin:/home/takets/.cargo/bin
 
 export EDITOR=vim
-export GOPATH=$HOME/go
 export PYENV_ROOT=$HOME/.pyenv
 export PATH="$PYENV_ROOT/bin:$PATH"
 export NEXTWORD_DATA_PATH=~/tmp/nextword-data-large
