@@ -143,7 +143,11 @@ Plug 'olimorris/codecompanion.nvim'
 " Why: g:denops#deno のデフォルト('deno'相対名)はNeovim起動時のPATHにmise shimsが乗っていないと解決できず、
 "      denops.vimがexecutable()判定で早期finishしてclaudecode.vimがdenops未ロード警告を出す原因になっていた。
 "      mise shimの絶対パスを明示してPATH依存を排除する。
-let g:denops#deno = expand('~/.local/share/mise/shims/deno')
+if $PC ==# 'work'
+  let g:denops#deno = expand('~/.deno/bin/deno')
+else
+  let g:denops#deno = expand('~/.local/share/mise/shims/deno')
+endif
 " Why: claudecode.vim より前に denops.vim を登録 — claudecode.vim/plugin/claudecode.vim が g:loaded_denops を参照するため、登録順=runtimepath順=plugin source順で denops を先にロードする必要がある
 Plug 'vim-denops/denops.vim'
 Plug 'nekowasabi/claudecode.vim'
