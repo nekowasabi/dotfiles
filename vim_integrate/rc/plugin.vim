@@ -145,6 +145,8 @@ Plug 'olimorris/codecompanion.nvim'
 "      mise shimの絶対パスを明示してPATH依存を排除する。
 if $PC ==# 'work'
   let g:denops#deno = expand('~/.deno/bin/deno')
+elseif $PC ==# 'wsl'
+  let g:denops#deno = expand('~/.local/share/mise/installs/deno/2.6.5/bin/deno')
 else
   let g:denops#deno = expand('~/.local/share/mise/shims/deno')
 endif
