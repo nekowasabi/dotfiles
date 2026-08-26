@@ -230,5 +230,8 @@
   "coc.preferences.formatOnSaveTimeout": 2000,
   "[json]": {
     "coc.preferences.formatOnSave": false
+  },
+  "json.schemaDownload.trustedDomains": {
+    "https://www.schemastore.org": true
   }
 }
