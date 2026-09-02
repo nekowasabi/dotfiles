@@ -130,7 +130,7 @@ snippets:
     snippet: "tmux source-file ~/.tmux.conf"
   - name: codex-sol
     keyword: cxs
-    snippet: "cx --model gpt-5.6-son model_reasoning_effort='high'"
+    snippet: "cx --model gpt-5.6-sol model_reasoning_effort='high'"
   - name: codex-luna
     keyword: cxl
     snippet: "cx --model gpt-5.6-luna model_reasoning_effort='max'"
