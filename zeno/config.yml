@@ -128,6 +128,13 @@ snippets:
   - name: tmux-reload
     keyword: tmr
     snippet: "tmux source-file ~/.tmux.conf"
+  - name: codex-sol
+    keyword: cxs
+    snippet: "cx --model gpt-5.6-son model_reasoning_effort='high'"
+  - name: codex-luna
+    keyword: cxl
+    snippet: "cx --model gpt-5.6-luna model_reasoning_effort='max'"
+
 
 completions:
   - name: kill
