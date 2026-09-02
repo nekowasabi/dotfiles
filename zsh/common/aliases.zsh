@@ -99,13 +99,13 @@ ji() {
 # git worktree (git-wt)
 # ============================================
 
-# w: git-wt | fzf で worktree を切り替え。fzf キャンセル時は現在ディレクトリに残る
+# w: git worktree | fzf で worktree を切り替え。fzf キャンセル時は現在ディレクトリに残る
 # Why: alias ではなく function — fzf キャンセル時の空コマンド置換で $HOME に飛ぶのを防ぐため
-# Why: --header-lines=1 で PATH/BRANCH/HEAD ヘッダ行を選択不可にする
-# Why: カレント worktree 行は先頭が "* " マーカーで列がズレるため、awk で $1=="*" なら $2 を取る
+# Why: fzf の表示列と選択値を分離し、深い worktree でも末端名とフルパスを両方確認できるようにする
+# Why: git-wt の整形済み出力ではなく porcelain 出力を使い、prunable な worktree を選択肢から除外する
 w() {
   local result
-  result="$(git-wt | fzf --header-lines=1 | awk '{if ($1 == "*") print $2; else print $1}')"
+  result="$(git worktree list --porcelain | awk 'BEGIN { RS = "" } /\nprunable / { next } { split($0, lines, "\n"); path = substr(lines[1], 10); count = split(path, parts, "/"); print parts[count] "\t" path }' | fzf --header=$'DIRECTORY\tPATH' --delimiter=$'\t' --with-nth=1,2 --accept-nth=2)"
   [[ -z "$result" ]] && return 0
   builtin cd -- "$result"
 }
