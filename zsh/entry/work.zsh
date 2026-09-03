@@ -59,3 +59,8 @@ fi
 # ByteRover CLI
 # Why: work の brv 本体は ~/.brv-cli/lib/bin（bin/ は oclif ランチャのみ）。
 export PATH="$HOME/.brv-cli/lib/bin:$PATH"
+
+# Grok Build (self-update / alpha)
+# Why: Instead of Homebrew cask `/opt/homebrew/bin/grok` (stable 1.0.13),
+# prepend `~/.grok/bin` so `grok update --alpha` is the binary that runs.
+export PATH="$HOME/.grok/bin:$PATH"
