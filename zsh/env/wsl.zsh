@@ -46,3 +46,8 @@ export DENOPS_TEST_VIM=/usr/local/bin/vim
 
 # ByteRover CLI
 export PATH="$HOME/.brv-cli/bin:$PATH"
+
+# Grok Build (self-update / alpha)
+# Why: Instead of linuxbrew `/home/linuxbrew/.linuxbrew/bin/grok` (stable),
+# prepend `~/.grok/bin` so `grok update --alpha` is the binary that runs.
+[[ -d "$HOME/.grok/bin" ]] && export PATH="$HOME/.grok/bin:$PATH"
