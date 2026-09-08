@@ -717,6 +717,7 @@ function s:ddu_ff_filter_cleanup() abort
   else
     call mapset('c', 0, s:save_cr)
   endif
+  call ddu#ui#async_action('cursorTreeTop')
 endfunction
 
 call ddu#custom#patch_local('filer', {
