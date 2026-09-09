@@ -134,6 +134,9 @@ snippets:
   - name: codex-luna
     keyword: cxl
     snippet: "cx --model gpt-5.6-luna model_reasoning_effort='max'"
+  - name: update-client
+    keyword: upc
+    snippet: "~/repos/private_dotfiles/mac/scripts/update_ai_client.sh"
 
 
 completions:
