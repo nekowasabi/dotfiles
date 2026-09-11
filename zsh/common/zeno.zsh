@@ -1,6 +1,10 @@
 # zeno configuration
 # https://github.com/yuki-yano/zeno.zsh
 
+# Why: ~/.zshrc / entry/*.zsh に common/mise.zsh のsource漏れがあり、
+# deno未初期化のままzenoが読まれzeno-completion等が未定義になる不具合の回避策。
+source "${0:A:h}/mise.zsh"
+
 # ZENO_HOME設定
 export ZENO_HOME=~/.config/zeno
 
