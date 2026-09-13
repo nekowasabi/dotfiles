@@ -40,6 +40,9 @@ zinit light sindresorhus/pure
 # PR number badge (right of git branch). Must load after pure itself.
 source "${0:A:h}/pure_pr_badge.zsh"
 
+# Periodic git fetch so pull/push arrows update while idle.
+source "${0:A:h}/pure_git_refresh.zsh"
+
 # ============================================================================
 # Syntax Highlighting
 # ============================================================================
