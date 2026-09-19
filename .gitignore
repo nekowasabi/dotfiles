@@ -9,3 +9,9 @@ zsh/.brv/
 
 # Python bytecode cache
 __pycache__/
+
+# tgrep index cache
+.tgrep/
+
+# agent checkpoint cache
+zsh/.agents/
