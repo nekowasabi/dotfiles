@@ -27,3 +27,5 @@ alias gls="gls --color"
 if [[ "$PC" != "work" ]]; then
   export PATH="$HOME/.brv-cli/bin:$PATH"
 fi
+
+source "${DOTFILES_ZSH:-$HOME/repos/dotfiles/zsh}/platform/mac-zprofile.zsh"

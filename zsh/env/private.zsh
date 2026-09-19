@@ -52,7 +52,5 @@ fi
 # python, pip, pip3, deno are managed by mise (~/.local/share/mise/shims/)
 # mise initialization は common/mise.zsh に移動済み（zeno.zsh より前に読み込む必要があるため）
 
-# Grok Build (self-update / alpha)
-# Why: Instead of Homebrew cask `/opt/homebrew/bin/grok` (stable 1.0.13),
-# prepend `~/.grok/bin` so `grok update --alpha` is the binary that runs.
-[[ -d "$HOME/.grok/bin" ]] && export PATH="$HOME/.grok/bin:$PATH"
+# Grok Build (self-update / alpha). Login shells: platform/mac-zprofile.zsh via ~/.zprofile.
+source "${DOTFILES_ZSH:-$HOME/repos/dotfiles/zsh}/platform/mac-zprofile.zsh"
