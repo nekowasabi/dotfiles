@@ -44,11 +44,10 @@ alias n='wezterm_neovim'
 # ============================================
 
 # Claude with default permissions and model
-alias c="MAX_THINKING_TOKENS=63999 claude --model sonnet --effort medium --dangerously-skip-permissions "
+alias c="MAX_THINKING_TOKENS=63999 claude --model opus --effort low --dangerously-skip-permissions "
 alias cj='JEV_CLAUDE_CLEAR_TOOL_USES=on JEV_CLAUDE_CLEAR_GATE=jev JEV_COMPACTION=off jev-routing run claude  --dangerously-skip-permissions'
 
 alias cx="ulimit -n 8192; codex --dangerously-bypass-approvals-and-sandbox  --dangerously-bypass-hook-trust "
-alias cf="codex-fugu --dangerously-bypass-approvals-and-sandbox "
 
 cz() {
   ANTHROPIC_BASE_URL="https://api.z.ai/api/anthropic" ANTHROPIC_AUTH_TOKEN="${Z_API_KEY}" ANTHROPIC_DEFAULT_HAIKU_MODEL="glm-5-turbo" ANTHROPIC_DEFAULT_SONNET_MODEL="glm-5.1" ANTHROPIC_DEFAULT_OPUS_MODEL="glm-5.1" claude --dangerously-skip-permissions "$@"
