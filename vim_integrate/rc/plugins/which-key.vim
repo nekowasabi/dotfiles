@@ -131,8 +131,6 @@ wk.add({
 
 -- Core mappings
 wk.add({
-  { "<M-Left>",  desc = "Navigate Back", mode = "n" },
-  { "<M-Right>", desc = "Navigate Forward", mode = "n" },
   { "/",         desc = "Search Forward", mode = "n" },
   { "?",         desc = "Search Backward", mode = "n" },
   { ":",         desc = "Page Up", mode = "n" },
