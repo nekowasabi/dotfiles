@@ -709,16 +709,11 @@ function s:ddu_ff_filter_my_settings() abort
   cnoremap <C-j>
         \ <ESC><Cmd>call ddu#ui#do_action('itemAction')<CR>
 endfunction
-autocmd User Ddu:ui:ff:closeFilterWindow
-      \ call s:ddu_ff_filter_cleanup()
-function s:ddu_ff_filter_cleanup() abort
-  if s:save_cr->empty()
-    cunmap <CR>
-  else
-    call mapset('c', 0, s:save_cr)
-  endif
-  call ddu#ui#async_action('cursorTreeTop')
-endfunction
+" Why: Instead of Ddu:ui:ff:closeFilterWindow (no longer fired by ddu), use
+" Ddu:uiCloseFilterWindow. cursorTreeTop also updates the saved cursor position,
+" so the redraw after filtering keeps the cursor on the first line.
+autocmd User Ddu:uiCloseFilterWindow
+      \ call ddu#ui#async_action('cursorTreeTop')
 
 call ddu#custom#patch_local('filer', {
       \   'ui': 'filer',
