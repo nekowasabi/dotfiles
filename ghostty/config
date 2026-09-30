@@ -38,5 +38,8 @@ keybind = shift+enter=text:\x1b\r
 #      明示送出し、tmux root テーブルの M-f バインド(fuzzy-motion 起動)を発火させる。
 keybind = cmd+f=text:\x1bf
 
+# Why: true ではなく left を採用。理由: tmux の M-h/j/k/l pane 移動に左 Option を使い、右 Option は特殊文字入力用に残す
+macos-option-as-alt = left
+
 # Macの場合タイトルバーを隠す
 macos-titlebar-style = hidden

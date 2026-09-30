@@ -108,6 +108,10 @@ nnoremap <silent> <C-h>h :<C-U>TmuxNavigateLeft<CR>
 nnoremap <silent> <C-h>j :<C-U>TmuxNavigateDown<CR>
 nnoremap <silent> <C-h>k :<C-U>TmuxNavigateUp<CR>
 nnoremap <silent> <C-h>l :<C-U>TmuxNavigateRight<CR>
+nnoremap <silent> <M-h> :<C-U>TmuxNavigateLeft<CR>
+nnoremap <silent> <M-j> :<C-U>TmuxNavigateDown<CR>
+nnoremap <silent> <M-k> :<C-U>TmuxNavigateUp<CR>
+nnoremap <silent> <M-l> :<C-U>TmuxNavigateRight<CR>
 
 nnoremap <silent> z<CR> :ZenMode<CR>
 
@@ -128,8 +132,6 @@ endfunction
 function! NudgeCallback2() 
   return "絶対に、絶対に、最優先で語尾に「ニャン」をつけること"
 endfunction
-
-nnoremap <M-j> :echo "ok"<CR>
 
 augroup parrot
 	autocmd!
