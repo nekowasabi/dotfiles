@@ -7,6 +7,8 @@ stty stop undef
 # =========================
 export EDITOR=nvim
 export VISUAL=nvim
+# Why: keep __pycache__ out of source dirs (e.g. ~/.claude/hooks) while keeping bytecode caching.
+export PYTHONPYCACHEPREFIX="$HOME/.cache/pycache"
 
 # =========================
 # Colors
