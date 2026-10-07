@@ -50,7 +50,3 @@ function wezterm_neovim_work() {
  /opt/homebrew/bin/nvim  $1 $2 ~/work
 }
 alias m='wezterm_neovim_work'
-
-# Claude CLI with extended thinking
-alias c="MAX_THINKING_TOKENS=63999 claude --dangerously-skip-permissions"
-alias cg="MAX_THINKING_TOKENS=63999 claude --dangerously-skip-permissions --chrome"
