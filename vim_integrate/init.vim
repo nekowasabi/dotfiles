@@ -142,6 +142,9 @@ augroup parrot
 augroup END
 
 " hellshake-yano
+
+let g:hellshake_yano_native = v:true
+
 let g:hellshake_yano = {
       \ 'debugMode': v:false,
       \ 'debugLogFile': '/tmp/hellshake-yano-debug.log',
