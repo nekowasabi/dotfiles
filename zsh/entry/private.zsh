@@ -14,6 +14,7 @@ source "$DOTFILES_ZSH/common/fzf.zsh"
 source "$DOTFILES_ZSH/common/zeno.zsh"
 source "$DOTFILES_ZSH/common/functions.zsh"
 source "$DOTFILES_ZSH/common/aliases.zsh"
+source "$DOTFILES_ZSH/common/bookmark.zsh"
 
 # ============================================================
 # Platform-specific settings (macOS)

@@ -60,13 +60,6 @@ zinit light zdharma-continuum/fast-syntax-highlighting
 zinit ice wait"1" lucid from"gh-r" as"program"
 zinit load junegunn/fzf
 
-# cd-bookmark: Bookmark and navigate directories quickly
-# Allows marking directories for quick access
-zinit ice wait"1" lucid
-zinit light mollifier/cd-bookmark
-autoload -Uz cd-bookmark
-alias b='cd-bookmark'
-
 # ============================================================================
 # Plugin Configuration
 # ============================================================================
