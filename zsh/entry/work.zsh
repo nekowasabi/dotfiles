@@ -65,3 +65,6 @@ export PATH="$HOME/.brv-cli/lib/bin:$PATH"
 # Why: Instead of Homebrew cask `/opt/homebrew/bin/grok` (stable 1.0.13),
 # prepend `~/.grok/bin` so `grok update --alpha` is the binary that runs.
 export PATH="$HOME/.grok/bin:$PATH"
+
+# bun completions
+[ -s "/Users/ttakeda/.bun/_bun" ] && source "/Users/ttakeda/.bun/_bun"
