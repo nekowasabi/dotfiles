@@ -43,7 +43,6 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
-
 # Why: PATH が253エントリに肥大化（42重複）。typeset -U は配列の重複要素を自動除去。
 # path（小文字）は PATH（大文字）と連動する zsh 特殊変数。
 typeset -U path fpath
@@ -68,3 +67,6 @@ export PATH="$HOME/.grok/bin:$PATH"
 
 # bun completions
 [ -s "/Users/ttakeda/.bun/_bun" ] && source "/Users/ttakeda/.bun/_bun"
+
+# Added by Devin
+export PATH="/Users/ttakeda/.codeium/windsurf/bin:$PATH"
