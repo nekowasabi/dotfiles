@@ -44,3 +44,11 @@ if [[ "$PC" != "work" ]]; then
 fi
 
 source "${DOTFILES_ZSH:-$HOME/repos/dotfiles/zsh}/platform/mac-zprofile.zsh"
+
+# keypipe: the daemon ignores terminals, so this widget runs the JSON rules at the zsh prompt
+# Why: an installed keypipe on PATH wins so a release install is not shadowed by a stale debug build
+if [[ -r $HOME/repos/keypipe/shell/keypipe.zsh ]]; then
+  export KEYPIPE_BIN=${commands[keypipe]:-$HOME/repos/keypipe/.build/debug/keypipe}
+  export KEYPIPE_CONFIG=${XDG_CONFIG_HOME:-$HOME/.config}/keypipe/config.json
+  source $HOME/repos/keypipe/shell/keypipe.zsh
+fi
