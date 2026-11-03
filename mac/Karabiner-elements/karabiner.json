@@ -150,28 +150,12 @@
                             },
                             {
                                 "conditions": [],
-                                "description": "homerow - cmd+space を2回実行",
+                                "description": "homerow - cmd+space を shift+cmd+space に変換（Homerow はトグルなので1回だけ送る）",
                                 "from": {
                                     "key_code": "spacebar",
                                     "modifiers": { "mandatory": ["command"] }
                                 },
                                 "to": [
-                                    {
-                                        "key_code": "spacebar",
-                                        "modifiers": ["command", "left_shift"]
-                                    },
-                                    {
-                                        "key_code": "spacebar",
-                                        "modifiers": ["command", "left_shift"]
-                                    },
-                                    {
-                                        "key_code": "spacebar",
-                                        "modifiers": ["command", "left_shift"]
-                                    },
-                                    {
-                                        "key_code": "spacebar",
-                                        "modifiers": ["command", "left_shift"]
-                                    },
                                     {
                                         "key_code": "spacebar",
                                         "modifiers": ["command", "left_shift"]
