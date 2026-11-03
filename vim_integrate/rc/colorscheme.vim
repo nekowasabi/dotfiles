@@ -2,6 +2,12 @@
 autocmd FileType * hi! def link markdownItalic Normal
 autocmd FileType * hi! def link htmlItalic Normal
 autocmd FileType * hi! def link markdownBoldItalic Normal
+" Why: NeoSolarized gives StatusLine/StatusLineNC reverse; Neovim merges it into every lightline
+"      segment, swapping fg/bg outside tmux. tpipeline reads guifg/guibg directly, so tmux looked fine.
+if empty($TMUX)
+  autocmd ColorScheme * highlight StatusLine gui=NONE cterm=NONE
+  autocmd ColorScheme * highlight StatusLineNC gui=NONE cterm=NONE
+endif
 
 if g:IsMacNeovim()
   " global
