@@ -232,6 +232,7 @@
     "coc.preferences.formatOnSave": false
   },
   "json.schemaDownload.trustedDomains": {
-    "https://www.schemastore.org": true
+    "https://www.schemastore.org": true,
+    "https://pi.dev": true
   }
 }
