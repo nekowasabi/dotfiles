@@ -44,7 +44,7 @@ alias n='wezterm_neovim'
 # ============================================
 
 # Claude with default permissions and model
-alias c="MAX_THINKING_TOKENS=63999 claude --model opus --effort medium --permission-mode auto "
+alias c="MAX_THINKING_TOKENS=63999 claude --model opus --effort medium --dangerously-skip-permissions "
 
 alias cx="ulimit -n 8192; codex --dangerously-bypass-approvals-and-sandbox  --dangerously-bypass-hook-trust "
 
