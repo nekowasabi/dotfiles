@@ -79,8 +79,9 @@ function! s:EnableCoc() abort
     return
   endif
 
-  " Enable CoC
-  CocEnable
+  " Why: CocEnable/CocDisable toggle coc globally, so leaving a cmp buffer kept coc
+  "      off in other buffers. b:coc_suggest_disable scopes it to this buffer.
+  let b:coc_suggest_disable = 0
 
   " Attach CoC to current buffer explicitly
   if exists('*CocAction')
@@ -96,14 +97,8 @@ endfunction
 
 " Enable cmp for current buffer
 function! s:EnableCmp() abort
-  " Disable CoC for this buffer
-  if exists('g:did_coc_loaded')
-    try
-      silent! CocDisable
-    catch
-      " coc.nvim内部エラーを無視
-    endtry
-  endif
+  " Disable CoC completion for this buffer only
+  let b:coc_suggest_disable = 1
 
   " Enable cmp for this buffer
   lua vim.b.cmp_enabled = true
@@ -114,14 +109,8 @@ endfunction
 
 " Disable all completion for current buffer
 function! s:DisableAll() abort
-  " Disable CoC
-  if exists('g:did_coc_loaded')
-    try
-      silent! CocDisable
-    catch
-      " coc.nvim内部エラーを無視
-    endtry
-  endif
+  " Disable CoC completion for this buffer only
+  let b:coc_suggest_disable = 1
 
   " Disable cmp
   lua vim.b.cmp_enabled = false

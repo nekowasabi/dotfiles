@@ -231,15 +231,8 @@ inoremap <silent> <C-z> <Esc>:SwitchPreviousBuffer<CR>
 nnoremap <silent> <C-z> :SwitchPreviousBuffer<CR>
 
 function! s:SwitchPreviousBuffer()
-  " バッファ切り替え前にCoCを一時停止（エラー回避）
-  if exists('g:did_coc_loaded')
-    silent! CocDisable
-  endif
+  " 補完エンジンはバッファ変数で切り替えているので、移動時の再設定は不要
   silent! b#
-  " バッファ切り替え後にfiletype に応じて補完エンジンを復元
-  if exists('*ApplyCompletionEngine')
-    call ApplyCompletionEngine()
-  endif
 endfunction
 command! SwitchPreviousBuffer call <SID>SwitchPreviousBuffer()
 " }}}1
