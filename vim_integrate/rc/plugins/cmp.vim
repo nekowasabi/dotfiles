@@ -195,11 +195,15 @@ cmp.setup.filetype('markdown', {
       { name = 'neosnippet', keyword_length = 3 },
       {
 					name = 'buffer',
-					keyword_length = 2,
+					keyword_length = 3,
           entry_filter = function(entry, ctx)
-            return string.len(entry.completion_item.label) < 30
+            local w = entry.completion_item.label
+            -- Why: default keyword_pattern indexes numbers like 000 / -26 / 1.0, which are never worth completing
+            return #w < 30 and not w:match('^[-%d.]+$')
           end,
           option = {
+            -- Why: default 3 indexes short noise words (aaa, tty, uid) from every buffer
+            keyword_length = 4,
             get_bufnrs = get_buffer_source_bufnrs,
             indexing_interval = 1000,
           },
@@ -274,11 +278,15 @@ cmp.setup.filetype('changelog', {
       { name = 'neosnippet', keyword_length = 3 },
       {
 					name = 'buffer',
-					keyword_length = 2,
+					keyword_length = 3,
           entry_filter = function(entry, ctx)
-            return string.len(entry.completion_item.label) < 30
+            local w = entry.completion_item.label
+            -- Why: default keyword_pattern indexes numbers like 000 / -26 / 1.0, which are never worth completing
+            return #w < 30 and not w:match('^[-%d.]+$')
           end,
           option = {
+            -- Why: default 3 indexes short noise words (aaa, tty, uid) from every buffer
+            keyword_length = 4,
             get_bufnrs = get_buffer_source_bufnrs,
             indexing_interval = 1000,
           },
@@ -343,7 +351,7 @@ cmp.setup.cmdline(':', {
     { name = 'path' },
     { 
 				name = 'cmdline',
-				keyword_length = 2,
+				keyword_length = 3,
 				option = {
 					ignore_cmds = { 'Man', '!', 'w', 'wa', 'wqa', 'wq', 'qall', 'bd', 'bd!' }
 				}
