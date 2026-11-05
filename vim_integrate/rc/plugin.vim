@@ -111,7 +111,8 @@ Plug 'tyru/open-browser.vim'
 Plug 'vim-jp/vimdoc-ja'
 " Keep TaskChute visible when vim-tpipeline owns tmux status-left.
 let g:tpipeline_embedopts = ["status-left '#(cat #{socket_path}-\\#{session_id}-vimbridge)#{?#{==:#{pane_current_command},nvim},, #(cat ~/.cache/tmux/taskchute.txt 2>/dev/null)}'"]
-Plug 'vimpostor/vim-tpipeline'
+" Why: tmux 外では埋め込み先が無いので読み込まない（'on': [] は vim-plug の未ロード指定）。
+Plug 'vimpostor/vim-tpipeline', empty($TMUX) ? { 'on': [] } : {}
 Plug 'itchyny/vim-highlighturl'
 Plug 'atusy/budouxify.nvim'
 Plug 'dnlhc/glance.nvim'
@@ -119,7 +120,6 @@ Plug 'yuki-yano/smart-i.nvim'
 Plug 'sirasagi62/tinysegmenter.nvim'
 Plug 'hrsh7th/nvim-insx'
 Plug 'lambdalisue/vim-fern'
-Plug 'lambdalisue/vim-glyph-palette'
 Plug 'lambdalisue/vim-fern-renderer-nerdfont'
 Plug 'lambdalisue/vim-fern-git-status'
 Plug 'yuki-yano/fern-preview.vim'

@@ -25,7 +25,9 @@ set backspace=indent,eol,start
 set showmatch
 set matchtime=3
 set switchbuf=useopen
-set laststatus=2
+" Why: tmux 内は tpipeline がステータスラインを tmux 側へ移すが、tmux 外では nvim が
+"      lightline を毎キー描き直し、入力・スクロールがかくつくため描画しない。
+let &laststatus = empty($TMUX) ? 0 : 2
 set linespace=4
 set shiftwidth=2
 set expandtab
