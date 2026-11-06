@@ -52,3 +52,9 @@ if [[ -r $HOME/repos/keypipe/shell/keypipe.zsh ]]; then
   export KEYPIPE_CONFIG=${XDG_CONFIG_HOME:-$HOME/.config}/keypipe/config.json
   source $HOME/repos/keypipe/shell/keypipe.zsh
 fi
+
+# Rex: the app puts its CLI dir at the front of PATH, but the PATH edits above push it back; restore it last
+# Why: private.zsh, sourced after this file, only appends to PATH, so the front position survives
+if [[ -n $REX_BIN_DIR ]]; then
+  export PATH="$REX_BIN_DIR:$PATH"
+fi
