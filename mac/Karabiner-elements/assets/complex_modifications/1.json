@@ -1141,6 +1141,25 @@
           ]
         }
       ]
+    },
+    {
+      "description": "Grok Bot: Cmd+^ → Cmd++（文字サイズ拡大）",
+      "manipulators": [
+        {
+          "type": "basic",
+          "description": "Grok Bot はズームを key が = か + のときだけ受ける。Karabiner の仮想キーボードは JIS なので ^ キーが ^ として届く。Shift なしで + を出せるテンキーの + に置き換える",
+          "from": {
+            "key_code": "equal_sign",
+            "modifiers": { "mandatory": ["command"] }
+          },
+          "to": [
+            { "key_code": "keypad_plus", "modifiers": ["command"] }
+          ],
+          "conditions": [
+            { "type": "frontmost_application_if", "bundle_identifiers": ["^com\\.anysphere\\.sand$"] }
+          ]
+        }
+      ]
     }
   ]
 }
