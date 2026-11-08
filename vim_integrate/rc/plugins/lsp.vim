@@ -156,6 +156,12 @@ if not vim.fn.IsMacNeovimInWork() then
   -- storyteller LSPを起動
   lspconfig.storyteller.setup({
     capabilities = capabilities,
+    -- reader_shows / reader_requires の命題IDの横に statement を inlay hint で表示する
+    on_attach = function(client, bufnr)
+      if client.server_capabilities.inlayHintProvider then
+        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+      end
+    end,
     handlers = {
       -- semanticTokens/refresh を受け取ったらセマンティックトークンを再取得
       ["workspace/semanticTokens/refresh"] = function(err, result, ctx, config)
