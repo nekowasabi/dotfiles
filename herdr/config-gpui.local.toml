@@ -1,0 +1,35 @@
+# Herdr UI overrides. Saved changes reload automatically.
+# Unset keys inherit config-gpui.toml; tables merge key by key.
+
+# New installs start with the roomy rounded sidebar. Remove this line for
+# the managed default, or pick another layout listed in config-gpui.toml.
+layout = "comfortable-rounded"
+remove_merged_worktrees = true
+edge_rail = true
+theme = "Solarized Dark Patched"
+
+[updates]
+channel = "beta"
+
+[terminal]
+family = "RuikaMono07 Nerd Font"
+size = 22.0
+
+[sidebar]
+family = "RuikaMono07 Nerd Font"
+size = 19.0
+
+[tabs]
+family = "RuikaMono07 Nerd Font"
+size = 18.0
+
+[ui]
+family = "RuikaMono07 Nerd Font"
+size = 19.0
+
+# Naming a command replaces its defaults, so keep cmd-alt-arrows alongside.
+[keybindings]
+focus_left = ["alt-h", "cmd-alt-left"]
+focus_down = ["alt-j", "cmd-alt-down"]
+focus_up = ["alt-k", "cmd-alt-up"]
+focus_right = ["alt-l", "cmd-alt-right"]
