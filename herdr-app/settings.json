@@ -1,0 +1,11 @@
+{
+  "zoom": 1.2,
+  "sounds": {
+    "enabled": true
+  },
+  "font": "RuikaMono07 Nerd Font",
+  "font_size": 20,
+  "font_ligatures": false,
+  "minimum_contrast": 1,
+  "appearance": "dark"
+}
