@@ -1104,9 +1104,9 @@
         },
         {
           "type": "basic",
-          "description": "Alfred中: @ → Enter、変数リセット（設定画面以外）",
+          "description": "Alfred中: ; → Enter、変数リセット（設定画面以外）",
           "from": {
-            "key_code": "open_bracket",
+            "key_code": "semicolon",
             "modifiers": { "optional": ["any"] }
           },
           "to": [
