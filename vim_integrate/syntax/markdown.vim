@@ -121,7 +121,7 @@ syn match markdownError "\w\@<=_\w\@="
 syn match markdownHeadingRule "^[=-]\+$" contained
 
 syn match markdownOutline1 /^}}}1/ conceal cchar=1
-syn match markdownOutline2 /^}}}[0-9]/ conceal cchar=>
+syn match markdownOutline2 /^}}}[2-9]/ conceal cchar=>
 set conceallevel=2
 set concealcursor=nvic
 
